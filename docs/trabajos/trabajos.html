@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Evaluaciones – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1e322a5761c244bfe28d96c78629b719.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+<meta property="og:title" content="Evaluaciones – Estadística Correlacional">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://multinivel-facso.netlify.app/trabajos/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="../trabajos/trabajos.html" aria-current="page"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../references/publications/index.html"> 
+<span class="menu-text">Referencias</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#objetivo-general" id="toc-objetivo-general" class="nav-link active" data-scroll-target="#objetivo-general">Objetivo general</a></li>
+  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a></li>
+  <li><a href="#temas-y-análisis" id="toc-temas-y-análisis" class="nav-link" data-scroll-target="#temas-y-análisis">Temas y análisis</a></li>
+  <li><a href="#inscripción-de-grupos" id="toc-inscripción-de-grupos" class="nav-link" data-scroll-target="#inscripción-de-grupos">Inscripción de grupos</a></li>
+  <li><a href="#secciones-del-informe" id="toc-secciones-del-informe" class="nav-link" data-scroll-target="#secciones-del-informe">Secciones del informe</a></li>
+  <li><a href="#formato" id="toc-formato" class="nav-link" data-scroll-target="#formato">Formato</a></li>
+  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega">Entrega</a></li>
+  <li><a href="#modalidad-de-trabajo-y-asesorías" id="toc-modalidad-de-trabajo-y-asesorías" class="nav-link" data-scroll-target="#modalidad-de-trabajo-y-asesorías">Modalidad de trabajo y asesorías</a></li>
+  <li><a href="#recomendaciones-generales-para-el-trabajo" id="toc-recomendaciones-generales-para-el-trabajo" class="nav-link" data-scroll-target="#recomendaciones-generales-para-el-trabajo">Recomendaciones generales para el trabajo</a>
+  <ul class="collapse">
+  <li><a href="#organización-de-actividades" id="toc-organización-de-actividades" class="nav-link" data-scroll-target="#organización-de-actividades">Organización de actividades</a></li>
+  <li><a href="#escritura-académica" id="toc-escritura-académica" class="nav-link" data-scroll-target="#escritura-académica">Escritura académica</a></li>
+  <li><a href="#a-tener-en-cuenta" id="toc-a-tener-en-cuenta" class="nav-link" data-scroll-target="#a-tener-en-cuenta">A tener en cuenta:</a></li>
+  </ul></li>
+  <li><a href="#foro" id="toc-foro" class="nav-link" data-scroll-target="#foro">Foro</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Evaluaciones</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><img src="../news/images/trabajo-grupo.jpg" class="img-fluid"></p>
+<p>El curso de Estadística Correlacional considera la elaboración de un trabajo grupal como instancia final de <a href="../syllabus#evaluación">evaluación</a>. El trabajo a realizar es la elaboración de un <strong>reporte de análisis bivariado</strong>.</p>
+<p>La nota de este trabajo equivale a un <strong>30%</strong> de la nota final del curso, donde 25% equivale al reporte escrito y 5% a una cápsula de presentación de los principales resultados.</p>
+<section id="objetivo-general" class="level1">
+<h1>Objetivo general</h1>
+<p>Aplicar los contenidos del curso a una temática de interés en formato de reporte breve de investigación.</p>
+</section>
+<section id="datos" class="level1">
+<h1>Datos</h1>
+<p>Para la elaboración de los trabajos se utilizarán bases de datos secundarias disponibles, tales como:</p>
+<ul>
+<li><a href="https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-casen-2024">CASEN 2024</a></li>
+<li><a href="https://observatorio.ministeriodesarrollosocial.gob.cl/encuesta-bienestar-social-2023">Encuesta de Bienestar Social EBS 2023</a>.</li>
+<li><a href="https://conferencias.coes.cl/encuesta-panel/">ELSOC</a></li>
+<li><a href="https://informacionestadistica.agenciaeducacion.cl/#/bases">SIMCE</a> (evt. subset)</li>
+<li>PISA (Programa internacional de evaluación escolar): <a href="https://www.agenciaeducacion.cl/estudios-internacionales/pisa/">documentos en español</a> y <a href="https://www.oecd.org/en/data/datasets/pisa-2022-database.html">base de datos original</a></li>
+<li><a href="https://www.vanderbilt.edu/lapop/raw-data.php">LAPOP</a></li>
+<li><a href="https://www.cepchile.cl/opinion-publica/encuesta-cep/">CEP: varios temas/preguntas para encuestas desde 1990 en adelante, muy buen buscador!</a></li>
+<li><a href="https://issp.org/data-download/by-topic/">ISSP (International Social Survey Programme)</a></li>
+<li><a href="https://www.ine.gob.cl/enut">ENUT</a></li>
+<li><a href="https://www.ine.gob.cl/estadisticas/sociales/ingresos-y-gastos/encuesta-suplementaria-de-ingresos">ESI</a></li>
+</ul>
+</section>
+<section id="temas-y-análisis" class="level1">
+<h1>Temas y análisis</h1>
+<ul>
+<li><p>Cada grupo seleccionará <strong>un tema/concepto central</strong> (<em>variable dependiente</em>), por ejemplo: prejuicio hacia migrantes, nivel educacional, orientación política, etc.</p></li>
+<li><p>Luego, debe relacionar el tema seleccionado con al menos dos variables (ej: género, nivel socioeconómico, salud, confianza en instituciones, etc.) que serán las <em>variables independientes</em> del reporte.</p></li>
+<li><p>Para seleccionar el tema y las variables disponibles se deben revisar los cuestionarios, libros de códigos y reportes de las encuestas mencionadas.</p></li>
+<li><p>Los análisis deben considerar al menos un cruce entre variables categóricas, y otro entre una variable continua y una categórica.</p></li>
+</ul>
+</section>
+<section id="inscripción-de-grupos" class="level1">
+<h1>Inscripción de grupos</h1>
+<p>Inscribirse en la siguiente <a href="https://docs.google.com/spreadsheets/d/1kp7Y-SsYvmJyEWF-XsFYO1OVpyOmdHKW8ruKFo4bp-8/edit?gid=0#gid=0">planilla</a> hasta el <strong>Jueves 30 de Octubre</strong>.</p>
+</section>
+<section id="secciones-del-informe" class="level1">
+<h1>Secciones del informe</h1>
+<p>A continuación se presentan las secciones que debe contener el informe, con una aproximación del número de palabras de cada sección:</p>
+<p><strong>Título y resumen</strong> (1 punto)</p>
+<p><strong>1. Introducción</strong> (2 puntos, app. 500 palabras)</p>
+<p>Definición de la problemática a abordar, su relevancia y principales conceptos.</p>
+<p>En este apartado es importante considerar:</p>
+<ul>
+<li><p>Relevancia del tema de investigación.</p></li>
+<li><p>Problematización: señalar problema de investigación y principales antecedentes</p></li>
+<li><p>Precisar los conceptos centrales a investigar: Ejemplo “vamos a analizar la participación informal, entendiendo por ello la frecuencia de participación en actividades como marchas, boycotts y en redes sociales” [cita que apoye la definición].</p></li>
+<li><p>Mencionar el principal objetivo del trabajo y las hipótesis de investigación en el párrafo final de esta sección (ej: se espera que el nivel educacional sea mayor en zonas urbanas en relación a zonas rurales). Mencionar al menos tres hipótesis.</p></li>
+</ul>
+<p>Esta sección debe estar respaldada por al menos 5 referencias bibliográficas.</p>
+<p><strong>2. Metodología</strong> (2 puntos, app. 800 palabras)</p>
+<p>2.1 Datos: descripción detallada de los datos a utilizar</p>
+<p>2.2 Variables</p>
+<p>Descripción de cada una de las variables, su operacionalización y medición. Esta sección también incluye una <strong>tabla de descriptivos</strong> básicos.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Atención sobre recodificación de variables</strong></p>
+<p>Es importante que las variables sean recodificadas en el sentido del atributo que se está midiendo de menos a más, es decir, que el mayor valor exprese la mayor presencia del atributo.</p>
+<ul>
+<li><p>Ejemplo 1: si lo que se está midiendo es apoyo al aborto libre en una escala donde 5 es totalmente en desacuerdo y 1 totalmente de acuerdo, se deben recodificar los valores para que un mayor puntaje exprese mayor apoyo al aborto libre. En concreto: 1=5, 2=4, 4=2, 5=1.</p></li>
+<li><p>Ejemplo 2: variable dicotómica 0: si vota, 1: no vota, debe ser recodificada a 1: si vota, 0: no vota.</p></li>
+</ul>
+</div>
+</div>
+<p>2.3 Métodos</p>
+<p>Mencionar los métodos estadísticos a utilizar para el contraste de hipótesis y cálculo del tamaño de efecto.</p>
+<p><strong>3. Análisis</strong> (8 puntos, app. 1000 -1500 palabras)</p>
+<ul>
+<li><p>3.1 Análisis descriptivo: tablas y/o gráficos comentados, univariados y bivariados según sea más pertinente. Para esto considere medidas de tendencia central, dispersión y frecuencias, siempre considerando el nivel de medición de sus variables. En los casos que sea atingente, incluya los intervalos de confianza al 95 %.</p></li>
+<li><p>3.2 Análisis estadístico bivariado: considerar la estimación de coeficientes de correlación y también medidas de asociación para variables categóricas. Esta parte del análisis se relaciona directamente con las hipótesis planteadas. Para esto realizar pruebas de hipótesis estadísticas, estadísticos de tamaño del efecto y tablas de contingencia / cruzadas, siempre considerando el nivel de medición de sus variables.</p></li>
+</ul>
+<p>Al final de esta sección también se realiza la discusión de resultados en relación a las hipótesis planteadas</p>
+<p><strong>4. Conclusiones</strong> (1 puntos, app. 300 palabras)</p>
+<p>Resumen general, limitaciones y sugerencias para futuros análisis</p>
+<p><strong>5. Bibliografía</strong> (1 punto)</p>
+<p>Formato APA 7</p>
+</section>
+<section id="formato" class="level1">
+<h1>Formato</h1>
+<p>El formato de entrega del trabajo será en html vía Rmarkdown/Quarto, dado que facilita la integración y reproducibilidad de los análisis en R. La plantilla para poder realizar el trabajo se presentará en los prácticos.</p>
+</section>
+<section id="entrega" class="level1">
+<h1>Entrega</h1>
+<p>En la sección de tareas de UCursos. Se debe adjuntar un archivo comprimido con la carpeta del proyecto.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Sobre cargar bases de datos pesadas (ejemplo: CASEN)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Algunas bases de datos son de gran tamaño y por lo tanto utilizan muchos recursos de memoria del computador, enlentenciendo el procesamiento (por ejemplo, CASEN original pesa 1,7 Gigas). Por ello, se sugiere generar un subset con los datos a utilizar, grabar el subset como una nueva base con formato Rdata, y esos datos incluirlos en la carpeta del trabajo. El código que genera este subset debe quedar respaldado en la carpeta de procesamiento (proc), con un nombre del tipo subset.R.</p>
+<p>Acá ejemplo:</p>
+<pre><code>casen2022 &lt;- read_dta("/home/Downloads/Base de datos Casen 2022 STATA.dta") # llamar desde carpeta local
+casen2022_subset &lt;- casen2022 %&gt;% 
+  select(y1,sexo)  # seleccionar variables y dar un nombre al subset (puede ser cualquier nombre)
+casen2022_subset &lt;- casen2020_inf %&gt;% 
+  rename("salario"=y1) #renombrar 
+save(casen2022_subset, 
+     file = "input/data/casen2022_subset.Rdata") #guardar objeto
+rm(list = c('casen2022')) # quitar del environment para liberar espacio en la memoria</code></pre>
+<p>Y luego, en la hoja de código, comenzar con:</p>
+<pre><code>load("input/data/casen2022_subset.Rdata")</code></pre>
+</div>
+</div>
+</section>
+<section id="modalidad-de-trabajo-y-asesorías" class="level1">
+<h1>Modalidad de trabajo y asesorías</h1>
+<p>Los trabajos se desarrollarán en grupos de máximo 5 integrantes. Cada grupo será asignado a un/a ayudante, quienes asesorarán periódicamente a sus grupos. El detalle de las actividades de esta unidad se encuentra en la página de <a href="../schedule">planificación</a></p>
+</section>
+<section id="recomendaciones-generales-para-el-trabajo" class="level1 tabset">
+<h1 class="tabset">Recomendaciones generales para el trabajo</h1>
+<section id="organización-de-actividades" class="level2">
+<h2 class="anchored" data-anchor-id="organización-de-actividades">Organización de actividades</h2>
+<p>Hay 4 semanas para realizar el trabajo. Durante este tiempo los horarios de clases estarán destinados a contenidos asociados a la realización de los reportes, así como también a asesorar a los grupos. Se sugiere organizar las actividades de la siguiente manera:</p>
+<ul>
+<li>Semana 1: definición de grupos, temas y base de datos</li>
+<li>Semana 2: análisis descriptivos univariados, chequeo de nivel de medición de variables, varianza y casos perdidos</li>
+<li>Semana 3: escritura de introducción y análisis bivariados. Diseño de cápsula de difusión.</li>
+<li>Semana 4: conclusiones y redacción final, presentación de resultados y entrega de reporte.</li>
+</ul>
+</section>
+<section id="escritura-académica" class="level2">
+<h2 class="anchored" data-anchor-id="escritura-académica">Escritura académica</h2>
+<ul>
+<li><p>Una idea por párrafo</p></li>
+<li><p>Uso de “oración principal” (topic sentence): usualmente es la oración al principio del párrafo, que resume el sentido del párrafo completo y que conecta con el párrafo anterior.</p></li>
+<li><p><a href="https://aprendizaje.uchile.cl/recursos-para-leer-escribir-y-hablar-en-la-universidad/escribir/">Recursos de apoyo a la escritura académica de la Universidad de Chile</a></p></li>
+</ul>
+</section>
+<section id="a-tener-en-cuenta" class="level2">
+<h2 class="anchored" data-anchor-id="a-tener-en-cuenta">A tener en cuenta:</h2>
+<ul>
+<li><p>los conceptos centrales deben estar en las hipótesis y también luego operacionalizarse en variables. No presentar variables que no se relacionen con los conceptos centrales de la sección inicial</p></li>
+<li><p>si hay muchos casos perdidos (mas de un tercio de datos originales), explicar claramente a qué se debe esta pérdida. Existe la posibilidad de recuperar casos perdidos de predictores categóricos (o recodificados a categóricos) agregando una categoría adicional de perdidos. Esto se explica en la guía de <a href="https://multivariada.netlify.app/assignment/11-code/">índices y transformación de variables</a>.</p></li>
+<li><p>interpretación de hipótesis e inferencia: las hipótesis nunca se comprueban o se descartan, solo se puede hablar de que existe o no existe evidencia a favor de la hipótesis planteada. Recordar que la ausencia de evidencia no es evidencia de ausencia.</p></li>
+<li><p>evitar términos técnicos estadísticos (ej: correlación) antes de la sección de metodología</p></li>
+<li><p>mantener coherencia entre conceptos, hipótesis, descripción de variables, análisis, discusión, ojalá siempre en el mismo orden.</p></li>
+</ul>
+</section>
+</section>
+<section id="foro" class="level1">
+<h1>Foro</h1>
+<script src="https://giscus.app/client.js" data-repo="cursos-metodos-facso/correlacional-2026" data-repo-id="R_kgDOKCMXJQ" data-category="Q&amp;A" data-category-id="DIC_kwDOKCMXJc4CYd9S" data-mapping="title" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="light" data-lang="es" crossorigin="anonymous" async="">
+</script>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/multinivel-facso\.netlify\.app");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/cienciasocialabierta2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

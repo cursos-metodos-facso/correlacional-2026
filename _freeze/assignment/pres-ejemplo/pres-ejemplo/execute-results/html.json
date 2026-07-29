@@ -1,0 +1,21 @@
+{
+  "hash": "ef50ab988322a23fedd97cd2785b2f5b",
+  "result": {
+    "engine": "knitr",
+    "markdown": "--- \nformat:\n  revealjs:\n    theme: \n      - custom.scss\n    slide-number: true\n    transition: slide\n    transition-speed: default\neditor: source\nbibliography: ejemplo.bib\n--- \n\n# Práctico 9: Presentaciones en Quarto\n\nPresentación de ejemplo\n\n<br>\n\n18 de junio de 2026\n\n:::{.notes}\nEsta es la slide introductoria de la presentación \n:::\n\n# Slide con un '#'\n\n\n## Subtítulo con 2 '#'\n\n### Subtítulo con 3 '#'\n\n#### Subtítulo con 4 '#'\n\n\n##\n\nLa literatura respalda los hallazgos encontrados [@breznau_does_2021; @healy_plain_2018; @christensen_transparent_2019].\n\n\n##\n\n\n::: {.cell}\n::: {.cell-output-display}\n![Gráfico de ejemplo con datos ficticios](pres-ejemplo_files/figure-revealjs/fig-ejemplo-1.png){#fig-ejemplo width=960}\n:::\n:::\n\n\nEsta es la @fig-ejemplo\n\n## {background-color=\"#212525\"}\n\n::::{.columns}\n:::{.column width=\"50%\"}\n- La información puede ser presentada de distintas maneras\n\n- Organizando los espacios\n:::\n\n:::{.column width=\"50%\"}\n- Separando el texto en columnas\n  \n- Y variando el estilo\n:::\n::::\n\n## Referencias",
+    "supporting": [
+      "pres-ejemplo_files/figure-revealjs"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {
+      "include-after-body": [
+        "\n<script>\n  // htmlwidgets need to know to resize themselves when slides are shown/hidden.\n  // Fire the \"slideenter\" event (handled by htmlwidgets.js) when the current\n  // slide changes (different for each slide format).\n  (function () {\n    // dispatch for htmlwidgets\n    function fireSlideEnter() {\n      const event = window.document.createEvent(\"Event\");\n      event.initEvent(\"slideenter\", true, true);\n      window.document.dispatchEvent(event);\n    }\n\n    function fireSlideChanged(previousSlide, currentSlide) {\n      fireSlideEnter();\n\n      // dispatch for shiny\n      if (window.jQuery) {\n        if (previousSlide) {\n          window.jQuery(previousSlide).trigger(\"hidden\");\n        }\n        if (currentSlide) {\n          window.jQuery(currentSlide).trigger(\"shown\");\n        }\n      }\n    }\n\n    // hookup for slidy\n    if (window.w3c_slidy) {\n      window.w3c_slidy.add_observer(function (slide_num) {\n        // slide_num starts at position 1\n        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);\n      });\n    }\n\n  })();\n</script>\n\n"
+      ]
+    },
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

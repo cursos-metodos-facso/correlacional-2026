@@ -1,0 +1,269 @@
+---
+title: "Estadística Correlacional"
+subtitle: "Inferencia, asociación y reporte"
+details: |
+  SOC01019 • Segundo Semestre 2026<br>Departamento de Sociología, Facultad de Ciencias Sociales<br>Universidad de Chile
+sidebar: false
+toc: false
+page-layout: full
+format:
+  html:
+    template-partials:
+      - html/home/title-block.html
+execute:
+  freeze: auto   
+course-logo: images/hex-transparent.png
+listing:
+  id: informaciones
+  contents: "news/2026*.qmd"
+  type: grid
+  sort: "date desc"
+  categories: false
+---
+
+```{r set-dependencies, include=FALSE}
+# Site-wide targets dependencies
+#withr::with_dir(here::here(), {
+#  targets::tar_load(project_zips)
+#  targets::tar_load(xaringan_slides)
+#  targets::tar_load(xaringan_pdfs)
+#})
+```
+
+
+::: {.home}
+
+::: {.grid .course-details}
+
+
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+### Profesor
+
+<div class="image-cropper">
+  <img src="images/docentes/jc.png" alt="avatar" class="profile-pic" width= "100" height= "auto">
+</div>
+
+- {{< fa user >}} &nbsp; [{{< var instructor.name >}}]({{< var instructor.url >}})
+- {{< fa building >}} &nbsp; {{< var instructor.office >}}
+- {{< fa envelope >}} &nbsp; <a href="mailto:juancastillov@uchile.cl">juancastillov@uchile.cl</a>
+- {{< fa brands github >}} &nbsp; <a href="https://github.com/juancarloscastillo >}}">juancarloscastillo</a>
+- {{< fa house >}} &nbsp; <a href="https://jc-castillo.com/">jc-castillo.com</a>
+- {{< fa calendar-check >}} &nbsp; [Agendar reunión]({{< var instructor.appointment_url >}})
+
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-8}
+### Profesores colaboradores
+
+::: {.grid}
+
+::: {.g-col-12 .g-col-md-6}
+
+<div class="image-cropper">
+  <img src="images/docentes/kathy.png" alt="avatar" class="profile-pic"   width= "100" height= "auto">
+</div>
+
+- {{< fa user >}} &nbsp; Katherine Aravena
+- {{< fa building >}} &nbsp; 328 Sociología FACSO, Universidad de Chile
+- {{< fa envelope >}} &nbsp; <a href="mailto:katherine.aravena@ug.uchile.cl ">tomas.urzua@ug.uchile.cl </a>
+- {{< fa brands github >}} &nbsp; <a href="https://github.com/KAravena">KAravena</a>
+- {{< fa house >}} &nbsp; <a href="https://www.linkedin.com/in/tom%C3%A1s-urz%C3%BAa-moreno-b65755375/">linkedin</a>
+- {{< fa calendar-check >}} &nbsp; <a href="https://calendar.app.google/BoyLBTKhuGqiPiLK8">Agendar reunión</a>
+
+
+:::
+
+::: {.g-col-12 .g-col-md-6}
+
+<div class="image-cropper">
+  <img src="images/docentes/tomas.jpg" alt="avatar" class="profile-pic"   width= "100" height= "auto">
+</div>
+
+- {{< fa user >}} &nbsp; Tomás Urzúa
+- {{< fa building >}} &nbsp; 328 Sociología FACSO, Universidad de Chile
+- {{< fa envelope >}} &nbsp; <a href="mailto:tomas.urzua@ug.uchile.cl ">tomas.urzua@ug.uchile.cl </a>
+- {{< fa brands github >}} &nbsp; <a href="https://github.com/tomasurzuam">tomasurzuam</a>
+- {{< fa house >}} &nbsp; <a href="https://www.linkedin.com/in/tom%C3%A1s-urz%C3%BAa-moreno-b65755375/">linkedin</a>
+- {{< fa calendar-check >}} &nbsp; <a href="https://calendar.app.google/BoyLBTKhuGqiPiLK8">Agendar reunión</a>
+
+:::
+
+:::
+
+:::
+
+
+
+
+::: {.g-col-12 .g-col-md-4 .contact-policy}
+
+
+### Actividades
+
+- {{< fa clock >}} &nbsp; **Lunes y Miércoles 8:30 a 10:00**
+- {{< fa building >}} &nbsp; **Sala 6 Aulario C**
+- {{< fa building >}} &nbsp; **Sala 1 Aulario B**
+
+:::
+:::
+:::
+
+### Ayudantes
+
+::: {.home}
+
+::: {.grid .course-details}
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/bastian.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Bastián Martin**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/felipe.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Felipe Vega**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Elena Yáñez**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Joaquín Núñez**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amaranta González**
+:::
+:::
+
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amanda Rojo**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Maite Jullian**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Benjamín Belmar**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Nicolás Outerbridge**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Cristóbal Ramírez**
+:::
+:::
+
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/valentina.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Valentina Montencinos**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Mariana Cuervo**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Renato De Luca**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Vicente Rojas**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amaya Barbet**
+:::
+:::
+
+:::
+:::
+:::
+
+
+## Últimas informaciones
+
+::: {#informaciones}
+:::
