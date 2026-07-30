@@ -9,6 +9,16 @@ La página fue construida totalmente en Quarto.
 
 [correlacional-2026.netlify.app](https://cursos-metodos-facso.github.io/correlacional-2026/)
 
+
+## Versiones anteriores del curso
+
+- [2025](https://correlacional.netlify.app/)
+
+- [2024](https://2024--correlacional.netlify.app/)
+
+- [2023](https://2023--correlacional.netlify.app/)
+
+
 ## Auto-commit del .bib sincronizado con Zotero
 
 Cuando `references/publications/posts/ciencia-abierta.bib` se actualiza localmente (por ejemplo via Better BibTeX), el siguiente script detecta la modificacion y hace `commit` + `push` automatico **solo cuando hay nuevas entradas** (lineas `@...` en el diff):
