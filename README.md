@@ -7,7 +7,7 @@ La página fue construida totalmente en Quarto.
 > [!IMPORTANT]  
 > Acceso a la página:
 
-[cienciasocialabierta.netlify.app](https://cursos-metodos-facso.github.io/cienciasocialabierta2026/docs/index.html)
+[correlacional-2026.netlify.app](https://cursos-metodos-facso.github.io/correlacional-2026/)
 
 ## Auto-commit del .bib sincronizado con Zotero
 
