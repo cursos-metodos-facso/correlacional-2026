@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística Correlacional</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=".small[Juan Carlos Castillo    Departamento de Sociología - UCH / COES   ]" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":true,"autoSearch":true}) })</script>
+    <link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+    <script src="libs/tabwid-1.1.3/tabwid.js"></script>
+    <link rel="stylesheet" href="css/custom_2020.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: front
+
+
+
+
+
+
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Inferencia, asociación y reporte
+
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2025
+## [.orange[correlacional.netlify.app]](https:/correlacional.netlify.app)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+## .gray[Sesión 6:] 
+## .curso[Inferencia 5: Prueba t y direccionalidad]]
+]
+]
+
+---
+class: inverse
+
+![](img/herramientas.png)
+
+---
+class: inverse
+###  .yellow[Procedimiento: 5 pasos de la inferencia] (ajustados de Ritchey)
+
+1. Formular hipótesis ( `\(H_0\)` y `\(H_A\)`)
+
+2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+3. Establecer la probabilidad de error `\(\alpha\)` (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente
+
+4. Cálculo de intervalo de confianza / contraste valores empírico/crítico
+
+5. Interpretación
+
+---
+class: roja
+
+# Esta clase: 
+
+- comparación de medias: prueba t
+
+- cálculo de valor crítico de prueba para contraste de hipótesis
+
+- hipótesis direccionales (por ejemplo, mayor o menor qué)
+
+---
+class: inverse bottom right
+
+# Prueba t
+
+---
+# Comparación entre grupos 
+- gran parte de las hipótesis de investigación se relacionan con **diferencias entre grupos**, ej:
+
+  - hombres obtienen mayor salario que las mujeres
+  
+  - los chilenos son más prejuiciosos que los migrantes
+  
+  - ahora se apoyan los cambios más graduales que antes (comparación en el tiempo)
+
+
+---
+class: inverse right middle
+.large["_la sociología comparada no es una rama especial de la sociología, sino que
+es la sociología misma en tanto deja de ser puramente descriptiva y aspira
+a dar razón de los hechos_"]
+&lt;br&gt;
+.right[Durkheim (1895), Les règles de la méthode sociologique, op. cit., p. 137]
+
+---
+# Comparación de **medias**  ( `\(\bar{X}\)`)
+
+- en análisis cuantitativo, buena parte de las hipótesis comparativas remiten a comparaciones entre **promedios o medias**
+
+  - ej. (clase anterior): el promedio salarial de los hombres es mayor que el de las mujeres
+
+--
+
+- la clase anterior realizamos una prueba Z para diferencia de medias solo a modo de simplificación, quedando pendiente el aplicar la prueba correspondiente: .large[_**t**_] 
+
+---
+
+![](img/t-test.png)
+
+
+---
+# Del ejemplo de la clase anterior (sub muestra CASEN)
+
+
+
+
+``` r
+casen_350%&gt;% # se especifica la base de datos
+   dplyr::group_by(sexo=sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs.=n(),Promedio=mean(salario, na.rm=TRUE),SD=sd(salario, na.rm=TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla
+  kable(, format = "markdown") # se genera la tabla
+```
+
+
+
+|sexo      | Obs.| Promedio|       SD|
+|:---------|----:|--------:|--------:|
+|1. Hombre |  205| 654585.4| 468692.5|
+|2. Mujer  |  138| 604420.3| 444666.0|
+
+.right[Diferencia salarial = 654.585-604.420=**50.165**]
+
+---
+.pull-left[
+## Cálculo de valor crítico en Z
+Recordemos el cáĺculo de valores críticos en Z para construir un intervalo de confianza al 95% (clase Inferencia 3):
+![](img/confidence-interval.png)
+
+
+]
+
+.pull-right[
+.medium[
+Límite inferior: 2.5% (0.025)
+
+``` r
+qnorm(0.025) # límite inferior
+```
+
+```
+[1] -1.959964
+```
+
+Límite superior: 2.5% + 95% = 97.5% (0.975)
+
+``` r
+qnorm(0.975) # límite superior
+```
+
+```
+[1] 1.959964
+```
+]
+]
+
+Y aproximando, `\(\pm\)` **1.96**
+
+---
+class: inverse middle
+
+## El **valor crítico** es el punto (o los puntos) en la distribución de una estadística de prueba que separa la región de aceptación de la región de rechazo en una prueba de hipótesis
+
+
+---
+# Generación de intervalo (con Z)
+
+`\begin{align*}
+\bar{x}_1-\bar{x}_2 &amp;\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\
+50165 &amp;\pm 1.96*50561 \\
+50165 &amp;\pm 99099.56 \\
+CI[-49287.48&amp;;149617.63]
+\end{align*}`
+
+Asumiendo que el **valor crítico** Z para un error `\(\alpha\)` de 0.5 (o 95% de confianza) es de **1.96**
+
+Para diferencia de medias necesitamos un valor crítico más preciso que el que nos da `\(Z\)`, que se denomina el valor .large[_**t**_] .
+
+---
+# `\(t\)` y valores críticos
+
+- la distribución `\(t\)` es similar a `\(Z\)`
+
+- se basa en la **distribución normal**, pero con **ajuste para muestras pequeñas** y para cuando no conocemos la desviación estándar de la población
+
+- por lo tanto, la **forma de la distribución** varía según el tamaño muestral
+
+
+---
+class: middle, center
+
+![:scale 60%](img/t_vs_z.png)
+
+
+---
+# Intervalo de confianza para diferencia de medias con prueba `\(t\)`
+
+- la obtención del valor crítico para un determinado nivel de confianza es similar a Z, pero ajustado al tamaño muestral
+
+- el tamaño muestral se asocia al concepto de **grados de libertad**
+
+- la pregunta a responder es: **¿cuál es el valor crítico de `\(t\)` para una probabilidad de error `\(\alpha\)` y grados de libertad `\(N-2\)`?**
+
+---
+class: inverse
+
+## Los **grados de libertad** son la cantidad de información independiente disponible para estimar parámetros o calcular una estadística.
+
+### Cada restricción (como conocer un promedio, fijar una suma, etc.) reduce en 1 los grados de libertad.
+
+--
+
+Por ejemplo, si hay tres números que tienen promedio 10, se pueden elegir libremente 2 de ellos, y el tercero ya está determinado. Por lo tanto, hay 3-1 grados de libertad
+
+---
+# Establecimiento del valor crítico de la prueba (t)
+
+.pull-left[
+
+- para un nivel de error `\(\alpha=0.05\)`
+
+- y una hipótesis de diferencia de dos colas: `\(\alpha/2=[0.025-0.975]\)`
+
+- grados de libertad N-2= 343-2 = 341]
+
+.pull-right[
+.medium[
+
+``` r
+qt(p=.05/2, df=341)
+```
+
+```
+[1] -1.966945
+```
+
+
+``` r
+qt(p=.05/2, df=341, 
+   lower.tail=FALSE)
+```
+
+```
+[1] 1.966945
+```
+
+Como vemos, es un poco mayor a Z pero parecido, ya que la muestra es de buen tamaño
+]]
+
+---
+# Construcción de intervalo de confianza para diferencia de medias en base a prueba `\(t\)`
+
+`\begin{align*}
+\bar{x}_1-\bar{x}_2 &amp;\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
+50165 &amp;\pm 1.967*50561 \\\\
+50165 &amp;\pm 99453.49 \\\\
+CI[-49288.49&amp;\ ;149618.5]
+\end{align*}`
+
+---
+class: roja middle
+
+- La prueba **.yellow[_t_**] de diferencia de medias considera el **.yellow[tamaño muestral**] (expresado en grados de libertad) para el cálculo del valor crítico
+
+- **.yellow[_t_**] se aproxima a Z a medida que aumenta el tamaño muestral 
+
+- en muestras más pequeñas, **.yellow[_t_**] aumenta el nivel de exigencia al establecer valores críticos más altos que Z para poder rechazar la .yellow[hipótesis nula]
+
+---
+# Prueba `\(t\)` y test de hipótesis
+
+.pull-left[
+.medium[
+- además de la construcción de **intervalos**, otra forma más tradicional de test de hipótesis para diferencia de medias es la **prueba `\(t\)`**
+
+- la prueba `\(t\)` consiste en el contraste del **_valor crítico_** de `\(t\)`  con un **_valor empírico_** (o estadísitico) `\(t\)` calculado con datos de nuestra muestra: 
+]]
+
+--
+
+.pull-right[
+## `\(t=\frac{(\bar{x}_1-\bar{x}_2)}{\sqrt{\frac{s_1²}{\sqrt{n_1}}+\frac{s_2²}{\sqrt{n_2}} }}\)`
+
+El denominador es el .red[error estándar de la diferencia de promedios] (que vimos la clase pasada)]
+
+---
+.pull-left-wide[
+&lt;br&gt;
+![](https://multivariada.netlify.app/slides/07-inferencia/imagen4.png)
+]
+
+
+.pull-right-narrow[El valor `\(t\)` calculado se compara con el valor crítico (teórico) de t asociado a una probabilidad de error `\(\alpha\)`, ej: 0.05
+
+La **prueba _t_** es la comparación o contraste entre ambos valores. Si el t empírico es igual o superior al crítico se rechaza `\(H_0\)` ]
+
+
+---
+# En nuestro ejemplo:
+
+Para una diferencia de salarios de 50.165 y un error estándar de 50.561:
+
+## `\(t=\frac{(\bar{x}_1-\bar{x}_2)}{\sqrt{\frac{s_1²}{\sqrt{n_1}}+\frac{s_2²}{\sqrt{n_2}} }}=\frac{50165}{50561}=0.9921\)`
+
+Este valor `\(t\)` (empírico) se contrasta con el valor `\(t\)` crítico correspondiente a un 5% de probabilidad de error 
+
+---
+# Prueba t
+
+Contrastando ahora el valor empírico (calculado) con el valor crítico:
+
+`$$t_{crtitico}= -1.96 &lt; t_{empírico}=0.992 &lt; t_{critico}= 1.96$$`
+- Por lo tanto, nuestro valor estimado queda fuera de la zona de rechazo de la hipótesis nula: la diferencia de medias no es estadísiticamente distinta de 0. 
+
+- En consecuencia, con un nivel de confianza de 95% no podemos afirmar que existen diferencias salariales entre hombres y mujeres
+
+---
+
+.pull-left-wide[
+![](06-inferencia5_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right-narrow[
+.medium[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+El gráfico muestra nuestro valor estimado de t fuera de la zona de rechazo (zona gris en la curva). Por lo tanto, no podemos rechazar `\(H_0\)`, las diferencias no son distintas de cero 
+]
+]
+
+---
+class: roja
+
+- La prueba t consiste en un contraste entre el t empírico (calculado a partir de nuestra muestra) y el valor crítico t para un nivel de error definido (usualmente 5%) 
+
+--
+
+- Si el valor del estadísitico t no sobrepasa el valor crítico t, entonces no se logra rechazar la hipótesis nula, y no se puede afirmar que existen diferencias de medias en la población
+
+--
+
+- Si el estadístico t es superior al valor crítico, se rechaza la hipótesis nula
+
+--
+
+- La prueba t es la forma más tradicional de contrastar hipótesis de diferencia de medias, y se puede complementar con intervalos de confianza
+
+---
+# `\(t\)` y probabilidad de error `\(p\)`
+
+- el cálculo de `\(t\)` (estimado) nos da un valor que puede ser transformado a un valor de área bajo la curva (tal como en Z)
+
+- _cual es la probabilidad de error (valor p) de un `\(t\)` específico?_
+
+- hay que recordar que tanto Z como t tienen promedio 0 y son simétricas, y por lo tanto el 0 divide el área de la curva en 0.5
+
+- 0.5 es la mayor probabilidad de error (=azar total), y a medida que se aleja del 0.5 disminuye la probabilidad de error
+---
+
+
+
+``` r
+(qt(t,df, lower.tail = FALSE))*2
+```
+Donde:
+- qt: función que entrega la probabilidad para un valor `\(t\)`
+
+- df: grados de libertar (degrees of freedom)
+- lower.tail=FALSE: considera las probabilidades acumuladas hacia la cola superior de la curva
+
+- *2: al ser una prueba de diferencias, considera zona de rechazo en ambas direcciones de la curva, por lo que las probabilidades se multiplican por 2
+
+---
+En nuestro ejemplo:
+
+
+``` r
+(pt(0.99215, 341, lower.tail = FALSE))*2
+```
+
+```
+[1] 0.3218278
+```
+
+- La probabilidad de error del `\(t\)` estimado es de 0.322. 
+
+- Esto quiere decir es que en la estimación de esta diferencia de medias, nos estamos equivocando aproximadamente un tercio de las veces (lejos del nivel convencional de rechazo de `\(H_0\)` de 0.05)
+
+---
+# _p_ y mayores niveles de confianza
+
+- La obtención del valor `\(p\)` podría también entregar información para rechazar `\(H_0\)` con un mayor nivel de confianza al establecido
+
+- Si bien el p&lt;0.05 es aceptado, en el caso que el p sea menor a 0.01 o 0.001, se reporta por convención el valor p menor 
+
+- Usualmente en los trabajos de investigación esto se representa con asteriscos: `\(^{\ast}p&lt;0.05\)`, `\(^{\ast\ast}p&lt;0.01\)`, y `\(^{\ast\ast\ast}p&lt;0.01\)`  
+---
+class: inverse, middle, center
+
+# A mayor valor `\(t\)`, menor probabilidad de error `\(p\)` 
+
+---
+# Test de hipótesis: insumos complementarios
+
+Entonces, se logra rechazar la hipótesis nula cuando:
+
+- el intervalo de confianza no contiene el 0
+
+- ### `\(t_{calculado} &gt; t_{crítico}\)`
+
+- ### `\(p_{calculado} &lt; p_{crítico}\)` 
+
+
+  - o en términos generales convencionales, p&lt;0.05
+
+---
+# Test de hipótesis de diferencias en R
+
+
+``` r
+t.test(salario ~ sexo, data = casen_350, var.equal=TRUE)
+```
+
+```
+
+	Two Sample t-test
+
+data:  salario by sexo
+t = 0.99215, df = 341, p-value = 0.3218
+alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
+95 percent confidence interval:
+ -49287.48 149617.63
+sample estimates:
+mean in group 1 mean in group 2 
+       654585.4        604420.3 
+```
+
+---
+# tabla t test con `rempsyc`
+
+
+``` r
+pacman::p_load(rempsyc,broom)
+model &lt;- t.test(salario ~ sexo, data = casen_350, var.equal=TRUE)
+stats.table &lt;- tidy(model, conf.int = TRUE)
+nice_table(stats.table, broom = "t.test")
+```
+
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-b8c03e96{table-layout:auto;}.cl-b8babffc{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b8bac010{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b8bac01a{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-b8bd3ed0{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b8bd3ee4{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b8bd553c{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b8bd5546{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b8bd5564{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-b8c03e96'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;Method&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;Alternative&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;Mean 1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;Mean 2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8bac010"&gt;M&lt;/span&gt;&lt;span class="cl-b8bac01a"&gt;1&lt;/span&gt;&lt;span class="cl-b8babffc"&gt; - &lt;/span&gt;&lt;span class="cl-b8bac010"&gt;M&lt;/span&gt;&lt;span class="cl-b8bac01a"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8bac010"&gt;t&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8bac010"&gt;df&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8bac010"&gt;p&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b8bd553c"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;95% CI&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b8bd5546"&gt;&lt;p class="cl-b8bd3ee4"&gt;&lt;span class="cl-b8babffc"&gt;Two Sample t-test&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;two.sided&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;654,585.37&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;604,420.29&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;50,165.08&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;0.99&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;341&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;.322&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b8bd5564"&gt;&lt;p class="cl-b8bd3ed0"&gt;&lt;span class="cl-b8babffc"&gt;[-49287.48, 149617.63]&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+???
+https://rempsyc.remi-theriault.com/articles/t-test
+
+---
+# Reporte formato APA
+
+_"Se realizó una prueba t para muestras independientes para comparar los salarios entre hombres y mujeres. Los resultados indicaron una diferencia no significativa en los salarios entre hombres (M = 654585, SD = 468692) y mujeres (M = 604420, SD = 444666); t(341)=0.9921, p=0.321. El intervalo de confianza del 95% para la diferencia de medias fue [−49288.49;149618.5]._
+
+[diferencia no significativa=no se logra rechazar `\(H_0\)`]
+
+---
+# En R con librería `report`
+
+
+``` r
+model &lt;- t.test(salario ~ sexo, data = casen_350, var.equal=TRUE)
+report::report(model)
+```
+
+_La prueba t de dos muestras que evalúa la diferencia de salario según sexo (media en el grupo 1 = 654585, media en el grupo 2 = 604420) sugiere que el efecto es positivo, estadísticamente no significativo y muy pequeño (diferencia = 50165, IC del 95% [-49,287.48, 150,000], t(341) = 0.99, p = 0.322)._
+
+.small[[traducido y con mínima edición]]
+
+---
+class: inverse bottom right
+# Hipótesis direccionales
+
+---
+## Tipos de preguntas e hipótesis (ej: con promedio(s))
+----
+
+.small[
+
+| **Pregunta**| **Hipotesis**   | **Prueba**
+|---------------------|------------------------------------------------------|
+| A. ¿Existe el promedio en la población?  &lt;br&gt;  | `$$H_{a}: \bar{X}_1 \neq 0$$`  `$$H_{0}: \bar{X}_1 = 0$$`    | Dos colas (no direccional)
+| B. ¿Existen diferencias de promedios en la población? | `$$H_{a}: \bar{X}_1 -  \bar{X}_2 \neq 0$$`  `$$H_{0}: \bar{X}_1 -  \bar{X}_2= 0$$`    | Dos colas (no direccional)
+| C. ¿Es un promedio (1) superior (o inferior) al otro (2)?         | `$$H_{a}: \bar{X}_1 -  \bar{X}_2 \gt 0$$`  `$$H_{0}: \bar{X}_1 -  \bar{X}_2 \leq 0$$` | Una cola (direccional)
+  - ]
+
+---
+class: center middle
+
+![:scale 73%](img/one_vs_two-tailed.png)
+
+---
+class: middle
+
+.pull-left[
+![](img/direccional-derecha.png)
+]
+
+.pull-right[
+Si bien en teoría las hipótesis direccionales se pueden plantear en ambas direcciones, en general (y por simpleza) se expresan en términos de "mayor que", quedando la zona de rechazo de `\(H_0\)` a la derecha
+]
+
+---
+## Pasos en test de hipótesis
+
+1. Formulación: El salario de los hombres (grupo 1) es mayor al de las mujeres (grupo 2) 
+
+`\begin{align*}
+H_{a}: \bar{X}_1 \gt  \bar{X}_2 \\
+H_{0}: \bar{X}_1 \leq  \bar{X}_2
+\end{align*}`
+
+2.Obtener error estándar y estadístico de prueba (lo mismo que para al caso anterior)
+
+ `$$t=\frac{(\bar{x}_1-\bar{x}_2)}{\sqrt{\frac{s_1²}{\sqrt{n_1}}+\frac{s_2²}{\sqrt{n_2}} }}=\frac{50165}{50561}=0.9921$$`
+---
+3.Probabilidad de error y valor crítico
+
+- seguimos con probabilidad de error ( `\(\alpha\)` 0.05), pero a diferencia de las no-direccionales no se divide entre 2 (colas), sino que es solo para una
+
+.center[
+![:scale 80%](img/One_tailed_and_two_tailed_t-test.png)
+]
+
+
+---
+3.Probabilidad de error y valor crítico
+
+.pull-left[
+
+- para un nivel de error `\(\alpha=0.05\)` (de una cola)
+
+- grados de libertad N-2= 343-2 = 341
+]
+
+.pull-right[
+
+``` r
+qt(p=.05, 
+   df=341,
+   lower.tail = FALSE)
+```
+
+```
+[1] 1.649334
+```
+
+[lower.tail=FALSE se refiere que el calculo refiere a la cola superior]
+
+]
+
+---
+4.Contraste
+
+.pull-left[
+- Recordemos nuestra hipótesis nula:
+
+`$$H_{0}: \bar{X}_{hombres} \leq  \bar{X}_{mujeres}$$`
+- Considerando los valores de contraste:
+`$$t_{estimado}=0.992 &lt; t_{critico}=1.6$$`
+
+]
+
+.pull-right[
+
+
+![](06-inferencia5_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+
+]
+---
+
+## 5. Interpretación
+
+.small[
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-b967e15a{table-layout:auto;}.cl-b9623106{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b9623124{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b9623125{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-b964b00c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b964b020{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b964c8da{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b964c8e4{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b964c8ee{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-b967e15a'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;Method&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;Alternative&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;Mean 1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;Mean 2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623124"&gt;M&lt;/span&gt;&lt;span class="cl-b9623125"&gt;1&lt;/span&gt;&lt;span class="cl-b9623106"&gt; - &lt;/span&gt;&lt;span class="cl-b9623124"&gt;M&lt;/span&gt;&lt;span class="cl-b9623125"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623124"&gt;t&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623124"&gt;df&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623124"&gt;p&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b964c8da"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;95% CI&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b964c8e4"&gt;&lt;p class="cl-b964b020"&gt;&lt;span class="cl-b9623106"&gt;Two Sample t-test&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;greater&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;654,585.37&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;604,420.29&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;50,165.08&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;0.99&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;341&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;.161&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b964c8ee"&gt;&lt;p class="cl-b964b00c"&gt;&lt;span class="cl-b9623106"&gt;[-33228.46, Inf]&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+]
+
+_"Se realizó una prueba t para muestras independientes para examinar si el salario promedio de los hombres (M = 654585, SD = 468692) es mayor que el de las mujeres (M = 604420, SD = 444666), siendo la diferencia entre ambos de 50.165. Los resultados no fueron estadísticamente significativos, t(341)=0.9921, p=0.161. Por lo tanto, con un 95% de confianza no se puede rechazar la hipótesis nula, lo que no permite sustentar la hipótesis inicial (alternativa) que el salario de los hombres es mayor que el de las mujeres."_
+
+???
+Nota: en el práctico cambiar el N de la muestra y establecer distintos niveles de confianza
+
+---
+class: inverse middle center
+# ¿Qué habría pasado con un tamaño muestral más grande, y/o con un nivel de probabilidad de error distinto?
+---
+# sub-muestra CASEN 1500 casos
+
+
+``` r
+casen_1500%&gt;% # se especifica la base de datos
+   dplyr::group_by(sexo=sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs.=n(),Promedio=mean(salario, na.rm=TRUE),SD=sd(salario, na.rm=TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla
+  kable(, format = "markdown") # se genera la tabla
+```
+
+
+
+|sexo      | Obs.| Promedio|       SD|
+|:---------|----:|--------:|--------:|
+|1. Hombre |  782| 746620.7| 828509.6|
+|2. Mujer  |  662| 605775.6| 478087.6|
+
+---
+.medium[
+.pull-left[
+
+``` r
+model_dir2 &lt;- t.test(
+  salario ~ sexo, 
+  data = casen_1500, 
+  alternative="greater", 
+  var.equal=TRUE, 
+  conf.level = 0.95)
+stats.table4 &lt;- tidy(model_dir2)
+nice_table(stats.table4, 
+           broom = "t.test")
+```
+
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-b98ffb4a{table-layout:auto;}.cl-b98a2d0a{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b98a2d1e{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b98a2d28{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-b98ca5bc{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b98ca5d0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b98cbdcc{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b98cbde0{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b98cbdea{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-b98ffb4a'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;Method&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;Alternative&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;Mean 1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;Mean 2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d1e"&gt;M&lt;/span&gt;&lt;span class="cl-b98a2d28"&gt;1&lt;/span&gt;&lt;span class="cl-b98a2d0a"&gt; - &lt;/span&gt;&lt;span class="cl-b98a2d1e"&gt;M&lt;/span&gt;&lt;span class="cl-b98a2d28"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d1e"&gt;t&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d1e"&gt;df&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d1e"&gt;p&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-b98cbdcc"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;95% CI&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-b98cbde0"&gt;&lt;p class="cl-b98ca5d0"&gt;&lt;span class="cl-b98a2d0a"&gt;Two Sample t-test&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;greater&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;746,620.67&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;605,775.58&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;140,845.09&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;3.86&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;1,442&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;&amp;lt; .001***&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-b98cbdea"&gt;&lt;p class="cl-b98ca5bc"&gt;&lt;span class="cl-b98a2d0a"&gt;[80836.78, Inf]&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+]
+]
+.pull-right[
+![](06-inferencia5_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse
+
+## Resumen
+
+- t para diferencia de medias y ajuste por tamaño muestral / grados de libertad
+
+- prueba t por contraste entre valor del estadístico calculado (o t empírico) y el valor crítico para un nivel de confianza
+
+- valores p y reporte para valores convencionales menores a 0.05, 0.01o 0.001
+
+- hipótesis direccionales y no direccionales
+
+
+---
+
+# Pendiente:
+
+- hipótesis para proporciones, se verá en la próxima unidad en asociación entre variables categóricas
+
+
+---
+# Recomendaciones:
+
+- [Visualización interactiva de prueba t y valor p](https://www.vipinajayakumar.com/an-interactive-explanation-of-the-statistical-t-test-used-to-compare-sample-means.html) 
+
+
+---
+class: middle center
+![:scale 70%](img/rechazar_meme.png)
+
+---
+class: front
+
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Inferencia, asociación y reporte
+
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2025
+## [.orange[correlacional.netlify.app]](https:/correlacional.netlify.app)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+
+]]
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightStyle": "dracula",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url("img/logo-correlacional-transp.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 16.3em;
+  right: 31em;
+  width: 110px;
+  height: 70px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

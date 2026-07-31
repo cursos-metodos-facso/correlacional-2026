@@ -1,0 +1,724 @@
+---
+title: "Estadística Correlacional"
+author: ".small[Juan Carlos Castillo <br><br> Departamento de Sociología - UCH / COES <br><br>]"
+date: "2do Sem 2023"
+output:
+  xaringan::moon_reader:
+    css: "css/custom_2020.css"
+    includes:
+      after_body: "insert-logo.html"     
+    lib_dir: libs
+    nature:
+      ratio: '16:9'
+      highlightStyle: dracula
+      highlightLines: true
+      countIncrementalSlides: false
+      beforeInit: "libs/macros.js"
+    seal: false # esto omite title slide automática
+---
+class: front
+
+
+```{r setup, include=FALSE, cache = FALSE}
+library(knitr)
+opts_chunk$set(warning=FALSE,
+             message=FALSE,
+             echo=TRUE,
+             comment = "",
+             cache = TRUE, fig.width=10, fig.height=8)
+pacman::p_load(flipbookr, tidyverse, kableExtra)
+```
+
+
+```{r xaringanExtra, include=FALSE}
+xaringanExtra::use_xaringan_extra(c("tile_view", "animate_css"))
+xaringanExtra::use_scribble()
+```
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Asociación, inferencia y reporte
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2023 
+## [.orange[correlacional.netlify.com]](https:/correlacional.netlify.com)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+## Sesión 9: 
+## .orange[Asociación y categóricas]]
+]
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+---
+# Lectura hoy:
+
+.large[
+[Moore cap 9: <br> INFERENCIA PARA TABLAS
+DE CONTINGENCIA](https://correlacional.netlify.app/files/textos/Moore.pdf)
+]
+
+---
+# Hasta ahora
+
+- asociación entre variables continuas / correlación (Unidad 1)
+
+- inferencia para diferencias y asociaciones (Unidad 2)
+
+---
+class: inverse
+
+# Hoy Unidad 3: 
+# Asociación con variables categóricas
+
+---
+class: roja
+
+# Asociación en tablas de contingencia
+
+---
+## Escalas de medición de variables
+
+- NOIR: Nominal, Ordinal, Intervalar, Razón
+
+.small[
+| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
+|------------	|----------------------------------------------|---------------	|-----------	|
+| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
+| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
+| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
+| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
+]
+
+???
+
+  - Nominal: Números empleados como etiquetas (ej. sexo, raza)
+
+  - Ordinales: Distintas categorías puede sen ordenados en serie. Posición, no distancia. (ej. cargos en una empresa)
+
+  - Intervalares: Escalas de unidades iguales. Diferencia entre dos número consecuntivos refleja diferencia empírica. (ej. Horas del día)
+
+  - Razón: caracterizados por la presencia de un cero absoluto. (ej. frecuencias de eventos)
+
+---
+## Tipos de datos en relación a escalas de medición.
+
+* **Datos categóricos**:
+
+    - pueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango
+
+* **Datos continuos**:
+    - Medidos en escalas intervalares o de razón
+    - Pueden ser transformados a datos categóricos
+
+---
+# Tablas de contingencia o tablas cruzadas
+.pull-left[
+- Son tablas que presentan la distribución conjunta de dos o más variables
+
+- Ej. Moore cap 9: recaidas en consumo de cocaina luego de tratar adicción con distintos tratamientos
+]
+.pull-right[
+![](img/contingencia_moore.png)
+]
+
+???
+- ver temas de frecuencias absolutas, porcentuales y totales por filas o por columnas
+
+---
+# Tablas de contingencia y asociación
+
+----
+
+.pull-left[
+.content-box-red[
+.center[
+#¿Cómo establecer una medida de **asociación** de los datos en una tabla de contingencia?
+]
+]
+]
+
+.pull-right[
+.content-box-purple[
+.center[
+#¿Cómo saber si esa asociación es **estadísticamente** significativa?
+]
+]
+]
+---
+# Ejemplo
+
+Pensemos en la siguiente pregunta de investigación:
+
+**¿Existe una asociación entre la percepción de ser discriminado y el nivel educacional?**
+
+$H_a$: el nivel educacional se asocia a la percepción de ser discriminado
+
+$H_0$: no hay asociación entre nivel educacional y percepción de ser discriminado
+
+---
+.pull-left-narrow[
+# Vamos a los datos: CASEN 2022
+
+En CASEN existe una batería sobre percepción de discriminación:
+]
+
+<style>
+  .container {
+    overflow: scroll !important;
+    white-space: nowrap;
+    max-width: 1500px;
+    max-height: 600px;
+  }
+  img {
+    max-width: 100%;
+  }
+</style>
+
+.pull-rigth-wide[
+<div class="container">
+  <img src="img/per-dis.png" width="2000px"/>
+</div>
+]
+
+---
+Generar subset CASEN con educación y percepción de discriminación
+
+.pre[
+```{r eval=FALSE}
+pacman::p_load(haven, sjmisc, dplyr)
+casen2022_chi <- read_dta("/home/juank/Downloads/Base de datos Casen 2022 STATA.dta")
+summary(casen2022$r9)
+sjmisc::find_var(data = casen2022_chi,"discriminado")
+sjmisc::find_var(data = casen2022_chi,"nivel educacional")
+casen2022_chi <- casen2022_chi %>% 
+  select(r9a:r9t, e6a)  # seleccionar variables
+casen2022_chi <- casen2022_chi %>% 
+  rename("educacion"=e6a) #renombrar 
+save(casen2022_chi, 
+     file = "slides/data/casen2022_chi.Rdata") #guardar objeto
+rm(list = c('casen2022_chi')) # quitar del environment por tamaño/memoria
+```
+]
+
+---
+Recodificar discriminación
+```{r}
+load("data/casen2022_chi.Rdata")
+frq(casen2022_chi$r9t)
+```
+
+---
+
+- En la lista CASEN al final hay una item de "no ha sido discriminado" (**r9t**), que usaremos para nuestro análisis; la renombramos "discrim"
+
+- Quienes responden si son quienes no se han sentido discriminados, por lo tanto mejor cambiar las etiquetas para evitar confusiones
+
+```{r}
+casen2022_chi$discrim <- sjlabelled::set_labels(casen2022_chi$r9t,
+            labels=c( "discriminad@"=0,
+                      "no discriminad@"=1))
+```
+
+---
+
+```{r}
+frq(casen2022_chi$discrim)
+```
+
+---
+Ahora con la variable educación, recodificar universitario=1
+
+
+```{r}
+casen2022_chi$educ_sup <- rec(casen2022_chi$educacion, rec = "1:12=0;13:15=1",val.labels = c("Menos que universitaria", "Universitaria o más"))
+frq(casen2022_chi$educ_sup)
+```
+
+---
+Veamos ahora una tabla de frecuencias cruzadas
+
+.pull-left-narrow[
+.small[
+```{r eval=FALSE}
+pacman::p_load(sjPlot)
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim)
+```
+]]
+
+.pull-right-wide[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim)
+```
+]]
+
+---
+Para mayor claridad generamos porcentajes por columnas de la tabla (discriminación)
+
+.pull-left-narrow[
+.small[
+```{r eval=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.col.prc=TRUE)
+```
+]]
+
+.pull-right-wide[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.col.prc=TRUE)
+```
+]
+]
+
+---
+Y acá por filas (educación)
+
+.pull-left-narrow[
+.small[
+```{r eval=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE)
+```
+]]
+
+.pull-right-wide[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE)
+```
+]
+]
+
+
+---
+.pull-left-narrow[
+
+Con ambos porcentajes:
+.small[
+```{r eval=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE,
+  show.col.prc=TRUE
+  )
+```
+]]
+
+.pull-right-wide[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE,
+  show.col.prc=TRUE)
+```
+]
+]
+
+---
+
+.pull-left-wide[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE,
+  show.col.prc=TRUE)
+```
+]
+]
+
+.pull-right-narrow[
+<br>
+# ¿Cómo saber si existe asociación o no entre estas variables?
+]
+
+---
+# Prueba de $\chi^2$
+
+- La prueba de $\chi^2$ (chi cuadrado) se utiliza para inferencia sobre  asociación de variables categóricas en una tabla de contingencia
+
+--
+
+- $\chi^2$ se basa en un **test de diferencia**, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables, que representa la hipótesis nula $H_0$
+
+--
+
+- La lógica detrás es que si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipóteis nula
+
+---
+
+Para simplificar, pensemos en una muestra más pequeña de 100 casos y además balanceada. 
+
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria |              |                 | 50    |
+| Universitaria o más     |              |                 | 50    |
+| Total                   | 50           | 50              | 100   |
+
+
+.center[
+##_¿Cómo se deberían distribuir los casos en las celdas para constatar que hay (o no) diferencias?_
+]
+
+---
+
+<br>
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | 50           | 0               | 50    |
+| Universitaria o más     | 0            | 50              | 50    |
+| Total                   | 50           | 50              | 100   |
+
+Esta tabla estaría expresando lo esperado por nuestra **hipótesis (alternativa)**: existen diferencias al cruzar estas variables, y por lo tanto hay asociación entre educación y percepción de discriminación
+
+---
+
+Este es el otro extremo: todas las celdas tienen la misma cantidad de casos
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | 25           | 25              | 50    |
+| Universitaria o más     | 25           | 25              | 50    |
+| Total                   | 50           | 50              | 100   |
+
+
+
+Esta tabla expresa la **hipótesis nula** $H_0$: no existe asociación entre variables
+
+---
+# Pasos en el cálculo de $\chi^2$
+
+- Generación de tabla de contingencia **observada** en base a nuestros datos
+
+- Generación de tabla de contingencia **esperada** al azar en base a nuestros datos
+
+- Establecer la diferencia entre lo observado y lo esperado al azar
+
+- Establecer si esta diferencia es estadísticamente significativa
+
+
+---
+## Frecuencia esperada al azar en una tabla de contingencia
+----
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | a            | b               | (a+b) |
+| Universitaria o más     | c            | d               | (c+d) |
+| Total                   | (a+c)        | (b+d)           | N     |
+
+---
+Nos enfocamos en la celda **a**, su frecuencia esperada es:
+
+## $$f_{e_{a}}=\frac{(a+b)(a+c)}{N}$$
+
+En base a los datos de nuestro ejemplo de 100 casos:
+
+$$f_{e_{a}}=\frac{(50)(50)}{100}= \frac{2500}{100}=25$$
+
+Por lo tanto, la frecuencia esperada al azar para la celda **a**=25
+
+---
+# Sentido general de la prueba de $\chi^2$
+
+- La lógica de la prueba de Chi 2 es la comparación de las frecuencias observadas $(f_o)$ en nuestra tabla y de las frecuencias esperadas $(f_e)$ por azar
+
+- Si nuestra tabla $(f_o)$ se diferencia **significativamente** del azar $(f_e)$, entonces podemos rechazar la hipótesis nula y tenemos evidencia de asociación entre variables
+
+---
+
+.pull-left-narrow[
+$$f_{e_{a}}=\frac{(a+b)(a+c)}{N}$$
+$$f_{e_{b}}=\frac{(a+b)(b+d)}{N}$$
+$$f_{e_{c}}=\frac{(a+c)(c+d)}{N}$$
+$$f_{e_{d}}=\frac{(b+d)(c+d)}{N}$$
+]
+.pull-right-wide[
+.small[
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | a            | b               | (a+b) |
+| Universitaria o más     | c            | d               | (c+d) |
+| Total                   | (a+c)        | (b+d)           | N     |
+]
+
+## $$\chi^2=\sum\frac{(f_o-f_e)^2}{f_e}$$
+
+El valor de Chi2  será mayor en la medida que lo observado sea distinto de los esperado al azar
+
+]
+
+---
+Cálculo de frecuencias esperadas para ejemplo con CASEN
+
+.pull-left[
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,discrim)
+```
+]
+]
+
+.pull-right[
+.small[
+$$f_{e_{a}}=\frac{168994*33472}{202231}=27970.8$$
+$$f_{e_{b}}=\frac{168994*168759}{202231}=141023.2$$
+$$f_{e_{c}}=\frac{33472*33237}{202231}=5501.2$$
+$$f_{e_{d}}=\frac{168759*33237}{202231}=27735.8$$
+]
+]
+
+---
+En R también es posible obtener las frecuencias esperadas por celda con la función `CrossTable` de la librería `gmodels`
+
+```{r eval=FALSE}
+gmodels::CrossTable(casen2022_chi$educ_sup,
+                    casen2022_chi$discrim, 
+                    expected=TRUE,
+                    prop.r = FALSE, 
+                    prop.c=FALSE, 
+                    prop.chisq = FALSE, 
+                    prop.t = FALSE)
+```
+
+
+---
+.small[
+```{r echo=FALSE}
+gmodels::CrossTable(casen2022_chi$educ_sup,casen2022_chi$discrim, prop.r = FALSE, prop.c=FALSE, prop.chisq = FALSE, expected=TRUE, prop.t = FALSE)
+```
+]
+
+---
+.small[
+\begin{align*}
+\chi^2&=\sum\frac{(f_o-f_e)^2}{f_e} \\ \\
+&=\frac{(26996-27970.8)^2}{27970.8}+\frac{(141998-141023.2)^2}{141023.2}+\frac{(6476-5501.2)^2}{5501.2}+ \frac{(26761-27735.8)^2}{27735.8} \\\\
+&=\frac{(974.8)^2}{27970.8}+\frac{(974,8)^2}{141023.2}+\frac{(-974.8)^2}{5501.2}+ \frac{(-974.8)^2}{27735.8} \\\\
+&=\frac{950235,04}{27970.8}+\frac{950235,04}{141023.2}+\frac{950235,04}{5501.2}+ \frac{950235,04}{27735.8} \\\\
+&=33.97+6.74+172.7+34.3 \\\\
+\end{align*}
+]
+
+# $$\chi^2=247.46$$
+
+---
+# Inferencia y $\chi^2$
+
+- Tal como en los pasos de la inferencia para pruebas anteriores (como $Z$ y $t$), para realizar la prueba de hipótesis comparamos el valor observado de $\chi^2$ con un valor crítico, que proviene de la distribución $\chi^2$
+
+- además de especificar la probabilidad de error  $\alpha$, se requiere especificar los **grados de libertad**
+
+---
+# Grados de libertad en $\chi^2$
+
+- Como en la distribución $t$, $\chi^2$ también se ajusta por los grados de libertad, que se obtienen sumando el numero de niveles/categorías -1 de cada variable
+
+- En nuestro ejemplo de tabla de 2x2 (dos categorías de cada variable), los grados de libertad equivalen a:
+
+$$gl=(2-1)*(2-1)=1*1=1$$
+
+---
+
+![](img/chi_dist2.png)
+
+---
+# Comparación  valor crítico y valor estimado
+
+- $\chi^2$ estimado: **247.46**
+
+- $\chi^2$ crítico para un $\alpha=0.05$ y 1 grado de libertad: **3.84**
+
+
+- En el ejemplo: **valor estimado $\chi^2$ > valor crítico $\chi^2$**
+
+- Por lo tanto **se rechaza $H_0$**, podemos decir que hay evidencia de asociación entre percepción de discriminación y nivel educacional con un 95% de confianza
+
+---
+# $\chi^2$ directamente en R
+
+La función es  `chisq.test()`
+
+
+```{r}
+chisq.test(table(casen2022_chi$educ_sup,
+                 casen2022_chi$discrim))
+```
+
+---
+
+.pull-left-narrow[
+.medium[
+De todas maneras, aparece directamente en varios outputs de tablas de contingencia en R, como la generada antes con `sjtab`, de librería `sjPlot`:
+
+```{r eval=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE)
+```
+]
+]
+
+.pull-right-wide[
+<br>
+.small[
+```{r echo=FALSE}
+casen2022_chi %>%
+  sjtab(educ_sup,discrim,
+  show.row.prc=TRUE)
+```
+]
+]
+
+---
+# Resumen: 5 pasos inferencia para tablas cruzadas
+
+1. Establecer las hipótesis 
+
+2. Calcular frecuencias esperadas 
+
+3. Estimar estadístico de prueba $\chi^2$
+
+4. Establecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza y grados de libertad)
+
+5. Contraste e interpretación
+
+---
+class: roja
+
+# Correlación con variables categóricas
+
+---
+# Correlación punto biserial
+
+Es una correlación entre una variable categórica dicotómica y una variable continua
+
+Toma los mismos valores que la correlación tradicional, donde
+
+- -1: correlación negativa perfecta
+- 0: ausencia de correlación
+- +1: correlación positiva perfecta
+
+---
+# Ejemplo
+
+Tenemos las siguientes variables:
+
+```{r}
+x <- c(0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0)
+y <- c(12, 14, 17, 17, 11, 22, 23, 11, 19, 8, 12)
+```
+
+Se utilizar la función `cor.test()` para calcular la correlación punto biserial entre las dos variables
+
+```{r eval=FALSE}
+cor.test(x, y)
+```
+
+---
+```{r}
+cor.test(x, y)
+```
+
+---
+## Del output de R tenemos que:
+
+- la correlación punto biserial es **0.218**, indicando una relación positiva moderada entre ambas variables
+
+--
+
+- el valor **p** correspondiente es **0.5193**, que no permite rechazar la hipótesis nula con un 95% de confianza ya que el valor p no es menor a 0.05
+
+--
+
+- como complemento se entrega el intervalo de confianza **[-0.4391885  0.7233704]**, que como vemos contiene el **0**, y por lo tanto con un 95% de confianza no podemos decir que las correlación es distinta de 0
+
+
+---
+# Resumen general asociación bivariada y niveles de medición
+
+<br>
+
+|            | Intervalar       | Ordinal                       | Nominal |
+|------------|------------------|-------------------------------|---------|
+| **.black[Intervalar]** | Pearson          |                               |         |
+| **.black[Ordinal]**    | Pearson/Spearman | Spearman                      |         |
+| **.black[Nominal]**    | Punto-biserial   | Spearman/Punto-biserial/Chi 2 | Chi 2   |
+
+
+---
+
+# ASISTENCIA
+
+.pull-left[
+
+![:scale 90%](img/qr-correlacional-asistencia.png)
+]
+
+.pull-right[
+<br>
+<br>
+<br>
+<br>
+<br>
+bit.ly/correlacional-asistencia
+]
+
+
+---
+class: front
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Asociación, inferencia y reporte
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2023 
+## [.orange[correlacional.netlify.com]](https://encuestas-sociales.netlify.com)
+]

@@ -1,0 +1,206 @@
+---
+title: "Ejercicio de repaso general Unidad 1"
+date: "2025-09-08"
+lang: es
+execute:
+  freeze: auto 
+format: 
+  html:
+    code-fold: true
+    code-download: true
+---
+
+# Ejercicio de inferencia
+
+A Ud. se le ha solicitado estimar el promedio de salarios en la población, así como también si existen diferencias salariales entre quienes han completado la educación superior en institutos técnico-profesionales (IP) y  quienes lo han hecho en instituciones universitarias. Para ello se le ha proporcionado la siguiente información:
+  
+  - Datos: Encuesta de Ingresos, muestra aleatoria N=900 casos
+  - Promedio salarios: 850.000, desviación estándar 300.000
+  - Salario promedio técnico-profesional: 1.200.000, desviación estandar 180.000
+  - Salario promedio universitario: 1.500.000, desviación estándar 270.000
+  
+Además de esto, se le han proporcionado los siguientes valores para realizar  inferencia estadística:
+  
+  - valor crítico z para el promedio con un $\alpha$ de 5% (0,05)= 1,96, y con un $\alpha$ de 1% (0,01)= 2,58
+  - valor crítico t para diferencia de medias con  un $\alpha$ de 5% (0,05) y grados de libertad 898 (N-2)= 1,96; y con un $\alpha$ de 1% (0,01)= 2,58
+  - Error estándar del promedio:
+    - $$\sigma_{\bar{X}}=\frac{s\ (desv.\ estandar)}{\sqrt{N} (tamaño\ muestral)}$$
+  - Error estándar de la diferencia de medias salariales para esta muestra= 15000
+
+
+```{r}
+# Generación de los datos
+options(scipen = 999)
+
+# Establecer la semilla para garantizar la reproducibilidad
+set.seed(281217)  
+
+# Parámetros actualizados
+n <- 900  # Tamaño de la muestra
+promedio_salarios <- 850000;desviacion_estandar_salarios <- 300000  # Desviación estándar de los salarios
+
+# Generar la muestra con la nueva semilla y parámetros
+ingresos <- rnorm(n, mean = promedio_salarios, sd = desviacion_estandar_salarios)
+```
+
+## A. Estimación del promedio de salarios (de la población)
+
+- Tengo que el promedio de salarios de la muestra es: 900.000
+- Promedio de salarios de la población: $X$?
+
+No podemos dar un valor certero para el promedio poblacional, pero si un **rango probable de valores**.
+
+### Test de hipótesis a realizar  
+
+¿Qué tipo de aproximación de test de hipótesis corresponde en este caso? Recordemos las dos aproximaciones principales para test de hipótesis: a) contraste con valor crítico, y b) generación de intervalo de confianza. En general se pueden aplicar siempre las dos, pero su pertinencia es distinta según lo que se esté estimando:
+  
+- en este caso (estimación del promedio) se podría realizar la alternativa de contraste con valor crítico, que nos permitiría rechazar (o no) la hipótesis nula de que el promedio es cero en la población. 
+
+- ya que la alternativa anterior no es muy informativa en este caso, en la estimación puntual de parámetros (como el promedio) se prefiere utilizar un rango de probabilidad, expresado en un intervalo de confianza.
+
+Por lo tanto, en este caso lo que es más pertinente es la alternativa b: **estimación de un intervalo de confianza**
+
+### Construcción de intervalo y 5 pasos de la inferencia
+
+Los 5 pasos de la inferencia en esta caso son los siguientes:
+
+#### 1. Formular hipótesis 
+
+Contrastamos la *hipótesis nula* (el promedio es igual a 0 en la población):
+  
+  $$H_{0}: \bar{X}_{salarios}=0$$
+  
+  En referencia a la siguiente hipótesis alternativa:
+  
+  $$H_{a}: \bar{X}_{salarios} \neq 0$$
+
+#### 2.Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+El error estándar (SE, por Standard Error) del promedio es: 
+  
+$$SE_{\bar{X}}=\frac{s\ (desv.\ estandar)}{\sqrt{N} (tamaño\ muestral)}$$
+
+
+Reemplazando:
+
+$$SE_{\bar{X}}=\frac{300000}{\sqrt{900}}=\frac{300000}{30}=10000$$
+
+```{r}
+error_estandar <- desviacion_estandar_salarios / sqrt(n)
+error_estandar
+```
+
+#### 3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente
+
+Esta informació fue proporcionada en el enunciado: $\alpha=5%$, valor crítico= 1,96
+
+#### 4. Cálculo de intervalo de confianza 
+
+Recordar fórmula del intervalo de 95% de confianza para el promedio: 
+
+\begin{align*}
+\bar{x} &\pm Z_{\alpha/2}*SE_{\bar{x}} \\\\
+850000 &\pm 1.96*10000 \\\\
+850000 &\pm 19600 \\\\
+CI[830400&;869600]
+\end{align*}
+
+En R:
+
+```{r}
+# Calcular el intervalo de confianza al 95%
+z_95 <- 1.96  # Valor z para el 95% de confianza
+limite_inferior <- promedio_salarios - z_95 * error_estandar
+limite_superior <- promedio_salarios + z_95 * error_estandar
+
+# Mostrar los resultados
+cat("Intervalo de confianza al 95%: [", round(limite_inferior, 2), ", ", round(limite_superior, 2), "]\n")
+
+```
+
+#### 5. Interpretación
+
+_Utilizando una muestra de 900 individuos, se estimó el promedio de ingresos en $850,000 con una desviación estándar de $300,000. El error estándar para esta estimación es $10,000, y el intervalo de confianza al 95%, calculado con estos parámetros, se extiende de $830,400 a $869,600. Este intervalo refleja que, con un 95% de confianza, se puede afirmar que el promedio verdadero de ingresos en la población se encuentra dentro de este rango, asumiendo una distribución normal de los ingresos._
+
+
+## 2. Estimación de diferencia de medias
+
+Para este ejercicio consideramos la siguiente información proporcionada arriba: 
+
+  - Salario promedio técnico-profesional: 1.200.000, desviación estandar 180.000
+  - Salario promedio universitario: 1.500.000, desviación estándar 270.000
+  - valor crítico t para diferencia de medias con  un $\alpha$ de 5% (0,05) y grados de libertad 898 (N-2)= 1,96
+  - error estándar de la diferencia de medias= 15000
+
+Con esta información ya podemos calcular la diferencia de promedios de la muestra:
+
+$\bar{X}_{salario-universitario}-\bar{X}_{salario-técnico}=1500000-1200000=300000$
+
+La pregunta ahora es: ¿existe esta diferencia de promedios en la población?
+
+### Test de hipótesis a realizar  
+
+Para el caso anterior de la estimación del promedio hablamos de dos aproximaciones: a) contraste con valor crítico, y b) intervalo de confianza. En este caso (estimación de diferencias de promedio) tradicionalmente se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. Complementariamente, también se puede entregar información del intervalo de confianza.
+
+Por lo tanto, en este caso lo que es más pertinente es la alternativa a: **contraste con valor crítico**, pero también es recomendable agregar la información del intervalo de confianza.
+
+### Contraste con valor crítico y 5 pasos de la inferencia
+
+Los 5 pasos de la inferencia en esta caso son los siguientes:
+
+#### 1. Formular hipótesis 
+
+Contrastamos la *hipótesis nula* (no hay diferencias de promedios entre grupos):
+
+$$H_{0}: \bar{X}_{salariouniversidad} -  \bar{X}_{salarioinstituto}= 0$$
+
+En referencia a la siguiente hipótesis alternativa:
+
+$$H_{a}: \bar{X}_{salariouniversidad} -  \bar{X}_{salarioinstituto} \neq 0$$
+
+#### 2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+El error estándar de la diferencias de promedios es:  
+  
+$$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$
+
+La información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 15000
+
+Con esto podemos calcular el valor del t empírico:
+
+$t=\frac{diferenciamedias}{se_{diferenciamedias}} \frac{(\bar{x}_1-\bar{x}_2)}{se_{(\bar{x}_1-\bar{x}_2)}}$
+
+Con nuestros datos:
+
+$t=\frac{300000}{15000}=20$
+
+
+#### 3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente
+
+- Proporcionado en el enunciado
+
+
+#### 4. Contraste valores empírico/crítico (e intervalo de confianza)
+
+t empírico= 20 > t critico=1,96
+
+Intervalo al 95% de confianza:
+
+\begin{align*}
+\bar{x}_1-\bar{x}_2 &\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
+300000 &\pm 1.96*15000 \\\\
+300000 &\pm 29400 \\\\
+CI[270600&\ ;329400]
+\end{align*}
+
+
+#### 5. Interpretación
+
+_Se llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p < .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos._
+
+
+
+
+
+
+

@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística Correlacional</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=".small[Juan Carlos Castillo    Departamento de Sociología - UCH / COES   ]" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link rel="stylesheet" href="css/custom_2020.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: front
+
+
+
+
+
+
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Asociación, inferencia y reporte
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2023 
+## [.orange[correlacional.netlify.com]](https:/correlacional.netlify.com)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+## Sesión 9: 
+## .orange[Asociación y categóricas]]
+]
+]
+
+---
+
+layout: true
+class: animated, fadeIn
+
+---
+# Lectura hoy:
+
+.large[
+[Moore cap 9: &lt;br&gt; INFERENCIA PARA TABLAS
+DE CONTINGENCIA](https://correlacional.netlify.app/files/textos/Moore.pdf)
+]
+
+---
+# Hasta ahora
+
+- asociación entre variables continuas / correlación (Unidad 1)
+
+- inferencia para diferencias y asociaciones (Unidad 2)
+
+---
+class: inverse
+
+# Hoy Unidad 3: 
+# Asociación con variables categóricas
+
+---
+class: roja
+
+# Asociación en tablas de contingencia
+
+---
+## Escalas de medición de variables
+
+- NOIR: Nominal, Ordinal, Intervalar, Razón
+
+.small[
+| Tipo       	| Características                     	        | Propiedad de números 	| Ejemplo|
+|------------	|----------------------------------------------|---------------	|-----------	|
+| *Nominal*    	| Uso de números en lugar de palabras 	| Identidad            	| Nacionalidad      	|
+| *Ordinal*    	| Números se usan para ordenar series 	| + ranking            	| Nivel educacional 	|
+| *Intervalar* 	| Intervalos iguales entre números    	| + igualdad           	| Temperatura       	|
+| *Razón*      	| Cero real                           	| + aditividad         	| Distancia         	|
+]
+
+???
+
+  - Nominal: Números empleados como etiquetas (ej. sexo, raza)
+
+  - Ordinales: Distintas categorías puede sen ordenados en serie. Posición, no distancia. (ej. cargos en una empresa)
+
+  - Intervalares: Escalas de unidades iguales. Diferencia entre dos número consecuntivos refleja diferencia empírica. (ej. Horas del día)
+
+  - Razón: caracterizados por la presencia de un cero absoluto. (ej. frecuencias de eventos)
+
+---
+## Tipos de datos en relación a escalas de medición.
+
+* **Datos categóricos**:
+
+    - pueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango
+
+* **Datos continuos**:
+    - Medidos en escalas intervalares o de razón
+    - Pueden ser transformados a datos categóricos
+
+---
+# Tablas de contingencia o tablas cruzadas
+.pull-left[
+- Son tablas que presentan la distribución conjunta de dos o más variables
+
+- Ej. Moore cap 9: recaidas en consumo de cocaina luego de tratar adicción con distintos tratamientos
+]
+.pull-right[
+![](img/contingencia_moore.png)
+]
+
+???
+- ver temas de frecuencias absolutas, porcentuales y totales por filas o por columnas
+
+---
+# Tablas de contingencia y asociación
+
+----
+
+.pull-left[
+.content-box-red[
+.center[
+#¿Cómo establecer una medida de **asociación** de los datos en una tabla de contingencia?
+]
+]
+]
+
+.pull-right[
+.content-box-purple[
+.center[
+#¿Cómo saber si esa asociación es **estadísticamente** significativa?
+]
+]
+]
+---
+# Ejemplo
+
+Pensemos en la siguiente pregunta de investigación:
+
+**¿Existe una asociación entre la percepción de ser discriminado y el nivel educacional?**
+
+`\(H_a\)`: el nivel educacional se asocia a la percepción de ser discriminado
+
+`\(H_0\)`: no hay asociación entre nivel educacional y percepción de ser discriminado
+
+---
+.pull-left-narrow[
+# Vamos a los datos: CASEN 2022
+
+En CASEN existe una batería sobre percepción de discriminación:
+]
+
+&lt;style&gt;
+  .container {
+    overflow: scroll !important;
+    white-space: nowrap;
+    max-width: 1500px;
+    max-height: 600px;
+  }
+  img {
+    max-width: 100%;
+  }
+&lt;/style&gt;
+
+.pull-rigth-wide[
+&lt;div class="container"&gt;
+  &lt;img src="img/per-dis.png" width="2000px"/&gt;
+&lt;/div&gt;
+]
+
+---
+Generar subset CASEN con educación y percepción de discriminación
+
+.pre[
+
+```r
+pacman::p_load(haven, sjmisc, dplyr)
+casen2022_chi &lt;- read_dta("/home/juank/Downloads/Base de datos Casen 2022 STATA.dta")
+summary(casen2022$r9)
+sjmisc::find_var(data = casen2022_chi,"discriminado")
+sjmisc::find_var(data = casen2022_chi,"nivel educacional")
+casen2022_chi &lt;- casen2022_chi %&gt;% 
+  select(r9a:r9t, e6a)  # seleccionar variables
+casen2022_chi &lt;- casen2022_chi %&gt;% 
+  rename("educacion"=e6a) #renombrar 
+save(casen2022_chi, 
+     file = "slides/data/casen2022_chi.Rdata") #guardar objeto
+rm(list = c('casen2022_chi')) # quitar del environment por tamaño/memoria
+```
+]
+
+---
+Recodificar discriminación
+
+```r
+load("data/casen2022_chi.Rdata")
+frq(casen2022_chi$r9t)
+```
+
+```
+r9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.83 sd=0.37
+
+Value | Label |      N | Raw % | Valid % | Cum. %
+-------------------------------------------------
+    0 |    No |  33472 | 16.55 |   16.55 |  16.55
+    1 |    Sí | 168759 | 83.45 |   83.45 | 100.00
+ &lt;NA&gt; |  &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+---
+
+- En la lista CASEN al final hay una item de "no ha sido discriminado" (**r9t**), que usaremos para nuestro análisis; la renombramos "discrim"
+
+- Quienes responden si son quienes no se han sentido discriminados, por lo tanto mejor cambiar las etiquetas para evitar confusiones
+
+
+```r
+casen2022_chi$discrim &lt;- sjlabelled::set_labels(casen2022_chi$r9t,
+            labels=c( "discriminad@"=0,
+                      "no discriminad@"=1))
+```
+
+---
+
+
+```r
+frq(casen2022_chi$discrim)
+```
+
+```
+r9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.83 sd=0.37
+
+Value |           Label |      N | Raw % | Valid % | Cum. %
+-----------------------------------------------------------
+    0 |    discriminad@ |  33472 | 16.55 |   16.55 |  16.55
+    1 | no discriminad@ | 168759 | 83.45 |   83.45 | 100.00
+ &lt;NA&gt; |            &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+---
+Ahora con la variable educación, recodificar universitario=1
+
+
+
+```r
+casen2022_chi$educ_sup &lt;- rec(casen2022_chi$educacion, rec = "1:12=0;13:15=1",val.labels = c("Menos que universitaria", "Universitaria o más"))
+frq(casen2022_chi$educ_sup)
+```
+
+```
+e6a. ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió? (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.16 sd=0.37
+
+Value |                   Label |      N | Raw % | Valid % | Cum. %
+-------------------------------------------------------------------
+    0 | Menos que universitaria | 168994 | 83.56 |   83.56 |  83.56
+    1 |     Universitaria o más |  33237 | 16.44 |   16.44 | 100.00
+ &lt;NA&gt; |                    &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;
+```
+
+---
+Veamos ahora una tabla de frecuencias cruzadas
+
+.pull-left-narrow[
+.small[
+
+```r
+pacman::p_load(sjPlot)
+casen2022_chi %&gt;%
+  sjtab(educ_sup,
+        discrim)
+```
+]]
+
+.pull-right-wide[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]]
+
+---
+Para mayor claridad generamos porcentajes por columnas de la tabla (discriminación)
+
+.pull-left-narrow[
+.small[
+
+```r
+casen2022_chi %&gt;%
+  sjtab(educ_sup,
+        discrim,
+  show.col.prc=TRUE)
+```
+]]
+
+.pull-right-wide[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;80.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;84.1&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;83.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;19.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;15.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;16.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+---
+Y acá por filas (educación)
+
+.pull-left-narrow[
+.small[
+
+```r
+casen2022_chi %&gt;%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE)
+```
+]]
+
+.pull-right-wide[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;84&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;19.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;80.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;83.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+
+---
+.pull-left-narrow[
+
+Con ambos porcentajes:
+.small[
+
+```r
+casen2022_chi %&gt;%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE,
+  show.col.prc=TRUE
+  )
+```
+]]
+
+.pull-right-wide[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;80.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;84&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;84.1&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;83.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;19.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;19.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;80.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;15.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;16.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;83.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+---
+
+.pull-left-wide[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;80.7&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;84&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;84.1&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;83.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;19.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;19.3&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;80.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;15.9&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;16.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;83.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;br&gt;&lt;span style="color:#339933;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+.pull-right-narrow[
+&lt;br&gt;
+# ¿Cómo saber si existe asociación o no entre estas variables?
+]
+
+---
+# Prueba de `\(\chi^2\)`
+
+- La prueba de `\(\chi^2\)` (chi cuadrado) se utiliza para inferencia sobre  asociación de variables categóricas en una tabla de contingencia
+
+--
+
+- `\(\chi^2\)` se basa en un **test de diferencia**, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables, que representa la hipótesis nula `\(H_0\)`
+
+--
+
+- La lógica detrás es que si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipóteis nula
+
+---
+
+Para simplificar, pensemos en una muestra más pequeña de 100 casos y además balanceada. 
+
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria |              |                 | 50    |
+| Universitaria o más     |              |                 | 50    |
+| Total                   | 50           | 50              | 100   |
+
+
+.center[
+##_¿Cómo se deberían distribuir los casos en las celdas para constatar que hay (o no) diferencias?_
+]
+
+---
+
+&lt;br&gt;
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | 50           | 0               | 50    |
+| Universitaria o más     | 0            | 50              | 50    |
+| Total                   | 50           | 50              | 100   |
+
+Esta tabla estaría expresando lo esperado por nuestra **hipótesis (alternativa)**: existen diferencias al cruzar estas variables, y por lo tanto hay asociación entre educación y percepción de discriminación
+
+---
+
+Este es el otro extremo: todas las celdas tienen la misma cantidad de casos
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | 25           | 25              | 50    |
+| Universitaria o más     | 25           | 25              | 50    |
+| Total                   | 50           | 50              | 100   |
+
+
+
+Esta tabla expresa la **hipótesis nula** `\(H_0\)`: no existe asociación entre variables
+
+---
+# Pasos en el cálculo de `\(\chi^2\)`
+
+- Generación de tabla de contingencia **observada** en base a nuestros datos
+
+- Generación de tabla de contingencia **esperada** al azar en base a nuestros datos
+
+- Establecer la diferencia entre lo observado y lo esperado al azar
+
+- Establecer si esta diferencia es estadísticamente significativa
+
+
+---
+## Frecuencia esperada al azar en una tabla de contingencia
+----
+
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | a            | b               | (a+b) |
+| Universitaria o más     | c            | d               | (c+d) |
+| Total                   | (a+c)        | (b+d)           | N     |
+
+---
+Nos enfocamos en la celda **a**, su frecuencia esperada es:
+
+## `$$f_{e_{a}}=\frac{(a+b)(a+c)}{N}$$`
+
+En base a los datos de nuestro ejemplo de 100 casos:
+
+`$$f_{e_{a}}=\frac{(50)(50)}{100}= \frac{2500}{100}=25$$`
+
+Por lo tanto, la frecuencia esperada al azar para la celda **a**=25
+
+---
+# Sentido general de la prueba de `\(\chi^2\)`
+
+- La lógica de la prueba de Chi 2 es la comparación de las frecuencias observadas `\((f_o)\)` en nuestra tabla y de las frecuencias esperadas `\((f_e)\)` por azar
+
+- Si nuestra tabla `\((f_o)\)` se diferencia **significativamente** del azar `\((f_e)\)`, entonces podemos rechazar la hipótesis nula y tenemos evidencia de asociación entre variables
+
+---
+
+.pull-left-narrow[
+`$$f_{e_{a}}=\frac{(a+b)(a+c)}{N}$$`
+`$$f_{e_{b}}=\frac{(a+b)(b+d)}{N}$$`
+`$$f_{e_{c}}=\frac{(a+c)(c+d)}{N}$$`
+`$$f_{e_{d}}=\frac{(b+d)(c+d)}{N}$$`
+]
+.pull-right-wide[
+.small[
+|                         | discriminad@ | no discriminad@ | Total |
+|-------------------------|--------------|-----------------|-------|
+| Menos que universitaria | a            | b               | (a+b) |
+| Universitaria o más     | c            | d               | (c+d) |
+| Total                   | (a+c)        | (b+d)           | N     |
+]
+
+## `$$\chi^2=\sum\frac{(f_o-f_e)^2}{f_e}$$`
+
+El valor de Chi2  será mayor en la medida que lo observado sea distinto de los esperado al azar
+
+]
+
+---
+Cálculo de frecuencias esperadas para ejemplo con CASEN
+
+.pull-left[
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+.pull-right[
+.small[
+`$$f_{e_{a}}=\frac{168994*33472}{202231}=27970.8$$`
+`$$f_{e_{b}}=\frac{168994*168759}{202231}=141023.2$$`
+`$$f_{e_{c}}=\frac{33472*33237}{202231}=5501.2$$`
+`$$f_{e_{d}}=\frac{168759*33237}{202231}=27735.8$$`
+]
+]
+
+---
+En R también es posible obtener las frecuencias esperadas por celda con la función `CrossTable` de la librería `gmodels`
+
+
+```r
+gmodels::CrossTable(casen2022_chi$educ_sup,
+                    casen2022_chi$discrim, 
+                    expected=TRUE,
+                    prop.r = FALSE, 
+                    prop.c=FALSE, 
+                    prop.chisq = FALSE, 
+                    prop.t = FALSE)
+```
+
+
+---
+.small[
+
+```
+
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+|              Expected N |
+|-------------------------|
+
+ 
+Total Observations in Table:  202231 
+
+ 
+                       | casen2022_chi$discrim 
+casen2022_chi$educ_sup |         0 |         1 | Row Total | 
+-----------------------|-----------|-----------|-----------|
+                     0 |     26996 |    141998 |    168994 | 
+                       | 27970.821 | 141023.179 |           | 
+-----------------------|-----------|-----------|-----------|
+                     1 |      6476 |     26761 |     33237 | 
+                       |  5501.179 | 27735.821 |           | 
+-----------------------|-----------|-----------|-----------|
+          Column Total |     33472 |    168759 |    202231 | 
+-----------------------|-----------|-----------|-----------|
+
+ 
+Statistics for All Table Factors
+
+
+Pearson's Chi-squared test 
+------------------------------------------------------------
+Chi^2 =  247.7146     d.f. =  1     p =  8.178928e-56 
+
+Pearson's Chi-squared test with Yates' continuity correction 
+------------------------------------------------------------
+Chi^2 =  247.4605     d.f. =  1     p =  9.291443e-56 
+
+ 
+```
+]
+
+---
+.small[
+`\begin{align*}
+\chi^2&amp;=\sum\frac{(f_o-f_e)^2}{f_e} \\ \\
+&amp;=\frac{(26996-27970.8)^2}{27970.8}+\frac{(141998-141023.2)^2}{141023.2}+\frac{(6476-5501.2)^2}{5501.2}+ \frac{(26761-27735.8)^2}{27735.8} \\\\
+&amp;=\frac{(974.8)^2}{27970.8}+\frac{(974,8)^2}{141023.2}+\frac{(-974.8)^2}{5501.2}+ \frac{(-974.8)^2}{27735.8} \\\\
+&amp;=\frac{950235,04}{27970.8}+\frac{950235,04}{141023.2}+\frac{950235,04}{5501.2}+ \frac{950235,04}{27735.8} \\\\
+&amp;=33.97+6.74+172.7+34.3 \\\\
+\end{align*}`
+]
+
+# `$$\chi^2=247.46$$`
+
+---
+# Inferencia y `\(\chi^2\)`
+
+- Tal como en los pasos de la inferencia para pruebas anteriores (como `\(Z\)` y `\(t\)`), para realizar la prueba de hipótesis comparamos el valor observado de `\(\chi^2\)` con un valor crítico, que proviene de la distribución `\(\chi^2\)`
+
+- además de especificar la probabilidad de error  `\(\alpha\)`, se requiere especificar los **grados de libertad**
+
+---
+# Grados de libertad en `\(\chi^2\)`
+
+- Como en la distribución `\(t\)`, `\(\chi^2\)` también se ajusta por los grados de libertad, que se obtienen sumando el numero de niveles/categorías -1 de cada variable
+
+- En nuestro ejemplo de tabla de 2x2 (dos categorías de cada variable), los grados de libertad equivalen a:
+
+`$$gl=(2-1)*(2-1)=1*1=1$$`
+
+---
+
+![](img/chi_dist2.png)
+
+---
+# Comparación  valor crítico y valor estimado
+
+- `\(\chi^2\)` estimado: **247.46**
+
+- `\(\chi^2\)` crítico para un `\(\alpha=0.05\)` y 1 grado de libertad: **3.84**
+
+
+- En el ejemplo: **valor estimado `\(\chi^2\)` &gt; valor crítico `\(\chi^2\)`**
+
+- Por lo tanto **se rechaza `\(H_0\)`**, podemos decir que hay evidencia de asociación entre percepción de discriminación y nivel educacional con un 95% de confianza
+
+---
+# `\(\chi^2\)` directamente en R
+
+La función es  `chisq.test()`
+
+
+
+```r
+chisq.test(table(casen2022_chi$educ_sup,
+                 casen2022_chi$discrim))
+```
+
+```
+
+	Pearson's Chi-squared test with Yates' continuity
+	correction
+
+data:  table(casen2022_chi$educ_sup, casen2022_chi$discrim)
+X-squared = 247.46, df = 1, p-value &lt; 2.2e-16
+```
+
+---
+
+.pull-left-narrow[
+.medium[
+De todas maneras, aparece directamente en varios outputs de tablas de contingencia en R, como la generada antes con `sjtab`, de librería `sjPlot`:
+
+
+```r
+casen2022_chi %&gt;%
+  sjtab(educ_sup,
+        discrim,
+  show.row.prc=TRUE)
+```
+]
+]
+
+.pull-right-wide[
+&lt;br&gt;
+.small[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+ &lt;tr&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2"&gt;e6a. ¿Cuál es el&lt;br&gt;nivel educacional al&lt;br&gt;que asiste o el más&lt;br&gt;alto al cual&lt;br&gt;asistió?&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2"&gt;r9t. Últ. 12 meses:&lt;br&gt;No ha sido tratado&lt;br&gt;injustamente o&lt;br&gt;discriminado&lt;/th&gt;
+ &lt;th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2"&gt;Total&lt;/th&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;discriminad@&lt;/td&gt;
+ &lt;td style="border-bottom:1px solid; text-align:center; padding:0.2cm;"&gt;no discriminad@&lt;/td&gt;
+ &lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Menos que&lt;br&gt;universitaria&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26996&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;141998&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;84&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;168994&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  text-align:left; vertical-align:middle;"&gt;Universitaria o más&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;6476&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;19.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center; "&gt;&lt;span style="color:black;"&gt;26761&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;80.5&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;  "&gt;&lt;span style="color:black;"&gt;33237&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;tr&gt; 
+&lt;td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;"&gt;Total&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;33472&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;16.6&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;168759&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;83.4&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt;
+&lt;td style="padding:0.2cm; text-align:center;   border-bottom:double;"&gt;&lt;span style="color:black;"&gt;202231&lt;/span&gt;&lt;br&gt;&lt;span style="color:#333399;"&gt;100&amp;nbsp;&amp;#37;&lt;/span&gt;&lt;/td&gt; 
+&lt;/tr&gt;
+&lt;td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4"&gt;&amp;chi;&lt;sup&gt;2&lt;/sup&gt;=247.461 &amp;middot; df=1 &amp;middot; &amp;phi;=0.035 &amp;middot; p=0.000&lt;/td&gt; 
+&lt;/tr&gt;
+ 
+&lt;/table&gt;
+]
+]
+
+---
+# Resumen: 5 pasos inferencia para tablas cruzadas
+
+1. Establecer las hipótesis 
+
+2. Calcular frecuencias esperadas 
+
+3. Estimar estadístico de prueba `\(\chi^2\)`
+
+4. Establecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza y grados de libertad)
+
+5. Contraste e interpretación
+
+---
+class: roja
+
+# Correlación con variables categóricas
+
+---
+# Correlación punto biserial
+
+Es una correlación entre una variable categórica dicotómica y una variable continua
+
+Toma los mismos valores que la correlación tradicional, donde
+
+- -1: correlación negativa perfecta
+- 0: ausencia de correlación
+- +1: correlación positiva perfecta
+
+---
+# Ejemplo
+
+Tenemos las siguientes variables:
+
+
+```r
+x &lt;- c(0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0)
+y &lt;- c(12, 14, 17, 17, 11, 22, 23, 11, 19, 8, 12)
+```
+
+Se utilizar la función `cor.test()` para calcular la correlación punto biserial entre las dos variables
+
+
+```r
+cor.test(x, y)
+```
+
+---
+
+```r
+cor.test(x, y)
+```
+
+```
+
+	Pearson's product-moment correlation
+
+data:  x and y
+t = 0.67064, df = 9, p-value = 0.5193
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.4391885  0.7233704
+sample estimates:
+      cor 
+0.2181635 
+```
+
+---
+## Del output de R tenemos que:
+
+- la correlación punto biserial es **0.218**, indicando una relación positiva moderada entre ambas variables
+
+--
+
+- el valor **p** correspondiente es **0.5193**, que no permite rechazar la hipótesis nula con un 95% de confianza ya que el valor p no es menor a 0.05
+
+--
+
+- como complemento se entrega el intervalo de confianza **[-0.4391885  0.7233704]**, que como vemos contiene el **0**, y por lo tanto con un 95% de confianza no podemos decir que las correlación es distinta de 0
+
+
+---
+# Resumen general asociación bivariada y niveles de medición
+
+&lt;br&gt;
+
+|            | Intervalar       | Ordinal                       | Nominal |
+|------------|------------------|-------------------------------|---------|
+| **.black[Intervalar]** | Pearson          |                               |         |
+| **.black[Ordinal]**    | Pearson/Spearman | Spearman                      |         |
+| **.black[Nominal]**    | Punto-biserial   | Spearman/Punto-biserial/Chi 2 | Chi 2   |
+
+
+---
+
+# ASISTENCIA
+
+.pull-left[
+
+![:scale 90%](img/qr-correlacional-asistencia.png)
+]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+bit.ly/correlacional-asistencia
+]
+
+
+---
+class: front
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Asociación, inferencia y reporte
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2023 
+## [.orange[correlacional.netlify.com]](https://encuestas-sociales.netlify.com)
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "dracula",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url("img/logo-correlacional-transp.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 16.3em;
+  right: 31em;
+  width: 110px;
+  height: 70px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

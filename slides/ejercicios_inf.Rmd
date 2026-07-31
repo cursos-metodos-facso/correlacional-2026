@@ -1,0 +1,60 @@
+
+
+```{r}
+pacman::p_load(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)
+casen2022 <- read_dta("/home/juank/Downloads/Base de datos Casen 2022 STATA.dta")
+casen2022_inf <- casen2022 %>% 
+  select(y1,sexo,e6a_no_asiste)  # seleccionar variables
+casen2022_inf <- casen2022_inf %>% 
+  rename("salario"=y1,"educacion"=e6a_no_asiste ) #renombrar 
+casen2022_inf <-na.omit(casen2022_inf) # sacar perdidos
+casen2022_inf$salario <- car::recode(casen2022_inf$salario, "c(-88,0)=NA")
+save(casen2022_inf, 
+     file = "casen2022_inf2.Rdata") #guardar objeto
+rm(list = c('casen2022')) 
+
+
+load("casen2022_inf2.Rdata")
+stargazer(as.data.frame(casen2022_inf), type = "text")
+frq(casen2022_inf$educacion)
+casen2022_inf$educ_sup <- rec(casen2022_inf$educacion, rec = "1:12=0;13:15=1",
+      val.labels = c("Menos que universitaria", "Universitaria o más"))
+frq(casen2022_inf$educ_sup)
+
+casen2022_inf%>% # se especifica la base de datos
+   dplyr::group_by(educ_sup=sjlabelled::as_label(educ_sup)) %>% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs.=n(),Promedio=mean(salario, na.rm=TRUE),SD=sd(salario, na.rm=TRUE)) %>% # se agregan las operaciones a presentar en la tabla
+  kable(, format = "markdown") # se genera la tabla
+```
+
+
+# Existen diferencias de promedios de salario entre distintos niveles educacionales? 
+```{r}
+# With raw data
+casen2020_inf <-na.omit(casen2020_inf)
+casen2020_inf$sexo_f <-as.factor(casen2020_inf$sexo)
+meanCI(casen2022_inf,salario,alpha=0.01)
+meanCI(casen2022_inf, educacion,salario, alpha=0.01 )
+casen2022_inf %>%  filter(educ_sup==1) %>%  meanCI(., sexo,salario, alpha=0.01 ) 
+```
+
+```{r}
+# Random sample 1000 casos
+set.seed(20)
+casen_1000 <- casen2022_inf %>% sample_n(300)
+casen_1000%>% 
+   dplyr::group_by(sexo=sjlabelled::as_label(sexo)) %>% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs.=n(),Promedio=mean(salario, na.rm=TRUE),SD=sd(salario, na.rm=TRUE)) %>% # se agregan las operaciones a presentar en la tabla
+  kable(, format = "markdown") # se genera la tabla
+
+casen_1000 %>%  meanCI(., sexo,salario, alpha=0.05) 
+
+casen_1000 %>%  filter(educ_sup==0) %>%  meanCI(., sexo,salario, alpha=0.05)
+
+pacman::p_load(gginference)
+ggttest(t.test(salario ~ sexo, data = casen_1000, alternative="greater", var.equal=TRUE))
+
+
+```
+
+
