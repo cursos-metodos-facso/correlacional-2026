@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<link href="../files/logo.png" rel="icon" type="image/png">
+<link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-html/tabby.min.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.7.33">
 
-  <title>Ciencia Social Abierta – presentacion</title>
+  <title>Estadística Correlacional – presentacion</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -29,7 +29,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-59e9558f5b602c975c9372295c0d8301.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-2425bec490b0ae36ad99791febfd6588.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -45,6 +45,7 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
+      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -121,9 +122,9 @@
       margin-right: 0; 
     }
   </style>
-<meta property="og:title" content="Ciencia Social Abierta">
-<meta property="og:image" content="https://multinivel-facso.netlify.app/slides/files/logo.png">
-<meta property="og:site_name" content="Ciencia Social Abierta">
+<meta property="og:title" content="Estadística Correlacional">
+<meta property="og:image" content="https://multinivel-facso.netlify.app/slides/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
 <body class="quarto-light">
@@ -132,199 +133,249 @@
 
 
 <section>
-<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#9B2626">
+<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
 <h1></h1>
-
+<p><br></p>
 </section>
 <div class="columns">
-<div class="column" style="width:35%;">
+<div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="img/logo-ciencia-abierta.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
 </figure>
 </div>
-</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:2%;">
 
-</div><div class="column" style="font-size: 25px; text-align: right; margin: 0 auto;">
+</div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="section-1"></h3>
-<p><span style="font-size: 3em; color: white;">Ciencia Social Abierta</span></p>
-<p><span style="font-size: 1.5em; color: white;">Juan Carlos Castillo Sociología FACSO UChile</span></p>
-<p><span style="font-size: 1.5em; color: white;">Primer Semestre 2026</span></p>
-<p><a href="https://cienciasocialabierta.netlify.app/">cienciasocialabierta.netlify.app</a></p>
+<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<div style="border-top: 1px solid white; margin: 0.3em 0;">
+
 </div>
+<p><span style="font-size: 1.5em; color: #dfc117;">Inferencia, asociación, y reporte</span></p>
+<p><span style="font-size: 1em; color: white;">Juan Carlos Castillo</span><br>
+<span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
+<span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
+<p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</div>
+</div></section>
+<section>
+<section id="section-1" class="title-slide slide level1 center">
+<h1></h1>
+
+</section>
+<h3 id="es-posible-que-la-mayoría-de-las-personas-ganen-menos-que-el-promedio-de-ingresos-de-la-población">¿Es posible que la mayoría de las personas ganen menos que el promedio de ingresos de la población?</h3>
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="img/emoji-thinking.png" class="quarto-figure quarto-figure-right" style="width:50.0%"></p>
+</figure>
 </div></section>
 <section>
 <section id="section-2" class="title-slide slide level1 center">
 <h1></h1>
 
-</section>
-<section id="cómo-se-produce-el-conocimiento-científico" class="slide level2 center text-center" data-background-color="#9B2626">
-<h2>¿Cómo se produce el conocimiento científico?</h2>
-</section></section>
-<section>
-<section id="crisis-de-reproducibilidad-en-ciencia" class="title-slide slide level1 center" data-background-color="#9B2626">
-<h1>¿Crisis de reproducibilidad en ciencia?</h1>
-<p><span style="font-size: 1.5em; font-weight: bold; color: #dfc117;">1. Transparencia</span></p>
-<p><span style="font-size: 1.5em; color: #5f6469;">2. Reproducibilidad</span></p>
-<p><span style="font-size: 1.5em; color: #5F6469;">3. Acceso</span></p>
-</section>
+<img data-src="img/casen-autonomo-2024.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="existen-diferencias-significativas-de-ingreso-entre-grupos-de-la-población" class="slide level2">
+<h2>¿Existen diferencias <span style="color: #9e0000;">significativas</span> de ingreso entre grupos de la población?</h2>
+
+<img data-src="img/emoji-thinking.png" class="quarto-figure quarto-figure-right r-stretch" style="width:50.0%"></section>
 <section id="section-3" class="slide level2">
 <h2></h2>
-<h3 id="flujo-de-investigación-científica">Flujo de investigación científica</h3>
 
-<img data-src="img/01/flujo_1.png" class="r-stretch"></section>
-<section id="section-4" class="slide level2">
-<h2></h2>
-<h3 id="flujo-de-investigación-científica-y-ciencia-abierta">Flujo de investigación científica y ciencia abierta</h3>
-
-<img data-src="img/01/flujo_2.png" class="r-stretch"></section>
-<section id="section-5" class="slide level2">
-<h2></h2>
-<h3 id="flujo-de-investigación-científica-y-ciencia-abierta-1">Flujo de investigación científica y ciencia abierta</h3>
-
-<img data-src="img/01/flujo_trans.png" class="r-stretch"></section>
-<section id="transparencia-1-diseño" class="slide level2">
-<h2>Transparencia 1: Diseño</h2>
+<img data-src="img/brechas.jpeg" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
+<section id="este-curso" class="slide level2">
+<h2>ESTE CURSO</h2>
+<h3 id="a--lo-significativo-y-el-error">a- Lo SIGNIFICATIVO (y el error)</h3>
 <ul>
-<li>Presión por publicar resultados “relevantes” (rechazar <span class="math inline">\(H_0\)</span> )</li>
+<li>inferencia estadística</li>
 </ul>
-<div class="highlight-last">
+<h3 id="b--diferencias-y-asociaciones-entre-grupos">b- Diferencias y asociaciones entre grupos</h3>
 <ul>
-<li class="fragment"><p>HARKing: Hypothesis After the Results are Known</p>
-<ul>
-<li class="fragment"><p>Se adaptan las hipótesis y teorías a los resultados</p></li>
-<li class="fragment"><p>Barreras al avance del conocimiento ya que solo conocemos lo que “resulta”</p></li>
-</ul></li>
+<li>correlación</li>
 </ul>
-</div>
-</section>
-<section id="transparencia-2-datos" class="slide level2">
-<h2>Transparencia 2: Datos</h2>
-<div class="highlight-last">
-<ul>
-<li class="fragment"><p>Dificultades en el acceso y la documentación de la información levantada en la investigación</p></li>
-<li class="fragment"><p>Barreras la reproducibilidad y al avance de investigaciones con datos muchas veces levantados con fondos públicos</p></li>
-</ul>
-</div>
 </section></section>
-<section>
-<section id="crisis-de-reproducibilidad-en-ciencia-1" class="title-slide slide level1 center" data-background-color="#9B2626">
-<h1>¿Crisis de reproducibilidad en ciencia?</h1>
-<p><span style="font-size: 1.5em; color: #5F6469;">1. Transparencia</span></p>
-<p><span style="font-size: 1.5em; color: #dfc117;">2. Reproducibilidad</span></p>
-<p><span style="font-size: 1.5em; color: #5F6469;">3. Acceso</span></p>
+<section id="objetivo-de-la-sesión" class="title-slide slide level1 center" data-background-color="#0C3547">
+<h1><span style="color: white;">Objetivo de la sesión:</span></h1>
+<div style="color: white;">
+<ul>
+<li><p>marco general del curso</p></li>
+<li><p>motivación</p></li>
+<li><p>contenidos y funcionamiento</p></li>
+</ul>
+</div>
 </section>
-<section id="reproducibilidad" class="slide level2">
-<h2>Reproducibilidad</h2>
 
-<img data-src="img/01/flujo_rep.png" class="r-stretch"></section>
-<section id="section-6" class="slide level2">
-<h2></h2>
-<h3 id="qué-porcentaje-de-los-estudios-publicados-son-reproducibles">¿Qué porcentaje de los estudios publicados son reproducibles?</h3>
+<section id="section-4" class="title-slide slide level1 vcenter center" data-background-color="#212525" style="text-align: center;">
+<h1></h1>
+<p><span style="color: white; font-size: 1.7em;"><em>¿Qué saben de este curso?</em></span><br>
+<br> <span style="color: white; font-size: 1.7em;"><em>¿Cuáles son sus expectativas?</em></span></p>
+</section>
+
+<section id="algunos-mitos" class="title-slide slide level1 center">
+<h1>Algunos mitos</h1>
 <div class="columns">
-<div class="column" style="width:80%;">
-<p><img data-src="img/01/reproducibility_science.png"></p>
-</div><div class="column" style="width:20%;">
-<p>alrededor de un <strong>40%!</strong> (varía por disciplina)</p>
+<div class="column" style="width:50%;">
+<p><img data-src="https://jc-castillo.com/images/albums/gallery/IMG-20220312-WA0007.jpg"></p>
+</div><div class="column fragment" style="width:50%;">
+<ul>
+<li><p>positivismo</p></li>
+<li><p>predominante</p></li>
+<li><p>foco en los números</p></li>
+<li><p>cuadrado</p></li>
+<li><p>masculino</p></li>
+<li><p>verdad absoluta</p></li>
+</ul>
 </div></div>
 </section>
-<section id="por-qué-ocurre-la-crisis-de-reproducibilidad" class="slide level2">
-<h2>¿Por qué ocurre la crisis de reproducibilidad?</h2>
-<p>Algunas razones:</p>
-<div class="highlight-last">
-<ul>
-<li class="fragment"><p>pobre documentación metodológica</p></li>
-<li class="fragment"><p>sesgo hacia búsqueda y publicación de resultados significativos (p-hacking), atribuido a la presión por publicar</p></li>
-<li class="fragment"><p>en algunos casos, falseamiento de datos/análisis</p></li>
-</ul>
-</div>
+
+<section>
+<section id="por-qué-estudiar-estadística-en-sociología" class="title-slide slide level1 vcenter center" data-background-color="#212525" style="text-align: center;">
+<h1><span style="color: #dfc117;">¿Por qué estudiar estadística en sociología?</span></h1>
+
+</section>
+<section id="section-5" class="slide level2 vcenter">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="imaginación-sociológica" class="content-box-red" style="text-align: center;">
+<h3>Imaginación sociológica</h3>
+<p>Relación del individuo con la sociedad y con la historia</p>
+<p>Individuos en contexto social</p>
+<p>(C.Wright Mills)</p>
+</section>
+</div><div class="column fragment" style="width:50%;">
+<section id="imaginación-estadística" class="content-box-green" style="text-align: center;">
+<h3>Imaginación estadística</h3>
+<p>Una apreciación de que tan usual o inusual es un evento, circunstancia o comportamiento, en relación con un conjunto mayor de eventos similares</p>
+<p>(Ritchey, 2008)</p>
+</section>
+</div></div>
 </section></section>
 <section>
-<section id="crisis-de-reproducibilidad-en-ciencia-2" class="title-slide slide level1 center" data-background-color="#9B2626">
-<h1>¿Crisis de reproducibilidad en ciencia?</h1>
-<p><span style="font-size: 1.5em; color: #5F6469;">1. Transparencia</span></p>
-<p><span style="font-size: 1.5em; color: #5F6469;">2. Reproducibilidad</span></p>
-<p><span style="font-size: 1.5em; color: #dfc117;">3. Acceso</span></p>
+<section id="adquirir-la-imaginación-estadística" class="title-slide slide level1 vcenter center" data-background-color="#212525" style="text-align: center;">
+<h1><span style="color: #dfc117;">Adquirir la imaginación estadística</span></h1>
+<p>es abrir los ojos a una representación más amplia de la realidad y superar malentendidos, prejuicios y estrechez de pensamiento</p>
+<p><span style="color: white; font-size: 0.5em;">(Ritchey, 2008, p.3)</span></p>
 </section>
-<section id="acceso" class="slide level2">
-<h2>Acceso</h2>
-
-<img data-src="img/01/flujo_acceso.png" class="r-stretch"></section>
-<section id="section-7" class="slide level2">
+<section id="section-6" class="slide level2 vcenter">
 <h2></h2>
-<h4 id="el-ciclo-actual-de-publicación-científica">El ciclo actual de publicación científica</h4>
-
-<img data-src="img/01/ciclocerrado.png" style="width:100.0%" class="r-stretch"><div style="font-size: 0.6em;">
-<p>(Adaptado de: <a href="https://creativecommons.org/about/program-areas/open-access/">https://creativecommons.org/about/program-areas/open-access/</a>)</p>
-</div>
-</section>
-<section id="barreras-de-pago" class="slide level2">
-<h2>Barreras de pago</h2>
-
-<img data-src="https://localist-images.azureedge.net/photos/723383/huge/3b15ca9bd709e6738e42326fa3f35ff4a3357bb9.jpg" class="r-stretch"></section>
-<section id="márgenes-de-ganancia" class="slide level2">
-<h2>Márgenes de ganancia</h2>
-
-<img data-src="img/01/profits.png" class="r-stretch"></section>
-<section id="section-8" class="slide level2">
-<h2></h2>
-<h3 id="beneficios-acceso-abierto">Beneficios acceso abierto</h3>
-
-<img data-src="img/01/openbeneficios.png" style="width:100.0%" class="r-stretch"><div style="font-size: 0.6em;">
-<p>Adaptado de: <a href="http://whyopenresearch.org/">http://whyopenresearch.org/#</a></p>
-</div>
-</section></section>
-<section>
-<section id="este-curso" class="title-slide slide level1 center">
-<h1>Este curso</h1>
-
-</section>
-<section id="enfrentando-la-crisis" class="slide level2">
-<h2>Enfrentando la crisis</h2>
-<div class="highlight-last">
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="estadística">Estadística:</h3>
+<p>“Rama de la matemática que utiliza grandes conjuntos de datos numéricos para obtener <strong>inferencias</strong> basadas en el cálculo de probabilidades”. (RAE)</p>
+</div><div class="column fragment" style="width:50%;">
+<h3 id="dos-características">Dos características:</h3>
 <ul>
-<li class="fragment"><p>tema de <strong>ética</strong> científica y también de <strong>eficiencia</strong></p></li>
-<li class="fragment"><p>por ahora en Chile, la apertura depende de la <strong>voluntad de los investigadores</strong>, pero …</p></li>
-<li class="fragment"><p>crecientemente financistas y medios de publicación se hacen <strong>más exigentes</strong>, gobiernos extranjeros ya han implementado políticas de transparencia, acceso y reproducibilidad.</p></li>
-<li class="fragment"><p>necesidad de <strong>herramientas metodológicas</strong></p></li>
+<li><p><strong>humildad</strong>: la inferencia siempre posee una probabilidad de <strong>error</strong></p></li>
+<li><p><strong>pretensión</strong>: podemos medir y establecer qué grado de error estamos cometiendo</p></li>
 </ul>
-</div>
-</section>
-<section id="resumen" class="slide level2">
-<h2>Resumen</h2>
-
-<img data-src="img/01/esquema_general.png" class="r-stretch"></section></section>
-<section>
-<section id="section-9" class="title-slide slide level1 hide-logo center" data-background-color="#9B2626">
+</div></div>
+</section></section>
+<section id="section-7" class="title-slide slide level1 vcenter center" data-background-color="#212525" style="text-align: center;">
 <h1></h1>
+<p><em>“El problema con el mundo es que las personas inteligentes están llenas de dudas, mientras que las estúpidas están llenas de certezas”</em> (Bukowski)</p>
+<p><br></p>
 
+<img data-src="img/dino.png" class="quarto-figure quarto-figure-center r-stretch" style="width:10.0%"></section>
+
+<section id="section-8" class="title-slide slide level1 vcenter center" data-background-color="#212525" style="text-align: center;">
+<h1></h1>
+<p><span style="color: white; font-size: 1em;">Concepto central:</span><br>
+<span style="color: #dfc117; font-size: 1.5em;">ERROR … y su medición</span></p>
+</section>
+
+<section>
+<section id="este-curso-1" class="title-slide slide level1 center" data-background-color="#9B2626">
+<h1><span style="color: white;">Este curso</span></h1>
+
+</section>
+<section id="section-9" class="slide level2">
+<h2></h2>
+<p><strong>Ciclo de formación en métodos cuantitativos</strong></p>
+
+<img data-src="https://multivariada.netlify.app/slides/01-intro/ciclo.png" class="r-stretch"></section>
+<section id="section-10" class="slide level2 vcenter">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<section id="estadística-descriptiva" class="content-box-red" style="text-align: center;">
+<h3>Estadística descriptiva</h3>
+<p>Número de observaciones registradas y frecuencia de esas observaciones (en una muestra o en la población)</p>
+</section>
+</div><div class="column" style="width:50%;">
+<section id="estadística-inferencial" class="content-box-green" style="text-align: center;">
+<h3>Estadística inferencial</h3>
+<p>Contraste de hipótesis y teorías científicas en base a datos de investigación</p>
+</section>
+</div></div>
+</section></section>
+<section>
+<section id="unidades" class="title-slide slide level1 center scrollable">
+<h1>Unidades</h1>
+<ol type="1">
+<li><p><span style="color: #a80f0f;"><strong>Inferencia</strong></span>: los resultados que encontramos en nuestra muestra, ¿se encuentran también en la población de la cual proviene la muestra? ¿Con qué probabilidad de <strong>error</strong>?</p></li>
+<li><p><span style="color: #a80f0f;"><strong>Asociación</strong></span> entre variables: tamaño y significación estadística</p></li>
+<li><p><span style="color: #a80f0f;"><strong>Reporte y reproducibilidad</strong></span>: cómo comunicar los resultados de manera clara y transparente</p></li>
+</ol>
+</section>
+<section id="organización-general" class="slide level2">
+<h2>Organización general</h2>
+<div style="text-align: center;">
+<p><img data-src="img/plan.png"></p>
+</div>
+</section>
+<section id="consideraciones" class="slide level2">
+<h2>Consideraciones</h2>
+<ul>
+<li><p>comunicación eficiente</p></li>
+<li><p>participación</p></li>
+<li><p>puntualidad</p></li>
+<li><p>asistencia</p></li>
+<li><p>lecturas</p></li>
+<li><p>monitoreo</p></li>
+</ul>
+</section></section>
+<section>
+<section id="web" class="title-slide slide level1 center">
+<h1>WEB:</h1>
+<p><a href="https://correlacional.metodos-facso.org" style="color: #003acd; font-size: 1.5em;">correlacional.metodos-facso.org</a></p>
+<p><br></p>
+</section>
+<h3 id="revisar-programa-y-planificación"><span style="color: white;">-&gt; revisar programa y planificación</span></h3></section>
+<section>
+<section id="section-11" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
+<h1></h1>
+<p><br></p>
 </section>
 <div class="columns">
-<div class="column" style="width:35%;">
+<div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
 <figure>
-<p><img data-src="img/logo-ciencia-abierta.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
 </figure>
 </div>
-</div><div class="column" style="width:10%;">
+</div><div class="column" style="width:2%;">
 
-</div><div class="column" style="font-size: 25px; text-align: right; margin: 0 auto;">
+</div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="section-10"></h3>
-<p><span style="font-size: 3em; color: white;">Ciencia Social Abierta</span></p>
-<p><span style="font-size: 1.5em; color: white;">Juan Carlos Castillo Sociología FACSO UChile</span></p>
-<p><span style="font-size: 1.5em; color: white;">Primer Semestre 2026</span></p>
-<p><a href="https://cienciasocialabierta.netlify.app/">cienciasocialabierta.netlify.app</a></p>
+<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<div style="border-top: 1px solid white; margin: 0.3em 0;">
+
+</div>
+<p><span style="font-size: 1.5em; color: #dfc117;">Inferencia, asociación, y reporte</span></p>
+<p><span style="font-size: 1em; color: white;">Juan Carlos Castillo</span><br>
+<span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
+<span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
+<p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 </div>
 </div>
 
 </section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo-ciencia-abierta.png" class="slide-logo"></p>
+<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
 <div class="footer footer-default">
 
 </div>
@@ -379,7 +430,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: false,
+        slideNumber: 'c/t',
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -484,7 +535,7 @@
         previewLinks: false,
 
         // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'fade',
+        transition: 'none',
 
         // Transition speed (default/fast/slow)
         transitionSpeed: 'slow',
@@ -538,6 +589,44 @@
         ]
       });
     </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
         const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")

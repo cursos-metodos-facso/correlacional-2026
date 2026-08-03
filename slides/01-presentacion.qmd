@@ -1,85 +1,120 @@
 ---
+engine: knitr
 format:
   revealjs:
-    logo: images/ocs-transparent.png
+    scrollable: true
+    logo: img/logo-correlacional-transp.png
     theme: [css/custom_2025.scss]
     title-slide-attributes:
       visibility: false
-    transition: slide
+    transition: none
     transition-speed: slow
-# data-background-image: images/cover.jpg
-# data-background-size: cover
     auto-play-media: true
     title-slide-logo: false
+    slide-number: true
 editor: source
 ---
 
-# {.hide-logo data-background-color="rgb(12, 53, 71)"}
+# {.hide-logo data-background-color="#0C3547"}
+
+<br>
 
 ::::: columns
-::: {.column width="35%"}
+::: {.column width="30%"}
 
 <br>
 
 ![](img/logo-correlacional-transp.png){width="100%" fig-align="right"}
 :::
 
-:::{.column width="10%"}
+:::{.column width="2%"}
 
 :::
 
-::: {.column width="55%" style="font-size: 25px; text-align: right; margin: 0 auto;"}
+::: {.column style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;"}
 
 <br>
 
-### 
+### [Estadística Correlacional]{style="font-size: 2em; color: white;"}
 
-<span style="font-size: 3em; color: white;">Estadística Correlacional</span>
+::: {style="border-top: 1px solid white; margin: 0.3em 0;"}
+:::
 
-<span style="font-size: 1.5em; color: grey;">Inferencia, asociación y reporte</span>
+[Inferencia, asociación, y reporte]{style="font-size: 1.5em; color: #dfc117;"}
 
+[Juan Carlos Castillo]{style="font-size: 1em; color: white;"}\
+[Sociología FACSO - UChile]{style="font-size: 1em; color: white;"}\
+[2do Sem 2026]{style="font-size: 1em; color: white;"}
 
-<span style="font-size: 1.5em; color: lightblue;">Juan Carlos Castillo
-Sociología FACSO UChile</span>
-
-<span style="font-size: 1.5em; color: lightblue;">Primer Semstre 2025</span>
-
-[correlacional.netlify.app](https://correlacional.netlify.app/)
+[correlacional.metodos-facso.org](https://correlacional.metodos-facso.org)
 
 :::
 :::::
 
-# Objetivo de la sesión:
+#
 
-1. Concepto general del curso
+### ¿Es posible que la mayoría de las personas ganen menos que el promedio de ingresos de la población? 
 
-2. Motivación 
 
-3. Contenidos y funcionamiento
 
-# {.hide-logo data-background-color="rgb(12, 53, 71)"}
-
-::: {.my-block style="font-size: 1.5em; color: white;"}
-### <span style="color: white;">_¿Qué saben de este curso?_</span>
-
-<br>
-
-### <span style="color: white;">_¿Cuáles son sus expectativas?_</span>
-:::
+![](img/emoji-thinking.png){width="50%" fig-align="right"}
 
 # 
-## Algunos mitos
 
+![](img/casen-autonomo-2024.png){width="70%" fig-align="center"}
+
+
+## ¿Existen diferencias [significativas]{style="color: #9e0000;"} de ingreso entre grupos de la población?
+
+
+![](img/emoji-thinking.png){width="50%" fig-align="right"}
+
+
+## 
+
+![](img/brechas.jpeg){width="70%" fig-align="center"}
+
+## ESTE CURSO
+
+### a- Lo SIGNIFICATIVO (y el error) 
+
+  - inferencia estadística
+
+### b- Diferencias y asociaciones entre grupos 
+
+  - correlación
+
+
+
+
+
+# [Objetivo de la sesión:]{style="color: white;"} {data-background-color="#0C3547"}
+
+::: {style="color: white;"}
+- marco general del curso
+
+- motivación
+
+- contenidos y funcionamiento
+:::
+
+# {data-background-color="#212525" .vcenter style="text-align: center;"}
+
+[*¿Qué saben de este curso?*]{style="color: white; font-size: 1.7em;"}\
 <br>
+[*¿Cuáles son sus expectativas?*]{style="color: white; font-size: 1.7em;"}
 
-::::: columns
-::: {.column width="55%"}
+# Algunos mitos
+
+:::: {.columns}
+::: {.column width="50%"}
 
 ![](https://jc-castillo.com/images/albums/gallery/IMG-20220312-WA0007.jpg)
 
 :::
 
-::: {.column width="45%"}
+::: {.column width="50%" .fragment}
+
 - positivismo
 
 - predominante
@@ -91,44 +126,184 @@ Sociología FACSO UChile</span>
 - masculino
 
 - verdad absoluta
+
 :::
-:::::
+::::
 
-# ¿Por qué estudiar estadística en sociología? {.hide-logo data-background-color="rgb(12, 53, 71)"}
+# [¿Por qué estudiar estadística en sociología?]{style="color: #dfc117;"} {data-background-color="#212525" .vcenter style="text-align: center;"}
 
+## {.vcenter}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: {.content-box-red style="text-align: center;"}
+### Imaginación sociológica
+
+Relación del individuo con la sociedad y con la historia
+
+Individuos en contexto social
+
+(C.Wright Mills)
+:::
+
+:::
+
+::: {.column width="50%" .fragment}
+
+::: {.content-box-green style="text-align: center;"}
+### Imaginación estadística
+
+Una apreciación de que tan usual o inusual es un evento, circunstancia o comportamiento, en relación con un conjunto mayor de eventos similares
+
+(Ritchey, 2008)
+:::
+:::
+
+::::
+
+# [Adquirir la imaginación estadística]{style="color: #dfc117;"} {data-background-color="#212525" .vcenter style="text-align: center;"}
+
+es abrir los ojos a una representación más amplia de la realidad y superar malentendidos, prejuicios y estrechez de pensamiento
+
+[(Ritchey, 2008, p.3)]{style="color: white; font-size: 0.5em;"}
+
+## {.vcenter}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+### Estadística:
+
+"Rama de la matemática que utiliza grandes conjuntos de datos numéricos para obtener **inferencias** basadas en el cálculo de probabilidades". (RAE)
+
+:::
+
+::: {.column width="50%" .fragment}
+
+### Dos características:
+
+- **humildad**: la inferencia siempre posee una probabilidad de **error**
+
+- **pretensión**: podemos medir y establecer qué grado de error estamos cometiendo
+
+:::
+::::
+
+# {data-background-color="#212525" .vcenter style="text-align: center;"}
+
+ *"El problema con el mundo es que las personas inteligentes están llenas de dudas, mientras que las estúpidas están llenas de certezas"* (Bukowski)
+
+<br>
+
+![](img/dino.png){width="10%" fig-align="center"}
+
+# {data-background-color="#212525" .vcenter style="text-align: center;"}
+
+[Concepto central:]{style="color: white; font-size: 1em;"}\
+[ERROR ... y su medición]{style="color: #dfc117; font-size: 1.5em;"}
+
+# [Este curso]{style="color: white;"} {data-background-color="#9B2626"}
 
 ##
 
+**Ciclo de formación en métodos cuantitativos**
+
+![](https://multivariada.netlify.app/slides/01-intro/ciclo.png)
+
+## {.vcenter}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: {.content-box-red style="text-align: center;"}
+### Estadística descriptiva
+
+Número de observaciones registradas y frecuencia de esas observaciones (en una muestra o en la población)
+:::
+
+:::
+
+::: {.column width="50%"}
+
+::: {.content-box-green style="text-align: center;"}
+### Estadística inferencial
+
+Contraste de hipótesis y teorías científicas en base a datos de investigación
+:::
+:::
+::::
+
+
+# Unidades
+
+1. [**Inferencia**]{style="color: #a80f0f;"}: los resultados que encontramos en nuestra muestra, ¿se encuentran también en la población de la cual proviene la muestra? ¿Con qué probabilidad de **error**?
+
+2. [**Asociación**]{style="color: #a80f0f;"} entre variables: tamaño y significación estadística
+
+3. [**Reporte y reproducibilidad**]{style="color: #a80f0f;"}: cómo comunicar los resultados de manera clara y transparente
+
+## Organización general
+
+::: {style="text-align: center;"}
+![](img/plan.png)
+:::
+
+## Consideraciones
+
+- comunicación eficiente
+
+- participación
+
+- puntualidad
+
+- asistencia
+
+- lecturas
+
+- monitoreo
+
+
+# WEB:
+
+[correlacional.metodos-facso.org](https://correlacional.metodos-facso.org){style="color: #003acd; font-size: 1.5em;"}
+
+<br>
+
+### [-\> revisar programa y planificación]{style="color: white;"}
+
+# {.hide-logo data-background-color="#0C3547"}
+
+<br>
+
 ::::: columns
-
-::: {.column width="45%" .content-box-red}
-
-### Imaginación sociológica
-
-Relación del individuo con la sociedad y con la historia  
-Individuos en contexto social  
+::: {.column width="30%"}
 
 <br>
-<br>
 
-(C. Wright Mills)
+![](img/logo-correlacional-transp.png){width="100%" fig-align="right"}
+:::
 
-
+:::{.column width="2%"}
 
 :::
 
-::: {.column width="45%" .content-box-green}
-<div style="text-align: right;">
+::: {.column style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;"}
 
-### Imaginación estadística
+<br>
 
-Una apreciación de qué tan usual o inusual es un evento, circunstancia o comportamiento, en relación con un conjunto mayor de eventos similares  
+### [Estadística Correlacional]{style="font-size: 2em; color: white;"}
 
-(Ritchey, 2008)
-
-</div>
+::: {style="border-top: 1px solid white; margin: 0.3em 0;"}
 :::
 
+[Inferencia, asociación, y reporte]{style="font-size: 1.5em; color: #dfc117;"}
+
+[Juan Carlos Castillo]{style="font-size: 1em; color: white;"}\
+[Sociología FACSO - UChile]{style="font-size: 1em; color: white;"}\
+[2do Sem 2026]{style="font-size: 1em; color: white;"}
+
+[correlacional.metodos-facso.org](https://correlacional.metodos-facso.org)
+
+:::
 :::::
- 
-

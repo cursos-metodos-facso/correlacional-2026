@@ -1,0 +1,736 @@
+---
+engine: knitr
+format:
+  revealjs:
+    scrollable: true
+    logo: img/logo-ciencia-abierta.png
+    theme: [css/custom_2025.scss]
+    title-slide-attributes:
+      visibility: false
+    transition: none
+    transition-speed: slow
+# data-background-image: images/cover.jpg
+# data-background-size: cover
+    auto-play-media: true
+    title-slide-logo: false
+editor: source
+---
+
+# {.hide-logo data-background-color="#9B2626"}
+
+::::: columns
+::: {.column width="35%"}
+
+<br>
+
+![](img/logo-ciencia-abierta.png){width="100%" fig-align="right"}
+:::
+
+:::{.column width="2%"}
+
+:::
+
+::: {.column width="65%" style="font-size: 25px; text-align: right; margin: 0 auto;"}
+
+<br>
+
+### 
+
+<span style="font-size: 2em; color: white;">Ciencia Social Abierta</span>
+
+----
+<span style="font-size: 1.5em; color: #dfc117;">Sesión 3: Escritura y citas en texto plano</span>
+
+<br>
+
+<span style="font-size: 1em; color: white;">Juan Carlos Castillo & Tomás Urzúa</span>
+
+<span style="font-size: 1em; color: white;">Sociología FACSO UChile</span>
+
+<br>
+
+<span style="font-size: 1em; color: white;">Primer Semestre 2026</span>
+
+[cienciasocialabierta.netlify.app](https://cienciasocialabierta.netlify.app/)
+
+:::
+:::::
+
+# Contenidos {data-background-color="#9B2626" style="text-align: right;"}
+
+<br>
+
+:::{style="position: absolute; bottom: 60px; right: 1px; text-align: right;"}
+### [**1. Resumen sesión anterior**]{style="color: #dfc117;"}
+### [2. Escritura en texto plano]{style="color: #797b7d;"}
+### [3. Citas en texto plano]{style="color: #797b7d;"}
+:::
+
+# Ciencia abierta: Vuelta a los principios de la ciencia (Merton){.vcenter} 
+
+
+##
+
+:::{.incremental .highlight-last}
+- [**Universalismo**]{style="color: #a22711;"}: cualquier persona puede contribuir al conocimiento científico, independiente de su origen.
+
+- [**Comunalidad**]{style="color: #a22711;"}: los hallazgos de la ciencia pertenecen a la comunidad y no a quién los descubrió.
+
+- [**Desinterés**]{style="color: #a22711;"}: la conducta de investigadores debe estar orientada por la búsqueda de la verdad, no con intereses personales ni monetarios.
+
+- [**Esceptisicmo organizado**]{style="color: #a22711;"}: los hallazgos no se aceptan porque sí, se requieren pruebas.
+:::
+
+
+##
+Normas y contra-normas de la ética científica (Anderson, 2007)
+
+::: {style="text-align: center;"}
+![](img/02/anderson.png){width="80%"}
+:::
+
+##
+
+###  Cultura de "publica o perece" (publish or perish)
+
+#### Posibles correlatos:
+
+:::{.incremental .highlight-last}
+- Temor a que "te roben la idea" → evitar poner datos/código a disposición de terceros
+
+- p-hacking: "presionar los datos" para rechazar hipótesis nula
+
+- falseamiento de datos
+:::
+
+
+# ¿Alternativas? {data-background-color="#212525"}
+
+- ### Incentivos
+
+- ### Estándares
+
+- ### Herramientas
+
+
+##
+Herramientas para la reproducibilidad
+
+![](img/02/herramientas_reproducibilidad.png)
+
+## 
+### Elementos para la [reproducibilidad]{style="color: red;"}
+
+:::{.incremental .highlight-last}
+- Carpeta de proyecto autocontenida y transferible
+
+- Escritura abierta:
+  - texto simple/plano, libre de software comercial
+  - citas
+  - documentos dinámicos
+
+- Repositorio con datos y código de análisis abierto
+
+- Control de versiones
+:::
+
+##
+
+![](img/01/esquema_general.png)
+
+##
+
+![](https://juancarloscastillo.github.io/in-socabi/images/peng_spectrum.png)
+
+
+
+# Contenidos {data-background-color="#9B2626" style="text-align: right;"}
+
+
+<br>
+
+:::{style="position: absolute; bottom: 60px; right: 1px; text-align: right;"}
+### [**1. Resumen sesión anterior**]{style="color: #797b7d;"}
+
+### [2. **Escritura en texto plano**]{style="color: #dfc117;"}
+
+### [3. Citas en texto plano]{style="color: #797b7d;"}
+:::
+
+# ¿Texto plano?
+
+## 
+### Flujo de trabajo con procesador de texto tradicional
+
+::: {style="text-align: center;"}
+![](img/W_workflow.png){width="70%"}
+:::
+
+## 
+
+### Abriendo el archivo de escritura tradicional
+
+![](img/realWord.png)
+
+## 
+### Desventajas del procesador tradicional
+
+:::: {.columns}
+::: {.column width="75%"}
+
+- Barrera de **pago/licencia** para acceder a contenidos (propiedad)
+
+- Difícil **versionamiento** y llevar registro de quién hizo qué cambio, barrera a la reproducibilidad y colaboración
+
+- No permite un documento enteramente **reproducible** que combine texto y código de análisis (en caso de utilizarlo)
+
+:::
+
+::: {.column width="25%"}
+
+<br>
+<br>
+
+![](img/word.jpg)
+
+:::
+::::
+
+## Escritura libre y abierta
+
+- independiente de programa comercial
+
+- independiente de plataformas específicas
+
+- permite combinar texto y análisis en un mismo documento
+
+- foco en los contenidos en lugar del formato
+
+- permite distintas opciones de formato final
+
+## Inspiración
+
+::: {style="text-align: center;"}
+![](img/bowers&healey.png)
+:::
+
+## {.vcenter}
+
+![](img/healeysworkflow.png){width="80%"}
+
+## 
+### Funcionamiento de escritura simple / plana
+
+- entorno: editor de texto
+
+- separación entre texto de entrada (input) y texto de salida (output)
+
+- foco en el input/contenido vs output/formato
+
+- marcas de edición: vínculo entre formato de input y output
+
+## Marcas de edición
+
+Vínculo entre escritura en texto simple (input) y output
+
+![](img/marcas-edi.png)
+
+##
+### Principales Alternativas escritura simple
+
+:::: {.columns}
+::: {.column width="20%"}
+
+**Latex**
+
+:::
+
+::: {.column width="75%"}
+
+- sistema de escritura simple de amplio uso en la academia
+
+- alta calidad en salida a pdf
+
+- creado a comienzos de los 80 (Donald Knuth, Leslie Lamport)
+
+:::
+::::
+
+## 
+
+### Principales Alternativas escritura simple
+
+:::: {.columns}
+::: {.column width="20%"}
+
+**Latex**
+
+:::
+
+::: {.column width="75%"}
+
+![](img/latex.jpg)
+
+:::
+::::
+
+## 
+### Principales Alternativas escritura simple
+
+:::: {.columns}
+::: {.column width="20%"}
+
+![](img/markdown_logo.svg){width="100%"}
+:::
+
+::: {.column width="75%"}
+
+- creado por John Gruber y Aaron Swartz en 2004 <!-- cspell:disable-line -->
+
+- forma de escritura simple con pocas marcas de formato
+
+- conversión a distintos formatos de salida (html, pdf)
+
+- Soporta encabezados, tablas, imágenes, tablas de contenidos, ecuaciones, links ...
+
+- filosofía: foco en contenido primero, el formato después.
+:::
+
+:::
+::::
+
+## 
+### Principales Alternativas escritura simple
+
+:::: {.columns}
+::: {.column width="20%"}
+
+**Markdown**
+
+:::
+
+::: {.column width="75%"}
+
+![](img/markdownpreview.png)
+
+:::
+::::
+
+## 
+### Principales Alternativas escritura simple
+
+<br>
+
+|          | **Control de formato** | **Marcas de edición** | **Formatos de salida** |
+|----------|:--------------------:|:----------------:|:--------------------:|
+| LaTeX    |          +         |        +       |          -         |
+| Markdown |          -         |        -       |          +         |
+
+## Markdown, pandoc y renderización
+
+![](img/pandoc.png){width="90%"}
+
+## Ejemplos de marcas de edición en Markdown
+
+- Texto en **negrita** entre dos astericos: `**negrita**`
+
+- Texto en *cursiva* con un asterico por lado: ` *cursiva*`
+
+- Títulos se marcan con `#` al principio, subtítulos `##` , y así sucesivamente
+
+- Imágenes: `![](ruta-a-imagen)`
+
+## {.center}
+
+::: {style="text-align: center;"}
+![](https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Markdown-mark.svg/500px-Markdown-mark.svg.png){width="50%"}
+:::
+
+Mayores detalles en la [**Práctica de Markdown** en el sitio web del curso](https://cienciasocialabierta.netlify.app/assignment/02-code/)
+
+# Contenidos {data-background-color="#9B2626" style="text-align: right;"}
+
+<br>
+
+[1. Resumen sesión anterior]{style="color: #797b7d;"}<br>
+[2. Escritura en texto plano]{style="color: #797b7d;"}<br>
+[**3. Citas en texto plano**]{style="color: #dfc117;"}
+
+## Citar: Sobre hombros de gigantes
+
+:::: {.columns}
+::: {.column width="50%"}
+
+![](img/standing.png)
+
+:::
+
+::: {.column width="50%"}
+
+- pararse sobre el conocimiento acumulado
+
+- identificar áreas para avanzar
+
+- reconocer trabajo previo
+
+- no reinventar la rueda
+
+:::
+::::
+
+## ¿Cómo trabajar con citas cuando se escribe en texto plano? {data-background-color="#212525" .center}
+
+<br>
+
+:::{.incremental}
+### 1. Bibtex / csl
+
+### 2. Zotero / BetterBibTex
+
+### 3. Citando en Markdown
+:::
+
+## Bibtex (.bib)
+
+:::: {.columns}
+::: {.column width="50%"}
+
+<br><br><br>
+
+![](img/BibTeX_logo.svg.png)
+
+:::
+
+::: {.column width="50%"}
+
+- formato de almacenamiento de citas en texto plano (no es un programa)
+
+- Un archivo Bibtex tiene extensión **.bib**, donde deben estar almacenadas todas las referencias citadas en el texto
+
+:::
+::::
+
+## Ejemplo referencia en Bibtex
+
+::: {style="text-align: center;"}
+![](img/bibtex-record.png){width="80%"}
+:::
+
+## Archivo Bibtex (.bib)
+
+- un archivo bibtex tiene múltiples referencias una después de la otra, el orden no es relevante.
+
+- cada referencia posee una serie de campos con información necesaria para poder citar
+
+- este formato se puede ingresar manualmente, copiar y pegar de otras fuentes, o automatizar desde software de gestión de referencias (detalles más adelante)
+
+## 
+### Archivo con definición de estilo (.csl)
+
+- además de las referencias en .bib, necesitamos poder dar el estilo de formato deseado a citas y bibliografía, mediante archivos  **csl** (citation style language)
+
+- existen múltiples estilos de citación (alrededor de 10.000)
+
+- los más usados: APA, ASA, Chicago
+
+- estos estilos (en archivos csl) se pueden bajar desde repositorios, se recomienda el siguiente: [https://www.zotero.org/styles](https://www.zotero.org/styles)
+
+## Claves de citación
+
+La forma de citar es a través de la [clave que identifica la referencia]{style="color: red;"}, que es la que aparece al principio de cada una, y se agrega una @. Ej:
+
+```
+- Tal como señala [@sabbagh_dimension_2003], los principales resultados ...
+```
+
+Al renderizar, esto genera:
+
+- **Tal como señala Sabbagh (2003), los principales resultados ...**
+
+Y además, agrega la bibliografía al final del documento.
+
+## Opciones de citación
+
+<br>
+
+| Se escribe                                           | Renderiza                      |
+|------------------------------------------------------|-------------------------------|
+| `Como dice @sabbagh_dimension_2003`                  | Como dice Sabbagh (2003)       |
+| `Sabbagh [-@sabbagh_dimension_2003] dice ...`        | Sabbagh (2020) dice ...        |
+| `Sabbagh [-@sabbagh_dimension_2003, pp.35] dice ...` | Sabbagh (2020, p.35) dice ...  |
+
+## 
+### Utilizando Bibtex en escritura en texto simple 
+
+- es claro que tanto la generación manual de registros Bibtex como la incorporación manual de citas es un gran desincentivo a su uso.
+
+- la simplificación y automatización de esto pasa por dos procesos:
+
+  - Automatizar la generación de un archivo .bib desde un software de gestión de referencias (Zotero - BetterBibTex)
+
+  - Automatizar la incorporación de citas al documento
+
+##
+### Software de gestión de referencias
+
+:::: {.columns}
+::: {.column width="33%"}
+
+<br>
+
+![](img/refman.jpg)
+
+:::
+
+::: {.column width="66%"}
+
+- los software de gestión de referencias bibliográficas permiten almacenar, organizar y luego utilizar las referencias
+
+- diferentes alternativas: Endnote, Mendeley, Refworks, Zotero
+
+- Zotero: libre y de código abierto
+
+:::
+::::
+
+## Zotero
+
+:::: {.columns}
+::: {.column width="50%"}
+
+::: {style="text-align: center;"}
+<br>
+![](img/zotero.png){width="80%"}
+:::
+
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+- instalar  [https://www.zotero.org](https://www.zotero.org)
+
+- además del programa, instalar "conector" para el navegador (permite almacenar directamente con 1 click)
+
+:::
+::::
+
+## 
+### Zotero: vista general
+
+::: {style="text-align: center;"}
+![](https://www.zotero.org/static/images/home/screenshot-1.4.png){width="80%"}
+:::
+
+## 
+### Zotero: almacenamiento
+
+:::: {.columns}
+::: {.column width="50%"}
+
+a. vía [conector]{style="color: green;"} del navegador: cuando hay una referencia presente en la página, ir al botón del conector y se guarda (Zotero debe estar abierto)
+
+[la referencia se almacena en la carpeta que está activa en Zotero]{style="font-size: 0.8em;"}
+
+:::
+
+::: {.column width="50%"}
+
+![](img/conector.png)
+
+:::
+::::
+
+## 
+### Zotero: almacenamiento
+
+:::: {.columns}
+::: {.column width="50%"}
+
+b) Vía identificador DOI / ISBN / ISSN
+
+:::
+
+::: {.column width="50%"}
+
+<br><br><br>
+
+![](img/doizotero.png)
+
+:::
+::::
+
+## 
+### Zotero: almacenamiento
+
+:::: {.columns}
+::: {.column width="50%"}
+
+c) Manual: llenando los campos
+
+:::
+
+::: {.column width="50%"}
+
+![](img/zoteromanual.png)
+
+:::
+::::
+
+## Zotero
+
+- más información sobre manejo y capacidades:
+
+[https://www.youtube.com/watch?v=Uxv3aE4XoNY](https://www.youtube.com/watch?v=Uxv3aE4XoNY)
+
+... y tutoriales y guías varios en la red
+
+## Zotero-Bibtex
+
+- Zotero permite exportar las referencias en formato Bibtex
+
+- Puede ser toda la colección o una parte (carpeta)
+
+- 2 alternativas:
+  - manual
+  - automatizada
+
+## Zotero-Bibtex: exportación manual
+
+<br>
+
+:::: {.columns}
+::: {.column width="33%"}
+
+![](img/zoteroexport.png)
+
+:::
+
+::: {.column width="66%"}
+
+- Carpeta ->  boton derecho -> export -> formato Bibtex
+
+- guardar archivo .bib en carpeta del proyecto
+
+:::
+::::
+
+## 
+### Zotero-BBT: exportación automatizada
+
+- **BetterBibTex**: Zotero plug-in que permite exportación automática y sincronizada
+
+- Instalación:
+  - bajar archivo desde el sitio del desarrollador: [https://retorque.re/zotero-better-bibtex/installation/](https://retorque.re/zotero-better-bibtex/installation/)
+
+  - en Zotero: Tools -> Plugins -> ruedita dentada -> install add-on from file
+
+  - reiniciar Zotero
+
+## Zotero-Better Bibtex
+
+Edit > setting
+
+::: {style="text-align: center;"}
+![](img/bbt1.png)
+:::
+
+##
+### Zotero-Better Bibtex: Exportando referencias
+
+- puede ser colección completa o carpetas específicas
+
+- posicionarse sobre carpeta, botón derecho y `Export collection`
+
+  - Formato: Better BibTex
+  - Keep updated (sincronización automática)
+  - dar ruta hacia carpeta del proyecto
+
+- precaución: no caracteres especiales ni espacios en el nombre del archivo .bib
+
+## 
+### Zotero-Better Bibtex - Citation Keys
+
+::: {style="text-align: center;"}
+![](img/exportbibtex.gif){width="80%"}
+:::
+
+##
+### Zotero-bibtex: consideraciones sobre claves
+
+- multiples formas de organizar las claves Bibtex
+
+- mantener un mismo formato es relevante, sobre todo para trabajo colaborativo
+
+- se generan desde la pestaña Citation Keys de BetterBibTex
+
+- Recomendación: `auth.lower + "_" + title.select(1,1).lower + "_" + year`
+
+## 
+### Vinculando el archivo Markdown con los archivos de bibliografía
+
+se realiza en el preámbulo del documento (YAML), por ejemplo:
+
+```{html}
+---
+bibliography: referencias.bib
+csl: apa.csl
+---
+```
+
+
+## PRACTICO
+### Escrittura y citas en texto plano en  VSC
+
+
+## Práctica Markdown {data-background-color="#212525"}
+
+- [[M Editor.md - editor markdown online]{style="color: orange;"}](https://pandao.github.io/editor.md/en.html)
+
+- [[Tutorial Markdown online]{style="color: orange;"}](https://www.markdowntutorial.com/es/)
+
+# Próxima clase: {data-background-color="#9B2626" style="text-align: center;"}
+
+Documentos dinámicos en Quarto
+
+
+# {.hide-logo data-background-color="#9B2626"}
+
+::::: columns
+::: {.column width="35%"}
+
+<br>
+
+![](img/logo-ciencia-abierta.png){width="100%" fig-align="right"}
+:::
+
+:::{.column width="2%"}
+
+:::
+
+::: {.column width="55%" style="font-size: 25px; text-align: right; margin: 0 auto;"}
+
+<br>
+
+### 
+
+<span style="font-size: 2em; color: white;">Ciencia Social Abierta</span>
+
+----
+
+
+<br>
+
+<span style="font-size: 1em; color: white;">Juan Carlos Castillo & Tomás Urzúa</span>
+
+<span style="font-size: 1em; color: white;">Sociología FACSO UChile</span>
+
+<br>
+
+<span style="font-size: 1em; color: white;">Primer Semestre 2026</span>
+
+[cienciasocialabierta.netlify.app](https://cienciasocialabierta.netlify.app/)
+
+:::
+:::::

@@ -15,7 +15,7 @@ $selection-bg: #fff !default;
 
 // headings
 $presentation-heading-font: "Montserrat", sans-serif !default;
-$presentation-heading-color: #041E42 !default;
+// $presentation-heading-color: #c81111a4 !default;
 
 $heading1Size: 3.00em;
 $heading2Size: 2.11em;
@@ -29,6 +29,26 @@ $code-block-border-color: #93a1a1 !default;
 
 
 /*-- scss:rules --*/
+
+h1 {
+  font-weight: normal;
+  color: #ba0300 !important;
+  margin-bottom: 0.2px;
+}
+
+h2, h3 {
+  font-weight: normal;
+  color: #cb8708 !important;
+  margin-bottom: 0.2px;
+}
+
+h3 {
+  font-weight: normal;
+  color: #001957 !important;
+  margin-bottom: 0.2px;
+}
+
+
 .reveal .footer {
  color: #1b241f !important;
 

@@ -177,7 +177,8 @@ En la literatura sobre cohesión barrial se suele utilizar un índice sumativo o
 ```{r matriz_psci, echo=TRUE}
  
 M_cohesion <- proc_data %>% 
-  dplyr::select(ideal, integracion, identificacion, pertenencia)
+  dplyr::select(ideal, integracion, identificacion, pertenencia) %>% 
+  as.data.frame()
 
 sjPlot::tab_corr(M_cohesion, 
                  na.deletion = "listwise", # espeficicamos tratamiento NA

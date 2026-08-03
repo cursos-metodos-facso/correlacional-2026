@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Estadística Correlacional</title>
+    <meta charset="utf-8" />
+    <meta name="author" content=".small[Juan Carlos Castillo    Departamento de Sociología - UCH / COES   ]" />
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
+    <script src="libs/mark.js-8.11.1/mark.min.js"></script>
+    <link href="libs/xaringanExtra-search-0.0.1/search.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-search-0.0.1/search.js"></script>
+    <script>window.addEventListener('load', function() { window.xeSearch = new RemarkSearch({"position":"bottom-left","caseSensitive":false,"showIcon":true,"autoSearch":true}) })</script>
+    <link href="libs/tabwid-1.1.3/tabwid.css" rel="stylesheet" />
+    <script src="libs/tabwid-1.1.3/tabwid.js"></script>
+    <link rel="stylesheet" href="css/custom_2020.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: front
+
+
+
+
+
+
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Inferencia, asociación y reporte
+
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2025
+## [.orange[correlacional.netlify.app]](https:/correlacional.netlify.app)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+## .gray[Sesión 5:] 
+## .curso[Inferencia 4: Test de hipótesis]]
+]
+]
+
+
+---
+class: inverse middle center
+
+# ¿Qué hemos visto hasta ahora?
+
+
+## ... y ¿para qué?
+
+---
+class: middle center
+![:scale 100%](img/temas-inferencias.png)
+---
+### ¿Qué puedo decir de la población a partir de mi muestra?
+
+--
+.content-box-red[
+.center[
+.large[# PROBABILIDADES ... de un rango de valores]
+]]
+--
+
+
+.pull-left-wide[
+# ¿Cómo llego al rango de valores probables de un parámetro poblacional obtenido a partir de **una muestra**?
+]
+
+.pull-right-narrow[
+![:scale 70%](img/inference1.png)
+]
+
+---
+.pull-left[
+# Probabilidades
+
+.medium[
+- Podemos calcular probabilidades basados en una distribución teórica de ocurrencia de eventos.
+
+- Ej: En teoría, la probabilidad de que salga sello al tirar una moneda es 50%
+
+- Mientras más repetimos el evento, más se van a acercar los resultados (distribución empírica) a la probabilidad del evento (distribución teórica)
+]
+]
+.pull-right[
+
+&lt;br&gt;
+![](05-inferencia4_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+]
+---
+.pull-left[
+# Curva Normal
+
+.medium[
+- Hay una serie de eventos que en términos teóricos y empíricos tienen una distribución particular en torno al valor central -&gt; **normal**
+
+- La .red[curva normal] es una distribución teórica que nos permite tener un estándar con el cual comparar distribuciones empíricas
+
+
+]]
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+![](img/norm2.png)
+]
+---
+# Teorema central del límite y error estándar
+.pull-left[
+.medium[
+- si pudiera calcular un estadístico en muchas muestras distintas (ej: promedio) este se distribuiría de manera normal
+
+- el **error** estándar es la formula que nos permite obtener el valor de la desviación estándar de los promedios con una sola muestra
+]]
+
+.pull-right[
+
+&lt;br&gt;
+# `$$\sigma_{\bar{X}}=\frac{s}{\sqrt{N}}$$`
+]
+
+---
+.pull-left[
+# Puntajes Z
+
+.medium[
+- el puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1
+
+- Z expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)
+
+- Z permite además  obtener el valor del percentil de cada puntaje 
+]]
+
+.pull-right[
+
+# `$$z=\frac{x-\mu}{\sigma}$$`
+
+![:scale 90%](https://correlacional.netlify.app/slides/03-inferencia2_files/figure-html/unnamed-chunk-16-1.png)
+]
+---
+# Intervalos de confianza [para el promedio]
+.medium[
+.pull-left[
+
+- rango de probabilidad del valor de un parámetro en la población
+
+- Para construirlo, 4 pasos:
+
+  1- establecer **nivel de confianza** (convencionalmente  95%)
+  
+  2- definir **puntaje Z** correspondiente a este intervalo (para 95% es 1.96)
+]
+]
+--
+
+.medium[
+.pull-right[
+3- multiplicar Z por el **error estándar**
+
+4 - restar al promedio (límite inferior) y sumar (límite superior)
+
+# `$$\bar{X}\pm Z*\frac{\sigma}{\sqrt{N}}$$` 
+]
+]
+
+---
+class: inverse
+
+![](img/herramientas.png)
+
+
+---
+class: inverse  center
+&lt;br&gt;
+# ¿Qué es una hipótesis?
+
+--
+
+# ¿Cuándo una hipótesis es .yellow[verdadera]?
+
+---
+class: roja middle center
+
+
+# Una .yellow[hipótesis] es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio
+
+---
+class: inverse center
+
+#¿Cuándo se puede verificar una hipótesis?
+
+--
+
+# -&gt; .yellow[NUNCA]
+
+--
+
+# ... pero, se puede **.orange[falsar]**
+---
+
+
+.pull-left[
+# Popper y la falsabilidad
+![:scale 70%](img/popper.jpg)
+]
+
+.pull-right[
+.medium[
+_"el criterio de demarcación que hemos de adoptar no es el de la verificabilidad, sino el de la .red[falsabilidad] de
+los sistemas. Dicho de otro modo: no exigiré que un sistema científico pueda
+ser seleccionado, de una vez para siempre, en un sentido positivo; pero sí
+que sea susceptible de selección en un sentido negativo por medio de contrastes o pruebas empíricas: ha de ser posible refutar por la experiencia un sistema científico empírico" (Popper, 1982, p. 40)_
+]
+]
+
+---
+# Contraste de hipótesis y falsación
+
+.pull-left-narrow[
+![](img/hipotesis.png)
+]
+
+.pull-right-wide[
+- El **verificar** una hipótesis no hace que una teoría sea verdadera
+
+- Se puede intentar refutar una teoría (**falsarla**) mediante un contraejemplo o hipótesis contraria
+
+- Si no es posible refutar la hipótesis contraria, entonces la teoría queda aceptada **provisionalmente**
+]
+  
+---
+# Ejemplo
+
+.pull-left[
+Teoría: todos los cuervos son negros
+
+Hipótesis de verificación: hay cuervos negros
+
+Hipótesis de falsación: hay cuervos blancos
+]
+
+.pull-right-narrow[
+&lt;br&gt;
+![](img/white-crow.png)
+
+]
+---
+class: inverse center
+
+### Lógica de contraste de hipótesis: 
+
+## .yellow[Intentar falsar lo que es contrario a nuestra hipótesis original]
+
+--
+
+## En estadística, esta "hipótesis contraria" se denomina la .yellow[HIPÓTESIS NULA]
+
+
+---
+class: roja middle center
+
+# buscamos RECHAZAR LA HIPÓTESIS NULA
+
+si logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría
+
+Buscamos .large[no encontrar] cuervos blancos ![:scale 10%](img/white-crow.png)
+
+---
+# Hipótesis nula
+
+- Hipótesis se denota con la letra `\(H\)`
+
+- La hipótesis nula se denota `\(H_0\)` (hache cero)
+
+- **Cero** porque en geneneral se refiere a que lo que señala la teoría no existe o **es cero en la población**
+
+-&gt; más detalle de tipos de hipótesis prox. clase, ahora vamos a un **ejemplo**
+
+---
+class: inverse middle center
+ 
+ 
+## ¿Existen diferencias salariales entre hombres y mujeres en Chile?
+
+----
+
+.black[
+| Hipótesis general| Hipótesis estadística     |
+|---------------------------------------|--------------------------------|------------------------|
+| Existen diferencias salariales entre hombres y mujeres     | Hipótesis **alternativa**: Las diferencias son distintas de cero      |
+| No existen diferencias salariales entre hombres y mujeres | Hipótesis **nula**: Las diferencias no son distintas de cero         |
+]
+
+
+---
+# Cuestionario CASEN
+
+.pull-left[
+
+![:scale 80%](img/sueldo_casen.png)
+]
+
+.pull-right[
+![](img/sexo_casen.png)
+]
+
+---
+# Datos CASEN 2022
+
+.pull-left-narrow[
+![](img/casen_download.png)
+]
+
+.medium[
+.pull-right-wide[
+
+Vamos a generar una submuestra de 350 casos de CASEN para ilustrar de mejor manera el sentido del test de hipótesis
+
+
+``` r
+pacman::p_load(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)
+load("casen2022_inf2.Rdata")
+options(scipen=999) # para evitar notación en los ceros
+set.seed(20) # para fijar el resultado aleatorio
+casen_350 &lt;- casen2022_inf %&gt;% select(salario,sexo)  %&gt;% sample_n(350)
+casen_350 &lt;- na.omit(casen_350)
+```
+]]
+---
+# Datos
+
+
+``` r
+stargazer(as.data.frame(casen_350), type = "text")
+```
+
+```
+
+======================================================
+Statistic  N     Mean      St. Dev.    Min      Max   
+------------------------------------------------------
+salario   343 634,402.300 459,180.200 30,000 2,900,000
+sexo      343    1.402       0.491      1        2    
+------------------------------------------------------
+```
+
+---
+
+
+``` r
+casen_350%&gt;% # se especifica la base de datos
+   dplyr::group_by(sexo=sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs.=n(),Promedio=mean(salario, na.rm=TRUE),SD=sd(salario, na.rm=TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla
+  kable(, format = "markdown") # se genera la tabla
+```
+
+
+
+|sexo      | Obs.| Promedio|       SD|
+|:---------|----:|--------:|--------:|
+|1. Hombre |  205| 654585.4| 468692.5|
+|2. Mujer  |  138| 604420.3| 444666.0|
+
+
+
+Diferencia salarial = 654.585-604.420=**50.165**
+
+---
+class: inverse
+###  .yellow[Procedimiento: 5 pasos de la inferencia] (ajustados de Ritchey)
+
+1. Formular hipótesis ( `\(H_0\)` y `\(H_A\)`)
+
+2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+3. Establecer la probabilidad de error `\(\alpha\)` (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente
+
+4. Cálculo de intervalo de confianza / contraste valores empírico/crítico
+
+5. Interpretación
+
+---
+# 1. Formular hipótesis
+
+Contrastamos la *hipótesis nula* (no hay diferencias de promedios entre grupos):
+
+`$$H_{0}: \bar{X}_{hombres} -  \bar{X}_{mujeres}= 0$$`
+
+En referencia a la siguiente hipótesis alternativa:
+
+`$$H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0$$`
+---
+.content-box-green[
+# (2. Error estándar y estadístico de prueba)
+
+- .red[(Una nota preliminar)] En general, existen 2 formas de realizar el contraste de hipótesis: &lt;br&gt; &lt;br&gt;
+.medium[
+- intervalo de confianza, asociado al error estándar  
+- contraste con valor crítico, asociado al estadístico de prueba
+  ]
+- Ambos entregan información consistente y complementaria
+
+- En esta clase vamos a estimar solo el intervalo, la próxima veremos el contraste con valor crítico, que el caso de diferencia de medias corresponde a la prueba `\(t\)` de student.
+]
+---
+# 2. Error estándar (y estadístico de prueba)
+
+- Cada estadístico tiene su propia fórmula de error estándar
+
+- En el caso de la **diferencia de medias** (en este caso, de hombres y mujeres), el error estándar es:
+
+
+`$$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$`
+Donde
+
+`$$\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}$$`
+
+- como se puede apreciar, es una extensión del error estandar del promedio pero para dos grupos distintos 
+
+---
+
+Cálculo de la desviación estándar de las diferencias de promedios:
+
+`\begin{align*}
+\sigma_{diff}&amp;=\frac{468692^2(205-1)+444666^2(138-1)}{205+138-2} \\ \\ 
+&amp;=\frac{44813126936256+27088715663172}{341}\\ \\ 
+&amp;=210855843400
+\end{align*}`
+
+---
+
+Y enfonces el error estándar de la diferencia de medias:
+`\begin{align*}
+SE&amp;=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
+&amp;=\sqrt{\frac{210855843400}{205}+\frac{210855843400}{138}}\\ \\
+&amp;=50561
+\end{align*}`
+
+
+---
+# 3. Establecer probabilidad de error
+
+- asumimos que existe una probabilidad de error al rechazar `\(H_0\)`, para lo cual fijamos un límite convencional -&gt; usualmente un 5%
+
+- ¿error **de qué**? -&gt; de rechazar `\(H_0\)` cuando esta existe en la población.  
+- Esto se conoce como la **probabilidad de error Tipo  I o `\(\alpha\)` (alfa)**
+
+---
+## Hipotesis nula ( `\(H_0\)`) y tipos de error
+.center[
+![:scale 100%](img/errortypes.png)
+]
+
+---
+# En nuestro ejemplo:
+
+`$$H_{0}: \bar{X}_{sueldo\ mujeres} -  \bar{X}_{sueldo\ hombres}= 0$$`
+- Si **hay** diferencias de sueldo en la población y rechazamos `\(H_0\)`: decisión correcta
+
+- Si **no hay** diferencias de sueldo en la población y rechazamos `\(H_0\)`: Error tipo I
+
+.content-box-red[
+.center[
+##El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población
+]]
+
+---
+## Hipotesis nula y tipos de error
+
+![](img/errors.jpg)
+
+---
+## Hipotesis nula y tipos de error
+
+&lt;br&gt;
+.pull-left[
+.content-box-red[
+### Error Tipo I
+
+Encontrar algo que no existe en la población
+
+]
+]
+
+.pull-right[
+.content-box-green[
+### Error Tipo II
+
+No Encontrar algo que si existe en la población
+
+]
+]
+
+
+---
+# Hipótesis nula y `\(\alpha\)`
+
+- Entonces, el `\(\alpha\)` es la probabilidad de error que fijamos para rechazar la hipótesis nula
+
+- en lenguaje de prueba de hipótesis, es la probabilidad de rechazar la hipótesis nula cuando esta es verdadera
+
+- o la probabilidad de encontrar diferencias entre grupos de la población cuando estas no existen
+
+- o en simple, la probabilidad de que nos estemos equivocando
+
+---
+# Nivel de confianza y probabilidad de error  `\(\alpha\)`
+
+- el nivel de confianza de una estimación se determina de manera **convencional**, usualmente se acepta 95% o 99% de confianza
+
+- un nivel de confianza se expresa en una probabilidad de error `\(\alpha\)` (.red[alfa]), que es 1- nivel de confianza
+
+  - para un nivel de confianza de 95%, `\(\alpha=1-0.95=0.05\)`
+  
+  - para un nivel de confianza de 99%, `\(\alpha=1-0.99=0.01\)`
+
+---
+class: middle center
+
+![](img/normal&amp;alfa2.png)
+
+---
+class: middle center
+
+![](img/normal&amp;alfa.png)
+
+---
+.content-box-green[
+
+## 4. Intervalo de confianza [y contraste con valor crítico]
+
+- de la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96 
+
+- para diferencia de medias se utiliza prueba `\(t\)`, donde el valor crítico es variable según en tamaño muestral
+
+- sin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase
+
+]
+
+---
+# 4. Intervalo de confianza
+
+
+`\begin{align*}
+\bar{x}_1-\bar{x}_2 &amp;\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
+50165 &amp;\pm 1.96*50561 \\\\
+50165 &amp;\pm 99099.56 \\\\
+CI[-49287.48&amp;;149617.63]
+\end{align*}`
+
+---
+# Test de hipótesis de diferencias en R
+
+
+``` r
+t.test(salario ~ sexo, data = casen_350, var.equal=TRUE)
+```
+
+```
+
+	Two Sample t-test
+
+data:  salario by sexo
+t = 0.99215, df = 341, p-value = 0.3218
+alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
+95 percent confidence interval:
+ -49287.48 149617.63
+sample estimates:
+mean in group 1 mean in group 2 
+       654585.4        604420.3 
+```
+
+---
+# tabla t test con `rempsyc`
+
+
+``` r
+pacman::p_load(rempsyc,broom)
+model &lt;- t.test(salario ~ sexo, data = casen_350, var.equal=TRUE)
+stats.table &lt;- tidy(model, conf.int = TRUE)
+nice_table(stats.table, broom = "t.test")
+```
+
+&lt;div class="tabwid"&gt;&lt;style&gt;.cl-5c6a73e2{table-layout:auto;}.cl-5c6311e2{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5c6311ec{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-5c6311f6{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-5c664c72{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-5c664c7c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-5c666680{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c66668a{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-5c666694{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}&lt;/style&gt;&lt;table data-quarto-disable-processing='true' class='cl-5c6a73e2'&gt;&lt;thead&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;Method&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;Alternative&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;Mean 1&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;Mean 2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311ec"&gt;M&lt;/span&gt;&lt;span class="cl-5c6311f6"&gt;1&lt;/span&gt;&lt;span class="cl-5c6311e2"&gt; - &lt;/span&gt;&lt;span class="cl-5c6311ec"&gt;M&lt;/span&gt;&lt;span class="cl-5c6311f6"&gt;2&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311ec"&gt;t&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311ec"&gt;df&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311ec"&gt;p&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;th class="cl-5c666680"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;95% CI&lt;/span&gt;&lt;/p&gt;&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr style="overflow-wrap:break-word;"&gt;&lt;td class="cl-5c66668a"&gt;&lt;p class="cl-5c664c7c"&gt;&lt;span class="cl-5c6311e2"&gt;Two Sample t-test&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;two.sided&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;654,585.37&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;604,420.29&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;50,165.08&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;0.99&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;341&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;.322&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;td class="cl-5c666694"&gt;&lt;p class="cl-5c664c72"&gt;&lt;span class="cl-5c6311e2"&gt;[-49287.48, 149617.63]&lt;/span&gt;&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/div&gt;
+???
+https://rempsyc.remi-theriault.com/articles/t-test
+
+
+---
+# 5. Interpretación
+
+Nuestro intervalo de confianza **contiene el cero**, por lo que no se rechaza la hipótesis nula
+----
+.content-box-red[
+
+Con un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.
+
+Alternativamente:
+No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error
+]
+
+---
+class: inverse
+
+## Resumen
+
+- hipótesis: aseveraciones sobre algo que ocurre en la población, usualmente asociaciones entre conceptos / variables
+
+- las hipótesis se contrastan con un criterio de falsabilidad
+
+- el contraste de hipótesis en estadística opera mediante el rechazo de la hipótesis nula (o de no diferencias), con una probabilidad de error `\(\alpha\)`
+
+- 5 pasos para contraste de hipótesis
+
+
+
+---
+# Próxima clase (miércoles): manos al código
+----
+
+# y próximo lunes
+
+- Prueba `\(t\)`
+
+- hipótesis direccionales  (mayor o menor qué) o de una cola (one tail)
+
+- inferencia para proporciones
+
+---
+# Recomendaciones
+
+
+[![:scale 30%](img/logicaccss.png)](https://cienciassocialesfcpys.wordpress.com/wp-content/uploads/2016/03/5la-logica-de-las-ciencias-sociales-popper-adorno-dahrendorf-habermas.pdf)
+
+---
+class: front
+
+
+.pull-left-wide[
+# Estadística Correlacional]
+
+.pull-right-narrow[![:scale 85%](img/logo-correlacional-transp.png)]
+
+## Inferencia, asociación y reporte
+
+
+----
+.pull-left[
+
+## Juan Carlos Castillo
+## Sociología FACSO - UChile
+## 2do Sem 2025
+## [.orange[correlacional.netlify.app]](https:/correlacional.netlify.app)
+]
+
+
+.pull-right-narrow[
+.center[
+.content-block-gray[
+
+]]
+]
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+  "ratio": "16:9",
+  "highlightStyle": "dracula",
+  "highlightLines": true,
+  "countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+<style>
+.logo {
+  background-image: url("img/logo-correlacional-transp.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 16.3em;
+  right: 31em;
+  width: 110px;
+  height: 70px;
+  z-index: 0;
+}
+</style>
+
+<script>
+document
+  .querySelectorAll(
+    '.remark-slide-content' +
+    ':not(.title-slide)' +
+    // add additional classes to exclude here, e.g.
+    // ':not(.inverse)' +
+    ':not(.hide-logo)'
+  )
+  .forEach(el => {
+    el.innerHTML += '<div class="logo"></div>';
+  });
+</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

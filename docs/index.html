@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -35,15 +35,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1e322a5761c244bfe28d96c78629b719.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1e75c0356d7b2381f96eccb2ed041f7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -117,7 +116,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -149,8 +148,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -182,16 +179,8 @@ window.Quarto = {
 <span class="menu-text">Prácticos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./trabajos/trabajos.html"> 
-<span class="menu-text">Trabajos</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./resource/index.html"> 
 <span class="menu-text">Recursos</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./references/publications/index.html"> 
-<span class="menu-text">Referencias</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -275,150 +264,187 @@ window.Quarto = {
 <li><i class="fa-solid fa-calendar-check" aria-label="calendar-check"></i> &nbsp; <a href="https://calendar.app.google/BoyLBTKhuGqiPiLK8">Agendar reunión</a></li>
 </ul>
 </div>
+<div class="g-col-12 g-col-md-8">
+<div class="image-cropper">
+<p><img src="images/docentes/gabriel.jpg" alt="avatar" class="profile-pic" width="100" height="auto"></p>
+</div>
+<ul>
+<li><i class="fa-solid fa-user" aria-label="user"></i> &nbsp; Gabriel Cortés</li>
+<li><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; Decanatura FACSO, Universidad de Chile</li>
+<li><i class="fa-solid fa-envelope" aria-label="envelope"></i> &nbsp; <a href="mailto:gabriel.cortes@ug.uchile.cl ">gabriel.cortes@ug.uchile.cl </a></li>
+<li><i class="fa-brands fa-github" aria-label="github"></i> &nbsp; <a href="https://github.com/gabcortes97">gabcortes97</a></li>
+</ul>
+</div>
 </div>
 </section>
 <section id="actividades" class="level3 g-col-12 g-col-md-4 contact-policy">
 <h3 class="anchored" data-anchor-id="actividades">Actividades</h3>
 <ul>
-<li><i class="fa-solid fa-clock" aria-label="clock"></i> &nbsp; <strong>Lunes y Miércoles 8:30 a 10:00</strong></li>
-<li><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; <strong>Sala 6 Aulario C</strong></li>
-<li><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; <strong>Sala 1 Aulario B</strong></li>
+<li><p><i class="fa-solid fa-clock" aria-label="clock"></i> &nbsp; <strong>Lunes 8:30 a 10:00</strong></p></li>
+<li><p><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; Sala 6 Aulario C</p></li>
+<li><p><i class="fa-solid fa-clock" aria-label="clock"></i> &nbsp; <strong>Miércoles 8:30 a 10:00</strong></p></li>
+<li><p><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; Aulario B sala B1</p></li>
+<li><p><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; FACSO sala 45</p></li>
+<li><p><i class="fa-solid fa-building" aria-label="building"></i> &nbsp; FACSO Módulo 2 de computación 1er. piso</p></li>
 </ul>
 </section>
 </div>
 </div>
-<section id="ayudantes" class="level3">
-<h3 class="anchored" data-anchor-id="ayudantes">Ayudantes</h3>
-<div class="home">
-<div class="grid course-details">
-<div class="g-col-12 g-col-sm-6 g-col-md-4">
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="images/ayudantes/bastian.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Bastián Martin</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="images/ayudantes/felipe.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Felipe Vega</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Elena Yáñez</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Joaquín Núñez</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Amaranta González</strong></p>
-</div>
-</div>
-</div>
-<div class="g-col-12 g-col-sm-6 g-col-md-4">
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Amanda Rojo</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Maite Jullian</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Benjamín Belmar</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Nicolás Outerbridge</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Cristóbal Ramírez</strong></p>
-</div>
-</div>
-</div>
-<div class="g-col-12 g-col-sm-6 g-col-md-4">
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="images/ayudantes/valentina.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Valentina Montencinos</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Mariana Cuervo</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Renato De Luca</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Vicente Rojas</strong></p>
-</div>
-</div>
-<div class="avatar-container">
-<div class="avatar-photo">
-<p><img src="https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png" class="profile-pic img-fluid"></p>
-</div>
-<div class="avatar-text">
-<p><strong>Amaya Barbet</strong></p>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="ayudantes-por-confirmar" class="level2">
+<h2 class="anchored" data-anchor-id="ayudantes-por-confirmar">Ayudantes (por confirmar)</h2>
+<!-- 
+
+
+::: {.home}
+
+::: {.grid .course-details}
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/bastian.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Bastián Martin**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/felipe.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Felipe Vega**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Elena Yáñez**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Joaquín Núñez**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amaranta González**
+:::
+:::
+
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amanda Rojo**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Maite Jullian**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Benjamín Belmar**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Nicolás Outerbridge**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Cristóbal Ramírez**
+:::
+:::
+
+:::
+
+::: {.g-col-12 .g-col-sm-6 .g-col-md-4}
+::: {.avatar-container}
+::: {.avatar-photo}
+![](images/ayudantes/valentina.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Valentina Montencinos**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Mariana Cuervo**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Renato De Luca**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Vicente Rojas**
+:::
+:::
+
+::: {.avatar-container}
+::: {.avatar-photo}
+![](https://res.cloudinary.com/sitegurus/image/upload/v1624100887/profile_pictures/default_qrqg0b.png){.profile-pic}
+:::
+::: {.avatar-text}
+**Amaya Barbet**
+:::
+:::
+
+:::
+:::
+::: -->
 </section>
 <section id="últimas-informaciones" class="level2">
 <h2 class="anchored" data-anchor-id="últimas-informaciones">Últimas informaciones</h2>
@@ -493,14 +519,13 @@ window.Quarto = {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
