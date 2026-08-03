@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Programa – Estadística Correlacional</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -40,10 +37,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-02a03996998c48059a998c6dac7a0326.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-1e75c0356d7b2381f96eccb2ed041f7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -60,7 +57,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -306,23 +303,24 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>Evaluación 1: Prueba Inferencia (30%, teórico)</li>
 <li>Evaluación 2: Prueba Asociación (40% = 30% teórico + 10% práctico)</li>
-<li>Evaluación 3: (30%)
+<li>Evaluación 3: Diferenciada (30%)
 <ul>
-<li>Opción A: Reporte de aplicación - trabajo grupal<br>
-</li>
-<li>Opción B: Evaluación individual</li>
+<li>A: Evaluación individual: para quienes tienen promedio menor a 4.5</li>
+<li>B: Trabajo de aplicación grupal: para quienes tienen promedio mayor o igual a 4.5</li>
+<li>C: Trabajo de profundización en duplas: para quienes tienen promedio mayor o igual a 5.5</li>
 </ul></li>
 </ul>
+<p>Quines se encuentren en la categoría B pueden también optar a A, y quienes se encuentren en la categoría C pueden optar a A o B.</p>
 <p>La nota ponderada de las evaluaciones equivaldrá al 60% de la nota del curso y el examen final al 40% restante.</p>
 <p>Las evaluaciones se distribuyen en el semestre de la siguiente manera:</p>
-<p><img src=".\slides/img/plan.png" class="img-fluid"></p>
+<p><img src="./slides/img/plan.png" class="img-fluid"></p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>ATENCIÓN
+ATENCIÓN
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -335,7 +333,7 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Sobre las evaluaciones
+Sobre las evaluaciones
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -369,7 +367,7 @@ ul.task-list li input[type="checkbox"] {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Actualización de eximición
+Actualización de eximición
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -422,7 +420,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="programación-de-sesiones" class="level2">
 <h2 class="anchored" data-anchor-id="programación-de-sesiones">Programación de sesiones</h2>
-<p>Visitar la página de <a href=".\schedule.html">Planificación</a>.</p>
+<p>Visitar la página de <a href="./schedule.html">Planificación</a>.</p>
 
 
 </section>
@@ -479,14 +477,13 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
