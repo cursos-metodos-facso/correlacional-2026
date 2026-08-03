@@ -2,14 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="description" content="Ciencia Social Abierta">
+<meta name="description" content="Estadística Correlacional">
 
-<title>Presentación – Ciencia Social Abierta</title>
+<title>Ejercicio de repaso general Unidad 1 – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,6 +24,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -30,17 +68,17 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
-<link href="../files/logo.png" rel="icon" type="image/png">
+<link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f444981237ef2c2da2ea7c76384b50c6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-02a03996998c48059a998c6dac7a0326.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +95,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -71,14 +109,44 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="Presentación – Ciencia Social Abierta">
-<meta property="og:image" content="https://multinivel-facso.netlify.app/content/files/logo.png">
-<meta property="og:site_name" content="Ciencia Social Abierta">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Ejercicio de repaso general Unidad 1 – Estadística Correlacional">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://multinivel-facso.netlify.app/content/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
 
-<body class="nav-sidebar docked nav-fixed quarto-light">
+<body class="nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -86,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="../index.html">
-    <span class="navbar-title">Ciencia Social Abierta</span>
+    <span class="navbar-title">Estadística Correlacional</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Buscar"></div>
@@ -108,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Planificación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="../content/index.html" aria-current="page"> 
+    <a class="nav-link" href="../content/index.html"> 
 <span class="menu-text">Clases</span></a>
   </li>  
   <li class="nav-item">
@@ -116,16 +184,8 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Prácticos</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../trabajos/trabajos.html"> 
-<span class="menu-text">Trabajos</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../resource/index.html"> 
 <span class="menu-text">Recursos</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../references/publications/index.html"> 
-<span class="menu-text">Referencias</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -133,143 +193,221 @@ ul.task-list li input[type="checkbox"] {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
-  <nav class="quarto-secondary-nav">
-    <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
-        <i class="bi bi-layout-text-sidebar-reverse"></i>
-      </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Sesiones</a></li><li class="breadcrumb-item"><a href="../content/07-content.html">7: Preregistros y OSF</a></li></ol></nav>
-        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-        </a>
-    </div>
-  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="sidebar-menu-container"> 
-    <ul class="list-unstyled mt-1">
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Sobre clases</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sobre clases y lecturas</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-        <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Sesiones</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Alternar sección">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">1: Introducción</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2: Principios y estándares</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/03-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">3: Texto plano y citas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/04-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">4: Control de versiones</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/05-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">5: IPO</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/06-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">6: Github Pages</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/07-content.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">7: Preregistros y OSF</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/08-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">8: Datos y publicaciones abiertas</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../content/10-content.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">9: Resumen de contenidos</span></a>
-  </div>
-</li>
-      </ul>
-  </li>
-    </ul>
-    </div>
-</nav>
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#documento-de-presentación" id="toc-documento-de-presentación" class="nav-link active" data-scroll-target="#documento-de-presentación">Documento de presentación</a></li>
-  <li><a href="#video-de-taller-de-pre-registros-y-pre-prints-2022" id="toc-video-de-taller-de-pre-registros-y-pre-prints-2022" class="nav-link" data-scroll-target="#video-de-taller-de-pre-registros-y-pre-prints-2022">Video de taller de pre-registros y pre-prints 2022</a></li>
+  <li><a href="#ejercicio-de-inferencia" id="toc-ejercicio-de-inferencia" class="nav-link active" data-scroll-target="#ejercicio-de-inferencia">Ejercicio de inferencia</a>
+  <ul class="collapse">
+  <li><a href="#a.-estimación-del-promedio-de-salarios-de-la-población" id="toc-a.-estimación-del-promedio-de-salarios-de-la-población" class="nav-link" data-scroll-target="#a.-estimación-del-promedio-de-salarios-de-la-población">A. Estimación del promedio de salarios (de la población)</a>
+  <ul class="collapse">
+  <li><a href="#test-de-hipótesis-a-realizar" id="toc-test-de-hipótesis-a-realizar" class="nav-link" data-scroll-target="#test-de-hipótesis-a-realizar">Test de hipótesis a realizar</a></li>
+  <li><a href="#construcción-de-intervalo-y-5-pasos-de-la-inferencia" id="toc-construcción-de-intervalo-y-5-pasos-de-la-inferencia" class="nav-link" data-scroll-target="#construcción-de-intervalo-y-5-pasos-de-la-inferencia">Construcción de intervalo y 5 pasos de la inferencia</a></li>
+  </ul></li>
+  <li><a href="#estimación-de-diferencia-de-medias" id="toc-estimación-de-diferencia-de-medias" class="nav-link" data-scroll-target="#estimación-de-diferencia-de-medias">2. Estimación de diferencia de medias</a>
+  <ul class="collapse">
+  <li><a href="#test-de-hipótesis-a-realizar-1" id="toc-test-de-hipótesis-a-realizar-1" class="nav-link" data-scroll-target="#test-de-hipótesis-a-realizar-1">Test de hipótesis a realizar</a></li>
+  <li><a href="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia" id="toc-contraste-con-valor-crítico-y-5-pasos-de-la-inferencia" class="nav-link" data-scroll-target="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia">Contraste con valor crítico y 5 pasos de la inferencia</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Sesiones</a></li><li class="breadcrumb-item"><a href="../content/07-content.html">7: Preregistros y OSF</a></li></ol></nav><h1 class="title display-7">Presentación</h1></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Ejercicio de repaso general Unidad 1</h1></header>
 
 <header id="title-block-header">
 
 
 <div class="date-block bg-content text-white p-2">
-  <p class="date">Sesión del jueves, 28 de mayo de 2026</p>
+  <p class="date">Sesión del lunes, 8 de septiembre de 2025</p>
 </div>
 </header>
 
 
-<section id="documento-de-presentación" class="level1">
-<h1>Documento de presentación</h1>
-<iframe src="../slides/07-preregistros_osf.html" height="550" width="100%" allowfullscreen="true">
-</iframe>
+<section id="ejercicio-de-inferencia" class="level1">
+<h1>Ejercicio de inferencia</h1>
+<p>A Ud. se le ha solicitado estimar el promedio de salarios en la población, así como también si existen diferencias salariales entre quienes han completado la educación superior en institutos técnico-profesionales (IP) y quienes lo han hecho en instituciones universitarias. Para ello se le ha proporcionado la siguiente información:</p>
+<ul>
+<li>Datos: Encuesta de Ingresos, muestra aleatoria N=900 casos</li>
+<li>Promedio salarios: 850.000, desviación estándar 300.000</li>
+<li>Salario promedio técnico-profesional: 1.200.000, desviación estandar 180.000</li>
+<li>Salario promedio universitario: 1.500.000, desviación estándar 270.000</li>
+</ul>
+<p>Además de esto, se le han proporcionado los siguientes valores para realizar inferencia estadística:</p>
+<ul>
+<li>valor crítico z para el promedio con un <span class="math inline">\(\alpha\)</span> de 5% (0,05)= 1,96, y con un <span class="math inline">\(\alpha\)</span> de 1% (0,01)= 2,58</li>
+<li>valor crítico t para diferencia de medias con un <span class="math inline">\(\alpha\)</span> de 5% (0,05) y grados de libertad 898 (N-2)= 1,96; y con un <span class="math inline">\(\alpha\)</span> de 1% (0,01)= 2,58</li>
+<li>Error estándar del promedio:
+<ul>
+<li><span class="math display">\[\sigma_{\bar{X}}=\frac{s\ (desv.\ estandar)}{\sqrt{N} (tamaño\ muestral)}\]</span></li>
+</ul></li>
+<li>Error estándar de la diferencia de medias salariales para esta muestra= 15000</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generación de los datos</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Establecer la semilla para garantizar la reproducibilidad</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">281217</span>)  </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros actualizados</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">900</span>  <span class="co"># Tamaño de la muestra</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>promedio_salarios <span class="ot">&lt;-</span> <span class="dv">850000</span>;desviacion_estandar_salarios <span class="ot">&lt;-</span> <span class="dv">300000</span>  <span class="co"># Desviación estándar de los salarios</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar la muestra con la nueva semilla y parámetros</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ingresos <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> promedio_salarios, <span class="at">sd =</span> desviacion_estandar_salarios)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<section id="a.-estimación-del-promedio-de-salarios-de-la-población" class="level2">
+<h2 class="anchored" data-anchor-id="a.-estimación-del-promedio-de-salarios-de-la-población">A. Estimación del promedio de salarios (de la población)</h2>
+<ul>
+<li>Tengo que el promedio de salarios de la muestra es: 900.000</li>
+<li>Promedio de salarios de la población: <span class="math inline">\(X\)</span>?</li>
+</ul>
+<p>No podemos dar un valor certero para el promedio poblacional, pero si un <strong>rango probable de valores</strong>.</p>
+<section id="test-de-hipótesis-a-realizar" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-hipótesis-a-realizar">Test de hipótesis a realizar</h3>
+<p>¿Qué tipo de aproximación de test de hipótesis corresponde en este caso? Recordemos las dos aproximaciones principales para test de hipótesis: a) contraste con valor crítico, y b) generación de intervalo de confianza. En general se pueden aplicar siempre las dos, pero su pertinencia es distinta según lo que se esté estimando:</p>
+<ul>
+<li><p>en este caso (estimación del promedio) se podría realizar la alternativa de contraste con valor crítico, que nos permitiría rechazar (o no) la hipótesis nula de que el promedio es cero en la población.</p></li>
+<li><p>ya que la alternativa anterior no es muy informativa en este caso, en la estimación puntual de parámetros (como el promedio) se prefiere utilizar un rango de probabilidad, expresado en un intervalo de confianza.</p></li>
+</ul>
+<p>Por lo tanto, en este caso lo que es más pertinente es la alternativa b: <strong>estimación de un intervalo de confianza</strong></p>
 </section>
-<section id="video-de-taller-de-pre-registros-y-pre-prints-2022" class="level1">
-<h1>Video de taller de pre-registros y pre-prints 2022</h1>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RsHmgi6gVH4?si=5s0oe_Q3Gd2-VIYN" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen="">
-</iframe>
+<section id="construcción-de-intervalo-y-5-pasos-de-la-inferencia" class="level3">
+<h3 class="anchored" data-anchor-id="construcción-de-intervalo-y-5-pasos-de-la-inferencia">Construcción de intervalo y 5 pasos de la inferencia</h3>
+<p>Los 5 pasos de la inferencia en esta caso son los siguientes:</p>
+<section id="formular-hipótesis" class="level4">
+<h4 class="anchored" data-anchor-id="formular-hipótesis">1. Formular hipótesis</h4>
+<p>Contrastamos la <em>hipótesis nula</em> (el promedio es igual a 0 en la población):</p>
+<p><span class="math display">\[H_{0}: \bar{X}_{salarios}=0\]</span></p>
+<p>En referencia a la siguiente hipótesis alternativa:</p>
+<p><span class="math display">\[H_{a}: \bar{X}_{salarios} \neq 0\]</span></p>
+</section>
+<section id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t" class="level4">
+<h4 class="anchored" data-anchor-id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t">2.Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</h4>
+<p>El error estándar (SE, por Standard Error) del promedio es:</p>
+<p><span class="math display">\[SE_{\bar{X}}=\frac{s\ (desv.\ estandar)}{\sqrt{N} (tamaño\ muestral)}\]</span></p>
+<p>Reemplazando:</p>
+<p><span class="math display">\[SE_{\bar{X}}=\frac{300000}{\sqrt{900}}=\frac{300000}{30}=10000\]</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>error_estandar <span class="ot">&lt;-</span> desviacion_estandar_salarios <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>error_estandar</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10000</code></pre>
+</div>
+</div>
+</section>
+<section id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente" class="level4">
+<h4 class="anchored" data-anchor-id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente">3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente</h4>
+<p>Esta informació fue proporcionada en el enunciado: <span class="math inline">\(\alpha=5%\)</span>, valor crítico= 1,96</p>
+</section>
+<section id="cálculo-de-intervalo-de-confianza" class="level4">
+<h4 class="anchored" data-anchor-id="cálculo-de-intervalo-de-confianza">4. Cálculo de intervalo de confianza</h4>
+<p>Recordar fórmula del intervalo de 95% de confianza para el promedio:</p>
+<p><span class="math display">\[\begin{align*}
+\bar{x} &amp;\pm Z_{\alpha/2}*SE_{\bar{x}} \\\\
+850000 &amp;\pm 1.96*10000 \\\\
+850000 &amp;\pm 19600 \\\\
+CI[830400&amp;;869600]
+\end{align*}\]</span></p>
+<p>En R:</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el intervalo de confianza al 95%</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>z_95 <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># Valor z para el 95% de confianza</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="ot">&lt;-</span> promedio_salarios <span class="sc">-</span> z_95 <span class="sc">*</span> error_estandar</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="ot">&lt;-</span> promedio_salarios <span class="sc">+</span> z_95 <span class="sc">*</span> error_estandar</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar los resultados</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Intervalo de confianza al 95%: ["</span>, <span class="fu">round</span>(limite_inferior, <span class="dv">2</span>), <span class="st">", "</span>, <span class="fu">round</span>(limite_superior, <span class="dv">2</span>), <span class="st">"]</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Intervalo de confianza al 95%: [ 830400 ,  869600 ]</code></pre>
+</div>
+</div>
+</section>
+<section id="interpretación" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación">5. Interpretación</h4>
+<p><em>Utilizando una muestra de 900 individuos, se estimó el promedio de ingresos en $850,000 con una desviación estándar de $300,000. El error estándar para esta estimación es $10,000, y el intervalo de confianza al 95%, calculado con estos parámetros, se extiende de $830,400 a $869,600. Este intervalo refleja que, con un 95% de confianza, se puede afirmar que el promedio verdadero de ingresos en la población se encuentra dentro de este rango, asumiendo una distribución normal de los ingresos.</em></p>
+</section>
+</section>
+</section>
+<section id="estimación-de-diferencia-de-medias" class="level2">
+<h2 class="anchored" data-anchor-id="estimación-de-diferencia-de-medias">2. Estimación de diferencia de medias</h2>
+<p>Para este ejercicio consideramos la siguiente información proporcionada arriba:</p>
+<ul>
+<li>Salario promedio técnico-profesional: 1.200.000, desviación estandar 180.000</li>
+<li>Salario promedio universitario: 1.500.000, desviación estándar 270.000</li>
+<li>valor crítico t para diferencia de medias con un <span class="math inline">\(\alpha\)</span> de 5% (0,05) y grados de libertad 898 (N-2)= 1,96</li>
+<li>error estándar de la diferencia de medias= 15000</li>
+</ul>
+<p>Con esta información ya podemos calcular la diferencia de promedios de la muestra:</p>
+<p><span class="math inline">\(\bar{X}_{salario-universitario}-\bar{X}_{salario-técnico}=1500000-1200000=300000\)</span></p>
+<p>La pregunta ahora es: ¿existe esta diferencia de promedios en la población?</p>
+<section id="test-de-hipótesis-a-realizar-1" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-hipótesis-a-realizar-1">Test de hipótesis a realizar</h3>
+<p>Para el caso anterior de la estimación del promedio hablamos de dos aproximaciones: a) contraste con valor crítico, y b) intervalo de confianza. En este caso (estimación de diferencias de promedio) tradicionalmente se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. Complementariamente, también se puede entregar información del intervalo de confianza.</p>
+<p>Por lo tanto, en este caso lo que es más pertinente es la alternativa a: <strong>contraste con valor crítico</strong>, pero también es recomendable agregar la información del intervalo de confianza.</p>
+</section>
+<section id="contraste-con-valor-crítico-y-5-pasos-de-la-inferencia" class="level3">
+<h3 class="anchored" data-anchor-id="contraste-con-valor-crítico-y-5-pasos-de-la-inferencia">Contraste con valor crítico y 5 pasos de la inferencia</h3>
+<p>Los 5 pasos de la inferencia en esta caso son los siguientes:</p>
+<section id="formular-hipótesis-1" class="level4">
+<h4 class="anchored" data-anchor-id="formular-hipótesis-1">1. Formular hipótesis</h4>
+<p>Contrastamos la <em>hipótesis nula</em> (no hay diferencias de promedios entre grupos):</p>
+<p><span class="math display">\[H_{0}: \bar{X}_{salariouniversidad} -  \bar{X}_{salarioinstituto}= 0\]</span></p>
+<p>En referencia a la siguiente hipótesis alternativa:</p>
+<p><span class="math display">\[H_{a}: \bar{X}_{salariouniversidad} -  \bar{X}_{salarioinstituto} \neq 0\]</span></p>
+</section>
+<section id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t-1" class="level4">
+<h4 class="anchored" data-anchor-id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t-1">2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</h4>
+<p>El error estándar de la diferencias de promedios es:</p>
+<p><span class="math display">\[SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}\]</span></p>
+<p>La información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 15000</p>
+<p>Con esto podemos calcular el valor del t empírico:</p>
+<p><span class="math inline">\(t=\frac{diferenciamedias}{se_{diferenciamedias}} \frac{(\bar{x}_1-\bar{x}_2)}{se_{(\bar{x}_1-\bar{x}_2)}}\)</span></p>
+<p>Con nuestros datos:</p>
+<p><span class="math inline">\(t=\frac{300000}{15000}=20\)</span></p>
+</section>
+<section id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente-1" class="level4">
+<h4 class="anchored" data-anchor-id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente-1">3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente</h4>
+<ul>
+<li>Proporcionado en el enunciado</li>
+</ul>
+</section>
+<section id="contraste-valores-empíricocrítico-e-intervalo-de-confianza" class="level4">
+<h4 class="anchored" data-anchor-id="contraste-valores-empíricocrítico-e-intervalo-de-confianza">4. Contraste valores empírico/crítico (e intervalo de confianza)</h4>
+<p>t empírico= 20 &gt; t critico=1,96</p>
+<p>Intervalo al 95% de confianza:</p>
+<p><span class="math display">\[\begin{align*}
+\bar{x}_1-\bar{x}_2 &amp;\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
+300000 &amp;\pm 1.96*15000 \\\\
+300000 &amp;\pm 29400 \\\\
+CI[270600&amp;\ ;329400]
+\end{align*}\]</span></p>
+</section>
+<section id="interpretación-1" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-1">5. Interpretación</h4>
+<p><em>Se llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p &lt; .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos.</em></p>
 
 
+</section>
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -324,13 +462,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -682,7 +821,7 @@ ul.task-list li input[type="checkbox"] {
       &nbsp;
     </div>
     <div class="nav-footer-right">
-<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/cienciasocialabierta2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
 </div>
   </div>
 </footer>

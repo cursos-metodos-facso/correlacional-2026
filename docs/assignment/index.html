@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Prácticos – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -37,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1e75c0356d7b2381f96eccb2ed041f7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-02a03996998c48059a998c6dac7a0326.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -170,10 +173,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="descripción" class="level2">
 <h2 class="anchored" data-anchor-id="descripción">Descripción</h2>
-<p>Las clases se acompañan de guías de trabajo con énfasis en la aplicación práctica mediante el uso de software estadístico.</p>
-<p>Las guías se encontrarán disponibles en esta página (link a la izquierda). Habrá dos guías para la Unidad 1 (Inferencia), y 2 para la Unidad 2 (Asociación). La unidad 3 será eminentemente práctica y de aplicación.</p>
-<p>Las guías son desarrolladas de manera autónoma, y cada dos semanas los días martes habrá un espacio práctico de revisión de las guías y de consultas. Para ello se espera que quienes puedan traigan su computador a la sala, y quienes no tienen lo podrán hacer simultáneamente en la sala de computación 345.</p>
-<p>En las prácticas vamos a trabajar con el software R, Versión 4.4.1.</p>
+<p>Las clases se acompañan de talleres prácticos con énfasis en la aplicación de contenidos mediante el uso de software estadístico. Las guías pra desarrollar los talleres se encontrarán disponibles en esta página (link a la izquierda).</p>
+<p>Para desarrollar las guías se trabaja frente al computador. Quienes puedan traer su computador (recomendado, por temas de customización de espacio de trabajo en el software) realizan el práctico en la sala B1 del aulario B, y también tendremos 2 salas de computación disponibles.</p>
+<p>En las prácticas vamos a trabajar con el software R desde la interfaz <a href="https://positron.posit.co/">POSITRON</a>, que es un entorno de desarrollo integrado (IDE) para R y que combina el diseño de RStudio dentro del editor <a href="https://code.visualstudio.com/">VS Code</a>.</p>
 </section>
 <section id="trabajo-con-software-r" class="level2">
 <h2 class="anchored" data-anchor-id="trabajo-con-software-r">Trabajo con software R</h2>
@@ -187,44 +189,48 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sobre-errores-y-consultas-sobre-problemas-con-r-y-ejecución-de-código" class="level2">
 <h2 class="anchored" data-anchor-id="sobre-errores-y-consultas-sobre-problemas-con-r-y-ejecución-de-código">Sobre errores y consultas sobre problemas con R y ejecución de código</h2>
-<p>En caso de preguntas sobre las clases hacerlas en <a href="../assignment/foro-practicos.html">Foro prácticos</a></p>
-<section id="installR" class="level3">
-<h3 class="anchored" data-anchor-id="installR">Instalación de R &amp; RStudio</h3>
-<p>Para esta versión del curso vamos a trabajar con el programa R Version 4.4.1 y con RStudio, que ofrece un entorno más amigable para trabajar con R.</p>
-<p>Para <strong>instalar R</strong>: ir a <a href="https://cran.r-project.org/index.html">https://cran.r-project.org/index.html</a> y bajar/instalar la versión correspondiente a la plataforma utilizada (Windows, Mac o Linux)</p>
-<p>Para instalar <strong>RStudio</strong>: ir a <a href="https://rstudio.com/products/rstudio/">https://rstudio.com/products/rstudio/</a> y bajar/instalar RStudio desktop, Open Source License (libre).</p>
-<p>En caso de dudas se puede revisar el siguiente <strong>video tutorial</strong> de instalación de R &amp; RStudio, preparado por Julio Iturra (apoyo docente) del curso Estadística Multivariada 2020:</p>
+<p>En caso de preguntas sobre las clases hacerlas en <a href="..\assignment/foro-practicos.html">Foro prácticos</a></p>
+<!-- ### Instalación de R & RStudio {#installR}
+
+Para esta versión del curso vamos a trabajar con el programa R Version 4.4.1 y con RStudio, que ofrece un entorno más amigable para trabajar con R.
+
+Para **instalar R**: ir a [https://cran.r-project.org/index.html](https://cran.r-project.org/index.html) y bajar/instalar la versión correspondiente a la plataforma utilizada (Windows, Mac o Linux)
+
+Para instalar **RStudio**: ir a [https://rstudio.com/products/rstudio/](https://rstudio.com/products/rstudio/) y bajar/instalar RStudio desktop, Open Source License (libre).
+
+En caso de dudas se puede revisar el siguiente **video tutorial** de instalación de R & RStudio, preparado por Julio Iturra (apoyo docente) del curso Estadística Multivariada 2020:
+
 <div style="width: 100%; height: 600px; overflow: hidden;">
-<video style="width: 100%;" controls="">
+<video  style="width: 100%;" controls>
 <source src="https://www.dropbox.com/s/goofz32r5htw6pt/tutorialR-4.0.mp4?raw=1" type="video/mp4">
 </video>
 </div>
-<p>Si por alguna razón se prefiere trabajar sin descargar, también se puede utilizar RCloud, abajo un tutorial preparado por Valentina Andrade para el curso de Estadística Multivariada:</p>
+
+Si por alguna razón se prefiere trabajar sin descargar, también se puede utilizar RCloud, abajo un tutorial preparado por Valentina Andrade para el curso de Estadística Multivariada: 
+
 <div style="width: 100%; height: 600px; overflow: hidden;">
-<video style="width: 100%;" controls="">
+<video  style="width: 100%;" controls>
 <source src="https://www.dropbox.com/s/6nqm99dqnjvtmry/rcloud.mp4?raw=1" type="video/mp4">
 </video>
 </div>
-<section id="codigoR" class="level3">
-<h3 class="anchored" data-anchor-id="codigoR">Sobre el trabajo en hojas de código en RStudio</h3>
-<ul>
-<li><p>El trabajo de análisis en RStudio se efectua en una <em>hoja de código</em> (o R script o sintaxis, o para los usuarios de Stata la <em>do-file</em>), que es donde se anotan los comandos y funciones. Para abrir una hoja, en RStudio ir a File &gt; New File &gt; R Script (o ctrl+shift+N),y aparecerá un panel con una pestaña “Untitled” (sin título). Esta es la hoja de código donde se anotan los comandos.</p></li>
-<li><p>Los contenidos de las hojas de código son básicamente 2:</p>
-<ul>
-<li>comandos o funciones: se escriben en la hoja, y para ejecutarlos se debe posicionar el cursor en la línea respectiva y ctrl+enter, el resultado aparecerá en el panel de resultados o <em>Consola</em>.</li>
-<li>texto: para escribir títulos, comentarios, y todo lo que permita entender qué se está haciendo, al principio de la línea respectiva escribir el signo <code>#</code></li>
-</ul></li>
-<li><p>Para grabar nuestra hoja de código y así respaldar nuestros análisis, File &gt; Save (o ctrl+s), y dar un nombre al archivo. Recordar: breve, sin espacios ni tildes ni eñes. Por defecto, la extensión de estos archivos es .R</p></li>
-</ul>
+
+
+### Sobre el trabajo en hojas de código en RStudio {#codigoR}
+
+- El trabajo de análisis en RStudio se efectua en una _hoja de código_ (o R script o sintaxis, o para los usuarios de Stata la _do-file_), que es donde se anotan los comandos y funciones. Para abrir una hoja, en RStudio ir a File > New File > R Script (o ctrl+shift+N),y aparecerá un panel con una pestaña "Untitled" (sin título). Esta es la hoja de código donde se anotan los comandos.
+
+- Los contenidos de las hojas de código son básicamente 2:
+
+  - comandos o funciones: se escriben en la hoja, y para ejecutarlos se debe posicionar el cursor en la línea respectiva y ctrl+enter, el resultado aparecerá en el panel de resultados o _Consola_.
+  - texto: para escribir títulos, comentarios, y todo lo que permita entender qué se está haciendo, al principio de la línea respectiva escribir el signo `#`
+
+- Para grabar nuestra hoja de código y así respaldar nuestros análisis, File > Save (o ctrl+s), y dar un nombre al archivo. Recordar: breve, sin espacios ni tildes ni eñes. Por defecto, la extensión de estos archivos es .R
+ -->
 
 
 </section>
-</section></section></main></div>
 
-
-
-
- <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -276,13 +282,14 @@ ul.task-list li input[type="checkbox"] {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
@@ -624,7 +631,7 @@ ul.task-list li input[type="checkbox"] {
     }
   });
   </script>
- <!-- /content -->
+</div> <!-- /content -->
 <footer class="footer">
   <div class="nav-footer">
     <div class="nav-footer-left">

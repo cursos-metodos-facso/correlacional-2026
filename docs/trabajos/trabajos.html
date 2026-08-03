@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Evaluaciones – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -37,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-1e75c0356d7b2381f96eccb2ed041f7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-02a03996998c48059a998c6dac7a0326.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -176,7 +179,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>El curso de Estadística Correlacional considera la elaboración de un trabajo grupal como instancia final de <a href="../syllabus#evaluación">evaluación</a>. El trabajo a realizar es la elaboración de un <strong>reporte de análisis bivariado</strong>.</p>
+<p>El curso de Estadística Correlacional considera la elaboración de un trabajo grupal como instancia final de <a href="..\syllabus#evaluación">evaluación</a>. El trabajo a realizar es la elaboración de un <strong>reporte de análisis bivariado</strong>.</p>
 <p>La nota de este trabajo equivale a un <strong>30%</strong> de la nota final del curso, donde 25% equivale al reporte escrito y 5% a una cápsula de presentación de los principales resultados.</p>
 <section id="objetivo-general" class="level1">
 <h1>Objetivo general</h1>
@@ -273,7 +276,7 @@ Nota
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Sobre cargar bases de datos pesadas (ejemplo: CASEN)
+<span class="screen-reader-only">Tip</span>Sobre cargar bases de datos pesadas (ejemplo: CASEN)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -294,7 +297,7 @@ rm(list = c('casen2022')) # quitar del environment para liberar espacio en la me
 </section>
 <section id="modalidad-de-trabajo-y-asesorías" class="level1">
 <h1>Modalidad de trabajo y asesorías</h1>
-<p>Los trabajos se desarrollarán en grupos de máximo 5 integrantes. Cada grupo será asignado a un/a ayudante, quienes asesorarán periódicamente a sus grupos. El detalle de las actividades de esta unidad se encuentra en la página de <a href="../schedule">planificación</a></p>
+<p>Los trabajos se desarrollarán en grupos de máximo 5 integrantes. Cada grupo será asignado a un/a ayudante, quienes asesorarán periódicamente a sus grupos. El detalle de las actividades de esta unidad se encuentra en la página de <a href="..\schedule">planificación</a></p>
 </section>
 <section id="recomendaciones-generales-para-el-trabajo" class="level1 tabset">
 <h1 class="tabset">Recomendaciones generales para el trabajo</h1>
@@ -387,13 +390,14 @@ rm(list = c('casen2022')) # quitar del environment para liberar espacio en la me
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
