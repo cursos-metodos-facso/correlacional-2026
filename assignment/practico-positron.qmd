@@ -1,0 +1,396 @@
+---
+title: "Práctico 0: Introducción a Positron"
+date: "2026-08-12"
+lang: es
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-fold: false
+    code-tools: true
+    embed-resources: true
+    page-layout: full
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
+execute:
+  freeze: auto
+  cache: false
+  warning: true
+  message: true
+---
+
+<style>
+/* Ajustes locales: se aplican únicamente a esta página. */
+#quarto-content main.content img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+}
+
+#quarto-content main.content .quarto-figure,
+#quarto-content main.content figure {
+  width: 100%;
+  max-width: 100%;
+}
+</style>
+
+# De RStudio a Positron
+
+Este práctico es una inducción a **Positron**, el entorno que utilizaremos para trabajar con R y documentos Quarto durante el curso. El propósito es aprender a usarlo y las acciones necesarias para comenzar a trabajar desde hoy. Esta es solo una herramienta, el foco del curso seguirá estando en comprender el análisis, interpretar los resultados y escribir código reproducible.
+
+### ¿Por qué utilizaremos Positron?
+
+Positron permite aprovechar lo que usted ya aprendió en RStudio dentro de un entorno más integrado y flexible. **R sigue siendo el mismo lenguaje:** los comandos, paquetes y scripts continúan funcionando. Durante el curso utilizaremos Positron porque reúne distintas herramientas en un solo espacio de trabajo.
+
+1. **R, Python y Quarto en un mismo entorno**  
+   Permite trabajar con distintos lenguajes y documentos reproducibles dentro del mismo programa, sin cambiar constantemente de aplicación.
+
+2. **Extensiones y personalización**  
+   Se pueden instalar herramientas para Git, corrección ortográfica, otros lenguajes, temas y organización del código. Esto permite adaptar el entorno según las necesidades de cada proyecto.
+
+3. **Exploración de datos**  
+   Reúne la consola, el panel de variables, los gráficos y herramientas visuales para revisar bases de datos y comprender mejor su estructura.
+
+4. **Asistencia con inteligencia artificial**  
+   Puede ayudar a explicar errores, comprender fragmentos de código y sugerir correcciones. Su uso es opcional y sus respuestas siempre deben revisarse.
+
+5. **Trabajo reproducible**  
+   Facilita la combinación de explicaciones, código y resultados en documentos Quarto que otras personas pueden revisar y volver a ejecutar.
+
+6. **Preparación para nuevos proyectos**  
+   Integra herramientas útiles para investigaciones, tesis y trabajo colaborativo, como Git, control de versiones y soporte para diferentes tipos de archivos.
+
+
+![Interfaz de usuario de Positron y RStudio](images/user-interface-rstudio-vs-positron.jpeg)
+
+
+::: {.callout-note appearance="simple"}
+## RStudio sigue siendo una herramienta válida
+
+Positron no reemplaza lo aprendido en RStudio. Si usted ya ha trabajado con RStudio, no está comenzando desde cero: solo deberá reconocer una nueva forma de organizar herramientas que ya conoce.
+:::
+
+# ¡Positron!
+
+![Interfaz de usuario de Positron](images/user-interface-for-rstudio-migration.jpeg)
+
+
+# Abrir la carpeta del práctico
+
+Antes de abrir el documento, descargue el material y guárdelo en una ubicación fácil de encontrar. Si recibió un archivo `.zip`, debe extraerlo primero. No trabaje directamente dentro del archivo comprimido.
+
+La carpeta puede tener una estructura similar a esta:
+
+```text
+practico-00/
+├── practico-00-introduccion-positron-breve.qmd
+├── datos/
+├── images/
+└── resultados/
+```
+
+El archivo `.qmd` contiene la guía editable. Las demás carpetas permiten mantener juntos los datos, las imágenes y los resultados que se utilizarán durante los prácticos.
+
+Siga estos pasos:
+
+1. Descargue el material del práctico.
+2. Extraiga la carpeta completa si está comprimida.
+3. Abra Positron.
+4. Seleccione la opción para abrir una carpeta.
+5. Abra la carpeta completa del práctico.
+6. Compruebe que el archivo `.qmd` aparece en el explorador.
+7. Haga clic en el archivo para abrirlo en el editor.
+
+Abrir la carpeta completa permite que Positron reconozca la organización del trabajo. Además, facilita el uso de rutas relativas, como `datos/base.csv`, y evita separar el documento de los archivos que necesita.
+
+<!-- IMAGEN PENDIENTE:
+Contenido: pantalla inicial de Positron.
+Destacar: opción para abrir una carpeta.
+Ruta sugerida: images/positron/01-abrir-carpeta.png
+Texto alternativo: Pantalla inicial de Positron con la opción para abrir una carpeta destacada.
+-->
+
+<!--
+![Abrir una carpeta](images/positron/01-abrir-carpeta.png)
+-->
+
+<!-- IMAGEN PENDIENTE:
+Contenido: carpeta del práctico abierta en Positron.
+Destacar: archivo qmd y subcarpetas visibles en el explorador.
+Ruta sugerida: images/positron/02-carpeta-abierta.png
+Texto alternativo: Explorador de Positron con la carpeta del práctico y sus archivos visibles.
+-->
+
+<!--
+![Carpeta abierta en el explorador](images/positron/02-carpeta-abierta.png)
+-->
+
+::: callout-important
+## No abra el archivo desde el ZIP
+
+Primero extraiga la carpeta completa. Abrir solamente el `.qmd` desde el archivo comprimido puede impedir que Positron encuentre otros recursos del práctico.
+:::
+
+# Reconocer la interfaz
+
+No necesita aprender todos los elementos de Positron. Para comenzar, basta con reconocer cinco áreas.
+
+## Editor
+
+Es el lugar donde se escribe y se guarda el contenido del archivo `.qmd`. El documento abierto aparece en una pestaña. Puede modificar el texto y los bloques de código, pero debe **guardar** para conservar los cambios.
+
+## Consola de R
+
+Es el lugar donde R ejecuta las instrucciones. Allí pueden aparecer resultados y errores. La consola sirve para observar qué hizo R, pero el código importante debe quedar escrito en el editor.
+
+## Explorador
+
+Muestra los archivos y carpetas del práctico. Desde allí puede abrir el `.qmd` y comprobar dónde quedó el HTML generado.
+
+## Variables
+
+Muestra los objetos creados en la sesión de R. Por ejemplo, después de crear un objeto llamado `mensaje`, debería poder encontrarlo en este panel.
+
+## Gráficos
+
+Muestra las visualizaciones producidas por R. En este práctico no crearemos gráficos, pero este panel se utilizará más adelante durante el curso.
+
+La **terminal** permite ejecutar comandos del sistema. No es lo mismo que la consola de R y no será necesaria para este práctico. Para las actividades de esta guía, asegúrese de trabajar con la consola de R.
+
+| Acción | Qué ocurre |
+|---|---|
+| Escribir en el editor | El código puede quedar guardado en el archivo |
+| Ejecutar desde el editor | La instrucción se envía a R |
+| Escribir directamente en la consola | El código se ejecuta, pero puede no quedar guardado |
+
+<!-- IMAGEN PENDIENTE:
+Contenido: editor y explorador de Positron.
+Destacar: archivo qmd abierto y archivos de la carpeta.
+Ruta sugerida: images/positron/03-editor-explorador.png
+Texto alternativo: Editor de Positron con un archivo Quarto abierto y el explorador visible.
+-->
+
+<!--
+![Editor y explorador](images/positron/03-editor-explorador.png)
+-->
+
+<!-- IMAGEN PENDIENTE:
+Contenido: consola de R en Positron.
+Destacar: indicador de que corresponde a una consola de R.
+Ruta sugerida: images/positron/04-consola-r.png
+Texto alternativo: Consola de R abierta en Positron.
+-->
+
+<!--
+![Consola de R](images/positron/04-consola-r.png)
+-->
+
+<!-- IMAGEN PENDIENTE:
+Contenido: paneles Variables y Plots de Positron.
+Destacar: nombres de ambos paneles.
+Ruta sugerida: images/positron/05-variables-graficos.png
+Texto alternativo: Paneles de variables y gráficos visibles en Positron.
+-->
+
+<!--
+![Variables y gráficos](images/positron/05-variables-graficos.png)
+-->
+
+# Primera ejecución en R
+
+Un **chunk** es un bloque de código que comienza con tres acentos invertidos y `{r}`, y termina con otros tres acentos invertidos. Dentro del chunk se escriben instrucciones que serán ejecutadas por R.
+
+Primero comprobaremos que R está disponible. Ejecute el siguiente chunk mediante el botón que aparece junto al bloque de código o mediante la acción de ejecución disponible en Positron.
+
+```{r}
+R.version.string
+```
+
+Debería aparecer un texto con la versión de R instalada. El número exacto puede ser diferente en cada computador. Lo importante es que R entregue una respuesta.
+
+Ahora ejecute una operación sencilla:
+
+```{r}
+2 + 2
+```
+
+El resultado esperado es `4`. Si aparece, significa que el archivo está enviando correctamente el código a R.
+
+Al ejecutar un chunk, el código continúa escrito en el documento. Según la configuración de Positron, el resultado puede verse cerca del bloque o en la consola. En ambos casos, la operación fue realizada por R.
+
+<!-- IMAGEN PENDIENTE:
+Contenido: archivo Quarto abierto en Positron.
+Destacar: botón para ejecutar el chunk.
+Ruta sugerida: images/positron/06-ejecutar-chunk.png
+Texto alternativo: Documento Quarto abierto en Positron con el botón de ejecución destacado.
+-->
+
+<!--
+![Ejecutar un chunk](images/positron/06-ejecutar-chunk.png)
+-->
+
+Si el bloque no se ejecuta, compruebe que abrió una consola de R y no una terminal. También revise que el cursor esté dentro del chunk correcto.
+
+# Crear, guardar y revisar objetos
+
+En R, un **objeto** permite guardar un valor con un nombre. En el siguiente ejemplo crearemos un objeto llamado `mensaje`.
+
+Antes de ejecutar, observe las dos líneas: la primera guarda un texto y la segunda solicita mostrarlo.
+
+```{r}
+mensaje <- "Positron está ejecutando código R"
+mensaje
+```
+
+El operador `<-` asigna el valor de la derecha al nombre de la izquierda. Las comillas indican que el contenido es texto. Después de ejecutar el chunk, revise el panel **Variables** y busque el objeto `mensaje`.
+
+A continuación, crearemos un vector pequeño con nombres:
+
+```{r}
+nombres <- c("Ana", "Luis", "Camila", "Diego")
+nombres
+length(nombres)
+```
+
+La función `c()` reúne varios valores en un mismo objeto. La función `length()` cuenta cuántos elementos contiene. En este caso, el resultado debería ser `4`.
+
+## Actividad breve
+
+1. Agregue un nombre al vector.
+2. Ejecute nuevamente el chunk completo.
+3. Compruebe que cambia el resultado de `length()`.
+4. Revise que el objeto `nombres` siga apareciendo en Variables.
+5. Guarde el archivo para conservar su modificación.
+
+Guardar y ejecutar son acciones diferentes. **Guardar** conserva los cambios escritos en el `.qmd`; **ejecutar** envía instrucciones a R. Para trabajar de manera ordenada, realice ambas acciones durante el práctico.
+
+# Errores básicos y reproducibilidad
+
+Los errores son mensajes que indican que R no pudo completar una instrucción. No dañan el computador ni el archivo. Generalmente se resuelven revisando el código con calma.
+
+## Objeto no encontrado
+
+Un mensaje como este:
+
+```text
+object 'saludo' not found
+```
+
+suele indicar que el objeto no fue creado, que su nombre está mal escrito o que se reinició la sesión de R. Revise si ejecutó el chunk donde se crea el objeto y compruebe que el nombre sea idéntico.
+
+## Paréntesis o comillas sin cerrar
+
+Los siguientes ejemplos son incorrectos y se muestran solo para reconocer el problema:
+
+```r
+nombres <- c("Ana", "Luis"
+```
+
+```r
+mensaje <- "Hola
+```
+
+En el primer caso falta cerrar un paréntesis. En el segundo falta cerrar una comilla. Cuando R recibe una instrucción incompleta, puede esperar que usted la termine o mostrar un error.
+
+## Funciona en la consola, pero no al renderizar
+
+Una instrucción escrita directamente en la consola se ejecuta, pero no necesariamente queda registrada en el documento. Por eso, un objeto creado solo en la consola puede no existir cuando Quarto ejecute el archivo completo.
+
+::: callout-important
+## Regla principal
+
+El trabajo importante debe quedar escrito dentro del archivo `.qmd`, no solamente en la consola.
+:::
+
+Para revisar un error:
+
+1. lea la última línea del mensaje;
+2. compruebe los nombres de los objetos;
+3. revise paréntesis y comillas;
+4. ejecute los chunks anteriores en orden.
+
+# Guardar y renderizar
+
+Un archivo `.qmd` es el documento editable. **Renderizar** significa procesarlo para crear un documento final que reúne texto, código y resultados. En esta guía, el producto será un archivo HTML.
+
+| Guardar | Renderizar |
+|---|---|
+| Conserva cambios en el `.qmd` | Genera el documento completo |
+| No ejecuta todo el código | Ejecuta el archivo desde el inicio |
+| Actualiza el archivo editable | Produce un archivo HTML |
+
+Para realizar la primera renderización:
+
+1. Complete la sección de identificación incluida más abajo.
+2. Guarde el archivo `.qmd`.
+3. Ejecute los chunks desde arriba para comprobar que funcionan.
+4. Seleccione la opción de renderización disponible en Positron.
+5. Revise la vista previa del HTML.
+6. Busque el archivo `.html` en la carpeta del práctico.
+
+<!-- IMAGEN PENDIENTE:
+Contenido: acción de renderización de un documento Quarto en Positron.
+Destacar: botón u opción para renderizar.
+Ruta sugerida: images/positron/07-renderizar.png
+Texto alternativo: Documento Quarto en Positron con la opción de renderización destacada.
+-->
+
+<!--
+![Renderizar el documento](images/positron/07-renderizar.png)
+-->
+
+<!-- IMAGEN PENDIENTE:
+Contenido: vista previa HTML y archivo generado en el explorador.
+Destacar: extensión html y relación con el archivo qmd.
+Ruta sugerida: images/positron/08-html-generado.png
+Texto alternativo: Vista previa del documento y archivo HTML generado en la carpeta del práctico.
+-->
+
+<!--
+![HTML generado](images/positron/08-html-generado.png)
+-->
+
+Si la renderización se detiene, busque el primer error mostrado. Revise especialmente el nombre de los objetos, los paréntesis, las comillas y el orden de los chunks. Corrija una cosa a la vez y vuelva a renderizar.
+
+## Identificación
+
+Complete estos datos antes del ejercicio final:
+
+- **Nombre:**
+- **Sección:**
+- **Fecha:**
+
+## Ejercicio final
+
+Realice las siguientes acciones. La actividad debería tomar menos de diez minutos:
+
+1. Complete su nombre y sección.
+2. Cambie el texto guardado en el objeto `mensaje`.
+3. Agregue un nombre al vector `nombres`.
+4. Escriba un comentario con `#` dentro de uno de los chunks.
+5. Ejecute nuevamente los chunks modificados.
+6. Revise los objetos en el panel Variables.
+7. Guarde el archivo.
+8. Renderice el documento.
+9. Compruebe que los cambios aparecen en el HTML.
+10. Encuentre el archivo HTML en la carpeta del práctico.
+
+### Lista de comprobación
+
+- [ ] Abrí la carpeta completa.
+- [ ] Encontré el archivo `.qmd`.
+- [ ] Ejecuté código R.
+- [ ] Revisé los objetos creados.
+- [ ] Guardé mis cambios.
+- [ ] Rendericé el documento.
+- [ ] Encontré el HTML.
+
+## Cierre
+
+Usted ya conoce las acciones esenciales para comenzar a trabajar en Positron: abrir una carpeta, reconocer los paneles principales, ejecutar código, guardar cambios y renderizar un documento Quarto. No necesita dominar toda la interfaz antes de continuar; las demás herramientas se incorporarán gradualmente durante el curso.
+
+Cometer errores es una parte normal del trabajo con R. Más importante que memorizar todos los comandos es mantener el código dentro del `.qmd`, guardar con frecuencia y comprobar que el documento puede renderizarse desde el inicio.

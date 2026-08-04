@@ -744,5 +744,103 @@
     "title": "Programa",
     "section": "Programación de sesiones",
     "text": "Programación de sesiones\nVisitar la página de Planificación."
+  },
+  {
+    "objectID": "assignment/practico-positron.html",
+    "href": "assignment/practico-positron.html",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "",
+    "text": "Código\n\n\n  Sesión del miércoles, 12 de agosto de 2026"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#editor",
+    "href": "assignment/practico-positron.html#editor",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "4.1 Editor",
+    "text": "4.1 Editor\nEs el lugar donde se escribe y se guarda el contenido del archivo .qmd. El documento abierto aparece en una pestaña. Puede modificar el texto y los bloques de código, pero debe guardar para conservar los cambios."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#consola-de-r",
+    "href": "assignment/practico-positron.html#consola-de-r",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "4.2 Consola de R",
+    "text": "4.2 Consola de R\nEs el lugar donde R ejecuta las instrucciones. Allí pueden aparecer resultados y errores. La consola sirve para observar qué hizo R, pero el código importante debe quedar escrito en el editor."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#explorador",
+    "href": "assignment/practico-positron.html#explorador",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "4.3 Explorador",
+    "text": "4.3 Explorador\nMuestra los archivos y carpetas del práctico. Desde allí puede abrir el .qmd y comprobar dónde quedó el HTML generado."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#variables",
+    "href": "assignment/practico-positron.html#variables",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "4.4 Variables",
+    "text": "4.4 Variables\nMuestra los objetos creados en la sesión de R. Por ejemplo, después de crear un objeto llamado mensaje, debería poder encontrarlo en este panel."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#gráficos",
+    "href": "assignment/practico-positron.html#gráficos",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "4.5 Gráficos",
+    "text": "4.5 Gráficos\nMuestra las visualizaciones producidas por R. En este práctico no crearemos gráficos, pero este panel se utilizará más adelante durante el curso.\nLa terminal permite ejecutar comandos del sistema. No es lo mismo que la consola de R y no será necesaria para este práctico. Para las actividades de esta guía, asegúrese de trabajar con la consola de R.\n\n\n\n\n\n\n\nAcción\nQué ocurre\n\n\n\n\nEscribir en el editor\nEl código puede quedar guardado en el archivo\n\n\nEjecutar desde el editor\nLa instrucción se envía a R\n\n\nEscribir directamente en la consola\nEl código se ejecuta, pero puede no quedar guardado"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#actividad-breve",
+    "href": "assignment/practico-positron.html#actividad-breve",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "6.1 Actividad breve",
+    "text": "6.1 Actividad breve\n\nAgregue un nombre al vector.\nEjecute nuevamente el chunk completo.\nCompruebe que cambia el resultado de length().\nRevise que el objeto nombres siga apareciendo en Variables.\nGuarde el archivo para conservar su modificación.\n\nGuardar y ejecutar son acciones diferentes. Guardar conserva los cambios escritos en el .qmd; ejecutar envía instrucciones a R. Para trabajar de manera ordenada, realice ambas acciones durante el práctico."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#objeto-no-encontrado",
+    "href": "assignment/practico-positron.html#objeto-no-encontrado",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "7.1 Objeto no encontrado",
+    "text": "7.1 Objeto no encontrado\nUn mensaje como este:\nobject 'saludo' not found\nsuele indicar que el objeto no fue creado, que su nombre está mal escrito o que se reinició la sesión de R. Revise si ejecutó el chunk donde se crea el objeto y compruebe que el nombre sea idéntico."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#paréntesis-o-comillas-sin-cerrar",
+    "href": "assignment/practico-positron.html#paréntesis-o-comillas-sin-cerrar",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "7.2 Paréntesis o comillas sin cerrar",
+    "text": "7.2 Paréntesis o comillas sin cerrar\nLos siguientes ejemplos son incorrectos y se muestran solo para reconocer el problema:\nnombres &lt;- c(\"Ana\", \"Luis\"\nmensaje &lt;- \"Hola\nEn el primer caso falta cerrar un paréntesis. En el segundo falta cerrar una comilla. Cuando R recibe una instrucción incompleta, puede esperar que usted la termine o mostrar un error."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#funciona-en-la-consola-pero-no-al-renderizar",
+    "href": "assignment/practico-positron.html#funciona-en-la-consola-pero-no-al-renderizar",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "7.3 Funciona en la consola, pero no al renderizar",
+    "text": "7.3 Funciona en la consola, pero no al renderizar\nUna instrucción escrita directamente en la consola se ejecuta, pero no necesariamente queda registrada en el documento. Por eso, un objeto creado solo en la consola puede no existir cuando Quarto ejecute el archivo completo.\n\n\n\n\n\n\nImportanteRegla principal\n\n\n\nEl trabajo importante debe quedar escrito dentro del archivo .qmd, no solamente en la consola.\n\n\nPara revisar un error:\n\nlea la última línea del mensaje;\ncompruebe los nombres de los objetos;\nrevise paréntesis y comillas;\nejecute los chunks anteriores en orden."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#identificación",
+    "href": "assignment/practico-positron.html#identificación",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "8.1 Identificación",
+    "text": "8.1 Identificación\nComplete estos datos antes del ejercicio final:\n\nNombre:\nSección:\nFecha:"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#ejercicio-final",
+    "href": "assignment/practico-positron.html#ejercicio-final",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "8.2 Ejercicio final",
+    "text": "8.2 Ejercicio final\nRealice las siguientes acciones. La actividad debería tomar menos de diez minutos:\n\nComplete su nombre y sección.\nCambie el texto guardado en el objeto mensaje.\nAgregue un nombre al vector nombres.\nEscriba un comentario con # dentro de uno de los chunks.\nEjecute nuevamente los chunks modificados.\nRevise los objetos en el panel Variables.\nGuarde el archivo.\nRenderice el documento.\nCompruebe que los cambios aparecen en el HTML.\nEncuentre el archivo HTML en la carpeta del práctico.\n\n\n8.2.1 Lista de comprobación\n\nAbrí la carpeta completa.\nEncontré el archivo .qmd.\nEjecuté código R.\nRevisé los objetos creados.\nGuardé mis cambios.\nRendericé el documento.\nEncontré el HTML."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#cierre",
+    "href": "assignment/practico-positron.html#cierre",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "8.3 Cierre",
+    "text": "8.3 Cierre\nUsted ya conoce las acciones esenciales para comenzar a trabajar en Positron: abrir una carpeta, reconocer los paneles principales, ejecutar código, guardar cambios y renderizar un documento Quarto. No necesita dominar toda la interfaz antes de continuar; las demás herramientas se incorporarán gradualmente durante el curso.\nCometer errores es una parte normal del trabajo con R. Más importante que memorizar todos los comandos es mantener el código dentro del .qmd, guardar con frecuencia y comprobar que el documento puede renderizarse desde el inicio."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#por-qué-utilizaremos-positron",
+    "href": "assignment/practico-positron.html#por-qué-utilizaremos-positron",
+    "title": "Práctico 0: Introducción a Positron",
+    "section": "1.1 ¿Por qué utilizaremos Positron?",
+    "text": "1.1 ¿Por qué utilizaremos Positron?\nPositron permite aprovechar lo que usted ya aprendió en RStudio dentro de un entorno más integrado y flexible. R sigue siendo el mismo lenguaje: los comandos, paquetes y scripts continúan funcionando. Durante el curso utilizaremos Positron porque reúne distintas herramientas en un solo espacio de trabajo.\n\n\n1.1.1 R, Python y Quarto\nPermite trabajar con distintos lenguajes y documentos reproducibles dentro del mismo programa, sin cambiar constantemente de aplicación.\n\n\n1.1.2 Extensiones y personalización\nSe pueden instalar herramientas para Git, corrección ortográfica, otros lenguajes, temas y organización del código, adaptando el entorno a cada proyecto.\n\n\n1.1.3 Exploración de datos\nReúne la consola, las variables, los gráficos y herramientas visuales para revisar bases de datos y comprender mejor su estructura.\n\n\n1.1.4 Asistencia con inteligencia artificial\nPuede ayudar a explicar errores, comprender código y sugerir correcciones. Su uso es opcional y sus respuestas siempre deben revisarse.\n\n\n1.1.5 Trabajo reproducible\nFacilita combinar explicaciones, código y resultados en documentos Quarto que otras personas pueden revisar y volver a ejecutar.\n\n\n1.1.6 Preparación para nuevos proyectos\nIntegra herramientas útiles para investigaciones, tesis y trabajo colaborativo, como Git, control de versiones y soporte para diferentes tipos de archivos.\n\n\n\n\n\n\n\n\nNotaRStudio sigue siendo una herramienta válida\n\n\n\nPositron no reemplaza lo aprendido en RStudio. Si usted ya ha trabajado con RStudio, no está comenzando desde cero: solo deberá reconocer una nueva forma de organizar herramientas que ya conoce.\n\n\n\n\n\nInterfaz de usuario de Positron y RStudio"
   }
 ]
