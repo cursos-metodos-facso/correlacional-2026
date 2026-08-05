@@ -36,51 +36,72 @@ execute:
   width: 100%;
   max-width: 100%;
 }
+
+main.content p,
+.callout-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
 </style>
 
 ::: {style="text-align: right; margin-top: -10px; margin-bottom: 20px;"}
 [Descargar Positron](https://positron.posit.co/download.html){.btn .btn-outline-danger .btn-sm target="_blank" role="button"}
 
-<small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">* Recordar tener R descargado.</small>
+<small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">* Recuerde tener R instalado.</small>
 :::
 
 
 # De RStudio a Positron
 
-Este práctico es una inducción a **Positron**, el entorno que utilizaremos para trabajar con R y documentos Quarto durante el curso. El propósito es aprender a usarlo y las acciones necesarias para comenzar a trabajar desde hoy. Esta es solo una herramienta, el foco del curso seguirá estando en comprender el análisis, interpretar los resultados y escribir código reproducible.
+Positron cambia parcialmente la organización visual, pero conserva la lógica central de trabajo. En ambos entornos puede escribir scripts, ejecutar comandos en una consola de R, utilizar paquetes, revisar objetos, visualizar gráficos y organizar los archivos de un análisis. A raíz de esto, el propósito de esta sesión es que pueda familiarizarse con el entorno y con las acciones necesarias para comenzar a trabajar. Positron es solo una herramienta: el foco del curso seguirá estando en comprender los análisis, interpretar sus resultados y escribir código reproducible.
+
+::: callout-note
+## Lenguaje y entorno de trabajo
+
+- **R** es el lenguaje que contiene las instrucciones, funciones y paquetes utilizados en el análisis. 
+- **RStudio** y **Positron** son entornos de desarrollo o IDE: programas que reúnen herramientas para escribir, ejecutar y revisar código. 
+- La **sintaxis** corresponde a las instrucciones escritas, mientras que un **script** es el archivo `.R` donde se guardan y organizan. (Cambiar de RStudio a Positron no significa cambiar de lenguaje.)
+:::
+
 
 ### ¿Por qué utilizaremos Positron?
 
-Positron permite aprovechar lo que usted ya aprendió en RStudio dentro de un entorno más integrado y flexible. **R sigue siendo el mismo lenguaje:** los comandos, paquetes y scripts continúan funcionando. Durante el curso utilizaremos Positron porque reúne distintas herramientas en un solo espacio de trabajo.
+Positron permite aprovechar lo que  ya aprendimos en RStudio dentro de un entorno más integrado y flexible. **R sigue siendo el mismo lenguaje:** los comandos, paquetes y scripts continúan funcionando de igual forma que con RStudio. Durante el curso utilizaremos Positron porque reúne distintas herramientas en un solo espacio de trabajo. Positron permite:
 
-1. **R, Python y Quarto en un mismo entorno**  
-   Permite trabajar con distintos lenguajes y documentos reproducibles dentro del mismo programa, sin cambiar constantemente de aplicación.
+1. **R, Python y distintos archivos**  
+   Trabajar con scripts y diferentes tipos de documentos dentro de un mismo entorno.
 
 2. **Extensiones y personalización**  
-   Se pueden instalar herramientas para Git, corrección ortográfica, otros lenguajes, temas y organización del código. Esto permite adaptar el entorno según las necesidades de cada proyecto.
+   El entorno puede ampliarse gradualmente según las tareas y necesidades de cada proyecto. Además, es posible instalar múltiples herramientas y complementos desarrollados por la comunidad.
 
-3. **Exploración de datos**  
-   Reúne la consola, el panel de variables, los gráficos y herramientas visuales para revisar bases de datos y comprender mejor su estructura.
+3. **Exploración visual de datos**  
+   Facilita la revisión de objetos, bases de datos y gráficos durante el análisis.
 
-4. **Asistencia con inteligencia artificial**  
-   Puede ayudar a explicar errores, comprender fragmentos de código y sugerir correcciones. Su uso es opcional y sus respuestas siempre deben revisarse.
+4. **Asistencia opcional con inteligencia artificial**  
+   Puede apoyar la comprensión de errores y fragmentos de código, pero su uso es opcional y sus respuestas siempre deben revisarse.
 
-5. **Trabajo reproducible**  
-   Facilita la combinación de explicaciones, código y resultados en documentos Quarto que otras personas pueden revisar y volver a ejecutar.
+5. **Escritura reproducible**  
+   Mantener relacionados el texto, el código y los resultados para reconstruir el procedimiento de análisis.
 
-6. **Preparación para nuevos proyectos**  
-   Integra herramientas útiles para investigaciones, tesis y trabajo colaborativo, como Git, control de versiones y soporte para diferentes tipos de archivos.
+6. **Versionamiento y proyectos futuros**  
+   Git y el registro de cambios ofrecen posibilidades para colaborar y desarrollar investigaciones, tesis u otros proyectos posteriores.
 
 
 ![Interfaz de usuario de RStudio y Positron](images/user-interface-rstudio-vs-positron.jpeg)
 
 
 ::: {.callout-note appearance="simple"}
-## Positron no reemplaza lo aprendido en RStudio.
-Si usted ya ha trabajado con RStudio, no está comenzando desde cero: solo deberá reconocer una nueva forma de organizar herramientas que ya conoce.
+## Positron no reemplaza lo aprendido en RStudio
+
+Durante el curso utilizaremos Positron principalmente de una manera similar a RStudio: R, los comandos y los scripts siguen siendo los mismos. Si usted ya ha trabajado con RStudio, no está comenzando desde cero: solo deberá reconocer una nueva forma de organizar herramientas que ya conoce.
+
+No será necesario dominar desde el comienzo todas las funciones del entorno. Basta con reconocer que existen herramientas adicionales para el análisis de datos, la escritura y el versionamiento, en las que podrá profundizar durante el curso o en proyectos futuros. El foco continuará estando en comprender los análisis e interpretar sus resultados.
 :::
 
 # ¡Positron!
+
+Ahora que sabemos qué se mantiene y qué cambia, revisaremos cómo se organiza la interfaz de Positron.
 
 ![Interfaz de usuario de Positron](images/user-interface-for-rstudio-migration.jpeg)
 
@@ -89,30 +110,26 @@ En la imagen puede reconocer cinco áreas principales:
 ::: {style="margin: auto; width: fit-content;"}
 | En Positron | Función |
 |---|---|
-| **Barra de actividades** |  Permite abrir el explorador de archivos, extensiones, Git y otras herramientas (Se encuentra en el borde izquierdo de la pantalla) |
-| **Barra lateral principal** |Muestra los archivos y carpetas del proyecto, se despliega mediante la selección en la activity bar (Barra que se despliega desde la barra de actividades)|
-| **Editor** | Permite escribir y guardar código en scripts, archivos, documentos, etc |
-| **Panel inferior** | Muestra la consola de R, resultados, mensajes y errores |
-| **Barra lateral secundaria** |  Muestra objetos, gráficos, ayuda y otras herramientas |
+| **Barra de actividades** |  Permite abrir el Explorador de archivos, las extensiones, Git y otras herramientas. Se encuentra en el borde izquierdo de la pantalla. |
+| **Barra lateral principal** |Muestra los archivos y carpetas del proyecto. Se despliega al seleccionar una opción en la barra de actividades.|
+| **Editor** | Permite escribir y guardar código en scripts y otros documentos.|
+| **Panel inferior** | Muestra la consola de R, los resultados, los mensajes y los errores.|
+| **Barra lateral secundaria** | Muestra objetos, gráficos, ayuda y otras herramientas.|
 :::
 
 La **terminal**, ubicada junto a la consola, no es lo mismo que la consola de R. Sirve para ejecutar comandos del sistema y no será necesaria en este práctico.
 
-::: callout-note
-## El recorrido del código
-
-1. Escribimos el código en el **Editor**.
-2. R lo ejecuta en la **Consola**.
-3. Los objetos aparecen en **Variables**.
-4. Los gráficos aparecen en **Plots o Gráficos**.
+::: {.callout-tip appearance="simple"}
+## El origen
+Visual Studio Code (Microsoft) es un editor de código flexible para distintos lenguajes y tareas, y **Code OSS** es su base abierta. Positron está construido sobre esa misma base e incorpora herramientas especializadas para trabajar con datos mediante R y Python
 :::
 
 # De R Project a workspace
 
-En Positron, seguimos trabajando dentro de una carpeta que reúne los scripts, datos y resultados de un análisis como lo haciamos con RStudio. La diferencia es que Positron no necesita crear un archivo especial `.Rproj` para reconocerla como espacio de trabajo, solo se debe selecionar un **workspace** o espacio de trabajo (Carpeta).
+En Positron, seguimos organizando el trabajo dentro de una carpeta que reúne los scripts, datos y resultados del análisis, tal como lo hacíamos en RStudio. La diferencia es que en Positron no es necesario crear un proyecto `.Rproj` para comenzar. Al abrir una carpeta, esta funciona como el workspace o espacio de trabajo.
+
 
 ![Abrir carpeta de trabajo en Positron](images/positron/1_carpeta.png)
-
 
 # Reconocer el espacio de trabajo
 
@@ -121,19 +138,35 @@ Antes de ejecutar código, observe dos elementos de la interfaz:
 1. el nombre de la carpeta abierta en Positron;
 2. los archivos que aparecen en el Explorador.
 
-Desde el explorador,  navegaremos dentro del proyecto, sus carpetas, script, datos, resultados, imágenes, etc.
+Desde el **Explorador**, podrá navegar por las carpetas, los scripts, los datos, los resultados y las imágenes del proyecto.
 
 ![Explorador de Positron](images/positron/2_explorador.png)
 
 
 # Script
 
+En Positron, el script funciona de manera similar a RStudio. Un script es un archivo `.R` que conserva la sintaxis del análisis. Allí puede guardar, corregir y volver a ejecutar sus instrucciones cuando sea necesario.  El script mantiene un registro organizado del trabajo realizado, mientras que la **Consola** ejecuta el código.
+
 ## Abrir un script en Positron
 
 ![Abrir un script en Positron](images/positron/4_abrir_file.png)
 
 
+::: callout-note
+## El recorrido del trabajo y del código
 
-# Para cerrar la carptea de trabajo...
+Antes de comenzar el análisis, debe abrir la carpeta que contiene los archivos del proyecto y seleccionar el script en el que trabajará. El recorrido básico es el siguiente:
+
+1. Seleccione y abra la **carpeta de trabajo**, donde se encuentran los scripts, datos y resultados.
+2. Abra o cree un **script de R** con la extensión `.R`.
+3. Escriba y guarde el código en el **Editor**.
+4. Ejecute las instrucciones para que R las procese en la **Consola**.
+5. Los objetos creados, como bases de datos y variables, aparecerán en **Variables**.
+6. Los gráficos generados aparecerán en **Gráficos**.
+
+De esta manera, la carpeta organiza el proyecto, el script conserva el código, la Consola lo ejecuta y los demás paneles muestran los resultados.
+:::
+
+# Para cerrar la carpeta de trabajo…
 
 ![Cerrar carpeta de trabajo en Positron](images/positron/3_close.png)
