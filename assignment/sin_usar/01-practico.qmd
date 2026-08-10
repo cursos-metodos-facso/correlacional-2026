@@ -4,78 +4,41 @@ date: "2025-08-20"
 lang: es
 execute:
   freeze: auto
-  cache: true 
+  cache: true
+number-sections: true
+format: html
+lightbox: true
 ---
 
-# Objetivo de la práctica
+# Objetivo de la práctica {.unnumbered}
 
 El objetivo de esta guía práctica es introducirnos en la inferencia estadística, revisando los conceptos y aplicaciones de la curva normal y las probabilidades bajo esta con puntajes Z, además del cálculo de intervalos de confianza.
 
 En detalle, aprenderemos y recordaremos:
 
 1.  Los conceptos de promedio y desviación estándar
-2.  Estimación de puntaje Z  
+2.  Estimación de puntaje Z\
 3.  Cómo calcular e interpretar intervalos de confianza
 
-## Revisión básica de R y RStudio
-
-Antes de comenzar, repasemos algunos puntos clave:
-
-![Estructura de RStudio](../files/rstudio.png)
-
-- **Consola**: aquí se pueden escribir y ejecutar comandos de manera directa.  
-- **Archivo de código (.R o .qmd)**: permite guardar el código, comentarios y reproducir el análisis.  
-- **Ejecutar código**:  
-  - Selecciona la línea y presiona `Ctrl + Enter` (Windows/Linux) o `Cmd + Enter` (Mac).  
-  - También puedes ejecutar un bloque completo con el botón *Run*.  
-- **Comentarios**: se escriben con `#`. Todo lo que sigue en la línea después de `#` no se ejecuta.  
-- **Atajos útiles**:  
-  - `Ctrl + Shift + C`: comentar o descomentar líneas seleccionadas.  
-  - `Ctrl + Shift + J`: Añade pipe `%>%`
-  - `Ctrl + L`: limpiar la consola.
-
-## Librerías 
-
-Cargaremos algunas librerías que serán necesarias en las diferentes partes de esta guía práctica:
-
-  - pacman::p_load permite instalarlas automáticamente si no las tienes.
-
-```{r, warning=FALSE}
-if (!require("pacman")) install.packages("pacman") # instalar pacman
-
-pacman::p_load(dplyr, # para sintaxis
-               Publish)   # para IC)    
-
-options(scipen = 999) # para desactivar notacion cientifica
-rm(list = ls())       # para limpiar el entorno de trabajo
-```
-
-::: callout-note
-
-## ¿Qué es un vector en R?
-
-En R, un vector es la estructura de datos más básica:
-
-- Es una colección ordenada de valores del mismo tipo (números, caracteres o lógicos).
-
-- Por ejemplo, una columna en una base de datos
-:::
-
-
-# 1. Promedio y desviación estándar
+# Promedio y desviación estándar
 
 El *promedio* y la *desviación estándar* son conceptos fundamentales para continuar hacia la estadística inferencial. Repasemos estos conceptos mediante un ejercicio con datos simulados.
 
-Primero, generaremos un vector de 100 valores aleatorios con $\mu = 5$ y $\sigma = 2$, y lo visualizaremos con la función `print`.
+Primero, generaremos un vector de 100 valores aleatorios con $\mu = 5$ y $\sigma = 2$. Con la función `summary` podemos un resumen de algunos estadísticos del vector que creamos.
 
 ```{r}
 set.seed(123) # Fijar la semilla para reproducibilidad
 vector <- rnorm(100, mean = 5, sd = 2)
-print(vector) # Ver el vector generado
+summary(vector) # Ver el vector generado
 ```
 
+::: callout-tip
+Si no sabes lo que hace una función en específico, puedes correr el comando `?`. Por ejemplo, `?summary` entrega la descripción, el uso y los argumento de la función de R base `summary`
+:::
 
-¿Cómo se vería la distribución de este vector aleatorio? Primero realizaremos un gráfico de histograma con la función `hist` y luego uno de cajas con la función `boxplot`. 
+¿Cómo se vería la distribución de este vector aleatorio? Una buena práctica en el análisis de datos es realizar un primera inspección visual de los datos. Los tres gráficos que siguen nos dan una buena idea de la distribución del vector creado.
+
+::: {layout="\[\[100\], \[50,50\]\]" .lightbox group= "galeria"}
 
 ```{r}
 hist(vector,main="Histograma del Vector",xlab="Valor",ylab="Frecuencia",col="cyan4",border="black")
@@ -84,6 +47,15 @@ hist(vector,main="Histograma del Vector",xlab="Valor",ylab="Frecuencia",col="cya
 ```{r}
 boxplot(vector,main="Diagrama de Caja del Vector aleatorio",ylab="Valor",col="cyan3")
 ```
+
+```{r}
+qqnorm(vector, main="Gráfico Q-Q Normal del Vector",
+       xlab="Cuantiles Teóricos", ylab="Cuantiles Muestrales",
+       col="cyan4", pch=19)
+qqline(vector, col="black", lwd=2)
+```
+
+:::
 
 Ahora, calculamos la media y la desviación estándar del vector:
 
@@ -95,29 +67,48 @@ cat("Media:", media, "\n")
 cat("Desviación Estándar:", desv_estandar, "\n")
 ```
 
+En el caso de nuestro vector, creado con datos aleatorios, la media $\bar{x} = 5,18$ nos muestra que el promedio de los datos se encuentra en torno a 5,2.
 
-En el caso de nuestro vector, creado con datos aleatorios, la media $\bar{x} = 5,18$ nos muestra que el promedio de los datos se encuentra en torno a 5,2. 
+La desviación estándar corresponde, entonces, a un promedio de lo que cada valor se aleja del promedio del vector. En el caso de nuestro vector, $s = 1,82$ nos muestra que en promedio los datos se alejan 1,82 puntos del promedio.
 
-La desviación estándar corresponde, entonces, a un promedio de lo que cada valor se aleja del promedio del vector. En el caso de nuestro vector, $s = 1,82$ nos muestra que en promedio los datos se alejan 1,82 puntos del promedio. 
-
-
-# 2. Puntajes Z
+# Puntajes Z
 
 Al estandarizar las variables (como en la Curva Normal Estándar) lo que hacemos es expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal. Esto nos permite comparar distribuciones distintas.
 
 Al valor estandarizado lo llamamos **puntaje Z**, y corresponde a la cantidad de desviaciones estándar que nos alejamos del promedio (para cada variable con la que trabajemos).
 
+## Cálculo de probabilidades con puntaje Z
 
-## 2.1. Cálculo de probabilidades con puntaje Z
+Recordemos que la formula para calcular el puntaje z es:
+
+$$
+z = \frac{x - \bar{x}}{s}
+$$
+
+donde $x$ es el valor observado, $\bar{x}$ la media y $s$ la desviación estándar.
 
 ```{r}
-# Estandarizar el vector
-z_scores <- scale(vector)
+z_scores <- (vector - media) / desv_estandar
 
 # Comparar valores originales y estandarizados
 head(data.frame(Valor=vector, Z=z_scores), 10)
+```
+
+Ahora bien, R trae incorporadas funciones que permiten hacer estos calculos más rapidos. En este caso, usamos la función `scale` para centrar el vector en torno a su media.
+
+```{r}
+# Estandarizar el vector
+z_scores_scale <- scale(vector)
+
+# Comparar valores originales y estandarizados según ambos métodos. 
+head(data.frame(Valor=vector, Z_manual=z_scores, z_scale=z_scores_scale), 10)
+
 
 ```
+
+::: callout-tip
+Noten que ambos procedimientos llegan al mismo resultados
+:::
 
 Los valores estandarizados o puntajes Z además nos permiten conocer probabilidades.
 
@@ -135,7 +126,6 @@ Podemos preguntar qué parte de la curva cae por debajo de un valor particular. 
 # Probabilidades acumuladas
 pnorm(0)       # P(Z <= 0)
 ```
-
 
 Ahora probemos los valores Z de +1,96 y -1,96.
 
@@ -155,15 +145,59 @@ plot(x_values, y_values, type="l", lty=1, xlab="Z value", ylab="Probability", ma
 abline(v = 1.96)
 ```
 
-# 3. Intervalos de confianza
+# Error Estándar
+
+El error estándar es la desviación estándar de la distribución muestral de la media, y mide cuánto varía dicho estadístico entre distintas muestras de una misma población. Se define formalmente como:
+
+$$
+SE = \frac{s}{\sqrt{n}}
+$$
+
+donde $s$ es la desviación estándar de la muestra y $n$ es el tamaño de la muestra.
+
+Calculemos el Error Estándar de nuestro vector:
+
+```{r}
+
+n_vector <- length(vector) # calculamos el tamaño muestral
+
+ee_vector <- desv_estandar/sqrt(n_vector)
+
+ee_vector
+```
+
+# Intervalos de confianza
 
 Un intervalo de confianza es un rango dentro del cual es probable que se encuentre un parámetro poblacional con un nivel de confianza específico. Además, proporciona información sobre la precisión de nuestras estimaciones.
 
-## 3.1. Cálculo de intervalos de confianza para medias
+## Cálculo de intervalos de confianza para medias
 
-En el caso de nuestro vector aleatorio, un intervalo de confianza para la media se puede calcular de dos maneras:
+En el caso de nuestro vector aleatorio, presentamos tres maneras de calcular el intervalo de confianza para la media
 
-Primero, con la función `t.test` que, por defecto, estima el intervalo de confianza del 95%
+Primero, a través del calculo manual, recordando que:
+
+$$
+IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
+$$
+
+donde $\bar{x}$ es la media muestral, $z$ es el valor crítico según el nivel de confianza (por ejemplo, 1,96 para un 95%), $s$ la desviación estándar y $n$ el tamaño de la muestra.
+
+::: callout-important
+Recordemos: $\frac{s}{\sqrt{n}}$ es igual al Error Estándar.
+:::
+
+De tal modo, para saber el intervalo de confianza al 95% de confianza.
+
+```{r}
+
+ic_vector_inf <- media - 1.96 * ee_vector # Limite inferior del Intervalo
+ic_vector_sup <- media + 1.96 * ee_vector # Límite superior del Intervalo
+
+cat("Media:", media, "- IC 95%: [", ic_vector_inf, ",", ic_vector_sup, "]\n")
+
+```
+
+Una alternativa la función `t.test` que, por defecto, estima el intervalo de confianza del 95%.
 
 ```{r}
 # Calcular un intervalo de confianza para la media
@@ -174,8 +208,27 @@ intervalo_confianza
 Otra opción es con la función `ci.mean` del paquete `Publish`. Con esta función también podemos especificar si queremos estimar los CI al 95% (alpha = 0.05) o al 99% (alpha = 0.05)
 
 ```{r}
+
+if (!requireNamespace("Publish", quietly = TRUE)) install.packages("Publish") # Si no está instalado, instala el paquete
+library(Publish) # lo cargamos
+
 Publish::ci.mean(vector, alpha = 0.05)
 ```
+
+::: callout-tip
+`install.packages()` instala paquetes de R en tu sistema. Solo se debe correr una vez. Una vez instalado solo debe llamar el paquete con la función `library()`.
+
+Alternativamente, la función `p_load` del paquete `pacman` permite instalar y cargar múltiples paquetes con solo una línea de código
+
+```{r}
+#| eval: false
+
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman") # instala pacman, si es necesario
+
+pacman::p_load(Publish, dplyr) # ambos paquetes se instalarán (de ser necesario) y se cargarán en la sesión. 
+
+```
+:::
 
 Contamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 95% de confianza el parámetro poblacional se encontrará entre 4.82 y 5.54.
 
@@ -185,87 +238,80 @@ Publish::ci.mean(vector, alpha = 0.01)
 
 Contamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 99% de confianza el parámetro poblacional se encontrará entre 4.70 y 5.66.
 
-# Resumen
+# Resumen {.unnumbered}
 
 Hoy pudimos aprender y recordar:
 
 1.  Los conceptos de promedio y dispersión
 2.  Estimación de puntajes Z
-3.  Cálculo de intervalos de confianza
+3.  Cálculo del Error Estándar
+4.  Cálculo de intervalos de confianza
 
-# Ejercicio práctico de trabajo autónomo
 
-En este ejercicio aplicara los tres pasos vistos en el taller: cálculo de media y desviación estándar, puntajes Z e intervalos de confianza, pero con nuevos datos simulados.
+# Ejercicio práctico de trabajo autónomo {.unnumbered}
 
-## Instrucciones
+En este ejercicio aplicará los contenidos revisados: cálculo de media y desviación estándar, puntajes Z, error estándar e intervalos de confianza, pero esta vez con datos reales en lugar de datos simulados.
 
-1. Genere un vector de datos simulados
-  - Cree un vector con 500 observaciones distribuidas normalmente
-  - Debe tener $\mu = 10$ y $\sigma = 5$
+Trabajaremos con el conjunto de datos `Galton`, incluido en el paquete `HistData`, que contiene las estaturas de 928 hijos e hijas adultos recopiladas por Francis Galton en 1886. Este es, de hecho, el conjunto de datos histórico que dio origen al estudio de la curva normal aplicada a variables biológicas.
 
-```{r}
-set.seed(123) # Fijar la semilla para reproducibilidad
-vector2 <- rnorm(500, mean = 10, sd = 5) # cambiamos a vector2 para no confundir con el otro
-```
+::: callout-note
+[Francis Galton](https://es.wikipedia.org/wiki/Francis_Galton), primo de Charles Darwin, no sólo hizo aportes importantes al uso de la distribución normal, también fue pionero en el uso de correlaciones, inventó la línea de regresión, fundo la psicometría, ideó un método para clasificar huellas dáctilares y fue iniciador de de la ciencia metereológica.
 
-2. Calcule y describa la distribución
-  - Obtenga la media y desviación estándar de su vector.
+En su lado menos alegre, inventó el concepto de eugenesia... y abogó activamente por ella.
+:::
 
-```{r}
-media <- mean(vector2)
-desv_estandar <- sd(vector2)
 
-cat("Media:", media, "\n")
-cat("Desviación Estándar:", desv_estandar, "\n")
-```
+## Instrucciones {.unnumbered}
 
-  - Visualice la distribución en un histograma
+0.  Cargue la base de datos.
 
 ```{r}
-hist(vector2,main="Histograma del Vector",xlab="Valor",ylab="Frecuencia",col="cyan4",border="black")
+
+if (!requireNamespace("HistData", quietly = TRUE)) install.packages("HistData") # Si no está instalado, instala el paquete
+library(HistData)
+data("Galton")
+
+names(Galton) # revisar las variables disponibles: "parent" y "child"
+altura <- Galton$child # creamos el vector con la variable de interés
 ```
 
+::: callout-tip
+La unidad de medida de la variable se encuentra en pulgadas.
+:::
 
-3. Estandarice los datos (puntajes Z)
-  - Transforme tu vector a puntajes Z usando scale().
-```{r}
-z_scores2 <- scale(vector2)
-```
+1.  Calcule y describa la distribución
 
-  - Muestre los primeros 10 valores (`head()`).
-```{r}
-# Comparar valores originales y estandarizados
-head(data.frame(Valor=vector2, Z=z_scores2), 10)
-```
-  - Muestre también los últimos 10 valores (`tail()`).
-```{r}
-# Comparar valores originales y estandarizados
-tail(data.frame(Valor=vector2, Z=z_scores2), 10)
-```
+-   Obtenga la media y desviación estándar de la estatura.
+-   Visualice la distribución en un histograma
 
-  - ¿Cuál es el máximo puntaje Z y el mínimo puntaje Z?
+2.  Estandarice los datos (puntajes Z)
 
-```{r}
-max_z <- max(z_scores2)
-min_z <- min(z_scores2)
-```
+-   Transforme la variable a puntajes Z
+-   Muestre los primeros 10 valores (`head()`).
+-   Muestre también los últimos 10 valores (`tail()`).
+-   ¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?
+-   Verifique la media y desviación estándar
 
+3.  Calcule el error estándar de la variable
 
-  - Verifique la media y sd
+4.  Calcule el intervalo de confianza para la media
 
-```{r}
-mean(z_scores2) # Debe ser 0
-sd(z_scores2)    # Debe ser 1
-```
+-   Estime el IC para un 95% de confianza
+-   Estime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?
 
-4. Calcule el intervalo de confianza (IC 95%) para la media
-  - Estime el IC para un 95% de confianza
+5.  Explore el efecto del tamaño muestral
+
+-   Generemos 3 submuestras aleatorias con la función `sample()`.
 
 ```{r}
-# Calcular un intervalo de confianza para la media
-intervalo_confianza <- t.test(vector2)$conf.int  # Intervalo de confianza del 95% para la media
-intervalo_confianza
+set.seed(123)
+muestra_100 <- sample(altura, 100)
+muestra_200 <- sample(altura, 200)
+muestra_400 <- sample(altura, 400)
 ```
-# Referencias
+
+-   Calcule el error muestral y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?
+
+# Referencias {.unnumbered}
 
 [Análisis de datos en Lenguaje R](/files/textos/ximenez2022.pdf)
