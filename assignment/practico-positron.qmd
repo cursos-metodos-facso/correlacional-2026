@@ -51,6 +51,12 @@ main.content p,
 <small style="color: #666; display: block; margin-top: 4px; font-size: 0.8em;">* Recuerde tener R instalado.</small>
 :::
 
+::: {style="text-align: right; margin-top: -10px; margin-bottom: 20px;"}
+
+[Última versión de R](https://cran.r-project.org/bin/windows/base/){.btn .btn-outline-primary .btn-sm target="_blank" role="button"}
+[Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version){.btn .btn-outline-secondary .btn-sm target="_blank" role="button"}
+
+:::
 
 # De RStudio a Positron
 
@@ -170,3 +176,59 @@ De esta manera, la carpeta organiza el proyecto, el script conserva el código, 
 # Para cerrar la carpeta de trabajo…
 
 ![Cerrar carpeta de trabajo en Positron](images/positron/3_close.png)
+
+
+
+# Cápsula: Introducción a Positron
+
+Como complemento a este práctico, revise la siguiente cápsula, donde se presenta paso a paso el entorno de trabajo de Positron y su uso con R.
+
+{{< video https://www.youtube.com/embed/ASw2D2HKF2s
+    title="Introducción a Positron"
+    aspect-ratio="16x9"
+>}}
+
+## Código utilizado en la cápsula
+
+::: {.callout-tip collapse="true" title="Ver código completo de la cápsula"}
+
+```r
+# Cargar los datos
+datos <- read.csv(
+  "Input/WID_Data_09082026-200910.csv",
+  sep = ";",
+  skip = 1
+)
+
+# Limpiar nombres de países
+datos$Country <- trimws(datos$Country)
+
+# Seleccionar algunos países
+comparacion <- subset(
+  datos,
+  Country %in% c("Chile", "Brazil", "USA", "Sweden")
+)
+
+comparacion
+
+# Convertir a porcentaje
+comparacion$Porcentaje <- comparacion$Value * 100
+
+comparacion
+
+# Crear una tabla simple
+tabla <- comparacion[, c("Country", "Porcentaje")]
+
+# Ver tabla
+tabla
+
+# Crear gráfico
+barplot(
+  comparacion$Porcentaje,
+  names.arg = comparacion$Country,
+  ylab = "Porcentaje del ingreso",
+  main = "Ingreso 10%"
+)
+```
+
+:::

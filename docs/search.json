@@ -1454,5 +1454,19 @@
     "title": "Estadística Correlacional",
     "section": "Usos del error estándar",
     "text": "Usos del error estándar\n\nDos usos complementarios:\n\nconstrucción de intervalos de confianza\ntest de hipótesis\n\n\n\n\n-&gt; Próxima clase"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#cápsula-introducción-a-positron",
+    "href": "assignment/practico-positron.html#cápsula-introducción-a-positron",
+    "title": "Introducción a Positron",
+    "section": "6.1 Cápsula: Introducción a Positron",
+    "text": "6.1 Cápsula: Introducción a Positron\nPara complementar este práctico, revise la siguiente cápsula, donde se presenta paso a paso el entorno de trabajo de Positron y su uso con R.\n\n\n&lt;iframe\n  src=\"https://www.youtube.com/embed/ASw2D2HKF2s\"\n  title=\"Introducción a Positron\"\n  style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;\"\n  allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n  allowfullscreen&gt;\n&lt;/iframe&gt;"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "href": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "title": "Introducción a Positron",
+    "section": "7.1 Código utilizado en la cápsula",
+    "text": "7.1 Código utilizado en la cápsula\n\n\n\n\n\n\nTipVer código completo de la cápsula\n\n\n\n\n\n# Cargar los datos\ndatos &lt;- read.csv(\n  \"Input/WID_Data_09082026-200910.csv\",\n  sep = \";\",\n  skip = 1\n)\n\n# Limpiar nombres de países\ndatos$Country &lt;- trimws(datos$Country)\n\n# Seleccionar algunos países\ncomparacion &lt;- subset(\n  datos,\n  Country %in% c(\"Chile\", \"Brazil\", \"USA\", \"Sweden\")\n)\n\ncomparacion\n\n# Convertir a porcentaje\ncomparacion$Porcentaje &lt;- comparacion$Value * 100\n\ncomparacion\n\n# Crear una tabla simple\ntabla &lt;- comparacion[, c(\"Country\", \"Porcentaje\")]\n\n# Ver tabla\ntabla\n\n# Crear gráfico\nbarplot(\n  comparacion$Porcentaje,\n  names.arg = comparacion$Country,\n  ylab = \"Porcentaje del ingreso\",\n  main = \"Ingreso 10%\"\n)"
   }
 ]
