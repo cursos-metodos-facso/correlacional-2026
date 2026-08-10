@@ -1468,5 +1468,19 @@
     "title": "Introducción a Positron",
     "section": "7.1 Código utilizado en la cápsula",
     "text": "7.1 Código utilizado en la cápsula\n\n\n\n\n\n\nTipVer código completo de la cápsula\n\n\n\n\n\n# Cargar los datos\ndatos &lt;- read.csv(\n  \"Input/WID_Data_09082026-200910.csv\",\n  sep = \";\",\n  skip = 1\n)\n\n# Limpiar nombres de países\ndatos$Country &lt;- trimws(datos$Country)\n\n# Seleccionar algunos países\ncomparacion &lt;- subset(\n  datos,\n  Country %in% c(\"Chile\", \"Brazil\", \"USA\", \"Sweden\")\n)\n\ncomparacion\n\n# Convertir a porcentaje\ncomparacion$Porcentaje &lt;- comparacion$Value * 100\n\ncomparacion\n\n# Crear una tabla simple\ntabla &lt;- comparacion[, c(\"Country\", \"Porcentaje\")]\n\n# Ver tabla\ntabla\n\n# Crear gráfico\nbarplot(\n  comparacion$Porcentaje,\n  names.arg = comparacion$Country,\n  ylab = \"Porcentaje del ingreso\",\n  main = \"Ingreso 10%\"\n)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#esta-clase",
+    "href": "slides/03-inferencia2.html#esta-clase",
+    "title": "Estadística Correlacional",
+    "section": "ESTA CLASE",
+    "text": "ESTA CLASE\n\n- Distribución teórica vs distribución empírica\n- Curva normal\n- Puntaje Z y estandarización\n- Error estándar"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "title": "Estadística Correlacional",
+    "section": "Puntaje \\(z\\) y estandarización",
+    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
   }
 ]
