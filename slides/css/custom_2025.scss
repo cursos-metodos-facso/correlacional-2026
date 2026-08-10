@@ -55,6 +55,10 @@ h2 {
   padding: 0.2em 0.4em;
 }
 
+.reveal h2 {
+  line-height: 1.05 !important;
+}
+
 strong, b {
   color: #9e0000;
   font-weight: 700;
@@ -84,8 +88,16 @@ strong, b {
   border-radius: 1px;
 }
 
-.columns {
+.reveal .columns {
+  display: flex !important;
+  gap: min(4vw, 1.5em);
   align-items: center;
+}
+
+.reveal .column {
+  display: block !important;
+  width: auto;
+  flex: 0 1 auto;
 }
 
 .bg-darkgreen {

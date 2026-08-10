@@ -316,7 +316,7 @@
     "href": "content/02-content.html",
     "title": "Inferencia 1: Datos, probabilidad y distribuciones muestrales",
     "section": "",
-    "text": "Sesión del miércoles, 6 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases",
+    "text": "Sesión del miércoles, 6 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
     "crumbs": [
       "Clases",
       "Presentaciones",
@@ -380,7 +380,12 @@
     "href": "content/03-content.html",
     "title": "Inferencia 2: Curva normal y error estándar",
     "section": "",
-    "text": "Sesión del lunes, 11 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+    "text": "Sesión del lunes, 11 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Inferencia 2"
+    ]
   },
   {
     "objectID": "content/05-content.html",
@@ -1218,5 +1223,264 @@
     "title": "",
     "section": "",
     "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Inferencia 1:\nDatos, probabilidad y distribuciones muestrales"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#section-1",
+    "href": "slides/03-inferencia2.html#section-1",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#la-tarea-resultado",
+    "href": "slides/03-inferencia2.html#la-tarea-resultado",
+    "title": "Estadística Correlacional",
+    "section": "La tarea: resultado",
+    "text": "La tarea: resultado\n\n\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n\n\n   dado1 dado2 suma promedio\n1      1     1    2      1.0\n2      1     2    3      1.5\n3      1     3    4      2.0\n4      1     4    5      2.5\n5      1     5    6      3.0\n6      1     6    7      3.5\n7      2     1    3      1.5\n8      2     2    4      2.0\n9      2     3    5      2.5\n10     2     4    6      3.0\n11     2     5    7      3.5\n12     2     6    8      4.0\n13     3     1    4      2.0\n14     3     2    5      2.5\n15     3     3    6      3.0\n16     3     4    7      3.5\n17     3     5    8      4.0\n18     3     6    9      4.5\n19     4     1    5      2.5\n20     4     2    6      3.0\n21     4     3    7      3.5\n22     4     4    8      4.0\n23     4     5    9      4.5\n24     4     6   10      5.0\n25     5     1    6      3.0\n26     5     2    7      3.5\n27     5     3    8      4.0\n28     5     4    9      4.5\n29     5     5   10      5.0\n30     5     6   11      5.5\n31     6     1    7      3.5\n32     6     2    8      4.0\n33     6     3    9      4.5\n34     6     4   10      5.0\n35     6     5   11      5.5\n36     6     6   12      6.0"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#la-tarea-gráficos",
+    "href": "slides/03-inferencia2.html#la-tarea-gráficos",
+    "title": "Estadística Correlacional",
+    "section": "La tarea: gráficos",
+    "text": "La tarea: gráficos\n\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
+    "href": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
+    "title": "Estadística Correlacional",
+    "section": "Probabilidad de promedio de 2 dados al azar",
+    "text": "Probabilidad de promedio de 2 dados al azar\n\n\n   Promedio Probabilidad\n1       1.0   0.02777778\n2       1.5   0.05555556\n3       2.0   0.08333333\n4       2.5   0.11111111\n5       3.0   0.13888889\n6       3.5   0.16666667\n7       4.0   0.13888889\n8       4.5   0.11111111\n9       5.0   0.08333333\n10      5.5   0.05555556\n11      6.0   0.02777778"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
+    "href": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué aprendimos de esto?",
+    "text": "¿Qué aprendimos de esto?\n\n\nla ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una distribución teórica de probabilidad\nsi repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la distribución empírica de probabilidad (de frecuencias de los eventos)\nde acuerdo a la ley de los grandes números, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-teórica",
+    "href": "slides/03-inferencia2.html#distribución-teórica",
+    "title": "Estadística Correlacional",
+    "section": "Distribución teórica",
+    "text": "Distribución teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-empírica",
+    "href": "slides/03-inferencia2.html#repeticiones-empírica",
+    "title": "Estadística Correlacional",
+    "section": "100 repeticiones (empírica)",
+    "text": "100 repeticiones (empírica)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
+    "title": "Estadística Correlacional",
+    "section": "100 repeticiones vs. teórica",
+    "text": "100 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
+    "title": "Estadística Correlacional",
+    "section": "500 repeticiones vs. teórica",
+    "text": "500 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
+    "title": "Estadística Correlacional",
+    "section": "1500 repeticiones vs. teórica",
+    "text": "1500 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
+    "title": "Estadística Correlacional",
+    "section": "5000 repeticiones vs. teórica",
+    "text": "5000 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#muestra-y-distribución",
+    "href": "slides/03-inferencia2.html#muestra-y-distribución",
+    "title": "Estadística Correlacional",
+    "section": "Muestra y distribución",
+    "text": "Muestra y distribución\n\nSabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad\n¿De qué nos sirve esta información si…\n\n¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?\n¿no conocemos la distribución teórica?"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
+    "href": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
+    "title": "Estadística Correlacional",
+    "section": "Histograma vs. curvas de densidad",
+    "text": "Histograma vs. curvas de densidad\n\n\nHistograma\nFrecuencias o probabilidad empírica de cada evento\n\n\n\n\n\n\n\n\n\n\nCurvas de densidad\nModelo teórico/matemático de la distribución"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#curva-de-distribución",
+    "href": "slides/03-inferencia2.html#curva-de-distribución",
+    "title": "Estadística Correlacional",
+    "section": "Curva de distribución",
+    "text": "Curva de distribución\n\nUna curva de distribución de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva suavizada\nRepresenta una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica\nLas puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)\nEl área bajo la curva representa el 100% de los casos de la población"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#curva-de-distribución-normal",
+    "href": "slides/03-inferencia2.html#curva-de-distribución-normal",
+    "title": "Estadística Correlacional",
+    "section": "Curva de distribución normal",
+    "text": "Curva de distribución normal\n\n\nEs una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida\nCoinciden al centro el promedio, la mediana y la moda\nEs simétrica y de forma acampanada\nEstablece áreas bajo la curva en base a desviaciones estándar del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
+    "href": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
+    "title": "Estadística Correlacional",
+    "section": "Distribución normal, desviaciones estándar y áreas bajo la curva",
+    "text": "Distribución normal, desviaciones estándar y áreas bajo la curva"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
+    "href": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
+    "title": "Estadística Correlacional",
+    "section": "¿Por qué es importante la distribución normal en estadística?",
+    "text": "¿Por qué es importante la distribución normal en estadística?\n\n\nPermite comparar puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)\nPermite estimar proporciones bajo la curva normal de cualquier valor de la distribución\nBase de la distribución muestral del promedio, error estándar, e inferencia estadística en general"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización",
+    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización",
+    "title": "Estadística Correlacional",
+    "section": "Puntaje \\(z\\) y estandarización",
+    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
+    "href": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo comparación distribuciones (Ritchey, p. 148)",
+    "text": "Ejemplo comparación distribuciones (Ritchey, p. 148)\n\n\n\nMary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2\nJason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100\n\n\n¿A quién le fue mejor?\n¿Cómo le fue específicamente a cada uno?"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
+    "href": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
+    "title": "Estadística Correlacional",
+    "section": "Comparando peras con manzanas",
+    "text": "Comparando peras con manzanas\n\\[\n\\begin{align*}\nZ_{Mary}&=\\frac{x-\\mu}{\\sigma}=\\frac{26-22}{2}=2 \\\\ \\\\\nZ_{Jason}&=\\frac{x-\\mu}{\\sigma}=\\frac{900-1000}{100}=-1\n\\end{align*}\n\\]\n\n\\(Z\\) entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio\nEstos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#proporciones",
+    "href": "slides/03-inferencia2.html#proporciones",
+    "title": "Estadística Correlacional",
+    "section": "Proporciones",
+    "text": "Proporciones\n\n\nAsumiendo distribución normal, se puede obtener la proporción de casos bajo la curva normal que están sobre y bajo el puntaje Z"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-1",
+    "href": "slides/03-inferencia2.html#ejemplo-1",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo 1",
+    "text": "Ejemplo 1\n\n\n\n\n\nPensemos en estatura de 1.65, en una muestra con \\(\\bar{x}=160\\) y \\(\\sigma=5\\).\n\\[z=\\frac{x-\\mu}{\\sigma}=\\frac{165-160}{5}=1\\]\nEn base a la distribución normal sabemos que bajo 1 desviación estándar está el 68% de los datos + la cola izquierda de la curva, que es (100-68)/2=16%.\nEj: 84% (68+16) de los casos tienen una estatura menor a 165 cm"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-2",
+    "href": "slides/03-inferencia2.html#ejemplo-2",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo 2",
+    "text": "Ejemplo 2\n\n\nPuntaje en prueba=450, en una muestra con media=500 y ds=100, en R\n\n# Definimos los parámetros\nX &lt;- 450  # Puntaje\nmu &lt;- 500  # Media\nsigma &lt;- 100  # Desviación estándar\n\n# Calculamos el puntaje z\nz &lt;- (X - mu) / sigma\nz\n\n# Calculamos el percentil asociado al puntaje z\npercentil &lt;- pnorm(z) * 100\n\n# Mostramos el resultado\npercentil\n\n\n\n\n[1] 30.85375"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio\n\n\n\n\n\nSi tengo la desviación estándar de los promedios, puedo construir un intervalo de probabilidad, basado en la curva normal\nPor ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)\nPeeero…"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
+    "href": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Desviación estándar y error estándar",
+    "text": "Desviación estándar y error estándar\n\n\n\n\n\n\nmás que el promedio de la variable en nuestra muestra, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la población\ncontamos con una muestra, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados."
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#teorema-central-del-límite",
+    "href": "slides/03-inferencia2.html#teorema-central-del-límite",
+    "title": "Estadística Correlacional",
+    "section": "Teorema central del límite",
+    "text": "Teorema central del límite\n\nla distribución de los promedios de distintas muestras - o distribución muestral del promedio - se aproxima a una distribución normal\nEn muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:\n\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ estándar)=\\frac{s}{\\sqrt{N}}\\]\n\n\\(s\\) = desviación estándar de la muestra\n\\(N\\) = tamaño de la muestra"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#section-4",
+    "href": "slides/03-inferencia2.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Basados en el Teorema Central del Límite, es posible calcular la desviación estándar de los promedios (error estándar) con\n\n\n\n\n\nuna sola muestra"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
+    "href": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
+    "title": "Estadística Correlacional",
+    "section": "Demostración: 10 muestras, 5 casos c/u",
+    "text": "Demostración: 10 muestras, 5 casos c/u\n\n\n-&gt; ver demostración con más casos aquí"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
+    "href": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
+    "title": "Estadística Correlacional",
+    "section": "¿Para qué nos sirve el error estándar (SE) del promedio?",
+    "text": "¿Para qué nos sirve el error estándar (SE) del promedio?\n(… y de otros estadísticos, como la correlación)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#usos-del-error-estándar",
+    "href": "slides/03-inferencia2.html#usos-del-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Usos del error estándar",
+    "text": "Usos del error estándar\n\nDos usos complementarios:\n\nconstrucción de intervalos de confianza\ntest de hipótesis\n\n\n\n\n-&gt; Próxima clase"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#cápsula-introducción-a-positron",
+    "href": "assignment/practico-positron.html#cápsula-introducción-a-positron",
+    "title": "Introducción a Positron",
+    "section": "6.1 Cápsula: Introducción a Positron",
+    "text": "6.1 Cápsula: Introducción a Positron\nPara complementar este práctico, revise la siguiente cápsula, donde se presenta paso a paso el entorno de trabajo de Positron y su uso con R.\n\n\n&lt;iframe\n  src=\"https://www.youtube.com/embed/ASw2D2HKF2s\"\n  title=\"Introducción a Positron\"\n  style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;\"\n  allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n  allowfullscreen&gt;\n&lt;/iframe&gt;"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "href": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "title": "Introducción a Positron",
+    "section": "7.1 Código utilizado en la cápsula",
+    "text": "7.1 Código utilizado en la cápsula\n\n\n\n\n\n\nTipVer código completo de la cápsula\n\n\n\n\n\n# Cargar los datos\ndatos &lt;- read.csv(\n  \"Input/WID_Data_09082026-200910.csv\",\n  sep = \";\",\n  skip = 1\n)\n\n# Limpiar nombres de países\ndatos$Country &lt;- trimws(datos$Country)\n\n# Seleccionar algunos países\ncomparacion &lt;- subset(\n  datos,\n  Country %in% c(\"Chile\", \"Brazil\", \"USA\", \"Sweden\")\n)\n\ncomparacion\n\n# Convertir a porcentaje\ncomparacion$Porcentaje &lt;- comparacion$Value * 100\n\ncomparacion\n\n# Crear una tabla simple\ntabla &lt;- comparacion[, c(\"Country\", \"Porcentaje\")]\n\n# Ver tabla\ntabla\n\n# Crear gráfico\nbarplot(\n  comparacion$Porcentaje,\n  names.arg = comparacion$Country,\n  ylab = \"Porcentaje del ingreso\",\n  main = \"Ingreso 10%\"\n)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#esta-clase",
+    "href": "slides/03-inferencia2.html#esta-clase",
+    "title": "Estadística Correlacional",
+    "section": "ESTA CLASE",
+    "text": "ESTA CLASE\n\n- Distribución teórica vs distribución empírica\n- Curva normal\n- Puntaje Z y estandarización\n- Error estándar"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "title": "Estadística Correlacional",
+    "section": "Puntaje \\(z\\) y estandarización",
+    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
   }
 ]
