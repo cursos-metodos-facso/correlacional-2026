@@ -28,6 +28,244 @@
     "text": "A tener en cuenta:\n\nlos conceptos centrales deben estar en las hipótesis y también luego operacionalizarse en variables. No presentar variables que no se relacionen con los conceptos centrales de la sección inicial\nsi hay muchos casos perdidos (mas de un tercio de datos originales), explicar claramente a qué se debe esta pérdida. Existe la posibilidad de recuperar casos perdidos de predictores categóricos (o recodificados a categóricos) agregando una categoría adicional de perdidos. Esto se explica en la guía de índices y transformación de variables.\ninterpretación de hipótesis e inferencia: las hipótesis nunca se comprueban o se descartan, solo se puede hablar de que existe o no existe evidencia a favor de la hipótesis planteada. Recordar que la ausencia de evidencia no es evidencia de ausencia.\nevitar términos técnicos estadísticos (ej: correlación) antes de la sección de metodología\nmantener coherencia entre conceptos, hipótesis, descripción de variables, análisis, discusión, ojalá siempre en el mismo orden."
   },
   {
+    "objectID": "slides/03-inferencia2.html#section-1",
+    "href": "slides/03-inferencia2.html#section-1",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#la-tarea-resultado",
+    "href": "slides/03-inferencia2.html#la-tarea-resultado",
+    "title": "Estadística Correlacional",
+    "section": "La tarea: resultado",
+    "text": "La tarea: resultado\n\n\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n\n\n   dado1 dado2 suma promedio\n1      1     1    2      1.0\n2      1     2    3      1.5\n3      1     3    4      2.0\n4      1     4    5      2.5\n5      1     5    6      3.0\n6      1     6    7      3.5\n7      2     1    3      1.5\n8      2     2    4      2.0\n9      2     3    5      2.5\n10     2     4    6      3.0\n11     2     5    7      3.5\n12     2     6    8      4.0\n13     3     1    4      2.0\n14     3     2    5      2.5\n15     3     3    6      3.0\n16     3     4    7      3.5\n17     3     5    8      4.0\n18     3     6    9      4.5\n19     4     1    5      2.5\n20     4     2    6      3.0\n21     4     3    7      3.5\n22     4     4    8      4.0\n23     4     5    9      4.5\n24     4     6   10      5.0\n25     5     1    6      3.0\n26     5     2    7      3.5\n27     5     3    8      4.0\n28     5     4    9      4.5\n29     5     5   10      5.0\n30     5     6   11      5.5\n31     6     1    7      3.5\n32     6     2    8      4.0\n33     6     3    9      4.5\n34     6     4   10      5.0\n35     6     5   11      5.5\n36     6     6   12      6.0"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#la-tarea-gráficos",
+    "href": "slides/03-inferencia2.html#la-tarea-gráficos",
+    "title": "Estadística Correlacional",
+    "section": "La tarea: gráficos",
+    "text": "La tarea: gráficos\n\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
+    "href": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
+    "title": "Estadística Correlacional",
+    "section": "Probabilidad de promedio de 2 dados al azar",
+    "text": "Probabilidad de promedio de 2 dados al azar\n\n\n   Promedio Probabilidad\n1       1.0   0.02777778\n2       1.5   0.05555556\n3       2.0   0.08333333\n4       2.5   0.11111111\n5       3.0   0.13888889\n6       3.5   0.16666667\n7       4.0   0.13888889\n8       4.5   0.11111111\n9       5.0   0.08333333\n10      5.5   0.05555556\n11      6.0   0.02777778"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
+    "href": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué aprendimos de esto?",
+    "text": "¿Qué aprendimos de esto?\n\n\nla ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una distribución teórica de probabilidad\nsi repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la distribución empírica de probabilidad (de frecuencias de los eventos)\nde acuerdo a la ley de los grandes números, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#esta-clase",
+    "href": "slides/03-inferencia2.html#esta-clase",
+    "title": "Estadística Correlacional",
+    "section": "ESTA CLASE",
+    "text": "ESTA CLASE\n\n- Distribución teórica vs distribución empírica\n- Curva normal\n- Puntaje Z y estandarización\n- Error estándar"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-teórica",
+    "href": "slides/03-inferencia2.html#distribución-teórica",
+    "title": "Estadística Correlacional",
+    "section": "Distribución teórica",
+    "text": "Distribución teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-empírica",
+    "href": "slides/03-inferencia2.html#repeticiones-empírica",
+    "title": "Estadística Correlacional",
+    "section": "100 repeticiones (empírica)",
+    "text": "100 repeticiones (empírica)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
+    "title": "Estadística Correlacional",
+    "section": "100 repeticiones vs. teórica",
+    "text": "100 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
+    "title": "Estadística Correlacional",
+    "section": "500 repeticiones vs. teórica",
+    "text": "500 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
+    "title": "Estadística Correlacional",
+    "section": "1500 repeticiones vs. teórica",
+    "text": "1500 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
+    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
+    "title": "Estadística Correlacional",
+    "section": "5000 repeticiones vs. teórica",
+    "text": "5000 repeticiones vs. teórica"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#muestra-y-distribución",
+    "href": "slides/03-inferencia2.html#muestra-y-distribución",
+    "title": "Estadística Correlacional",
+    "section": "Muestra y distribución",
+    "text": "Muestra y distribución\n\nSabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad\n¿De qué nos sirve esta información si…\n\n¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?\n¿no conocemos la distribución teórica?"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
+    "href": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
+    "title": "Estadística Correlacional",
+    "section": "Histograma vs. curvas de densidad",
+    "text": "Histograma vs. curvas de densidad\n\n\nHistograma\nFrecuencias o probabilidad empírica de cada evento\n\n\n\n\n\n\n\n\n\n\nCurvas de densidad\nModelo teórico/matemático de la distribución"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#curva-de-distribución",
+    "href": "slides/03-inferencia2.html#curva-de-distribución",
+    "title": "Estadística Correlacional",
+    "section": "Curva de distribución",
+    "text": "Curva de distribución\n\nUna curva de distribución de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva suavizada\nRepresenta una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica\nLas puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)\nEl área bajo la curva representa el 100% de los casos de la población"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#curva-de-distribución-normal",
+    "href": "slides/03-inferencia2.html#curva-de-distribución-normal",
+    "title": "Estadística Correlacional",
+    "section": "Curva de distribución normal",
+    "text": "Curva de distribución normal\n\n\nEs una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida\nCoinciden al centro el promedio, la mediana y la moda\nEs simétrica y de forma acampanada\nEstablece áreas bajo la curva en base a desviaciones estándar del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
+    "href": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
+    "title": "Estadística Correlacional",
+    "section": "Distribución normal, desviaciones estándar y áreas bajo la curva",
+    "text": "Distribución normal, desviaciones estándar y áreas bajo la curva"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
+    "href": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
+    "title": "Estadística Correlacional",
+    "section": "¿Por qué es importante la distribución normal en estadística?",
+    "text": "¿Por qué es importante la distribución normal en estadística?\n\n\nPermite comparar puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)\nPermite estimar proporciones bajo la curva normal de cualquier valor de la distribución\nBase de la distribución muestral del promedio, error estándar, e inferencia estadística en general"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
+    "title": "Estadística Correlacional",
+    "section": "Puntaje \\(z\\) y estandarización",
+    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
+    "href": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo comparación distribuciones (Ritchey, p. 148)",
+    "text": "Ejemplo comparación distribuciones (Ritchey, p. 148)\n\n\n\nMary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2\nJason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100\n\n\n¿A quién le fue mejor?\n¿Cómo le fue específicamente a cada uno?"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
+    "href": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
+    "title": "Estadística Correlacional",
+    "section": "Comparando peras con manzanas",
+    "text": "Comparando peras con manzanas\n\\[\n\\begin{align*}\nZ_{Mary}&=\\frac{x-\\mu}{\\sigma}=\\frac{26-22}{2}=2 \\\\ \\\\\nZ_{Jason}&=\\frac{x-\\mu}{\\sigma}=\\frac{900-1000}{100}=-1\n\\end{align*}\n\\]\n\n\\(Z\\) entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio\nEstos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#proporciones",
+    "href": "slides/03-inferencia2.html#proporciones",
+    "title": "Estadística Correlacional",
+    "section": "Proporciones",
+    "text": "Proporciones\n\n\nAsumiendo distribución normal, se puede obtener la proporción de casos bajo la curva normal que están sobre y bajo el puntaje Z"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-1",
+    "href": "slides/03-inferencia2.html#ejemplo-1",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo 1",
+    "text": "Ejemplo 1\n\n\n\n\n\nPensemos en estatura de 1.65, en una muestra con \\(\\bar{x}=160\\) y \\(\\sigma=5\\).\n\\[z=\\frac{x-\\mu}{\\sigma}=\\frac{165-160}{5}=1\\]\nEn base a la distribución normal sabemos que bajo 1 desviación estándar está el 68% de los datos + la cola izquierda de la curva, que es (100-68)/2=16%.\nEj: 84% (68+16) de los casos tienen una estatura menor a 165 cm"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#ejemplo-2",
+    "href": "slides/03-inferencia2.html#ejemplo-2",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo 2",
+    "text": "Ejemplo 2\n\n\nPuntaje en prueba=450, en una muestra con media=500 y ds=100, en R\n\n# Definimos los parámetros\nX &lt;- 450  # Puntaje\nmu &lt;- 500  # Media\nsigma &lt;- 100  # Desviación estándar\n\n# Calculamos el puntaje z\nz &lt;- (X - mu) / sigma\nz\n\n# Calculamos el percentil asociado al puntaje z\npercentil &lt;- pnorm(z) * 100\n\n# Mostramos el resultado\npercentil\n\n\n\n\n[1] 30.85375"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio\n\n\n\n\n\nSi tengo la desviación estándar de los promedios, puedo construir un intervalo de probabilidad, basado en la curva normal\nPor ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)\nPeeero…"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
+    "href": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Desviación estándar y error estándar",
+    "text": "Desviación estándar y error estándar\n\n\n\n\n\n\nmás que el promedio de la variable en nuestra muestra, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la población\ncontamos con una muestra, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados."
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
+    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#teorema-central-del-límite",
+    "href": "slides/03-inferencia2.html#teorema-central-del-límite",
+    "title": "Estadística Correlacional",
+    "section": "Teorema central del límite",
+    "text": "Teorema central del límite\n\nla distribución de los promedios de distintas muestras - o distribución muestral del promedio - se aproxima a una distribución normal\nEn muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:\n\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ estándar)=\\frac{s}{\\sqrt{N}}\\]\n\n\\(s\\) = desviación estándar de la muestra\n\\(N\\) = tamaño de la muestra"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#section-4",
+    "href": "slides/03-inferencia2.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Basados en el Teorema Central del Límite, es posible calcular la desviación estándar de los promedios (error estándar) con\n\n\n\n\n\nuna sola muestra"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
+    "href": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
+    "title": "Estadística Correlacional",
+    "section": "Demostración: 10 muestras, 5 casos c/u",
+    "text": "Demostración: 10 muestras, 5 casos c/u\n\n\n-&gt; ver demostración con más casos aquí"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
+    "href": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
+    "title": "Estadística Correlacional",
+    "section": "¿Para qué nos sirve el error estándar (SE) del promedio?",
+    "text": "¿Para qué nos sirve el error estándar (SE) del promedio?\n(… y de otros estadísticos, como la correlación)"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html#usos-del-error-estándar",
+    "href": "slides/03-inferencia2.html#usos-del-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Usos del error estándar",
+    "text": "Usos del error estándar\n\nDos usos complementarios:\n\nconstrucción de intervalos de confianza\ntest de hipótesis\n\n\n\n\n-&gt; Próxima clase"
+  },
+  {
     "objectID": "slides/01-presentacion.html#existen-diferencias-significativas-de-ingreso-entre-grupos-de-la-población",
     "href": "slides/01-presentacion.html#existen-diferencias-significativas-de-ingreso-entre-grupos-de-la-población",
     "title": "Estadística Correlacional",
@@ -238,89 +476,94 @@
     "text": "Acá las principales informaciones y actualizaciones del curso.\n\n\n   \n    \n    \n      Ordenar por\n      Por defecto\n      \n        Fecha - Más antiguo\n      \n      \n        Fecha - Más reciente\n      \n      \n        Título\n      \n    \n  \n    \n      \n      \n    \n\n\n\n\n\n\nFecha\n\n\n\nTítulo\n\n\n\nCategorías\n\n\n\n\n\n\n\n\nmartes agosto 4, 2026 at 12:00 AM\n\n\nNueva plataforma interactiva del curso\n\n\ninfo, recursos\n\n\n\n\n\n\nlunes agosto 3, 2026 at 12:00 AM\n\n\nBienvenid@s al curso!\n\n\ninfo\n\n\n\n\n\n\nNo hay resultados\n\n\n\n\n\n\n\nTipSuscribirse!\n\n\n\nPuedes usar un lector de feeds como Feedly o un servicio RSS-to-email como Blogtrottr para suscribirte a cualquiera de estos mensajes.\n\n\n\n\n\n RSS"
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "\n            Estadística Correlacional\n        ",
+    "objectID": "news/2026-08-03_bienvenida.html",
+    "href": "news/2026-08-03_bienvenida.html",
+    "title": "Bienvenid@s al curso!",
     "section": "",
-    "text": "Inferencia, asociación y reporte\n        \n        \n            SOC01019 • Segundo Semestre 2026Departamento de Sociología, Facultad de Ciencias SocialesUniversidad de Chile"
+    "text": "← News\n\n\n\n\n\nComo equipo docente, queremos darles una cálida bienvenida al curso “Estadística Correlacional: Inferencia, asociación y reporte”. Esperamos que este espacio cumpla con sus expectativas y que puedan aprovechar al máximo los contenidos de esta cátedra.\nTenemos toda la disposición de acompañarles en este proceso de enseñanza y aprendizaje para que sea lo más provechoso posible en términos formativos. Con ello en mente, l_s invitamos a revisar los distintos recursos disponibles en la página y, ante cualquier consulta, no duden en contactarnos a través de los canales dispuestos.\n¡Que sea un gran semestre!"
   },
   {
-    "objectID": "index.html#ayudantes-por-confirmar",
-    "href": "index.html#ayudantes-por-confirmar",
-    "title": "\n            Estadística Correlacional\n        ",
-    "section": "Ayudantes (por confirmar)",
-    "text": "Ayudantes (por confirmar)"
-  },
-  {
-    "objectID": "index.html#últimas-informaciones",
-    "href": "index.html#últimas-informaciones",
-    "title": "\n            Estadística Correlacional\n        ",
-    "section": "Últimas informaciones",
-    "text": "Últimas informaciones\n\n\n\n\n\n\n\n\n\n\nNueva plataforma interactiva del curso\n\n\nConoce la plataforma interactiva de Estadística Correlacional y accede a sus recorridos, visualizaciones y laboratorios.\n\n\n\n\n\n\nAug 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenid@s al curso!\n\n\n\n\n\n\nEquipo docente\n\n\nAug 3, 2026\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "index.html#versiones-anteriores-del-curso",
-    "href": "index.html#versiones-anteriores-del-curso",
-    "title": "\n            Estadística Correlacional\n        ",
-    "section": "Versiones anteriores del curso",
-    "text": "Versiones anteriores del curso\n\n2025\n2024\n2023"
-  },
-  {
-    "objectID": "content/foro-clases.html",
-    "href": "content/foro-clases.html",
-    "title": "Foro clases",
+    "objectID": "content/index.html",
+    "href": "content/index.html",
+    "title": "Clases",
     "section": "",
-    "text": "Foro para compartir dudas, aclaraciones, sugerencias sobre los contenidos del curso vistos en clases. Para poder participar en el foro hay que abir una cuenta en Github",
+    "text": "En esta sección se encuentran disponibles los documentos de presentación que sirven de base a cada clase, en el menú de la izquierda Presentaciones. Los documentos son en formato html (no son ppt), producidos con Quarto. Para verlos en pantalla completa presionar F sobre el documento, y para una vista general de todas las slides presionar O.\nTambién a la izquierda hay un link al Foro para hacer preguntas relacionadas con las clases.\nCada clase tiene como referencia lecturas que deben completarse antes de la sesión correspondiente.",
     "crumbs": [
       "Clases",
-      "Foro Clases"
+      "Descripción"
     ]
   },
   {
-    "objectID": "content/12-content.html",
-    "href": "content/12-content.html",
-    "title": "Asociación con categóricas 2: Chi 2",
+    "objectID": "content/13-content.html",
+    "href": "content/13-content.html",
+    "title": "Documentos dinámicos",
     "section": "",
-    "text": "Sesión del domingo, 5 de octubre de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del lunes, 11 de noviembre de 2024\n\n\n\n\n\nDocumento de presentación"
   },
   {
-    "objectID": "content/10-content.html",
-    "href": "content/10-content.html",
-    "title": "Ordinales y matrices",
+    "objectID": "content/11-content.html",
+    "href": "content/11-content.html",
+    "title": "Asociación con categóricas 1",
     "section": "",
-    "text": "Sesión del miércoles, 24 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del lunes, 29 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
   },
   {
-    "objectID": "content/08-content.html",
-    "href": "content/08-content.html",
-    "title": "Bivariada 1 - Asociación y covarianza",
+    "objectID": "content/09-content.html",
+    "href": "content/09-content.html",
+    "title": "Inferencia en correlación y magnitud del coeficiente",
     "section": "",
-    "text": "Sesión del lunes, 8 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del miércoles, 10 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
   },
   {
-    "objectID": "content/06-content.html",
-    "href": "content/06-content.html",
-    "title": "Inferencia 5 - Prueba t + hipótesis direccionales",
+    "objectID": "content/07-content.html",
+    "href": "content/07-content.html",
+    "title": "Ejercicio de repaso general Unidad 1",
     "section": "",
-    "text": "Sesión del lunes, 25 de agosto de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del lunes, 8 de septiembre de 2025"
   },
   {
-    "objectID": "content/04-content.html",
-    "href": "content/04-content.html",
-    "title": "Inferencia 3 - Intervalos de confianza",
-    "section": "",
-    "text": "Sesión del martes, 20 de agosto de 2024\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+    "objectID": "content/07-content.html#a.-estimación-del-promedio-de-salarios-de-la-población",
+    "href": "content/07-content.html#a.-estimación-del-promedio-de-salarios-de-la-población",
+    "title": "Ejercicio de repaso general Unidad 1",
+    "section": "A. Estimación del promedio de salarios (de la población)",
+    "text": "A. Estimación del promedio de salarios (de la población)\n\nTengo que el promedio de salarios de la muestra es: 900.000\nPromedio de salarios de la población: \\(X\\)?\n\nNo podemos dar un valor certero para el promedio poblacional, pero si un rango probable de valores.\n\nTest de hipótesis a realizar\n¿Qué tipo de aproximación de test de hipótesis corresponde en este caso? Recordemos las dos aproximaciones principales para test de hipótesis: a) contraste con valor crítico, y b) generación de intervalo de confianza. En general se pueden aplicar siempre las dos, pero su pertinencia es distinta según lo que se esté estimando:\n\nen este caso (estimación del promedio) se podría realizar la alternativa de contraste con valor crítico, que nos permitiría rechazar (o no) la hipótesis nula de que el promedio es cero en la población.\nya que la alternativa anterior no es muy informativa en este caso, en la estimación puntual de parámetros (como el promedio) se prefiere utilizar un rango de probabilidad, expresado en un intervalo de confianza.\n\nPor lo tanto, en este caso lo que es más pertinente es la alternativa b: estimación de un intervalo de confianza\n\n\nConstrucción de intervalo y 5 pasos de la inferencia\nLos 5 pasos de la inferencia en esta caso son los siguientes:\n\n1. Formular hipótesis\nContrastamos la hipótesis nula (el promedio es igual a 0 en la población):\n\\[H_{0}: \\bar{X}_{salarios}=0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{salarios} \\neq 0\\]\n\n\n2.Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEl error estándar (SE, por Standard Error) del promedio es:\n\\[SE_{\\bar{X}}=\\frac{s\\ (desv.\\ estandar)}{\\sqrt{N} (tamaño\\ muestral)}\\]\nReemplazando:\n\\[SE_{\\bar{X}}=\\frac{300000}{\\sqrt{900}}=\\frac{300000}{30}=10000\\]\n\n\nCódigo\nerror_estandar &lt;- desviacion_estandar_salarios / sqrt(n)\nerror_estandar\n\n\n[1] 10000\n\n\n\n\n3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente\nEsta informació fue proporcionada en el enunciado: \\(\\alpha=5%\\), valor crítico= 1,96\n\n\n4. Cálculo de intervalo de confianza\nRecordar fórmula del intervalo de 95% de confianza para el promedio:\n\\[\\begin{align*}\n\\bar{x} &\\pm Z_{\\alpha/2}*SE_{\\bar{x}} \\\\\\\\\n850000 &\\pm 1.96*10000 \\\\\\\\\n850000 &\\pm 19600 \\\\\\\\\nCI[830400&;869600]\n\\end{align*}\\]\nEn R:\n\n\nCódigo\n# Calcular el intervalo de confianza al 95%\nz_95 &lt;- 1.96  # Valor z para el 95% de confianza\nlimite_inferior &lt;- promedio_salarios - z_95 * error_estandar\nlimite_superior &lt;- promedio_salarios + z_95 * error_estandar\n\n# Mostrar los resultados\ncat(\"Intervalo de confianza al 95%: [\", round(limite_inferior, 2), \", \", round(limite_superior, 2), \"]\\n\")\n\n\nIntervalo de confianza al 95%: [ 830400 ,  869600 ]\n\n\n\n\n5. Interpretación\nUtilizando una muestra de 900 individuos, se estimó el promedio de ingresos en $850,000 con una desviación estándar de $300,000. El error estándar para esta estimación es $10,000, y el intervalo de confianza al 95%, calculado con estos parámetros, se extiende de $830,400 a $869,600. Este intervalo refleja que, con un 95% de confianza, se puede afirmar que el promedio verdadero de ingresos en la población se encuentra dentro de este rango, asumiendo una distribución normal de los ingresos."
   },
   {
-    "objectID": "content/02-content.html",
-    "href": "content/02-content.html",
-    "title": "Inferencia 1: Datos, probabilidad y distribuciones muestrales",
+    "objectID": "content/07-content.html#estimación-de-diferencia-de-medias",
+    "href": "content/07-content.html#estimación-de-diferencia-de-medias",
+    "title": "Ejercicio de repaso general Unidad 1",
+    "section": "2. Estimación de diferencia de medias",
+    "text": "2. Estimación de diferencia de medias\nPara este ejercicio consideramos la siguiente información proporcionada arriba:\n\nSalario promedio técnico-profesional: 1.200.000, desviación estandar 180.000\nSalario promedio universitario: 1.500.000, desviación estándar 270.000\nvalor crítico t para diferencia de medias con un \\(\\alpha\\) de 5% (0,05) y grados de libertad 898 (N-2)= 1,96\nerror estándar de la diferencia de medias= 15000\n\nCon esta información ya podemos calcular la diferencia de promedios de la muestra:\n\\(\\bar{X}_{salario-universitario}-\\bar{X}_{salario-técnico}=1500000-1200000=300000\\)\nLa pregunta ahora es: ¿existe esta diferencia de promedios en la población?\n\nTest de hipótesis a realizar\nPara el caso anterior de la estimación del promedio hablamos de dos aproximaciones: a) contraste con valor crítico, y b) intervalo de confianza. En este caso (estimación de diferencias de promedio) tradicionalmente se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. Complementariamente, también se puede entregar información del intervalo de confianza.\nPor lo tanto, en este caso lo que es más pertinente es la alternativa a: contraste con valor crítico, pero también es recomendable agregar la información del intervalo de confianza.\n\n\nContraste con valor crítico y 5 pasos de la inferencia\nLos 5 pasos de la inferencia en esta caso son los siguientes:\n\n1. Formular hipótesis\nContrastamos la hipótesis nula (no hay diferencias de promedios entre grupos):\n\\[H_{0}: \\bar{X}_{salariouniversidad} -  \\bar{X}_{salarioinstituto}= 0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{salariouniversidad} -  \\bar{X}_{salarioinstituto} \\neq 0\\]\n\n\n2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEl error estándar de la diferencias de promedios es:\n\\[SE=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}}\\]\nLa información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 15000\nCon esto podemos calcular el valor del t empírico:\n\\(t=\\frac{diferenciamedias}{se_{diferenciamedias}} \\frac{(\\bar{x}_1-\\bar{x}_2)}{se_{(\\bar{x}_1-\\bar{x}_2)}}\\)\nCon nuestros datos:\n\\(t=\\frac{300000}{15000}=20\\)\n\n\n3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente\n\nProporcionado en el enunciado\n\n\n\n4. Contraste valores empírico/crítico (e intervalo de confianza)\nt empírico= 20 &gt; t critico=1,96\nIntervalo al 95% de confianza:\n\\[\\begin{align*}\n\\bar{x}_1-\\bar{x}_2 &\\pm t_{\\alpha/2}*SE_{\\bar{x_1}-\\bar{x_2}} \\\\\\\\\n300000 &\\pm 1.96*15000 \\\\\\\\\n300000 &\\pm 29400 \\\\\\\\\nCI[270600&\\ ;329400]\n\\end{align*}\\]\n\n\n5. Interpretación\nSe llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p &lt; .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos."
+  },
+  {
+    "objectID": "content/05-content.html",
+    "href": "content/05-content.html",
+    "title": "Inferencia 4 - Test de hipótesis",
     "section": "",
-    "text": "Sesión del miércoles, 6 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
+    "text": "Sesión del lunes, 18 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+  },
+  {
+    "objectID": "content/03-content.html",
+    "href": "content/03-content.html",
+    "title": "Inferencia 2: Curva normal y error estándar",
+    "section": "",
+    "text": "Sesión del lunes, 11 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
     "crumbs": [
       "Clases",
       "Presentaciones",
-      "Inferencia 1"
+      "Inferencia 2"
+    ]
+  },
+  {
+    "objectID": "content/01-content.html",
+    "href": "content/01-content.html",
+    "title": "Presentación",
+    "section": "",
+    "text": "Sesión del lunes, 4 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nForo\nEn caso de preguntas sobre las clases hacerlas en Foro Clases",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Introducción"
     ]
   },
   {
@@ -357,6 +600,34 @@
     ]
   },
   {
+    "objectID": "assignment/01-practico.html",
+    "href": "assignment/01-practico.html",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "",
+    "text": "Sesión del miércoles, 20 de agosto de 2025"
+  },
+  {
+    "objectID": "assignment/01-practico.html#cálculo-de-probabilidades-con-puntaje-z",
+    "href": "assignment/01-practico.html#cálculo-de-probabilidades-con-puntaje-z",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "2.1 Cálculo de probabilidades con puntaje Z",
+    "text": "2.1 Cálculo de probabilidades con puntaje Z\nRecordemos que la formula para calcular el puntaje z es:\n\\[\nz = \\frac{x - \\bar{x}}{s}\n\\]\ndonde \\(x\\) es el valor observado, \\(\\bar{x}\\) la media y \\(s\\) la desviación estándar.\n\nz_scores &lt;- (vector - media) / desv_estandar\n\n# Comparar valores originales y estandarizados\nhead(data.frame(Valor=vector, Z=z_scores), 10)\n\n      Valor           Z\n1  3.879049 -0.71304802\n2  4.539645 -0.35120270\n3  8.117417  1.60854170\n4  5.141017 -0.02179795\n5  5.258575  0.04259548\n6  8.430130  1.77983218\n7  5.921832  0.40589817\n8  2.469878 -1.48492941\n9  3.626294 -0.85149566\n10 4.108676 -0.58726835\n\n\nAhora bien, R trae incorporadas funciones que permiten hacer estos calculos más rapidos. En este caso, usamos la función scale para centrar el vector en torno a su media.\n\n# Estandarizar el vector\nz_scores_scale &lt;- scale(vector)\n\n# Comparar valores originales y estandarizados según ambos métodos. \nhead(data.frame(Valor=vector, Z_manual=z_scores, z_scale=z_scores_scale), 10)\n\n      Valor    Z_manual     z_scale\n1  3.879049 -0.71304802 -0.71304802\n2  4.539645 -0.35120270 -0.35120270\n3  8.117417  1.60854170  1.60854170\n4  5.141017 -0.02179795 -0.02179795\n5  5.258575  0.04259548  0.04259548\n6  8.430130  1.77983218  1.77983218\n7  5.921832  0.40589817  0.40589817\n8  2.469878 -1.48492941 -1.48492941\n9  3.626294 -0.85149566 -0.85149566\n10 4.108676 -0.58726835 -0.58726835\n\n\n\n\n\n\n\n\nTip\n\n\n\nNoten que ambos procedimientos llegan al mismo resultados\n\n\nLos valores estandarizados o puntajes Z además nos permiten conocer probabilidades.\nCon R es posible generar un conjunto de datos simulados con una distribución normal.\n\nx_values &lt;- seq(-4,4,length=1000)\ny_values &lt;- dnorm(x_values)\nplot(x_values,y_values,type=\"l\",xlab=\"Valor Z\",ylab=\"Probabilidad\",main=\"Distribución Normal\")\n\n\n\n\n\n\n\n\nPodemos preguntar qué parte de la curva cae por debajo de un valor particular. Por ejemplo, preguntaremos sobre el valor 0 antes de ejecutar el código. Piense ¿cuál debería ser la respuesta?\n\n# Probabilidades acumuladas\npnorm(0)       # P(Z &lt;= 0)\n\n[1] 0.5\n\n\nAhora probemos los valores Z de +1,96 y -1,96.\nSabemos que estos valores aproximados marcan el 2,5% superior e inferior de la distribución normal estándar. Esto corresponde a un alfa típico \\(\\alpha = 0,05\\) para una prueba de hipótesis de dos colas.\n\npnorm(1.96)    # P(Z &lt;= 1.96)\n\n[1] 0.9750021\n\npnorm(-1.96)   # P(Z &lt;= -1.96)\n\n[1] 0.0249979\n\n\nLa respuesta nos dice lo que ya sabemos: el 97,5% de la distribución normal ocurre por debajo del valor z de 1,96.\ny si lo visualizamos:\n\nplot(x_values, y_values, type=\"l\", lty=1, xlab=\"Z value\", ylab=\"Probability\", main=\"Normal Distribution\") +\nabline(v = 1.96)\n\n\n\n\n\n\n\n\ninteger(0)"
+  },
+  {
+    "objectID": "assignment/01-practico.html#cálculo-de-intervalos-de-confianza-para-medias",
+    "href": "assignment/01-practico.html#cálculo-de-intervalos-de-confianza-para-medias",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.1 Cálculo de intervalos de confianza para medias",
+    "text": "4.1 Cálculo de intervalos de confianza para medias\nEn el caso de nuestro vector aleatorio, presentamos tres maneras de calcular el intervalo de confianza para la media\nPrimero, a través del calculo manual, recordando que:\n\\[\nIC = \\bar{x} \\pm z \\cdot \\frac{s}{\\sqrt{n}}\n\\]\ndonde \\(\\bar{x}\\) es la media muestral, \\(z\\) es el valor crítico según el nivel de confianza (por ejemplo, 1,96 para un 95%), \\(s\\) la desviación estándar y \\(n\\) el tamaño de la muestra.\n\n\n\n\n\n\nImportante\n\n\n\nRecordemos: \\(\\frac{s}{\\sqrt{n}}\\) es igual al Error Estándar.\n\n\nDe tal modo, para saber el intervalo de confianza al 95% de confianza.\n\nic_vector_inf &lt;- media - 1.96 * ee_vector # Limite inferior del Intervalo\nic_vector_sup &lt;- media + 1.96 * ee_vector # Límite superior del Intervalo\n\ncat(\"Media:\", media, \"- IC 95%: [\", ic_vector_inf, \",\", ic_vector_sup, \"]\\n\")\n\nMedia: 5.180812 - IC 95%: [ 4.822988 , 5.538636 ]\n\n\nUna alternativa la función t.test que, por defecto, estima el intervalo de confianza del 95%.\n\n# Calcular un intervalo de confianza para la media\nintervalo_confianza &lt;- t.test(vector)$conf.int  # Intervalo de confianza del 95% para la media\nintervalo_confianza\n\n[1] 4.818567 5.543057\nattr(,\"conf.level\")\n[1] 0.95\n\n\nOtra opción es con la función ci.mean del paquete Publish. Con esta función también podemos especificar si queremos estimar los CI al 95% (alpha = 0.05) o al 99% (alpha = 0.05)\n\nif (!requireNamespace(\"Publish\", quietly = TRUE)) install.packages(\"Publish\") # Si no está instalado, instala el paquete\nlibrary(Publish) # lo cargamos\n\nWarning: package 'Publish' was built under R version 4.5.3\n\n\nLoading required package: prodlim\n\n\nWarning: package 'prodlim' was built under R version 4.5.3\n\nPublish::ci.mean(vector, alpha = 0.05)\n\n mean CI-95%     \n 5.18 [4.82;5.54]\n\n\n\n\n\n\n\n\nTip\n\n\n\ninstall.packages() instala paquetes de R en tu sistema. Solo se debe correr una vez. Una vez instalado solo debe llamar el paquete con la función library().\nAlternativamente, la función p_load del paquete pacman permite instalar y cargar múltiples paquetes con solo una línea de código\n\nif (!requireNamespace(\"pacman\", quietly = TRUE)) install.packages(\"pacman\") # instala pacman, si es necesario\n\npacman::p_load(Publish, dplyr) # ambos paquetes se instalarán (de ser necesario) y se cargarán en la sesión. \n\n\n\nContamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 95% de confianza el parámetro poblacional se encontrará entre 4.82 y 5.54.\n\nPublish::ci.mean(vector, alpha = 0.01)\n\n mean CI-99%     \n 5.18 [4.70;5.66]\n\n\nContamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 99% de confianza el parámetro poblacional se encontrará entre 4.70 y 5.66."
+  },
+  {
+    "objectID": "assignment/01-practico.html#instrucciones",
+    "href": "assignment/01-practico.html#instrucciones",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "Instrucciones",
+    "text": "Instrucciones\n\nCargue la base de datos.\n\n\nif (!requireNamespace(\"HistData\", quietly = TRUE)) install.packages(\"HistData\") # Si no está instalado, instala el paquete\nlibrary(HistData)\n\nWarning: package 'HistData' was built under R version 4.5.3\n\ndata(\"Galton\")\n\nnames(Galton) # revisar las variables disponibles: \"parent\" y \"child\"\n\n[1] \"parent\" \"child\" \n\naltura &lt;- Galton$child # creamos el vector con la variable de interés\n\n\n\n\n\n\n\nTip\n\n\n\nLa unidad de medida de la variable se encuentra en pulgadas.\n\n\n\nCalcule y describa la distribución\n\n\nObtenga la media y desviación estándar de la estatura.\nVisualice la distribución en un histograma\n\n\nEstandarice los datos (puntajes Z)\n\n\nTransforme la variable a puntajes Z\nMuestre los primeros 10 valores (head()).\nMuestre también los últimos 10 valores (tail()).\n¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?\nVerifique la media y desviación estándar\n\n\nCalcule el error estándar de la variable\nCalcule el intervalo de confianza para la media\n\n\nEstime el IC para un 95% de confianza\nEstime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?\n\n\nExplore el efecto del tamaño muestral\n\n\nGeneremos 3 submuestras aleatorias con la función sample().\n\n\nset.seed(123)\nmuestra_100 &lt;- sample(altura, 100)\nmuestra_200 &lt;- sample(altura, 200)\nmuestra_400 &lt;- sample(altura, 400)\n\n\nCalcule el error muestral y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?"
+  },
+  {
     "objectID": "assignment/foro-practicos.html",
     "href": "assignment/foro-practicos.html",
     "title": "Foro prácticos",
@@ -364,92 +635,115 @@
     "text": "Foro para compartir dudas, aclaraciones, sugerencias sobre llas guías prácticas. Para poder participar en el foro hay que abir una cuenta en Github\n\n¿Cuándo usar este foro?\n\n\n\n\n\nMuchas veces sucede que los códigos de análisis no resultan, lo que puede deberse a errores menores en la escritura de código, otras a versiones de librerías, y la mayoría a que R es algo mañoso.\nCuando hay un error o el código no corre lo importante es evitar que la frustración lleve a desmotivarse o tirar el computador por la ventana. Por eso se sugiere:\n\nintentar resolverlo por no más de 10 minutos: en este tiempo revisar bien el material disponible y lo que hay en la web. Un lugar clásico donde se discuten problemas de código es Stack overflow.\nsi no se logra solucionar entonces se sugiere encarecidamente usar el foro al final de esta página, ya que nos sirve para dejar la respuesta disponible para otr_s compañer_s que pueden tener la misma duda (generalmente es así)\n\n\n\n¿Cómo preguntar?\n\nDesripción general del problema, código y error que ocurre\nSi con esta información no basta para solucionar el problema, entonces se le podrá solicitar información adicionales, tales como el archivo de código y la información de la versión de las librerías que aparece al ejecutar el comando sessionInfo()\n\n\n\nForo prácticos"
   },
   {
-    "objectID": "content/01-content.html",
-    "href": "content/01-content.html",
-    "title": "Presentación",
+    "objectID": "assignment/practico-positron.html",
+    "href": "assignment/practico-positron.html",
+    "title": "Introducción a Positron",
     "section": "",
-    "text": "Sesión del lunes, 4 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nForo\nEn caso de preguntas sobre las clases hacerlas en Foro Clases",
+    "text": "Código\n\n\n  Sesión del miércoles, 12 de agosto de 2026"
+  },
+  {
+    "objectID": "assignment/practico-positron.html#abrir-un-script-en-positron",
+    "href": "assignment/practico-positron.html#abrir-un-script-en-positron",
+    "title": "Introducción a Positron",
+    "section": "5.1 Abrir un script en Positron",
+    "text": "5.1 Abrir un script en Positron\n\n\n\nAbrir un script en Positron\n\n\n\n\n\n\n\n\nNotaEl recorrido del trabajo y del código\n\n\n\nAntes de comenzar el análisis, debe abrir la carpeta que contiene los archivos del proyecto y seleccionar el script en el que trabajará. El recorrido básico es el siguiente:\n\nSeleccione y abra la carpeta de trabajo, donde se encuentran los scripts, datos y resultados.\nAbra o cree un script de R con la extensión .R.\nEscriba y guarde el código en el Editor.\nEjecute las instrucciones para que R las procese en la Consola.\nLos objetos creados, como bases de datos y variables, aparecerán en Variables.\nLos gráficos generados aparecerán en Gráficos.\n\nDe esta manera, la carpeta organiza el proyecto, el script conserva el código, la Consola lo ejecuta y los demás paneles muestran los resultados."
+  },
+  {
+    "objectID": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "href": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
+    "title": "Introducción a Positron",
+    "section": "7.1 Código utilizado en la cápsula",
+    "text": "7.1 Código utilizado en la cápsula\n\n\n\n\n\n\nTipVer código completo de la cápsula\n\n\n\n\n\n# Cargar los datos\ndatos &lt;- read.csv(\n  \"Input/WID_Data_09082026-200910.csv\",\n  sep = \";\",\n  skip = 1\n)\n\n# Limpiar nombres de países\ndatos$Country &lt;- trimws(datos$Country)\n\n# Seleccionar algunos países\ncomparacion &lt;- subset(\n  datos,\n  Country %in% c(\"Chile\", \"Brazil\", \"USA\", \"Sweden\")\n)\n\ncomparacion\n\n# Convertir a porcentaje\ncomparacion$Porcentaje &lt;- comparacion$Value * 100\n\ncomparacion\n\n# Crear una tabla simple\ntabla &lt;- comparacion[, c(\"Country\", \"Porcentaje\")]\n\n# Ver tabla\ntabla\n\n# Crear gráfico\nbarplot(\n  comparacion$Porcentaje,\n  names.arg = comparacion$Country,\n  ylab = \"Porcentaje del ingreso\",\n  main = \"Ingreso 10%\"\n)"
+  },
+  {
+    "objectID": "content/02-content.html",
+    "href": "content/02-content.html",
+    "title": "Inferencia 1: Datos, probabilidad y distribuciones muestrales",
+    "section": "",
+    "text": "Sesión del miércoles, 6 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
     "crumbs": [
       "Clases",
       "Presentaciones",
-      "Introducción"
+      "Inferencia 1"
     ]
   },
   {
-    "objectID": "content/03-content.html",
-    "href": "content/03-content.html",
-    "title": "Inferencia 2: Curva normal y error estándar",
+    "objectID": "content/04-content.html",
+    "href": "content/04-content.html",
+    "title": "Inferencia 3 - Intervalos de confianza",
     "section": "",
-    "text": "Sesión del lunes, 11 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\nExplorar módulo interactivo\n\n\nLink al Foro de Clases",
+    "text": "Sesión del martes, 20 de agosto de 2024\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+  },
+  {
+    "objectID": "content/06-content.html",
+    "href": "content/06-content.html",
+    "title": "Inferencia 5 - Prueba t + hipótesis direccionales",
+    "section": "",
+    "text": "Sesión del lunes, 25 de agosto de 2025\n\n\n\n\n\nDocumento de presentación"
+  },
+  {
+    "objectID": "content/08-content.html",
+    "href": "content/08-content.html",
+    "title": "Bivariada 1 - Asociación y covarianza",
+    "section": "",
+    "text": "Sesión del lunes, 8 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+  },
+  {
+    "objectID": "content/10-content.html",
+    "href": "content/10-content.html",
+    "title": "Ordinales y matrices",
+    "section": "",
+    "text": "Sesión del miércoles, 24 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+  },
+  {
+    "objectID": "content/12-content.html",
+    "href": "content/12-content.html",
+    "title": "Asociación con categóricas 2: Chi 2",
+    "section": "",
+    "text": "Sesión del domingo, 5 de octubre de 2025\n\n\n\n\n\nDocumento de presentación"
+  },
+  {
+    "objectID": "content/foro-clases.html",
+    "href": "content/foro-clases.html",
+    "title": "Foro clases",
+    "section": "",
+    "text": "Foro para compartir dudas, aclaraciones, sugerencias sobre los contenidos del curso vistos en clases. Para poder participar en el foro hay que abir una cuenta en Github",
     "crumbs": [
       "Clases",
-      "Presentaciones",
-      "Inferencia 2"
+      "Foro Clases"
     ]
   },
   {
-    "objectID": "content/05-content.html",
-    "href": "content/05-content.html",
-    "title": "Inferencia 4 - Test de hipótesis",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "\n            Estadística Correlacional\n        ",
     "section": "",
-    "text": "Sesión del lunes, 18 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+    "text": "Inferencia, asociación y reporte\n        \n        \n            SOC01019 • Segundo Semestre 2026Departamento de Sociología, Facultad de Ciencias SocialesUniversidad de Chile"
   },
   {
-    "objectID": "content/07-content.html",
-    "href": "content/07-content.html",
-    "title": "Ejercicio de repaso general Unidad 1",
-    "section": "",
-    "text": "Sesión del lunes, 8 de septiembre de 2025"
+    "objectID": "index.html#ayudantes-por-confirmar",
+    "href": "index.html#ayudantes-por-confirmar",
+    "title": "\n            Estadística Correlacional\n        ",
+    "section": "Ayudantes (por confirmar)",
+    "text": "Ayudantes (por confirmar)"
   },
   {
-    "objectID": "content/07-content.html#a.-estimación-del-promedio-de-salarios-de-la-población",
-    "href": "content/07-content.html#a.-estimación-del-promedio-de-salarios-de-la-población",
-    "title": "Ejercicio de repaso general Unidad 1",
-    "section": "A. Estimación del promedio de salarios (de la población)",
-    "text": "A. Estimación del promedio de salarios (de la población)\n\nTengo que el promedio de salarios de la muestra es: 900.000\nPromedio de salarios de la población: \\(X\\)?\n\nNo podemos dar un valor certero para el promedio poblacional, pero si un rango probable de valores.\n\nTest de hipótesis a realizar\n¿Qué tipo de aproximación de test de hipótesis corresponde en este caso? Recordemos las dos aproximaciones principales para test de hipótesis: a) contraste con valor crítico, y b) generación de intervalo de confianza. En general se pueden aplicar siempre las dos, pero su pertinencia es distinta según lo que se esté estimando:\n\nen este caso (estimación del promedio) se podría realizar la alternativa de contraste con valor crítico, que nos permitiría rechazar (o no) la hipótesis nula de que el promedio es cero en la población.\nya que la alternativa anterior no es muy informativa en este caso, en la estimación puntual de parámetros (como el promedio) se prefiere utilizar un rango de probabilidad, expresado en un intervalo de confianza.\n\nPor lo tanto, en este caso lo que es más pertinente es la alternativa b: estimación de un intervalo de confianza\n\n\nConstrucción de intervalo y 5 pasos de la inferencia\nLos 5 pasos de la inferencia en esta caso son los siguientes:\n\n1. Formular hipótesis\nContrastamos la hipótesis nula (el promedio es igual a 0 en la población):\n\\[H_{0}: \\bar{X}_{salarios}=0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{salarios} \\neq 0\\]\n\n\n2.Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEl error estándar (SE, por Standard Error) del promedio es:\n\\[SE_{\\bar{X}}=\\frac{s\\ (desv.\\ estandar)}{\\sqrt{N} (tamaño\\ muestral)}\\]\nReemplazando:\n\\[SE_{\\bar{X}}=\\frac{300000}{\\sqrt{900}}=\\frac{300000}{30}=10000\\]\n\n\nCódigo\nerror_estandar &lt;- desviacion_estandar_salarios / sqrt(n)\nerror_estandar\n\n\n[1] 10000\n\n\n\n\n3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente\nEsta informació fue proporcionada en el enunciado: \\(\\alpha=5%\\), valor crítico= 1,96\n\n\n4. Cálculo de intervalo de confianza\nRecordar fórmula del intervalo de 95% de confianza para el promedio:\n\\[\\begin{align*}\n\\bar{x} &\\pm Z_{\\alpha/2}*SE_{\\bar{x}} \\\\\\\\\n850000 &\\pm 1.96*10000 \\\\\\\\\n850000 &\\pm 19600 \\\\\\\\\nCI[830400&;869600]\n\\end{align*}\\]\nEn R:\n\n\nCódigo\n# Calcular el intervalo de confianza al 95%\nz_95 &lt;- 1.96  # Valor z para el 95% de confianza\nlimite_inferior &lt;- promedio_salarios - z_95 * error_estandar\nlimite_superior &lt;- promedio_salarios + z_95 * error_estandar\n\n# Mostrar los resultados\ncat(\"Intervalo de confianza al 95%: [\", round(limite_inferior, 2), \", \", round(limite_superior, 2), \"]\\n\")\n\n\nIntervalo de confianza al 95%: [ 830400 ,  869600 ]\n\n\n\n\n5. Interpretación\nUtilizando una muestra de 900 individuos, se estimó el promedio de ingresos en $850,000 con una desviación estándar de $300,000. El error estándar para esta estimación es $10,000, y el intervalo de confianza al 95%, calculado con estos parámetros, se extiende de $830,400 a $869,600. Este intervalo refleja que, con un 95% de confianza, se puede afirmar que el promedio verdadero de ingresos en la población se encuentra dentro de este rango, asumiendo una distribución normal de los ingresos."
+    "objectID": "index.html#últimas-informaciones",
+    "href": "index.html#últimas-informaciones",
+    "title": "\n            Estadística Correlacional\n        ",
+    "section": "Últimas informaciones",
+    "text": "Últimas informaciones\n\n\n\n\n\n\n\n\n\n\nNueva plataforma interactiva del curso\n\n\nConoce la plataforma interactiva de Estadística Correlacional y accede a sus recorridos, visualizaciones y laboratorios.\n\n\n\n\n\n\nAug 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenid@s al curso!\n\n\n\n\n\n\nEquipo docente\n\n\nAug 3, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "content/07-content.html#estimación-de-diferencia-de-medias",
-    "href": "content/07-content.html#estimación-de-diferencia-de-medias",
-    "title": "Ejercicio de repaso general Unidad 1",
-    "section": "2. Estimación de diferencia de medias",
-    "text": "2. Estimación de diferencia de medias\nPara este ejercicio consideramos la siguiente información proporcionada arriba:\n\nSalario promedio técnico-profesional: 1.200.000, desviación estandar 180.000\nSalario promedio universitario: 1.500.000, desviación estándar 270.000\nvalor crítico t para diferencia de medias con un \\(\\alpha\\) de 5% (0,05) y grados de libertad 898 (N-2)= 1,96\nerror estándar de la diferencia de medias= 15000\n\nCon esta información ya podemos calcular la diferencia de promedios de la muestra:\n\\(\\bar{X}_{salario-universitario}-\\bar{X}_{salario-técnico}=1500000-1200000=300000\\)\nLa pregunta ahora es: ¿existe esta diferencia de promedios en la población?\n\nTest de hipótesis a realizar\nPara el caso anterior de la estimación del promedio hablamos de dos aproximaciones: a) contraste con valor crítico, y b) intervalo de confianza. En este caso (estimación de diferencias de promedio) tradicionalmente se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. Complementariamente, también se puede entregar información del intervalo de confianza.\nPor lo tanto, en este caso lo que es más pertinente es la alternativa a: contraste con valor crítico, pero también es recomendable agregar la información del intervalo de confianza.\n\n\nContraste con valor crítico y 5 pasos de la inferencia\nLos 5 pasos de la inferencia en esta caso son los siguientes:\n\n1. Formular hipótesis\nContrastamos la hipótesis nula (no hay diferencias de promedios entre grupos):\n\\[H_{0}: \\bar{X}_{salariouniversidad} -  \\bar{X}_{salarioinstituto}= 0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{salariouniversidad} -  \\bar{X}_{salarioinstituto} \\neq 0\\]\n\n\n2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEl error estándar de la diferencias de promedios es:\n\\[SE=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}}\\]\nLa información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 15000\nCon esto podemos calcular el valor del t empírico:\n\\(t=\\frac{diferenciamedias}{se_{diferenciamedias}} \\frac{(\\bar{x}_1-\\bar{x}_2)}{se_{(\\bar{x}_1-\\bar{x}_2)}}\\)\nCon nuestros datos:\n\\(t=\\frac{300000}{15000}=20\\)\n\n\n3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente\n\nProporcionado en el enunciado\n\n\n\n4. Contraste valores empírico/crítico (e intervalo de confianza)\nt empírico= 20 &gt; t critico=1,96\nIntervalo al 95% de confianza:\n\\[\\begin{align*}\n\\bar{x}_1-\\bar{x}_2 &\\pm t_{\\alpha/2}*SE_{\\bar{x_1}-\\bar{x_2}} \\\\\\\\\n300000 &\\pm 1.96*15000 \\\\\\\\\n300000 &\\pm 29400 \\\\\\\\\nCI[270600&\\ ;329400]\n\\end{align*}\\]\n\n\n5. Interpretación\nSe llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p &lt; .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos."
+    "objectID": "index.html#versiones-anteriores-del-curso",
+    "href": "index.html#versiones-anteriores-del-curso",
+    "title": "\n            Estadística Correlacional\n        ",
+    "section": "Versiones anteriores del curso",
+    "text": "Versiones anteriores del curso\n\n2025\n2024\n2023"
   },
   {
-    "objectID": "content/09-content.html",
-    "href": "content/09-content.html",
-    "title": "Inferencia en correlación y magnitud del coeficiente",
-    "section": "",
-    "text": "Sesión del miércoles, 10 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
-  },
-  {
-    "objectID": "content/11-content.html",
-    "href": "content/11-content.html",
-    "title": "Asociación con categóricas 1",
-    "section": "",
-    "text": "Sesión del lunes, 29 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
-  },
-  {
-    "objectID": "content/13-content.html",
-    "href": "content/13-content.html",
-    "title": "Documentos dinámicos",
-    "section": "",
-    "text": "Sesión del lunes, 11 de noviembre de 2024\n\n\n\n\n\nDocumento de presentación"
-  },
-  {
-    "objectID": "content/index.html",
-    "href": "content/index.html",
-    "title": "Clases",
-    "section": "",
-    "text": "En esta sección se encuentran disponibles los documentos de presentación que sirven de base a cada clase, en el menú de la izquierda Presentaciones. Los documentos son en formato html (no son ppt), producidos con Quarto. Para verlos en pantalla completa presionar F sobre el documento, y para una vista general de todas las slides presionar O.\nTambién a la izquierda hay un link al Foro para hacer preguntas relacionadas con las clases.\nCada clase tiene como referencia lecturas que deben completarse antes de la sesión correspondiente.",
-    "crumbs": [
-      "Clases",
-      "Descripción"
-    ]
-  },
-  {
-    "objectID": "news/2026-08-03-interactiva.html",
-    "href": "news/2026-08-03-interactiva.html",
+    "objectID": "news/2026-08-04-interactiva.html",
+    "href": "news/2026-08-04-interactiva.html",
     "title": "Nueva plataforma interactiva del curso",
     "section": "",
     "text": "← News\n\n\n\n\n\n\n\n\nVista de la plataforma Estadística Correlacional Interactiva\n\n\nYa se encuentra disponible Estadística Correlacional Interactiva, una plataforma para aprender de manera visual e interactiva los contenidos teóricos del curso.\nLos temas y recursos adicionales que no se alcancen a revisar en clases podrán utilizarse como material complementario para profundizar y reforzar el aprendizaje.\n\n Acceder a la plataforma interactiva"
@@ -641,14 +935,231 @@
     "href": "schedule.html",
     "title": "Planificación",
     "section": "",
-    "text": "Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:\n\n Clases lectivas presenciales: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.\n Talleres prácticos: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.\n Lecturas: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.\n\n\n\n\n\n\nAGOSTO\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n03 / lun\nLectiva\n1. Presentación general del cursoPrograma, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.\n\nLeer detalladamente el programa del curso.\nPoldrack - ¿Qué es el pensamiento estadístico?\n\n\n\n05 / mié\nLectiva\n2. Datos, probabilidad y distribuciones muestralesTipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.\n\nPardo, cap. 2  Ritchey, pp. 1–21.\n\n\n\n10 / lun\nLectiva\n3. Error estándar y distribución normal; intro intervalosDistribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.\n\nRitchey, cap. 6  Pardo, cap. 6.\n\n\n\n12 / mié\nPráctico\nPráctico R e intervalos de confianzaRelación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.\n\nRitchey, cap. 7  Ritchey, cap. 8.\n\n\n\n17 / lun\nLectiva\n4. Prueba de hipótesisHipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.\n\nRitchey, cap. 9  Montoya, “Los conceptos de especificación y falsación”.\n\n\n\n19 / mié\nPráctico\nPráctico de Inferencia 1Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.\n\nRevisión de las lecturas anteriores.\n\n\n\n24 / lun\nLectiva\n5. Hipótesis para una muestraPruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.\n\nRitchey, cap. 10.\n\n\n\n26 / mié\nLectiva\n6. Hipótesis para dos muestras y prueba tComparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.\n\nRitchey, cap. 11.\n\n\n\n31 / lun\nPráctico\nPráctico de Inferencia 2Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.\n\nRitchey, caps. 10 y 11.\n\n\n\nSEPTIEMBRE\n\n\n\n\n\n\n\n02 / mié\nPráctico\nIntegración e interpretación de inferenciaSelección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva\n\nRevisión de la bibliografía de la Unidad 1.\n\n\n\n07 / lun\nLectiva\n7. Preparación para la Evaluación 1Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.\nGuía de preparación E1\nRevisión integral de la Unidad 1.\n\n\n\n09 / mié\nEvaluación\n\nEvaluación 1: Inferencia estadísticaDatos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.\nBibliografía completa de la Unidad 1.\n\n\n\n14 / lun\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n16 / mié\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n21 / lun\nLectiva\n8. Asociación, covarianza y correlación de PearsonDirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.\n\nMoore, pp. 97–131  Piovani, “The Historical Construction of Correlation”.\n\n\n\n23 / mié\nPráctico\nPráctico de Bivariada 1Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.\n\nMoore pp. 97-131  Pardo pp. 307-330  Huck pp. 183-203\n\n\n\n28 / lun\nLectiva\n9. Magnitud de la correlación y contraste de hipótesisInterpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.\n\nPardo, pp. 307–330  Huck, pp. 183–203.\n\n\n\n30 / mié\nPráctico\nPráctico Bivariada 2\n\n\n\n\n\nOCTUBRE\n\n\n\n\n\n\n\n05 / lun\nLectiva\n10. Matrices de correlación Correlación con variables ordinalesLectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.\n\nField, pp. 223–233.\n\n\n\n07 / mié\nPráctico\nPráctico de Bivariada 3Spearman, Kendall y matrices de correlación mediante software.\n\nField, pp. 223–233.\n\n\n\n12 / lun\n\nFeriado legal: Encuentro de Dos MundosNo se realizan clases ni evaluaciones.\n\n\n\n\n\n14 / mié\nLectiva\n11. Asociación con variables categóricas 1Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.\n\nPor completar.\n\n\n\n19 / lun\nLectiva\n12. Asociación con variables categóricas 2Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.\n\nPor completar.\n\n\n\n21 / mié\nPráctico\nPráctico de Bivariada 4Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.\n\nRevisión de las lecturas de asociación categórica.\n\n\n\n26 / lun\nLectiva\n13. Preparación y repaso de prácticosSíntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.\nGuía de preparación E2\nRevisión integral de la Unidad 2.\n\n\n\n28 / mié\nEvaluación\n\nEvaluación 2: Asociación bivariadaPearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.\nBibliografía completa de la Unidad 2.\n\n\n\nNOVIEMBRE\n\n\n\n\n\n\n\n02 / lun\nLectiva\n14. Definición de grupos, temas y asesoría inicialFormación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.\nFicha inicial del proyecto\nPor completar.\n\n\n\n04 / mié\nSeminario\n15. Seminario de encuestas y fuentes de datosPosibles invitados?\nRevisión de bases por grupo\nPor completar.\n\n\n\n09 / lun\nPráctico\nVisualización 1: tablasConstrucción, presentación e interpretación de tablas para el trabajo grupal.\n\nPor completar.\n\n\n\n11 / mié\nPráctico\nEscritura, reportes dinámicos y visualización 2Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.\n\nPor completar.\n\n\n\n13 / vie\nEvaluación\nEvaluación finalEntrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual\n\n\n\n\n\n16 / lun\nEvaluación\n\nPruebas recuperativasRecuperación de evaluaciones justificadas según la normativa del curso.\nRevisión focalizada según evaluación.\n\n\n\n18 / mié\n\n16. Preparación de exámenes finalesOrientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.\n\nRevisión integral del curso.\n\n\n\n25 / mié\nEvaluación\n\nExamen final: primera oportunidadExamen oral integrado para estudiantes no eximidos.\nRevisión integral del curso.\n\n\n\nDICIEMBRE\n\n\n\n\n\n\n\n09 / mié\nEvaluación\n\nExamen final: segunda oportunidadExamen oral integrado para estudiantes que corresponda.\nRevisión integral del curso."
+    "text": "Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:\n\n Clases lectivas presenciales: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.\n Talleres prácticos: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.\n Lecturas: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAGOSTO\n\n\n\n\n\n\n\n\n\n\n03 / lun\nLectiva\n1. Presentación general del cursoPrograma, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.\n\nLeer detalladamente el programa del curso.\nPoldrack - ¿Qué es el pensamiento estadístico?\n\n\n\n05 / mié\nLectiva\n2. Datos, probabilidad y distribuciones muestralesTipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.\n\nPardo, cap. 2  Ritchey, pp. 1–21.\n\n\n\n10 / lun\nLectiva\n3. Error estándar y distribución normal; intro intervalosDistribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.\n\nRitchey, cap. 6  Pardo, cap. 6.\n\n\n\n12 / mié\nPráctico\nPráctico R e intervalos de confianzaRelación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.\n\nRitchey, cap. 7  Ritchey, cap. 8.\n\n\n\n17 / lun\nLectiva\n4. Prueba de hipótesisHipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.\n\nRitchey, cap. 9  Montoya, “Los conceptos de especificación y falsación”.\n\n\n\n19 / mié\nPráctico\nPráctico de Inferencia 1Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.\n\nRevisión de las lecturas anteriores.\n\n\n\n24 / lun\nLectiva\n5. Hipótesis para una muestraPruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.\n\nRitchey, cap. 10.\n\n\n\n26 / mié\nLectiva\n6. Hipótesis para dos muestras y prueba tComparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.\n\nRitchey, cap. 11.\n\n\n\n31 / lun\nPráctico\nPráctico de Inferencia 2Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.\n\nRitchey, caps. 10 y 11.\n\n\n\nSEPTIEMBRE\n\n\n\n\n\n\n\n02 / mié\nPráctico\nIntegración e interpretación de inferenciaSelección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva\n\nRevisión de la bibliografía de la Unidad 1.\n\n\n\n07 / lun\nLectiva\n7. Preparación para la Evaluación 1Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.\nGuía de preparación E1\nRevisión integral de la Unidad 1.\n\n\n\n09 / mié\nEvaluación\n\nEvaluación 1: Inferencia estadísticaDatos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.\nBibliografía completa de la Unidad 1.\n\n\n\n14 / lun\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n16 / mié\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n21 / lun\nLectiva\n8. Asociación, covarianza y correlación de PearsonDirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.\n\nMoore, pp. 97–131  Piovani, “The Historical Construction of Correlation”.\n\n\n\n23 / mié\nPráctico\nPráctico de Bivariada 1Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.\n\nMoore pp. 97-131  Pardo pp. 307-330  Huck pp. 183-203\n\n\n28 / lun\nLectiva\n9. Magnitud de la correlación y contraste de hipótesisInterpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.\n\nPardo, pp. 307–330  Huck, pp. 183–203.\n\n\n\n30 / mié\nPráctico\nPráctico Bivariada 2\n\n\n\n\n\nOCTUBRE\n\n\n\n\n\n\n\n05 / lun\nLectiva\n10. Matrices de correlación Correlación con variables ordinalesLectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.\n\nField, pp. 223–233.\n\n\n\n07 / mié\nPráctico\nPráctico de Bivariada 3Spearman, Kendall y matrices de correlación mediante software.\n\nField, pp. 223–233.\n\n\n\n12 / lun\n\nFeriado legal: Encuentro de Dos MundosNo se realizan clases ni evaluaciones.\n\n\n\n\n\n14 / mié\nLectiva\n11. Asociación con variables categóricas 1Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.\n\nPor completar.\n\n\n\n19 / lun\nLectiva\n12. Asociación con variables categóricas 2Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.\n\nPor completar.\n\n\n\n21 / mié\nPráctico\nPráctico de Bivariada 4Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.\n\nRevisión de las lecturas de asociación categórica.\n\n\n\n26 / lun\nLectiva\n13. Preparación y repaso de prácticosSíntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.\nGuía de preparación E2\nRevisión integral de la Unidad 2.\n\n\n\n28 / mié\nEvaluación\n\nEvaluación 2: Asociación bivariadaPearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.\nBibliografía completa de la Unidad 2.\n\n\n\nNOVIEMBRE\n\n\n\n\n\n\n\n02 / lun\nLectiva\n14. Definición de grupos, temas y asesoría inicialFormación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.\nFicha inicial del proyecto\nPor completar.\n\n\n\n04 / mié\nSeminario\n15. Seminario de encuestas y fuentes de datosPosibles invitados?\nRevisión de bases por grupo\nPor completar.\n\n\n\n09 / lun\nPráctico\nVisualización 1: tablasConstrucción, presentación e interpretación de tablas para el trabajo grupal.\n\nPor completar.\n\n\n\n11 / mié\nPráctico\nEscritura, reportes dinámicos y visualización 2Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.\n\nPor completar.\n\n\n\n13 / vie\nEvaluación\nEvaluación finalEntrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual\n\n\n\n\n\n16 / lun\nEvaluación\n\nPruebas recuperativasRecuperación de evaluaciones justificadas según la normativa del curso.\nRevisión focalizada según evaluación.\n\n\n\n18 / mié\n\n16. Preparación de exámenes finalesOrientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.\n\nRevisión integral del curso.\n\n\n\n25 / mié\nEvaluación\n\nExamen final: primera oportunidadExamen oral integrado para estudiantes no eximidos.\nRevisión integral del curso.\n\n\n\nDICIEMBRE\n\n\n\n\n\n\n\n09 / mié\nEvaluación\n\nExamen final: segunda oportunidadExamen oral integrado para estudiantes que corresponda.\nRevisión integral del curso."
   },
   {
     "objectID": "schedule.html#forma-general-de-funcionamiento",
     "href": "schedule.html#forma-general-de-funcionamiento",
     "title": "Planificación",
     "section": "",
-    "text": "Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:\n\n Clases lectivas presenciales: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.\n Talleres prácticos: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.\n Lecturas: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.\n\n\n\n\n\n\nAGOSTO\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n03 / lun\nLectiva\n1. Presentación general del cursoPrograma, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.\n\nLeer detalladamente el programa del curso.\nPoldrack - ¿Qué es el pensamiento estadístico?\n\n\n\n05 / mié\nLectiva\n2. Datos, probabilidad y distribuciones muestralesTipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.\n\nPardo, cap. 2  Ritchey, pp. 1–21.\n\n\n\n10 / lun\nLectiva\n3. Error estándar y distribución normal; intro intervalosDistribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.\n\nRitchey, cap. 6  Pardo, cap. 6.\n\n\n\n12 / mié\nPráctico\nPráctico R e intervalos de confianzaRelación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.\n\nRitchey, cap. 7  Ritchey, cap. 8.\n\n\n\n17 / lun\nLectiva\n4. Prueba de hipótesisHipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.\n\nRitchey, cap. 9  Montoya, “Los conceptos de especificación y falsación”.\n\n\n\n19 / mié\nPráctico\nPráctico de Inferencia 1Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.\n\nRevisión de las lecturas anteriores.\n\n\n\n24 / lun\nLectiva\n5. Hipótesis para una muestraPruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.\n\nRitchey, cap. 10.\n\n\n\n26 / mié\nLectiva\n6. Hipótesis para dos muestras y prueba tComparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.\n\nRitchey, cap. 11.\n\n\n\n31 / lun\nPráctico\nPráctico de Inferencia 2Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.\n\nRitchey, caps. 10 y 11.\n\n\n\nSEPTIEMBRE\n\n\n\n\n\n\n\n02 / mié\nPráctico\nIntegración e interpretación de inferenciaSelección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva\n\nRevisión de la bibliografía de la Unidad 1.\n\n\n\n07 / lun\nLectiva\n7. Preparación para la Evaluación 1Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.\nGuía de preparación E1\nRevisión integral de la Unidad 1.\n\n\n\n09 / mié\nEvaluación\n\nEvaluación 1: Inferencia estadísticaDatos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.\nBibliografía completa de la Unidad 1.\n\n\n\n14 / lun\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n16 / mié\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n21 / lun\nLectiva\n8. Asociación, covarianza y correlación de PearsonDirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.\n\nMoore, pp. 97–131  Piovani, “The Historical Construction of Correlation”.\n\n\n\n23 / mié\nPráctico\nPráctico de Bivariada 1Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.\n\nMoore pp. 97-131  Pardo pp. 307-330  Huck pp. 183-203\n\n\n\n28 / lun\nLectiva\n9. Magnitud de la correlación y contraste de hipótesisInterpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.\n\nPardo, pp. 307–330  Huck, pp. 183–203.\n\n\n\n30 / mié\nPráctico\nPráctico Bivariada 2\n\n\n\n\n\nOCTUBRE\n\n\n\n\n\n\n\n05 / lun\nLectiva\n10. Matrices de correlación Correlación con variables ordinalesLectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.\n\nField, pp. 223–233.\n\n\n\n07 / mié\nPráctico\nPráctico de Bivariada 3Spearman, Kendall y matrices de correlación mediante software.\n\nField, pp. 223–233.\n\n\n\n12 / lun\n\nFeriado legal: Encuentro de Dos MundosNo se realizan clases ni evaluaciones.\n\n\n\n\n\n14 / mié\nLectiva\n11. Asociación con variables categóricas 1Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.\n\nPor completar.\n\n\n\n19 / lun\nLectiva\n12. Asociación con variables categóricas 2Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.\n\nPor completar.\n\n\n\n21 / mié\nPráctico\nPráctico de Bivariada 4Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.\n\nRevisión de las lecturas de asociación categórica.\n\n\n\n26 / lun\nLectiva\n13. Preparación y repaso de prácticosSíntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.\nGuía de preparación E2\nRevisión integral de la Unidad 2.\n\n\n\n28 / mié\nEvaluación\n\nEvaluación 2: Asociación bivariadaPearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.\nBibliografía completa de la Unidad 2.\n\n\n\nNOVIEMBRE\n\n\n\n\n\n\n\n02 / lun\nLectiva\n14. Definición de grupos, temas y asesoría inicialFormación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.\nFicha inicial del proyecto\nPor completar.\n\n\n\n04 / mié\nSeminario\n15. Seminario de encuestas y fuentes de datosPosibles invitados?\nRevisión de bases por grupo\nPor completar.\n\n\n\n09 / lun\nPráctico\nVisualización 1: tablasConstrucción, presentación e interpretación de tablas para el trabajo grupal.\n\nPor completar.\n\n\n\n11 / mié\nPráctico\nEscritura, reportes dinámicos y visualización 2Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.\n\nPor completar.\n\n\n\n13 / vie\nEvaluación\nEvaluación finalEntrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual\n\n\n\n\n\n16 / lun\nEvaluación\n\nPruebas recuperativasRecuperación de evaluaciones justificadas según la normativa del curso.\nRevisión focalizada según evaluación.\n\n\n\n18 / mié\n\n16. Preparación de exámenes finalesOrientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.\n\nRevisión integral del curso.\n\n\n\n25 / mié\nEvaluación\n\nExamen final: primera oportunidadExamen oral integrado para estudiantes no eximidos.\nRevisión integral del curso.\n\n\n\nDICIEMBRE\n\n\n\n\n\n\n\n09 / mié\nEvaluación\n\nExamen final: segunda oportunidadExamen oral integrado para estudiantes que corresponda.\nRevisión integral del curso."
+    "text": "Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:\n\n Clases lectivas presenciales: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.\n Talleres prácticos: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.\n Lecturas: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nAGOSTO\n\n\n\n\n\n\n\n\n\n\n03 / lun\nLectiva\n1. Presentación general del cursoPrograma, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.\n\nLeer detalladamente el programa del curso.\nPoldrack - ¿Qué es el pensamiento estadístico?\n\n\n\n05 / mié\nLectiva\n2. Datos, probabilidad y distribuciones muestralesTipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.\n\nPardo, cap. 2  Ritchey, pp. 1–21.\n\n\n\n10 / lun\nLectiva\n3. Error estándar y distribución normal; intro intervalosDistribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.\n\nRitchey, cap. 6  Pardo, cap. 6.\n\n\n\n12 / mié\nPráctico\nPráctico R e intervalos de confianzaRelación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.\n\nRitchey, cap. 7  Ritchey, cap. 8.\n\n\n\n17 / lun\nLectiva\n4. Prueba de hipótesisHipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.\n\nRitchey, cap. 9  Montoya, “Los conceptos de especificación y falsación”.\n\n\n\n19 / mié\nPráctico\nPráctico de Inferencia 1Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.\n\nRevisión de las lecturas anteriores.\n\n\n\n24 / lun\nLectiva\n5. Hipótesis para una muestraPruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.\n\nRitchey, cap. 10.\n\n\n\n26 / mié\nLectiva\n6. Hipótesis para dos muestras y prueba tComparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.\n\nRitchey, cap. 11.\n\n\n\n31 / lun\nPráctico\nPráctico de Inferencia 2Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.\n\nRitchey, caps. 10 y 11.\n\n\n\nSEPTIEMBRE\n\n\n\n\n\n\n\n02 / mié\nPráctico\nIntegración e interpretación de inferenciaSelección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva\n\nRevisión de la bibliografía de la Unidad 1.\n\n\n\n07 / lun\nLectiva\n7. Preparación para la Evaluación 1Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.\nGuía de preparación E1\nRevisión integral de la Unidad 1.\n\n\n\n09 / mié\nEvaluación\n\nEvaluación 1: Inferencia estadísticaDatos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.\nBibliografía completa de la Unidad 1.\n\n\n\n14 / lun\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n16 / mié\n\nSemana de pausa del segundo semestreSuspensión de clases, prácticos, trabajos y evaluaciones.\n\n\n\n\n\n21 / lun\nLectiva\n8. Asociación, covarianza y correlación de PearsonDirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.\n\nMoore, pp. 97–131  Piovani, “The Historical Construction of Correlation”.\n\n\n\n23 / mié\nPráctico\nPráctico de Bivariada 1Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.\n\nMoore pp. 97-131  Pardo pp. 307-330  Huck pp. 183-203\n\n\n28 / lun\nLectiva\n9. Magnitud de la correlación y contraste de hipótesisInterpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.\n\nPardo, pp. 307–330  Huck, pp. 183–203.\n\n\n\n30 / mié\nPráctico\nPráctico Bivariada 2\n\n\n\n\n\nOCTUBRE\n\n\n\n\n\n\n\n05 / lun\nLectiva\n10. Matrices de correlación Correlación con variables ordinalesLectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.\n\nField, pp. 223–233.\n\n\n\n07 / mié\nPráctico\nPráctico de Bivariada 3Spearman, Kendall y matrices de correlación mediante software.\n\nField, pp. 223–233.\n\n\n\n12 / lun\n\nFeriado legal: Encuentro de Dos MundosNo se realizan clases ni evaluaciones.\n\n\n\n\n\n14 / mié\nLectiva\n11. Asociación con variables categóricas 1Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.\n\nPor completar.\n\n\n\n19 / lun\nLectiva\n12. Asociación con variables categóricas 2Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.\n\nPor completar.\n\n\n\n21 / mié\nPráctico\nPráctico de Bivariada 4Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.\n\nRevisión de las lecturas de asociación categórica.\n\n\n\n26 / lun\nLectiva\n13. Preparación y repaso de prácticosSíntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.\nGuía de preparación E2\nRevisión integral de la Unidad 2.\n\n\n\n28 / mié\nEvaluación\n\nEvaluación 2: Asociación bivariadaPearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.\nBibliografía completa de la Unidad 2.\n\n\n\nNOVIEMBRE\n\n\n\n\n\n\n\n02 / lun\nLectiva\n14. Definición de grupos, temas y asesoría inicialFormación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.\nFicha inicial del proyecto\nPor completar.\n\n\n\n04 / mié\nSeminario\n15. Seminario de encuestas y fuentes de datosPosibles invitados?\nRevisión de bases por grupo\nPor completar.\n\n\n\n09 / lun\nPráctico\nVisualización 1: tablasConstrucción, presentación e interpretación de tablas para el trabajo grupal.\n\nPor completar.\n\n\n\n11 / mié\nPráctico\nEscritura, reportes dinámicos y visualización 2Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.\n\nPor completar.\n\n\n\n13 / vie\nEvaluación\nEvaluación finalEntrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual\n\n\n\n\n\n16 / lun\nEvaluación\n\nPruebas recuperativasRecuperación de evaluaciones justificadas según la normativa del curso.\nRevisión focalizada según evaluación.\n\n\n\n18 / mié\n\n16. Preparación de exámenes finalesOrientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.\n\nRevisión integral del curso.\n\n\n\n25 / mié\nEvaluación\n\nExamen final: primera oportunidadExamen oral integrado para estudiantes no eximidos.\nRevisión integral del curso.\n\n\n\nDICIEMBRE\n\n\n\n\n\n\n\n09 / mié\nEvaluación\n\nExamen final: segunda oportunidadExamen oral integrado para estudiantes que corresponda.\nRevisión integral del curso."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#datos",
+    "href": "slides/02-inferencia1.html#datos",
+    "title": "Estadística Correlacional",
+    "section": "Datos",
+    "text": "Datos\n\nLos datos son una expresión numérica de la medición de al menos una característica de a lo menos una unidad en a lo menos un punto en el tiempo\n\n\n\nEjemplo: La esperanza de vida en Chile el 2017 fue de 79,9 años\n\nCaracterística (variable): esperanza de vida\nUnidad: Años\nPunto en el tiempo: 2017"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#medir",
+    "href": "slides/02-inferencia1.html#medir",
+    "title": "Estadística Correlacional",
+    "section": "Medir",
+    "text": "Medir\n\n\n\n“asignar números, símbolos o valores a las propiedades de objetos o eventos de acuerdo con reglas” (Stevens, 1951)\nVincula conceptos abstractos con indicadores empíricos"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#medir-requisitos",
+    "href": "slides/02-inferencia1.html#medir-requisitos",
+    "title": "Estadística Correlacional",
+    "section": "Medir: requisitos",
+    "text": "Medir: requisitos\n\n\nExhaustividad: el mayor número de categorías significativas.\n\nEj: ¿Qué categorías se deben considerar para población migrante?\n\nExclusividad: atributos mutuamente excluyentes"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#ejemplos",
+    "href": "slides/02-inferencia1.html#ejemplos",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplos",
+    "text": "Ejemplos\nAlgunos estudios / bases de datos:\n\nEncuesta Centro de Estudios Públicos\nEncuesta CASEN\nEncuesta Lapop\nELSOC"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#variables",
+    "href": "slides/02-inferencia1.html#variables",
+    "title": "Estadística Correlacional",
+    "section": "Variables",
+    "text": "Variables\n\nUna variable representa cualquier cosa o propiedad que varía y a la cuál se le asigna un valor. Es decir:\n\\(Variable \\neq Constante\\)\nPueden ser visibles o no visibles/latentes (Ej: peso / inteligencia)"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#variables-1",
+    "href": "slides/02-inferencia1.html#variables-1",
+    "title": "Estadística Correlacional",
+    "section": "Variables",
+    "text": "Variables\n\ndiscretas (rango finito de valores):\n\nDicotómicas\nPolitómicas\n\ncontinuas:\n\nRango (teóricamente) infinito de valores."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#tendencia-central",
+    "href": "slides/02-inferencia1.html#tendencia-central",
+    "title": "Estadística Correlacional",
+    "section": "Tendencia Central",
+    "text": "Tendencia Central\nDescripción básica de una variable:\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios\nMedia o promedio aritmético: suma de los valores dividido por el total de casos"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dispersión-varianza",
+    "href": "slides/02-inferencia1.html#dispersión-varianza",
+    "title": "Estadística Correlacional",
+    "section": "Dispersión: Varianza",
+    "text": "Dispersión: Varianza"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dispersión-varianza-1",
+    "href": "slides/02-inferencia1.html#dispersión-varianza-1",
+    "title": "Estadística Correlacional",
+    "section": "Dispersión: Varianza",
+    "text": "Dispersión: Varianza"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dispersión-varianza-2",
+    "href": "slides/02-inferencia1.html#dispersión-varianza-2",
+    "title": "Estadística Correlacional",
+    "section": "Dispersión: Varianza",
+    "text": "Dispersión: Varianza"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dispersión",
+    "href": "slides/02-inferencia1.html#dispersión",
+    "title": "Estadística Correlacional",
+    "section": "Dispersión:",
+    "text": "Dispersión:\n\n\nLa VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#desviación-estándar",
+    "href": "slides/02-inferencia1.html#desviación-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Desviación Estándar",
+    "text": "Desviación Estándar\n\n\n\n\n\nRaíz Cuadrada de la varianza.\nExpresada en la mismas unidades que los puntajes de la escala original"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#inferencia",
+    "href": "slides/02-inferencia1.html#inferencia",
+    "title": "Estadística Correlacional",
+    "section": "Inferencia",
+    "text": "Inferencia\nCuando se analizan datos, 2 aspectos principales\n\n\n\nCálculo del estadístico:\n\npromedio\ndesviación estándar\ncorrelación\n…\n\n\n\n\nInferencia: ¿existe este estadístico en la población?\n\nprobabilidad\nerror\nsignificación"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#inferencia-1",
+    "href": "slides/02-inferencia1.html#inferencia-1",
+    "title": "Estadística Correlacional",
+    "section": "Inferencia",
+    "text": "Inferencia\n\n\n\n\n¿En qué medida se pueden relacionar resultados que se encuentran en un (sub)conjunto de unidades con lo que ocurre en general?\n\n\nEj: si en un subconjunto de la población encuentro que el promedio de matemáticas es mayor en mujeres que en hombres ¿es esto un reflejo de lo que ocurre en general, o se debe solo al azar? ¿se puede extrapolar a la población?"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#conceptos-clave",
+    "href": "slides/02-inferencia1.html#conceptos-clave",
+    "title": "Estadística Correlacional",
+    "section": "Conceptos clave",
+    "text": "Conceptos clave\n\n\n\n\n\nLa inferencia en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población\n¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?\nUn concepto central es la probabilidad de ERROR"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#parámetros-y-estadísticos",
+    "href": "slides/02-inferencia1.html#parámetros-y-estadísticos",
+    "title": "Estadística Correlacional",
+    "section": "Parámetros y estadísticos",
+    "text": "Parámetros y estadísticos\n\n\n\n\n\n\n\n\n\nPoblación (parámetro)\nMuestra (estadístico)\n\n\n\n\nPromedio\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\nVarianza\n\\(\\sigma²\\)\n\\(s²\\)\n\n\nDesviación estándar\n\\(\\sigma\\)\n\\(s\\)\n\n\nCorrelación\n\\(\\rho\\)\n\\(r\\)"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad",
+    "href": "slides/02-inferencia1.html#muestreo-y-variabilidad",
+    "title": "Estadística Correlacional",
+    "section": "Muestreo y variabilidad",
+    "text": "Muestreo y variabilidad\n\n¿Cómo es posible que la media x̄ obtenida a partir de una muestra de unos pocos hogares de todos los del país, pueda ser una estimación precisa de µ?\n\nUna segunda muestra aleatoria obtenida en el mismo momento estaría formada por hogares distintos y, sin duda, daría un valor distinto de x̄"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
+    "href": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
+    "title": "Estadística Correlacional",
+    "section": "Muestreo y variabilidad",
+    "text": "Muestreo y variabilidad\nVariabilidad muestral: el valor de un estadístico varía en un muestreo aleatorio repetido\n\n¿Cuánto varía?\n¿En qué rangos?\n¿Qué tan probable es el rango de variación?\n¿Es un rango aceptable en términos de investigación social?"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
+    "href": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
+    "title": "Estadística Correlacional",
+    "section": "Aleatoriedad y probabilidad",
+    "text": "Aleatoriedad y probabilidad\n\n\n\nLlamamos a un fenómeno aleatorio si los resultados individuales son inciertos y, sin embargo, existe una distribución regular de los resultados después de un gran número de repeticiones.\n\n\n\nLa probabilidad de cualquier resultado de un fenómeno aleatorio es la proporción de veces que el resultado se da después de una larga serie de repeticiones"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#azar-y-repetición",
+    "href": "slides/02-inferencia1.html#azar-y-repetición",
+    "title": "Estadística Correlacional",
+    "section": "Azar y repetición",
+    "text": "Azar y repetición\n\n\nEl comportamiento del azar es impredecible con pocas repeticiones pero presenta un comportamiento regular y predecible con muchas repeticiones."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dato-freak",
+    "href": "slides/02-inferencia1.html#dato-freak",
+    "title": "Estadística Correlacional",
+    "section": "(Dato freak)",
+    "text": "(Dato freak)\n\n\nCerca del año 1900, el estadístico inglés Karl Pearson lanzó al aire una moneda 24.000 veces. El resultado: 12.012 caras, una proporción de 0,5005."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados",
+    "href": "slides/02-inferencia1.html#dados",
+    "title": "Estadística Correlacional",
+    "section": "Dados",
+    "text": "Dados\nTenemos 1 dado, ¿cuál es la probabilidad de que salga 3 al lanzarlo?\n\nEspacio muestral S = conjunto de todos los resultados posibles\n\n\\(S=\\{1,2,3,4,5,6\\}\\)\n\nN del espacio muestral = 6 sucesos posibles\nProbabilidad de que salga 3 al tirar el dado = \\(\\frac{1}{6}=0.166\\)"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#section-4",
+    "href": "slides/02-inferencia1.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
+    "href": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
+    "title": "Estadística Correlacional",
+    "section": "Dados, probabilidades y distribuciones",
+    "text": "Dados, probabilidades y distribuciones\n\n\n\n\nEjercicio:\n\nprobar lanzando 1 dado repetidas veces\nprobar con 2 dados\n… y con 6\n\n-&gt; link"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
+    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
+    "title": "Estadística Correlacional",
+    "section": "Dados, probabilidades y áreas",
+    "text": "Dados, probabilidades y áreas"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
+    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
+    "title": "Estadística Correlacional",
+    "section": "Dados, probabilidades y áreas",
+    "text": "Dados, probabilidades y áreas"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
+    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
+    "title": "Estadística Correlacional",
+    "section": "Dados, probabilidades y áreas",
+    "text": "Dados, probabilidades y áreas"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
+    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
+    "title": "Estadística Correlacional",
+    "section": "Dados, probabilidades y áreas",
+    "text": "Dados, probabilidades y áreas\n\n\n\n\n\nEventos posibles (espacio muestral S) = 6 = (1,2,3,4,5,6)\n\\[\n\\begin{align*}\nP(x)\\geq4&=P(4)+P(5)+P(6) \\\\\n&=0.1\\overline{6}+0.1\\overline{6}+0.1\\overline{6} \\\\\n&=0.5\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
+    "href": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
+    "title": "Estadística Correlacional",
+    "section": "Sucesos con distinta probabilidad",
+    "text": "Sucesos con distinta probabilidad\nEj: suma de 2 dados al azar repetidos"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
+    "href": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Distribución muestral del promedio",
+    "text": "Distribución muestral del promedio\n\n\nsi extraemos repetidamente 2 dados, y obtenemos su promedio, el gráfico de frecuencias tenderá a una forma acampanada\nesto ocurre simplemente porque la probabilidad de valores extremos (como promedio 1 o promedio 6) es mucho menor que la de obtener valores centrales\npor lo tanto, podemos aproximarnos al promedio de la población mediante el promedio de los promedios de muchas muestras"
+  },
+  {
+    "objectID": "slides/02-inferencia1.html#y-tarea",
+    "href": "slides/02-inferencia1.html#y-tarea",
+    "title": "Estadística Correlacional",
+    "section": "Y tarea:",
+    "text": "Y tarea:\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
   },
   {
     "objectID": "syllabus.html",
@@ -711,7 +1222,7 @@
     "href": "syllabus.html#evaluación",
     "title": "Programa",
     "section": "Evaluación",
-    "text": "Evaluación\nEl curso tendrá tres instancias de evaluación :\n\nEvaluación 1: Prueba Inferencia (30%, teórico)\nEvaluación 2: Prueba Asociación (40% = 30% teórico + 10% práctico)\nEvaluación 3: Diferenciada (30%)\n\nA: Evaluación individual: para quienes tienen promedio menor a 4.5\nB: Trabajo de aplicación grupal: para quienes tienen promedio mayor o igual a 4.5\nC: Trabajo de profundización en duplas: para quienes tienen promedio mayor o igual a 5.5\n\n\nQuines se encuentren en la categoría B pueden también optar a A, y quienes se encuentren en la categoría C pueden optar a A o B.\nLa nota ponderada de las evaluaciones equivaldrá al 60% de la nota del curso y el examen final al 40% restante.\nLas evaluaciones se distribuyen en el semestre de la siguiente manera:\n\n\n\n\n\n\n\nATENCIÓN\n\n\n\nLas fechas de evaluación no se cambian por respeto a la planificación de los tiempos de tod_s quienes participan en el curso y el cumplimiento apropiado de los objetivos de aprendizaje.\n\n\n\n\n\n\n\n\nSobre las evaluaciones\n\n\n\n\nLas evaluaciones de las unidades 1 y 2 son en la sala de clases y se realizan de manera individual.\nHay preguntas sobre conceptos, y principalmente cálculos e interpretación\nEntra toda la materia de la unidad, lo visto en clase, en los prácticos, y los textos obligatorios.\nTodo lo que se requiere para realizar los ejercicios de la prueba está en la prueba, no requiere aprenderse las fórmulas de memoria ni tampoco valores específicos (ej: valores críticos de rechazo)\nLa prueba comenzará puntual, no se puede ingresar ni salir de la sala una vez comenzada la evaluación.\nSi alguien tiene alguna emergencia y necesita salir podrá contar con la compañía y apoyo de algun_ de l_s ayudantes en sala."
+    "text": "Evaluación\nEl curso tendrá tres instancias de evaluación :\n\nEvaluación 1: Prueba Inferencia (30%, teórico)\nEvaluación 2: Prueba Asociación (40% = 30% teórico + 10% práctico)\nEvaluación 3: Diferenciada (30%)\n\nA: Evaluación individual: para quienes tienen promedio menor a 4.5\nB: Trabajo de aplicación grupal: para quienes tienen promedio mayor o igual a 4.5\nC: Trabajo de profundización en duplas: para quienes tienen promedio mayor o igual a 5.5\n\n\nQuines se encuentren en la categoría B pueden también optar a A, y quienes se encuentren en la categoría C pueden optar a A o B.\nLa nota ponderada de las evaluaciones equivaldrá al 60% de la nota del curso y el examen final al 40% restante.\nLas evaluaciones se distribuyen en el semestre de la siguiente manera:\n\n\n\n\n\n\n\nNotaATENCIÓN\n\n\n\nLas fechas de evaluación no se cambian por respeto a la planificación de los tiempos de tod_s quienes participan en el curso y el cumplimiento apropiado de los objetivos de aprendizaje.\n\n\n\n\n\n\n\n\nNotaSobre las evaluaciones\n\n\n\n\nLas evaluaciones de las unidades 1 y 2 son en la sala de clases y se realizan de manera individual.\nHay preguntas sobre conceptos, y principalmente cálculos e interpretación\nEntra toda la materia de la unidad, lo visto en clase, en los prácticos, y los textos obligatorios.\nTodo lo que se requiere para realizar los ejercicios de la prueba está en la prueba, no requiere aprenderse las fórmulas de memoria ni tampoco valores específicos (ej: valores críticos de rechazo)\nLa prueba comenzará puntual, no se puede ingresar ni salir de la sala una vez comenzada la evaluación.\nSi alguien tiene alguna emergencia y necesita salir podrá contar con la compañía y apoyo de algun_ de l_s ayudantes en sala."
   },
   {
     "objectID": "syllabus.html#inasistencias-y-atraso-en-entregas",
@@ -725,7 +1236,7 @@
     "href": "syllabus.html#requisitos-de-aprobación",
     "title": "Programa",
     "section": "Requisitos de aprobación",
-    "text": "Requisitos de aprobación\nRequisitos de eximición a examen:\n\ncontar con un promedio ponderado igual o superior a 5.5\nno tener nota bajo 4.0 en ninguna de las evaluaciones\n\n\n\n\n\n\n\nActualización de eximición\n\n\n\n\nAsistencia: 60% (considerando atrasos como media asistencia)\nPromedio de presentación a examen: 5.0\nNo tener nota bajo 3.5 en ninguna de las evaluaciones\n\n\n\nRequisitos para presentación a examen:\n\nPodrán presentarse al examen de primera oportunidad los estudiantes que hayan obtenido una calificación final igual o superior a 3.5.\nEl examen de segunda oportunidad será para aquellos estudiantes que presenten una nota igual o inferior a 3.5 o aquellos que en el examen de primera oportunidad no hubiesen logrado una nota igual o superior a 4.0."
+    "text": "Requisitos de aprobación\nRequisitos de eximición a examen:\n\ncontar con un promedio ponderado igual o superior a 5.5\nno tener nota bajo 4.0 en ninguna de las evaluaciones\n\n\n\n\n\n\n\nImportanteActualización de eximición\n\n\n\n\nAsistencia: 60% (considerando atrasos como media asistencia)\nPromedio de presentación a examen: 5.0\nNo tener nota bajo 3.5 en ninguna de las evaluaciones\n\n\n\nRequisitos para presentación a examen:\n\nPodrán presentarse al examen de primera oportunidad los estudiantes que hayan obtenido una calificación final igual o superior a 3.5.\nEl examen de segunda oportunidad será para aquellos estudiantes que presenten una nota igual o inferior a 3.5 o aquellos que en el examen de primera oportunidad no hubiesen logrado una nota igual o superior a 4.0."
   },
   {
     "objectID": "syllabus.html#sobre-asistencia-participación-y-comunicación",
@@ -754,768 +1265,5 @@
     "title": "Programa",
     "section": "Programación de sesiones",
     "text": "Programación de sesiones\nVisitar la página de Planificación."
-  },
-  {
-    "objectID": "assignment/practico-positron.html",
-    "href": "assignment/practico-positron.html",
-    "title": "Introducción a Positron",
-    "section": "",
-    "text": "Código\n\n\n  Sesión del miércoles, 12 de agosto de 2026"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#editor",
-    "href": "assignment/practico-positron.html#editor",
-    "title": "Introducción a Positron",
-    "section": "4.1 Editor",
-    "text": "4.1 Editor\nEs el lugar donde se escribe y se guarda el contenido del archivo .qmd. El documento abierto aparece en una pestaña. Puede modificar el texto y los bloques de código, pero debe guardar para conservar los cambios."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#consola-de-r",
-    "href": "assignment/practico-positron.html#consola-de-r",
-    "title": "Introducción a Positron",
-    "section": "4.2 Consola de R",
-    "text": "4.2 Consola de R\nEs el lugar donde R ejecuta las instrucciones. Allí pueden aparecer resultados y errores. La consola sirve para observar qué hizo R, pero el código importante debe quedar escrito en el editor."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#explorador",
-    "href": "assignment/practico-positron.html#explorador",
-    "title": "Introducción a Positron",
-    "section": "4.3 Explorador",
-    "text": "4.3 Explorador\nMuestra los archivos y carpetas del práctico. Desde allí puede abrir el .qmd y comprobar dónde quedó el HTML generado."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#variables",
-    "href": "assignment/practico-positron.html#variables",
-    "title": "Introducción a Positron",
-    "section": "4.4 Variables",
-    "text": "4.4 Variables\nMuestra los objetos creados en la sesión de R. Por ejemplo, después de crear un objeto llamado mensaje, debería poder encontrarlo en este panel."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#gráficos",
-    "href": "assignment/practico-positron.html#gráficos",
-    "title": "Introducción a Positron",
-    "section": "4.5 Gráficos",
-    "text": "4.5 Gráficos\nMuestra las visualizaciones producidas por R. En este práctico no crearemos gráficos, pero este panel se utilizará más adelante durante el curso.\nLa terminal permite ejecutar comandos del sistema. No es lo mismo que la consola de R y no será necesaria para este práctico. Para las actividades de esta guía, asegúrese de trabajar con la consola de R.\n\n\n\n\n\n\n\nAcción\nQué ocurre\n\n\n\n\nEscribir en el editor\nEl código puede quedar guardado en el archivo\n\n\nEjecutar desde el editor\nLa instrucción se envía a R\n\n\nEscribir directamente en la consola\nEl código se ejecuta, pero puede no quedar guardado"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#actividad-breve",
-    "href": "assignment/practico-positron.html#actividad-breve",
-    "title": "Introducción a Positron",
-    "section": "6.1 Actividad breve",
-    "text": "6.1 Actividad breve\n\nAgregue un nombre al vector.\nEjecute nuevamente el chunk completo.\nCompruebe que cambia el resultado de length().\nRevise que el objeto nombres siga apareciendo en Variables.\nGuarde el archivo para conservar su modificación.\n\nGuardar y ejecutar son acciones diferentes. Guardar conserva los cambios escritos en el .qmd; ejecutar envía instrucciones a R. Para trabajar de manera ordenada, realice ambas acciones durante el práctico."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#objeto-no-encontrado",
-    "href": "assignment/practico-positron.html#objeto-no-encontrado",
-    "title": "Introducción a Positron",
-    "section": "7.1 Objeto no encontrado",
-    "text": "7.1 Objeto no encontrado\nUn mensaje como este:\nobject 'saludo' not found\nsuele indicar que el objeto no fue creado, que su nombre está mal escrito o que se reinició la sesión de R. Revise si ejecutó el chunk donde se crea el objeto y compruebe que el nombre sea idéntico."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#paréntesis-o-comillas-sin-cerrar",
-    "href": "assignment/practico-positron.html#paréntesis-o-comillas-sin-cerrar",
-    "title": "Introducción a Positron",
-    "section": "7.2 Paréntesis o comillas sin cerrar",
-    "text": "7.2 Paréntesis o comillas sin cerrar\nLos siguientes ejemplos son incorrectos y se muestran solo para reconocer el problema:\nnombres &lt;- c(\"Ana\", \"Luis\"\nmensaje &lt;- \"Hola\nEn el primer caso falta cerrar un paréntesis. En el segundo falta cerrar una comilla. Cuando R recibe una instrucción incompleta, puede esperar que usted la termine o mostrar un error."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#funciona-en-la-consola-pero-no-al-renderizar",
-    "href": "assignment/practico-positron.html#funciona-en-la-consola-pero-no-al-renderizar",
-    "title": "Introducción a Positron",
-    "section": "7.3 Funciona en la consola, pero no al renderizar",
-    "text": "7.3 Funciona en la consola, pero no al renderizar\nUna instrucción escrita directamente en la consola se ejecuta, pero no necesariamente queda registrada en el documento. Por eso, un objeto creado solo en la consola puede no existir cuando Quarto ejecute el archivo completo.\n\n\n\n\n\n\nImportanteRegla principal\n\n\n\nEl trabajo importante debe quedar escrito dentro del archivo .qmd, no solamente en la consola.\n\n\nPara revisar un error:\n\nlea la última línea del mensaje;\ncompruebe los nombres de los objetos;\nrevise paréntesis y comillas;\nejecute los chunks anteriores en orden."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#identificación",
-    "href": "assignment/practico-positron.html#identificación",
-    "title": "Introducción a Positron",
-    "section": "8.1 Identificación",
-    "text": "8.1 Identificación\nComplete estos datos antes del ejercicio final:\n\nNombre:\nSección:\nFecha:"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#ejercicio-final",
-    "href": "assignment/practico-positron.html#ejercicio-final",
-    "title": "Introducción a Positron",
-    "section": "8.2 Ejercicio final",
-    "text": "8.2 Ejercicio final\nRealice las siguientes acciones. La actividad debería tomar menos de diez minutos:\n\nComplete su nombre y sección.\nCambie el texto guardado en el objeto mensaje.\nAgregue un nombre al vector nombres.\nEscriba un comentario con # dentro de uno de los chunks.\nEjecute nuevamente los chunks modificados.\nRevise los objetos en el panel Variables.\nGuarde el archivo.\nRenderice el documento.\nCompruebe que los cambios aparecen en el HTML.\nEncuentre el archivo HTML en la carpeta del práctico.\n\n\n8.2.1 Lista de comprobación\n\nAbrí la carpeta completa.\nEncontré el archivo .qmd.\nEjecuté código R.\nRevisé los objetos creados.\nGuardé mis cambios.\nRendericé el documento.\nEncontré el HTML."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#cierre",
-    "href": "assignment/practico-positron.html#cierre",
-    "title": "Introducción a Positron",
-    "section": "8.3 Cierre",
-    "text": "8.3 Cierre\nUsted ya conoce las acciones esenciales para comenzar a trabajar en Positron: abrir una carpeta, reconocer los paneles principales, ejecutar código, guardar cambios y renderizar un documento Quarto. No necesita dominar toda la interfaz antes de continuar; las demás herramientas se incorporarán gradualmente durante el curso.\nCometer errores es una parte normal del trabajo con R. Más importante que memorizar todos los comandos es mantener el código dentro del .qmd, guardar con frecuencia y comprobar que el documento puede renderizarse desde el inicio."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#por-qué-utilizaremos-positron",
-    "href": "assignment/practico-positron.html#por-qué-utilizaremos-positron",
-    "title": "Práctico 0: Introducción a Positron",
-    "section": "1.1 ¿Por qué utilizaremos Positron?",
-    "text": "1.1 ¿Por qué utilizaremos Positron?\nPositron permite aprovechar lo que usted ya aprendió en RStudio dentro de un entorno más integrado y flexible. R sigue siendo el mismo lenguaje: los comandos, paquetes y scripts continúan funcionando. Durante el curso utilizaremos Positron porque reúne distintas herramientas en un solo espacio de trabajo.\n\n\n1.1.1 R, Python y Quarto\nPermite trabajar con distintos lenguajes y documentos reproducibles dentro del mismo programa, sin cambiar constantemente de aplicación.\n\n\n1.1.2 Extensiones y personalización\nSe pueden instalar herramientas para Git, corrección ortográfica, otros lenguajes, temas y organización del código, adaptando el entorno a cada proyecto.\n\n\n1.1.3 Exploración de datos\nReúne la consola, las variables, los gráficos y herramientas visuales para revisar bases de datos y comprender mejor su estructura.\n\n\n1.1.4 Asistencia con inteligencia artificial\nPuede ayudar a explicar errores, comprender código y sugerir correcciones. Su uso es opcional y sus respuestas siempre deben revisarse.\n\n\n1.1.5 Trabajo reproducible\nFacilita combinar explicaciones, código y resultados en documentos Quarto que otras personas pueden revisar y volver a ejecutar.\n\n\n1.1.6 Preparación para nuevos proyectos\nIntegra herramientas útiles para investigaciones, tesis y trabajo colaborativo, como Git, control de versiones y soporte para diferentes tipos de archivos.\n\n\n\n\n\n\n\n\nNotaRStudio sigue siendo una herramienta válida\n\n\n\nPositron no reemplaza lo aprendido en RStudio. Si usted ya ha trabajado con RStudio, no está comenzando desde cero: solo deberá reconocer una nueva forma de organizar herramientas que ya conoce.\n\n\n\n\n\nInterfaz de usuario de Positron y RStudio"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#probar-directamente-en-la-consola",
-    "href": "assignment/practico-positron.html#probar-directamente-en-la-consola",
-    "title": "Introducción a Positron",
-    "section": "5.2 Probar directamente en la consola",
-    "text": "5.2 Probar directamente en la consola\nBusque la pestaña Console en el panel inferior. Escriba directamente:\n2 + 2\nPresione Enter para ejecutar la instrucción.\nEl resultado debería aparecer inmediatamente debajo:\n[1] 4\nLa consola resulta útil para probar una operación, consultar un objeto o revisar rápidamente una función. Sin embargo, el código escrito allí no queda incorporado automáticamente al script ni al documento Quarto."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#ejecutar-código-desde-un-script",
-    "href": "assignment/practico-positron.html#ejecutar-código-desde-un-script",
-    "title": "Introducción a Positron",
-    "section": "5.2 Ejecutar código desde un script",
-    "text": "5.2 Ejecutar código desde un script\nEn el Explorador, abra el archivo:\n00-prueba-positron.R\nEl script debería contener un código similar al siguiente:\nmensaje &lt;- \"Código ejecutado desde un script de R\"\nmensaje\n\nnumeros &lt;- c(2, 4, 6, 8)\nlength(numeros)\nPara ejecutarlo:\n\nubique el cursor en la primera línea;\nutilice la acción disponible en el editor para ejecutar esa línea;\nobserve el resultado en la consola;\ncontinúe con las líneas siguientes;\nrevise el panel Variables.\n\nDespués de ejecutar el código, deberían aparecer dos objetos:\n\nmensaje, que contiene un texto;\nnumeros, que contiene cuatro valores.\n\nLa consola muestra los resultados de las instrucciones. El panel Variables muestra los objetos que permanecen disponibles en la sesión.\n\n\n\n\n\n\n\n\nImportanteConsola y script cumplen funciones distintas\n\n\n\nLa consola permite probar instrucciones. El script permite conservar, organizar y volver a ejecutar el código. El análisis importante debe quedar escrito en un script o documento Quarto.\n\n\n\n5.2.1 Actividad breve\nCambie el contenido de mensaje dentro del script:\nmensaje &lt;- \"Estoy aprendiendo a utilizar Positron\"\nEjecute nuevamente la línea y observe cómo se actualiza el objeto en Variables."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#crear-y-revisar-una-tabla",
-    "href": "assignment/practico-positron.html#crear-y-revisar-una-tabla",
-    "title": "Introducción a Positron",
-    "section": "6.1 Crear y revisar una tabla",
-    "text": "6.1 Crear y revisar una tabla\nEjecute el siguiente código:\n\nencuesta &lt;- data.frame(\n  participante = c(\"A\", \"B\", \"C\", \"D\", \"E\"),\n  comuna = c(\"Maipú\", \"Santiago\", \"Ñuñoa\", \"Maipú\", \"La Florida\"),\n  respuesta = c(3, 5, 4, 2, 4)\n)\n\nencuesta\n\n  participante     comuna respuesta\n1            A      Maipú         3\n2            B   Santiago         5\n3            C      Ñuñoa         4\n4            D      Maipú         2\n5            E La Florida         4\n\n\nLa función data.frame() crea una tabla:\n\ncada columna representa una variable;\ncada fila representa un caso;\nel objeto completo se llama encuesta.\n\nDespués de ejecutar el código, busque encuesta en el panel Variables. Utilice la opción disponible junto al objeto para abrirlo en el Data Explorer.\nEl Data Explorer permite:\n\nrevisar filas y columnas;\nordenar los casos;\naplicar filtros temporales;\nobservar información básica de cada variable;\nexplorar la tabla sin modificar el código que la creó.\n\nPruebe ordenar los casos según la columna comuna. Luego aplique un filtro para mostrar solamente los casos de Maipú.\nEstas acciones modifican únicamente la vista del Data Explorer. El objeto original no cambia."
-  },
-  {
-    "objectID": "assignment/practico-positron.html#crear-y-observar-un-gráfico",
-    "href": "assignment/practico-positron.html#crear-y-observar-un-gráfico",
-    "title": "Introducción a Positron",
-    "section": "6.2 Crear y observar un gráfico",
-    "text": "6.2 Crear y observar un gráfico\nEjecute ahora:\n\nplot(\n  encuesta$respuesta,\n  type = \"b\",\n  main = \"Respuestas de ejemplo\",\n  xlab = \"Participante\",\n  ylab = \"Respuesta\"\n)\n\n\n\n\n\n\n\n\nEn este ejemplo:\n\nplot() crea el gráfico;\nencuesta$respuesta selecciona la columna que se representará;\ntype = \"b\" muestra puntos unidos por líneas;\nmain define el título;\nxlab e ylab definen los nombres de los ejes.\n\nEl gráfico debería aparecer en el panel Gráficos o junto al bloque de código, dependiendo de cómo esté abierto el archivo.\nNo es necesario interpretar estadísticamente estos valores. El objetivo es reconocer la relación entre el código del editor y el resultado visual.\nCambie el título por:\nmain = \"Gráfico modificado en Positron\"\nEjecute nuevamente el código y observe cómo se actualiza el gráfico.\n\n\nPara cerrar la carptea de trabajo…\n\n\n\nCerrar carpeta de trabajo en Positron"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#abrir-un-script-en-positron",
-    "href": "assignment/practico-positron.html#abrir-un-script-en-positron",
-    "title": "Introducción a Positron",
-    "section": "5.1 Abrir un script en Positron",
-    "text": "5.1 Abrir un script en Positron\n\n\n\nAbrir un script en Positron\n\n\n\n\n\n\n\n\nNotaEl recorrido del trabajo y del código\n\n\n\nAntes de comenzar el análisis, debe abrir la carpeta que contiene los archivos del proyecto y seleccionar el script en el que trabajará. El recorrido básico es el siguiente:\n\nSeleccione y abra la carpeta de trabajo, donde se encuentran los scripts, datos y resultados.\nAbra o cree un script de R con la extensión .R.\nEscriba y guarde el código en el Editor.\nEjecute las instrucciones para que R las procese en la Consola.\nLos objetos creados, como bases de datos y variables, aparecerán en Variables.\nLos gráficos generados aparecerán en Gráficos.\n\nDe esta manera, la carpeta organiza el proyecto, el script conserva el código, la Consola lo ejecuta y los demás paneles muestran los resultados."
-  },
-  {
-    "objectID": "news/2026-08-02_bienvenida.html",
-    "href": "news/2026-08-02_bienvenida.html",
-    "title": "Bienvenid@s al curso!",
-    "section": "",
-    "text": "← News\n\n\n\n\nComo equipo docente, queremos darles una cálida bienvenida al curso “Estadística Correlacional: Inferencia, asociación y reporte”. Esperamos que este espacio cumpla con sus expectativas y que puedan aprovechar al máximo los contenidos de esta cátedra.\nTenemos toda la disposición de acompañarles en este proceso de enseñanza y aprendizaje para que sea lo más provechoso posible en términos formativos. Con ello en mente, l_s invitamos a revisar los distintos recursos disponibles en la página y, ante cualquier consulta, no duden en contactarnos a través de los canales dispuestos.\n¡Que sea un gran semestre!"
-  },
-  {
-    "objectID": "news/2026-08-03_bienvenida.html",
-    "href": "news/2026-08-03_bienvenida.html",
-    "title": "Bienvenid@s al curso!",
-    "section": "",
-    "text": "← News\n\n\n\n\n\nComo equipo docente, queremos darles una cálida bienvenida al curso “Estadística Correlacional: Inferencia, asociación y reporte”. Esperamos que este espacio cumpla con sus expectativas y que puedan aprovechar al máximo los contenidos de esta cátedra.\nTenemos toda la disposición de acompañarles en este proceso de enseñanza y aprendizaje para que sea lo más provechoso posible en términos formativos. Con ello en mente, l_s invitamos a revisar los distintos recursos disponibles en la página y, ante cualquier consulta, no duden en contactarnos a través de los canales dispuestos.\n¡Que sea un gran semestre!"
-  },
-  {
-    "objectID": "news/2026-08-04-interactiva.html",
-    "href": "news/2026-08-04-interactiva.html",
-    "title": "Nueva plataforma interactiva del curso",
-    "section": "",
-    "text": "← News\n\n\n\n\n\n\n\n\nVista de la plataforma Estadística Correlacional Interactiva\n\n\nYa se encuentra disponible Estadística Correlacional Interactiva, una plataforma para aprender de manera visual e interactiva los contenidos teóricos del curso.\nLos temas y recursos adicionales que no se alcancen a revisar en clases podrán utilizarse como material complementario para profundizar y reforzar el aprendizaje.\n\n Acceder a la plataforma interactiva"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#datos-probabilidad-y-distribuciones-muestrales",
-    "href": "slides/02-inferencia1.html#datos-probabilidad-y-distribuciones-muestrales",
-    "title": "Estadística Correlacional",
-    "section": "Datos, probabilidad y distribuciones muestrales",
-    "text": "Datos, probabilidad y distribuciones muestrales"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#datos",
-    "href": "slides/02-inferencia1.html#datos",
-    "title": "",
-    "section": "Datos",
-    "text": "Datos\n\nLos datos son una expresión numérica de la medición de al menos una característica de a lo menos una unidad en a lo menos un punto en el tiempo\n\n\n\nEjemplo: La esperanza de vida en Chile el 2017 fue de 79,9 años\n\nCaracterística (variable): esperanza de vida\nUnidad: Años\nPunto en el tiempo: 2017"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#medir",
-    "href": "slides/02-inferencia1.html#medir",
-    "title": "",
-    "section": "Medir",
-    "text": "Medir\n\n\n\n“asignar números, símbolos o valores a las propiedades de objetos o eventos de acuerdo con reglas” (Stevens, 1951)\nVincula conceptos abstractos con indicadores empíricos"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#medir-requisitos-básicos",
-    "href": "slides/02-inferencia1.html#medir-requisitos-básicos",
-    "title": "Estadística Correlacional",
-    "section": "Medir: requisitos básicos",
-    "text": "Medir: requisitos básicos\n\n\nExhaustividad: el mayor número de categorías significativas.\n\nEj: ¿Qué categorías se deben considerar para población migrante?\n\nExclusividad: atributos mutuamente excluyentes"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#ejemplos-de-estudios-bases-de-datos",
-    "href": "slides/02-inferencia1.html#ejemplos-de-estudios-bases-de-datos",
-    "title": "Estadística Correlacional",
-    "section": "Ejemplos de estudios / bases de datos",
-    "text": "Ejemplos de estudios / bases de datos\n\nEncuesta Centro de Estudios Públicos\nEncuesta CASEN\nEncuesta Lapop\nELSOC"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#variables",
-    "href": "slides/02-inferencia1.html#variables",
-    "title": "",
-    "section": "Variables",
-    "text": "Variables\n\n\nUna variable representa cualquier cosa o propiedad que varía y a la cuál se le asigna un valor. Es decir:\n\\(Variable \\neq Constante\\)\nPueden ser visibles o no visibles/latentes (Ej: peso / inteligencia)"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#variables-1",
-    "href": "slides/02-inferencia1.html#variables-1",
-    "title": "",
-    "section": "Variables",
-    "text": "Variables\n\ndiscretas (rango finito de valores):\n\nDicotómicas\nPolitómicas\n\ncontinuas:\n\nRango (teóricamente) infinito de valores."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#tendencia-central",
-    "href": "slides/02-inferencia1.html#tendencia-central",
-    "title": "",
-    "section": "Tendencia Central",
-    "text": "Tendencia Central\nDescripción básica de una variable:\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios\nMedia o promedio aritmético: suma de los valores dividido por el total de casos"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#puede-la-mayoría-ganar-menos-ingresos-que-el-promedio",
-    "href": "slides/02-inferencia1.html#puede-la-mayoría-ganar-menos-ingresos-que-el-promedio",
-    "title": "Estadística Correlacional",
-    "section": "¿Puede la mayoría ganar menos ingresos que el promedio?",
-    "text": "¿Puede la mayoría ganar menos ingresos que el promedio?"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión-varianza-1",
-    "href": "slides/02-inferencia1.html#dispersión-varianza-1",
-    "title": "",
-    "section": "Dispersión: Varianza",
-    "text": "Dispersión: Varianza"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión-varianza-2",
-    "href": "slides/02-inferencia1.html#dispersión-varianza-2",
-    "title": "",
-    "section": "Dispersión: Varianza",
-    "text": "Dispersión: Varianza"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión-3",
-    "href": "slides/02-inferencia1.html#dispersión-3",
-    "title": "Estadística Correlacional",
-    "section": "Dispersión:",
-    "text": "Dispersión:"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#desviación-estándar",
-    "href": "slides/02-inferencia1.html#desviación-estándar",
-    "title": "",
-    "section": "Desviación Estándar",
-    "text": "Desviación Estándar\n\n\n\n\n\nRaíz Cuadrada de la varianza.\nExpresada en la mismas unidades que los puntajes de la escala original"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#inferencia-la-otra-parte-del-análisis",
-    "href": "slides/02-inferencia1.html#inferencia-la-otra-parte-del-análisis",
-    "title": "Estadística Correlacional",
-    "section": "Inferencia: la otra parte del análisis",
-    "text": "Inferencia: la otra parte del análisis\nCuando se analizan datos, 2 cosas principales\n\n\n\n\ncálculo del estadístico:\n\npromedio\ndesviación estándar\ncorrelación\n…\n\n\n\n\n\n\ninferencia: ¿existe este estadístico en la población?\n\nprobabilidad\nerror\nsignificación"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#inferencia",
-    "href": "slides/02-inferencia1.html#inferencia",
-    "title": "",
-    "section": "Inferencia",
-    "text": "Inferencia\nCuando se analizan datos, 2 aspectos principales\n\n\n\nCálculo del estadístico:\n\npromedio\ndesviación estándar\ncorrelación\n…\n\n\n\n\nInferencia: ¿existe este estadístico en la población?\n\nprobabilidad\nerror\nsignificación"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#conceptos-claves-de-inferencia",
-    "href": "slides/02-inferencia1.html#conceptos-claves-de-inferencia",
-    "title": "Estadística Correlacional",
-    "section": "Conceptos claves de inferencia",
-    "text": "Conceptos claves de inferencia\n\n\n\n\n\nLa inferencia en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población\n¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?\nUn concepto central es la probabilidad de ERROR"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#parámetros-y-estadísticos",
-    "href": "slides/02-inferencia1.html#parámetros-y-estadísticos",
-    "title": "",
-    "section": "Parámetros y estadísticos",
-    "text": "Parámetros y estadísticos\n\n\n\n\n\n\n\n\n\nPoblación (parámetro)\nMuestra (estadístico)\n\n\n\n\nPromedio\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\nVarianza\n\\(\\sigma²\\)\n\\(s²\\)\n\n\nDesviación estándar\n\\(\\sigma\\)\n\\(s\\)\n\n\nCorrelación\n\\(\\rho\\)\n\\(r\\)"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad",
-    "href": "slides/02-inferencia1.html#muestreo-y-variabilidad",
-    "title": "",
-    "section": "Muestreo y variabilidad",
-    "text": "Muestreo y variabilidad\n\n¿Cómo es posible que la media x̄ obtenida a partir de una muestra de unos pocos hogares de todos los del país, pueda ser una estimación precisa de µ?\n\nUna segunda muestra aleatoria obtenida en el mismo momento estaría formada por hogares distintos y, sin duda, daría un valor distinto de x̄"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
-    "href": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
-    "title": "",
-    "section": "Muestreo y variabilidad",
-    "text": "Muestreo y variabilidad\nVariabilidad muestral: el valor de un estadístico varía en un muestreo aleatorio repetido\n\n\n¿Cuánto varía?\n¿En qué rangos?\n¿Qué tan probable es el rango de variación?\n¿Es un rango aceptable en términos de investigación social?"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
-    "href": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
-    "title": "",
-    "section": "Aleatoriedad y probabilidad",
-    "text": "Aleatoriedad y probabilidad\n\n\n\nLlamamos a un fenómeno aleatorio si los resultados individuales son inciertos y, sin embargo, existe una distribución regular de los resultados después de un gran número de repeticiones.\n\n\n\nLa probabilidad de cualquier resultado de un fenómeno aleatorio es la proporción de veces que el resultado se da después de una larga serie de repeticiones"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#azar-y-repetición",
-    "href": "slides/02-inferencia1.html#azar-y-repetición",
-    "title": "",
-    "section": "Azar y repetición",
-    "text": "Azar y repetición\n\n\nEl comportamiento del azar es impredecible con pocas repeticiones pero presenta un comportamiento regular y predecible con muchas repeticiones."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dato-freak",
-    "href": "slides/02-inferencia1.html#dato-freak",
-    "title": "",
-    "section": "(Dato freak)",
-    "text": "(Dato freak)\n\n\nCerca del año 1900, el estadístico inglés Karl Pearson lanzó al aire una moneda 24.000 veces. El resultado: 12.012 caras, una proporción de 0,5005."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados",
-    "href": "slides/02-inferencia1.html#dados",
-    "title": "",
-    "section": "Dados",
-    "text": "Dados\nTenemos 1 dado, ¿cuál es la probabilidad de que salga 3 al lanzarlo?\n\nEspacio muestral S = conjunto de todos los resultados posibles\n\n\\(S=\\{1,2,3,4,5,6\\}\\)\n\nN del espacio muestral = 6 sucesos posibles\nProbabilidad de que salga 3 al tirar el dado = \\(\\frac{1}{6}=0.166\\)"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#section-7",
-    "href": "slides/02-inferencia1.html#section-7",
-    "title": "Estadística Correlacional",
-    "section": "",
-    "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
-    "href": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
-    "title": "",
-    "section": "Dados, probabilidades y distribuciones",
-    "text": "Dados, probabilidades y distribuciones\n\n\n\n\nEjercicio:\n\nprobar lanzando 1 dado repetidas veces\nprobar con 2 dados\n… y con 6\n\n-&gt; link"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
-    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
-    "title": "",
-    "section": "Dados, probabilidades y áreas",
-    "text": "Dados, probabilidades y áreas"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
-    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
-    "title": "",
-    "section": "Dados, probabilidades y áreas",
-    "text": "Dados, probabilidades y áreas"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
-    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
-    "title": "",
-    "section": "Dados, probabilidades y áreas",
-    "text": "Dados, probabilidades y áreas\n\n\n\n\n\nEventos posibles (espacio muestral S) = 6 = (1,2,3,4,5,6)\n\\[\n\\begin{align*}\nP(x)\\geq4&=P(4)+P(5)+P(6) \\\\\n&=0.1\\overline{6}+0.1\\overline{6}+0.1\\overline{6} \\\\\n&=0.5\n\\end{align*}\n\\]"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
-    "href": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
-    "title": "",
-    "section": "Sucesos con distinta probabilidad",
-    "text": "Sucesos con distinta probabilidad\nEj: suma de 2 dados al azar repetidos"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
-    "href": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
-    "title": "",
-    "section": "Distribución muestral del promedio",
-    "text": "Distribución muestral del promedio\n\n\nsi extraemos repetidamente 2 dados, y obtenemos su promedio, el gráfico de frecuencias tenderá a una forma acampanada\nesto ocurre simplemente porque la probabilidad de valores extremos (como promedio 1 o promedio 6) es mucho menor que la de obtener valores centrales\npor lo tanto, podemos aproximarnos al promedio de la población mediante el promedio de los promedios de muchas muestras"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#y-tarea",
-    "href": "slides/02-inferencia1.html#y-tarea",
-    "title": "",
-    "section": "Y tarea:",
-    "text": "Y tarea:\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#section-6",
-    "href": "slides/02-inferencia1.html#section-6",
-    "title": "Estadística Correlacional",
-    "section": "",
-    "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#section-1",
-    "href": "slides/02-inferencia1.html#section-1",
-    "title": "Estadística Correlacional",
-    "section": "",
-    "text": "La VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#c",
-    "href": "slides/02-inferencia1.html#c",
-    "title": "Estadística Correlacional",
-    "section": "c",
-    "text": "c\nObjetivos de la sesión de hoy {data-background-color=“#0C3547”}\n\n\nRecordar y nivelar aprendizajes previos a este curso, fundamentalmente respecto al manejo de datos, medición y varianza\nIntroducción a probabilidad, distribuciones muestrales e inferencia"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#medir-requisitos",
-    "href": "slides/02-inferencia1.html#medir-requisitos",
-    "title": "",
-    "section": "Medir: requisitos",
-    "text": "Medir: requisitos\n\n\nExhaustividad: el mayor número de categorías significativas.\n\nEj: ¿Qué categorías se deben considerar para población migrante?\n\nExclusividad: atributos mutuamente excluyentes"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#ejemplos",
-    "href": "slides/02-inferencia1.html#ejemplos",
-    "title": "",
-    "section": "Ejemplos",
-    "text": "Ejemplos\nAlgunos estudios / bases de datos:\n\nEncuesta Centro de Estudios Públicos\nEncuesta CASEN\nEncuesta Lapop\nELSOC"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#section-5",
-    "href": "slides/02-inferencia1.html#section-5",
-    "title": "Estadística Correlacional",
-    "section": "",
-    "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión-varianza",
-    "href": "slides/02-inferencia1.html#dispersión-varianza",
-    "title": "",
-    "section": "Dispersión: Varianza",
-    "text": "Dispersión: Varianza"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión-2",
-    "href": "slides/02-inferencia1.html#dispersión-2",
-    "title": "Estadística Correlacional",
-    "section": "Dispersión:",
-    "text": "Dispersión:"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dispersión",
-    "href": "slides/02-inferencia1.html#dispersión",
-    "title": "",
-    "section": "Dispersión:",
-    "text": "Dispersión:\n\n\n\n\n\n\n\nLa VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#section-4",
-    "href": "slides/02-inferencia1.html#section-4",
-    "title": "",
-    "section": "",
-    "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#inferencia-1",
-    "href": "slides/02-inferencia1.html#inferencia-1",
-    "title": "",
-    "section": "Inferencia",
-    "text": "Inferencia\n\n\n\n\n¿En qué medida se pueden relacionar resultados que se encuentran en un (sub)conjunto de unidades con lo que ocurre en general?\n\n\nEj: si en un subconjunto de la población encuentro que el promedio de matemáticas es mayor en mujeres que en hombres ¿es esto un reflejo de lo que ocurre en general, o se debe solo al azar? ¿se puede extrapolar a la población?"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#conceptos-clave",
-    "href": "slides/02-inferencia1.html#conceptos-clave",
-    "title": "",
-    "section": "Conceptos clave",
-    "text": "Conceptos clave\n\n\n\n\n\n\nLa inferencia en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población\n¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?\nUn concepto central es la probabilidad de ERROR"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
-    "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
-    "title": "",
-    "section": "Dados, probabilidades y áreas",
-    "text": "Dados, probabilidades y áreas"
-  },
-  {
-    "objectID": "slides/02-inferencia1.html",
-    "href": "slides/02-inferencia1.html",
-    "title": "",
-    "section": "",
-    "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Inferencia 1:\nDatos, probabilidad y distribuciones muestrales"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#section-1",
-    "href": "slides/03-inferencia2.html#section-1",
-    "title": "",
-    "section": "",
-    "text": "# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#la-tarea-resultado",
-    "href": "slides/03-inferencia2.html#la-tarea-resultado",
-    "title": "",
-    "section": "La tarea: resultado",
-    "text": "La tarea: resultado\n\n\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n\n\n   dado1 dado2 suma promedio\n1      1     1    2      1.0\n2      1     2    3      1.5\n3      1     3    4      2.0\n4      1     4    5      2.5\n5      1     5    6      3.0\n6      1     6    7      3.5\n7      2     1    3      1.5\n8      2     2    4      2.0\n9      2     3    5      2.5\n10     2     4    6      3.0\n11     2     5    7      3.5\n12     2     6    8      4.0\n13     3     1    4      2.0\n14     3     2    5      2.5\n15     3     3    6      3.0\n16     3     4    7      3.5\n17     3     5    8      4.0\n18     3     6    9      4.5\n19     4     1    5      2.5\n20     4     2    6      3.0\n21     4     3    7      3.5\n22     4     4    8      4.0\n23     4     5    9      4.5\n24     4     6   10      5.0\n25     5     1    6      3.0\n26     5     2    7      3.5\n27     5     3    8      4.0\n28     5     4    9      4.5\n29     5     5   10      5.0\n30     5     6   11      5.5\n31     6     1    7      3.5\n32     6     2    8      4.0\n33     6     3    9      4.5\n34     6     4   10      5.0\n35     6     5   11      5.5\n36     6     6   12      6.0"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#la-tarea-gráficos",
-    "href": "slides/03-inferencia2.html#la-tarea-gráficos",
-    "title": "",
-    "section": "La tarea: gráficos",
-    "text": "La tarea: gráficos\n\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
-    "href": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
-    "title": "",
-    "section": "Probabilidad de promedio de 2 dados al azar",
-    "text": "Probabilidad de promedio de 2 dados al azar\n\n\n   Promedio Probabilidad\n1       1.0   0.02777778\n2       1.5   0.05555556\n3       2.0   0.08333333\n4       2.5   0.11111111\n5       3.0   0.13888889\n6       3.5   0.16666667\n7       4.0   0.13888889\n8       4.5   0.11111111\n9       5.0   0.08333333\n10      5.5   0.05555556\n11      6.0   0.02777778"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
-    "href": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
-    "title": "",
-    "section": "¿Qué aprendimos de esto?",
-    "text": "¿Qué aprendimos de esto?\n\n\nla ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una distribución teórica de probabilidad\nsi repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la distribución empírica de probabilidad (de frecuencias de los eventos)\nde acuerdo a la ley de los grandes números, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-teórica",
-    "href": "slides/03-inferencia2.html#distribución-teórica",
-    "title": "",
-    "section": "Distribución teórica",
-    "text": "Distribución teórica"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#repeticiones-empírica",
-    "href": "slides/03-inferencia2.html#repeticiones-empírica",
-    "title": "",
-    "section": "100 repeticiones (empírica)",
-    "text": "100 repeticiones (empírica)"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
-    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
-    "title": "",
-    "section": "100 repeticiones vs. teórica",
-    "text": "100 repeticiones vs. teórica"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
-    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
-    "title": "",
-    "section": "500 repeticiones vs. teórica",
-    "text": "500 repeticiones vs. teórica"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
-    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
-    "title": "",
-    "section": "1500 repeticiones vs. teórica",
-    "text": "1500 repeticiones vs. teórica"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
-    "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
-    "title": "",
-    "section": "5000 repeticiones vs. teórica",
-    "text": "5000 repeticiones vs. teórica"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#muestra-y-distribución",
-    "href": "slides/03-inferencia2.html#muestra-y-distribución",
-    "title": "",
-    "section": "Muestra y distribución",
-    "text": "Muestra y distribución\n\nSabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad\n¿De qué nos sirve esta información si…\n\n¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?\n¿no conocemos la distribución teórica?"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
-    "href": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
-    "title": "",
-    "section": "Histograma vs. curvas de densidad",
-    "text": "Histograma vs. curvas de densidad\n\n\nHistograma\nFrecuencias o probabilidad empírica de cada evento\n\n\n\n\n\n\n\n\n\n\nCurvas de densidad\nModelo teórico/matemático de la distribución"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#curva-de-distribución",
-    "href": "slides/03-inferencia2.html#curva-de-distribución",
-    "title": "",
-    "section": "Curva de distribución",
-    "text": "Curva de distribución\n\nUna curva de distribución de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva suavizada\nRepresenta una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica\nLas puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)\nEl área bajo la curva representa el 100% de los casos de la población"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#curva-de-distribución-normal",
-    "href": "slides/03-inferencia2.html#curva-de-distribución-normal",
-    "title": "",
-    "section": "Curva de distribución normal",
-    "text": "Curva de distribución normal\n\n\nEs una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida\nCoinciden al centro el promedio, la mediana y la moda\nEs simétrica y de forma acampanada\nEstablece áreas bajo la curva en base a desviaciones estándar del promedio"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
-    "href": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
-    "title": "",
-    "section": "Distribución normal, desviaciones estándar y áreas bajo la curva",
-    "text": "Distribución normal, desviaciones estándar y áreas bajo la curva"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
-    "href": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
-    "title": "",
-    "section": "¿Por qué es importante la distribución normal en estadística?",
-    "text": "¿Por qué es importante la distribución normal en estadística?\n\n\nPermite comparar puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)\nPermite estimar proporciones bajo la curva normal de cualquier valor de la distribución\nBase de la distribución muestral del promedio, error estándar, e inferencia estadística en general"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización",
-    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización",
-    "title": "Estadística Correlacional",
-    "section": "Puntaje \\(z\\) y estandarización",
-    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
-    "href": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
-    "title": "",
-    "section": "Ejemplo comparación distribuciones (Ritchey, p. 148)",
-    "text": "Ejemplo comparación distribuciones (Ritchey, p. 148)\n\n\n\nMary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2\nJason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100\n\n\n\n¿A quién le fue mejor?\n\n\n¿Cómo le fue específicamente a cada uno?"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
-    "href": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
-    "title": "",
-    "section": "Comparando peras con manzanas",
-    "text": "Comparando peras con manzanas\n\\[\n\\begin{align*}\nZ_{Mary}&=\\frac{x-\\mu}{\\sigma}=\\frac{26-22}{2}=2 \\\\ \\\\\nZ_{Jason}&=\\frac{x-\\mu}{\\sigma}=\\frac{900-1000}{100}=-1\n\\end{align*}\n\\]\n\n\\(Z\\) entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio\nEstos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#proporciones",
-    "href": "slides/03-inferencia2.html#proporciones",
-    "title": "",
-    "section": "Proporciones",
-    "text": "Proporciones\n\n\nAsumiendo distribución normal, se puede obtener la proporción de casos bajo la curva normal que están sobre y bajo el puntaje Z"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#ejemplo-1",
-    "href": "slides/03-inferencia2.html#ejemplo-1",
-    "title": "",
-    "section": "Ejemplo 1",
-    "text": "Ejemplo 1\n\n\n\n\n\nPensemos en estatura de 1.65, en una muestra con \\(\\bar{x}=160\\) y \\(\\sigma=5\\).\n\\[z=\\frac{x-\\mu}{\\sigma}=\\frac{165-160}{5}=1\\]\nEn base a la distribución normal sabemos que bajo 1 desviación estándar está el 68% de los datos + la cola izquierda de la curva, que es (100-68)/2=16%.\nEj: 84% (68+16) de los casos tienen una estatura menor a 165 cm"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#ejemplo-2",
-    "href": "slides/03-inferencia2.html#ejemplo-2",
-    "title": "",
-    "section": "Ejemplo 2",
-    "text": "Ejemplo 2\n\n\nPuntaje en prueba=450, en una muestra con media=500 y ds=100, en R\n\n# Definimos los parámetros\nX &lt;- 450  # Puntaje\nmu &lt;- 500  # Media\nsigma &lt;- 100  # Desviación estándar\n\n# Calculamos el puntaje z\nz &lt;- (X - mu) / sigma\nz\n\n# Calculamos el percentil asociado al puntaje z\npercentil &lt;- pnorm(z) * 100\n\n# Mostramos el resultado\npercentil\n\n\n\n\n[1] 30.85375"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
-    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
-    "title": "",
-    "section": "Distribución muestral del promedio",
-    "text": "Distribución muestral del promedio\n\n\n\n\n\nSi tengo la desviación estándar de los promedios, puedo construir un intervalo de probabilidad, basado en la curva normal\nPor ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)\nPeeero…"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
-    "href": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
-    "title": "",
-    "section": "Desviación estándar y error estándar",
-    "text": "Desviación estándar y error estándar\n\n\n\n\n\n\n\nmás que el promedio de la variable en nuestra muestra, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la población\ncontamos con una muestra, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados."
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
-    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
-    "title": "",
-    "section": "Distribución muestral del promedio",
-    "text": "Distribución muestral del promedio"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
-    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
-    "title": "",
-    "section": "Distribución muestral del promedio",
-    "text": "Distribución muestral del promedio"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
-    "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
-    "title": "",
-    "section": "Distribución muestral del promedio",
-    "text": "Distribución muestral del promedio"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#teorema-central-del-límite",
-    "href": "slides/03-inferencia2.html#teorema-central-del-límite",
-    "title": "",
-    "section": "Teorema central del límite",
-    "text": "Teorema central del límite\n\nla distribución de los promedios de distintas muestras - o distribución muestral del promedio - se aproxima a una distribución normal\nEn muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:\n\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ estándar)=\\frac{s}{\\sqrt{N}}\\]\n\n\\(s\\) = desviación estándar de la muestra\n\\(N\\) = tamaño de la muestra"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#section-4",
-    "href": "slides/03-inferencia2.html#section-4",
-    "title": "",
-    "section": "",
-    "text": "Basados en el Teorema Central del Límite, es posible calcular la desviación estándar de los promedios (error estándar) con\n\n\n\n\n\n\nuna sola muestra"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
-    "href": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
-    "title": "",
-    "section": "Demostración: 10 muestras, 5 casos c/u",
-    "text": "Demostración: 10 muestras, 5 casos c/u\n\n\n\n\n\n\n-&gt; ver demostración con más casos aquí"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
-    "href": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
-    "title": "",
-    "section": "¿Para qué nos sirve el error estándar (SE) del promedio?",
-    "text": "¿Para qué nos sirve el error estándar (SE) del promedio?\n\n(… y de otros estadísticos, como la correlación)"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#usos-del-error-estándar",
-    "href": "slides/03-inferencia2.html#usos-del-error-estándar",
-    "title": "",
-    "section": "Usos del error estándar",
-    "text": "Usos del error estándar\n\nDos usos complementarios:\n\nconstrucción de intervalos de confianza\ntest de hipótesis\n\n\n\n\n-&gt; Próxima clase"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#cápsula-introducción-a-positron",
-    "href": "assignment/practico-positron.html#cápsula-introducción-a-positron",
-    "title": "Introducción a Positron",
-    "section": "6.1 Cápsula: Introducción a Positron",
-    "text": "6.1 Cápsula: Introducción a Positron\nPara complementar este práctico, revise la siguiente cápsula, donde se presenta paso a paso el entorno de trabajo de Positron y su uso con R.\n\n\n&lt;iframe\n  src=\"https://www.youtube.com/embed/ASw2D2HKF2s\"\n  title=\"Introducción a Positron\"\n  style=\"position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;\"\n  allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\"\n  allowfullscreen&gt;\n&lt;/iframe&gt;"
-  },
-  {
-    "objectID": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
-    "href": "assignment/practico-positron.html#código-utilizado-en-la-cápsula",
-    "title": "Introducción a Positron",
-    "section": "7.1 Código utilizado en la cápsula",
-    "text": "7.1 Código utilizado en la cápsula\n\n\n\n\n\n\nTipVer código completo de la cápsula\n\n\n\n\n\n# Cargar los datos\ndatos &lt;- read.csv(\n  \"Input/WID_Data_09082026-200910.csv\",\n  sep = \";\",\n  skip = 1\n)\n\n# Limpiar nombres de países\ndatos$Country &lt;- trimws(datos$Country)\n\n# Seleccionar algunos países\ncomparacion &lt;- subset(\n  datos,\n  Country %in% c(\"Chile\", \"Brazil\", \"USA\", \"Sweden\")\n)\n\ncomparacion\n\n# Convertir a porcentaje\ncomparacion$Porcentaje &lt;- comparacion$Value * 100\n\ncomparacion\n\n# Crear una tabla simple\ntabla &lt;- comparacion[, c(\"Country\", \"Porcentaje\")]\n\n# Ver tabla\ntabla\n\n# Crear gráfico\nbarplot(\n  comparacion$Porcentaje,\n  names.arg = comparacion$Country,\n  ylab = \"Porcentaje del ingreso\",\n  main = \"Ingreso 10%\"\n)"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#esta-clase",
-    "href": "slides/03-inferencia2.html#esta-clase",
-    "title": "",
-    "section": "ESTA CLASE",
-    "text": "ESTA CLASE\n\n\n- Distribución teórica vs distribución empírica\n\n\n- Curva normal\n\n\n- Puntaje Z y estandarización\n\n\n- Error estándar"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
-    "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
-    "title": "",
-    "section": "Puntaje \\(z\\) y estandarización",
-    "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
-  },
-  {
-    "objectID": "assignment/01-practico.html",
-    "href": "assignment/01-practico.html",
-    "title": "Distribución Normal e Intervalos de Confianza",
-    "section": "",
-    "text": "Sesión del miércoles, 20 de agosto de 2025"
-  },
-  {
-    "objectID": "assignment/01-practico.html#cálculo-de-probabilidades-con-puntaje-z",
-    "href": "assignment/01-practico.html#cálculo-de-probabilidades-con-puntaje-z",
-    "title": "Distribución Normal e Intervalos de Confianza",
-    "section": "2.1 Cálculo de probabilidades con puntaje Z",
-    "text": "2.1 Cálculo de probabilidades con puntaje Z\nRecordemos que la formula para calcular el puntaje z es:\n\\[\nz = \\frac{x - \\bar{x}}{s}\n\\]\ndonde \\(x\\) es el valor observado, \\(\\bar{x}\\) la media y \\(s\\) la desviación estándar.\n\nz_scores &lt;- (vector - media) / desv_estandar\n\n# Comparar valores originales y estandarizados\nhead(data.frame(Valor=vector, Z=z_scores), 10)\n\n      Valor           Z\n1  3.879049 -0.71304802\n2  4.539645 -0.35120270\n3  8.117417  1.60854170\n4  5.141017 -0.02179795\n5  5.258575  0.04259548\n6  8.430130  1.77983218\n7  5.921832  0.40589817\n8  2.469878 -1.48492941\n9  3.626294 -0.85149566\n10 4.108676 -0.58726835\n\n\nAhora bien, R trae incorporadas funciones que permiten hacer estos calculos más rapidos. En este caso, usamos la función scale para centrar el vector en torno a su media.\n\n# Estandarizar el vector\nz_scores_scale &lt;- scale(vector)\n\n# Comparar valores originales y estandarizados según ambos métodos. \nhead(data.frame(Valor=vector, Z_manual=z_scores, z_scale=z_scores_scale), 10)\n\n      Valor    Z_manual     z_scale\n1  3.879049 -0.71304802 -0.71304802\n2  4.539645 -0.35120270 -0.35120270\n3  8.117417  1.60854170  1.60854170\n4  5.141017 -0.02179795 -0.02179795\n5  5.258575  0.04259548  0.04259548\n6  8.430130  1.77983218  1.77983218\n7  5.921832  0.40589817  0.40589817\n8  2.469878 -1.48492941 -1.48492941\n9  3.626294 -0.85149566 -0.85149566\n10 4.108676 -0.58726835 -0.58726835\n\n\n\n\n\n\n\n\nTip\n\n\n\nNoten que ambos procedimientos llegan al mismo resultados\n\n\nLos valores estandarizados o puntajes Z además nos permiten conocer probabilidades.\nCon R es posible generar un conjunto de datos simulados con una distribución normal.\n\nx_values &lt;- seq(-4,4,length=1000)\ny_values &lt;- dnorm(x_values)\nplot(x_values,y_values,type=\"l\",xlab=\"Valor Z\",ylab=\"Probabilidad\",main=\"Distribución Normal\")\n\n\n\n\n\n\n\n\nPodemos preguntar qué parte de la curva cae por debajo de un valor particular. Por ejemplo, preguntaremos sobre el valor 0 antes de ejecutar el código. Piense ¿cuál debería ser la respuesta?\n\n# Probabilidades acumuladas\npnorm(0)       # P(Z &lt;= 0)\n\n[1] 0.5\n\n\nAhora probemos los valores Z de +1,96 y -1,96.\nSabemos que estos valores aproximados marcan el 2,5% superior e inferior de la distribución normal estándar. Esto corresponde a un alfa típico \\(\\alpha = 0,05\\) para una prueba de hipótesis de dos colas.\n\npnorm(1.96)    # P(Z &lt;= 1.96)\n\n[1] 0.9750021\n\npnorm(-1.96)   # P(Z &lt;= -1.96)\n\n[1] 0.0249979\n\n\nLa respuesta nos dice lo que ya sabemos: el 97,5% de la distribución normal ocurre por debajo del valor z de 1,96.\ny si lo visualizamos:\n\nplot(x_values, y_values, type=\"l\", lty=1, xlab=\"Z value\", ylab=\"Probability\", main=\"Normal Distribution\") +\nabline(v = 1.96)\n\n\n\n\n\n\n\n\ninteger(0)"
-  },
-  {
-    "objectID": "assignment/01-practico.html#cálculo-de-intervalos-de-confianza-para-medias",
-    "href": "assignment/01-practico.html#cálculo-de-intervalos-de-confianza-para-medias",
-    "title": "Distribución Normal e Intervalos de Confianza",
-    "section": "4.1 Cálculo de intervalos de confianza para medias",
-    "text": "4.1 Cálculo de intervalos de confianza para medias\nEn el caso de nuestro vector aleatorio, presentamos tres maneras de calcular el intervalo de confianza para la media\nPrimero, a través del calculo manual, recordando que:\n\\[\nIC = \\bar{x} \\pm z \\cdot \\frac{s}{\\sqrt{n}}\n\\]\ndonde \\(\\bar{x}\\) es la media muestral, \\(z\\) es el valor crítico según el nivel de confianza (por ejemplo, 1,96 para un 95%), \\(s\\) la desviación estándar y \\(n\\) el tamaño de la muestra.\n\n\n\n\n\n\nImportante\n\n\n\nRecordemos: \\(\\frac{s}{\\sqrt{n}}\\) es igual al Error Estándar.\n\n\nDe tal modo, para saber el intervalo de confianza al 95% de confianza.\n\nic_vector_inf &lt;- media - 1.96 * ee_vector # Limite inferior del Intervalo\nic_vector_sup &lt;- media + 1.96 * ee_vector # Límite superior del Intervalo\n\ncat(\"Media:\", media, \"- IC 95%: [\", ic_vector_inf, \",\", ic_vector_sup, \"]\\n\")\n\nMedia: 5.180812 - IC 95%: [ 4.822988 , 5.538636 ]\n\n\nUna alternativa la función t.test que, por defecto, estima el intervalo de confianza del 95%.\n\n# Calcular un intervalo de confianza para la media\nintervalo_confianza &lt;- t.test(vector)$conf.int  # Intervalo de confianza del 95% para la media\nintervalo_confianza\n\n[1] 4.818567 5.543057\nattr(,\"conf.level\")\n[1] 0.95\n\n\nOtra opción es con la función ci.mean del paquete Publish. Con esta función también podemos especificar si queremos estimar los CI al 95% (alpha = 0.05) o al 99% (alpha = 0.05)\n\nif (!requireNamespace(\"Publish\", quietly = TRUE)) install.packages(\"Publish\") # Si no está instalado, instala el paquete\nlibrary(Publish) # lo cargamos\n\nWarning: package 'Publish' was built under R version 4.5.3\n\n\nLoading required package: prodlim\n\n\nWarning: package 'prodlim' was built under R version 4.5.3\n\nPublish::ci.mean(vector, alpha = 0.05)\n\n mean CI-95%     \n 5.18 [4.82;5.54]\n\n\n\n\n\n\n\n\nTip\n\n\n\ninstall.packages() instala paquetes de R en tu sistema. Solo se debe correr una vez. Una vez instalado solo debe llamar el paquete con la función library().\nAlternativamente, la función p_load del paquete pacman permite instalar y cargar múltiples paquetes con solo una línea de código\n\nif (!requireNamespace(\"pacman\", quietly = TRUE)) install.packages(\"pacman\") # instala pacman, si es necesario\n\npacman::p_load(Publish, dplyr) # ambos paquetes se instalarán (de ser necesario) y se cargarán en la sesión. \n\n\n\nContamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 95% de confianza el parámetro poblacional se encontrará entre 4.82 y 5.54.\n\nPublish::ci.mean(vector, alpha = 0.01)\n\n mean CI-99%     \n 5.18 [4.70;5.66]\n\n\nContamos con una media 5.18 como estimación puntual. Pero también podemos decir que con un 99% de confianza el parámetro poblacional se encontrará entre 4.70 y 5.66."
-  },
-  {
-    "objectID": "assignment/01-practico.html#instrucciones",
-    "href": "assignment/01-practico.html#instrucciones",
-    "title": "Distribución Normal e Intervalos de Confianza",
-    "section": "Instrucciones",
-    "text": "Instrucciones\n\nCargue la base de datos.\n\n\nif (!requireNamespace(\"HistData\", quietly = TRUE)) install.packages(\"HistData\") # Si no está instalado, instala el paquete\nlibrary(HistData)\n\nWarning: package 'HistData' was built under R version 4.5.3\n\ndata(\"Galton\")\n\nnames(Galton) # revisar las variables disponibles: \"parent\" y \"child\"\n\n[1] \"parent\" \"child\" \n\naltura &lt;- Galton$child # creamos el vector con la variable de interés\n\n\n\n\n\n\n\nTip\n\n\n\nLa unidad de medida de la variable se encuentra en pulgadas.\n\n\n\nCalcule y describa la distribución\n\n\nObtenga la media y desviación estándar de la estatura.\nVisualice la distribución en un histograma\n\n\nEstandarice los datos (puntajes Z)\n\n\nTransforme la variable a puntajes Z\nMuestre los primeros 10 valores (head()).\nMuestre también los últimos 10 valores (tail()).\n¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?\nVerifique la media y desviación estándar\n\n\nCalcule el error estándar de la variable\nCalcule el intervalo de confianza para la media\n\n\nEstime el IC para un 95% de confianza\nEstime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?\n\n\nExplore el efecto del tamaño muestral\n\n\nGeneremos 3 submuestras aleatorias con la función sample().\n\n\nset.seed(123)\nmuestra_100 &lt;- sample(altura, 100)\nmuestra_200 &lt;- sample(altura, 200)\nmuestra_400 &lt;- sample(altura, 400)\n\n\nCalcule el error muestral y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?"
-  },
-  {
-    "objectID": "slides/03-inferencia2.html",
-    "href": "slides/03-inferencia2.html",
-    "title": "",
-    "section": "",
-    "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Inferencia 2:\nError estándar y curva normal"
   }
 ]

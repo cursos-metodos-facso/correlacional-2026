@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Programa – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -37,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1e75c0356d7b2381f96eccb2ed041f7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-65d052e280020fee716d7594f5eedfe6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -313,14 +316,14 @@ ul.task-list li input[type="checkbox"] {
 <p>Quines se encuentren en la categoría B pueden también optar a A, y quienes se encuentren en la categoría C pueden optar a A o B.</p>
 <p>La nota ponderada de las evaluaciones equivaldrá al 60% de la nota del curso y el examen final al 40% restante.</p>
 <p>Las evaluaciones se distribuyen en el semestre de la siguiente manera:</p>
-<p><img src="./slides/img/plan.png" class="img-fluid"></p>
+<p><img src=".\slides/img/plan.png" class="img-fluid"></p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-ATENCIÓN
+<span class="screen-reader-only">Nota</span>ATENCIÓN
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -333,7 +336,7 @@ ATENCIÓN
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Sobre las evaluaciones
+<span class="screen-reader-only">Nota</span>Sobre las evaluaciones
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -367,7 +370,7 @@ Sobre las evaluaciones
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Actualización de eximición
+<span class="screen-reader-only">Importante</span>Actualización de eximición
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -420,7 +423,7 @@ Actualización de eximición
 </section>
 <section id="programación-de-sesiones" class="level2">
 <h2 class="anchored" data-anchor-id="programación-de-sesiones">Programación de sesiones</h2>
-<p>Visitar la página de <a href="./schedule.html">Planificación</a>.</p>
+<p>Visitar la página de <a href=".\schedule.html">Planificación</a>.</p>
 
 
 </section>
@@ -477,13 +480,14 @@ Actualización de eximición
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
