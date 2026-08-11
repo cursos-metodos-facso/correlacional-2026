@@ -6,8 +6,11 @@ execute:
   freeze: auto
   cache: true
 number-sections: true
-format: html
-lightbox: true
+format:
+  html:
+    code-copy: true
+    highlight-style: nord
+#lightbox: true
 ---
 
 # Objetivo de la práctica {.unnumbered}
@@ -18,18 +21,27 @@ En detalle, aprenderemos y recordaremos:
 
 1.  Los conceptos de promedio y desviación estándar
 2.  Estimación de puntaje Z
-3.  Cómo calcular e interpretar el erro estándar
+3.  Cómo calcular e interpretar el error estándar
 4.  Cómo calcular e interpretar intervalos de confianza
 
 # Promedio y desviación estándar
 
 El *promedio* y la *desviación estándar* son conceptos fundamentales para continuar hacia la estadística inferencial. Repasemos estos conceptos mediante un ejercicio con datos simulados.
 
-Primero, con la función `rnorm` creamos un vector de 100 valores aleatorios con $\mu = 5$ y $\sigma = 2$. Un vector es una estructura básica de datos que contiene una colección ordenada de valores del mismo tipo (como números o caracteres). Luego, con la función `summary` podemos un resumen de algunos estadísticos del vector que creamos.
+Primero, con la función `rnorm` creamos un **vector** de 100 valores aleatorios con $media(\mu) = 5$ y $desviación\hspace{0.2cm}estándar(\sigma) = 2$. 
 
 ```{r}
 set.seed(123) # Fijar la semilla para reproducibilidad
 vector <- rnorm(100, mean = 5, sd = 2)
+```
+
+::: callout-note
+Un **vector** es una estructura básica de datos que contiene una colección ordenada de valores del mismo tipo (como números o caracteres).
+:::
+
+Luego, con la función `summary` podemos obtener un resumen de algunos estadísticos del vector que creamos.
+
+```{r}
 summary(vector) # Ver el vector generado
 ```
 
@@ -47,21 +59,19 @@ hist(vector,main="Histograma del Vector",xlab="Valor",ylab="Frecuencia",col="cya
 boxplot(vector,main="Diagrama de Caja del Vector aleatorio",ylab="Valor",col="cyan3")
 ```
 
-```{r}
-qqnorm(vector, main="Gráfico Q-Q Normal del Vector",
-       xlab="Cuantiles Teóricos", ylab="Cuantiles Muestrales",
-       col="cyan4", pch=19)
-qqline(vector, col="black", lwd=2)
-```
+Ahora, calculamos la media y la desviación estándar del vector. En R, eso se logra con las funciones `mean` y  `sd`. Se pueden ejecutar directamente (ej: `mean(vector)`) o guardar los resultados en un **objeto** para usarlos más adelante. En este caso, guardaremos los resultados en los objetos `media` y `desv_estandar`.
 
-Ahora, calculamos la media y la desviación estándar del vector. En R, eso se logra con las funciones `mean` y  `sd`. 
+::: callout-note
+Un **objeto** en R es un nombre al que le asignamos un valor (como un número, un vector o una tabla) para poder reutilizarlo después sin volver a calcularlo.
+La forma general en que esto funciona en R es: `nombre_objeto <- valor`. Por ejemplo, `x <- 5` crea un objeto llamado `x` que contiene el valor 5.
+:::
 
 ```{r}
 media <- mean(vector)
 desv_estandar <- sd(vector)
 ```
 
-Los vamos a necesitar más adelante, así que lo guardaremos como objetos. Para ver los resultados en la consola basta llamarlos con los nombres que les asignamos
+Para ver los resultados en la consola basta llamarlos con los nombres que les asignamos
 
 ```{r}
 media
@@ -73,21 +83,21 @@ En el caso de nuestro vector, creado con datos aleatorios, la media $\bar{x} = 5
 
 La desviación estándar corresponde, entonces, a un promedio de lo que cada valor se aleja del promedio del vector. En el caso de nuestro vector, $s = 1,82$ nos muestra que en promedio los datos se alejan $\pm$ 1,82 puntos del promedio.
 
-# Puntajes Z
+# Estandarización y Puntaje Z
 
-Al estandarizar las variables (como en la Curva Normal Estándar) lo que hacemos es expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal. Esto nos permite comparar distribuciones distintas.
+Al **estandarizar** un vector numérico (que puede representar una variable numérica) lo que hacemos es expresar su valor en términos de **desviaciones estándar** basados en la distribución normal. Esto nos permite comparar distintas distribuciones en una métrica común.
 
-Al valor estandarizado lo llamamos **puntaje Z**, y corresponde a la cantidad de desviaciones estándar que nos alejamos del promedio (para cada variable con la que trabajemos).
+Al valor estandarizado lo llamamos **puntaje Z**, y corresponde a la cantidad de desviaciones estándar que nos alejamos del promedio (para cada valor de la variable con la que trabajemos).
 
 ## Cálculo de puntaje Z
 
-Recordemos que la formula para calcular el puntaje z es:
+Recordemos que la formula para calcular el puntaje Z es:
 
 $$
-z = \frac{x - \bar{x}}{s}
+z = \frac{x_i - \bar{x}}{s}
 $$
 
-donde $x$ es el valor observado, $\bar{x}$ la media y $s$ la desviación estándar.
+donde $x_i$ es el valor observado, $\bar{x}$ la media y $s$ la desviación estándar.
 
 ```{r}
 z_scores <- (vector - media) / desv_estandar
@@ -99,7 +109,14 @@ La función `head` nos muestra los primeros casos del vector (en este caso 10). 
 head(data.frame(Valor=vector, Z=z_scores), 10)
 ```
 
-Ahora bien, R trae incorporadas funciones que permiten hacer estos cálculos de manera directa. En este caso, usamos la función `scale` para estandarizar los puntajes del vector
+::: callout-note
+## Interpretación
+
+Cada valor del vector original tiene un puntaje Z correspondiente, que nos indica cuántas desviaciones estándar se aleja del promedio. Por ejemplo, el primer valor del vector es 3,87, y su correspondiente puntaje Z es -0,71. Esto significa que el valor 3,87 se encuentra 0,71 desviaciones estándar por debajo del promedio del vector.
+:::
+
+
+Ahora bien, R trae incorporadas funciones que permiten hacer estos cálculos de manera directa. En el caso de los puntajes Z, usamos la función `scale` para estandarizar los puntajes del vector. También vamos a comparar estos resultados con los que obtuvimos manualmente.
 
 ```{r}
 # Estandarizar el vector
@@ -110,14 +127,14 @@ head(data.frame(Valor=vector, Z_manual=z_scores, z_scale=z_scores_scale), 10)
 ```
 
 ::: callout-tip
-Noten que ambos procedimientos llegan al mismo resultado
+Noten que ambos procedimientos llegan al mismo resultado, por lo tanto la función `scale` es una manera rápida de estandarizar un vector numérico.
 :::
 
 ### Cálculo de probabilidades a partir de Z
 
-Los valores estandarizados o puntajes Z además nos permiten conocer probabilidades.
+Los valores estandarizados o puntajes Z además nos permiten conocer la probabilidad de un valor específico dentro de la distribución normal. Asumiendo que el 100% de los casos se encuentra bajo la curva normal, podemos calcular qué porcentaje de los casos se encuentra por debajo de un valor Z específico.
 
- El código de más abajo crea y dibuja la curva de una distribución normal estándar: en la primera línea, `seq(-4, 4, length=1000)` genera 1000 valores entre -4 y 4, que representan puntuaciones Z; en la segunda línea, la función `dnorm()` calcula, para cada uno de esos valores, la altura correspondiente en la curva de densidad normal, es decir, qué tan probable o frecuente es ese valor; y en la tercera línea, `plot()` dibuja ambos conjuntos de números.
+El código de más abajo crea y dibuja la curva de una distribución normal estándar: en la primera línea, `seq(-4, 4, length=1000)` genera 1000 valores entre -4 y 4, que representan puntuaciones Z; en la segunda línea, la función `dnorm()` calcula, para cada uno de esos valores, la altura correspondiente en la curva de densidad normal, es decir, qué tan probable o frecuente es ese valor; y en la tercera línea, `plot()` dibuja ambos conjuntos de números.
 
 ```{r}
 x_values <- seq(-4,4,length=1000)
@@ -125,22 +142,49 @@ y_values <- dnorm(x_values)
 plot(x_values,y_values,type="l",xlab="Valor Z",ylab="Probabilidad",main="Distribución Normal")
 ```
 
-Podemos preguntar qué parte de la curva cae por debajo de un valor particular. Por ejemplo, preguntaremos sobre el valor 0 antes de ejecutar el código. Piense ¿cuál debería ser la respuesta?
+Podemos preguntar qué proporción/área de la curva cae por debajo de un valor Z particular. Por ejemplo, el valor 0: 
 
 ```{r}
 # Probabilidades acumuladas
 pnorm(0)       # P(Z <= 0)
 ```
 
+Por definición, 0 es el promedio de la distribución normal estándar, por lo tanto este valor se encuentra a 0 desviaciones estándar del promedio. Por lo tanto, la probabilidad de que un valor Z sea menor o igual a 0 es del 50%.  
+
+Pensemos en otro ejemplo que vimos en clases: la estatura promedio de las mujeres en Chile es de 1,60, y la desviación estándar es de 6 cm. ¿Qué porcentaje de mujeres mide menos de 1,50 m? Primero, calculamos el puntaje Z correspondiente a 1,50 m:
+
+```{r}
+z_150 <- (1.50 - 1.60) / 0.06
+z_150
+```
+
+Ahora, podemos calcular la probabilidad de que una mujer mida menos de 1,50 m:
+
+```{r}
+pnorm(z_150)
+```
+El resultado de 0.047 (4.7 cm) nos indica que aproximadamente el 4,7% de las mujeres mide menos de 1,50 m. Esto tiene sentido al pensarlo en términos de la curva normal, ya que 1,50 m se encuentra a 1,67 desviaciones estándar por debajo del promedio (1,60 m), y sabemos que la mayor parte de los casos se encuentra dentro de 1 desviación estándar del promedio.
+
+Abajo se puede ver un gráfico que representa este valor en la distribución normal, donde el area roja representa la proporción de casos que se encuentra por debajo de 1,50 m.
+
+```{r}
+# gráfico de la distribución normal con el área sombreada para el ejemplo de estatura de 1,50 m
+x_values <- seq(-4,4,length=1000)
+y_values <- dnorm(x_values)
+plot(x_values,y_values,type="l",xlab="Valor Z",ylab="Probabilidad",main="Distribución Normal")
+polygon(c(-4,seq(-4,z_150,length=100),z_150),c(0,dnorm(seq(-4,z_150,length=100)),0),col="#eb0505",border=NA)
+```
+
 # Error Estándar
 
-El error estándar es la desviación estándar de la distribución muestral de la media, es una estimación cuánto varía dicho estadístico entre distintas muestras de una misma población. Se define formalmente como:
+Recordemos que el error estándar es una medida de la variabilidad de un estadístico muestral, como la media, y nos permite estimar la precisión de nuestra estimación. Para calcularlo, necesitamos conocer la desviación estándar de la muestra ($s$) y el tamaño de la muestra ($n$). La fórmula para calcular el error estándar es:
 
 $$
 SE = \frac{s}{\sqrt{n}}
 $$
 
-donde $s$ es la desviación estándar de la muestra y $n$ es el tamaño de la muestra.
+ 
+
 
 Calculemos el Error Estándar de nuestro vector:
 
@@ -155,8 +199,18 @@ ee_vector
 
 El resultado nos indica que si tomáramos muchas muestras de tamaño n de esta misma población, y calculáramos la media de cada uno, esas medias tendrían una variarían, en promedio, $\pm$ 0,18 unidades respecto a la media. 
 
-::: {.callout-important}
-No se debe confundir error estándar y desviación estándar. La desviación estándar describe la dispersión de los datos individuales dentro la muestra; el error estándar describe cuánto varía la media de una muestra a otra. Compara la desviación estándar (que calculamos antes) con el error estándar, y observa en cómo se diferencian (y cómo están relacionados). 
+::: callout-note
+## Interpretación del Error Estándar
+
+El error estándar nos dice cuánta **variabilidad** esperamos en la media muestral si calculáramos la media a partir de muchas muestras diferentes de la misma población. En este caso, 0,18 significa que:
+
+- Si tomáramos 100 muestras diferentes de 100 casos cada una, las medias **no serían todas iguales** y se podría entonces calcular la desviación estándar de las medias
+- El teorema central del límite nos dice que la distribución de esas medias muestrales se aproximaría a una distribución normal, y que es posible calcular su desviación estándar **con una sola muestra**, que sería el error estándar
+- Un error estándar **pequeño** indica que nuestro estimador (la media muestral) es **preciso**; un error estándar **grande** indica menos precisión
+
+Por esto, el error estándar es fundamental para construir **intervalos de confianza**: nos permite establecer rangos de valores donde es probable que se encuentre el verdadero parámetro poblacional.
+
+No se debe confundir error estándar y desviación estándar. La desviación estándar describe la dispersión de los datos individuales dentro la muestra; el error estándar describe cuánto varía la media de una muestra a otra.
 :::
 
 # Intervalos de confianza
@@ -169,7 +223,15 @@ A esta primera estimación le llamamos **estimación puntual**. En cambio, a par
 
 ## Intervalos de confianza y Error Estándar
 
-El cálculo de los intervalos de confianza es una de las principales aplicaciones prácticas del error estándar. Dado que las medias muestrales siguen la distribución normal, es posible concluir que aproximadamente el 68% de las medias muestrales se encontrarán a 1 error estándar del promedio poblacional. Por lo tanto, si construimos un rango de ±1 error estándar alrededor de nuestra propia media muestral, ese rango debería contener el promedio poblacional en aproximadamente el 68% de los casos. El siguiente código calcula ese rango para nuestro vector:
+El cálculo de los intervalos de confianza es una de las principales aplicaciones prácticas del error estándar. Dado que las medias muestrales siguen la distribución normal, es posible concluir que aproximadamente el 68% de las medias muestrales se encontrarán a 1 error estándar del promedio poblacional.
+
+Recordando la distribución normal:
+
+![](https://correlacional.metodos-facso.org/slides/img/norm2.png)
+
+
+
+ Por lo tanto, si construimos un rango de ±1 error estándar alrededor de nuestra propia media muestral, ese rango debería contener el promedio poblacional en aproximadamente el 68% de los casos. El siguiente código calcula ese rango para nuestro vector:
 
 ```{r}
 
@@ -179,31 +241,37 @@ media + ee_vector
 
 ```
 
-De tal modo, es posible concluir que el 68% de los casos se encuentra en un intervalo que va desde 5,00 a 5,36. Del mismo modo, hay un 32% de posibilidades de que el parámetro de la población esté fuera de ese rango. ¿Les parece aceptable este nivel?
+De tal modo, es posible concluir que el 68% de los casos se encuentra en un intervalo que va desde 5,00 a 5,36. Del mismo modo, hay un 32% de posibilidades de que el parámetro de la población esté fuera de ese rango. O sea, 35% de **probabilidad de error**. Pero ¿es aceptable un 35% de error? 
 
-## El nivel de confianza
+## Confianza y error
 
-Existe un *trade-off* entre nivel de confianza y precisión: un intervalo más angosto es más preciso, pero tiene un menor nivel de confianza; un intervalo más amplio aumenta la confianza, pero reduce la precisión. Convencionalmente, se suele aceptar como estadísticamente significativa una probabilidad de error menor al 5%, es decir, un nivel de confianza de al menos un 95%. Un 95% de confianza significa que, si extrajéramos múltiples muestras, el 95% de las veces nuestro intervalo contendría el promedio poblacional.
+Convencionalmente, se suele aceptar como estadísticamente significativa una **probabilidad de error menor al 5%**, es decir, un nivel de confianza de al menos un 95%.
+
+Si pensamos en edad media 10 y desviación estándar 1, un  intervalo de confianza del 95% (+/- 2 $s$)sería aproximadamente de 8 a 12 años. Esto significa que si tomáramos muchas muestras y calculáramos el intervalo de confianza para cada una, el 95% de esos intervalos contendría la verdadera media poblacional.
+
+
+![](https://correlacional.netlify.app/slides/img/intervalos.png)
 
 ## Cálculo de intervalos de confianza para medias
 
-En el caso de nuestro vector aleatorio, presentamos tres maneras de calcular el intervalo de confianza para la media.
-
-Primero, a través del cálculo manual, recordando que:
-
+El intervalo de confianza (IC) para la media poblacional se calcula con la siguiente fórmula:
 $$
 IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
 $$
 
-donde $\bar{x}$ es la media muestral, $z$ es el valor crítico según el nivel de confianza, $s$ la desviación estándar y $n$ el tamaño de la muestra.
+donde $\bar{x}$ es la media muestral, $z$ es el puntaje Z correspondiente a una cierto nivel de confianza (también llamado valor crítico), y $s/\sqrt{n}$ es el **error estándar**.
 
-::: callout-important
-Recordemos: $\frac{s}{\sqrt{n}}$ es igual al Error Estándar.
-:::
 
-## ¿De dónde sale el valor crítico?
+**Estableciendo el nivel de confianza / valor crítico de Z** 
 
-Si quiero un 95% de confianza, tengo un 5% de error para repartir. Este error se reparte en ambas colas por igual (2,5% en cada cola). Con la función `qnorm` podemos encontrar estos puntos.
+Recordemos que convencionalmente se acepta un 5% de probabilidad de error, que corresponde a un 95% de confianza. 
+
+Para generar este nivel de confianza, necesitamos conocer el valor crítico de Z que corresponde a un 95% de confianza. Este **valor crítico** nos indica cuántas desviaciones estándar debemos sumar y restar a la media para construir el intervalo de confianza.
+
+Para esto, volvemos a la curva normal estándar. Recordemos que aproximadamente el 95% de los casos se encuentra dentro de ±2 desviaciones estándar del promedio. Pero esto es solo aproximado. Para obtener el valor exacto, necesitamos calcularlo con la función `qnorm` de R.
+
+La lógica es la siguiente: si queremos un 95% de confianza, eso significa que queremos dejar un 5% de error. Como la distribución normal es simétrica, ese 5% se divide en 2,5% a la izquierda y 2,5% a la derecha. Por lo tanto, necesitamos calcular el valor Z que deja un 2,5% de error a la izquierda (0.025) y el valor Z que deja un 2,5% de error a la derecha (0.975).
+
 
 ```{r}
 
@@ -221,6 +289,16 @@ Vemos que el valor Z correspondiente a un 2,5% en cada cola es de ±1,96 (en des
 plot(x_values, y_values, type = "l", xlab = "Valor Z", ylab = "Densidad",
      main = "Distribución Normal Estándar: 95% central")
 
+# Sombrear en rojo las colas (área de error total = 5%)
+x_left <- seq(min(x_values), z_inf, length.out = 400)
+x_right <- seq(z_sup, max(x_values), length.out = 400)
+polygon(c(min(x_values), x_left, z_inf),
+  c(0, dnorm(x_left), 0),
+  col = adjustcolor("red", alpha.f = 0.35), border = NA)
+polygon(c(z_sup, x_right, max(x_values)),
+  c(0, dnorm(x_right), 0),
+  col = adjustcolor("red", alpha.f = 0.35), border = NA)
+
 abline(v = c(z_inf, z_sup), lty = 2, col = "black")
 
 ```
@@ -233,26 +311,9 @@ media - 1.96 * ee_vector # Limite inferior del Intervalo
 media + 1.96 * ee_vector # Límite superior del Intervalo
 ```
 
-Contamos con una media de 5,18 como estimación puntual. Pero también podemos decir que con un 95% de confianza el parámetro poblacional se encontrará entre 4,82 y 5,54. O, más precisamente, tenemos un 95% de confianza de que el intervalo entre 4,82 y 5,54 contendrá el parámetro poblacional. 
-
-## Nivel de confianza al 99%
-
-Podemos calcular el intervalo de confianza para cualquier nivel de confianza que necesitemos. Además del 95%, la cifra más utilizada es el 99% de confianza. Esto corresponde a un valor crítico de 2,58 errores estándar.
-
-```{r}
-qnorm(0.005) # ¿Qué Z deja 0.5% de error a la izquierda?
-qnorm(0.995) # ¿Qué Z deja 0.5% de error a la derecha?
-```
-
-Así, para calcular el intervalo de confianza al 99%:
-
-```{r}
-
-media - 2.58 * ee_vector # Limite inferior del Intervalo
-media + 2.58 * ee_vector # Límite superior del Intervalo
-```
-
-Podemos concluir que con un 99% de confianza el parámetro poblacional se encontrará entre 4,71 y 5,65.
+::: {style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;"}
+**INTERPRETACIÓN:** Contamos con una media de 5,18 como estimación puntual. Pero también podemos decir que con un 95% de confianza el parámetro poblacional se encontrará entre 4,82 y 5,54. O, más precisamente, tenemos un 95% de confianza de que el intervalo entre 4,82 y 5,54 contendrá el parámetro poblacional.
+:::
 
 # Resumen {.unnumbered}
 
@@ -330,6 +391,9 @@ muestra_400 <- sample(altura, 400)
 ```
 
 -   Calcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?
+-   Calcule el error estándar y el intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?
+
+
 
 # Referencias {.unnumbered}
 
