@@ -1329,5 +1329,75 @@
     "title": "Distribución Normal e Intervalos de Confianza",
     "section": "4.3 Confianza y error",
     "text": "4.3 Confianza y error\nConvencionalmente, se suele aceptar como estadísticamente significativa una probabilidad de error menor al 5%, es decir, un nivel de confianza de al menos un 95%.\nSi pensamos en edad media 10 y desviación estándar 1, un intervalo de confianza del 95% (+/- 2 \\(s\\))sería aproximadamente de 8 a 12 años. Esto significa que si tomáramos muchas muestras y calculáramos el intervalo de confianza para cada una, el 95% de esos intervalos contendría la verdadera media poblacional."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html",
+    "href": "assignment/1-practico_v2.html",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "",
+    "text": "Sesión del miércoles, 12 de agosto de 2026"
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#probabilidades-a-partir-de-z",
+    "href": "assignment/1-practico_v2.html#probabilidades-a-partir-de-z",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "2.2 Probabilidades a partir de Z",
+    "text": "2.2 Probabilidades a partir de Z\n\n2.2.1 Cálculo de probabilidades a partir de Z\nLos puntajes Z permiten calcular qué proporción de los casos se encuentra por debajo de un valor en una distribución normal.\nEl siguiente código dibuja una distribución normal estándar:\n\nx_values &lt;- seq(-4, 4, length = 1000) # Crea valores Z entre −4 y 4\ny_values &lt;- dnorm(x_values) # Calcula la densidad para cada valor Z\n\nplot(\n  x_values, y_values,\n  type = \"l\",\n  xlab = \"Valor Z\",\n  ylab = \"Densidad\",\n  main = \"Distribución normal estándar\"\n)\n\n\n\n\n\n\n\n\nLa función pnorm() calcula la proporción acumulada hasta un valor Z. Por ejemplo:\n\npnorm(0) # Calcula la proporción ubicada bajo Z = 0\n\n[1] 0.5\n\n\nComo Z = 0 corresponde al centro de la distribución, el resultado es 0.50: el 50 % de los casos se encuentra por debajo de ese valor.\nSupongamos que la estatura de un grupo de mujeres tiene una media de 1,60 m y una desviación estándar de 0,06 m. ¿Qué porcentaje mide menos de 1,50 m?\nPrimero calculamos el puntaje Z de 1,50 m:\n\nz_150 &lt;- (1.50 - 1.60) / 0.06 # Calcula el puntaje Z\nz_150 # Muestra el resultado\n\n[1] -1.666667\n\n\nLuego calculamos la proporción que se encuentra bajo ese valor:\n\npnorm(z_150) # Calcula la proporción que mide menos de 1,50 m\n\n[1] 0.04779035\n\n\nEl resultado 0.0478 indica que aproximadamente el 4,8 % mide menos de 1,50 m. Esta estatura se encuentra 1,67 desviaciones estándar por debajo de la media.\nEn el siguiente gráfico, el área roja representa esa proporción:\n\nx_values &lt;- seq(-4, 4, length = 1000)\ny_values &lt;- dnorm(x_values)\n\nplot(\n  x_values, y_values,\n  type = \"l\",\n  xlab = \"Valor Z\",\n  ylab = \"Densidad\",\n  main = \"Proporción bajo 1,50 m\"\n)\n\nx_area &lt;- seq(-4, z_150, length = 100)\n\npolygon(\n  c(-4, x_area, z_150),\n  c(0, dnorm(x_area), 0),\n  col = \"#eb0505\",\n  border = NA\n)\n\nlines(x_values, y_values)"
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#tamaño-muestral-y-precisión",
+    "href": "assignment/1-practico_v2.html#tamaño-muestral-y-precisión",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "3.1 Tamaño muestral y precisión",
+    "text": "3.1 Tamaño muestral y precisión\nMantengamos la misma desviación estándar y comparemos muestras de 25 y 100 casos. Antes de ejecutar el código, anticipa: ¿cuál tendrá menor error estándar?\n\nee_n25 &lt;- desv_estandar / sqrt(25) # Calcula el error estándar para 25 casos\nee_n100 &lt;- desv_estandar / sqrt(100) # Calcula el error estándar para 100 casos\n\nee_n25 # Muestra el error estándar para 25 casos\n\n[1] 0.3651264\n\nee_n100 # Muestra el error estándar para 100 casos\n\n[1] 0.1825632\n\n\nEl error estándar disminuye de aproximadamente 0,37 a 0,18 cuando el tamaño de la muestra aumenta de 25 a 100 casos. Por lo tanto, una muestra más grande permite estimar la media con mayor precisión. La desviación estándar se mantuvo igual en ambos cálculos; lo único que cambió fue el número de casos.\n\n\n\n\n\n\nNotaInterpretación del error estándar\n\n\n\nEl error estándar indica cuánto podrían variar las medias si tomáramos muchas muestras del mismo tamaño. En este ejemplo, un error estándar de 0,18 significa que las medias muestrales variarían alrededor de la media poblacional.\n\nUn error estándar pequeño indica una estimación más precisa.\nUn error estándar grande indica una estimación menos precisa."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#de-la-estimación-puntual-a-la-estimación-por-intervalo",
+    "href": "assignment/1-practico_v2.html#de-la-estimación-puntual-a-la-estimación-por-intervalo",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.1 De la estimación puntual a la estimación por intervalo",
+    "text": "4.1 De la estimación puntual a la estimación por intervalo\nLa media de la muestra, aproximadamente 5,18, es una estimación puntual de la media poblacional. Sin embargo, una sola cifra no muestra la incertidumbre asociada al muestreo.\nUn intervalo de confianza utiliza el error estándar para estimar un rango de valores plausibles para la media poblacional."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#cálculo-del-intervalo-de-confianza-del-95",
+    "href": "assignment/1-practico_v2.html#cálculo-del-intervalo-de-confianza-del-95",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.2 Cálculo del intervalo de confianza del 95 %",
+    "text": "4.2 Cálculo del intervalo de confianza del 95 %\nEl intervalo de confianza aproximado se calcula mediante: \\[\nIC = \\bar{x} \\pm z \\cdot \\frac{s}{\\sqrt{n}}\n\\]\nDonde:\n\n\\(\\bar{x}\\) es la media de la muestra.\n\\(z\\) es el valor crítico.\n\\(s\\) es la desviación estándar de la muestra.\n\\(n\\) es el tamaño de la muestra.\n\nPara un nivel de confianza del 95 %, el valor crítico es aproximadamente 1,96:\n\nvalor_critico &lt;- qnorm(0.975) # Obtiene el valor crítico para un intervalo del 95 %\nvalor_critico # Muestra el valor crítico\n\n[1] 1.959964\n\n\nLuego calculamos los límites inferior y superior:\n\nlimite_inferior &lt;- media - valor_critico * ee_vector # Calcula el límite inferior\n\nlimite_superior &lt;- media + valor_critico * ee_vector # Calcula el límite superior\n\nlimite_inferior # Muestra el límite inferior\n\n[1] 4.822995\n\nlimite_superior # Muestra el límite superior\n\n[1] 5.538629\n\n\nEl intervalo obtenido se extiende aproximadamente entre 4,82 y 5,54.\n\n\n\n\n\n\nImportante\n\n\n\nInterpretación: si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el 95 % de esos intervalos contendría la media poblacional.\nEn esta muestra, el intervalo se encuentra entre 4,82 y 5,54. Este rango representa la incertidumbre al estimar la media poblacional, no la dispersión de los valores individuales.\n\n\n\n4.2.1 Representación gráfica del intervalo de confianza\n\n\n\n\n\nMedia muestral e intervalo de confianza del 95 %.\n\n\n\n\nEl punto representa la media obtenida en la muestra. La línea muestra el intervalo de confianza del 95 %, que se extiende aproximadamente entre 4,82 y 5,54. Este rango representa la incertidumbre al estimar la media poblacional.\n\n\n\n\n\n\nNota\n\n\n\nEste cálculo utiliza una aproximación basada en la distribución normal. Más adelante pueden estudiarse intervalos basados en la distribución t."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#cálculo-de-puntaje-z",
+    "href": "assignment/1-practico_v2.html#cálculo-de-puntaje-z",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "2.1 Cálculo de puntaje Z",
+    "text": "2.1 Cálculo de puntaje Z\nRecordemos que la formula para calcular el puntaje Z es: \\[\nz = \\frac{x_i - \\bar{x}}{s}\n\\]\ndonde \\(x_i\\) es el valor observado, \\(\\bar{x}\\) la media y \\(s\\) la desviación estándar. Un Z positivo indica que el valor está sobre la media; uno negativo, que está bajo ella; y uno cercano a cero, que está próximo a la media.\n\nvalor &lt;- vector[1]\nz_valor &lt;- (valor - media) / desv_estandar\n\nvalor\n\n[1] 3.879049\n\nz_valor\n\n[1] -0.713048\n\n\nEl primer valor es aproximadamente 3,88 y su puntaje Z es aproximadamente -0,71: se encuentra 0,71 desviaciones estándar bajo la media.\nAhora compara dos puntajes de evaluaciones diferentes:\n\nz_evaluacion_a &lt;- (72 - 60) / 10\nz_evaluacion_b &lt;- (650 - 500) / 100\n\nz_evaluacion_a\n\n[1] 1.2\n\nz_evaluacion_b\n\n[1] 1.5\n\n\n¿En cuál evaluación la persona ocupa una posición relativamente más alta? ¿Cómo lo sabes?\n\n\n\n\n\n\nTip\n\n\n\nLa función scale() también permite estandarizar un vector completo. En este práctico utilizaremos el cálculo manual para hacer visible la lógica del puntaje Z."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#intervalo-de-confianza-del-95",
+    "href": "assignment/1-practico_v2.html#intervalo-de-confianza-del-95",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.1 Intervalo de confianza del 95 %",
+    "text": "4.1 Intervalo de confianza del 95 %\nEl intervalo de confianza para la media se calcula mediante:\n\\[\nIC = \\bar{x} \\pm z \\cdot \\frac{s}{\\sqrt{n}}\n\\]\nDonde:\n\n\\(\\bar{x}\\) es la media de la muestra.\n\\(z\\) es el valor crítico.\n\\(s\\) es la desviación estándar de la muestra.\n\\(n\\) es el tamaño de la muestra.\n\\(\\frac{s}{\\sqrt{n}}\\) corresponde al error estándar."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#de-dónde-proviene-el-valor-196",
+    "href": "assignment/1-practico_v2.html#de-dónde-proviene-el-valor-196",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.2 ¿De dónde proviene el valor 1,96?",
+    "text": "4.2 ¿De dónde proviene el valor 1,96?\nPara construir un intervalo de confianza del 95 %, buscamos los valores Z que encierran el 95 % central de la distribución normal.\nEl 5 % restante se divide entre los dos extremos de la distribución:\n\n2,5 % en el extremo izquierdo.\n2,5 % en el extremo derecho.\n\nLa función qnorm(0.975) busca el valor Z que deja acumulado el 97,5 % de la distribución a su izquierda:\n\nvalor_critico &lt;- qnorm(0.975) # Obtiene el valor crítico para un intervalo del 95 %\n\nvalor_critico # Muestra el resultado\n\n[1] 1.959964\n\n\nEl resultado es aproximadamente 1,96. Por simetría, el límite del extremo izquierdo es −1,96. Por lo tanto, el 95 % central de la distribución normal se encuentra entre estos dos valores.\n\n\n\n\n\nEl 95 % central de la distribución normal se encuentra entre Z = −1,96 y Z = 1,96."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#cálculo-del-intervalo",
+    "href": "assignment/1-practico_v2.html#cálculo-del-intervalo",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "4.3 Cálculo del intervalo",
+    "text": "4.3 Cálculo del intervalo\nAhora sumamos y restamos 1,96 errores estándar a la media de la muestra:\n\nlimite_inferior &lt;- media - valor_critico * ee_vector # Calcula el límite inferior\n\nlimite_superior &lt;- media + valor_critico * ee_vector # Calcula el límite superior\n\nlimite_inferior # Muestra el límite inferior\n\n[1] 4.822995\n\nlimite_superior # Muestra el límite superior\n\n[1] 5.538629\n\n\nEl intervalo obtenido se extiende aproximadamente entre 4,82 y 5,54.\n\n\n\n\n\nMedia muestral e intervalo de confianza del 95 %.\n\n\n\n\nEl punto representa la media de la muestra y la línea muestra el intervalo de confianza del 95 %.\n\n\n\n\n\n\n\nImportante\n\n\n\nInterpretación: si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el 95 % de esos intervalos contendría la verdadera media poblacional.\nPara esta muestra, obtuvimos un intervalo entre 4,82 y 5,54. Este rango representa la incertidumbre asociada a la estimación de la media poblacional.\n\n\n\n\n\n\n\n\nNota\n\n\n\nEl intervalo de confianza no contiene al 95 % de los casos individuales. Su propósito es estimar la media de la población.\nEste cálculo utiliza una aproximación basada en la distribución normal. Cuando la desviación estándar poblacional es desconocida, también pueden utilizarse intervalos basados en la distribución t."
+  },
+  {
+    "objectID": "assignment/1-practico_v2.html#instrucciones",
+    "href": "assignment/1-practico_v2.html#instrucciones",
+    "title": "Distribución Normal e Intervalos de Confianza",
+    "section": "Instrucciones",
+    "text": "Instrucciones\n\nCargue la base de datos.\n\n\nif (!requireNamespace(\"pacman\", quietly = TRUE)) install.packages(\"pacman\") # Si no está instalado, instala el paquete\npacman::p_load(HistData)\n\npackage 'HistData' successfully unpacked and MD5 sums checked\n\nThe downloaded binary packages are in\n    C:\\Users\\katin\\AppData\\Local\\Temp\\RtmpcjtxKn\\downloaded_packages\n\ndata(\"Galton\")\n\nnames(Galton) # revisar las variables disponibles: \"parent\" y \"child\"\n\n[1] \"parent\" \"child\" \n\naltura &lt;- Galton$child # creamos el vector con la variable de interés\n\n\n\n\n\n\n\nTip\n\n\n\nLa unidad de medida de la variable se encuentra en pulgadas.\n\n\n\nCalcule y describa la distribución\n\n\nObtenga la media y desviación estándar de la estatura.\nVisualice la distribución en un histograma\n\n\nEstandarice los datos (puntajes Z)\n\n\nTransforme la variable a puntajes Z\nMuestre los primeros 10 valores (head()).\nMuestre también los últimos 10 valores (tail()).\n¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?\nVerifique la media y desviación estándar\n\n\nCalcule el error estándar de la variable\nCalcule el intervalo de confianza para la media\n\n\nEstime el IC para un 95% de confianza\nEstime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?\n\n\nExplore el efecto del tamaño muestral\n\n\nGeneremos 3 submuestras aleatorias con la función sample().\n\n\nset.seed(123)\nmuestra_100 &lt;- sample(altura, 100)\nmuestra_200 &lt;- sample(altura, 200)\nmuestra_400 &lt;- sample(altura, 400)\n\n\nCalcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?\nCalcule el error estándar y el intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?"
   }
 ]

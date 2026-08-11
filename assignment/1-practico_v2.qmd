@@ -1,0 +1,509 @@
+---
+title: "Distribución Normal e Intervalos de Confianza"
+date: "2026-08-12"
+lang: es
+execute:
+  freeze: auto
+  cache: true
+number-sections: true
+format:
+  html:
+    code-copy: true
+    highlight-style: nord
+#lightbox: true
+---
+<style>
+/* Texto escrito entre comillas invertidas */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Resultados producidos por R */
+.cell-output pre {
+  color: #17233a !important;
+  background-color: #e8f5f3 !important;
+  border-left: 4px solid #009688 !important;
+  padding: 0.8em 1em !important;
+}
+
+/* Evita que el tema cambie el color del texto de las salidas */
+.cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+</style>
+
+# Objetivo de la práctica {.unnumbered}
+
+El objetivo de esta guía práctica es utilizar la distribución normal para ubicar valores y calcular probabilidades, y estimar la precisión de una media muestral mediante el error estándar y un intervalo de confianza.
+
+En detalle, aprenderemos a:
+
+1. reconocer las principales características de la distribución normal;
+2. calcular e interpretar puntajes Z y probabilidades acumuladas;
+3. calcular e interpretar el error estándar de la media;
+4. relacionar el tamaño muestral con la precisión;
+5. calcular e interpretar un intervalo de confianza del 95 %.
+
+# De la distribución muestral a la distribución normal
+
+En la clase anterior observamos que las medias de distintas muestras no son idénticas, sino que tienden a concentrarse alrededor de la media poblacional.
+
+> Si contamos con una sola muestra, ¿cómo podemos estimar cuánto variarían las medias de muchas muestras?
+
+Para responder esta pregunta utilizaremos la distribución normal, cuya forma observaremos en el siguiente gráfico:
+
+```{r}
+curve(
+  dnorm(x),
+  from = -4,
+  to = 4,
+  xlab = "Posición respecto del centro",
+  ylab = "Densidad",
+  main = "Distribución normal"
+)
+
+abline(v = 0, lty = 2, col = "cyan4")
+```
+
+La función `curve()` dibuja la distribución normal entre −4 y 4. La línea vertical indica el centro de la distribución.
+
+La curva es simétrica: la mayoría de los valores se concentra cerca del centro y los valores alejados son menos frecuentes. Para calcular probabilidades utilizaremos áreas bajo la curva, como veremos más adelante.
+
+
+# Estandarización y puntaje Z
+
+Para trabajar con un ejemplo concreto, crearemos un vector de 100 puntajes simulados con media poblacional 5 y desviación estándar poblacional 2.
+
+La función `rnorm()` genera valores aleatorios a partir de una distribución normal. Sus principales argumentos son el número de valores, la media y la desviación estándar.
+
+```{r}
+#| output: false
+
+set.seed(123) # Fija la semilla para obtener siempre los mismos valores simulados
+vector <- rnorm(100, mean = 5, sd = 2) # Crea 100 valores con media 5 y desviación estándar 2
+
+media <- mean(vector) # Calcula la media de los valores creados
+desv_estandar <- sd(vector) # Calcula la desviación estándar de los valores creados
+
+media # Muestra la media en la consola
+desv_estandar # Muestra la desviación estándar en la consola
+```
+
+::: {.callout-tip}
+Un **vector** es una colección ordenada de valores del mismo tipo. Un **objeto** es un nombre al que asignamos un valor para poder reutilizarlo; por ejemplo, `media <- mean(vector)`.
+:::
+
+La media obtenida es aproximadamente 5,18 y la desviación estándar es aproximadamente 1,83. Estos cálculos son el punto de partida para ubicar cada observación respecto de la distribución.
+
+Al **estandarizar** un valor lo expresamos en unidades de desviación estándar. El resultado se denomina **puntaje Z**.
+
+## Cálculo de puntaje Z
+
+Recordemos que la formula para calcular el puntaje Z es:
+$$
+z = \frac{x_i - \bar{x}}{s}
+$$
+
+donde $x_i$ es el valor observado, $\bar{x}$ la media y $s$ la desviación estándar. 
+Un Z positivo indica que el valor está sobre la media; uno negativo, que está bajo ella; y uno cercano a cero, que está próximo a la media.
+
+```{r}
+valor <- vector[1]
+z_valor <- (valor - media) / desv_estandar
+
+valor
+z_valor
+```
+
+El primer valor es aproximadamente 3,88 y su puntaje Z es aproximadamente -0,71: se encuentra 0,71 desviaciones estándar bajo la media.
+
+Ahora compara dos puntajes de evaluaciones diferentes:
+
+```{r}
+z_evaluacion_a <- (72 - 60) / 10
+z_evaluacion_b <- (650 - 500) / 100
+
+z_evaluacion_a
+z_evaluacion_b
+```
+
+¿En cuál evaluación la persona ocupa una posición relativamente más alta? ¿Cómo lo sabes?
+
+
+::: {.callout-tip}
+La función `scale()` también permite estandarizar un vector completo. En este práctico utilizaremos el cálculo manual para hacer visible la lógica del puntaje Z.
+:::
+
+## Probabilidades a partir de Z
+### Cálculo de probabilidades a partir de Z
+
+Los puntajes Z permiten calcular qué proporción de los casos se encuentra por debajo de un valor en una distribución normal.
+
+El siguiente código dibuja una distribución normal estándar:
+
+```{r}
+x_values <- seq(-4, 4, length = 1000) # Crea valores Z entre −4 y 4
+y_values <- dnorm(x_values) # Calcula la densidad para cada valor Z
+
+plot(
+  x_values, y_values,
+  type = "l",
+  xlab = "Valor Z",
+  ylab = "Densidad",
+  main = "Distribución normal estándar"
+)
+```
+
+La función `pnorm()` calcula la proporción acumulada hasta un valor Z. Por ejemplo:
+
+```{r}
+pnorm(0) # Calcula la proporción ubicada bajo Z = 0
+```
+
+Como Z = 0 corresponde al centro de la distribución, el resultado es `0.50`: el **50 %** de los casos se encuentra por debajo de ese valor.
+
+Supongamos que la estatura de un grupo de mujeres tiene una media de 1,60 m y una desviación estándar de 0,06 m. ¿Qué porcentaje mide menos de 1,50 m?
+
+Primero calculamos el puntaje Z de 1,50 m:
+
+```{r}
+z_150 <- (1.50 - 1.60) / 0.06 # Calcula el puntaje Z
+z_150 # Muestra el resultado
+```
+
+Luego calculamos la proporción que se encuentra bajo ese valor:
+
+```{r}
+pnorm(z_150) # Calcula la proporción que mide menos de 1,50 m
+```
+
+El resultado `0.0478` indica que aproximadamente **el 4,8 %** mide menos de 1,50 m. Esta estatura se encuentra 1,67 desviaciones estándar por debajo de la media.
+
+En el siguiente gráfico, el área roja representa esa proporción:
+
+```{r}
+x_values <- seq(-4, 4, length = 1000)
+y_values <- dnorm(x_values)
+
+plot(
+  x_values, y_values,
+  type = "l",
+  xlab = "Valor Z",
+  ylab = "Densidad",
+  main = "Proporción bajo 1,50 m"
+)
+
+x_area <- seq(-4, z_150, length = 100)
+
+polygon(
+  c(-4, x_area, z_150),
+  c(0, dnorm(x_area), 0),
+  col = "#eb0505",
+  border = NA
+)
+
+lines(x_values, y_values)
+```
+
+# Error estándar
+
+Volvamos a la pregunta inicial:
+> ¿Cuánto variarían las medias si extrajéramos repetidamente muestras del mismo tamaño?
+
+El **error estándar de la media** estima cuánto variarían las medias entre distintas muestras. Se calcula mediante:
+
+$$
+EE = \frac{s}{\sqrt{n}}
+$$
+
+Donde:
+
+$s$ es la desviación estándar de la muestra.
+$n$ es el número de casos de la muestra.
+
+```{r}
+#| output: false
+n_vector <- length(vector) # length Cuenta cuántos valores contiene el vector
+ee_vector <- desv_estandar / sqrt(n_vector) # Calcula el error estándar // sqrt calcula la raíz cuadrada
+
+n_vector # Muestra el tamaño de la muestra
+ee_vector # Muestra el error estándar
+```
+En este ejemplo, la muestra contiene 100 valores y su error estándar es aproximadamente 0,18. El resultado nos indica que si tomáramos muchas muestras de tamaño n de esta misma población, y calculáramos la media de cada uno, esas medias tendrían una variarían, en promedio, $\pm$ 0,18 unidades respecto a la media. 
+
+
+::: {.callout-note}
+La **desviación estándar** indica cuánto varían los valores individuales. El **error estándar** indica cuánto variarían las medias entre distintas muestras. Un error estándar menor representa una media estimada con mayor precisión.
+:::
+
+## Tamaño muestral y precisión
+
+Mantengamos la misma desviación estándar y comparemos muestras de 25 y 100 casos. Antes de ejecutar el código, anticipa: ¿cuál tendrá menor error estándar?
+
+```{r}
+ee_n25 <- desv_estandar / sqrt(25) # Calcula el error estándar para 25 casos
+ee_n100 <- desv_estandar / sqrt(100) # Calcula el error estándar para 100 casos
+
+ee_n25 # Muestra el error estándar para 25 casos
+ee_n100 # Muestra el error estándar para 100 casos
+```
+
+El error estándar disminuye de aproximadamente 0,37 a 0,18 cuando el tamaño de la muestra aumenta de 25 a 100 casos. Por lo tanto, una muestra más grande permite estimar la media con mayor precisión. La desviación estándar se mantuvo igual en ambos cálculos; lo único que cambió fue el número de casos.
+
+
+::: {.callout-note}
+## Interpretación del error estándar
+
+El error estándar indica cuánto podrían variar las medias si tomáramos muchas muestras del mismo tamaño. En este ejemplo, un error estándar de **0,18** significa que las medias muestrales variarían alrededor de la media poblacional.
+
+- Un error estándar **pequeño** indica una estimación más precisa.
+- Un error estándar **grande** indica una estimación menos precisa.
+
+:::
+
+
+# Intervalos de confianza
+
+El error estándar permite construir **intervalos de confianza**, es decir, rangos de valores plausibles para la media poblacional.
+
+Supongamos que los 100 valores creados anteriormente corresponden a una muestra tomada de una población más grande. La media de la muestra es aproximadamente **5,18**, pero no podemos asegurar que la media poblacional sea exactamente la misma.
+
+La media de **5,18** es una **estimación puntual**. En cambio, un **intervalo de confianza** utiliza el error estándar para construir un rango de valores plausibles para la media poblacional.
+
+## Intervalo de confianza del 95 %
+
+El intervalo de confianza para la media se calcula mediante:
+
+$$
+IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
+$$
+
+Donde:
+
+- $\bar{x}$ es la media de la muestra.
+- $z$ es el valor crítico.
+- $s$ es la desviación estándar de la muestra.
+- $n$ es el tamaño de la muestra.
+- $\frac{s}{\sqrt{n}}$ corresponde al error estándar.
+
+## ¿De dónde proviene el valor 1,96?
+
+Para construir un intervalo de confianza del 95 %, buscamos los valores Z que encierran el **95 % central** de la distribución normal.
+
+El 5 % restante se divide entre los dos extremos de la distribución:
+
+- **2,5 %** en el extremo izquierdo.
+- **2,5 %** en el extremo derecho.
+
+La función `qnorm(0.975)` busca el valor Z que deja acumulado el 97,5 % de la distribución a su izquierda:
+
+```{r}
+valor_critico <- qnorm(0.975) # Obtiene el valor crítico para un intervalo del 95 %
+
+valor_critico # Muestra el resultado
+```
+
+El resultado es aproximadamente **1,96**. Por simetría, el límite del extremo izquierdo es **−1,96**. Por lo tanto, el 95 % central de la distribución normal se encuentra entre estos dos valores.
+
+```{r}
+#| echo: false
+#| fig-cap: "El 95 % central de la distribución normal se encuentra entre Z = −1,96 y Z = 1,96."
+
+x_grafico <- seq(-4, 4, length.out = 1000)
+y_grafico <- dnorm(x_grafico)
+
+plot(
+  x_grafico, y_grafico,
+  type = "l",
+  xlab = "Valor Z",
+  ylab = "Densidad",
+  main = "Distribución normal estándar",
+  bty = "n"
+)
+
+zona_central <- x_grafico >= -valor_critico & x_grafico <= valor_critico
+
+polygon(
+  c(-valor_critico, x_grafico[zona_central], valor_critico),
+  c(0, y_grafico[zona_central], 0),
+  col = adjustcolor("#009688", alpha.f = 0.35),
+  border = NA
+)
+
+lines(x_grafico, y_grafico)
+
+abline(
+  v = c(-valor_critico, valor_critico),
+  lty = 2,
+  col = "#17233A"
+)
+
+text(0, 0.18, "95 % central", col = "#00695C")
+text(-2.5, 0.03, "2,5 %", col = "#B71C1C")
+text(2.5, 0.03, "2,5 %", col = "#B71C1C")
+```
+
+## Cálculo del intervalo
+
+Ahora sumamos y restamos **1,96 errores estándar** a la media de la muestra:
+
+```{r}
+limite_inferior <- media - valor_critico * ee_vector # Calcula el límite inferior
+
+limite_superior <- media + valor_critico * ee_vector # Calcula el límite superior
+
+limite_inferior # Muestra el límite inferior
+
+limite_superior # Muestra el límite superior
+```
+
+El intervalo obtenido se extiende aproximadamente entre **4,82 y 5,54**.
+
+```{r}
+#| echo: false
+#| fig-cap: "Media muestral e intervalo de confianza del 95 %."
+
+plot(
+  NULL,
+  xlim = c(4.6, 5.8),
+  ylim = c(0.8, 1.3),
+  yaxt = "n",
+  ylab = "",
+  xlab = "Valor de la media",
+  bty = "n"
+)
+
+segments(
+  limite_inferior, 1,
+  limite_superior, 1,
+  lwd = 6,
+  col = "#009688"
+)
+
+points(
+  media, 1,
+  pch = 19,
+  cex = 1.6,
+  col = "#17233A"
+)
+
+text(
+  media, 1.18,
+  paste0("Media\n", round(media, 2))
+)
+
+text(
+  limite_inferior, 0.85,
+  paste0("Límite inferior\n", round(limite_inferior, 2))
+)
+
+text(
+  limite_superior, 0.85,
+  paste0("Límite superior\n", round(limite_superior, 2))
+)
+```
+
+El punto representa la media de la muestra y la línea muestra el intervalo de confianza del 95 %.
+
+
+![](https://correlacional.netlify.app/slides/img/intervalos.png)
+
+::: {.callout-important}
+**Interpretación:** si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el **95 % de esos intervalos** contendría la verdadera media poblacional.
+
+Para esta muestra, obtuvimos un intervalo entre **4,82 y 5,54**. Este rango representa la incertidumbre asociada a la estimación de la media poblacional.
+:::
+
+::: {.callout-note}
+El intervalo de confianza no contiene al 95 % de los casos individuales. Su propósito es estimar la **media de la población**.
+
+Este cálculo utiliza una aproximación basada en la distribución normal. Cuando la desviación estándar poblacional es desconocida, también pueden utilizarse intervalos basados en la distribución *t*.
+:::
+
+
+# Ejercicio práctico de trabajo autónomo {.unnumbered}
+
+En este ejercicio aplicará los contenidos revisados: cálculo de media y desviación estándar, puntajes Z, error estándar e intervalos de confianza, pero esta vez con datos reales en lugar de datos simulados.
+
+Trabajaremos con el conjunto de datos `Galton`, incluido en el paquete `HistData`, que contiene las estaturas de 928 hijos e hijas adultos recopiladas por Francis Galton en 1886. Este es, de hecho, el conjunto de datos histórico que dio origen al estudio de la curva normal aplicada a variables biológicas.
+
+::: callout-note
+[Francis Galton](https://es.wikipedia.org/wiki/Francis_Galton), primo de Charles Darwin, no sólo hizo aportes importantes al uso de la distribución normal, también fue pionero en el uso de correlaciones, inventó la línea de regresión, fundo la psicometría, ideó un método para clasificar huellas dáctilares y fue iniciador de de la ciencia metereológica.
+
+En su lado menos alegre, inventó el concepto de eugenesia... y abogó activamente por ella.
+:::
+
+
+## Instrucciones {.unnumbered}
+
+0.  Cargue la base de datos.
+
+```{r}
+#| warning: false
+#| message: false
+
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman") # Si no está instalado, instala el paquete
+pacman::p_load(HistData)
+data("Galton")
+
+names(Galton) # revisar las variables disponibles: "parent" y "child"
+altura <- Galton$child # creamos el vector con la variable de interés
+```
+
+::: callout-tip
+La unidad de medida de la variable se encuentra en pulgadas.
+:::
+
+1.  Calcule y describa la distribución
+
+-   Obtenga la media y desviación estándar de la estatura.
+-   Visualice la distribución en un histograma
+
+2.  Estandarice los datos (puntajes Z)
+
+-   Transforme la variable a puntajes Z
+-   Muestre los primeros 10 valores (`head()`).
+-   Muestre también los últimos 10 valores (`tail()`).
+-   ¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?
+-   Verifique la media y desviación estándar
+
+3.  Calcule el error estándar de la variable
+
+4.  Calcule el intervalo de confianza para la media
+
+-   Estime el IC para un 95% de confianza
+-   Estime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?
+
+5.  Explore el efecto del tamaño muestral
+
+-   Generemos 3 submuestras aleatorias con la función `sample()`.
+
+```{r}
+set.seed(123)
+muestra_100 <- sample(altura, 100)
+muestra_200 <- sample(altura, 200)
+muestra_400 <- sample(altura, 400)
+```
+
+-   Calcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?
+-   Calcule el error estándar y el intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?
+
+
+# Síntesis {.unnumbered}
+
+En este práctico aprendimos que:
+
+1. la distribución normal permite representar posiciones relativas y calcular áreas o probabilidades;
+2. un puntaje Z indica cuántas desviaciones estándar separan un valor de la media;
+3. el error estándar estima cuánto varían las medias entre muestras y disminuye al aumentar el tamaño muestral;
+4. el intervalo de confianza incorpora la incertidumbre de la estimación puntual;
+5. un intervalo del 95 % se interpreta por el comportamiento del procedimiento en muestreos repetidos.
+
+# Referencias {.unnumbered}
+
+[Análisis de datos en Lenguaje R](/files/textos/ximenez2022.pdf)
+
