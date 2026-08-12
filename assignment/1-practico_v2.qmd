@@ -143,21 +143,6 @@ La función `scale()` también permite estandarizar un vector completo. En este 
 
 Los puntajes Z permiten calcular qué proporción de los casos se encuentra por debajo de un valor en una distribución normal.
 
-El siguiente código dibuja una distribución normal estándar:
-
-```{r}
-x_values <- seq(-4, 4, length = 1000) # Crea valores Z entre −4 y 4
-y_values <- dnorm(x_values) # Calcula la densidad para cada valor Z
-
-plot(
-  x_values, y_values,
-  type = "l",
-  xlab = "Valor Z",
-  ylab = "Densidad",
-  main = "Distribución normal estándar"
-)
-```
-
 La función `pnorm()` calcula la proporción acumulada hasta un valor Z. Por ejemplo:
 
 ```{r}
@@ -233,7 +218,7 @@ ee_vector <- desv_estandar / sqrt(n_vector) # Calcula el error estándar // sqrt
 n_vector # Muestra el tamaño de la muestra
 ee_vector # Muestra el error estándar
 ```
-En este ejemplo, la muestra contiene 100 valores y su error estándar es aproximadamente 0,18. El resultado nos indica que si tomáramos muchas muestras de tamaño n de esta misma población, y calculáramos la media de cada uno, esas medias tendrían una variarían, en promedio, $\pm$ 0,18 unidades respecto a la media. 
+En este ejemplo, la muestra contiene 100 valores y su error estándar es aproximadamente 0,18. El error estándar de 0,18 corresponde a la desviación estándar estimada de la distribución de las medias muestrales. En otras palabras, indica cuánto suelen variar las medias obtenidas en muestras del mismo tamaño. 
 
 
 ::: {.callout-note}
@@ -298,6 +283,11 @@ El 5 % restante se divide entre los dos extremos de la distribución:
 
 - **2,5 %** en el extremo izquierdo.
 - **2,5 %** en el extremo derecho.
+
+Recordando la distribución normal:
+
+![](https://correlacional.metodos-facso.org/slides/img/norm2.png)
+
 
 La función `qnorm(0.975)` busca el valor Z que deja acumulado el 97,5 % de la distribución a su izquierda:
 
