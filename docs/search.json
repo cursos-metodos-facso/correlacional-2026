@@ -30,238 +30,238 @@
   {
     "objectID": "slides/03-inferencia2.html#section-1",
     "href": "slides/03-inferencia2.html#section-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
   },
   {
     "objectID": "slides/03-inferencia2.html#la-tarea-resultado",
     "href": "slides/03-inferencia2.html#la-tarea-resultado",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "La tarea: resultado",
     "text": "La tarea: resultado\n\n\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n\n\n   dado1 dado2 suma promedio\n1      1     1    2      1.0\n2      1     2    3      1.5\n3      1     3    4      2.0\n4      1     4    5      2.5\n5      1     5    6      3.0\n6      1     6    7      3.5\n7      2     1    3      1.5\n8      2     2    4      2.0\n9      2     3    5      2.5\n10     2     4    6      3.0\n11     2     5    7      3.5\n12     2     6    8      4.0\n13     3     1    4      2.0\n14     3     2    5      2.5\n15     3     3    6      3.0\n16     3     4    7      3.5\n17     3     5    8      4.0\n18     3     6    9      4.5\n19     4     1    5      2.5\n20     4     2    6      3.0\n21     4     3    7      3.5\n22     4     4    8      4.0\n23     4     5    9      4.5\n24     4     6   10      5.0\n25     5     1    6      3.0\n26     5     2    7      3.5\n27     5     3    8      4.0\n28     5     4    9      4.5\n29     5     5   10      5.0\n30     5     6   11      5.5\n31     6     1    7      3.5\n32     6     2    8      4.0\n33     6     3    9      4.5\n34     6     4   10      5.0\n35     6     5   11      5.5\n36     6     6   12      6.0"
   },
   {
     "objectID": "slides/03-inferencia2.html#la-tarea-gráficos",
     "href": "slides/03-inferencia2.html#la-tarea-gráficos",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "La tarea: gráficos",
     "text": "La tarea: gráficos\n\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
   },
   {
     "objectID": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
     "href": "slides/03-inferencia2.html#probabilidad-de-promedio-de-2-dados-al-azar",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Probabilidad de promedio de 2 dados al azar",
     "text": "Probabilidad de promedio de 2 dados al azar\n\n\n   Promedio Probabilidad\n1       1.0   0.02777778\n2       1.5   0.05555556\n3       2.0   0.08333333\n4       2.5   0.11111111\n5       3.0   0.13888889\n6       3.5   0.16666667\n7       4.0   0.13888889\n8       4.5   0.11111111\n9       5.0   0.08333333\n10      5.5   0.05555556\n11      6.0   0.02777778"
   },
   {
     "objectID": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
     "href": "slides/03-inferencia2.html#qué-aprendimos-de-esto",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "¿Qué aprendimos de esto?",
     "text": "¿Qué aprendimos de esto?\n\n\nla ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una distribución teórica de probabilidad\nsi repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la distribución empírica de probabilidad (de frecuencias de los eventos)\nde acuerdo a la ley de los grandes números, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones"
   },
   {
     "objectID": "slides/03-inferencia2.html#esta-clase",
     "href": "slides/03-inferencia2.html#esta-clase",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "ESTA CLASE",
-    "text": "ESTA CLASE\n\n- Distribución teórica vs distribución empírica\n- Curva normal\n- Puntaje Z y estandarización\n- Error estándar"
+    "text": "ESTA CLASE\n\n\n- Distribución teórica vs distribución empírica\n\n\n- Curva normal\n\n\n- Puntaje Z y estandarización\n\n\n- Error estándar"
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-teórica",
     "href": "slides/03-inferencia2.html#distribución-teórica",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución teórica",
     "text": "Distribución teórica"
   },
   {
     "objectID": "slides/03-inferencia2.html#repeticiones-empírica",
     "href": "slides/03-inferencia2.html#repeticiones-empírica",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "100 repeticiones (empírica)",
     "text": "100 repeticiones (empírica)"
   },
   {
     "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
     "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "100 repeticiones vs. teórica",
     "text": "100 repeticiones vs. teórica"
   },
   {
     "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
     "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "500 repeticiones vs. teórica",
     "text": "500 repeticiones vs. teórica"
   },
   {
     "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
     "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "1500 repeticiones vs. teórica",
     "text": "1500 repeticiones vs. teórica"
   },
   {
     "objectID": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
     "href": "slides/03-inferencia2.html#repeticiones-vs.-teórica-3",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "5000 repeticiones vs. teórica",
     "text": "5000 repeticiones vs. teórica"
   },
   {
     "objectID": "slides/03-inferencia2.html#muestra-y-distribución",
     "href": "slides/03-inferencia2.html#muestra-y-distribución",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Muestra y distribución",
     "text": "Muestra y distribución\n\nSabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad\n¿De qué nos sirve esta información si…\n\n¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?\n¿no conocemos la distribución teórica?"
   },
   {
     "objectID": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
     "href": "slides/03-inferencia2.html#histograma-vs.-curvas-de-densidad",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Histograma vs. curvas de densidad",
     "text": "Histograma vs. curvas de densidad\n\n\nHistograma\nFrecuencias o probabilidad empírica de cada evento\n\n\n\n\n\n\n\n\n\n\nCurvas de densidad\nModelo teórico/matemático de la distribución"
   },
   {
     "objectID": "slides/03-inferencia2.html#curva-de-distribución",
     "href": "slides/03-inferencia2.html#curva-de-distribución",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Curva de distribución",
     "text": "Curva de distribución\n\nUna curva de distribución de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva suavizada\nRepresenta una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica\nLas puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)\nEl área bajo la curva representa el 100% de los casos de la población"
   },
   {
     "objectID": "slides/03-inferencia2.html#curva-de-distribución-normal",
     "href": "slides/03-inferencia2.html#curva-de-distribución-normal",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Curva de distribución normal",
     "text": "Curva de distribución normal\n\n\nEs una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida\nCoinciden al centro el promedio, la mediana y la moda\nEs simétrica y de forma acampanada\nEstablece áreas bajo la curva en base a desviaciones estándar del promedio"
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
     "href": "slides/03-inferencia2.html#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución normal, desviaciones estándar y áreas bajo la curva",
     "text": "Distribución normal, desviaciones estándar y áreas bajo la curva"
   },
   {
     "objectID": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
     "href": "slides/03-inferencia2.html#por-qué-es-importante-la-distribución-normal-en-estadística",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "¿Por qué es importante la distribución normal en estadística?",
     "text": "¿Por qué es importante la distribución normal en estadística?\n\n\nPermite comparar puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)\nPermite estimar proporciones bajo la curva normal de cualquier valor de la distribución\nBase de la distribución muestral del promedio, error estándar, e inferencia estadística en general"
   },
   {
     "objectID": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
     "href": "slides/03-inferencia2.html#puntaje-z-y-estandarización-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Puntaje \\(z\\) y estandarización",
     "text": "Puntaje \\(z\\) y estandarización\n\n\n\\[z=\\frac{x_i-\\mu}{\\sigma}\\]\n\n\nEstandarización: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal\nPermite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo estándar\nPara obtener el valor estandarizado (puntaje Z) resta la media y se divide por la desviación estándar"
   },
   {
     "objectID": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
     "href": "slides/03-inferencia2.html#ejemplo-comparación-distribuciones-ritchey-p.-148",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplo comparación distribuciones (Ritchey, p. 148)",
-    "text": "Ejemplo comparación distribuciones (Ritchey, p. 148)\n\n\n\nMary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2\nJason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100\n\n\n¿A quién le fue mejor?\n¿Cómo le fue específicamente a cada uno?"
+    "text": "Ejemplo comparación distribuciones (Ritchey, p. 148)\n\n\n\nMary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2\nJason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100\n\n\n\n¿A quién le fue mejor?\n\n\n¿Cómo le fue específicamente a cada uno?"
   },
   {
     "objectID": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
     "href": "slides/03-inferencia2.html#comparando-peras-con-manzanas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Comparando peras con manzanas",
     "text": "Comparando peras con manzanas\n\\[\n\\begin{align*}\nZ_{Mary}&=\\frac{x-\\mu}{\\sigma}=\\frac{26-22}{2}=2 \\\\ \\\\\nZ_{Jason}&=\\frac{x-\\mu}{\\sigma}=\\frac{900-1000}{100}=-1\n\\end{align*}\n\\]\n\n\\(Z\\) entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio\nEstos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal"
   },
   {
     "objectID": "slides/03-inferencia2.html#proporciones",
     "href": "slides/03-inferencia2.html#proporciones",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Proporciones",
     "text": "Proporciones\n\n\nAsumiendo distribución normal, se puede obtener la proporción de casos bajo la curva normal que están sobre y bajo el puntaje Z"
   },
   {
     "objectID": "slides/03-inferencia2.html#ejemplo-1",
     "href": "slides/03-inferencia2.html#ejemplo-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplo 1",
     "text": "Ejemplo 1\n\n\n\n\n\nPensemos en estatura de 1.65, en una muestra con \\(\\bar{x}=160\\) y \\(\\sigma=5\\).\n\\[z=\\frac{x-\\mu}{\\sigma}=\\frac{165-160}{5}=1\\]\nEn base a la distribución normal sabemos que bajo 1 desviación estándar está el 68% de los datos + la cola izquierda de la curva, que es (100-68)/2=16%.\nEj: 84% (68+16) de los casos tienen una estatura menor a 165 cm"
   },
   {
     "objectID": "slides/03-inferencia2.html#ejemplo-2",
     "href": "slides/03-inferencia2.html#ejemplo-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplo 2",
     "text": "Ejemplo 2\n\n\nPuntaje en prueba=450, en una muestra con media=500 y ds=100, en R\n\n# Definimos los parámetros\nX &lt;- 450  # Puntaje\nmu &lt;- 500  # Media\nsigma &lt;- 100  # Desviación estándar\n\n# Calculamos el puntaje z\nz &lt;- (X - mu) / sigma\nz\n\n# Calculamos el percentil asociado al puntaje z\npercentil &lt;- pnorm(z) * 100\n\n# Mostramos el resultado\npercentil\n\n\n\n\n[1] 30.85375"
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
     "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución muestral del promedio",
     "text": "Distribución muestral del promedio\n\n\n\n\n\nSi tengo la desviación estándar de los promedios, puedo construir un intervalo de probabilidad, basado en la curva normal\nPor ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)\nPeeero…"
   },
   {
     "objectID": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
     "href": "slides/03-inferencia2.html#desviación-estándar-y-error-estándar",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Desviación estándar y error estándar",
-    "text": "Desviación estándar y error estándar\n\n\n\n\n\n\nmás que el promedio de la variable en nuestra muestra, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la población\ncontamos con una muestra, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados."
+    "text": "Desviación estándar y error estándar\n\n\n\n\n\n\n\nmás que el promedio de la variable en nuestra muestra, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la población\ncontamos con una muestra, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados."
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
     "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución muestral del promedio",
     "text": "Distribución muestral del promedio"
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
     "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución muestral del promedio",
     "text": "Distribución muestral del promedio"
   },
   {
     "objectID": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
     "href": "slides/03-inferencia2.html#distribución-muestral-del-promedio-3",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución muestral del promedio",
     "text": "Distribución muestral del promedio"
   },
   {
     "objectID": "slides/03-inferencia2.html#teorema-central-del-límite",
     "href": "slides/03-inferencia2.html#teorema-central-del-límite",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Teorema central del límite",
     "text": "Teorema central del límite\n\nla distribución de los promedios de distintas muestras - o distribución muestral del promedio - se aproxima a una distribución normal\nEn muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:\n\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ estándar)=\\frac{s}{\\sqrt{N}}\\]\n\n\\(s\\) = desviación estándar de la muestra\n\\(N\\) = tamaño de la muestra"
   },
   {
     "objectID": "slides/03-inferencia2.html#section-4",
     "href": "slides/03-inferencia2.html#section-4",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
-    "text": "Basados en el Teorema Central del Límite, es posible calcular la desviación estándar de los promedios (error estándar) con\n\n\n\n\n\nuna sola muestra"
+    "text": "Basados en el Teorema Central del Límite, es posible calcular la desviación estándar de los promedios (error estándar) con\n\n\n\n\n\n\nuna sola muestra"
   },
   {
     "objectID": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
     "href": "slides/03-inferencia2.html#demostración-10-muestras-5-casos-cu",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Demostración: 10 muestras, 5 casos c/u",
-    "text": "Demostración: 10 muestras, 5 casos c/u\n\n\n-&gt; ver demostración con más casos aquí"
+    "text": "Demostración: 10 muestras, 5 casos c/u\n\n\n\n\n\n\n-&gt; ver demostración con más casos aquí"
   },
   {
     "objectID": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
     "href": "slides/03-inferencia2.html#para-qué-nos-sirve-el-error-estándar-se-del-promedio",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "¿Para qué nos sirve el error estándar (SE) del promedio?",
-    "text": "¿Para qué nos sirve el error estándar (SE) del promedio?\n(… y de otros estadísticos, como la correlación)"
+    "text": "¿Para qué nos sirve el error estándar (SE) del promedio?\n\n(… y de otros estadísticos, como la correlación)"
   },
   {
     "objectID": "slides/03-inferencia2.html#usos-del-error-estándar",
     "href": "slides/03-inferencia2.html#usos-del-error-estándar",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Usos del error estándar",
     "text": "Usos del error estándar\n\nDos usos complementarios:\n\nconstrucción de intervalos de confianza\ntest de hipótesis\n\n\n\n\n-&gt; Próxima clase"
   },
@@ -977,217 +977,217 @@
   {
     "objectID": "slides/02-inferencia1.html#datos",
     "href": "slides/02-inferencia1.html#datos",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Datos",
     "text": "Datos\n\nLos datos son una expresión numérica de la medición de al menos una característica de a lo menos una unidad en a lo menos un punto en el tiempo\n\n\n\nEjemplo: La esperanza de vida en Chile el 2017 fue de 79,9 años\n\nCaracterística (variable): esperanza de vida\nUnidad: Años\nPunto en el tiempo: 2017"
   },
   {
     "objectID": "slides/02-inferencia1.html#medir",
     "href": "slides/02-inferencia1.html#medir",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Medir",
     "text": "Medir\n\n\n\n“asignar números, símbolos o valores a las propiedades de objetos o eventos de acuerdo con reglas” (Stevens, 1951)\nVincula conceptos abstractos con indicadores empíricos"
   },
   {
     "objectID": "slides/02-inferencia1.html#medir-requisitos",
     "href": "slides/02-inferencia1.html#medir-requisitos",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Medir: requisitos",
     "text": "Medir: requisitos\n\n\nExhaustividad: el mayor número de categorías significativas.\n\nEj: ¿Qué categorías se deben considerar para población migrante?\n\nExclusividad: atributos mutuamente excluyentes"
   },
   {
     "objectID": "slides/02-inferencia1.html#ejemplos",
     "href": "slides/02-inferencia1.html#ejemplos",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplos",
     "text": "Ejemplos\nAlgunos estudios / bases de datos:\n\nEncuesta Centro de Estudios Públicos\nEncuesta CASEN\nEncuesta Lapop\nELSOC"
   },
   {
     "objectID": "slides/02-inferencia1.html#variables",
     "href": "slides/02-inferencia1.html#variables",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Variables",
-    "text": "Variables\n\nUna variable representa cualquier cosa o propiedad que varía y a la cuál se le asigna un valor. Es decir:\n\\(Variable \\neq Constante\\)\nPueden ser visibles o no visibles/latentes (Ej: peso / inteligencia)"
+    "text": "Variables\n\n\nUna variable representa cualquier cosa o propiedad que varía y a la cuál se le asigna un valor. Es decir:\n\\(Variable \\neq Constante\\)\nPueden ser visibles o no visibles/latentes (Ej: peso / inteligencia)"
   },
   {
     "objectID": "slides/02-inferencia1.html#variables-1",
     "href": "slides/02-inferencia1.html#variables-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Variables",
     "text": "Variables\n\ndiscretas (rango finito de valores):\n\nDicotómicas\nPolitómicas\n\ncontinuas:\n\nRango (teóricamente) infinito de valores."
   },
   {
     "objectID": "slides/02-inferencia1.html#tendencia-central",
     "href": "slides/02-inferencia1.html#tendencia-central",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tendencia Central",
     "text": "Tendencia Central\nDescripción básica de una variable:\n\nModa: valor que ocurre más frecuentemente\nMediana: valor medio de la distribución ordenada. Si N es par, entonces es el promedio de los valores medios\nMedia o promedio aritmético: suma de los valores dividido por el total de casos"
   },
   {
     "objectID": "slides/02-inferencia1.html#dispersión-varianza",
     "href": "slides/02-inferencia1.html#dispersión-varianza",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dispersión: Varianza",
     "text": "Dispersión: Varianza"
   },
   {
     "objectID": "slides/02-inferencia1.html#dispersión-varianza-1",
     "href": "slides/02-inferencia1.html#dispersión-varianza-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dispersión: Varianza",
     "text": "Dispersión: Varianza"
   },
   {
     "objectID": "slides/02-inferencia1.html#dispersión-varianza-2",
     "href": "slides/02-inferencia1.html#dispersión-varianza-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dispersión: Varianza",
     "text": "Dispersión: Varianza"
   },
   {
     "objectID": "slides/02-inferencia1.html#dispersión",
     "href": "slides/02-inferencia1.html#dispersión",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dispersión:",
-    "text": "Dispersión:\n\n\nLa VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado"
+    "text": "Dispersión:\n\n\n\n\n\n\n\nLa VARIANZA equivale al promedio de la suma de las diferencias del promedio al cuadrado"
   },
   {
     "objectID": "slides/02-inferencia1.html#desviación-estándar",
     "href": "slides/02-inferencia1.html#desviación-estándar",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Desviación Estándar",
     "text": "Desviación Estándar\n\n\n\n\n\nRaíz Cuadrada de la varianza.\nExpresada en la mismas unidades que los puntajes de la escala original"
   },
   {
     "objectID": "slides/02-inferencia1.html#inferencia",
     "href": "slides/02-inferencia1.html#inferencia",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Inferencia",
     "text": "Inferencia\nCuando se analizan datos, 2 aspectos principales\n\n\n\nCálculo del estadístico:\n\npromedio\ndesviación estándar\ncorrelación\n…\n\n\n\n\nInferencia: ¿existe este estadístico en la población?\n\nprobabilidad\nerror\nsignificación"
   },
   {
     "objectID": "slides/02-inferencia1.html#inferencia-1",
     "href": "slides/02-inferencia1.html#inferencia-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Inferencia",
     "text": "Inferencia\n\n\n\n\n¿En qué medida se pueden relacionar resultados que se encuentran en un (sub)conjunto de unidades con lo que ocurre en general?\n\n\nEj: si en un subconjunto de la población encuentro que el promedio de matemáticas es mayor en mujeres que en hombres ¿es esto un reflejo de lo que ocurre en general, o se debe solo al azar? ¿se puede extrapolar a la población?"
   },
   {
     "objectID": "slides/02-inferencia1.html#conceptos-clave",
     "href": "slides/02-inferencia1.html#conceptos-clave",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Conceptos clave",
-    "text": "Conceptos clave\n\n\n\n\n\nLa inferencia en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población\n¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?\nUn concepto central es la probabilidad de ERROR"
+    "text": "Conceptos clave\n\n\n\n\n\n\nLa inferencia en estadística se refiere a la relación que existe entre los resultados obtenidos basados en nuestra muestra y la población\n¿En qué medida podemos hacer inferencias desde nuestra muestra a la población?\nUn concepto central es la probabilidad de ERROR"
   },
   {
     "objectID": "slides/02-inferencia1.html#parámetros-y-estadísticos",
     "href": "slides/02-inferencia1.html#parámetros-y-estadísticos",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Parámetros y estadísticos",
     "text": "Parámetros y estadísticos\n\n\n\n\n\n\n\n\n\nPoblación (parámetro)\nMuestra (estadístico)\n\n\n\n\nPromedio\n\\(\\mu\\)\n\\(\\bar{x}\\)\n\n\nVarianza\n\\(\\sigma²\\)\n\\(s²\\)\n\n\nDesviación estándar\n\\(\\sigma\\)\n\\(s\\)\n\n\nCorrelación\n\\(\\rho\\)\n\\(r\\)"
   },
   {
     "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad",
     "href": "slides/02-inferencia1.html#muestreo-y-variabilidad",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Muestreo y variabilidad",
     "text": "Muestreo y variabilidad\n\n¿Cómo es posible que la media x̄ obtenida a partir de una muestra de unos pocos hogares de todos los del país, pueda ser una estimación precisa de µ?\n\nUna segunda muestra aleatoria obtenida en el mismo momento estaría formada por hogares distintos y, sin duda, daría un valor distinto de x̄"
   },
   {
     "objectID": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
     "href": "slides/02-inferencia1.html#muestreo-y-variabilidad-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Muestreo y variabilidad",
-    "text": "Muestreo y variabilidad\nVariabilidad muestral: el valor de un estadístico varía en un muestreo aleatorio repetido\n\n¿Cuánto varía?\n¿En qué rangos?\n¿Qué tan probable es el rango de variación?\n¿Es un rango aceptable en términos de investigación social?"
+    "text": "Muestreo y variabilidad\nVariabilidad muestral: el valor de un estadístico varía en un muestreo aleatorio repetido\n\n\n¿Cuánto varía?\n¿En qué rangos?\n¿Qué tan probable es el rango de variación?\n¿Es un rango aceptable en términos de investigación social?"
   },
   {
     "objectID": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
     "href": "slides/02-inferencia1.html#aleatoriedad-y-probabilidad",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Aleatoriedad y probabilidad",
     "text": "Aleatoriedad y probabilidad\n\n\n\nLlamamos a un fenómeno aleatorio si los resultados individuales son inciertos y, sin embargo, existe una distribución regular de los resultados después de un gran número de repeticiones.\n\n\n\nLa probabilidad de cualquier resultado de un fenómeno aleatorio es la proporción de veces que el resultado se da después de una larga serie de repeticiones"
   },
   {
     "objectID": "slides/02-inferencia1.html#azar-y-repetición",
     "href": "slides/02-inferencia1.html#azar-y-repetición",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Azar y repetición",
     "text": "Azar y repetición\n\n\nEl comportamiento del azar es impredecible con pocas repeticiones pero presenta un comportamiento regular y predecible con muchas repeticiones."
   },
   {
     "objectID": "slides/02-inferencia1.html#dato-freak",
     "href": "slides/02-inferencia1.html#dato-freak",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "(Dato freak)",
     "text": "(Dato freak)\n\n\nCerca del año 1900, el estadístico inglés Karl Pearson lanzó al aire una moneda 24.000 veces. El resultado: 12.012 caras, una proporción de 0,5005."
   },
   {
     "objectID": "slides/02-inferencia1.html#dados",
     "href": "slides/02-inferencia1.html#dados",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados",
     "text": "Dados\nTenemos 1 dado, ¿cuál es la probabilidad de que salga 3 al lanzarlo?\n\nEspacio muestral S = conjunto de todos los resultados posibles\n\n\\(S=\\{1,2,3,4,5,6\\}\\)\n\nN del espacio muestral = 6 sucesos posibles\nProbabilidad de que salga 3 al tirar el dado = \\(\\frac{1}{6}=0.166\\)"
   },
   {
     "objectID": "slides/02-inferencia1.html#section-4",
     "href": "slides/02-inferencia1.html#section-4",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "Un modelo de probabilidad para un fenómeno aleatorio consiste en un espacio muestral S y una asignación de probabilidades P.\nEl espacio muestral S es el conjunto de todos los resultados posibles de un fenómeno aleatorio.\nUn suceso es un conjunto de resultados. P asigna un número P(A) a un suceso A como su probabilidad."
   },
   {
     "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
     "href": "slides/02-inferencia1.html#dados-probabilidades-y-distribuciones",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados, probabilidades y distribuciones",
     "text": "Dados, probabilidades y distribuciones\n\n\n\n\nEjercicio:\n\nprobar lanzando 1 dado repetidas veces\nprobar con 2 dados\n… y con 6\n\n-&gt; link"
   },
   {
     "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
     "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados, probabilidades y áreas",
     "text": "Dados, probabilidades y áreas"
   },
   {
     "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
     "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados, probabilidades y áreas",
     "text": "Dados, probabilidades y áreas"
   },
   {
     "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
     "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados, probabilidades y áreas",
     "text": "Dados, probabilidades y áreas"
   },
   {
     "objectID": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
     "href": "slides/02-inferencia1.html#dados-probabilidades-y-áreas-3",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Dados, probabilidades y áreas",
     "text": "Dados, probabilidades y áreas\n\n\n\n\n\nEventos posibles (espacio muestral S) = 6 = (1,2,3,4,5,6)\n\\[\n\\begin{align*}\nP(x)\\geq4&=P(4)+P(5)+P(6) \\\\\n&=0.1\\overline{6}+0.1\\overline{6}+0.1\\overline{6} \\\\\n&=0.5\n\\end{align*}\n\\]"
   },
   {
     "objectID": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
     "href": "slides/02-inferencia1.html#sucesos-con-distinta-probabilidad",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Sucesos con distinta probabilidad",
     "text": "Sucesos con distinta probabilidad\nEj: suma de 2 dados al azar repetidos"
   },
   {
     "objectID": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
     "href": "slides/02-inferencia1.html#distribución-muestral-del-promedio",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Distribución muestral del promedio",
     "text": "Distribución muestral del promedio\n\n\nsi extraemos repetidamente 2 dados, y obtenemos su promedio, el gráfico de frecuencias tenderá a una forma acampanada\nesto ocurre simplemente porque la probabilidad de valores extremos (como promedio 1 o promedio 6) es mucho menor que la de obtener valores centrales\npor lo tanto, podemos aproximarnos al promedio de la población mediante el promedio de los promedios de muchas muestras"
   },
   {
     "objectID": "slides/02-inferencia1.html#y-tarea",
     "href": "slides/02-inferencia1.html#y-tarea",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Y tarea:",
     "text": "Y tarea:\n\n# Generar todas las combinaciones posibles de dos dados\ndado1 &lt;- rep(1:6, each = 6)\ndado2 &lt;- rep(1:6, times = 6)\n\n# Calcular la suma y el promedio para cada combinación\nsuma &lt;- dado1 + dado2\npromedio &lt;- suma / 2\n\n# Crear un data frame con los resultados\nresultados &lt;- data.frame(dado1, dado2, suma, promedio)\n\n# Mostrar el data frame\nprint(resultados)\n\n\n# Cargar la librería para gráficos\nlibrary(ggplot2)\n\n# Gráfico de frecuencias para la suma\nggplot(resultados, aes(x = suma)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de la Suma\", x = \"Suma\", y = \"Frecuencia\")\n\n# Gráfico de frecuencias para los promedios\nggplot(resultados, aes(x = promedio)) +\n  geom_bar() +\n  labs(title = \"Gráfico de Frecuencias de los Promedios\", x = \"Promedio\", y = \"Frecuencia\")"
   },
@@ -1434,5 +1434,96 @@
     "title": "Distribución Normal e Intervalos de Confianza",
     "section": "Instrucciones",
     "text": "Instrucciones\n\nCargue la base de datos.\n\n\nif (!requireNamespace(\"pacman\", quietly = TRUE)) install.packages(\"pacman\") # Si no está instalado, instala el paquete\npacman::p_load(HistData)\ndata(\"Galton\")\n\nnames(Galton) # revisar las variables disponibles: \"parent\" y \"child\"\n\n[1] \"parent\" \"child\" \n\naltura &lt;- Galton$child # creamos el vector con la variable de interés\n\n\n\n\n\n\n\nTip\n\n\n\nLa unidad de medida de la variable se encuentra en pulgadas.\n\n\n\nCalcule y describa la distribución\n\n\nObtenga la media y desviación estándar de la estatura.\nVisualice la distribución en un histograma\n\n\nEstandarice los datos (puntajes Z)\n\n\nTransforme la variable a puntajes Z\nMuestre los primeros 10 valores (head()).\nMuestre también los últimos 10 valores (tail()).\n¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?\nVerifique la media y desviación estándar\n\n\nCalcule el error estándar de la variable\nCalcule el intervalo de confianza para la media\n\n\nEstime el IC para un 95% de confianza\nEstime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?\n\n\nExplore el efecto del tamaño muestral\n\n\nGeneremos 3 submuestras aleatorias con la función sample().\n\n\nset.seed(123)\nmuestra_100 &lt;- sample(altura, 100)\nmuestra_200 &lt;- sample(altura, 200)\nmuestra_400 &lt;- sample(altura, 400)\n\n\nCalcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?\nCalcule el error estándar y el intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?"
+  },
+  {
+    "objectID": "slides/03-inferencia2.html",
+    "href": "slides/03-inferencia2.html",
+    "title": "",
+    "section": "",
+    "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Inferencia 2:\nError estándar y curva normal"
+  },
+  {
+    "objectID": "assignment/02-practico.html",
+    "href": "assignment/02-practico.html",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "",
+    "text": "Sesión del miércoles, 19 de agosto de 2026"
+  },
+  {
+    "objectID": "assignment/02-practico.html#repaso-intervalos-de-confianza",
+    "href": "assignment/02-practico.html#repaso-intervalos-de-confianza",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "0.1 Repaso intervalos de confianza",
+    "text": "0.1 Repaso intervalos de confianza\nRecordemos que un intervalo de confianza es un rango de valores plausibles que contiene la media poblacional, el cual se construye a partir del error estándar.\nSu fórmula es la siguiente:\n\\[\nIC = \\bar{x} \\pm z \\cdot \\frac{s}{\\sqrt{n}}\n\\]\nDonde:\n\n\\(\\bar{x}\\) es la media de la muestra.\n\\(z\\) es el valor crítico.\n\\(s\\) es la desviación estándar de la muestra.\n\\(n\\) es el tamaño de la muestra.\n\\(\\frac{s}{\\sqrt{n}}\\) corresponde al error estándar.\n\nEn términos visuales, los intervalos de confianza representan la probabilidad de que la media poblacional se encuentre en su rango, ilustrado por el área bajo la curva que cubre el intervalo."
+  },
+  {
+    "objectID": "assignment/02-practico.html#recursos-de-la-práctica",
+    "href": "assignment/02-practico.html#recursos-de-la-práctica",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "0.2 Recursos de la práctica",
+    "text": "0.2 Recursos de la práctica\nEn esta práctica trabajaremos con un subconjunto de datos previamente procesados de la Encuesta de Caracterización Socioeconómica (CASEN) del año 2022, elaborada por el Ministerio de Desarrollo Social y Familia. Para este ejercicio, obtendremos directamente esta base desde internet. No obstante, también tienes la opción de acceder a la misma información a través del siguiente enlace:  CASEN 2022. Desde allí, podrás descargar el archivo que contiene el subconjunto procesado de la base de datos CASEN 2022."
+  },
+  {
+    "objectID": "assignment/02-practico.html#cinco-pasos-para-la-inferencia-estadística",
+    "href": "assignment/02-practico.html#cinco-pasos-para-la-inferencia-estadística",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "0.3 Cinco pasos para la inferencia estadística",
+    "text": "0.3 Cinco pasos para la inferencia estadística\n\nEn inferencia, las pruebas de hipótesis nos ayudan a determinar si el resultado que obtenemos en nuestra muestra es un efecto real/extensible a la población o un error. Aquí recomendamos una lista de cinco pasos lógicos para enfrentarnos a la inferencia estadística:\n\n\n\n\nPaso\n\n\nDetalle\n\n\n\n\n1\n\n\nFormula \\(H_0\\) y \\(H_A\\) y estipula la dirección de la prueba\n\n\n\n\n2\n\n\nCalcula el error estándar (SE) y el valor estimado de la prueba (ej: Z o t)\n\n\n\n\n3\n\n\nEspecifica la probabilidad de error \\(\\alpha\\) y el valor crítico de la prueba\n\n\n\n\n4\n\n\nContrasta el valor estimado con el valor crítico\n\n\n\n\n5\n\n\nIntrepreta los resultados\n\n\n\nAdemás de estos 5 pasos también existe la posibilidad de calcular un intervalo de confianza, que acompañe la precisión de nuestra estimación."
+  },
+  {
+    "objectID": "slides/02-inferencia1.html",
+    "href": "slides/02-inferencia1.html",
+    "title": "",
+    "section": "",
+    "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Inferencia 1:\nDatos, probabilidad y distribuciones muestrales"
+  },
+  {
+    "objectID": "assignment/02-practico.html#los-cinco-pasos-para-la-inferencia-estadística",
+    "href": "assignment/02-practico.html#los-cinco-pasos-para-la-inferencia-estadística",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "2.1 Los cinco pasos para la inferencia estadística",
+    "text": "2.1 Los cinco pasos para la inferencia estadística\nEn inferencia, las pruebas de hipótesis nos ayudan a determinar si el resultado que obtenemos en nuestra muestra es un efecto real/extrapolable a la población o un error. Aquí recomendamos una lista de cinco pasos lógicos para enfrentarnos a la inferencia estadística:\n\n\n\n\nPaso\n\n\nDetalle\n\n\n\n\n1\n\n\nFormula \\(H_0\\) y \\(H_A\\) y estipula la dirección de la prueba\n\n\n\n\n2\n\n\nCalcula el error estándar (SE) y el valor estimado de la prueba (ej: Z o t)\n\n\n\n\n3\n\n\nEspecifica la probabilidad de error \\(\\alpha\\) y el valor crítico de la prueba\n\n\n\n\n4\n\n\nContrasta el valor estimado con el valor crítico\n\n\n\n\n5\n\n\nInterpreta los resultados\n\n\n\nAdemás de estos 5 pasos también existe la posibilidad de calcular un intervalo de confianza, que acompañe la precisión de nuestra estimación."
+  },
+  {
+    "objectID": "assignment/02-practico.html#error-estándar",
+    "href": "assignment/02-practico.html#error-estándar",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "1.1 Error estándar",
+    "text": "1.1 Error estándar\nObservando la fórmula, recordamos que para calcular el intervalo, debemos recorrer algunos pasos previos como calcular el error estándar, que se estima de la siguiente manera:\n\\[\nEE = \\frac{s}{\\sqrt{n}}\n\\]\nDonde:\n\\(s\\) es la desviación estándar de la muestra. \\(n\\) es el número de casos de la muestra.\nPara nuestro caso, reemplazamos los valores de la fórmula:\n\nee &lt;- desv_estandar / sqrt(100)\n\nEl error estándar es de 0.18. Esto quiere decir que las medias de las distintas muestras de una misma población varían en 0.18.\n\n\n\n\n\n\nImportante\n\n\n\nEl error estándar de la media estima cuánto variarían las medias entre distintas muestras\n\nUn error estándar pequeño indica una estimación más precisa.\nUn error estándar grande indica una estimación menos precisa.\n\n\n\nMantengamos la misma desviación estándar y comparemos muestras de 100 y 500 casos. Antes de ejecutar el código, anticipa: ¿cuál tendrá menor error estándar?\n\nee_100 &lt;- desv_estandar / sqrt(100) # Calcula el error estándar para 25 casos\nee_500 &lt;- desv_estandar / sqrt(500) # Calcula el error estándar para 100 casos\n\nee_100 # Muestra el error estándar para 25 casos\n\n[1] 0.1825632\n\nee_500 # Muestra el error estándar para 100 casos\n\n[1] 0.08164473\n\n\nEl error estándar disminuye de aproximadamente 0,18 a 0,08 cuando el tamaño de la muestra aumenta de 100 a 500 casos. Por lo tanto, ¨**na muestra más grande permite estimar la media con mayor precisió*. Recordemos que la desviación estándar se mantuvo igual en ambos cálculos; lo único que cambió fue el número de casos."
+  },
+  {
+    "objectID": "assignment/02-practico.html#cálculo-del-intervalo",
+    "href": "assignment/02-practico.html#cálculo-del-intervalo",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "1.2 Cálculo del intervalo",
+    "text": "1.2 Cálculo del intervalo\nConsiderando nuestros datos actuales, tenemos una media de 5.18, pero no podemos asegurar que la media poblacional sea la misma. Por ello, recurrimos a los intervalos de confianza. En términos convencionales, el resultado será significativo si podemos establecerlo con un nivel de confianza del 95%.\n\n\n\n\n\n\nImportante\n\n\n\nDicho de otra manera, si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el 95 % de esos intervalos contendría la verdadera media poblacional.\n\n\nPara construir un intervalo de confianza del 95 %, buscamos los valores Z que encierran el 95 % central de la distribución normal.\nRecordemos que el valor crítico para un 95% de confianza es de 1.96, el cual es calculado mediante los valores z que acumulan el 95% central de la distribución normal.\n\nvalor_critico &lt;- 1.96 # creación del objeto valor crítico\n\n\nlimite_inferior &lt;- media - valor_critico * ee # Calcula el límite inferior\n\nlimite_superior &lt;- media + valor_critico * ee # Calcula el límite superior\n\nlimite_inferior # Muestra el límite inferior\n\n[1] 4.822988\n\nlimite_superior # Muestra el límite superior\n\n[1] 5.538636\n\n\nEl intervalo obtenido se extiende aproximadamente entre 4,82 y 5,54.\n\n\n\n\n\nMedia muestral e intervalo de confianza del 95 %.\n\n\n\n\nEl punto representa la media de la muestra y la línea muestra el intervalo de confianza del 95%."
+  },
+  {
+    "objectID": "assignment/02-practico.html#recordemos",
+    "href": "assignment/02-practico.html#recordemos",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "2.3 Recordemos…",
+    "text": "2.3 Recordemos…\nEn estadística, la formulación de hipótesis que implica dos variables (o la comparación de grupos) busca determinar si existen diferencias en una variable entre grupos y, de ser el caso, evaluar si esta diferencia es estadísticamente significativa.\nHasta ahora, hemos aprendido a contrastar hipótesis sobre diferencias entre grupos. A esto también se le llama hipótesis de dos colas.\n\n\n\n\n\n\nNotaPrueba de dos colas\n\n\n\nContrastamos la hipótesis nula de no diferencias entre grupos: \\[  H_{0}: \\mu_{1} - \\mu_{2} = 0 \\] En relación a una hipótesis alternativa sobre diferencias entre grupos: \\[  H_{A}: \\mu_{1} - \\mu_{2} \\neq 0 \\]\n\n\nAdemás, podemos plantear hipótesis respecto a que el valor de cierto parámetro para un grupo puede ser mayor o menor al de otro grupo. A esto se le conoce como hipótesis de una cola.\n\n\n\n\n\n\nNotaPrueba de una cola\n\n\n\n\\[  H_{0}: \\mu_{0} ≥ \\mu_{1} ; \\mu_{0} ≤ \\mu_{1}\\]\n\\[  H_{A}: \\mu_{0} &gt; \\mu_{1} \\]\n\\[  H_{A}: \\mu_{0} &lt; \\mu_{1} \\]\n\n\nVeamos ahora cómo aplicar todos estos conocimientos con ejercicios. Primero, para asegurar la reproducibilidad de los resultados, utilizamos set.seed\n\nset.seed(123) # Fijar la semilla para reproducibilidad"
+  },
+  {
+    "objectID": "assignment/02-practico.html#preparación-datos",
+    "href": "assignment/02-practico.html#preparación-datos",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "2.2 Preparación datos",
+    "text": "2.2 Preparación datos\nComencemos por preparar nuestros datos. Iniciamos cargando las librerías necesarias.\n\n\n\n\n\n\nImportante\n\n\n\nLa función p_load del paquete pacman simplifica el proceso de carga de paquetes, ya que se pueden cargar varios paquetes a la vez y, en caso de que alguno de esos paquetes no esté previamente instalado, p_load lo reconoce e instala\n\n\n\npacman::p_load(dplyr, # Manipulacion datos\n               gginference, # Visualizacion \n               rempsyc, # Reporte\n               kableExtra, # Tablas\n               broom, # Varios\n               flextable, # nice table\n               rempsyc)\n\noptions(scipen = 999) # para desactivar notacion cientifica\nrm(list = ls()) # para limpiar el entorno de trabajo\n\nCargamos los datos directamente desde internet.\n\nload(url(\"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData\")) #Cargar base de datos\n\nA continuación, exploramos la base de datos proc_casen.\n\nnames(proc_casen) # Nombre de columnas\n\n [1] \"id_vivienda\"      \"folio\"            \"id_persona\"       \"hogar\"           \n [5] \"nucleo\"           \"varunit\"          \"varstrat\"         \"expr\"            \n [9] \"edad\"             \"sexo\"             \"educ\"             \"activ\"           \n[13] \"y1\"               \"ytrabajocor\"      \"pobreza_multi_5d\" \"o15\"             \n[17] \"qaut\"             \"fdt\"              \"ocupado\"          \"desocupado\"      \n[21] \"inact\"            \"hijo\"             \"n_educ\"           \"universitaria\"   \n[25] \"tipo_ocup\"        \"ss_salud\"         \"ayuda_moverse\"    \"ayuda_thogar\"    \n[29] \"disc_fisica\"     \n\ndim(proc_casen) # Dimensiones\n\n[1] 202111     29\n\n\nContamos con 29 variables (columnas) y 202.111 observaciones (filas)."
+  },
+  {
+    "objectID": "assignment/02-practico.html#ejercicio-1",
+    "href": "assignment/02-practico.html#ejercicio-1",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "2.4 Ejercicio 1",
+    "text": "2.4 Ejercicio 1\nEstamos en un escenario donde la pregunta de investigación es: ¿Es el salario de los hombres mayor que el de las mujeres?\nPara contrastar esta hipótesis, vamos utilizar la bbdd proc_casen, seleccionaremos las variables sexo e ytrabajocor y haremos un subset de datos de 1.500 casos.\n\ncasen_subset &lt;- proc_casen %&gt;% \n  select(sexo, ytrabajocor) %&gt;% # seleccionamos\n  sample_n(1500) # extraemos una muestra de 1500 casos\n\ncasen_subset &lt;- na.omit(casen_subset) # eliminamos casos perdidos (listwise)\n\n\n\n\n\n\n\nTip\n\n\n\nEl símbolo %&gt;% se llama pipe, y es una de las funciones más útiles de R. Su utilidad radica en que permite encadenar operaciones, es decir, lee el código como una secuencia de pasos en lugar de funciones aisladas, donde el resultado de un comando pasa a ser el primer argumento del siguiente comando, lo que permite ahorrar líneas de código\n\n\nGeneramos tabla para visualizar la distribución de los datos.\n\ncasen_subset %&gt;% \n  dplyr::group_by(sexo) %&gt;% # se agrupan por la variable categórica \n  dplyr::summarise(Obs. = n(), # columna para el N de cada categoría\n                   Promedio = mean(ytrabajocor, na.rm=TRUE),\n                   SD = sd(ytrabajocor, na.rm=TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kableExtra::kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1\n379\n690724.8\n613238.9\n\n\n2\n309\n585360.4\n567737.7\n\n\n\n\n\nAhora vamos con los 5 pasos de la inferencia\n1. Formulación de hipótesis\nEl primer aspecto a establecer es el tipo de hipótesis a formular: ¿Direccional o no direccional? En este caso, la pregunta indica una direccionalidad (“mayor que”), por lo tanto corresponde a una hipótesis direccional. Si hubiera sido una pregunta que hiciera referencia simplemente a diferencias (“¿Es el salario de los hombres distinto al de las mujeres?”) correspondería a una hipótesis no direccional.\nLa hipótesis general es que el salario de los hombres es mayor que el de las mujeres. Pasando a lenguaje de hipótesis, esto se plantea como:\nHipótesis alternativa:\n\\(H_A\\): Promedio salarial hombres ( \\(\\bar{X}_{hombres}\\)) - Promedio salarial mujeres ( \\(\\bar{X}_{mujeres}\\)) &gt; 0\nHipótesis nula:\n\\(H_0\\): \\(\\bar{X}_{hombres} - \\bar{X}_{mujeres} \\leq 0\\)\nPasos 2, 3 y 4 de una vez con R\nEn clases vimos que los pasos 2, 3 y 4 corresponden a:\n\nObtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEstablecer la probabilidad de error \\(\\alpha\\) (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente\nCálculo de intervalo de confianza / contraste valores empírico/crítico\n\nEsta secuencia de pasos tiene un sentido pedagógico para poder entender cómo finalmente se llega a interpretar el contraste de hipótesis en el paso 5. Pero en análisis de datos, luego de establecer las hipótesis nos vamos directamente al software que nos permite obtener de una vez toda la información de los pasos 2, 3 y 4.\n\ntest_ej1 &lt;- t.test(casen_subset$ytrabajocor ~ casen_subset$sexo, # define las variables que serán sometidas al test de hipótesis\n                   alternative = \"greater\", # define la hipótesis alternativa\n                   conf.level = 0.95) # establece el nivel de confianza\n\ntest_ej1\n\n\n    Welch Two Sample t-test\n\ndata:  casen_subset$ytrabajocor by casen_subset$sexo\nt = 2.3355, df = 674.99, p-value = 0.009906\nalternative hypothesis: true difference in means between group 1 and group 2 is greater than 0\n95 percent confidence interval:\n 31054.71      Inf\nsample estimates:\nmean in group 1 mean in group 2 \n       690724.8        585360.4 \n\n\nTambién podemos visualizarlo en una tabla más amable.\n\nstats.table &lt;- tidy(test_ej1, conf_int = T) # se convierten los datos del test en un dataframe\nnice_table(stats.table, broom = \"t.test\") # convierte el dataframe en tabla\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CIWelch Two Sample t-testgreater690,724.82585,360.36105,364.472.34674.99.010**[31054.71, Inf]\n\n\nVisualicemos la distribución de esta prueba y su zona de rechazo.\n\ngginference::ggttest(test_ej1)\n\n\n\n\n\n\n\n\n5. Interpretación\nLa prueba t que evalúa la diferencia de medias entre el salario y el sexo sugiere que el efecto es positivo y estadísticamente signficativo (diferencia = 105.364,47, t = 2.34, p &lt; .05). El valor \\(p\\) indica que la probabilidad de observar una diferencia de esta magnitud, o mayor, bajo la suposición de \\(H_{0}\\) es menor al 5%. Por tanto, con un 95% de confianza, rechazamos la \\(H_{0}\\) ya que existe evidencia a favor de nuestra \\(H_{A}\\) respecto a que el salario de los hombres es mayor al salario de las mujeres.\n\n\n\n\n\n\nImportante\n\n\n\nLas hipótesis se pueden rechazar, pero nunca se aceptan (lógica de falsación)"
+  },
+  {
+    "objectID": "assignment/02-practico.html#ejercicio-2",
+    "href": "assignment/02-practico.html#ejercicio-2",
+    "title": "Intervalos de Confianza y Test de hipótesis",
+    "section": "2.5 Ejercicio 2",
+    "text": "2.5 Ejercicio 2\nTomando como ejemplo el trabajo de la ganadora del Premio Nobel de Economía 2023 Claudia Goldin, en este siguiente ejercicio evaluaremos la siguiente pregunta: ¿Es el salario de las mujeres con hijos menor al salario de las mujeres sin hijos? Por ende, usaremos prueba \\(t\\) para diferencia de medias.\nUtilizaremos la bbdd proc_casen, seleccionando las variables ocupado, sexo, ytrabajocor e hijo. Luego, filtraremos por ocupado == 1 y sexo == 2 para quedarnos sólo con mujeres ocupadas y generaremos una muestra aleatoria de 1.500 casos con la función sample_n(). Luego, eliminaremos los casos pérdidos con na.omit().\n\nset.seed(123)\n\ngoldin_data &lt;- proc_casen %&gt;% # crear subset a partir de la base proc_casen\n  dplyr::select(ocupado, sexo, ytrabajocor, hijo) %&gt;% # selección de variables\n  dplyr::filter(ocupado == 1 & sexo == 2) %&gt;% # se filtra solo por mujeres ocupadas\n  sample_n(1500) %&gt;% # submuestra de 1500\n  na.omit()# creamos subset \n\nAhora generamos una tabla de descriptivos de los ingresos (ytrabajocor) según si las observaciones tienen hijos o no (hijo), presentando la cantidad de casos, la media y la desviación estándar.\n\ngoldin_data %&gt;% \n  dplyr::group_by(hijo) %&gt;% \n  dplyr::summarise(Obs. = n(),\n                   Media = mean(ytrabajocor, na.rm = T),\n                   DS = sd(ytrabajocor, na.rm = T)) %&gt;% \n  kableExtra::kable(format = \"markdown\") # hacemos la tabla\n\n\n\n\nhijo\nObs.\nMedia\nDS\n\n\n\n\n0\n353\n706113.7\n830191.0\n\n\n1\n1098\n590847.7\n638006.8\n\n\n\n\n\nAhora vamos con los 5 pasos de la inferencia\n1. Formulación de hipótesis\nEl primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis direccional (mayor que)\nLuego, debemos establecer las hipótesis nula y alternativa:\n(\\(H_0\\)): El promedio salarial de las mujeres sin hijos será igual o menor que el promedio salarial de las mujeres con hijos.\n(\\(H_A\\)): El promedio salarial de mujeres sin hijos será mayor que el promedio salarial de las mujeres con hijos.\nPasos 2, 3 y 4 de una vez con R\nSiguiendo el ejemplo del Ejercicio 1, utilizaremos el software para estimar el test de hipótesis con un 95% de confianza.\n\ntest_ej2 &lt;- t.test(goldin_data$ytrabajocor ~ goldin_data$hijo, \n                   alternative = \"greater\",\n                   conf.level = 0.95)\n\ntest_ej2\n\n\n    Welch Two Sample t-test\n\ndata:  goldin_data$ytrabajocor by goldin_data$hijo\nt = 2.3914, df = 492.66, p-value = 0.008578\nalternative hypothesis: true difference in means between group 0 and group 1 is greater than 0\n95 percent confidence interval:\n 35835.71      Inf\nsample estimates:\nmean in group 0 mean in group 1 \n       706113.7        590847.7 \n\n\n\nstats.table &lt;- tidy(test_ej2, conf_int = T)\nnice_table(stats.table, broom = \"t.test\")\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CIWelch Two Sample t-testgreater706,113.65590,847.70115,265.962.39492.66.009**[35835.71, Inf]\n\n\nA partir de los resultados obtenidos: ¿es posible rechazar la hipótesis planteada?\n\nLa prueba t que evalúa la diferencia de medias\n\nCon un 95% de confianza es posible rechazar la hipótesis nula planteada. El promedio salarial de las mujeres sin hijos es $115.265,96 mayor que el de las mujeres con hijos."
   }
 ]

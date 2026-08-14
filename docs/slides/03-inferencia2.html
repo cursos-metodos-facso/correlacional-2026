@@ -1,224 +1,297 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<link href="../images/logo.png" rel="icon" type="image/png">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>inferencia2 – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-a395eb3328d60d8f7005ac7d5cb6bbec.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  <title>Estadística Correlacional – inferencia2</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-0bc692cff0c38d6b6bf1905041faf6b5.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <meta property="og:title" content="Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
-<body class="quarto-light">
-  <div class="reveal">
-    <div class="slides">
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#la-tarea" id="toc-la-tarea" class="nav-link" data-scroll-target="#la-tarea">La tarea</a>
+  <ul class="collapse">
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#la-tarea-resultado" id="toc-la-tarea-resultado" class="nav-link" data-scroll-target="#la-tarea-resultado">La tarea: resultado</a></li>
+  <li><a href="#la-tarea-gráficos" id="toc-la-tarea-gráficos" class="nav-link" data-scroll-target="#la-tarea-gráficos">La tarea: gráficos</a></li>
+  <li><a href="#probabilidad-de-promedio-de-2-dados-al-azar" id="toc-probabilidad-de-promedio-de-2-dados-al-azar" class="nav-link" data-scroll-target="#probabilidad-de-promedio-de-2-dados-al-azar">Probabilidad de promedio de 2 dados al azar</a></li>
+  <li><a href="#qué-aprendimos-de-esto" id="toc-qué-aprendimos-de-esto" class="nav-link" data-scroll-target="#qué-aprendimos-de-esto">¿Qué aprendimos de esto?</a></li>
+  <li><a href="#esta-clase" id="toc-esta-clase" class="nav-link" data-scroll-target="#esta-clase">ESTA CLASE</a>
+  <ul class="collapse">
+  <li><a href="#distribución-teórica-vs-distribución-empírica" id="toc-distribución-teórica-vs-distribución-empírica" class="nav-link" data-scroll-target="#distribución-teórica-vs-distribución-empírica">- Distribución teórica vs distribución empírica</a></li>
+  <li><a href="#curva-normal" id="toc-curva-normal" class="nav-link" data-scroll-target="#curva-normal">- Curva normal</a></li>
+  <li><a href="#puntaje-z-y-estandarización" id="toc-puntaje-z-y-estandarización" class="nav-link" data-scroll-target="#puntaje-z-y-estandarización">- Puntaje Z y estandarización</a></li>
+  <li><a href="#error-estándar" id="toc-error-estándar" class="nav-link" data-scroll-target="#error-estándar">- Error estándar</a></li>
+  </ul></li>
+  <li><a href="#distribución-teórica" id="toc-distribución-teórica" class="nav-link" data-scroll-target="#distribución-teórica">Distribución teórica</a></li>
+  <li><a href="#repeticiones-empírica" id="toc-repeticiones-empírica" class="nav-link" data-scroll-target="#repeticiones-empírica">100 repeticiones (empírica)</a></li>
+  <li><a href="#repeticiones-vs.-teórica" id="toc-repeticiones-vs.-teórica" class="nav-link" data-scroll-target="#repeticiones-vs.-teórica">100 repeticiones vs.&nbsp;teórica</a></li>
+  <li><a href="#repeticiones-vs.-teórica-1" id="toc-repeticiones-vs.-teórica-1" class="nav-link" data-scroll-target="#repeticiones-vs.-teórica-1">500 repeticiones vs.&nbsp;teórica</a></li>
+  <li><a href="#repeticiones-vs.-teórica-2" id="toc-repeticiones-vs.-teórica-2" class="nav-link" data-scroll-target="#repeticiones-vs.-teórica-2">1500 repeticiones vs.&nbsp;teórica</a></li>
+  <li><a href="#repeticiones-vs.-teórica-3" id="toc-repeticiones-vs.-teórica-3" class="nav-link" data-scroll-target="#repeticiones-vs.-teórica-3">5000 repeticiones vs.&nbsp;teórica</a></li>
+  <li><a href="#muestra-y-distribución" id="toc-muestra-y-distribución" class="nav-link" data-scroll-target="#muestra-y-distribución">Muestra y distribución</a></li>
+  </ul></li>
+  <li><a href="#curva-normal-un-modelo-teórico-de-distribución-conocido" id="toc-curva-normal-un-modelo-teórico-de-distribución-conocido" class="nav-link" data-scroll-target="#curva-normal-un-modelo-teórico-de-distribución-conocido"><span style="font-size: 0.85em;">Curva normal: un modelo teórico de distribución conocido</span></a>
+  <ul class="collapse">
+  <li><a href="#histograma-vs.-curvas-de-densidad" id="toc-histograma-vs.-curvas-de-densidad" class="nav-link" data-scroll-target="#histograma-vs.-curvas-de-densidad">Histograma vs.&nbsp;curvas de densidad</a></li>
+  <li><a href="#curva-de-distribución" id="toc-curva-de-distribución" class="nav-link" data-scroll-target="#curva-de-distribución">Curva de distribución</a></li>
+  <li><a href="#curva-de-distribución-normal" id="toc-curva-de-distribución-normal" class="nav-link" data-scroll-target="#curva-de-distribución-normal">Curva de distribución normal</a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva" id="toc-distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva" class="nav-link" data-scroll-target="#distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva">Distribución normal, desviaciones estándar y áreas bajo la curva</a></li>
+  <li><a href="#por-qué-es-importante-la-distribución-normal-en-estadística" id="toc-por-qué-es-importante-la-distribución-normal-en-estadística" class="nav-link" data-scroll-target="#por-qué-es-importante-la-distribución-normal-en-estadística">¿Por qué es importante la distribución normal en estadística?</a></li>
+  <li><a href="#puntaje-z-y-estandarización-1" id="toc-puntaje-z-y-estandarización-1" class="nav-link" data-scroll-target="#puntaje-z-y-estandarización-1">Puntaje <span class="math inline">\(z\)</span> y estandarización</a></li>
+  <li><a href="#ejemplo-comparación-distribuciones-ritchey-p.-148" id="toc-ejemplo-comparación-distribuciones-ritchey-p.-148" class="nav-link" data-scroll-target="#ejemplo-comparación-distribuciones-ritchey-p.-148">Ejemplo comparación distribuciones (Ritchey, p.&nbsp;148)</a></li>
+  <li><a href="#comparando-peras-con-manzanas" id="toc-comparando-peras-con-manzanas" class="nav-link" data-scroll-target="#comparando-peras-con-manzanas">Comparando peras con manzanas</a></li>
+  <li><a href="#proporciones" id="toc-proporciones" class="nav-link" data-scroll-target="#proporciones">Proporciones</a></li>
+  <li><a href="#ejemplo-1" id="toc-ejemplo-1" class="nav-link" data-scroll-target="#ejemplo-1">Ejemplo 1</a></li>
+  <li><a href="#ejemplo-2" id="toc-ejemplo-2" class="nav-link" data-scroll-target="#ejemplo-2">Ejemplo 2</a></li>
+  <li><a href="#distribución-muestral-del-promedio" id="toc-distribución-muestral-del-promedio" class="nav-link" data-scroll-target="#distribución-muestral-del-promedio">Distribución muestral del promedio</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a>
+  <ul class="collapse">
+  <li><a href="#problema-tenemos-1-sola-muestra-y-un-solo-promedio" id="toc-problema-tenemos-1-sola-muestra-y-un-solo-promedio" class="nav-link" data-scroll-target="#problema-tenemos-1-sola-muestra-y-un-solo-promedio"><span style="color: #dfc117;">Problema: tenemos 1 SOLA MUESTRA, y un solo promedio</span></a></li>
+  <li><a href="#cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios" id="toc-cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios" class="nav-link" data-scroll-target="#cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios"><span style="color: white;">¿Cómo obtenemos entonces la desviación estándar de los promedios?</span></a></li>
+  </ul></li>
+  <li><a href="#error-estándar-y-teorema-central-del-límite-tcl" id="toc-error-estándar-y-teorema-central-del-límite-tcl" class="nav-link" data-scroll-target="#error-estándar-y-teorema-central-del-límite-tcl"><span style="font-size: 0.8em;">Error estándar y Teorema Central del Límite (TCL)</span></a>
+  <ul class="collapse">
+  <li><a href="#desviación-estándar-y-error-estándar" id="toc-desviación-estándar-y-error-estándar" class="nav-link" data-scroll-target="#desviación-estándar-y-error-estándar">Desviación estándar y error estándar</a></li>
+  <li><a href="#distribución-muestral-del-promedio-1" id="toc-distribución-muestral-del-promedio-1" class="nav-link" data-scroll-target="#distribución-muestral-del-promedio-1">Distribución muestral del promedio</a></li>
+  <li><a href="#distribución-muestral-del-promedio-2" id="toc-distribución-muestral-del-promedio-2" class="nav-link" data-scroll-target="#distribución-muestral-del-promedio-2">Distribución muestral del promedio</a></li>
+  <li><a href="#distribución-muestral-del-promedio-3" id="toc-distribución-muestral-del-promedio-3" class="nav-link" data-scroll-target="#distribución-muestral-del-promedio-3">Distribución muestral del promedio</a></li>
+  <li><a href="#teorema-central-del-límite" id="toc-teorema-central-del-límite" class="nav-link" data-scroll-target="#teorema-central-del-límite">Teorema central del límite</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#demostración-10-muestras-5-casos-cu" id="toc-demostración-10-muestras-5-casos-cu" class="nav-link" data-scroll-target="#demostración-10-muestras-5-casos-cu">Demostración: 10 muestras, 5 casos c/u</a></li>
+  <li><a href="#para-qué-nos-sirve-el-error-estándar-se-del-promedio" id="toc-para-qué-nos-sirve-el-error-estándar-se-del-promedio" class="nav-link" data-scroll-target="#para-qué-nos-sirve-el-error-estándar-se-del-promedio"><span style="font-size: 0.7em;">¿Para qué nos sirve el error estándar (SE) del promedio?</span></a>
+  <ul class="collapse">
+  <li><a href="#y-de-otros-estadísticos-como-la-correlación" id="toc-y-de-otros-estadísticos-como-la-correlación" class="nav-link" data-scroll-target="#y-de-otros-estadísticos-como-la-correlación"><span style="color: #dfc117; font-size: 0.6em;">(… y de otros estadísticos, como la correlación)</span></a></li>
+  </ul></li>
+  <li><a href="#usos-del-error-estándar" id="toc-usos-del-error-estándar" class="nav-link" data-scroll-target="#usos-del-error-estándar">Usos del error estándar</a>
+  <ul class="collapse">
+  <li><a href="#próxima-clase" id="toc-próxima-clase" class="nav-link" data-scroll-target="#próxima-clase">-&gt; Próxima clase</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen"><span style="color: #dfc117;">Resumen</span></a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="03-inferencia2.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<section>
-<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
+
+
+<section id="section" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
 <p><br></p>
-</section>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -229,63 +302,62 @@
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 <p><br> <span style="color: white; font-size: 1.3em;"><strong>Inferencia 2</strong>:</span></p>
 <p><span style="color: #dfc117;">Error estándar y curva normal</span></p>
+</section>
 </div>
-</div></section>
-<section>
-<section id="la-tarea" class="title-slide slide level1 center">
+</div>
+</section>
+<section id="la-tarea" class="level1">
 <h1>La tarea</h1>
-
-</section>
-<section id="section-1" class="slide level2">
-<h2></h2>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Generar todas las combinaciones posibles de dos dados</span></span>
-<span id="cb1-2"><a></a>dado1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">6</span>)</span>
-<span id="cb1-3"><a></a>dado2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">times =</span> <span class="dv">6</span>)</span>
-<span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a><span class="co"># Calcular la suma y el promedio para cada combinación</span></span>
-<span id="cb1-6"><a></a>suma <span class="ot">&lt;-</span> dado1 <span class="sc">+</span> dado2</span>
-<span id="cb1-7"><a></a>promedio <span class="ot">&lt;-</span> suma <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb1-8"><a></a></span>
-<span id="cb1-9"><a></a><span class="co"># Crear un data frame con los resultados</span></span>
-<span id="cb1-10"><a></a>resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dado1, dado2, suma, promedio)</span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a><span class="co"># Mostrar el data frame</span></span>
-<span id="cb1-13"><a></a><span class="fu">print</span>(resultados)</span>
-<span id="cb1-14"><a></a></span>
-<span id="cb1-15"><a></a></span>
-<span id="cb1-16"><a></a><span class="co"># Cargar la librería para gráficos</span></span>
-<span id="cb1-17"><a></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-18"><a></a></span>
-<span id="cb1-19"><a></a><span class="co"># Gráfico de frecuencias para la suma</span></span>
-<span id="cb1-20"><a></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> suma)) <span class="sc">+</span></span>
-<span id="cb1-21"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb1-22"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de la Suma"</span>, <span class="at">x =</span> <span class="st">"Suma"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span>
-<span id="cb1-23"><a></a></span>
-<span id="cb1-24"><a></a><span class="co"># Gráfico de frecuencias para los promedios</span></span>
-<span id="cb1-25"><a></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> promedio)) <span class="sc">+</span></span>
-<span id="cb1-26"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb1-27"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de los Promedios"</span>, <span class="at">x =</span> <span class="st">"Promedio"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar todas las combinaciones posibles de dos dados</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>dado1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">6</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dado2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">times =</span> <span class="dv">6</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la suma y el promedio para cada combinación</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>suma <span class="ot">&lt;-</span> dado1 <span class="sc">+</span> dado2</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> suma <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un data frame con los resultados</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dado1, dado2, suma, promedio)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar el data frame</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar la librería para gráficos</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de frecuencias para la suma</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> suma)) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de la Suma"</span>, <span class="at">x =</span> <span class="st">"Suma"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de frecuencias para los promedios</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> promedio)) <span class="sc">+</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de los Promedios"</span>, <span class="at">x =</span> <span class="st">"Promedio"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
-<section id="la-tarea-resultado" class="slide level2">
-<h2>La tarea: resultado</h2>
+<section id="la-tarea-resultado" class="level2">
+<h2 class="anchored" data-anchor-id="la-tarea-resultado">La tarea: resultado</h2>
 <div class="columns" style="font-size: 0.7em;">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Generar todas las combinaciones posibles de dos dados</span></span>
-<span id="cb2-2"><a></a>dado1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">6</span>)</span>
-<span id="cb2-3"><a></a>dado2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">times =</span> <span class="dv">6</span>)</span>
-<span id="cb2-4"><a></a></span>
-<span id="cb2-5"><a></a><span class="co"># Calcular la suma y el promedio para cada combinación</span></span>
-<span id="cb2-6"><a></a>suma <span class="ot">&lt;-</span> dado1 <span class="sc">+</span> dado2</span>
-<span id="cb2-7"><a></a>promedio <span class="ot">&lt;-</span> suma <span class="sc">/</span> <span class="dv">2</span></span>
-<span id="cb2-8"><a></a></span>
-<span id="cb2-9"><a></a><span class="co"># Crear un data frame con los resultados</span></span>
-<span id="cb2-10"><a></a>resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dado1, dado2, suma, promedio)</span>
-<span id="cb2-11"><a></a></span>
-<span id="cb2-12"><a></a><span class="co"># Mostrar el data frame</span></span>
-<span id="cb2-13"><a></a><span class="fu">print</span>(resultados)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar todas las combinaciones posibles de dos dados</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dado1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">each =</span> <span class="dv">6</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dado2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>, <span class="at">times =</span> <span class="dv">6</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la suma y el promedio para cada combinación</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>suma <span class="ot">&lt;-</span> dado1 <span class="sc">+</span> dado2</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>promedio <span class="ot">&lt;-</span> suma <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear un data frame con los resultados</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(dado1, dado2, suma, promedio)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar el data frame</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resultados)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -329,47 +401,49 @@
 36     6     6   12      6.0</code></pre>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="la-tarea-gráficos" class="slide level2">
-<h2>La tarea: gráficos</h2>
+<section id="la-tarea-gráficos" class="level2">
+<h2 class="anchored" data-anchor-id="la-tarea-gráficos">La tarea: gráficos</h2>
 <div class="columns" style="font-size: 0.7em;">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Cargar la librería para gráficos</span></span>
-<span id="cb4-2"><a></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb4-3"><a></a></span>
-<span id="cb4-4"><a></a><span class="co"># Gráfico de frecuencias para la suma</span></span>
-<span id="cb4-5"><a></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> suma)) <span class="sc">+</span></span>
-<span id="cb4-6"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb4-7"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de la Suma"</span>, <span class="at">x =</span> <span class="st">"Suma"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span>
-<span id="cb4-8"><a></a></span>
-<span id="cb4-9"><a></a><span class="co"># Gráfico de frecuencias para los promedios</span></span>
-<span id="cb4-10"><a></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> promedio)) <span class="sc">+</span></span>
-<span id="cb4-11"><a></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
-<span id="cb4-12"><a></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de los Promedios"</span>, <span class="at">x =</span> <span class="st">"Promedio"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar la librería para gráficos</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de frecuencias para la suma</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> suma)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de la Suma"</span>, <span class="at">x =</span> <span class="st">"Suma"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico de frecuencias para los promedios</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(resultados, <span class="fu">aes</span>(<span class="at">x =</span> promedio)) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>() <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de Frecuencias de los Promedios"</span>, <span class="at">x =</span> <span class="st">"Promedio"</span>, <span class="at">y =</span> <span class="st">"Frecuencia"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-5-1.png" width="384"></p>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-5-2.png" width="384"></p>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="probabilidad-de-promedio-de-2-dados-al-azar" class="slide level2" style="font-size: 0.75em;">
-<h2>Probabilidad de promedio de 2 dados al azar</h2>
+<section id="probabilidad-de-promedio-de-2-dados-al-azar" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="probabilidad-de-promedio-de-2-dados-al-azar">Probabilidad de promedio de 2 dados al azar</h2>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>   Promedio Probabilidad
@@ -387,66 +461,120 @@
 </div>
 </div>
 </section>
-<section id="qué-aprendimos-de-esto" class="slide level2" style="font-size: 0.75em;">
-<h2>¿Qué aprendimos de esto?</h2>
+<section id="qué-aprendimos-de-esto" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="qué-aprendimos-de-esto">¿Qué aprendimos de esto?</h2>
 <div style="font-size: 1.2em;">
 <ul>
-<li class="fragment"><p>la ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una <strong>distribución teórica de probabilidad</strong></p></li>
-<li class="fragment"><p>si repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la <strong>distribución empírica de probabilidad</strong> (de frecuencias de los eventos)</p></li>
-<li class="fragment"><p>de acuerdo a la <strong>ley de los grandes números</strong>, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones</p></li>
+<li><p>la ocurrencia de algunos eventos (como la suma o promedio de dos dados) tienen una probabilidad determinada, lo que genera una <strong>distribución teórica de probabilidad</strong></p></li>
+<li><p>si repito un evento aleatorio (ej: sacar muestras repetidas de dos dados y promediarlos) obtengo la <strong>distribución empírica de probabilidad</strong> (de frecuencias de los eventos)</p></li>
+<li><p>de acuerdo a la <strong>ley de los grandes números</strong>, el promedio empírico convergerá al teórico a medida que aumenta el número de repeticiones</p></li>
 </ul>
 </div>
 </section>
-<section id="esta-clase" class="slide level2" data-background-color="red" style="font-size: 1em;">
-<h2>ESTA CLASE</h2>
+<section id="esta-clase" class="level2" data-background-color="red" style="font-size: 1em;">
+<h2 data-background-color="red" style="font-size: 1em;" class="anchored" data-anchor-id="esta-clase">ESTA CLASE</h2>
 <p><br></p>
-<h3 id="distribución-teórica-vs-distribución-empírica">- Distribución teórica vs distribución empírica</h3>
-<h3 id="curva-normal">- Curva normal</h3>
-<h3 id="puntaje-z-y-estandarización">- Puntaje Z y estandarización</h3>
-<h3 id="error-estándar">- Error estándar</h3>
+<section id="distribución-teórica-vs-distribución-empírica" class="level3">
+<h3 class="anchored" data-anchor-id="distribución-teórica-vs-distribución-empírica">- Distribución teórica vs distribución empírica</h3>
 </section>
-<section id="distribución-teórica" class="slide level2">
-<h2>Distribución teórica</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-8-1.png" width="672" class="r-stretch"></section>
-<section id="repeticiones-empírica" class="slide level2" style="font-size: 0.75em;">
-<h2>100 repeticiones (empírica)</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-9-1.png" width="672" class="r-stretch"></section>
-<section id="repeticiones-vs.-teórica" class="slide level2" style="font-size: 0.75em;">
-<h2>100 repeticiones vs.&nbsp;teórica</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-10-1.png" width="672" class="r-stretch"></section>
-<section id="repeticiones-vs.-teórica-1" class="slide level2" style="font-size: 0.75em;">
-<h2>500 repeticiones vs.&nbsp;teórica</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-11-1.png" width="672" class="r-stretch"></section>
-<section id="repeticiones-vs.-teórica-2" class="slide level2" style="font-size: 0.75em;">
-<h2>1500 repeticiones vs.&nbsp;teórica</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-12-1.png" width="672" class="r-stretch"></section>
-<section id="repeticiones-vs.-teórica-3" class="slide level2" style="font-size: 0.75em;">
-<h2>5000 repeticiones vs.&nbsp;teórica</h2>
-
-<img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-13-1.png" width="672" class="r-stretch"></section>
-<section id="muestra-y-distribución" class="slide level2">
-<h2>Muestra y distribución</h2>
+<section id="curva-normal" class="level3">
+<h3 class="anchored" data-anchor-id="curva-normal">- Curva normal</h3>
+</section>
+<section id="puntaje-z-y-estandarización" class="level3">
+<h3 class="anchored" data-anchor-id="puntaje-z-y-estandarización">- Puntaje Z y estandarización</h3>
+</section>
+<section id="error-estándar" class="level3">
+<h3 class="anchored" data-anchor-id="error-estándar">- Error estándar</h3>
+</section>
+</section>
+<section id="distribución-teórica" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-teórica">Distribución teórica</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeticiones-empírica" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="repeticiones-empírica">100 repeticiones (empírica)</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeticiones-vs.-teórica" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="repeticiones-vs.-teórica">100 repeticiones vs.&nbsp;teórica</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeticiones-vs.-teórica-1" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="repeticiones-vs.-teórica-1">500 repeticiones vs.&nbsp;teórica</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeticiones-vs.-teórica-2" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="repeticiones-vs.-teórica-2">1500 repeticiones vs.&nbsp;teórica</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="repeticiones-vs.-teórica-3" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="repeticiones-vs.-teórica-3">5000 repeticiones vs.&nbsp;teórica</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="muestra-y-distribución" class="level2">
+<h2 class="anchored" data-anchor-id="muestra-y-distribución">Muestra y distribución</h2>
 <ul>
-<li class="fragment"><p>Sabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad</p></li>
-<li class="fragment"><p>¿De qué nos sirve esta información si…</p>
+<li><p>Sabemos que si sacamos muchos promedios de eventos aleatorios estos se van a aproximar a una distribución teórica de probabilidad</p></li>
+<li><p>¿De qué nos sirve esta información si…</p>
 <ul>
-<li class="fragment"><p>¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?</p></li>
-<li class="fragment"><p>¿no conocemos la distribución teórica?</p></li>
+<li><p>¿contamos sólo con un evento aleatorio o muestra de datos (ej: un promedio de dos dados)?</p></li>
+<li><p>¿no conocemos la distribución teórica?</p></li>
 </ul></li>
 </ul>
-</section></section>
-<section>
-<section id="curva-normal-un-modelo-teórico-de-distribución-conocido" class="title-slide slide level1 center" data-background-color="#0C3547" style="text-align: right;">
-<h1><span style="font-size: 0.85em;">Curva normal: un modelo teórico de distribución conocido</span></h1>
-
 </section>
-<section id="histograma-vs.-curvas-de-densidad" class="slide level2" style="font-size: 0.75em;">
-<h2>Histograma vs.&nbsp;curvas de densidad</h2>
+</section>
+<section id="curva-normal-un-modelo-teórico-de-distribución-conocido" class="level1" data-background-color="#0C3547" style="text-align: right;">
+<h1 data-background-color="#0C3547" style="text-align: right;"><span style="font-size: 0.85em;">Curva normal: un modelo teórico de distribución conocido</span></h1>
+<section id="histograma-vs.-curvas-de-densidad" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="histograma-vs.-curvas-de-densidad">Histograma vs.&nbsp;curvas de densidad</h2>
 <div class="columns" style="font-size: 0.9em;">
 <div class="column" style="width:50%;">
 <p><strong>Histograma</strong></p>
@@ -454,8 +582,8 @@
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-14-1.png" width="384"></p>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
@@ -466,80 +594,95 @@
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-15-1.png" width="384"></p>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="384"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="curva-de-distribución" class="slide level2">
-<h2>Curva de distribución</h2>
+<section id="curva-de-distribución" class="level2">
+<h2 class="anchored" data-anchor-id="curva-de-distribución">Curva de distribución</h2>
 <ul>
-<li class="fragment"><p>Una <strong>curva de distribución</strong> de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva <em>suavizada</em></p></li>
-<li class="fragment"><p>Representa una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica</p></li>
-<li class="fragment"><p>Las puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)</p></li>
-<li class="fragment"><p>El área bajo la curva representa el 100% de los casos de la población</p></li>
+<li><p>Una <strong>curva de distribución</strong> de frecuencias es un sustituto de un histograma de frecuencias donde reemplazamos estos gráficos con una curva <em>suavizada</em></p></li>
+<li><p>Representa una función/generalización de cómo se distribuyen las puntuaciones en la población de manera teórica</p></li>
+<li><p>Las puntuaciones se ordenan de izquierda (más bajo) a derecha (más alto) en el eje horizontal (x)</p></li>
+<li><p>El área bajo la curva representa el 100% de los casos de la población</p></li>
 </ul>
 </section>
-<section id="curva-de-distribución-normal" class="slide level2" data-background-image="img/normal.png" data-background-size="cover" style="font-size: 0.75em;">
-<h2>Curva de distribución normal</h2>
+<section id="curva-de-distribución-normal" class="level2" data-background-image="img/normal.png" data-background-size="cover" style="font-size: 0.75em;">
+<h2 data-background-image="img/normal.png" data-background-size="cover" style="font-size: 0.75em;" class="anchored" data-anchor-id="curva-de-distribución-normal">Curva de distribución normal</h2>
 <div style="background-color: rgba(255,255,255,0.25);font-size: 1.2em;">
 <ul>
-<li class="fragment"><p>Es una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida</p></li>
-<li class="fragment"><p>Coinciden al centro el promedio, la mediana y la moda</p></li>
-<li class="fragment"><p>Es simétrica y de forma acampanada</p></li>
-<li class="fragment"><p>Establece áreas bajo la curva en base a desviaciones estándar del promedio</p></li>
+<li><p>Es una curva que representa la distribución de los casos de la población en torno al promedio y con una varianza conocida</p></li>
+<li><p>Coinciden al centro el promedio, la mediana y la moda</p></li>
+<li><p>Es simétrica y de forma acampanada</p></li>
+<li><p>Establece áreas bajo la curva en base a desviaciones estándar del promedio</p></li>
 </ul>
 </div>
 </section>
-<section id="section-2" class="slide level2">
-<h2></h2>
-
-<img data-src="https://jc-castillo.com/images/albums/gallery/not-normal.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
-<section id="distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva" class="slide level2" style="font-size: 0.7em;">
-<h2>Distribución normal, desviaciones estándar y áreas bajo la curva</h2>
-
-<img data-src="img/norm2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
-<section id="por-qué-es-importante-la-distribución-normal-en-estadística" class="slide level2" style="font-size: 0.7em;">
-<h2>¿Por qué es importante la distribución normal en estadística?</h2>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://jc-castillo.com/images/albums/gallery/not-normal.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+</section>
+<section id="distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="distribución-normal-desviaciones-estándar-y-áreas-bajo-la-curva">Distribución normal, desviaciones estándar y áreas bajo la curva</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/norm2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</section>
+<section id="por-qué-es-importante-la-distribución-normal-en-estadística" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="por-qué-es-importante-la-distribución-normal-en-estadística">¿Por qué es importante la distribución normal en estadística?</h2>
 <div class="content-box-green" style="font-size: 1.2em;">
 <ul>
-<li class="fragment"><p>Permite <strong>comparar</strong> puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)</p></li>
-<li class="fragment"><p>Permite estimar <strong>proporciones</strong> bajo la curva normal de cualquier valor de la distribución</p></li>
-<li class="fragment"><p><strong>Base</strong> de la distribución muestral del promedio, error estándar, e inferencia estadística en general</p></li>
+<li><p>Permite <strong>comparar</strong> puntajes de distintas distribuciones en base a un mismo estándar (puntajes Z)</p></li>
+<li><p>Permite estimar <strong>proporciones</strong> bajo la curva normal de cualquier valor de la distribución</p></li>
+<li><p><strong>Base</strong> de la distribución muestral del promedio, error estándar, e inferencia estadística en general</p></li>
 </ul>
 </div>
 </section>
-<section id="puntaje-z-y-estandarización-1" class="slide level2" style="font-size: 0.75em;">
-<h2>Puntaje <span class="math inline">\(z\)</span> y estandarización</h2>
+<section id="puntaje-z-y-estandarización-1" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="puntaje-z-y-estandarización-1">Puntaje <span class="math inline">\(z\)</span> y estandarización</h2>
 <div class="columns">
 <div class="column" style="width:25%;">
 <p><span class="math display">\[z=\frac{x_i-\mu}{\sigma}\]</span></p>
 </div><div class="column" style="width:75%;">
 <ul>
-<li class="fragment"><p><strong>Estandarización</strong>: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal</p></li>
-<li class="fragment"><p>Permite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo <strong>estándar</strong></p></li>
-<li class="fragment"><p>Para obtener el valor estandarizado (<strong>puntaje Z</strong>) resta la media y se divide por la desviación estándar</p></li>
+<li><p><strong>Estandarización</strong>: expresar el valor de una distribución en términos de desviaciones estándar basados en la distribución normal</p></li>
+<li><p>Permite comparar valores de distribuciones distintas, ya que lleva los puntajes a un mismo <strong>estándar</strong></p></li>
+<li><p>Para obtener el valor estandarizado (<strong>puntaje Z</strong>) resta la media y se divide por la desviación estándar</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="ejemplo-comparación-distribuciones-ritchey-p.-148" class="slide level2" style="font-size: 0.65em;">
-<h2>Ejemplo comparación distribuciones (Ritchey, p.&nbsp;148)</h2>
+<section id="ejemplo-comparación-distribuciones-ritchey-p.-148" class="level2" style="font-size: 0.65em;">
+<h2 style="font-size: 0.65em;" class="anchored" data-anchor-id="ejemplo-comparación-distribuciones-ritchey-p.-148">Ejemplo comparación distribuciones (Ritchey, p.&nbsp;148)</h2>
 <div class="columns">
 <div class="column" style="width: 50%; font-size:1.2em;">
 <ul>
-<li class="fragment"><p>Mary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2</p></li>
-<li class="fragment"><p>Jason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100</p></li>
+<li><p>Mary obtiene 26 puntos en la prueba académica ACT, que va de 0 a 36, con media=22 y sd=2</p></li>
+<li><p>Jason obtiene 900 puntos en la prueba SAT, que va de 200 a 1600, con media=1000 y sd=100</p></li>
 </ul>
 </div><div class="fragment column content-box-red" style="width: 45%; text-align: center;">
-<h3 id="a-quién-le-fue-mejor">¿A quién le fue mejor?</h3>
-<h3 id="cómo-le-fue-específicamente-a-cada-uno">¿Cómo le fue específicamente a cada uno?</h3>
-</div></div>
+<section id="a-quién-le-fue-mejor" class="level3">
+<h3 class="anchored" data-anchor-id="a-quién-le-fue-mejor">¿A quién le fue mejor?</h3>
 </section>
-<section id="comparando-peras-con-manzanas" class="slide level2">
-<h2>Comparando peras con manzanas</h2>
+<section id="cómo-le-fue-específicamente-a-cada-uno" class="level3">
+<h3 class="anchored" data-anchor-id="cómo-le-fue-específicamente-a-cada-uno">¿Cómo le fue específicamente a cada uno?</h3>
+</section>
+</div>
+</div>
+</section>
+<section id="comparando-peras-con-manzanas" class="level2">
+<h2 class="anchored" data-anchor-id="comparando-peras-con-manzanas">Comparando peras con manzanas</h2>
 <p><span class="math display">\[
 \begin{align*}
 Z_{Mary}&amp;=\frac{x-\mu}{\sigma}=\frac{26-22}{2}=2 \\ \\
@@ -547,12 +690,12 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 \end{align*}
 \]</span></p>
 <ul>
-<li class="fragment"><p><span class="math inline">\(Z\)</span> entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio</p></li>
-<li class="fragment"><p>Estos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal</p></li>
+<li><p><span class="math inline">\(Z\)</span> entrega un puntaje comparable en términos de desviaciones estándar respecto del promedio</p></li>
+<li><p>Estos puntajes además pueden traducirse a la ubicación del puntaje en percentiles de la distribución normal</p></li>
 </ul>
 </section>
-<section id="proporciones" class="slide level2">
-<h2>Proporciones</h2>
+<section id="proporciones" class="level2">
+<h2 class="anchored" data-anchor-id="proporciones">Proporciones</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <p>Asumiendo distribución normal, se puede obtener la proporción de casos bajo la curva normal que están sobre y bajo el puntaje Z</p>
@@ -560,19 +703,20 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="03-inferencia2_files/figure-revealjs/unnamed-chunk-16-1.png" width="460"></p>
+<figure class="figure">
+<p><img src="03-inferencia2_files/figure-revealjs/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="460"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="ejemplo-1" class="slide level2 vcenter">
-<h2>Ejemplo 1</h2>
+<section id="ejemplo-1" class="level2 vcenter">
+<h2 class="vcenter anchored" data-anchor-id="ejemplo-1">Ejemplo 1</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
-<p><img data-src="img/norm2.png" style="width:100.0%"></p>
+<p><img src="img/norm2.png" class="img-fluid" style="width:100.0%"></p>
 </div><div class="column" style="width:55%;">
 <div style="font-size: 0.75em;">
 <p>Pensemos en estatura de 1.65, en una muestra con <span class="math inline">\(\bar{x}=160\)</span> y <span class="math inline">\(\sigma=5\)</span>.</p>
@@ -580,28 +724,29 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 <p>En base a la distribución normal sabemos que bajo 1 desviación estándar está el 68% de los datos + la cola izquierda de la curva, que es (100-68)/2=16%.</p>
 <p>Ej: 84% (68+16) de los casos tienen una estatura menor a 165 cm</p>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="ejemplo-2" class="slide level2">
-<h2>Ejemplo 2</h2>
+<section id="ejemplo-2" class="level2">
+<h2 class="anchored" data-anchor-id="ejemplo-2">Ejemplo 2</h2>
 <div class="columns" style="font-size: 0.75em;">
 <div class="column" style="width:50%;">
 <p>Puntaje en prueba=450, en una muestra con media=500 y ds=100, en R</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Definimos los parámetros</span></span>
-<span id="cb6-2"><a></a>X <span class="ot">&lt;-</span> <span class="dv">450</span>  <span class="co"># Puntaje</span></span>
-<span id="cb6-3"><a></a>mu <span class="ot">&lt;-</span> <span class="dv">500</span>  <span class="co"># Media</span></span>
-<span id="cb6-4"><a></a>sigma <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># Desviación estándar</span></span>
-<span id="cb6-5"><a></a></span>
-<span id="cb6-6"><a></a><span class="co"># Calculamos el puntaje z</span></span>
-<span id="cb6-7"><a></a>z <span class="ot">&lt;-</span> (X <span class="sc">-</span> mu) <span class="sc">/</span> sigma</span>
-<span id="cb6-8"><a></a>z</span>
-<span id="cb6-9"><a></a></span>
-<span id="cb6-10"><a></a><span class="co"># Calculamos el percentil asociado al puntaje z</span></span>
-<span id="cb6-11"><a></a>percentil <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb6-12"><a></a></span>
-<span id="cb6-13"><a></a><span class="co"># Mostramos el resultado</span></span>
-<span id="cb6-14"><a></a>percentil</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definimos los parámetros</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="dv">450</span>  <span class="co"># Puntaje</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="dv">500</span>  <span class="co"># Media</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>sigma <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># Desviación estándar</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos el puntaje z</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (X <span class="sc">-</span> mu) <span class="sc">/</span> sigma</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>z</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos el percentil asociado al puntaje z</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>percentil <span class="ot">&lt;-</span> <span class="fu">pnorm</span>(z) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos el resultado</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>percentil</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
@@ -609,65 +754,82 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 <pre><code>[1] 30.85375</code></pre>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="distribución-muestral-del-promedio" class="slide level2" style="font-size: 0.75em;">
-<h2>Distribución muestral del promedio</h2>
+<section id="distribución-muestral-del-promedio" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="distribución-muestral-del-promedio">Distribución muestral del promedio</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
-<p><img data-src="img/normal.png" style="width:100.0%"></p>
+<p><img src="img/normal.png" class="img-fluid" style="width:100.0%"></p>
 </div><div class="column" style="width: 65%; font-size: 1.1em;">
 <ul>
-<li class="fragment"><p>Si tengo la desviación estándar de los promedios, puedo construir un <span style="color: #c0392b;">intervalo</span> de probabilidad, basado en la curva normal</p></li>
-<li class="fragment"><p>Por ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)</p></li>
-<li class="fragment"><p>Peeero…</p></li>
-</ul>
-</div></div>
-</section></section>
-<section>
-<section id="section-3" class="title-slide slide level1 center" data-background-color="#9B2626">
-<h1></h1>
-
-</section>
-<h3 id="problema-tenemos-1-sola-muestra-y-un-solo-promedio"><span style="color: #dfc117;">Problema: tenemos 1 SOLA MUESTRA, y un solo promedio</span></h3>
-<p><br></p>
-<h3 id="cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios"><span style="color: white;">¿Cómo obtenemos entonces la desviación estándar de los promedios?</span></h3></section>
-<section>
-<section id="error-estándar-y-teorema-central-del-límite-tcl" class="title-slide slide level1 center" data-background-color="#0C3547" style="text-align: right;">
-<h1><span style="font-size: 0.8em;">Error estándar y Teorema Central del Límite (TCL)</span></h1>
-
-</section>
-<section id="desviación-estándar-y-error-estándar" class="slide level2" style="font-size: 0.75em;">
-<h2>Desviación estándar y error estándar</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img data-src="https://multivariada.netlify.app/slides/images/inference1.png" style="width:100.0%"></p>
-</div><div class="column" style="width:65%;">
-<div style="background-color: #e2e2f9; color: #2c1a4d; padding: 0.6em; border-radius: 4px; ">
-<ul>
-<li class="fragment">más que el promedio de la variable en nuestra <strong>muestra</strong>, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la <strong>población</strong></li>
-<li class="fragment">contamos con <strong>una muestra</strong>, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados.</li>
+<li><p>Si tengo la desviación estándar de los promedios, puedo construir un <span style="color: #c0392b;">intervalo</span> de probabilidad, basado en la curva normal</p></li>
+<li><p>Por ejemplo si mi promedio es 10 y la desviación estándar (ds) es 1, puedo decir que en un rango de 8 y 12 se encuentra (aprox) el 95% de los promedios (prom +/- 2 ds)</p></li>
+<li><p>Peeero…</p></li>
 </ul>
 </div>
-</div></div>
+</div>
 </section>
-<section id="distribución-muestral-del-promedio-1" class="slide level2">
-<h2>Distribución muestral del promedio</h2>
-
-<img data-src="https://multivariada.netlify.app/slides/images/se_1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
-<section id="distribución-muestral-del-promedio-2" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Distribución muestral del promedio</h2>
-
-<img data-src="https://multivariada.netlify.app/slides/images/se_2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
-<section id="distribución-muestral-del-promedio-3" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Distribución muestral del promedio</h2>
-
-<img data-src="https://multivariada.netlify.app/slides/images/se_3.png" class="quarto-figure quarto-figure-center r-stretch" style="width:75.0%"></section>
-<section id="teorema-central-del-límite" class="slide level2" style="font-size: 0.8em;">
-<h2>Teorema central del límite</h2>
+</section>
+<section id="section-3" class="level1" data-background-color="#9B2626">
+<h1 data-background-color="#9B2626"></h1>
+<section id="problema-tenemos-1-sola-muestra-y-un-solo-promedio" class="level3">
+<h3 class="anchored" data-anchor-id="problema-tenemos-1-sola-muestra-y-un-solo-promedio"><span style="color: #dfc117;">Problema: tenemos 1 SOLA MUESTRA, y un solo promedio</span></h3>
+<p><br></p>
+</section>
+<section id="cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios" class="level3">
+<h3 class="anchored" data-anchor-id="cómo-obtenemos-entonces-la-desviación-estándar-de-los-promedios"><span style="color: white;">¿Cómo obtenemos entonces la desviación estándar de los promedios?</span></h3>
+</section>
+</section>
+<section id="error-estándar-y-teorema-central-del-límite-tcl" class="level1" data-background-color="#0C3547" style="text-align: right;">
+<h1 data-background-color="#0C3547" style="text-align: right;"><span style="font-size: 0.8em;">Error estándar y Teorema Central del Límite (TCL)</span></h1>
+<section id="desviación-estándar-y-error-estándar" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="desviación-estándar-y-error-estándar">Desviación estándar y error estándar</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img src="https://multivariada.netlify.app/slides/images/inference1.png" class="img-fluid" style="width:100.0%"></p>
+</div><div class="column" style="width:65%;">
+<div style="background-color: #e2e2f9; color: #2c1a4d; padding: 0.6em; border-radius: 4px; ">
+<div class="incremental">
+<ul class="incremental">
+<li>más que el promedio de la variable en nuestra <strong>muestra</strong>, en inferencia nos interesa estimar en qué medida ese promedio da cuenta del promedio de la <strong>población</strong></li>
+<li>contamos con <strong>una muestra</strong>, pero sabemos que otras muestras podrían haber sido extraídas, probablemente con distintos resultados.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribución-muestral-del-promedio-1" class="level2">
+<h2 class="anchored" data-anchor-id="distribución-muestral-del-promedio-1">Distribución muestral del promedio</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://multivariada.netlify.app/slides/images/se_1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</section>
+<section id="distribución-muestral-del-promedio-2" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="distribución-muestral-del-promedio-2">Distribución muestral del promedio</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://multivariada.netlify.app/slides/images/se_2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</section>
+<section id="distribución-muestral-del-promedio-3" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="distribución-muestral-del-promedio-3">Distribución muestral del promedio</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://multivariada.netlify.app/slides/images/se_3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+</section>
+<section id="teorema-central-del-límite" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="teorema-central-del-límite">Teorema central del límite</h2>
 <ul>
-<li class="fragment"><p>la distribución de los promedios de distintas muestras - o <span style="color: #c0392b;">distribución muestral del promedio</span> - se aproxima a una distribución normal</p></li>
-<li class="fragment"><p>En muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:</p></li>
+<li><p>la distribución de los promedios de distintas muestras - o <span style="color: #c0392b;">distribución muestral del promedio</span> - se aproxima a una distribución normal</p></li>
+<li><p>En muestras mayores a 30 la desviación estándar de los promedios (error estándar del promedio) equivale a:</p></li>
 </ul>
 <div class="fragment">
 <p><span class="math display">\[\sigma_{\bar{X}}=SE(error\ estándar)=\frac{s}{\sqrt{N}}\]</span></p>
@@ -677,73 +839,81 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2 vcenter" data-background-color="#0C3547" style="text-align: right;">
-<h2></h2>
+<section id="section-4" class="level2 vcenter" data-background-color="#0C3547" style="text-align: right;">
+<h2 class="vcenter anchored" data-background-color="#0C3547" style="text-align: right;" data-anchor-id="section-4"></h2>
 <p>Basados en el <span style="color: #dfc117;">Teorema Central del Límite</span>, es posible calcular la desviación estándar de los promedios (error estándar) con</p>
 <p><br></p>
 <div class="columns">
 <div class="column" style="width:30%;">
-<p><img data-src="img/emoji-o.png"></p>
+<p><img src="img/emoji-o.png" class="img-fluid"></p>
 </div><div class="column" style="width:70%;">
-<h3 id="una-sola-muestra"><span style="color: #df1717; font-size: 2em;">una sola muestra</span></h3>
-</div></div>
+<section id="una-sola-muestra" class="level3">
+<h3 class="anchored" data-anchor-id="una-sola-muestra"><span style="color: #df1717; font-size: 2em;">una sola muestra</span></h3>
 </section>
-<section id="demostración-10-muestras-5-casos-cu" class="slide level2" style="font-size: 0.65em;">
-<h2>Demostración: 10 muestras, 5 casos c/u</h2>
-
-<img data-src="img/demo_SE.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><div style="font-size: 0.7em; text-align: right;">
+</div>
+</div>
+</section>
+<section id="demostración-10-muestras-5-casos-cu" class="level2" style="font-size: 0.65em;">
+<h2 style="font-size: 0.65em;" class="anchored" data-anchor-id="demostración-10-muestras-5-casos-cu">Demostración: 10 muestras, 5 casos c/u</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/demo_SE.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<div style="font-size: 0.7em; text-align: right;">
 <p>-&gt; ver demostración con más casos <a href="https://docs.google.com/spreadsheets/d/1YrMd_ds5zHgQWrdjYcX5Diwv7bQHDzf5r2A0oYWriyA/edit#gid=0">aquí</a></p>
 </div>
 </section>
-<section id="para-qué-nos-sirve-el-error-estándar-se-del-promedio" class="slide level2" data-background-color="#0C3547" style="text-align: right;">
-<h2><span style="font-size: 0.7em;">¿Para qué nos sirve el error estándar (SE) del promedio?</span></h2>
-<h3 id="y-de-otros-estadísticos-como-la-correlación"><span style="color: #dfc117; font-size: 0.6em;">(… y de otros estadísticos, como la correlación)</span></h3>
+<section id="para-qué-nos-sirve-el-error-estándar-se-del-promedio" class="level2" data-background-color="#0C3547" style="text-align: right;">
+<h2 data-background-color="#0C3547" style="text-align: right;" class="anchored" data-anchor-id="para-qué-nos-sirve-el-error-estándar-se-del-promedio"><span style="font-size: 0.7em;">¿Para qué nos sirve el error estándar (SE) del promedio?</span></h2>
+<section id="y-de-otros-estadísticos-como-la-correlación" class="level3">
+<h3 class="anchored" data-anchor-id="y-de-otros-estadísticos-como-la-correlación"><span style="color: #dfc117; font-size: 0.6em;">(… y de otros estadísticos, como la correlación)</span></h3>
 </section>
-<section id="usos-del-error-estándar" class="slide level2">
-<h2>Usos del error estándar</h2>
+</section>
+<section id="usos-del-error-estándar" class="level2">
+<h2 class="anchored" data-anchor-id="usos-del-error-estándar">Usos del error estándar</h2>
 <ul>
-<li class="fragment"><p>Dos usos complementarios:</p>
+<li><p>Dos usos complementarios:</p>
 <ul>
-<li class="fragment"><p>construcción de intervalos de confianza</p></li>
-<li class="fragment"><p>test de hipótesis</p></li>
+<li><p>construcción de intervalos de confianza</p></li>
+<li><p>test de hipótesis</p></li>
 </ul></li>
 </ul>
 <div class="fragment">
-<section id="próxima-clase" class="content-box-red">
-<h3>-&gt; Próxima clase</h3>
+<section id="próxima-clase" class="level3 content-box-red">
+<h3 class="anchored" data-anchor-id="próxima-clase">-&gt; Próxima clase</h3>
 </section>
 </div>
-</section></section>
-<section id="resumen" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1><span style="color: #dfc117;">Resumen</span></h1>
+</section>
+</section>
+<section id="resumen" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"><span style="color: #dfc117;">Resumen</span></h1>
 <div style="color: white;">
 <ul>
-<li class="fragment"><p>Probabilidades teóricas y empíricas</p></li>
-<li class="fragment"><p>Curva normal y puntajes Z</p></li>
-<li class="fragment"><p>Teorema Central del Límite</p></li>
-<li class="fragment"><p>Error estándar</p></li>
+<li><p>Probabilidades teóricas y empíricas</p></li>
+<li><p>Curva normal y puntajes Z</p></li>
+<li><p>Teorema Central del Límite</p></li>
+<li><p>Error estándar</p></li>
 </ul>
 </div>
 </section>
-
-<section>
-<section id="section-5" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
+<section id="section-5" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
 <p><br></p>
-</section>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional-1" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -752,470 +922,468 @@ Z_{Jason}&amp;=\frac{x-\mu}{\sigma}=\frac{900-1000}{100}=-1
 <span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
 <span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</section>
 </div>
 </div>
+
 
 </section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
-<div class="footer footer-default">
 
-</div>
-</div></div>
+</main> <!-- /main -->
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
 
-  <script>
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
 
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
- 
-        // Display controls in the bottom right corner
-        controls: false,
-
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
-
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
-
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
-
-        // Display a presentation progress bar
-        progress: true,
-
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
-
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
-
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
-
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
-
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
-
-        // Push each slide change to the browser history
-        history: true,
-
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
-
-        // Enable the slide overview mode
-        overview: true,
-
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
-
-        // Vertical centering of slides
-        center: false,
-
-        // Enables touch navigation on devices with touch input
-        touch: true,
-
-        // Loop the presentation
-        loop: false,
-
-        // Change the presentation direction to be RTL
-        rtl: false,
-
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
-
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
-
-        // Turns fragments on and off globally
-        fragments: true,
-
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
-
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
-
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
-
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
-
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
-
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
-
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
-
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
-
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
-
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
-
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
-
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
-
-        // The display mode that will be used to show slides
-        display: 'block',
-
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
-
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
-
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
-
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
-
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'slow',
-
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
-
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
-
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
-
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
-
-        height: 700,
-
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
-
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
-
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
       });
-    </script>
-    
+    }
 
-    <script>
+  })();
+</script>
 
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
         }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-
-    
-
-      })();
-
-    </script>
-
-    
-
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
 
 </body></html>

@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Intervalos de Confianza y Test de hipótesis – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-707710bb7a0eddacf54b96aa728de139.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-f8f313781ee8a1a7310671352fa5c195.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Intervalos de Confianza y Test de hipótesis – Estadística Correlacional">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/assignment/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link active" data-scroll-target="#objetivo-de-la-práctica">Objetivo de la práctica</a></li>
+  <li><a href="#repaso-intervalos-de-confianza" id="toc-repaso-intervalos-de-confianza" class="nav-link" data-scroll-target="#repaso-intervalos-de-confianza"><span class="header-section-number">1</span> Repaso intervalos de confianza</a>
+  <ul class="collapse">
+  <li><a href="#error-estándar" id="toc-error-estándar" class="nav-link" data-scroll-target="#error-estándar"><span class="header-section-number">1.1</span> Error estándar</a></li>
+  <li><a href="#cálculo-del-intervalo" id="toc-cálculo-del-intervalo" class="nav-link" data-scroll-target="#cálculo-del-intervalo"><span class="header-section-number">1.2</span> Cálculo del intervalo</a></li>
+  </ul></li>
+  <li><a href="#test-de-hipótesis" id="toc-test-de-hipótesis" class="nav-link" data-scroll-target="#test-de-hipótesis"><span class="header-section-number">2</span> Test de hipótesis</a>
+  <ul class="collapse">
+  <li><a href="#los-cinco-pasos-para-la-inferencia-estadística" id="toc-los-cinco-pasos-para-la-inferencia-estadística" class="nav-link" data-scroll-target="#los-cinco-pasos-para-la-inferencia-estadística"><span class="header-section-number">2.1</span> Los cinco pasos para la inferencia estadística</a></li>
+  <li><a href="#preparación-datos" id="toc-preparación-datos" class="nav-link" data-scroll-target="#preparación-datos"><span class="header-section-number">2.2</span> Preparación datos</a></li>
+  <li><a href="#recordemos" id="toc-recordemos" class="nav-link" data-scroll-target="#recordemos"><span class="header-section-number">2.3</span> Recordemos…</a></li>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link" data-scroll-target="#ejercicio-1"><span class="header-section-number">2.4</span> Ejercicio 1</a></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2"><span class="header-section-number">2.5</span> Ejercicio 2</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-autónomo" id="toc-ejercicio-autónomo" class="nav-link" data-scroll-target="#ejercicio-autónomo"><span class="header-section-number">3</span> Ejercicio autónomo</a></li>
+  <li><a href="#repaso" id="toc-repaso" class="nav-link" data-scroll-target="#repaso"><span class="header-section-number">4</span> Repaso</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Intervalos de Confianza y Test de hipótesis</h1></header>
+
+<header id="title-block-header">
+
+
+<div class="date-block bg-assignment text-white p-2">
+  <p class="date">Sesión del miércoles, 19 de agosto de 2026</p>
+</div>
+</header>
+
+
+<style>
+/* Texto escrito entre comillas invertidas */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Resultados producidos por R */
+.cell-output pre {
+  color: #17233a !important;
+  background-color: #e8f5f3 !important;
+  border-left: 4px solid #009688 !important;
+  padding: 0.8em 1em !important;
+}
+
+/* Evita que el tema cambie el color del texto de las salidas */
+.cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+</style>
+<section id="objetivo-de-la-práctica" class="level1 unnumbered">
+<h1 class="unnumbered">Objetivo de la práctica</h1>
+<p>El objetivo de esta guía práctica es repasar intervalos de confianza, y además aplicar las herramientas teóricas y prácticas aprendidas hasta el momento para realizar pruebas de hipótesis, tanto para diferencias de medias como direccionales utilizando la prueba <strong><em>t</em></strong>.</p>
+<p>En detalle, en el práctico de hoy veremos:</p>
+<ol type="1">
+<li><p>Cálculo e interpretación de intervalos de confianza</p></li>
+<li><p>Ejercicios de test de hipótesis</p></li>
+</ol>
+</section>
+<section id="repaso-intervalos-de-confianza" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Repaso intervalos de confianza</h1>
+<p>Recordemos que un intervalo de confianza es un rango de valores plausibles que <strong>contiene la media poblacional</strong>, el cual se construye a partir del error estándar.</p>
+<p>Su fórmula es la siguiente:</p>
+<p><span class="math display">\[
+IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> es la media de la muestra.</li>
+<li><span class="math inline">\(z\)</span> es el valor crítico.</li>
+<li><span class="math inline">\(s\)</span> es la desviación estándar de la muestra.</li>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+<li><span class="math inline">\(\frac{s}{\sqrt{n}}\)</span> corresponde al error estándar.</li>
+</ul>
+<p>En términos visuales, los intervalos de confianza representan la <strong>probabilidad</strong> de que la media poblacional se encuentre en su rango, ilustrado por el <strong>área bajo la curva que cubre el intervalo</strong>.</p>
+<p><img src="https://correlacional.metodos-facso.org/slides/img/norm2.png" class="img-fluid"></p>
+<p>Para ejemplificar esto, calculemos un intervalo de confianza para una muestra de 200 casos, con media = 10 y desviación estándar = 4.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fija la semilla para obtener siempre los mismos valores simulados</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># Crea 100 valores con media 5 y desviación estándar 2</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector) <span class="co"># Calcula la media de los valores creados</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="ot">&lt;-</span> <span class="fu">sd</span>(vector) <span class="co"># Calcula la desviación estándar de los valores creados</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>media <span class="co"># Muestra la media en la consola</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="co"># Muestra la desviación estándar en la consola</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Los # en el código</strong></p>
+<p>En este código y siguientes aparecen varios #, que son una función de comentarios en R. No son necesarios para que el código funcione, pero son útiles en este caso para poder explicar que función cumple cada sección del código. Todo lo que aparece a la derecha de un # no es ejecutado por el programa.</p>
+</div>
+</div>
+<section id="error-estándar" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="error-estándar"><span class="header-section-number">1.1</span> Error estándar</h2>
+<p>Observando la fórmula, recordamos que para calcular el intervalo, debemos recorrer algunos pasos previos como calcular el error estándar, que se estima de la siguiente manera:</p>
+<p><span class="math display">\[
+EE = \frac{s}{\sqrt{n}}
+\]</span></p>
+<p>Donde:</p>
+<p><span class="math inline">\(s\)</span> es la desviación estándar de la muestra. <span class="math inline">\(n\)</span> es el número de casos de la muestra.</p>
+<p>Para nuestro caso, reemplazamos los valores de la fórmula:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ee <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El error estándar es de 0.18. Esto quiere decir que las <strong>medias</strong> de las <strong>distintas muestras</strong> de una misma población varían en 0.18.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El <strong>error estándar de la media</strong> estima cuánto variarían las medias entre distintas muestras</p>
+<ul>
+<li>Un error estándar <strong>pequeño</strong> indica una estimación <strong>más</strong> precisa.</li>
+<li>Un error estándar <strong>grande</strong> indica una estimación <strong>menos</strong> precisa.</li>
+</ul>
+</div>
+</div>
+<p>Mantengamos la misma desviación estándar y comparemos muestras de 100 y 500 casos. Antes de ejecutar el código, anticipa: ¿cuál tendrá menor error estándar?</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ee_100 <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100</span>) <span class="co"># Calcula el error estándar para 25 casos</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ee_500 <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">500</span>) <span class="co"># Calcula el error estándar para 100 casos</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ee_100 <span class="co"># Muestra el error estándar para 25 casos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1825632</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ee_500 <span class="co"># Muestra el error estándar para 100 casos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08164473</code></pre>
+</div>
+</div>
+<p>El error estándar disminuye de aproximadamente 0,18 a 0,08 cuando el tamaño de la muestra aumenta de 100 a 500 casos. Por lo tanto, ¨**na muestra más grande permite estimar la media con mayor precisió*. Recordemos que la desviación estándar se mantuvo igual en ambos cálculos; lo único que cambió fue el número de casos.</p>
+</section>
+<section id="cálculo-del-intervalo" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="cálculo-del-intervalo"><span class="header-section-number">1.2</span> Cálculo del intervalo</h2>
+<p>Considerando nuestros datos actuales, tenemos una media de 5.18, pero no podemos asegurar que la media poblacional sea la misma. Por ello, recurrimos a los intervalos de confianza. En términos convencionales, el resultado será significativo si podemos establecerlo con un nivel de confianza del 95%.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Dicho de otra manera, si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el <strong>95 % de esos intervalos</strong> contendría la verdadera media poblacional.</p>
+</div>
+</div>
+<p>Para construir un intervalo de confianza del 95 %, buscamos los valores Z que encierran el <strong>95 % central</strong> de la distribución normal.</p>
+<p>Recordemos que el valor crítico para un 95% de confianza es de 1.96, el cual es calculado mediante los valores z que <strong>acumulan el 95% central</strong> de la distribución normal.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fl">1.96</span> <span class="co"># creación del objeto valor crítico</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="ot">&lt;-</span> media <span class="sc">-</span> valor_critico <span class="sc">*</span> ee <span class="co"># Calcula el límite inferior</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="ot">&lt;-</span> media <span class="sc">+</span> valor_critico <span class="sc">*</span> ee <span class="co"># Calcula el límite superior</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="co"># Muestra el límite inferior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4.822988</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="co"># Muestra el límite superior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 5.538636</code></pre>
+</div>
+</div>
+<p>El intervalo obtenido se extiende aproximadamente entre <strong>4,82 y 5,54</strong>.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="02-practico_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Media muestral e intervalo de confianza del 95 %.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>El punto representa la media de la muestra y la línea muestra el intervalo de confianza del 95%.</p>
+</section>
+</section>
+<section id="test-de-hipótesis" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Test de hipótesis</h1>
+<p>Para este punto, recurriremos a todas las herramientas que hemos aprendido hasta ahora:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 45%">
+<col style="width: 54%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Concepto</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Curva normal</td>
+<td>Distribución teórica que nos entrega un estándar para comparar distribuciones empíricas</td>
+</tr>
+<tr class="even">
+<td>Teorema central del límite</td>
+<td>Al calcular un estadístico de distintas muestras de una misma población, estos valores se distribuirán de manera normal</td>
+</tr>
+<tr class="odd">
+<td>Error estándar</td>
+<td>Desviación estándar de los promedios de distintas muestras de una misma población</td>
+</tr>
+<tr class="even">
+<td>Puntajes Z</td>
+<td>Medida estandarizada la cual se expresa en términos de desviación estándar</td>
+</tr>
+<tr class="odd">
+<td>Intervalos de confianza</td>
+<td>Rango de probabilidad de un parámetro poblacional</td>
+</tr>
+</tbody>
+</table>
+<p>Para esta sección del práctico, trabajaremos con un subconjunto de datos previamente procesados de la Encuesta de Caracterización Socioeconómica (CASEN) del año 2022, elaborada por el <a href="https://observatorio.ministeriodesarrollosocial.gob.cl/">Ministerio de Desarrollo Social y Familia</a>.</p>
+<p>Para este ejercicio, obtendremos directamente esta base desde internet. No obstante, también tienes la opción de acceder a la misma información a través del siguiente enlace: <a href="https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"><i class="fa-solid fa-table" aria-label="table"></i> <code>CASEN 2022</code></a>. Desde allí, podrás descargar el archivo que contiene el subconjunto procesado de la base de datos CASEN 2022.</p>
+<section id="los-cinco-pasos-para-la-inferencia-estadística" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="los-cinco-pasos-para-la-inferencia-estadística"><span class="header-section-number">2.1</span> Los cinco pasos para la inferencia estadística</h2>
+<p>En inferencia, las pruebas de hipótesis nos ayudan a determinar si el resultado que obtenemos en nuestra muestra es un efecto real/extrapolable a la población o un error. Aquí recomendamos una lista de cinco pasos lógicos para enfrentarnos a la inferencia estadística:</p>
+<style>
+  table {
+    margin-left: auto; /* Ajustamos el margen izquierdo a automático */
+    margin-right: auto; /* Ajustamos el margen derecho a automático */
+    border-collapse: collapse;
+    width: 60%;
+    border: 2px solid black;
+  }
+  
+  th, td {
+    border: 1px solid #D3D3D3;
+    padding: 8px;
+    text-align: center;
+  }
+</style>
+<table>
+<tbody><tr>
+<th class="cell-left">
+Paso
+</th>
+<th class="cell-left">
+Detalle
+</th>
+</tr>
+<tr>
+<td class="cell-left">
+1
+</td>
+<td class="cell-left">
+Formula <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> y estipula la dirección de la prueba
+</td>
+</tr>
+<tr>
+<td class="cell-left">
+2
+</td>
+<td class="cell-left">
+Calcula el error estándar (SE) y el valor estimado de la prueba (ej: Z o t)
+</td>
+</tr>
+<tr>
+<td class="cell-left">
+3
+</td>
+<td class="cell-left">
+Especifica la probabilidad de error <span class="math inline">\(\alpha\)</span> y el valor crítico de la prueba
+</td>
+</tr>
+<tr>
+<td class="cell-left">
+4
+</td>
+<td class="cell-left">
+Contrasta el valor estimado con el valor crítico
+</td>
+</tr>
+<tr>
+<td class="cell-left">
+5
+</td>
+<td class="cell-left">
+Interpreta los resultados
+</td>
+</tr>
+</tbody></table>
+<p>Además de estos 5 pasos también existe la posibilidad de calcular un intervalo de confianza, que acompañe la precisión de nuestra estimación.</p>
+</section>
+<section id="preparación-datos" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="preparación-datos"><span class="header-section-number">2.2</span> Preparación datos</h2>
+<p>Comencemos por preparar nuestros datos. Iniciamos cargando las librerías necesarias.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La función <code>p_load</code> del paquete <code>pacman</code> simplifica el proceso de carga de paquetes, ya que se pueden cargar varios paquetes a la vez y, en caso de que alguno de esos paquetes no esté previamente instalado, p_load lo reconoce e instala</p>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, <span class="co"># Manipulacion datos</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>               gginference, <span class="co"># Visualizacion </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               rempsyc, <span class="co"># Reporte</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               kableExtra, <span class="co"># Tablas</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               broom, <span class="co"># Varios</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               flextable, <span class="co"># nice table</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>               rempsyc)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># para desactivar notacion cientifica</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># para limpiar el entorno de trabajo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Cargamos los datos directamente desde internet.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"</span>)) <span class="co">#Cargar base de datos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>A continuación, exploramos la base de datos <strong>proc_casen</strong>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(proc_casen) <span class="co"># Nombre de columnas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] "id_vivienda"      "folio"            "id_persona"       "hogar"           
+ [5] "nucleo"           "varunit"          "varstrat"         "expr"            
+ [9] "edad"             "sexo"             "educ"             "activ"           
+[13] "y1"               "ytrabajocor"      "pobreza_multi_5d" "o15"             
+[17] "qaut"             "fdt"              "ocupado"          "desocupado"      
+[21] "inact"            "hijo"             "n_educ"           "universitaria"   
+[25] "tipo_ocup"        "ss_salud"         "ayuda_moverse"    "ayuda_thogar"    
+[29] "disc_fisica"     </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(proc_casen) <span class="co"># Dimensiones</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 202111     29</code></pre>
+</div>
+</div>
+<p>Contamos con 29 variables (columnas) y 202.111 observaciones (filas).</p>
+</section>
+<section id="recordemos" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="recordemos"><span class="header-section-number">2.3</span> Recordemos…</h2>
+<p>En estadística, la formulación de hipótesis que implica dos variables (o la comparación de grupos) busca determinar si existen diferencias en una variable entre grupos y, de ser el caso, evaluar si esta diferencia es estadísticamente significativa.</p>
+<p>Hasta ahora, hemos aprendido a contrastar hipótesis sobre <strong>diferencias entre grupos</strong>. A esto también se le llama <strong>hipótesis de dos colas</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Prueba de dos colas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Contrastamos la <em>hipótesis nula</em> de <em>no</em> diferencias entre grupos: <span class="math display">\[  H_{0}: \mu_{1} - \mu_{2} = 0 \]</span> En relación a una <em>hipótesis alternativa</em> sobre <em>diferencias</em> entre grupos: <span class="math display">\[  H_{A}: \mu_{1} - \mu_{2} \neq 0 \]</span></p>
+</div>
+</div>
+<p>Además, podemos <strong>plantear hipótesis</strong> respecto a que el valor de cierto parámetro para un grupo <strong>puede ser mayor o menor</strong> al de otro grupo. A esto se le conoce como <strong>hipótesis de una cola</strong>.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Prueba de una cola
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[  H_{0}: \mu_{0} ≥ \mu_{1} ; \mu_{0} ≤ \mu_{1}\]</span></p>
+<p><span class="math display">\[  H_{A}: \mu_{0} &gt; \mu_{1} \]</span></p>
+<p><span class="math display">\[  H_{A}: \mu_{0} &lt; \mu_{1} \]</span></p>
+</div>
+</div>
+<p>Veamos ahora cómo aplicar todos estos conocimientos con ejercicios. Primero, para asegurar la reproducibilidad de los resultados, utilizamos <code>set.seed</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fijar la semilla para reproducibilidad</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="ejercicio-1" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="ejercicio-1"><span class="header-section-number">2.4</span> Ejercicio 1</h2>
+<p>Estamos en un escenario donde la pregunta de investigación es: <em>¿Es el salario de los hombres mayor que el de las mujeres?</em></p>
+<p>Para contrastar esta hipótesis, vamos utilizar la bbdd <code>proc_casen</code>, seleccionaremos las variables <code>sexo</code> e <code>ytrabajocor</code> y haremos un subset de datos de 1.500 casos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexo, ytrabajocor) <span class="sc">%&gt;%</span> <span class="co"># seleccionamos</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="co"># extraemos una muestra de 1500 casos</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(casen_subset) <span class="co"># eliminamos casos perdidos (listwise)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El símbolo <code>%&gt;%</code> se llama pipe, y es una de las funciones más útiles de R. Su utilidad radica en que permite <strong>encadenar operaciones</strong>, es decir, lee el código como una secuencia de pasos en lugar de funciones aisladas, donde el resultado de un comando pasa a ser el primer argumento del siguiente comando, lo que permite ahorrar líneas de código</p>
+</div>
+</div>
+<p>Generamos tabla para visualizar la distribución de los datos.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica </span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="co"># columna para el N de cada categoría</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Promedio =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">SD =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">sexo</th>
+<th style="text-align: right;">Obs.</th>
+<th style="text-align: right;">Promedio</th>
+<th style="text-align: right;">SD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">379</td>
+<td style="text-align: right;">690724.8</td>
+<td style="text-align: right;">613238.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">309</td>
+<td style="text-align: right;">585360.4</td>
+<td style="text-align: right;">567737.7</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Ahora vamos con los <a href="https://correlacional.netlify.app/slides/05-inferencia4.html#33">5 pasos de la inferencia</a></p>
+<p><strong>1. Formulación de hipótesis</strong></p>
+<p>El primer aspecto a establecer es el tipo de hipótesis a formular: ¿Direccional o no direccional? En este caso, la pregunta indica una <strong>direccionalidad</strong> (“mayor que”), por lo tanto corresponde a una <strong>hipótesis direccional</strong>. Si hubiera sido una pregunta que hiciera referencia simplemente a diferencias (“¿Es el salario de los hombres distinto al de las mujeres?”) correspondería a una hipótesis no direccional.</p>
+<p>La hipótesis general es que el salario de los hombres es mayor que el de las mujeres. Pasando a lenguaje de hipótesis, esto se plantea como:</p>
+<p><strong>Hipótesis alternativa</strong>:</p>
+<p><span class="math inline">\(H_A\)</span>: Promedio salarial hombres ( <span class="math inline">\(\bar{X}_{hombres}\)</span>) - Promedio salarial mujeres ( <span class="math inline">\(\bar{X}_{mujeres}\)</span>) &gt; 0</p>
+<p><strong>Hipótesis nula</strong>:</p>
+<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\bar{X}_{hombres} - \bar{X}_{mujeres} \leq 0\)</span></p>
+<p><strong>Pasos 2, 3 y 4 de una vez con R</strong></p>
+<p>En clases vimos que los pasos 2, 3 y 4 corresponden a:</p>
+<ol type="1">
+<li><p>Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</p></li>
+<li><p>Establecer la probabilidad de error <span class="math inline">\(\alpha\)</span> (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente</p></li>
+<li><p>Cálculo de intervalo de confianza / contraste valores empírico/crítico</p></li>
+</ol>
+<p>Esta secuencia de pasos tiene un sentido pedagógico para poder entender cómo finalmente se llega a interpretar el contraste de hipótesis en el paso 5. Pero en análisis de datos, luego de establecer las hipótesis nos vamos directamente al software que nos permite obtener de una vez toda la información de los pasos 2, 3 y 4.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_ej1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(casen_subset<span class="sc">$</span>ytrabajocor <span class="sc">~</span> casen_subset<span class="sc">$</span>sexo, <span class="co"># define las variables que serán sometidas al test de hipótesis</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="co"># define la hipótesis alternativa</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="co"># establece el nivel de confianza</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>test_ej1</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  casen_subset$ytrabajocor by casen_subset$sexo
+t = 2.3355, df = 674.99, p-value = 0.009906
+alternative hypothesis: true difference in means between group 1 and group 2 is greater than 0
+95 percent confidence interval:
+ 31054.71      Inf
+sample estimates:
+mean in group 1 mean in group 2 
+       690724.8        585360.4 </code></pre>
+</div>
+</div>
+<p>También podemos visualizarlo en una tabla más amable.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej1, <span class="at">conf_int =</span> T) <span class="co"># se convierten los datos del test en un dataframe</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>) <span class="co"># convierte el dataframe en tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-405da672{table-layout:auto;}.cl-4056f4b2{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4056f4c6{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4056f4ee{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-4059a00e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4059a02c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4059b620{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4059b634{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4059b648{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-405da672"><thead><tr style="overflow-wrap:break-word;"><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Method</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Alternative</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Mean 1</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Mean 2</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">M</span><span class="cl-4056f4ee">1</span><span class="cl-4056f4b2"> - </span><span class="cl-4056f4c6">M</span><span class="cl-4056f4ee">2</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">t</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">df</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">p</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4059b634"><p class="cl-4059a02c"><span class="cl-4056f4b2">Welch Two Sample t-test</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">greater</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">690,724.82</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">585,360.36</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">105,364.47</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">2.34</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">674.99</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">.010**</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">[31054.71, Inf]</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>Visualicemos la distribución de esta prueba y su zona de rechazo.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggttest</span>(test_ej1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-practico_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>5. Interpretación</strong></p>
+<p>La prueba t que evalúa la diferencia de medias entre el salario y el sexo sugiere que el efecto es positivo y estadísticamente signficativo (diferencia = 105.364,47, t = 2.34, p &lt; .05). El valor <strong><span class="math inline">\(p\)</span></strong> indica que <strong>la probabilidad de observar una diferencia de esta magnitud, o mayor, bajo la suposición de <span class="math inline">\(H_{0}\)</span> es menor al 5%</strong>. Por tanto, con un 95% de confianza, rechazamos la <span class="math inline">\(H_{0}\)</span> ya que existe <strong>evidencia a favor</strong> de nuestra <span class="math inline">\(H_{A}\)</span> respecto a que el salario de los hombres es mayor al salario de las mujeres.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Las hipótesis se pueden rechazar, pero <strong>nunca se aceptan</strong> (lógica de falsación)</p>
+</div>
+</div>
+</section>
+<section id="ejercicio-2" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="ejercicio-2"><span class="header-section-number">2.5</span> Ejercicio 2</h2>
+<p>Tomando como ejemplo el trabajo de la ganadora del Premio Nobel de Economía 2023 Claudia Goldin, en este siguiente ejercicio evaluaremos la siguiente pregunta: <em>¿Es el salario de las mujeres con hijos menor al salario de las mujeres sin hijos?</em> Por ende, usaremos <strong>prueba <span class="math inline">\(t\)</span></strong> para diferencia de medias.</p>
+<p>Utilizaremos la bbdd <code>proc_casen</code>, seleccionando las variables <code>ocupado</code>, <code>sexo</code>, <code>ytrabajocor</code> e <code>hijo</code>. Luego, filtraremos por <code>ocupado == 1</code> y <code>sexo == 2</code> para quedarnos sólo con mujeres ocupadas y generaremos una muestra aleatoria de 1.500 casos con la función <code>sample_n()</code>. Luego, eliminaremos los casos pérdidos con <code>na.omit()</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> <span class="co"># crear subset a partir de la base proc_casen</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ocupado, sexo, ytrabajocor, hijo) <span class="sc">%&gt;%</span> <span class="co"># selección de variables</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ocupado <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> sexo <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># se filtra solo por mujeres ocupadas</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="sc">%&gt;%</span> <span class="co"># submuestra de 1500</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()<span class="co"># creamos subset </span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Ahora generamos una tabla de descriptivos de los ingresos (<code>ytrabajocor</code>) según si las observaciones tienen hijos o no (<code>hijo</code>), presentando la cantidad de casos, la media y la desviación estándar.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="sc">%&gt;%</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(hijo) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(),</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Media =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm =</span> T),</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">DS =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># hacemos la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: right;">hijo</th>
+<th style="text-align: right;">Obs.</th>
+<th style="text-align: right;">Media</th>
+<th style="text-align: right;">DS</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">353</td>
+<td style="text-align: right;">706113.7</td>
+<td style="text-align: right;">830191.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">1098</td>
+<td style="text-align: right;">590847.7</td>
+<td style="text-align: right;">638006.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Ahora vamos con los <a href="https://correlacional.netlify.app/slides/05-inferencia4.html#33">5 pasos de la inferencia</a></p>
+<p><strong>1. Formulación de hipótesis</strong></p>
+<p>El primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis direccional (<strong><em>mayor que</em></strong>)</p>
+<p>Luego, debemos establecer las hipótesis nula y alternativa:</p>
+<p>(<span class="math inline">\(H_0\)</span>): El promedio salarial de las mujeres sin hijos será igual o menor que el promedio salarial de las mujeres con hijos.</p>
+<p>(<span class="math inline">\(H_A\)</span>): El promedio salarial de mujeres sin hijos será mayor que el promedio salarial de las mujeres con hijos.</p>
+<p><strong>Pasos 2, 3 y 4 de una vez con R</strong></p>
+<p>Siguiendo el ejemplo del Ejercicio 1, utilizaremos el software para estimar el test de hipótesis con un 95% de confianza.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test_ej2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(goldin_data<span class="sc">$</span>ytrabajocor <span class="sc">~</span> goldin_data<span class="sc">$</span>hijo, </span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>test_ej2</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  goldin_data$ytrabajocor by goldin_data$hijo
+t = 2.3914, df = 492.66, p-value = 0.008578
+alternative hypothesis: true difference in means between group 0 and group 1 is greater than 0
+95 percent confidence interval:
+ 35835.71      Inf
+sample estimates:
+mean in group 0 mean in group 1 
+       706113.7        590847.7 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej2, <span class="at">conf_int =</span> T)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div class="tabwid"><style>.cl-410c13e2{table-layout:auto;}.cl-41061dfc{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-41061e24{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-41061e2e{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-4108e0be{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4108e0e6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-41091548{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-41091566{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-41091584{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-410c13e2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Method</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Alternative</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Mean 1</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Mean 2</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">M</span><span class="cl-41061e2e">1</span><span class="cl-41061dfc"> - </span><span class="cl-41061e24">M</span><span class="cl-41061e2e">2</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">t</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">df</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">p</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-41091566"><p class="cl-4108e0e6"><span class="cl-41061dfc">Welch Two Sample t-test</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">greater</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">706,113.65</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">590,847.70</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">115,265.96</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">2.39</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">492.66</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">.009**</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">[35835.71, Inf]</span></p></td></tr></tbody></table></div>
+</div>
+</div>
+<p>A partir de los resultados obtenidos: ¿es posible rechazar la hipótesis planteada?</p>
+<blockquote class="blockquote">
+<p>La prueba t que evalúa la diferencia de medias</p>
+</blockquote>
+<p>Con un 95% de confianza es posible rechazar la hipótesis nula planteada. El promedio salarial de las mujeres sin hijos es $115.265,96 mayor que el de las mujeres con hijos.</p>
+</section>
+</section>
+<section id="ejercicio-autónomo" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Ejercicio autónomo</h1>
+<p>En este ejercicio tomamos de ejemplo una pregunta clásica en ciencias sociales: <em>¿el ingreso de las personas está relacionado a su nivel educacional?</em>. Para responder esta pregunta vamos a usar una prueba <span class="math inline">\(t\)</span> de contraste de medias para dos muestras independientes. Realice lo siguiente:</p>
+<ul>
+<li><p>Utilice la bbdd <code>proc_casen</code> y seleccione las variables <code>ytrabajocor</code> y <code>universitaria</code>.</p></li>
+<li><p>Luego genere una muestra aleatoria 1500 casos con la función <code>sample_n()</code> y elimine los datos perdidos de la variable <code>ytrabajocor</code>.</p></li>
+<li><p>Genere una tabla de descriptivos de los ingresos (<code>ytrabajocor</code>) según si las personas cuentan con educación universitaria o no (<code>universitaria</code>). Presente cantidad de observaciones por categoría, media y desviación estándar.</p></li>
+<li><p>Realice el test de hipótesis considerando los comandos que se vieron a lo largo de la clase y compruebe si es posible rechazar la hipótesis nula</p></li>
+</ul>
+</section>
+<section id="repaso" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Repaso</h1>
+<p>Hoy vimos:</p>
+<ul>
+<li><p>Repaso de los intervalos de confianza, observando la importancia del error estándar y la estimación de rangos para encontrar el parámetro poblacional</p></li>
+<li><p>Contraste de hipótesis mediante pruebas de una cola y dos colas</p></li>
+<li><p>Aplicar los 5 pasos para la inferencia mediante software</p></li>
+</ul>
+<p>Para cerrar…</p>
+<p><img src="https://correlacional.netlify.app/slides/img/rechazar_meme.png" class="img-fluid"></p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Generalmente, nuestro objetivo será <strong>rechazar la hipótesis nula</strong></p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
