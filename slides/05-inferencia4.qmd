@@ -1,0 +1,702 @@
+---
+engine: knitr
+format:
+  revealjs:
+    incremental: true
+    scrollable: true
+    logo: img/logo-correlacional-transp.png
+    theme: [css/custom_2025.scss]
+    title-slide-attributes:
+      visibility: false
+    transition: none
+    transition-speed: slow
+    auto-play-media: true
+    title-slide-logo: false
+    slide-number: true
+editor: source
+---
+
+```{r setup}
+#| include: false
+library(ggplot2)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE, comment = "",
+                       fig.width = 7, fig.height = 4.5)
+```
+
+```{r plots-dados}
+#| echo: false
+#| fig-show: hide
+# Distribución teórica del promedio de dos dados
+promedios_posibles <- seq(1, 6, by = 0.5)
+
+probabilidades_teoricas <- c(1/36, 2/36, 3/36, 4/36, 5/36, 6/36, 5/36, 4/36, 3/36, 2/36, 1/36)
+
+# 1500 repeticiones
+set.seed(123)
+
+dados1 <- sample(1:6, 1500, replace = TRUE)
+dados2 <- sample(1:6, 1500, replace = TRUE)
+
+promedio_dados <- (dados1 + dados2) / 2
+
+frecuencias_empiricas <- table(promedio_dados)
+
+probabilidades_empiricas <- frecuencias_empiricas / sum(frecuencias_empiricas)
+
+# Probabilidades empíricas
+barplot(probabilidades_empiricas,
+        main = "Promedio de dos dados (1500 repeticiones)",
+        xlab = "Promedio de los dados",
+        ylab = "Frecuencia de probabilidad",
+        col = rgb(0.1, 0.5, 0.8, 0.6), # Azul con transparencia
+        ylim = c(0, 0.2))
+
+# Superponemos las barras de la distribución teórica
+barplot(probabilidades_teoricas,
+        names.arg = promedios_posibles,
+        col = rgb(0.8, 0.2, 0.2, 0.5), # Rojo con transparencia
+        add = TRUE)
+
+legend("topright", legend = c("Empírica", "Teórica"),
+       fill = c(rgb(0.1, 0.5, 0.8, 0.6), rgb(0.8, 0.2, 0.2, 0.5)),
+       border = "white")
+
+rep1500 <- recordPlot()
+```
+
+# {.hide-logo data-background-color="#0C3547"}
+
+<br>
+
+::::: columns
+::: {.column width="30%"}
+
+<br>
+
+![](img/logo-correlacional-transp.png){width="100%" fig-align="right"}
+:::
+
+:::{.column width="2%"}
+
+:::
+
+::: {.column style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;"}
+
+<br>
+
+### [Estadística Correlacional]{style="font-size: 2em; color: white;"}
+
+::: {style="border-top: 1px solid white; margin: 0.3em 0;"}
+:::
+
+[Inferencia, asociación, y reporte]{style="font-size: 1.5em; color: #dfc117;"}
+
+[Juan Carlos Castillo]{style="font-size: 1em; color: white;"}\
+[Sociología FACSO - UChile]{style="font-size: 1em; color: white;"}\
+[2do Sem 2026]{style="font-size: 1em; color: white;"}
+
+[correlacional.metodos-facso.org](https://correlacional.metodos-facso.org)
+
+<br>
+[**Inferencia 4**:]{style="color: white; font-size: 1.3em;"}
+
+[Test de hipótesis]{style="color: #dfc117;"}
+
+:::
+:::::
+
+# [¿Qué hemos visto hasta ahora?]{style="color: #dfc117;"} {data-background-color="#0C3547"}
+
+##
+
+![](img/temas-inferencias.png){width="100%" fig-align="center"}
+
+## ¿Qué puedo decir de la población a partir de mi muestra? {style="font-size: 0.8em;"}
+
+PROBABILIDADES ... de un rango de valores
+
+:::: {.columns}
+::: {.column width="70%"}
+
+### ¿Cómo llego al rango de valores probables de un parámetro poblacional obtenido a partir de **una muestra**?
+
+:::
+
+::: {.column width="30%"}
+
+![](img/inference1.png){width="80%" fig-align="center"}
+
+:::
+::::
+
+## Probabilidades {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="45%"}
+
+- Podemos calcular probabilidades basados en una distribución teórica de ocurrencia de eventos.
+
+- Ej: En teoría, la probabilidad de que salga sello al tirar una moneda es 50%
+
+- Mientras más repetimos el evento, más se van a acercar los resultados (distribución empírica) a la probabilidad del evento (distribución teórica)
+
+:::
+
+::: {.column width="55%"}
+
+```{r}
+#| echo: false
+rep1500
+```
+
+:::
+::::
+
+## Curva normal {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- Hay una serie de eventos que en términos teóricos y empíricos tienen una distribución particular en torno al valor central -> **normal**
+
+- La [curva normal]{style="color: #c0392b;"} es una distribución teórica que nos permite tener un estándar con el cual comparar distribuciones empíricas
+
+:::
+
+::: {.column width="50%"}
+
+<br>
+
+![](img/norm2.png){width="100%" fig-align="center"}
+
+:::
+::::
+
+## Teorema central del límite y error estándar {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="55%"}
+
+- si pudiera calcular un estadístico en muchas muestras distintas (ej: promedio) este se distribuiría de manera normal
+
+- el **error estándar** es la formula que nos permite obtener el valor de la desviación estándar de los promedios con una sola muestra
+
+:::
+
+::: {.column width="45%"}
+
+<br>
+
+$$\sigma_{\bar{X}}=\frac{s}{\sqrt{N}}$$
+
+:::
+::::
+
+## Puntajes Z {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- el puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1
+
+- Z expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)
+
+- Z permite además obtener el valor del percentil de cada puntaje
+
+:::
+
+::: {.column width="50%"}
+
+$$z=\frac{x-\mu}{\sigma}$$
+
+![](https://correlacional.netlify.app/slides/03-inferencia2_files/figure-html/unnamed-chunk-16-1.png){width="90%" fig-align="center"}
+
+:::
+::::
+
+## Intervalos de confianza [para el promedio] {style="font-size: 0.75em;"}
+
+:::: {.columns}
+::: {.column width="50%"}
+
+- rango de probabilidad del valor de un parámetro en la población
+
+- Para construirlo, 4 pasos:
+
+  1- establecer **nivel de confianza** (convencionalmente 95%)
+
+  2- definir **puntaje Z** correspondiente a este intervalo (para 95% es 1.96)
+
+:::
+
+::: {.column .fragment width="50%"}
+
+3- multiplicar Z por el **error estándar**
+
+4- restar al promedio (límite inferior) y sumar (límite superior)
+
+$$\bar{X}\pm Z*\frac{\sigma}{\sqrt{N}}$$
+
+:::
+::::
+
+## {data-background-color="#0C3547"}
+
+![](img/herramientas.png){width="90%" fig-align="center"}
+
+# [¿Qué es una hipótesis?]{style="color: white;"} {data-background-color="#0C3547"}
+
+::: {.fragment}
+### [¿Cuándo una hipótesis es [verdadera]{style="color: #dfc117;"}?]{style="color: white;"}
+:::
+
+## [Una [hipótesis]{style="color: #dfc117;"} es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio]{style="color: white;"} {data-background-color="#9B2626"}
+
+# [¿Cuándo se puede verificar una hipótesis?]{style="color: white;"} {data-background-color="#0C3547"}
+
+::: {.fragment}
+### [-> [NUNCA]{style="color: #dfc117;"}]{style="color: white;"}
+:::
+
+::: {.fragment}
+### [... pero, se puede **[falsar]{style="color: #e8871a;"}**]{style="color: white;"}
+:::
+
+## Popper y la falsabilidad {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="40%"}
+
+![](img/popper.jpg){width="80%" fig-align="center"}
+
+:::
+
+::: {.column width="60%"}
+
+_"el criterio de demarcación que hemos de adoptar no es el de la verificabilidad, sino el de la [falsabilidad]{style="color: #c0392b;"} de los sistemas. Dicho de otro modo: no exigiré que un sistema científico pueda ser seleccionado, de una vez para siempre, en un sentido positivo; pero sí que sea susceptible de selección en un sentido negativo por medio de contrastes o pruebas empíricas: ha de ser posible refutar por la experiencia un sistema científico empírico" (Popper, 1982, p. 40)_
+
+:::
+::::
+
+## Contraste de hipótesis y falsación {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="35%"}
+
+![](img/hipotesis.png){width="100%" fig-align="center"}
+
+:::
+
+::: {.column width="65%"}
+
+- El **verificar** una hipótesis no hace que una teoría sea verdadera
+
+- Se puede intentar refutar una teoría (**falsarla**) mediante un contraejemplo o hipótesis contraria
+
+- Si no es posible refutar la hipótesis contraria, entonces la teoría queda aceptada **provisionalmente**
+
+:::
+::::
+
+## Ejemplo
+
+:::: {.columns}
+::: {.column width="60%"}
+
+Teoría: todos los cuervos son negros
+
+Hipótesis de verificación: hay cuervos negros
+
+Hipótesis de falsación: hay cuervos blancos
+
+:::
+
+::: {.column width="40%"}
+
+<br>
+
+![](img/white-crow.png){width="90%" fig-align="center"}
+
+:::
+::::
+
+## [Lógica de contraste de hipótesis]{style="color: white;"} {data-background-color="#0C3547"}
+
+::: {style="color: white;"}
+### [Intentar falsar lo que es contrario a nuestra hipótesis original]{style="color: #dfc117;"}
+
+::: {.fragment}
+### En estadística, esta "hipótesis contraria" se denomina la [HIPÓTESIS NULA]{style="color: #dfc117;"}
+:::
+:::
+
+## [buscamos RECHAZAR LA HIPÓTESIS NULA]{style="color: white;"} {data-background-color="#9B2626"}
+
+::: {style="color: white; font-size: 0.8em;"}
+si logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría
+
+Buscamos **no encontrar** cuervos blancos ![](img/white-crow.png){width="10%"}
+:::
+
+## Hipótesis nula
+
+- Hipótesis se denota con la letra $H$
+
+- La hipótesis nula se denota $H_0$ (hache cero)
+
+- **Cero** porque en general se refiere a que lo que señala la teoría no existe o **es cero en la población**
+
+-> más detalle de tipos de hipótesis prox. clase, ahora vamos a un **ejemplo**
+
+## [¿Existen diferencias salariales entre hombres y mujeres en Chile?]{style="color: white;"} {data-background-color="#0C3547"}
+
+::: {style="color: white; font-size: 0.7em;"}
+| Hipótesis general | Hipótesis estadística |
+|-------------------------------|-------------------------------|
+| Existen diferencias salariales entre hombres y mujeres | Hipótesis **alternativa**: Las diferencias son distintas de cero |
+| No existen diferencias salariales entre hombres y mujeres | Hipótesis **nula**: Las diferencias no son distintas de cero |
+:::
+
+## Cuestionario CASEN
+
+:::: {.columns}
+::: {.column width="50%"}
+
+![](img/sueldo_casen.png){width="85%" fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
+
+![](img/sexo_casen.png){width="100%" fig-align="center"}
+
+:::
+::::
+
+## Datos CASEN 2022 {style="font-size: 0.8em;"}
+
+:::: {.columns}
+::: {.column width="35%"}
+
+![](img/casen_download.png){width="100%" fig-align="center"}
+
+:::
+
+::: {.column width="65%"}
+
+Vamos a generar una submuestra de 350 casos de CASEN para ilustrar de mejor manera el sentido del test de hipótesis
+
+```{r}
+#| echo: true
+pacman::p_load(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)
+load("casen2022_inf2.Rdata")
+options(scipen = 999) # para evitar notación en los ceros
+set.seed(20) # para fijar el resultado aleatorio
+casen_350 <- casen2022_inf %>% select(salario, sexo) %>% sample_n(350)
+casen_350 <- na.omit(casen_350)
+```
+
+:::
+::::
+
+## Datos {style="font-size: 0.7em;"}
+
+```{r}
+#| echo: true
+stargazer(as.data.frame(casen_350), type = "text")
+```
+
+## {style="font-size: 0.7em;"}
+
+```{r}
+#| echo: true
+casen_350 %>% # se especifica la base de datos
+  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %>% # se agrupan por la variable categórica y se usan sus etiquetas con as_label
+  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %>% # se agregan las operaciones a presentar en la tabla
+  kable(format = "markdown") # se genera la tabla
+```
+
+Diferencia salarial = 654.585-604.420=**50.165**
+
+## [[Procedimiento: 5 pasos de la inferencia]{style="color: #dfc117;"} (ajustados de Ritchey)]{style="color: white;"} {data-background-color="#0C3547" style="font-size: 0.8em;"}
+
+::: {style="color: white;"}
+1. Formular hipótesis ( $H_0$ y $H_A$)
+
+2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+3. Establecer la probabilidad de error $\alpha$ (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente
+
+4. Cálculo de intervalo de confianza / contraste valores empírico/crítico
+
+5. Interpretación
+:::
+
+## 1. Formular hipótesis
+
+Contrastamos la *hipótesis nula* (no hay diferencias de promedios entre grupos):
+
+$$H_{0}: \bar{X}_{hombres} -  \bar{X}_{mujeres}= 0$$
+
+En referencia a la siguiente hipótesis alternativa:
+
+$$H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0$$
+
+## {style="font-size: 0.8em;"}
+
+::: {.content-box-green}
+### (2. Error estándar y estadístico de prueba)
+
+- [(Una nota preliminar)]{style="color: #ffe08a;"} En general, existen 2 formas de realizar el contraste de hipótesis:
+
+  - intervalo de confianza, asociado al error estándar
+
+  - contraste con valor crítico, asociado al estadístico de prueba
+
+- Ambos entregan información consistente y complementaria
+
+- En esta clase vamos a estimar solo el intervalo, la próxima veremos el contraste con valor crítico, que el caso de diferencia de medias corresponde a la prueba $t$ de student.
+:::
+
+## 2. Error estándar (y estadístico de prueba) {style="font-size: 0.75em;"}
+
+- Cada estadístico tiene su propia fórmula de error estándar
+
+- En el caso de la **diferencia de medias** (en este caso, de hombres y mujeres), el error estándar es:
+
+$$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$
+
+Donde
+
+$$\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}$$
+
+- como se puede apreciar, es una extensión del error estándar del promedio pero para dos grupos distintos
+
+## {style="font-size: 0.9em;"}
+
+Cálculo de la desviación estándar de las diferencias de promedios:
+
+$$
+\begin{align*}
+\sigma_{diff}&=\frac{468692^2(205-1)+444666^2(138-1)}{205+138-2} \\ \\
+&=\frac{44813126936256+27088715663172}{341}\\ \\
+&=210855843400
+\end{align*}
+$$
+
+## {style="font-size: 0.9em;"}
+
+Y entonces el error estándar de la diferencia de medias:
+
+$$
+\begin{align*}
+SE&=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
+&=\sqrt{\frac{210855843400}{205}+\frac{210855843400}{138}}\\ \\
+&=50561
+\end{align*}
+$$
+
+## 3. Establecer probabilidad de error {style="font-size: 0.85em;"}
+
+- asumimos que existe una probabilidad de error al rechazar $H_0$, para lo cual fijamos un límite convencional -> usualmente un 5%
+
+- ¿error **de qué**? -> de rechazar $H_0$ cuando esta existe en la población.
+
+- Esto se conoce como la **probabilidad de error Tipo I o $\alpha$ (alfa)**
+
+## Hipótesis nula ( $H_0$) y tipos de error {style="font-size: 0.8em;"}
+
+![](img/errortypes.png){width="100%" fig-align="center"}
+
+## En nuestro ejemplo: {style="font-size: 0.8em;"}
+
+$$H_{0}: \bar{X}_{sueldo\ mujeres} -  \bar{X}_{sueldo\ hombres}= 0$$
+
+- Si **hay** diferencias de sueldo en la población y rechazamos $H_0$: decisión correcta
+
+- Si **no hay** diferencias de sueldo en la población y rechazamos $H_0$: Error tipo I
+
+::: {.fragment}
+::: {.content-box-red style="text-align: center;"}
+### El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población
+:::
+:::
+
+## Hipótesis nula y tipos de error
+
+![](img/errors.jpg){width="70%" fig-align="center"}
+
+## Hipótesis nula y tipos de error
+
+<br>
+
+:::: {.columns}
+::: {.column width="48%"}
+
+::: {.content-box-red}
+### Error Tipo I
+
+Encontrar algo que no existe en la población
+:::
+
+:::
+
+::: {.column width="48%"}
+
+::: {.content-box-green}
+### Error Tipo II
+
+No encontrar algo que si existe en la población
+:::
+
+:::
+::::
+
+## Hipótesis nula y $\alpha$ {style="font-size: 0.85em;"}
+
+- Entonces, el $\alpha$ es la probabilidad de error que fijamos para rechazar la hipótesis nula
+
+- en lenguaje de prueba de hipótesis, es la probabilidad de rechazar la hipótesis nula cuando esta es verdadera
+
+- o la probabilidad de encontrar diferencias entre grupos de la población cuando estas no existen
+
+- o en simple, la probabilidad de que nos estemos equivocando
+
+## Nivel de confianza y probabilidad de error $\alpha$ {style="font-size: 0.8em;"}
+
+- el nivel de confianza de una estimación se determina de manera **convencional**, usualmente se acepta 95% o 99% de confianza
+
+- un nivel de confianza se expresa en una probabilidad de error $\alpha$ ([alfa]{style="color: #c0392b;"}), que es 1 - nivel de confianza
+
+  - para un nivel de confianza de 95%, $\alpha=1-0.95=0.05$
+
+  - para un nivel de confianza de 99%, $\alpha=1-0.99=0.01$
+
+##
+
+![](img/normal&alfa2.png){width="90%" fig-align="center"}
+
+##
+
+![](img/normal&alfa.png){width="90%" fig-align="center"}
+
+## {style="font-size: 0.8em;"}
+
+::: {.content-box-green}
+### 4. Intervalo de confianza [y contraste con valor crítico]
+
+- de la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96
+
+- para diferencia de medias se utiliza prueba $t$, donde el valor crítico es variable según en tamaño muestral
+
+- sin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase
+:::
+
+## 4. Intervalo de confianza
+
+$$
+\begin{align*}
+\bar{x}_1-\bar{x}_2 &\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
+50165 &\pm 1.96*50561 \\\\
+50165 &\pm 99099.56 \\\\
+CI[-49287.48&;149617.63]
+\end{align*}
+$$
+
+## Test de hipótesis de diferencias en R {style="font-size: 0.75em;"}
+
+```{r}
+#| echo: true
+t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)
+```
+
+## tabla t test con `rempsyc` {style="font-size: 0.75em;"}
+
+```{r}
+#| echo: true
+pacman::p_load(rempsyc, broom)
+model <- t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)
+stats.table <- tidy(model, conf.int = TRUE)
+nice_table(stats.table, broom = "t.test")
+```
+
+::: {.notes}
+https://rempsyc.remi-theriault.com/articles/t-test
+:::
+
+## 5. Interpretación {style="font-size: 0.85em;"}
+
+Nuestro intervalo de confianza **contiene el cero**, por lo que no se rechaza la hipótesis nula
+
+::: {.fragment}
+::: {.content-box-red}
+Con un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.
+
+Alternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error
+:::
+:::
+
+# [Resumen]{style="color: #dfc117;"} {data-background-color="#0C3547"}
+
+::: {style="color: white; font-size: 0.85em;"}
+- hipótesis: aseveraciones sobre algo que ocurre en la población, usualmente asociaciones entre conceptos / variables
+
+- las hipótesis se contrastan con un criterio de falsabilidad
+
+- el contraste de hipótesis en estadística opera mediante el rechazo de la hipótesis nula (o de no diferencias), con una probabilidad de error $\alpha$
+
+- 5 pasos para contraste de hipótesis
+:::
+
+## Próxima clase (miércoles): manos al código {style="font-size: 0.85em;"}
+
+::: {style="border-top: 1px solid #0C3547; margin: 0.3em 0;"}
+:::
+
+### y próximo lunes
+
+- Prueba $t$
+
+- hipótesis direccionales (mayor o menor qué) o de una cola (one tail)
+
+- inferencia para proporciones
+
+## Recomendaciones
+
+[![](img/logicaccss.png){width="30%" fig-align="center"}](https://cienciassocialesfcpys.wordpress.com/wp-content/uploads/2016/03/5la-logica-de-las-ciencias-sociales-popper-adorno-dahrendorf-habermas.pdf)
+
+# {.hide-logo data-background-color="#0C3547"}
+
+<br>
+
+::::: columns
+::: {.column width="30%"}
+
+<br>
+
+![](img/logo-correlacional-transp.png){width="100%" fig-align="right"}
+:::
+
+:::{.column width="2%"}
+
+:::
+
+::: {.column style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;"}
+
+<br>
+
+### [Estadística Correlacional]{style="font-size: 2em; color: white;"}
+
+::: {style="border-top: 1px solid white; margin: 0.3em 0;"}
+:::
+
+[Inferencia, asociación, y reporte]{style="font-size: 1.5em; color: #dfc117;"}
+
+[Juan Carlos Castillo]{style="font-size: 1em; color: white;"}\
+[Sociología FACSO - UChile]{style="font-size: 1em; color: white;"}\
+[2do Sem 2026]{style="font-size: 1em; color: white;"}
+
+[correlacional.metodos-facso.org](https://correlacional.metodos-facso.org)
+
+:::
+:::::

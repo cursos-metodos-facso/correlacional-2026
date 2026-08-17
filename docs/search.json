@@ -700,9 +700,14 @@
   {
     "objectID": "content/04-content.html",
     "href": "content/04-content.html",
-    "title": "Inferencia 3 - Intervalos de confianza",
+    "title": "Inferencia 3 - Intervalos de confianza y test de hipótesis 1",
     "section": "",
-    "text": "Sesión del martes, 20 de agosto de 2024\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+    "text": "Sesión del lunes, 17 de agosto de 2026\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Inferencia 3"
+    ]
   },
   {
     "objectID": "content/06-content.html",
@@ -1532,5 +1537,936 @@
     "title": "Repaso de R en Positron",
     "section": "",
     "text": "← News\n\n\n\n\n\nAbajo encontrarán un video que repasa algunas funciones básicas de R en Positron.\nEl video es de Mine Cetinkaya-Rundel, quien tiene muy buen material para aprender R y estadística. Pueden encontrar más recursos en su página: https://mine-cr.com/\n\n\nPara verlo con subtitulos en español, pueden hacer click en el ícono de configuración (⚙️) y seleccionar “Subtítulos” y luego “Traducir automáticamente (autotranslate)” y finalmente “Español”. También recomiendo verlo en velocidad 0.75, ya que va un poco rápido."
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#padlet",
+    "href": "slides/04-inferencia3.html#padlet",
+    "title": "Estadística Correlacional",
+    "section": "Padlet",
+    "text": "Padlet"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#preguntas-de-los-textos",
+    "href": "slides/04-inferencia3.html#preguntas-de-los-textos",
+    "title": "Estadística Correlacional",
+    "section": "¿Preguntas de los textos?",
+    "text": "¿Preguntas de los textos?\n\n¿Dudas de la clase pasada?"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#pilares-de-la-inferencia",
+    "href": "slides/04-inferencia3.html#pilares-de-la-inferencia",
+    "title": "Estadística Correlacional",
+    "section": "Pilares de la inferencia",
+    "text": "Pilares de la inferencia\n\n\nCurva normal\n\n\n\n\n\n\nError estándar\n\\[\\sigma_{\\bar{X}}=\\frac{s}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#diferencias-desviación-estándar-y-error-estándar",
+    "href": "slides/04-inferencia3.html#diferencias-desviación-estándar-y-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Diferencias desviación estándar y error estándar",
+    "text": "Diferencias desviación estándar y error estándar\n\n\nDesviación estándar\n\\(\\sigma=\\sqrt{\\frac{\\Sigma(x_i-\\bar{X})^2}{N-1}}\\)\nMagnitud que expresa la dispersión en torno al promedio en la escala de la variable\n\nError estándar (del promedio)\n\\[\\sigma_{\\bar{X}}=SE=\\frac{s}{\\sqrt{N}}\\]\n\nMagnitud que equivale a la desviación estándar de los promedios de varias muestras"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#y-más-de-error-estándar",
+    "href": "slides/04-inferencia3.html#y-más-de-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "… y más de Error Estándar",
+    "text": "… y más de Error Estándar\n\nse calcula no solo para el promedio, sino para distintos estadísticos como correlación, regresión, desviación estándar (con distintas fórmulas para cada uno)\ncomo está expresado en unidades estándar de variación, permite construir rangos de probabilidad basados en la distribución normal\nestos rangos de probabilidad se conocen como intervalos de confianza"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-1",
+    "href": "slides/04-inferencia3.html#section-1",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Hoy:\n\n1. Intervalos de confianza\n2. Test de hipótesis"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#error-y-confianza",
+    "href": "slides/04-inferencia3.html#error-y-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Error y confianza",
+    "text": "Error y confianza\n\nUn 68% implica que la probabilidad de que el promedio esté fuera de ese rango (o probabilidad de error) es de un 32% (100%-68%)\n\n\n\n¿Es aceptable este nivel?\n\n\n\nEsto es equivalente a preguntarse cuánto error estoy dispuesto a tolerar como resultado de una inferencia estadística\n\n\nY se asocia al concepto de nivel de confianza"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#certeza-o-precisión",
+    "href": "slides/04-inferencia3.html#certeza-o-precisión",
+    "title": "Estadística Correlacional",
+    "section": "¿Certeza o precisión?",
+    "text": "¿Certeza o precisión?\n\nNo hay certezas, solo probabilidades\nLas probabilidades se asocian a un rango (intervalo) que garantice un cierto nivel de confianza\n\n\nIdeal: un rango estrecho (preciso) y un nivel de confianza alto (certero)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#es-decir-qué-tipo-de-conclusión-prefiero",
+    "href": "slides/04-inferencia3.html#es-decir-qué-tipo-de-conclusión-prefiero",
+    "title": "Estadística Correlacional",
+    "section": "Es decir, qué tipo de conclusión prefiero:",
+    "text": "Es decir, qué tipo de conclusión prefiero:\n\nel promedio de ingresos se encuentra entre 500.000 y 5.000.000, con un 99% de confianza, ó\nel promedio de ingresos se encuentra entre 700.000 y 710.000, con un 65% de confianza\n\n\n\n“con un 100% de probabilidad te aseguro que tu nota se encuentra entre 1 y 7”"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalos-vs-confianza",
+    "href": "slides/04-inferencia3.html#intervalos-vs-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Intervalos vs confianza",
+    "text": "Intervalos vs confianza"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#de-qué-depende-el-nivel-de-confianza",
+    "href": "slides/04-inferencia3.html#de-qué-depende-el-nivel-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "¿De qué depende el nivel de confianza?",
+    "text": "¿De qué depende el nivel de confianza?\n\nen estadística inferencial, el nivel de confianza equivale a:\n\n1 - probabilidad de error\n\nel nivel de probabilidad de error aceptado no es un criterio estadístico, es convencional\npor convención, se acepta como estadísticamente significativa una probabilidad de error menor al 5%, lo que equivale (al menos) a un nivel de confianza del 95%"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#qué-significa-un-95-de-confianza",
+    "href": "slides/04-inferencia3.html#qué-significa-un-95-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué significa un 95% de confianza?",
+    "text": "¿Qué significa un 95% de confianza?\n\nque si tuviéramos la posibilidad de extraer múltiples muestras, el 95% de las veces nuestro intervalo contendría el promedio\no que existe un 5% de probabilidad de error, es decir, de que el promedio de la muestra no sea el de la población\no que las chances de error son 1 de 20\nvolviendo al ejemplo de los aros: que 95 de cada 100 aros que lancemos atrapan la estaca"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#un-intervalo-de-confianza-ic-o-ci-es-la-mejor-estimación-del-rango-de-un-estadístico-en-la-población-parámetro-poblacional-con-una-muestra-aleatoria",
+    "href": "slides/04-inferencia3.html#un-intervalo-de-confianza-ic-o-ci-es-la-mejor-estimación-del-rango-de-un-estadístico-en-la-población-parámetro-poblacional-con-una-muestra-aleatoria",
+    "title": "Estadística Correlacional",
+    "section": "Un intervalo de confianza (IC o CI) es la mejor estimación del rango de un estadístico en la población (parámetro poblacional) con una muestra aleatoria",
+    "text": "Un intervalo de confianza (IC o CI) es la mejor estimación del rango de un estadístico en la población (parámetro poblacional) con una muestra aleatoria"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#de-qué-depende-el-tamaño-del-intervalo-de-confianza-1",
+    "href": "slides/04-inferencia3.html#de-qué-depende-el-tamaño-del-intervalo-de-confianza-1",
+    "title": "Estadística Correlacional",
+    "section": "¿De qué depende el tamaño del intervalo de confianza?",
+    "text": "¿De qué depende el tamaño del intervalo de confianza?\n\nrecordemos que el intervalo de confianza se elabora sumando y restando errores estándar al promedio\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ est\\acute{a}ndar)=\\frac{s}{\\sqrt{N}}\\]\n\n\ndado que el tamaño muestral (N) se encuentra en el denominador del \\(SE\\), a mayor N, menor será el \\(SE\\) y menor el intervalo de confianza\nesto tiene implicancias directas en el cálculo del tamaño muestral"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#pasos-en-la-construcción-del-intervalo-de-confianza-para-un-promedio",
+    "href": "slides/04-inferencia3.html#pasos-en-la-construcción-del-intervalo-de-confianza-para-un-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Pasos en la construcción del intervalo de confianza (para un promedio)",
+    "text": "Pasos en la construcción del intervalo de confianza (para un promedio)\n\nObtención de la media y el error estándar\nDeterminar el nivel de confianza (expresado en puntaje Z) para la construcción del intervalo\nAplicar fórmula:\n\n\\[\\bar{X}\\pm Z*\\frac{\\sigma}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#determinando-el-nivel-de-confianza",
+    "href": "slides/04-inferencia3.html#determinando-el-nivel-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Determinando el nivel de confianza",
+    "text": "Determinando el nivel de confianza\n\n\n\n\nNuestro promedio muestral \\(\\bar{x}\\) posee una distribución normal con una desviación estándar = SE (error estándar)\nEsto nos permite estimar probabilidades basados en los valores de la curva normal"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#valores-del-intervalo",
+    "href": "slides/04-inferencia3.html#valores-del-intervalo",
+    "title": "Estadística Correlacional",
+    "section": "Valores del intervalo",
+    "text": "Valores del intervalo\nDeterminar el valor del límite superior y el límite inferior del intervalo en la curva normal para un nivel de confianza del 95%:"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#valores-del-intervalo-1",
+    "href": "slides/04-inferencia3.html#valores-del-intervalo-1",
+    "title": "Estadística Correlacional",
+    "section": "Valores del intervalo",
+    "text": "Valores del intervalo\n\n\nEl límite inferior de un intervalo al 95% de confianza corresponde al percentil 2,5%, y el límite superior al 97,5% (95% + 2,5%)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-4",
+    "href": "slides/04-inferencia3.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Obtención de la media y el error estándar\nDeterminar el nivel de confianza (expresado en puntaje Z) para la construcción del intervalo\nAplicar fórmula:\n\n\n\\[\\bar{x}\\pm Z*\\frac{\\sigma}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#de-percentil-a-puntaje-z",
+    "href": "slides/04-inferencia3.html#de-percentil-a-puntaje-z",
+    "title": "Estadística Correlacional",
+    "section": "De percentil a puntaje Z",
+    "text": "De percentil a puntaje Z\n\n\n\nRecordemos que al calcular el puntaje Z, el resultado se expresa en desviaciones estándar de la curva normal, lo que puede ser transformado a percentiles.\nPor lo tanto, se puede hacer la operación inversa -&gt; a qué puntaje Z corresponde un determinado percentil"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-5",
+    "href": "slides/04-inferencia3.html#section-5",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Y sabemos por la distribución normal que entre +/- 2 desviaciones estándar de la curva normal se encuentra el 95,44% de los casos:\n\nPor lo tanto, para un 95% será algo menos que +/- 2ds … pero cuánto específicamente?"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalo-de-95-de-confianza",
+    "href": "slides/04-inferencia3.html#intervalo-de-95-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Intervalo de 95% de confianza",
+    "text": "Intervalo de 95% de confianza\n\n\n\n\n\n\n\n\n\n\nEl valor de Z que deja el 2.5% de probabilidad en la cola izquierda y el 2.5% en la derecha es aproximadamente ±1.96\nUn intervalo de confianza de \\(\\bar{x}\\pm1.96SE\\) abarca aproximadamente el 95% de los valores probables\nEn este caso, puedo decir que el promedio se encuentra en un rango de valores con un nivel de confianza de 95%"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#ejemplo-intervalo-de-confianza-para-un-promedio",
+    "href": "slides/04-inferencia3.html#ejemplo-intervalo-de-confianza-para-un-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo: intervalo de confianza para un promedio",
+    "text": "Ejemplo: intervalo de confianza para un promedio\n\n\n\n\nTenemos:\n\npromedio de ingresos: 800.000\ndesviación estándar: 100.000\nN muestral: 1.600\n\n\n\n\n\\[\n\\begin{align*}\nSE&=\\frac{s}{\\sqrt{N}} \\\\ \\\\\n&=\\frac{100.000}{\\sqrt{1.600}} \\\\ \\\\\n&=\\frac{100.000}{40}=2.500\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-7",
+    "href": "slides/04-inferencia3.html#section-7",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Para hacer la equivalencia entre puntajes Z y percentiles vamos a una tabla de puntajes Z … o directamente en R:\n\nqnorm(0.025) # límite inferior\n\n[1] -1.959964\n\nqnorm(0.975) # límite superior\n\n[1] 1.959964\n\n\nY aproximando: \\(\\pm{1.96}\\). Por lo tanto:"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#aumentando-el-nivel-de-confianza-99",
+    "href": "slides/04-inferencia3.html#aumentando-el-nivel-de-confianza-99",
+    "title": "Estadística Correlacional",
+    "section": "Aumentando el nivel de confianza: 99%",
+    "text": "Aumentando el nivel de confianza: 99%\n\nademás del 95% de confianza, otro nivel convencional es el 99% de confianza\ncon este nivel tenemos una menor probabilidad de error, pero un intervalo más grande\nen este caso, el límite inferior del intervalo es 0.5%, y el superior 99.5%"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#en-r",
+    "href": "slides/04-inferencia3.html#en-r",
+    "title": "Estadística Correlacional",
+    "section": "En R",
+    "text": "En R\nEstimando valores Z para límites de intervalo de confianza al 99%:\n\nqnorm(0.005) # límite inferior\n\n[1] -2.575829\n\nqnorm(0.995) # límite superior\n\n[1] 2.575829\n\n\n\n\\(SE=2.500\\), \\(\\bar{x}_{ingresos}=800.000\\)\n\\(\\bar{X}{\\color{red}\\pm}2.58SE\\) abarcan el 99% de los valores alrededor del promedio\n\n\\(800.000 - (2.58*2.500) = 800.000 - 6.450={\\color{red}{793.550}}\\)\n\\(800.000 + (2.58*2.500) = 800.000 + 6.450={\\color{red}{806.450}}\\)\n\nPor lo tanto, podemos decir con un 99% de confianza que el promedio de ingresos se encuentra entre 793.550 y 806.450"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#generalizando",
+    "href": "slides/04-inferencia3.html#generalizando",
+    "title": "Estadística Correlacional",
+    "section": "Generalizando:",
+    "text": "Generalizando:\n\nPara un intervalo de confianza al 95%:\n\n\\(\\bar{X}\\pm1.96SE\\)\n\nPara un intervalo de confianza al 99%:\n\n\\(\\bar{X}\\pm2.58SE\\)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#mismo-ejemplo-pero-al-99-de-confianza",
+    "href": "slides/04-inferencia3.html#mismo-ejemplo-pero-al-99-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Mismo ejemplo, pero al 99% de confianza",
+    "text": "Mismo ejemplo, pero al 99% de confianza\n\n\n\n\nTenemos:\n\npromedio de ingresos: 800.000\ndesviación estándar: 100.000\nN muestral: 1.600"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-8",
+    "href": "slides/04-inferencia3.html#section-8",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "casen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165\n\n\n¿Es esta diferencia estadísticamente significativa?"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#comparando-intervalos",
+    "href": "slides/04-inferencia3.html#comparando-intervalos",
+    "title": "Estadística Correlacional",
+    "section": "Comparando intervalos:",
+    "text": "Comparando intervalos:\n\n95% de confianza: \\(800.000\\pm4.900=[795.100 - 804.900]\\)\n99% de confianza: \\(800.000\\pm6.450=[793.550 - 806.450]\\)\n\n\nPor lo tanto, a mayor nivel de confianza, mayor es el intervalo, pero disminuye la precisión o aumenta el margen de error"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#margen-de-error",
+    "href": "slides/04-inferencia3.html#margen-de-error",
+    "title": "Estadística Correlacional",
+    "section": "Margen de error",
+    "text": "Margen de error\n\nEl margen de error es el valor en que puede oscilar el promedio en el intervalo.\nEs decir, equivale a lo que se suma/resta al promedio para generar el intervalo, pero en general se expresa en términos de porcentaje"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#ejemplo-margen-de-error",
+    "href": "slides/04-inferencia3.html#ejemplo-margen-de-error",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo margen de error",
+    "text": "Ejemplo margen de error\n\nPara nuestro intervalo al 95%, el margen de error equivale a qué porcentaje es 4.900 en relación al total. Aplicando regla de 3 para porcentajes:\n\n\n\\[Margen_{error95}=\\frac{SE*1.96*100}{\\bar{x}}=\\frac{4.900*100}{800.000}=0.612\\]\n\n\nPor lo tanto, el margen de error en este caso es de \\(\\pm{0.6}\\%\\)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#recomendaciones",
+    "href": "slides/04-inferencia3.html#recomendaciones",
+    "title": "Estadística Correlacional",
+    "section": "Recomendaciones",
+    "text": "Recomendaciones\nVer simulación de intervalo de confianza para promedio muestral"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-2",
+    "href": "slides/04-inferencia3.html#section-2",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Un 95% de confianza no significa que el parámetro tenga un 95% de probabilidad de estar dentro de nuestro intervalo\nSignifica que 95 de cada 100 lazos lanzados de esta manera atrapan la estaca\n\n\n-&gt; volveremos sobre esto más adelante en la clase"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-6",
+    "href": "slides/04-inferencia3.html#section-6",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Para hacer la equivalencia entre puntajes Z y percentiles vamos a una tabla de puntajes Z … o directamente en R:\n\nqnorm(0.025) # límite inferior\n\n[1] -1.959964\n\nqnorm(0.975) # límite superior\n\n[1] 1.959964\n\n\nY aproximando: \\(\\pm{1.96}\\)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-9",
+    "href": "slides/04-inferencia3.html#section-9",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "casen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-3",
+    "href": "slides/04-inferencia3.html#section-3",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Un 95% de confianza significa que 95 de cada 100 aros lanzados de esta manera atrapan la estaca"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-10",
+    "href": "slides/04-inferencia3.html#section-10",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "casen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#diferencias",
+    "href": "slides/04-inferencia3.html#diferencias",
+    "title": "Estadística Correlacional",
+    "section": "Diferencias",
+    "text": "Diferencias\n\n\nDesviación estándar\n\\[s=\\sqrt{\\frac{\\Sigma(x_i-\\bar{X})^2}{N-1}}\\]\nMagnitud que expresa la dispersión en torno al promedio en la escala de la variable\n\nError estándar\n\\[\\sigma_{\\bar{X}}=SE=\\frac{s}{\\sqrt{N}}\\]\n Magnitud que equivale a la desviación estándar de los promedios de varias muestras"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#qué-es-preferible",
+    "href": "slides/04-inferencia3.html#qué-es-preferible",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué es preferible?",
+    "text": "¿Qué es preferible?\n\nel promedio de ingresos se encuentra entre 500.000 y 5.000.000, con un 99% de confianza, ó\nel promedio de ingresos se encuentra entre 700.000 y 710.000, con un 65% de confianza\n\n\n\n“con un 100% de probabilidad te aseguro que tu nota se encuentra entre 1 y 7”"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#nivel-de-confianza",
+    "href": "slides/04-inferencia3.html#nivel-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "Nivel de confianza",
+    "text": "Nivel de confianza\n\nen estadística inferencial, el nivel de confianza equivale a 1 - probabilidad de error\nel nivel de probabilidad de error aceptado no es un criterio estadístico, es convencional\npor convención, se acepta como estadísticamente significativa una probabilidad de error menor al 5%, lo que equivale (al menos) a un nivel de confianza del 95%"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#tamaño-del-ic",
+    "href": "slides/04-inferencia3.html#tamaño-del-ic",
+    "title": "Estadística Correlacional",
+    "section": "Tamaño del IC",
+    "text": "Tamaño del IC\n\nrecordemos que el intervalo de confianza se elabora sumando y restando errores estándar al promedio\n\n\n\\[\\sigma_{\\bar{X}}=SE(error\\ est\\acute{a}ndar)=\\frac{s}{\\sqrt{N}}\\]\n\n\ndado que el tamaño muestral (N) se encuentra en el denominador del \\(SE\\), a mayor N, menor será el \\(SE\\) y menor el intervalo de confianza\nesto tiene implicancias directas en el cálculo del tamaño muestral"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalos-y-z",
+    "href": "slides/04-inferencia3.html#intervalos-y-z",
+    "title": "Estadística Correlacional",
+    "section": "Intervalos y Z",
+    "text": "Intervalos y Z\n\nRecordemos que el puntaje Z es una medida de cuántas desviaciones estándar se encuentra un valor respecto al promedio\n\n\n\\[Z=\\frac{x_i-\\bar{x}}{s}\\]\n\n\nY para construir un intervalo de confianza:\n\n\n\\[IC=\\bar{x}\\pm Z*SE\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#media-y-se",
+    "href": "slides/04-inferencia3.html#media-y-se",
+    "title": "Estadística Correlacional",
+    "section": "1. Media y SE",
+    "text": "1. Media y SE\nEjemplo:\n\npromedio de ingresos: 800.000\ndesviación estándar: 100.000\nN muestral: 1.600\n\n\\[SE=\\frac{s}{\\sqrt{N}}=\\frac{100.000}{\\sqrt{1.600}}=\\frac{100.000}{40}=2.500\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#media-y-error-estándar",
+    "href": "slides/04-inferencia3.html#media-y-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "1. Media y error estándar",
+    "text": "1. Media y error estándar\nEjemplo:\n\npromedio de ingresos (media): 800.000\ndesviación estándar: 100.000\nN muestral: 1.600\n\n\n\\[SE=\\frac{s}{\\sqrt{N}}=\\frac{100.000}{\\sqrt{1.600}}=\\frac{100.000}{40}=2.500\\]\n\n\nError estándar = 2.500"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#establecer-nivel-de-confianza",
+    "href": "slides/04-inferencia3.html#establecer-nivel-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "2. Establecer nivel de confianza",
+    "text": "2. Establecer nivel de confianza\n\n\n\nNuestro promedio muestral \\(\\bar{x}\\) posee una distribución normal con una desviación estándar = SE (error estándar)\nEsto nos permite estimar probabilidades basados en los valores de la curva normal (puntaje Z)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#establecer-nivel-de-confianza-.font-size0.7em",
+    "href": "slides/04-inferencia3.html#establecer-nivel-de-confianza-.font-size0.7em",
+    "title": "Estadística Correlacional",
+    "section": "2. Establecer nivel de confianza {.font-size=0.7em}",
+    "text": "2. Establecer nivel de confianza {.font-size=0.7em}\nDeterminando el nivel de confianza\n\n\n\n\nNuestro promedio muestral \\(\\bar{x}\\) posee una distribución normal con una desviación estándar = SE (error estándar)\nEsto nos permite estimar probabilidades basados en los valores de la curva normal"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#contrucción-del-intervalo-de-confianza",
+    "href": "slides/04-inferencia3.html#contrucción-del-intervalo-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "3. Contrucción del intervalo de confianza",
+    "text": "3. Contrucción del intervalo de confianza\n\nSumando y restando 1.96 errores estándar al promedio construimos un intervalo de confianza del 95%\nVolviendo al ejemplo inicial:"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#otro-ejemplo",
+    "href": "slides/04-inferencia3.html#otro-ejemplo",
+    "title": "Estadística Correlacional",
+    "section": "Otro ejemplo",
+    "text": "Otro ejemplo\n\n\n\n\nTenemos:\n\npromedio de ingresos: 800.000\ndesviación estándar: 100.000\nN muestral: 1.600\n\n\n\n\n\\[\n\\begin{align*}\nSE&=\\frac{s}{\\sqrt{N}} \\\\ \\\\\n&=\\frac{100.000}{\\sqrt{1.600}} \\\\ \\\\\n&=\\frac{100.000}{40}=2.500\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#contrucción-del-intervalo",
+    "href": "slides/04-inferencia3.html#contrucción-del-intervalo",
+    "title": "Estadística Correlacional",
+    "section": "3. Contrucción del intervalo",
+    "text": "3. Contrucción del intervalo\n\nSumando y restando 1.96 errores estándar al promedio construimos un intervalo de confianza del 95%\nVolviendo al ejemplo inicial:\n\nmedia: 800.000\nerror estándar: 2.500\nnivel de confianza: 95% (Z=1.96)\nintervalo: 800.000 ± 1.96*2.500 = 800.000 ± 4.900\nlímite inferior: 800.000 - 4.900 = 795.100\nlímite superior: 800.000 + 4.900 = 804.900\n\nPor lo tanto, podemos decir con un 95% de confianza que el promedio de ingresos se encuentra entre 795.100 y 804.900 en la población"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#qué-puedo-decir-de-la-población-a-partir-de-mi-muestra",
+    "href": "slides/05-inferencia4.html#qué-puedo-decir-de-la-población-a-partir-de-mi-muestra",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué puedo decir de la población a partir de mi muestra?",
+    "text": "¿Qué puedo decir de la población a partir de mi muestra?\nPROBABILIDADES … de un rango de valores\n\n\n¿Cómo llego al rango de valores probables de un parámetro poblacional obtenido a partir de una muestra?"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidades",
+    "href": "slides/05-inferencia4.html#probabilidades",
+    "title": "Estadística Correlacional",
+    "section": "Probabilidades",
+    "text": "Probabilidades\n\n\n\nPodemos calcular probabilidades basados en una distribución teórica de ocurrencia de eventos.\nEj: En teoría, la probabilidad de que salga sello al tirar una moneda es 50%\nMientras más repetimos el evento, más se van a acercar los resultados (distribución empírica) a la probabilidad del evento (distribución teórica)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#curva-normal",
+    "href": "slides/05-inferencia4.html#curva-normal",
+    "title": "Estadística Correlacional",
+    "section": "Curva normal",
+    "text": "Curva normal\n\n\n\nHay una serie de eventos que en términos teóricos y empíricos tienen una distribución particular en torno al valor central -&gt; normal\nLa curva normal es una distribución teórica que nos permite tener un estándar con el cual comparar distribuciones empíricas"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#teorema-central-del-límite-y-error-estándar",
+    "href": "slides/05-inferencia4.html#teorema-central-del-límite-y-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "Teorema central del límite y error estándar",
+    "text": "Teorema central del límite y error estándar\n\n\n\nsi pudiera calcular un estadístico en muchas muestras distintas (ej: promedio) este se distribuiría de manera normal\nel error estándar es la formula que nos permite obtener el valor de la desviación estándar de los promedios con una sola muestra\n\n\n\n\\[\\sigma_{\\bar{X}}=\\frac{s}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#puntajes-z",
+    "href": "slides/05-inferencia4.html#puntajes-z",
+    "title": "Estadística Correlacional",
+    "section": "Puntajes Z",
+    "text": "Puntajes Z\n\n\n\nel puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1\nZ expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)\nZ permite además obtener el valor del percentil de cada puntaje\n\n\n\\[z=\\frac{x-\\mu}{\\sigma}\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalos-de-confianza-para-el-promedio",
+    "href": "slides/05-inferencia4.html#intervalos-de-confianza-para-el-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Intervalos de confianza [para el promedio]",
+    "text": "Intervalos de confianza [para el promedio]\n\n\n\nrango de probabilidad del valor de un parámetro en la población\nPara construirlo, 4 pasos:\n1- establecer nivel de confianza (convencionalmente 95%)\n2- definir puntaje Z correspondiente a este intervalo (para 95% es 1.96)\n\n\n3- multiplicar Z por el error estándar\n4- restar al promedio (límite inferior) y sumar (límite superior)\n\\[\\bar{X}\\pm Z*\\frac{\\sigma}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#una-hipótesis-es-una-aseveración-o-una-predicción-que-se-desprende-de-una-teoría-sobre-una-situación-que-ocurre-en-la-población-en-estudio",
+    "href": "slides/05-inferencia4.html#una-hipótesis-es-una-aseveración-o-una-predicción-que-se-desprende-de-una-teoría-sobre-una-situación-que-ocurre-en-la-población-en-estudio",
+    "title": "Estadística Correlacional",
+    "section": "Una hipótesis es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio",
+    "text": "Una hipótesis es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#popper-y-la-falsabilidad",
+    "href": "slides/05-inferencia4.html#popper-y-la-falsabilidad",
+    "title": "Estadística Correlacional",
+    "section": "Popper y la falsabilidad",
+    "text": "Popper y la falsabilidad\n\n\n\n\n\n\n\n\n“el criterio de demarcación que hemos de adoptar no es el de la verificabilidad, sino el de la falsabilidad de los sistemas. Dicho de otro modo: no exigiré que un sistema científico pueda ser seleccionado, de una vez para siempre, en un sentido positivo; pero sí que sea susceptible de selección en un sentido negativo por medio de contrastes o pruebas empíricas: ha de ser posible refutar por la experiencia un sistema científico empírico” (Popper, 1982, p. 40)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#contraste-de-hipótesis-y-falsación",
+    "href": "slides/05-inferencia4.html#contraste-de-hipótesis-y-falsación",
+    "title": "Estadística Correlacional",
+    "section": "Contraste de hipótesis y falsación",
+    "text": "Contraste de hipótesis y falsación\n\n\n\n\n\n\n\n\n\nEl verificar una hipótesis no hace que una teoría sea verdadera\nSe puede intentar refutar una teoría (falsarla) mediante un contraejemplo o hipótesis contraria\nSi no es posible refutar la hipótesis contraria, entonces la teoría queda aceptada provisionalmente"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#ejemplo",
+    "href": "slides/05-inferencia4.html#ejemplo",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo",
+    "text": "Ejemplo\n\n\nTeoría: todos los cuervos son negros\nHipótesis de verificación: hay cuervos negros\nHipótesis de falsación: hay cuervos blancos"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#lógica-de-contraste-de-hipótesis",
+    "href": "slides/05-inferencia4.html#lógica-de-contraste-de-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "Lógica de contraste de hipótesis",
+    "text": "Lógica de contraste de hipótesis\n\nIntentar falsar lo que es contrario a nuestra hipótesis original\n\nEn estadística, esta “hipótesis contraria” se denomina la HIPÓTESIS NULA"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#buscamos-rechazar-la-hipótesis-nula",
+    "href": "slides/05-inferencia4.html#buscamos-rechazar-la-hipótesis-nula",
+    "title": "Estadística Correlacional",
+    "section": "buscamos RECHAZAR LA HIPÓTESIS NULA",
+    "text": "buscamos RECHAZAR LA HIPÓTESIS NULA\n\nsi logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría\nBuscamos no encontrar cuervos blancos"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#hipótesis-nula",
+    "href": "slides/05-inferencia4.html#hipótesis-nula",
+    "title": "Estadística Correlacional",
+    "section": "Hipótesis nula",
+    "text": "Hipótesis nula\n\nHipótesis se denota con la letra \\(H\\)\nLa hipótesis nula se denota \\(H_0\\) (hache cero)\nCero porque en general se refiere a que lo que señala la teoría no existe o es cero en la población\n\n-&gt; más detalle de tipos de hipótesis prox. clase, ahora vamos a un ejemplo"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile",
+    "href": "slides/05-inferencia4.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile",
+    "title": "Estadística Correlacional",
+    "section": "¿Existen diferencias salariales entre hombres y mujeres en Chile?",
+    "text": "¿Existen diferencias salariales entre hombres y mujeres en Chile?\n\n\n\n\n\n\n\n\nHipótesis general\nHipótesis estadística\n\n\n\n\nExisten diferencias salariales entre hombres y mujeres\nHipótesis alternativa: Las diferencias son distintas de cero\n\n\nNo existen diferencias salariales entre hombres y mujeres\nHipótesis nula: Las diferencias no son distintas de cero"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#cuestionario-casen",
+    "href": "slides/05-inferencia4.html#cuestionario-casen",
+    "title": "Estadística Correlacional",
+    "section": "Cuestionario CASEN",
+    "text": "Cuestionario CASEN"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#datos-casen-2022",
+    "href": "slides/05-inferencia4.html#datos-casen-2022",
+    "title": "Estadística Correlacional",
+    "section": "Datos CASEN 2022",
+    "text": "Datos CASEN 2022\n\n\n\n\n\n\n\n\nVamos a generar una submuestra de 350 casos de CASEN para ilustrar de mejor manera el sentido del test de hipótesis\n\npacman::p_load(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)\nload(\"casen2022_inf2.Rdata\")\noptions(scipen = 999) # para evitar notación en los ceros\nset.seed(20) # para fijar el resultado aleatorio\ncasen_350 &lt;- casen2022_inf %&gt;% select(salario, sexo) %&gt;% sample_n(350)\ncasen_350 &lt;- na.omit(casen_350)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#datos",
+    "href": "slides/05-inferencia4.html#datos",
+    "title": "Estadística Correlacional",
+    "section": "Datos",
+    "text": "Datos\n\nstargazer(as.data.frame(casen_350), type = \"text\")\n\n\n======================================================\nStatistic  N     Mean      St. Dev.    Min      Max   \n------------------------------------------------------\nsalario   343 634,402.300 459,180.200 30,000 2,900,000\nsexo      343    1.402       0.491      1        2    \n------------------------------------------------------"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#section-3",
+    "href": "slides/05-inferencia4.html#section-3",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "casen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey",
+    "href": "slides/05-inferencia4.html#procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey",
+    "title": "Estadística Correlacional",
+    "section": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)",
+    "text": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)\n\n\nFormular hipótesis ( \\(H_0\\) y \\(H_A\\))\nObtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEstablecer la probabilidad de error \\(\\alpha\\) (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente\nCálculo de intervalo de confianza / contraste valores empírico/crítico\nInterpretación"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#formular-hipótesis",
+    "href": "slides/05-inferencia4.html#formular-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "1. Formular hipótesis",
+    "text": "1. Formular hipótesis\nContrastamos la hipótesis nula (no hay diferencias de promedios entre grupos):\n\\[H_{0}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres}= 0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres} \\neq 0\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#section-4",
+    "href": "slides/05-inferencia4.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "(2. Error estándar y estadístico de prueba)\n\n(Una nota preliminar) En general, existen 2 formas de realizar el contraste de hipótesis:\n\nintervalo de confianza, asociado al error estándar\ncontraste con valor crítico, asociado al estadístico de prueba\n\nAmbos entregan información consistente y complementaria\nEn esta clase vamos a estimar solo el intervalo, la próxima veremos el contraste con valor crítico, que el caso de diferencia de medias corresponde a la prueba \\(t\\) de student."
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#error-estándar-y-estadístico-de-prueba-1",
+    "href": "slides/05-inferencia4.html#error-estándar-y-estadístico-de-prueba-1",
+    "title": "Estadística Correlacional",
+    "section": "2. Error estándar (y estadístico de prueba)",
+    "text": "2. Error estándar (y estadístico de prueba)\n\nCada estadístico tiene su propia fórmula de error estándar\nEn el caso de la diferencia de medias (en este caso, de hombres y mujeres), el error estándar es:\n\n\\[SE=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}}\\]\nDonde\n\\[\\sigma_{diff}=\\frac{\\sigma^2_{a}(n_a-1)+\\sigma^2_{b}(n_b-1)}{n_a+n_b-2}\\]\n\ncomo se puede apreciar, es una extensión del error estándar del promedio pero para dos grupos distintos"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#section-5",
+    "href": "slides/05-inferencia4.html#section-5",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Cálculo de la desviación estándar de las diferencias de promedios:\n\\[\n\\begin{align*}\n\\sigma_{diff}&=\\frac{468692^2(205-1)+444666^2(138-1)}{205+138-2} \\\\ \\\\\n&=\\frac{44813126936256+27088715663172}{341}\\\\ \\\\\n&=210855843400\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#section-6",
+    "href": "slides/05-inferencia4.html#section-6",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Y entonces el error estándar de la diferencia de medias:\n\\[\n\\begin{align*}\nSE&=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}} \\\\ \\\\\n&=\\sqrt{\\frac{210855843400}{205}+\\frac{210855843400}{138}}\\\\ \\\\\n&=50561\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#establecer-probabilidad-de-error",
+    "href": "slides/05-inferencia4.html#establecer-probabilidad-de-error",
+    "title": "Estadística Correlacional",
+    "section": "3. Establecer probabilidad de error",
+    "text": "3. Establecer probabilidad de error\n\nasumimos que existe una probabilidad de error al rechazar \\(H_0\\), para lo cual fijamos un límite convencional -&gt; usualmente un 5%\n¿error de qué? -&gt; de rechazar \\(H_0\\) cuando esta existe en la población.\nEsto se conoce como la probabilidad de error Tipo I o \\(\\alpha\\) (alfa)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#hipótesis-nula-h_0-y-tipos-de-error",
+    "href": "slides/05-inferencia4.html#hipótesis-nula-h_0-y-tipos-de-error",
+    "title": "Estadística Correlacional",
+    "section": "Hipótesis nula ( \\(H_0\\)) y tipos de error",
+    "text": "Hipótesis nula ( \\(H_0\\)) y tipos de error"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#en-nuestro-ejemplo",
+    "href": "slides/05-inferencia4.html#en-nuestro-ejemplo",
+    "title": "Estadística Correlacional",
+    "section": "En nuestro ejemplo:",
+    "text": "En nuestro ejemplo:\n\\[H_{0}: \\bar{X}_{sueldo\\ mujeres} -  \\bar{X}_{sueldo\\ hombres}= 0\\]\n\nSi hay diferencias de sueldo en la población y rechazamos \\(H_0\\): decisión correcta\nSi no hay diferencias de sueldo en la población y rechazamos \\(H_0\\): Error tipo I\n\n\n\nEl Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#hipótesis-nula-y-tipos-de-error",
+    "href": "slides/05-inferencia4.html#hipótesis-nula-y-tipos-de-error",
+    "title": "Estadística Correlacional",
+    "section": "Hipótesis nula y tipos de error",
+    "text": "Hipótesis nula y tipos de error"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#hipótesis-nula-y-tipos-de-error-1",
+    "href": "slides/05-inferencia4.html#hipótesis-nula-y-tipos-de-error-1",
+    "title": "Estadística Correlacional",
+    "section": "Hipótesis nula y tipos de error",
+    "text": "Hipótesis nula y tipos de error\n\n\n\n\nError Tipo I\nEncontrar algo que no existe en la población\n\n\n\nError Tipo II\nNo encontrar algo que si existe en la población"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#hipótesis-nula-y-alpha",
+    "href": "slides/05-inferencia4.html#hipótesis-nula-y-alpha",
+    "title": "Estadística Correlacional",
+    "section": "Hipótesis nula y \\(\\alpha\\)",
+    "text": "Hipótesis nula y \\(\\alpha\\)\n\nEntonces, el \\(\\alpha\\) es la probabilidad de error que fijamos para rechazar la hipótesis nula\nen lenguaje de prueba de hipótesis, es la probabilidad de rechazar la hipótesis nula cuando esta es verdadera\no la probabilidad de encontrar diferencias entre grupos de la población cuando estas no existen\no en simple, la probabilidad de que nos estemos equivocando"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#nivel-de-confianza-y-probabilidad-de-error-alpha",
+    "href": "slides/05-inferencia4.html#nivel-de-confianza-y-probabilidad-de-error-alpha",
+    "title": "Estadística Correlacional",
+    "section": "Nivel de confianza y probabilidad de error \\(\\alpha\\)",
+    "text": "Nivel de confianza y probabilidad de error \\(\\alpha\\)\n\nel nivel de confianza de una estimación se determina de manera convencional, usualmente se acepta 95% o 99% de confianza\nun nivel de confianza se expresa en una probabilidad de error \\(\\alpha\\) (alfa), que es 1 - nivel de confianza\n\npara un nivel de confianza de 95%, \\(\\alpha=1-0.95=0.05\\)\npara un nivel de confianza de 99%, \\(\\alpha=1-0.99=0.01\\)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#section-9",
+    "href": "slides/05-inferencia4.html#section-9",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "4. Intervalo de confianza [y contraste con valor crítico]\n\nde la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96\npara diferencia de medias se utiliza prueba \\(t\\), donde el valor crítico es variable según en tamaño muestral\nsin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-de-confianza",
+    "href": "slides/05-inferencia4.html#intervalo-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo de confianza",
+    "text": "4. Intervalo de confianza\n\\[\n\\begin{align*}\n\\bar{x}_1-\\bar{x}_2 &\\pm t_{\\alpha/2}*SE_{\\bar{x_1}-\\bar{x_2}} \\\\\\\\\n50165 &\\pm 1.96*50561 \\\\\\\\\n50165 &\\pm 99099.56 \\\\\\\\\nCI[-49287.48&;149617.63]\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#test-de-hipótesis-de-diferencias-en-r",
+    "href": "slides/05-inferencia4.html#test-de-hipótesis-de-diferencias-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Test de hipótesis de diferencias en R",
+    "text": "Test de hipótesis de diferencias en R\n\nt.test(salario ~ sexo, data = casen_350, var.equal = TRUE)\n\n\n    Two Sample t-test\n\ndata:  salario by sexo\nt = 0.99215, df = 341, p-value = 0.3218\nalternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0\n95 percent confidence interval:\n -49287.48 149617.63\nsample estimates:\nmean in group 1 mean in group 2 \n       654585.4        604420.3"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#tabla-t-test-con-rempsyc",
+    "href": "slides/05-inferencia4.html#tabla-t-test-con-rempsyc",
+    "title": "Estadística Correlacional",
+    "section": "tabla t test con rempsyc",
+    "text": "tabla t test con rempsyc\n\npacman::p_load(rempsyc, broom)\nmodel &lt;- t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)\nstats.table &lt;- tidy(model, conf.int = TRUE)\nnice_table(stats.table, broom = \"t.test\")\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CITwo Sample t-testtwo.sided654,585.37604,420.2950,165.080.99341.322[-49287.48, 149617.63]\n\n\n\nhttps://rempsyc.remi-theriault.com/articles/t-test"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#interpretación",
+    "href": "slides/05-inferencia4.html#interpretación",
+    "title": "Estadística Correlacional",
+    "section": "5. Interpretación",
+    "text": "5. Interpretación\nNuestro intervalo de confianza contiene el cero, por lo que no se rechaza la hipótesis nula\n\n\nCon un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.\nAlternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#próxima-clase-miércoles-manos-al-código",
+    "href": "slides/05-inferencia4.html#próxima-clase-miércoles-manos-al-código",
+    "title": "Estadística Correlacional",
+    "section": "Próxima clase (miércoles): manos al código",
+    "text": "Próxima clase (miércoles): manos al código\n\n\n\ny próximo lunes\n\nPrueba \\(t\\)\nhipótesis direccionales (mayor o menor qué) o de una cola (one tail)\ninferencia para proporciones"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#recomendaciones",
+    "href": "slides/05-inferencia4.html#recomendaciones",
+    "title": "Estadística Correlacional",
+    "section": "Recomendaciones",
+    "text": "Recomendaciones"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile",
+    "href": "slides/04-inferencia3.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile",
+    "title": "Estadística Correlacional",
+    "section": "¿Existen diferencias salariales entre hombres y mujeres en Chile?",
+    "text": "¿Existen diferencias salariales entre hombres y mujeres en Chile?\n\n\n\n\n\n\n\n\nHipótesis general\nHipótesis estadística\n\n\n\n\nExisten diferencias salariales entre hombres y mujeres\nHipótesis alternativa: Las diferencias son distintas de cero\n\n\nNo existen diferencias salariales entre hombres y mujeres\nHipótesis nula: Las diferencias no son distintas de cero"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#cuestionario-casen",
+    "href": "slides/04-inferencia3.html#cuestionario-casen",
+    "title": "Estadística Correlacional",
+    "section": "Cuestionario CASEN",
+    "text": "Cuestionario CASEN"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#datos-casen-2022",
+    "href": "slides/04-inferencia3.html#datos-casen-2022",
+    "title": "Estadística Correlacional",
+    "section": "Datos CASEN 2022",
+    "text": "Datos CASEN 2022\n\n\n\n\n\n\n\n\nVamos a generar una submuestra de 350 casos de CASEN para ilustrar de mejor manera el sentido del test de hipótesis\n\npacman::p_load(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)\nload(\"casen2022_inf2.Rdata\")\noptions(scipen = 999) # para evitar notación en los ceros\nset.seed(20) # para fijar el resultado aleatorio\ncasen_350 &lt;- casen2022_inf %&gt;% select(salario, sexo) %&gt;% sample_n(350)\ncasen_350 &lt;- na.omit(casen_350)\nstargazer(as.data.frame(casen_350), type = \"text\")\n\n\n======================================================\nStatistic  N     Mean      St. Dev.    Min      Max   \n------------------------------------------------------\nsalario   343 634,402.300 459,180.200 30,000 2,900,000\nsexo      343    1.402       0.491      1        2    \n------------------------------------------------------"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#datos",
+    "href": "slides/04-inferencia3.html#datos",
+    "title": "Estadística Correlacional",
+    "section": "Datos",
+    "text": "Datos"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey",
+    "href": "slides/04-inferencia3.html#procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey",
+    "title": "Estadística Correlacional",
+    "section": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)",
+    "text": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)\n\n\nFormular hipótesis ( \\(H_0\\) y \\(H_A\\))\nObtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEstablecer la probabilidad de error \\(\\alpha\\) (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente\nCálculo de intervalo de confianza / contraste valores empírico/crítico\nInterpretación"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#comparando-intervalos-1",
+    "href": "slides/04-inferencia3.html#comparando-intervalos-1",
+    "title": "Estadística Correlacional",
+    "section": "Comparando intervalos:",
+    "text": "Comparando intervalos:\n\n95% de confianza: \\(800.000\\pm4.900=[795.100 - 804.900]\\)\n99% de confianza: \\(800.000\\pm6.450=[793.550 - 806.450]\\)\n\nPor lo tanto, a mayor nivel de confianza, mayor es el intervalo, pero disminuye la precisión o aumenta el margen de error"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalo-al-99",
+    "href": "slides/04-inferencia3.html#intervalo-al-99",
+    "title": "Estadística Correlacional",
+    "section": "Intervalo al 99%",
+    "text": "Intervalo al 99%\nTenemos:\n\n\\(SE=2.500\\), \\(\\bar{x}_{ingresos}=800.000\\)\n\\(\\bar{X}{\\color{red}\\pm}2.58SE\\) abarcan el 99% de los valores alrededor del promedio\n\n\\(800.000 - (2.58*2.500) = 800.000 - 6.450={\\color{red}{793.550}}\\)\n\\(800.000 + (2.58*2.500) = 800.000 + 6.450={\\color{red}{806.450}}\\)\n\nPor lo tanto, podemos decir con un 99% de confianza que el promedio de ingresos se encuentra entre 793.550 y 806.450"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#dos-amigos-y-una-hora-de-llegada",
+    "href": "slides/04-inferencia3.html#dos-amigos-y-una-hora-de-llegada",
+    "title": "Estadística Correlacional",
+    "section": "Dos amigos y una hora de llegada",
+    "text": "Dos amigos y una hora de llegada\n\n\nQuedamos de juntarnos mañana temprano, y a cada uno le preguntamos a qué hora llega:\n\nSofía: “llego a las 8:00 en punto”\nMatías: “llego entre las 7:50 y las 8:10”\n\n\n\n\n¿A quién le creemos más?\n¿Quién nos sirve más?"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#una-semana-después",
+    "href": "slides/04-inferencia3.html#una-semana-después",
+    "title": "Estadística Correlacional",
+    "section": "Una semana después",
+    "text": "Una semana después\n\n\n\n\n\n\n\n\n\nDía\nLlegó a las\nSofía: “8:00 en punto”\nMatías: “entre 7:50 y 8:10”\n\n\n\n\nlunes\n8:07\n✗\n✓\n\n\nmartes\n7:52\n✗\n✓\n\n\nmiércoles\n8:09\n✗\n✓\n\n\njueves\n8:21\n✗\n✗\n\n\nviernes\n7:58\n✗\n✓\n\n\n\n\nSofía acertó 0 de 5 veces; Matías, 4 de 5 (80%)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#primera-moraleja",
+    "href": "slides/04-inferencia3.html#primera-moraleja",
+    "title": "Estadística Correlacional",
+    "section": "Primera moraleja",
+    "text": "Primera moraleja\n\nUna afirmación puntual suena muy bien, pero hay riesgo de que sea falsa\nUna afirmación con rango es menos precisa, pero entrega más probabilidad de ser verdadera\n\n\nSofía no es mentirosa: es precisa hasta lo imposible\nMatías no es impreciso necesariamente por flojera: puede estar reconociendo aquello que no controla (el tráfico, la micro, la alarma)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#pero-aparece-un-tercer-amigo",
+    "href": "slides/04-inferencia3.html#pero-aparece-un-tercer-amigo",
+    "title": "Estadística Correlacional",
+    "section": "Pero aparece un tercer amigo…",
+    "text": "Pero aparece un tercer amigo…\n\nPedro: “llego entre las 6 de la mañana y las 12 del día”\n\n\nPedro nunca se va a equivocar: su rango va a acertar el 100% de las veces\n\n\n\n… y su respuesta no nos sirve absolutamente de nada"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#segunda-moraleja-la-confianza-se-paga-con-ancho",
+    "href": "slides/04-inferencia3.html#segunda-moraleja-la-confianza-se-paga-con-ancho",
+    "title": "Estadística Correlacional",
+    "section": "Segunda moraleja: la confianza se paga con ancho",
+    "text": "Segunda moraleja: la confianza se paga con ancho\n\nPodemos aumentar nuestra confianza tanto como queramos, pero ampliando el rango (Pedro)\nPodemos ser tan precisos como queramos, pero perdiendo confianza (Sofía)\nSer confiable no es no equivocarse nunca: es declarar cuánto nos podemos equivocar (Matías)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#de-la-historia-a-la-estadística",
+    "href": "slides/04-inferencia3.html#de-la-historia-a-la-estadística",
+    "title": "Estadística Correlacional",
+    "section": "De la historia a la estadística",
+    "text": "De la historia a la estadística\n\n\n\n\n\n\n\nEn la historia\nEn estadística\n\n\n\n\nla hora exacta que promete Sofía\nel promedio de la muestra (estimación puntual)\n\n\nel rango que promete Matías\nel intervalo de confianza\n\n\nen qué proporción de los días el rango acierta\nel nivel de confianza (ej: 95%)\n\n\nel ancho del rango (± 10 minutos)\nel margen de error\n\n\nla hora real de llegada\nel parámetro de la población, que no conocemos"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#una-precisión-importante-el-lazo-y-la-estaca",
+    "href": "slides/04-inferencia3.html#una-precisión-importante-el-lazo-y-la-estaca",
+    "title": "Estadística Correlacional",
+    "section": "Una precisión importante: el lazo y la estaca",
+    "text": "Una precisión importante: el lazo y la estaca\n\n\n\nEn la historia, lo que cambiaba cada día era la hora de llegada\nEn estadística es al revés: el parámetro de la población está fijo (pero oculto), y lo que cambia de muestra en muestra es nuestro intervalo\nEs como lanzar un aro a una estaca que no vemos: la estaca no se mueve, lo que varía es el lanzamiento"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#hoy",
+    "href": "slides/04-inferencia3.html#hoy",
+    "title": "Estadística Correlacional",
+    "section": "Hoy:",
+    "text": "Hoy:\n1. Intervalos de confianza\n2. Test de hipótesis"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#section-11",
+    "href": "slides/04-inferencia3.html#section-11",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "casen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#una-precisión-importante-el-aro-y-la-estaca",
+    "href": "slides/04-inferencia3.html#una-precisión-importante-el-aro-y-la-estaca",
+    "title": "Estadística Correlacional",
+    "section": "Una precisión importante: el aro y la estaca",
+    "text": "Una precisión importante: el aro y la estaca\n\n\n\nEn la historia, lo que cambiaba cada día era la hora de llegada\nEn estadística es al revés: el parámetro de la población está fijo (pero oculto), y lo que cambia de muestra en muestra es nuestro intervalo\nEs como lanzar un aro a una estaca que no vemos: la estaca no se mueve, lo que varía es el lanzamiento"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#una-hipótesis-es-una-aseveración-o-una-predicción-que-se-desprende-de-una-teoría-sobre-una-situación-que-ocurre-en-la-población-en-estudio",
+    "href": "slides/04-inferencia3.html#una-hipótesis-es-una-aseveración-o-una-predicción-que-se-desprende-de-una-teoría-sobre-una-situación-que-ocurre-en-la-población-en-estudio",
+    "title": "Estadística Correlacional",
+    "section": "Una hipótesis es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio",
+    "text": "Una hipótesis es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#cuándo-se-puede-verificar-una-hipótesis",
+    "href": "slides/04-inferencia3.html#cuándo-se-puede-verificar-una-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "¿Cuándo se puede verificar una hipótesis?",
+    "text": "¿Cuándo se puede verificar una hipótesis?\n\n\nNUNCA\n\n\n\n… pero, se puede falsar"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#contraste-de-hipótesis-y-falsación",
+    "href": "slides/04-inferencia3.html#contraste-de-hipótesis-y-falsación",
+    "title": "Estadística Correlacional",
+    "section": "Contraste de hipótesis y falsación",
+    "text": "Contraste de hipótesis y falsación\n\n\n\n\n\n\n\n\n\nEl verificar una hipótesis no hace que una teoría sea verdadera\nSe puede intentar refutar una teoría (falsarla) mediante un contraejemplo o hipótesis contraria\nSi no es posible refutar la hipótesis contraria, entonces la teoría queda aceptada provisionalmente"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#lógica-de-contraste-de-hipótesis",
+    "href": "slides/04-inferencia3.html#lógica-de-contraste-de-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "Lógica de contraste de hipótesis",
+    "text": "Lógica de contraste de hipótesis\n\nIntentar falsar lo que es contrario a nuestra hipótesis original\n\nEn estadística, esta “hipótesis contraria” se denomina la HIPÓTESIS NULA"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#buscamos-rechazar-la-hipótesis-nula",
+    "href": "slides/04-inferencia3.html#buscamos-rechazar-la-hipótesis-nula",
+    "title": "Estadística Correlacional",
+    "section": "buscamos RECHAZAR LA HIPÓTESIS NULA",
+    "text": "buscamos RECHAZAR LA HIPÓTESIS NULA\n\nsi logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría\nBuscamos no encontrar cuervos blancos"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile-1",
+    "href": "slides/04-inferencia3.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile-1",
+    "title": "Estadística Correlacional",
+    "section": "¿Existen diferencias salariales entre hombres y mujeres en Chile?",
+    "text": "¿Existen diferencias salariales entre hombres y mujeres en Chile?\n\n\n\n\n\n\n\n\nHipótesis general\nHipótesis estadística\n\n\n\n\nExisten diferencias salariales entre hombres y mujeres\nHipótesis alternativa: Las diferencias son distintas de cero\n\n\nNo existen diferencias salariales entre hombres y mujeres\nHipótesis nula: Las diferencias no son distintas de cero"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#formular-hipótesis",
+    "href": "slides/04-inferencia3.html#formular-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "1. Formular hipótesis",
+    "text": "1. Formular hipótesis\nContrastamos la hipótesis nula (no hay diferencias de promedios entre grupos):\n\\[H_{0}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres}= 0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres} \\neq 0\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#formulando-hipótesis",
+    "href": "slides/04-inferencia3.html#formulando-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "Formulando hipótesis",
+    "text": "Formulando hipótesis\nContrastamos la hipótesis nula (no hay diferencias de promedios entre grupos):\n\\[H_{0}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres}= 0\\]\nEn referencia a la siguiente hipótesis alternativa:\n\\[H_{a}: \\bar{X}_{hombres} -  \\bar{X}_{mujeres} \\neq 0\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#error-estándar-y-estadístico-de-prueba",
+    "href": "slides/04-inferencia3.html#error-estándar-y-estadístico-de-prueba",
+    "title": "Estadística Correlacional",
+    "section": "2. Error estándar y estadístico de prueba",
+    "text": "2. Error estándar y estadístico de prueba\n\nEl error estándar de la diferencia de promedios usa una fórmula distinta al del promedio (detalles próxima clase).\nPor ahora, lo vamos a dejar expresado así:\n\n\n\\[SE=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}}=50561\\]"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#establecer-probabilidad-de-error",
+    "href": "slides/04-inferencia3.html#establecer-probabilidad-de-error",
+    "title": "Estadística Correlacional",
+    "section": "3. Establecer probabilidad de error",
+    "text": "3. Establecer probabilidad de error\n\nComo ya sabemos, de manera convencional: \\(\\alpha=0.05\\)"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalo-de-confianza",
+    "href": "slides/04-inferencia3.html#intervalo-de-confianza",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo de confianza",
+    "text": "4. Intervalo de confianza\n\nde la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96\npara diferencia de medias se utiliza prueba \\(t\\), donde el valor crítico es variable según en tamaño muestral\nsin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#test-de-hipótesis-de-diferencias-en-r",
+    "href": "slides/04-inferencia3.html#test-de-hipótesis-de-diferencias-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Test de hipótesis de diferencias en R",
+    "text": "Test de hipótesis de diferencias en R\n\nt.test(salario ~ sexo, data = casen_350, var.equal = TRUE)\n\n\n    Two Sample t-test\n\ndata:  salario by sexo\nt = 0.99215, df = 341, p-value = 0.3218\nalternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0\n95 percent confidence interval:\n -49287.48 149617.63\nsample estimates:\nmean in group 1 mean in group 2 \n       654585.4        604420.3"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#tabla-t-test-con-rempsyc",
+    "href": "slides/04-inferencia3.html#tabla-t-test-con-rempsyc",
+    "title": "Estadística Correlacional",
+    "section": "tabla t test con rempsyc",
+    "text": "tabla t test con rempsyc\n\npacman::p_load(rempsyc, broom)\nmodel &lt;- t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)\nstats.table &lt;- tidy(model, conf.int = TRUE)\nnice_table(stats.table, broom = \"t.test\")\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CITwo Sample t-testtwo.sided654,585.37604,420.2950,165.080.99341.322[-49287.48, 149617.63]\n\n\n\nhttps://rempsyc.remi-theriault.com/articles/t-test"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#interpretación",
+    "href": "slides/04-inferencia3.html#interpretación",
+    "title": "Estadística Correlacional",
+    "section": "5. Interpretación",
+    "text": "5. Interpretación\nNuestro intervalo de confianza contiene el cero, por lo que no se rechaza la hipótesis nula\n\n\nCon un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.\n\n\n\n\nAlternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error"
+  },
+  {
+    "objectID": "slides/04-inferencia3.html#intervalo-de-confianza-1",
+    "href": "slides/04-inferencia3.html#intervalo-de-confianza-1",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo de confianza",
+    "text": "4. Intervalo de confianza\n\\[\n\\begin{align*}\n\\bar{x}_1-\\bar{x}_2 &\\pm t_{\\alpha/2}*SE_{\\bar{x_1}-\\bar{x_2}} \\\\\\\\\n50165 &\\pm 1.96*50561 \\\\\\\\\n50165 &\\pm 99099.56 \\\\\\\\\nCI[-49287.48&;149617.63]\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/papelera-slides.html",
+    "href": "slides/papelera-slides.html",
+    "title": "Hasta ahora …",
+    "section": "",
+    "text": "Curva normal\n\n\n\n\n\n\nError estándar\n\\[\\sigma_{\\bar{X}}=\\frac{s}{\\sqrt{N}}\\]\n\n\n\n\n\n\n\nDesviación estándar\n\\[s=\\sqrt{\\frac{\\Sigma(x_i-\\bar{X})^2}{N-1}}\\]\nMagnitud que expresa la dispersión en torno al promedio en la escala de la variable\n\nError estándar\n\\[\\sigma_{\\bar{X}}=SE=\\frac{s}{\\sqrt{N}}\\]\n Magnitud que equivale a la desviación estándar de los promedios de varias muestras\n\n\n\n\n\n\nse calcula no solo para el promedio, sino para distintos estadísticos como correlación, regresión, desviación estándar (con distintas fórmulas para cada uno)\ncomo está expresado en unidades estándar de variación, permite construir rangos de probabilidad basados en la distribución normal\nestos rangos de probabilidad se conocen como intervalos de confianza"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#pilares-de-la-inferencia",
+    "href": "slides/papelera-slides.html#pilares-de-la-inferencia",
+    "title": "Hasta ahora …",
+    "section": "",
+    "text": "Curva normal\n\n\n\n\n\n\nError estándar\n\\[\\sigma_{\\bar{X}}=\\frac{s}{\\sqrt{N}}\\]"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#diferencias",
+    "href": "slides/papelera-slides.html#diferencias",
+    "title": "Hasta ahora …",
+    "section": "",
+    "text": "Desviación estándar\n\\[s=\\sqrt{\\frac{\\Sigma(x_i-\\bar{X})^2}{N-1}}\\]\nMagnitud que expresa la dispersión en torno al promedio en la escala de la variable\n\nError estándar\n\\[\\sigma_{\\bar{X}}=SE=\\frac{s}{\\sqrt{N}}\\]\n Magnitud que equivale a la desviación estándar de los promedios de varias muestras"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#y-más-de-error-estándar",
+    "href": "slides/papelera-slides.html#y-más-de-error-estándar",
+    "title": "Hasta ahora …",
+    "section": "",
+    "text": "se calcula no solo para el promedio, sino para distintos estadísticos como correlación, regresión, desviación estándar (con distintas fórmulas para cada uno)\ncomo está expresado en unidades estándar de variación, permite construir rangos de probabilidad basados en la distribución normal\nestos rangos de probabilidad se conocen como intervalos de confianza"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#section-1",
+    "href": "slides/papelera-slides.html#section-1",
+    "title": "Hasta ahora …",
+    "section": "",
+    "text": "El error estándar, por su asociación a las áreas de la curva normal, se relaciona con niveles de probabilidad\nSi sumo y resto error(es) estándar al promedio puedo construir un rango de valores probables en que se encuentra el parámetro poblacional -&gt; intervalo de confianza\nPor ejemplo, si tengo un promedio=10 y SE=1, puedo decir que aproximadamente el 68% de los casos se encuentran en el intervalo entre 9 y 11 (basado en distribución normal)"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#intervalos-y-z",
+    "href": "slides/papelera-slides.html#intervalos-y-z",
+    "title": "Hasta ahora …",
+    "section": "Intervalos y Z",
+    "text": "Intervalos y Z\n\nRecordemos que el puntaje Z es una medida de cuántas desviaciones estándar se encuentra un valor respecto al promedio\n\n\n\\[Z=\\frac{x_i-\\bar{x}}{s}\\]\n\n\nY para construir un intervalo de confianza:\n\n\n\\[IC=\\bar{x}\\pm Z*SE\\]"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#error-y-confianza",
+    "href": "slides/papelera-slides.html#error-y-confianza",
+    "title": "Hasta ahora …",
+    "section": "Error y confianza",
+    "text": "Error y confianza\n\nUn 68% implica que la probabilidad de que el promedio esté fuera de ese rango (o probabilidad de error) es de un 32% (100%-68%)\n\n\n\n¿Es aceptable este nivel?\n\n\n\nEsto es equivalente a preguntarse cuánto error estoy dispuesto a tolerar como resultado de una inferencia estadística\n\n\nY se asocia al concepto de nivel de confianza"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#certeza-o-precisión",
+    "href": "slides/papelera-slides.html#certeza-o-precisión",
+    "title": "Hasta ahora …",
+    "section": "¿Certeza o precisión?",
+    "text": "¿Certeza o precisión?\n\nNo hay certezas, solo probabilidades\nLas probabilidades se asocian a un rango (intervalo) que garantice un cierto nivel de confianza\n\n\nIdeal: un rango estrecho (preciso) y un nivel de confianza alto (certero)"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#qué-es-preferible",
+    "href": "slides/papelera-slides.html#qué-es-preferible",
+    "title": "Hasta ahora …",
+    "section": "¿Qué es preferible?",
+    "text": "¿Qué es preferible?\n\nel promedio de ingresos se encuentra entre 500.000 y 5.000.000, con un 99% de confianza, ó\nel promedio de ingresos se encuentra entre 700.000 y 710.000, con un 65% de confianza\n\n\n\n“con un 100% de probabilidad te aseguro que tu nota se encuentra entre 1 y 7”"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#intervalos-vs-confianza",
+    "href": "slides/papelera-slides.html#intervalos-vs-confianza",
+    "title": "Hasta ahora …",
+    "section": "Intervalos vs confianza",
+    "text": "Intervalos vs confianza"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#margen-de-error",
+    "href": "slides/papelera-slides.html#margen-de-error",
+    "title": "Hasta ahora …",
+    "section": "Margen de error",
+    "text": "Margen de error\n\nEl margen de error es el valor en que puede oscilar el promedio en el intervalo.\nEs decir, equivale a lo que se suma/resta al promedio para generar el intervalo, pero en general se expresa en términos de porcentaje"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#ejemplo-margen-de-error",
+    "href": "slides/papelera-slides.html#ejemplo-margen-de-error",
+    "title": "Hasta ahora …",
+    "section": "Ejemplo margen de error",
+    "text": "Ejemplo margen de error\n\nPara nuestro intervalo al 95%, el margen de error equivale a qué porcentaje es 4.900 en relación al total. Aplicando regla de 3 para porcentajes:\n\n\n\\[Margen_{error95}=\\frac{SE*1.96*100}{\\bar{x}}=\\frac{4.900*100}{800.000}=0.612\\]\n\n\nPor lo tanto, el margen de error en este caso es de \\(\\pm{0.6}\\%\\)"
+  },
+  {
+    "objectID": "slides/papelera-slides.html#recomendaciones",
+    "href": "slides/papelera-slides.html#recomendaciones",
+    "title": "Hasta ahora …",
+    "section": "Recomendaciones",
+    "text": "Recomendaciones\nVer simulación de intervalo de confianza para promedio muestral"
   }
 ]

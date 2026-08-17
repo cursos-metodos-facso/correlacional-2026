@@ -18,7 +18,7 @@ $presentation-heading-font: "Montserrat", sans-serif !default;
 // $presentation-heading-color: #c81111a4 !default;
 
 $heading1Size: 3.00em;
-$heading2Size: 2.11em;
+$heading2Size: 1.80em;
 $heading3Size: 1.55em;
 $heading4Size: 1.00em;
 
@@ -91,6 +91,11 @@ strong, b {
 .reveal .columns {
   display: flex !important;
   gap: min(4vw, 1.5em);
+  align-items: flex-start;
+}
+
+// excepción: usar :::: {.columns .align-center} para centrar verticalmente
+.reveal .columns.align-center {
   align-items: center;
 }
 
@@ -102,4 +107,27 @@ strong, b {
 
 .bg-darkgreen {
   background-color: "rgb(12, 53, 71)";
+}
+
+// highlight-last: con incremental, se resalta el elemento recién revelado
+// y los anteriores quedan atenuados. Aplica a todo el documento.
+// Para excluir un elemento puntual usar la clase .no-dim
+// :has(.current-fragment) evita atenuar el bullet padre cuando el elemento
+// activo es un sub-bullet (la opacidad del padre arrastra a toda su lista)
+.reveal .slides section .fragment.visible:not(.current-fragment):not(.no-dim):not(:has(.current-fragment)) {
+  opacity: 0.4;
+  transition: opacity 0.25s ease-in-out;
+}
+
+// si el ancestro ya está atenuado, los sub-bullets no vuelven a atenuarse
+// (las opacidades se multiplicarían y quedarían casi invisibles)
+.reveal .slides section .fragment.visible:not(.current-fragment):not(.no-dim):not(:has(.current-fragment)) .fragment.visible {
+  opacity: 1;
+}
+
+// en PDF, print y vista general (tecla "o") se muestra todo sin atenuar
+.print-pdf .reveal .slides section .fragment.visible,
+.reveal.print-pdf .slides section .fragment.visible,
+.reveal.overview .slides section .fragment.visible {
+  opacity: 1 !important;
 }
