@@ -76,7 +76,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Planificación – Estadística Correlacional">
-<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -159,357 +158,451 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<style>
+/* Portada y texto introductorio más compactos */
+#title-block-header {
+  margin-bottom: 0.6rem;
+}
+
+#title-block-header .title {
+  font-size: 1.65rem !important;
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+
+h2 {
+  font-size: 1.15rem !important;
+  margin-top: 0.4rem;
+  margin-bottom: 0.55rem;
+}
+
+.course-intro {
+  font-size: 0.88rem;
+  line-height: 1.42;
+  margin-bottom: 0.9rem;
+}
+
+.course-intro p {
+  margin-bottom: 0.45rem;
+}
+
+.course-intro ul {
+  margin-top: 0.25rem;
+  margin-bottom: 0.6rem;
+}
+
+.course-intro li {
+  margin-bottom: 0.25rem;
+}
+
+/* Tabla */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.table-scroll table {
+  width: 100% !important;
+  min-width: 1050px;
+  table-layout: fixed;
+  font-size: 0.78rem !important;
+  margin: 0;
+}
+
+.table-scroll thead th {
+  font-size: 0.84rem !important;
+  line-height: 1.15;
+  padding: 0.42rem 0.48rem !important;
+  vertical-align: bottom;
+  white-space: normal;
+}
+
+.table-scroll tbody td {
+  padding: 0.38rem 0.48rem !important;
+  line-height: 1.3;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+
+.table-scroll th:nth-child(1),
+.table-scroll td:nth-child(1) {
+  width: 8%;
+  white-space: nowrap;
+}
+
+.table-scroll th:nth-child(2),
+.table-scroll td:nth-child(2) {
+  width: 10%;
+}
+
+.table-scroll th:nth-child(3),
+.table-scroll td:nth-child(3) {
+  width: 39%;
+}
+
+.table-scroll th:nth-child(4),
+.table-scroll td:nth-child(4) {
+  width: 21%;
+}
+
+.table-scroll th:nth-child(5),
+.table-scroll td:nth-child(5) {
+  width: 22%;
+}
+
+.month-label {
+  color: #d98200;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.eval-label {
+  color: #c62828;
+  font-weight: 700;
+}
+
+.table-scroll a {
+  overflow-wrap: anywhere;
+}
+
+/* Los prácticos conservan el fondo gris */
+.table-scroll tbody tr.is-practico td {
+  background: #f2f2f2 !important;
+}
+
+@media (max-width: 900px) {
+  #title-block-header .title {
+    font-size: 1.45rem !important;
+  }
+
+  .course-intro {
+    font-size: 0.84rem;
+  }
+
+  .table-scroll table {
+    font-size: 0.74rem !important;
+  }
+
+  .table-scroll thead th {
+    font-size: 0.78rem !important;
+  }
+}
+</style>
 <section id="forma-general-de-funcionamiento" class="level2">
 <h2 class="anchored" data-anchor-id="forma-general-de-funcionamiento">Forma general de funcionamiento</h2>
+<div class="course-intro">
 <p>Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:</p>
 <ul>
-<li><p><i class="fas fa-chalkboard-teacher"></i> <a href=""><strong>Clases lectivas presenciales</strong></a>: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.</p></li>
-<li><p><i class="fas fa-user-edit"></i> <a href=""><strong>Talleres prácticos</strong></a>: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.</p></li>
-<li><p><i class="fas fa-book-reader"></i> <a href=""><strong>Lecturas</strong></a>: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.</p></li>
+<li><i class="fas fa-chalkboard-teacher"></i> <strong>Clases lectivas presenciales</strong>: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.</li>
+<li><i class="fas fa-user-edit"></i> <strong>Talleres prácticos</strong>: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO y Módulo 2 de computación FACSO.</li>
+<li><i class="fas fa-book-reader"></i> <strong>Lecturas</strong>: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.</li>
 </ul>
-<p><br></p>
+</div>
+<div class="table-scroll">
 <table class="caption-top table">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 2%">
-<col style="width: 35%">
-<col style="width: 25%">
-<col style="width: 25%">
-<col style="width: 4%">
-</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fecha</th>
+<th style="text-align: left;">Tipo de sesión</th>
+<th style="text-align: left;"><i class="fas fa-chalkboard-teacher"></i> Contenidos</th>
+<th style="text-align: left;"><i class="fas fa-user-edit"></i> Prácticas y evaluaciones</th>
+<th style="text-align: left;"><i class="fas fa-book-reader"></i> Lecturas y links</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2"><h1 id="fecha">Fecha</h1>
-<p><font color="orange"><strong>AGOSTO</strong></font></p></td>
-<td rowspan="2"><h1 id="tipo-de-sesión">Tipo de sesión</h1></td>
-<td rowspan="2"><h1 id="contenidos"><i class="fas fa-chalkboard-teacher"></i> Contenidos</h1></td>
-<td rowspan="2"><h1 id="prácticas-y-evaluaciones"><i class="fas fa-user-edit"></i> Prácticas y evaluaciones</h1></td>
-<td rowspan="2"><h1 id="lecturas-y-links"><i class="fas fa-book-reader"></i> Lecturas y links</h1></td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>AGOSTO</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td></td>
+<td style="text-align: left;">03 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>1. Presentación general del curso</strong><br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Leer detalladamente el <a href="https://correlacional.metodos-facso.org/syllabus.html">programa del curso.</a><br><br><a href="https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico">Poldrack - ¿Qué es el pensamiento estadístico?</a></td>
 </tr>
 <tr class="odd">
-<td>03 / lun</td>
-<td>Lectiva</td>
-<td><strong>1. Presentación general del curso</strong><br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.</td>
-<td></td>
-<td><p>Leer detalladamente el <a href="https://correlacional.metodos-facso.org/syllabus.html">programa del curso.</a></p>
-<p><a href="https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico">Poldrack - ¿Qué es el pensamiento estadístico?</a></p></td>
-<td></td>
+<td style="text-align: left;">05 / mié</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>2. Datos, probabilidad y distribuciones muestrales</strong><br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Pardo.pdf">Pardo, cap. 2</a> <br><br> <a href=".\files/textos/Ritchey.pdf">Ritchey, pp.&nbsp;1–21.</a></td>
 </tr>
 <tr class="even">
-<td>05 / mié</td>
-<td>Lectiva</td>
-<td><strong>2. Datos, probabilidad y distribuciones muestrales</strong><br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.</td>
-<td></td>
-<td><a href=".\files/textos/Pardo.pdf">Pardo, cap. 2</a> <br><br> <a href=".\files/textos/Ritchey.pdf">Ritchey, pp.&nbsp;1–21.</a></td>
-<td></td>
+<td style="text-align: left;">10 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>3. Error estándar y distribución normal; intro intervalos</strong><br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 6</a> <br><br> <a href=".\files/textos/Pardo.pdf">Pardo, cap. 6.</a></td>
 </tr>
 <tr class="odd">
-<td>10 / lun</td>
-<td>Lectiva</td>
-<td><strong>3. Error estándar y distribución normal; intro intervalos</strong><br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.</td>
-<td></td>
-<td><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 6</a> <br><br> <a href=".\files/textos/Pardo.pdf">Pardo, cap. 6.</a></td>
-<td></td>
+<td style="text-align: left;">12 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico R e intervalos de confianza</strong><br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 7</a> <br><br> <a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 8.</a></td>
 </tr>
 <tr class="even">
-<td>12 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico R e intervalos de confianza</strong><br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.</td>
-<td></td>
-<td><a href="(/files/textos/Ritchey.pdf)">Ritchey, cap. 7</a> <br><br> <a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 8.</a></td>
-<td></td>
+<td style="text-align: left;">17 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>4. Prueba de hipótesis</strong><br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 9</a> <br><br> <a href="https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf">Montoya, “Los conceptos de especificación y falsación”.</a></td>
 </tr>
 <tr class="odd">
-<td>17 / lun</td>
-<td>Lectiva</td>
-<td><strong>4. Prueba de hipótesis</strong><br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.</td>
-<td></td>
-<td><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 9</a> <br><br> <a href="https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf">Montoya, “Los conceptos de especificación y falsación”.</a></td>
-<td></td>
+<td style="text-align: left;">19 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Inferencia 1</strong><br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de las lecturas anteriores.</td>
 </tr>
 <tr class="even">
-<td>19 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Inferencia 1</strong><br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.</td>
-<td></td>
-<td>Revisión de las lecturas anteriores.</td>
-<td></td>
+<td style="text-align: left;">24 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>5. Hipótesis para una muestra</strong><br>Pruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 10.</a></td>
 </tr>
 <tr class="odd">
-<td>24 / lun</td>
-<td>Lectiva</td>
-<td><strong>5. Hipótesis para una muestra</strong><br>Pruebas para una muestra, formulación de hipótesis, estadístico de prueba, valor p e interpretación.</td>
-<td></td>
-<td><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 10.</a></td>
-<td></td>
+<td style="text-align: left;">26 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Inferencia 2</strong><br>Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, caps. 10 y 11.</a></td>
 </tr>
 <tr class="even">
-<td>26 / mié</td>
-<td>Lectiva</td>
-<td><strong>6. Hipótesis para dos muestras y prueba t</strong><br>Comparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.</td>
-<td></td>
-<td><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 11.</a></td>
-<td></td>
+<td style="text-align: left;">31 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>6. Hipótesis para dos muestras y prueba t</strong><br>Comparación de dos muestras, prueba t, supuestos, selección del procedimiento e interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Ritchey.pdf">Ritchey, cap. 11.</a></td>
 </tr>
 <tr class="odd">
-<td>31 / lun</td>
-<td>Práctico</td>
-<td><strong>Práctico de Inferencia 2</strong><br>Aplicación de pruebas para una y dos muestras, interpretación y reporte de resultados.</td>
-<td></td>
-<td><a href=".\files/textos/Ritchey.pdf">Ritchey, caps. 10 y 11.</a></td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>SEPTIEMBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td><font color="orange"><strong>SEPTIEMBRE</strong></font></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">02 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Integración e interpretación de inferencia</strong><br>Selección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de la bibliografía de la Unidad 1.</td>
 </tr>
 <tr class="odd">
-<td>02 / mié</td>
-<td>Práctico</td>
-<td><strong>Integración e interpretación de inferencia</strong><br>Selección de pruebas, articulación entre hipótesis, resultados e interpretación sustantiva</td>
-<td></td>
-<td>Revisión de la bibliografía de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">07 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>7. Preparación para la Evaluación 1</strong><br>Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.</td>
+<td style="text-align: left;">Guía de preparación E1</td>
+<td style="text-align: left;">Revisión integral de la Unidad 1.</td>
 </tr>
 <tr class="even">
-<td>07 / lun</td>
-<td>Lectiva</td>
-<td><strong>7. Preparación para la Evaluación 1</strong><br>Síntesis conceptual, resolución de dudas y ejercicios similares a los de la evaluación.</td>
-<td>Guía de preparación E1</td>
-<td>Revisión integral de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">09 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Evaluación 1: Inferencia estadística</strong></span><br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.</td>
+<td style="text-align: left;">Bibliografía completa de la Unidad 1.</td>
 </tr>
 <tr class="odd">
-<td>09 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><font color="red"><strong>Evaluación 1: Inferencia estadística</strong></font><br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.</td>
-<td>Bibliografía completa de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">14 / lun</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>14 / lun</td>
-<td></td>
-<td><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">16 / mié</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>16 / mié</td>
-<td></td>
-<td><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">21 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>8. Asociación, covarianza y correlación de Pearson</strong><br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Moore.pdf">Moore, pp.&nbsp;97–131</a> <br><br> <a href=".\files/textos/Piovani2008.pdf">Piovani, “The Historical Construction of Correlation”.</a></td>
 </tr>
 <tr class="even">
-<td>21 / lun</td>
-<td>Lectiva</td>
-<td><strong>8. Asociación, covarianza y correlación de Pearson</strong><br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.</td>
-<td></td>
-<td><a href=".\files/textos/Moore.pdf">Moore, pp.&nbsp;97–131</a> <br><br> <a href=".\files/textos/Piovani2008.pdf">Piovani, “The Historical Construction of Correlation”.</a></td>
-<td></td>
+<td style="text-align: left;">23 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 1</strong><br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Moore.pdf">Moore pp.&nbsp;97-131</a> <br><br> <a href=".\files/textos/Pardo.pdf">Pardo pp.&nbsp;307-330</a> <br><br> <a href=".\files/textos/Huck2011.pdf">Huck pp.&nbsp;183-203</a></td>
 </tr>
 <tr class="odd">
-<td>23 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 1</strong><br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.</td>
-<td></td>
-<td colspan="2"><a href=".\files/textos/Moore.pdf">Moore pp.&nbsp;97-131</a> <br><br> <a href=".\files/textos/Pardo.pdf">Pardo pp.&nbsp;307-330</a> <br><br> <a href=".\files/textos/Huck2011.pdf">Huck pp.&nbsp;183-203</a></td>
+<td style="text-align: left;">28 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>9. Magnitud de la correlación y contraste de hipótesis</strong><br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Pardo.pdf">Pardo, pp.&nbsp;307–330</a> <br><br> <a href=".\files/textos/Huck2011.pdf">Huck, pp.&nbsp;183–203.</a></td>
 </tr>
 <tr class="even">
-<td>28 / lun</td>
-<td>Lectiva</td>
-<td><strong>9. Magnitud de la correlación y contraste de hipótesis</strong><br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.</td>
-<td></td>
-<td><a href=".\files/textos/Pardo.pdf">Pardo, pp.&nbsp;307–330</a> <br><br> <a href=".\files/textos/Huck2011.pdf">Huck, pp.&nbsp;183–203.</a></td>
-<td></td>
+<td style="text-align: left;">30 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico Bivariada 2</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>30 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico Bivariada 2</strong></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>OCTUBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td><font color="orange"><strong>OCTUBRE</strong></font></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">05 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>10. Matrices de correlación</strong> <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
 </tr>
 <tr class="odd">
-<td>05 / lun</td>
-<td>Lectiva</td>
-<td><strong>10. Matrices de correlación</strong> <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.</td>
-<td></td>
-<td><a href=".\files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
-<td></td>
+<td style="text-align: left;">07 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 3</strong><br>Spearman, Kendall y matrices de correlación mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href=".\files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
 </tr>
 <tr class="even">
-<td>07 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 3</strong><br>Spearman, Kendall y matrices de correlación mediante software.</td>
-<td></td>
-<td><a href=".\files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
-<td></td>
+<td style="text-align: left;">12 / lun</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Feriado legal: Encuentro de Dos Mundos</strong><br>No se realizan clases ni evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>12 / lun</td>
-<td></td>
-<td><strong>Feriado legal: Encuentro de Dos Mundos</strong><br>No se realizan clases ni evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">14 / mié</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>11. Asociación con variables categóricas 1</strong><br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>14 / mié</td>
-<td>Lectiva</td>
-<td><strong>11. Asociación con variables categóricas 1</strong><br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.</td>
-<td></td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">19 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>12. Asociación con variables categóricas 2</strong><br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>19 / lun</td>
-<td>Lectiva</td>
-<td><strong>12. Asociación con variables categóricas 2</strong><br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.</td>
-<td></td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">21 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 4</strong><br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de las lecturas de asociación categórica.</td>
 </tr>
 <tr class="even">
-<td>21 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 4</strong><br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.</td>
-<td></td>
-<td>Revisión de las lecturas de asociación categórica.</td>
-<td></td>
+<td style="text-align: left;">26 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>13. Preparación y repaso de prácticos</strong><br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.</td>
+<td style="text-align: left;">Guía de preparación E2</td>
+<td style="text-align: left;">Revisión integral de la Unidad 2.</td>
 </tr>
 <tr class="odd">
-<td>26 / lun</td>
-<td>Lectiva</td>
-<td><strong>13. Preparación y repaso de prácticos</strong><br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.</td>
-<td>Guía de preparación E2</td>
-<td>Revisión integral de la Unidad 2.</td>
-<td></td>
+<td style="text-align: left;">28 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Evaluación 2: Asociación bivariada</strong></span><br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.</td>
+<td style="text-align: left;">Bibliografía completa de la Unidad 2.</td>
 </tr>
 <tr class="even">
-<td>28 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><font color="red"><strong>Evaluación 2: Asociación bivariada</strong></font><br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.</td>
-<td>Bibliografía completa de la Unidad 2.</td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>NOVIEMBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td><font color="orange"><strong>NOVIEMBRE</strong></font></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">02 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>14. Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.</td>
+<td style="text-align: left;">Ficha inicial del proyecto</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>02 / lun</td>
-<td>Lectiva</td>
-<td><strong>14. Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.</td>
-<td>Ficha inicial del proyecto</td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">04 / mié</td>
+<td style="text-align: left;">Seminario</td>
+<td style="text-align: left;"><strong>15. Seminario de encuestas y fuentes de datos</strong><br>Posibles invitados?</td>
+<td style="text-align: left;">Revisión de bases por grupo</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>04 / mié</td>
-<td>Seminario</td>
-<td><strong>15. Seminario de encuestas y fuentes de datos</strong><br>Posibles invitados?</td>
-<td>Revisión de bases por grupo</td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">09 / lun</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Visualización 1: tablas</strong><br>Construcción, presentación e interpretación de tablas para el trabajo grupal.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>09 / lun</td>
-<td>Práctico</td>
-<td><strong>Visualización 1: tablas</strong><br>Construcción, presentación e interpretación de tablas para el trabajo grupal.</td>
-<td></td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">11 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Escritura, reportes dinámicos y visualización 2</strong><br>Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>11 / mié</td>
-<td>Práctico</td>
-<td><strong>Escritura, reportes dinámicos y visualización 2</strong><br>Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.</td>
-<td></td>
-<td>Por completar.</td>
-<td></td>
+<td style="text-align: left;">13 / vie</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"><span class="eval-label"><strong>Evaluación final</strong></span><br>Entrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>13 / vie</td>
-<td>Evaluación</td>
-<td><font color="red"><strong>Evaluación final</strong></font><br>Entrega del informe reproducible con análisis, tablas, gráficos e interpretación. - Posibilidad de evaluación final individual</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">16 / lun</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Pruebas recuperativas</strong></span><br>Recuperación de evaluaciones justificadas según la normativa del curso.</td>
+<td style="text-align: left;">Revisión focalizada según evaluación.</td>
 </tr>
 <tr class="odd">
-<td>16 / lun</td>
-<td>Evaluación</td>
-<td></td>
-<td><font color="red"><strong>Pruebas recuperativas</strong></font><br>Recuperación de evaluaciones justificadas según la normativa del curso.</td>
-<td>Revisión focalizada según evaluación.</td>
-<td></td>
+<td style="text-align: left;">18 / mié</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>16. Preparación de exámenes finales</strong><br>Orientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión integral del curso.</td>
 </tr>
 <tr class="even">
-<td>18 / mié</td>
-<td></td>
-<td><strong>16. Preparación de exámenes finales</strong><br>Orientaciones para el examen oral, criterios, contenidos integrados y resolución de dudas.</td>
-<td></td>
-<td>Revisión integral del curso.</td>
-<td></td>
+<td style="text-align: left;">25 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Examen final: primera oportunidad</strong></span><br>Examen oral integrado para estudiantes no eximidos.</td>
+<td style="text-align: left;">Revisión integral del curso.</td>
 </tr>
 <tr class="odd">
-<td>25 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><font color="red"><strong>Examen final: primera oportunidad</strong></font><br>Examen oral integrado para estudiantes no eximidos.</td>
-<td>Revisión integral del curso.</td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>DICIEMBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td><font color="orange"><strong>DICIEMBRE</strong></font></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>09 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><font color="red"><strong>Examen final: segunda oportunidad</strong></font><br>Examen oral integrado para estudiantes que corresponda.</td>
-<td>Revisión integral del curso.</td>
-<td></td>
+<td style="text-align: left;">09 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Examen final: segunda oportunidad</strong></span><br>Examen oral integrado para estudiantes que corresponda.</td>
+<td style="text-align: left;">Revisión integral del curso.</td>
 </tr>
 </tbody>
 </table>
+</div>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("table tr").forEach(function (row) {
+  document.querySelectorAll(".table-scroll table tbody tr").forEach(function (row) {
     var cells = row.querySelectorAll("td");
     if (cells.length > 1 && cells[1].textContent.trim() === "Práctico") {
-      row.style.backgroundColor = "#f2f2f2";
+      row.classList.add("is-practico");
     }
   });
 });

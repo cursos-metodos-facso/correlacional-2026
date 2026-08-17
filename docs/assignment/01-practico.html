@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Distribución Normal e Intervalos de Confianza – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,10 +75,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dcbfc9b4997259b7a423ce661e125a10.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-3a307c3d481e20695a1fb528b2a75670.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-ff7f48885c38e6315f31d1d08ee76d1a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-2c82a9a0a95c0d2d477f42c09f0228f1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -92,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -120,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -300,8 +303,8 @@ window.Quarto = {
 <p>El <em>promedio</em> y la <em>desviación estándar</em> son conceptos fundamentales para continuar hacia la estadística inferencial. Repasemos estos conceptos mediante un ejercicio con datos simulados.</p>
 <p>Primero, con la función <code>rnorm</code> creamos un <strong>vector</strong> de 100 valores aleatorios con <span class="math inline">\(media(\mu) = 5\)</span> y <span class="math inline">\(desviación\hspace{0.2cm}estándar(\sigma) = 2\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fijar la semilla para reproducibilidad</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fijar la semilla para reproducibilidad</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -318,7 +321,7 @@ Nota
 </div>
 <p>Luego, con la función <code>summary</code> podemos obtener un resumen de algunos estadísticos del vector que creamos.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vector) <span class="co"># Ver el vector generado</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(vector) <span class="co"># Ver el vector generado</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
  0.3817  4.0123  5.1235  5.1808  6.3836  9.3747 </code></pre>
@@ -339,7 +342,7 @@ Tip
 </div>
 <p>¿Cómo se vería la distribución de este vector aleatorio? Una buena práctica en el análisis de datos es realizar un primera inspección visual de los datos. Los tres gráficos que siguen nos dan una buena idea de la distribución del vector creado.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(vector,<span class="at">main=</span><span class="st">"Histograma del Vector"</span>,<span class="at">xlab=</span><span class="st">"Valor"</span>,<span class="at">ylab=</span><span class="st">"Frecuencia"</span>,<span class="at">col=</span><span class="st">"cyan4"</span>,<span class="at">border=</span><span class="st">"black"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(vector,<span class="at">main=</span><span class="st">"Histograma del Vector"</span>,<span class="at">xlab=</span><span class="st">"Valor"</span>,<span class="at">ylab=</span><span class="st">"Frecuencia"</span>,<span class="at">col=</span><span class="st">"cyan4"</span>,<span class="at">border=</span><span class="st">"black"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -349,7 +352,7 @@ Tip
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(vector,<span class="at">main=</span><span class="st">"Diagrama de Caja del Vector aleatorio"</span>,<span class="at">ylab=</span><span class="st">"Valor"</span>,<span class="at">col=</span><span class="st">"cyan3"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(vector,<span class="at">main=</span><span class="st">"Diagrama de Caja del Vector aleatorio"</span>,<span class="at">ylab=</span><span class="st">"Valor"</span>,<span class="at">col=</span><span class="st">"cyan3"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -373,16 +376,16 @@ Nota
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="ot">&lt;-</span> <span class="fu">sd</span>(vector)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="ot">&lt;-</span> <span class="fu">sd</span>(vector)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Para ver los resultados en la consola basta llamarlos con los nombres que les asignamos</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>media</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>media</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.180812</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>desv_estandar</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>desv_estandar</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.825632</code></pre>
 </div>
@@ -402,11 +405,11 @@ z = \frac{x_i - \bar{x}}{s}
 \]</span></p>
 <p>donde <span class="math inline">\(x_i\)</span> es el valor observado, <span class="math inline">\(\bar{x}\)</span> la media y <span class="math inline">\(s\)</span> la desviación estándar.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> (vector <span class="sc">-</span> media) <span class="sc">/</span> desv_estandar</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> (vector <span class="sc">-</span> media) <span class="sc">/</span> desv_estandar</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La función <code>head</code> nos muestra los primeros casos del vector (en este caso 10). Lo usamos para inspeccionar los datos y, en este caso, comparar los valores originales con los estandarizados.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">Valor=</span>vector, <span class="at">Z=</span>z_scores), <span class="dv">10</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">Valor=</span>vector, <span class="at">Z=</span>z_scores), <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Valor           Z
 1  3.879049 -0.71304802
@@ -427,7 +430,7 @@ z = \frac{x_i - \bar{x}}{s}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Interpretación
+<span class="screen-reader-only">Nota</span>Interpretación
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -436,11 +439,11 @@ Interpretación
 </div>
 <p>Ahora bien, R trae incorporadas funciones que permiten hacer estos cálculos de manera directa. En el caso de los puntajes Z, usamos la función <code>scale</code> para estandarizar los puntajes del vector. También vamos a comparar estos resultados con los que obtuvimos manualmente.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estandarizar el vector</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estandarizar el vector</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>z_scores_scale <span class="ot">&lt;-</span> <span class="fu">scale</span>(vector)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Comparar valores originales y estandarizados según ambos métodos. </span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">Valor=</span>vector, <span class="at">Z_manual=</span>z_scores, <span class="at">z_scale=</span>z_scores_scale), <span class="dv">10</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(<span class="at">Valor=</span>vector, <span class="at">Z_manual=</span>z_scores, <span class="at">z_scale=</span>z_scores_scale), <span class="dv">10</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      Valor    Z_manual     z_scale
 1  3.879049 -0.71304802 -0.71304802
@@ -473,9 +476,9 @@ Tip
 <p>Los valores estandarizados o puntajes Z además nos permiten conocer la probabilidad de un valor específico dentro de la distribución normal. Asumiendo que el 100% de los casos se encuentra bajo la curva normal, podemos calcular qué porcentaje de los casos se encuentra por debajo de un valor Z específico.</p>
 <p>El código de más abajo crea y dibuja la curva de una distribución normal estándar: en la primera línea, <code>seq(-4, 4, length=1000)</code> genera 1000 valores entre -4 y 4, que representan puntuaciones Z; en la segunda línea, la función <code>dnorm()</code> calcula, para cada uno de esos valores, la altura correspondiente en la curva de densidad normal, es decir, qué tan probable o frecuente es ese valor; y en la tercera línea, <code>plot()</code> dibuja ambos conjuntos de números.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="at">length=</span><span class="dv">1000</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="at">length=</span><span class="dv">1000</span>)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_values)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x_values,y_values,<span class="at">type=</span><span class="st">"l"</span>,<span class="at">xlab=</span><span class="st">"Valor Z"</span>,<span class="at">ylab=</span><span class="st">"Probabilidad"</span>,<span class="at">main=</span><span class="st">"Distribución Normal"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x_values,y_values,<span class="at">type=</span><span class="st">"l"</span>,<span class="at">xlab=</span><span class="st">"Valor Z"</span>,<span class="at">ylab=</span><span class="st">"Probabilidad"</span>,<span class="at">main=</span><span class="st">"Distribución Normal"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -486,8 +489,8 @@ Tip
 </div>
 <p>Podemos preguntar qué proporción/área de la curva cae por debajo de un valor Z particular. Por ejemplo, el valor 0:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades acumuladas</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">0</span>)       <span class="co"># P(Z &lt;= 0)</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Probabilidades acumuladas</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="dv">0</span>)       <span class="co"># P(Z &lt;= 0)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5</code></pre>
 </div>
@@ -495,15 +498,15 @@ Tip
 <p>Por definición, 0 es el promedio de la distribución normal estándar, por lo tanto este valor se encuentra a 0 desviaciones estándar del promedio. Por lo tanto, la probabilidad de que un valor Z sea menor o igual a 0 es del 50%.</p>
 <p>Pensemos en otro ejemplo que vimos en clases: la estatura promedio de las mujeres en Chile es de 1,60, y la desviación estándar es de 6 cm. ¿Qué porcentaje de mujeres mide menos de 1,50 m? Primero, calculamos el puntaje Z correspondiente a 1,50 m:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>z_150 <span class="ot">&lt;-</span> (<span class="fl">1.50</span> <span class="sc">-</span> <span class="fl">1.60</span>) <span class="sc">/</span> <span class="fl">0.06</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>z_150</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>z_150 <span class="ot">&lt;-</span> (<span class="fl">1.50</span> <span class="sc">-</span> <span class="fl">1.60</span>) <span class="sc">/</span> <span class="fl">0.06</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>z_150</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.666667</code></pre>
 </div>
 </div>
 <p>Ahora, podemos calcular la probabilidad de que una mujer mida menos de 1,50 m:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(z_150)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(z_150)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.04779035</code></pre>
 </div>
@@ -511,11 +514,11 @@ Tip
 <p>El resultado de 0.047 (4.7 cm) nos indica que aproximadamente el 4,7% de las mujeres mide menos de 1,50 m. Esto tiene sentido al pensarlo en términos de la curva normal, ya que 1,50 m se encuentra a 1,67 desviaciones estándar por debajo del promedio (1,60 m), y sabemos que la mayor parte de los casos se encuentra dentro de 1 desviación estándar del promedio.</p>
 <p>Abajo se puede ver un gráfico que representa este valor en la distribución normal, donde el area roja representa la proporción de casos que se encuentra por debajo de 1,50 m.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gráfico de la distribución normal con el área sombreada para el ejemplo de estatura de 1,50 m</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># gráfico de la distribución normal con el área sombreada para el ejemplo de estatura de 1,50 m</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="dv">4</span>,<span class="at">length=</span><span class="dv">1000</span>)</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x_values)</span>
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x_values,y_values,<span class="at">type=</span><span class="st">"l"</span>,<span class="at">xlab=</span><span class="st">"Valor Z"</span>,<span class="at">ylab=</span><span class="st">"Probabilidad"</span>,<span class="at">main=</span><span class="st">"Distribución Normal"</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,z_150,<span class="at">length=</span><span class="dv">100</span>),z_150),<span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,z_150,<span class="at">length=</span><span class="dv">100</span>)),<span class="dv">0</span>),<span class="at">col=</span><span class="st">"#eb0505"</span>,<span class="at">border=</span><span class="cn">NA</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">polygon</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">4</span>,<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,z_150,<span class="at">length=</span><span class="dv">100</span>),z_150),<span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">dnorm</span>(<span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>,z_150,<span class="at">length=</span><span class="dv">100</span>)),<span class="dv">0</span>),<span class="at">col=</span><span class="st">"#eb0505"</span>,<span class="at">border=</span><span class="cn">NA</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -535,11 +538,11 @@ SE = \frac{s}{\sqrt{n}}
 \]</span></p>
 <p>Calculemos el Error Estándar de nuestro vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n_vector <span class="ot">&lt;-</span> <span class="fu">length</span>(vector) <span class="co"># calculamos el tamaño muestral</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>n_vector <span class="ot">&lt;-</span> <span class="fu">length</span>(vector) <span class="co"># calculamos el tamaño muestral</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>ee_vector <span class="ot">&lt;-</span> desv_estandar<span class="sc">/</span><span class="fu">sqrt</span>(n_vector)</span>
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ee_vector</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>ee_vector</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.1825632</code></pre>
 </div>
@@ -551,7 +554,7 @@ SE = \frac{s}{\sqrt{n}}
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Interpretación del Error Estándar
+<span class="screen-reader-only">Nota</span>Interpretación del Error Estándar
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -580,11 +583,11 @@ Interpretación del Error Estándar
 <p><img src="https://correlacional.metodos-facso.org/slides/img/norm2.png" class="img-fluid"></p>
 <p>Por lo tanto, si construimos un rango de ±1 error estándar alrededor de nuestra propia media muestral, ese rango debería contener el promedio poblacional en aproximadamente el 68% de los casos. El siguiente código calcula ese rango para nuestro vector:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">-</span> ee_vector</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">-</span> ee_vector</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.998249</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">+</span> ee_vector</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">+</span> ee_vector</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.363375</code></pre>
 </div>
@@ -609,21 +612,21 @@ IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
 <p>Para esto, volvemos a la curva normal estándar. Recordemos que aproximadamente el 95% de los casos se encuentra dentro de ±2 desviaciones estándar del promedio. Pero esto es solo aproximado. Para obtener el valor exacto, necesitamos calcularlo con la función <code>qnorm</code> de R.</p>
 <p>La lógica es la siguiente: si queremos un 95% de confianza, eso significa que queremos dejar un 5% de error. Como la distribución normal es simétrica, ese 5% se divide en 2,5% a la izquierda y 2,5% a la derecha. Por lo tanto, necesitamos calcular el valor Z que deja un 2,5% de error a la izquierda (0.025) y el valor Z que deja un 2,5% de error a la derecha (0.975).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>z_inf <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>) <span class="co"># ¿Qué Z deja 2.5% de error a la izquierda?</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>z_inf <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.025</span>) <span class="co"># ¿Qué Z deja 2.5% de error a la izquierda?</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>z_sup <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="co"># ¿Qué Z deja 2.5% de error a la derecha?</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>z_inf</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>z_inf</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -1.959964</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>z_sup</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>z_sup</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.959964</code></pre>
 </div>
 </div>
 <p>Vemos que el valor Z correspondiente a un 2,5% en cada cola es de ±1,96 (en desviaciones estándar de la curva normal estándar). Es decir, sumando y restando 1,96 errores estándar al promedio construimos un intervalo de confianza del 95%. El siguiente código nos permite visualizarlo.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x_values, y_values, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Valor Z"</span>, <span class="at">ylab =</span> <span class="st">"Densidad"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x_values, y_values, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Valor Z"</span>, <span class="at">ylab =</span> <span class="st">"Densidad"</span>,</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">"Distribución Normal Estándar: 95% central"</span>)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Sombrear en rojo las colas (área de error total = 5%)</span></span>
@@ -636,7 +639,7 @@ IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
 <span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">0</span>, <span class="fu">dnorm</span>(x_right), <span class="dv">0</span>),</span>
 <span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">adjustcolor</span>(<span class="st">"red"</span>, <span class="at">alpha.f =</span> <span class="fl">0.35</span>), <span class="at">border =</span> <span class="cn">NA</span>)</span>
 <span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(z_inf, z_sup), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">c</span>(z_inf, z_sup), <span class="at">lty =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -647,11 +650,11 @@ IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
 </div>
 <p>De tal modo, para obtener el intervalo de confianza al 95%:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> ee_vector <span class="co"># Limite inferior del Intervalo</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> ee_vector <span class="co"># Limite inferior del Intervalo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.822988</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> ee_vector <span class="co"># Límite superior del Intervalo</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>media <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> ee_vector <span class="co"># Límite superior del Intervalo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 5.538636</code></pre>
 </div>
@@ -695,15 +698,15 @@ Nota
 <li>Cargue la base de datos.</li>
 </ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"pacman"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># Si no está instalado, instala el paquete</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"pacman"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># Si no está instalado, instala el paquete</span></span>
 <span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(HistData)</span>
 <span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Galton"</span>)</span>
 <span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Galton) <span class="co"># revisar las variables disponibles: "parent" y "child"</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Galton) <span class="co"># revisar las variables disponibles: "parent" y "child"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "parent" "child" </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span> Galton<span class="sc">$</span>child <span class="co"># creamos el vector con la variable de interés</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span> Galton<span class="sc">$</span>child <span class="co"># creamos el vector con la variable de interés</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -750,10 +753,10 @@ Tip
 <li>Generemos 3 submuestras aleatorias con la función <code>sample()</code>.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>muestra_100 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">100</span>)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>muestra_200 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">200</span>)</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>muestra_400 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">400</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>muestra_400 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">400</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <ul>
 <li>Calcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?</li>
@@ -763,7 +766,7 @@ Tip
 </section>
 <section id="referencias" class="level1 unnumbered">
 <h1 class="unnumbered">Referencias</h1>
-<p><a href="../files/textos/ximenez2022.pdf">Análisis de datos en Lenguaje R</a></p>
+<p><a href="..\files/textos/ximenez2022.pdf">Análisis de datos en Lenguaje R</a></p>
 
 
 </section>
@@ -820,13 +823,14 @@ Tip
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
