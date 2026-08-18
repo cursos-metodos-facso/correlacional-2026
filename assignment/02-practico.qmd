@@ -146,7 +146,7 @@ max <- max(z_scores)
 max
 ```
 
-El máximo puntaje Z corresponde a 2.23. Esto significa que el hijo o hija más alto se encuentra $\pm$ desviaciones estándar sobre el promedio
+El máximo puntaje Z corresponde a 2.23. Esto significa que el hijo o hija más alto se encuentra 2.23 desviaciones estándar sobre el promedio
 
 ```{r}
 min <- min(z_scores)
@@ -155,38 +155,44 @@ min
 
 El mínimo puntaje corresponde a -2.53, lo que se entiende como que el hijo o hija más bajo se encuentra -2.53 desviaciones estándar bajo el promedio
 
-Pero ahora, a qué valor observado corresponden el puntaje Z mínimo y máximo? para esto, recurriremos a una lógica de ecuación. Utilizaremos la fórmula del puntaje Z y despejaremos el valor observado.
+**Obteniendo valores observados a partir de puntajes Z**
 
-En esta fórmula, el resultado es el puntaje Z, pero ahora necesitamos que nuestro resultado sea el valor observado, entonces, para llegar a esto, debemos **dividir** el puntaje Z por la desviación estándar y sumarle la media.
+En el ejericio anterior, calculamos los puntajes Z para valores específicos de la variable estatura, en específico el mínimo y máximo. Esto nos permitió conocer cuántas desviaciones estándar se encontraba cada valor respecto de la media.
+
+Tambiés es posible hacer el ejercicio inverso, es decir, **calcular el valor observado a partir de un puntaje Z**. Para esto, utilizaremos la fórmula del puntaje Z y despejaremos el valor observado.
+
+Recordemos que la fórmula del puntaje Z es:
+$$ 
+Z = \frac{X - \mu}{\sigma}
+$$
+
+Por lo tanto,si queremos obtener el valor observado, debemos despejar X de la fórmula:
+
+$$
+X = Z \cdot \sigma + \mu
+$$
+
+Para verificar, veamos que pasa con el valor observado del puntaje Z máximo, que es 2.23:
+
 
 ```{r}
 (max * desv_estandar) + media
 ```
 
-Con ello, ahora podemos decir que el hijo o hija más alto mide 73.7 pulgadas.
-
-Apliquemos la misma lógica para calcular el valor observado mínimo.
+Por lo tanto conociendo Z también podemos volver a valores observados de la distribución original ... que en realidad ya conocemos, porque tenemos la variable:
 
 ```{r}
-(min * desv_estandar) + media
+max(Galton$child) # valor máximo de la variable original
 ```
 
-La altura mínima entre todos los hijos es de 61.7 pulgadas.
-
-
--   Verifique la media y desviación estándar
+Pero, lo interesante es que podemos hacer esto mismo para un valor teórico de Z, que por ejemplo podría ser el límite superior de un intervalo de confianza al 99% (2.58). Entonces, si queremos saber cuál es el valor observado que corresponde a un puntaje Z de 2.58, podemos hacer lo siguiente:
 
 ```{r}
-mean(Galton$child)
-
-sd(Galton$child)
+(2.58 * desv_estandar) + media
 ```
+Por lo tanto, el valor observado que corresponde a un puntaje Z de 2.58 es de 74.58 pulgadas, lo que significa que un 0,5% de los hijos e hijas miden más que este valor (ya que el 99% de la distribución se encuentra entre \pm 2.58 desviaciones estándar de la media, y el restante 1% se divide en 0.5% por cada cola de la distribución). 
 
-En promedio, los hijos e hijas presentes en la base miden 68.10 pulgadas, y su altura varía entre $\pm$ 2.58 pulgadas respecto del promedio. Entonces, podríamos decir que el 68% de los hijos e hijas miden entre 65.52 y 70.68 pulgadas. En la misma línea, la estatura de el 95% de hijos e hijas se encuentra entre 62.94 y 73.26
-
-
-3.  Calcule el error estándar de la variable
-
+1.  Calcule el error estándar de la variable
 
 ::: callout-important
 Recordemos que la fórmula del error estándar es:
