@@ -73,10 +73,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-707710bb7a0eddacf54b96aa728de139.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f8f313781ee8a1a7310671352fa5c195.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-087e49c2c92cc41df641beaf14c83ad2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -206,11 +206,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#objetivo-de-la-práctica" id="toc-objetivo-de-la-práctica" class="nav-link active" data-scroll-target="#objetivo-de-la-práctica">Objetivo de la práctica</a></li>
-  <li><a href="#repaso-intervalos-de-confianza" id="toc-repaso-intervalos-de-confianza" class="nav-link" data-scroll-target="#repaso-intervalos-de-confianza"><span class="header-section-number">1</span> Repaso intervalos de confianza</a>
-  <ul class="collapse">
-  <li><a href="#error-estándar" id="toc-error-estándar" class="nav-link" data-scroll-target="#error-estándar"><span class="header-section-number">1.1</span> Error estándar</a></li>
-  <li><a href="#cálculo-del-intervalo" id="toc-cálculo-del-intervalo" class="nav-link" data-scroll-target="#cálculo-del-intervalo"><span class="header-section-number">1.2</span> Cálculo del intervalo</a></li>
-  </ul></li>
+  <li><a href="#repaso-intervalos-de-confianza" id="toc-repaso-intervalos-de-confianza" class="nav-link" data-scroll-target="#repaso-intervalos-de-confianza"><span class="header-section-number">1</span> Repaso intervalos de confianza</a></li>
   <li><a href="#test-de-hipótesis" id="toc-test-de-hipótesis" class="nav-link" data-scroll-target="#test-de-hipótesis"><span class="header-section-number">2</span> Test de hipótesis</a>
   <ul class="collapse">
   <li><a href="#los-cinco-pasos-para-la-inferencia-estadística" id="toc-los-cinco-pasos-para-la-inferencia-estadística" class="nav-link" data-scroll-target="#los-cinco-pasos-para-la-inferencia-estadística"><span class="header-section-number">2.1</span> Los cinco pasos para la inferencia estadística</a></li>
@@ -258,6 +254,11 @@ window.Quarto = {
   color: #17233a !important;
   background-color: transparent !important;
 }
+
+/* Comentarios (#) dentro de los chunks de código */
+code span.co {
+  color: #5c7a2c !important;
+}
 </style>
 <section id="objetivo-de-la-práctica" class="level1 unnumbered">
 <h1 class="unnumbered">Objetivo de la práctica</h1>
@@ -265,36 +266,38 @@ window.Quarto = {
 <p>En detalle, en el práctico de hoy veremos:</p>
 <ol type="1">
 <li><p>Cálculo e interpretación de intervalos de confianza</p></li>
-<li><p>Ejercicios de test de hipótesis</p></li>
+<li><p>Formular hipótesis, realizar una prueba t en R e interpretar sus principales resultados.</p></li>
 </ol>
 </section>
 <section id="repaso-intervalos-de-confianza" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Repaso intervalos de confianza</h1>
-<p>Recordemos que un intervalo de confianza es un rango de valores plausibles que <strong>contiene la media poblacional</strong>, el cual se construye a partir del error estándar.</p>
-<p>Su fórmula es la siguiente:</p>
-<p><span class="math display">\[
-IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
-\]</span></p>
-<p>Donde:</p>
-<ul>
-<li><span class="math inline">\(\bar{x}\)</span> es la media de la muestra.</li>
-<li><span class="math inline">\(z\)</span> es el valor crítico.</li>
-<li><span class="math inline">\(s\)</span> es la desviación estándar de la muestra.</li>
-<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
-<li><span class="math inline">\(\frac{s}{\sqrt{n}}\)</span> corresponde al error estándar.</li>
-</ul>
-<p>En términos visuales, los intervalos de confianza representan la <strong>probabilidad</strong> de que la media poblacional se encuentre en su rango, ilustrado por el <strong>área bajo la curva que cubre el intervalo</strong>.</p>
-<p><img src="https://correlacional.metodos-facso.org/slides/img/norm2.png" class="img-fluid"></p>
-<p>Para ejemplificar esto, calculemos un intervalo de confianza para una muestra de 200 casos, con media = 10 y desviación estándar = 4.</p>
+<p>Recordemos que un intervalo de confianza es <strong>la mejor estimación del rango de un estadístico en la población (parámetro poblacional) con una muestra aleatoria</strong></p>
+<p>El nivel de confianza describe qué tan frecuentemente este procedimiento produciría intervalos que contienen la verdadera media poblacional si repitiéramos muchas veces el muestreo.</p>
+<p><img src="https://correlacional.netlify.app/slides/img/intervalos.png" class="img-fluid"></p>
+<p>A modo de repasar el contenido de intervalos a confianza, resolveremos el ejercicio autónomo de la última sesión práctica. Trabajaremos con el conjunto de datos <code>Galton</code>, incluido en el paquete <code>HistData</code>, que contiene las estaturas de 928 hijos e hijas adultos recopiladas por Francis Galton en 1886.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Este es, de hecho, el conjunto de datos histórico que dio origen al estudio de la curva normal aplicada a variables biológicas.</p>
+</div>
+</div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fija la semilla para obtener siempre los mismos valores simulados</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>vector <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>) <span class="co"># Crea 100 valores con media 5 y desviación estándar 2</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(vector) <span class="co"># Calcula la media de los valores creados</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="ot">&lt;-</span> <span class="fu">sd</span>(vector) <span class="co"># Calcula la desviación estándar de los valores creados</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>media <span class="co"># Muestra la media en la consola</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="co"># Muestra la desviación estándar en la consola</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"pacman"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">"pacman"</span>) <span class="co"># Si no está instalado, instala el paquete</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(HistData)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Galton"</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(Galton) <span class="co"># revisar las variables disponibles: "parent" y "child"</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "parent" "child" </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>altura <span class="ot">&lt;-</span> Galton<span class="sc">$</span>child <span class="co"># creamos el vector con la variable de interés</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -307,22 +310,163 @@ Tip
 </div>
 <div class="callout-body-container callout-body">
 <p><strong>Los # en el código</strong></p>
-<p>En este código y siguientes aparecen varios #, que son una función de comentarios en R. No son necesarios para que el código funcione, pero son útiles en este caso para poder explicar que función cumple cada sección del código. Todo lo que aparece a la derecha de un # no es ejecutado por el programa.</p>
+<p>En este código y siguientes aparecen varios #, que son una función de comentarios en R. Todo lo escrito después de # es un comentario para explicar el código o texto. R no lo ejecuta.</p>
+<p>Pueden servir como herramientas para tomar apuntes mientras se trabaja en el código</p>
 </div>
 </div>
-<section id="error-estándar" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="error-estándar"><span class="header-section-number">1.1</span> Error estándar</h2>
-<p>Observando la fórmula, recordamos que para calcular el intervalo, debemos recorrer algunos pasos previos como calcular el error estándar, que se estima de la siguiente manera:</p>
-<p><span class="math display">\[
-EE = \frac{s}{\sqrt{n}}
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La unidad de medida de la variable se encuentra en pulgadas.</p>
+</div>
+</div>
+<ol type="1">
+<li>Calcule y describa la distribución</li>
+</ol>
+<ul>
+<li>Obtenga la media y desviación estándar de la estatura.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>media <span class="ot">&lt;-</span> <span class="fu">mean</span>(Galton<span class="sc">$</span>child)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>desv_estandar <span class="ot">&lt;-</span> <span class="fu">sd</span>(Galton<span class="sc">$</span>child)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>media</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.08847</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>desv_estandar</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.517941</code></pre>
+</div>
+</div>
+<ul>
+<li>Visualice la distribución en un histograma</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Galton<span class="sc">$</span>child,<span class="at">main=</span><span class="st">"Histograma del Vector"</span>,<span class="at">xlab=</span><span class="st">"Valor"</span>,<span class="at">ylab=</span><span class="st">"Frecuencia"</span>,<span class="at">col=</span><span class="st">"cyan4"</span>,<span class="at">border=</span><span class="st">"black"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02-practico_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Estandarice los datos (puntajes Z)</li>
+</ol>
+<ul>
+<li>Transforme la variable a puntajes Z</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>z_scores <span class="ot">&lt;-</span> (Galton<span class="sc">$</span>child <span class="sc">-</span> media) <span class="sc">/</span> desv_estandar <span class="co"># aplicamos la fórmula del puntaje Z a la variable child dentro de la base de datos Galton</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ul>
+<li>Muestre los primeros 10 valores (<code>head()</code>).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(z_scores)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.537180 -2.537180 -2.537180 -2.537180 -2.537180 -2.338605</code></pre>
+</div>
+</div>
+<ul>
+<li>Muestre también los últimos 10 valores (<code>tail()</code>).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(z_scores)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.228618 2.228618 2.228618 2.228618 2.228618 2.228618</code></pre>
+</div>
+</div>
+<ul>
+<li>¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">max</span>(z_scores)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.228618</code></pre>
+</div>
+</div>
+<p>El máximo puntaje Z corresponde a 2.23</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>max <span class="ot">&lt;-</span> <span class="fu">max</span>(z_scores)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>(max <span class="sc">*</span> desv_estandar) <span class="sc">+</span> media</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 73.7</code></pre>
+</div>
+</div>
+<p>Para calcular el valor observado, pensemos en una lógica de ecuación: necesitamos despejar el valor observado. Entonces, si la desviación estándar está dividiendo para el cálculo del puntaje Z, para calcular el valor observado debe realizar la operación contraria, es decir, multiplicar. De igual manera, si para el cálculo del puntaje Z la media está restando, para estimar el valor observado debe pasar a ser suma.</p>
+<p>De esta manera, observamos que la altura máxima entre todos los hijos es de 73.7 pulgadas.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">min</span>(z_scores)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] -2.53718</code></pre>
+</div>
+</div>
+<p>El mínimo puntaje corresponde a -2.53</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>min <span class="ot">&lt;-</span> <span class="fu">min</span>(z_scores)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>(min <span class="sc">*</span> desv_estandar) <span class="sc">+</span> media</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 61.7</code></pre>
+</div>
+</div>
+<p>Para calcular el valor estimado seguimos el mismo procedimiento que antes, lo cual nos indica que la altura mínima entre todos los hijos es de 61.7 pulgadas.</p>
+<ul>
+<li>Verifique la media y desviación estándar</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(Galton<span class="sc">$</span>child)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.08847</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(Galton<span class="sc">$</span>child)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.517941</code></pre>
+</div>
+</div>
+<p>En promedio, los hijos e hijas presentes en la base miden 68.10 pulgadas, y su altura varía entre <span class="math inline">\(\pm\)</span> 2.58 pulgadas respecto del promedio.</p>
+<ol start="3" type="1">
+<li>Calcule el error estándar de la variable</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Recordemos que la fórmula del error estándar es: <span class="math display">\[
+SE = \frac{s}{\sqrt{n}}
 \]</span></p>
 <p>Donde:</p>
 <p><span class="math inline">\(s\)</span> es la desviación estándar de la muestra. <span class="math inline">\(n\)</span> es el número de casos de la muestra.</p>
-<p>Para nuestro caso, reemplazamos los valores de la fórmula:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ee <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>El error estándar es de 0.18. Esto quiere decir que las <strong>medias</strong> de las <strong>distintas muestras</strong> de una misma población varían en 0.18.</p>
+</div>
+<p>Para nuestro caso, reemplazamos los valores en la fórmula:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>n_vector <span class="ot">&lt;-</span> <span class="fu">length</span>(Galton<span class="sc">$</span>child)</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(n_vector)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>se</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.08265547</code></pre>
+</div>
+</div>
+<p>Esto quiere decir que el error estándar estimado de la distribución de medias muestrales es 0,083: nos indica cuánto tienden a variar las medias entre posibles muestras de igual tamaño.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -333,80 +477,203 @@ Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>El <strong>error estándar de la media</strong> estima cuánto variarían las medias entre distintas muestras</p>
+<p>El error estándar es una estimación de la <strong>desviación estandar de los promedios de varias muestras</strong> a partir de <strong>una sola muestra</strong></p>
+</div>
+</div>
+<ol start="4" type="1">
+<li>Calcule el intervalo de confianza para la media</li>
+</ol>
 <ul>
-<li>Un error estándar <strong>pequeño</strong> indica una estimación <strong>más</strong> precisa.</li>
-<li>Un error estándar <strong>grande</strong> indica una estimación <strong>menos</strong> precisa.</li>
+<li>Estime el IC para un 95% de confianza</li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Su fórmula es la siguiente:</p>
+<p><span class="math display">\[
+IC = \bar{x} \pm z \cdot \frac{s}{\sqrt{n}}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> es la media de la muestra.</li>
+<li><span class="math inline">\(z\)</span> es el valor crítico.</li>
+<li><span class="math inline">\(s\)</span> es la desviación estándar de la muestra.</li>
+<li><span class="math inline">\(n\)</span> es el tamaño de la muestra.</li>
+<li><span class="math inline">\(\frac{s}{\sqrt{n}}\)</span> corresponde al error estándar.</li>
 </ul>
 </div>
 </div>
-<p>Mantengamos la misma desviación estándar y comparemos muestras de 100 y 500 casos. Antes de ejecutar el código, anticipa: ¿cuál tendrá menor error estándar?</p>
+<p>Recordemos que el valor crítico para un 95% de confianza es de 1.96 (<a href="https://correlacional.metodos-facso.org/assignment/01-practico.html">link al práctico anterior</a>)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ee_100 <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">100</span>) <span class="co"># Calcula el error estándar para 25 casos</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ee_500 <span class="ot">&lt;-</span> desv_estandar <span class="sc">/</span> <span class="fu">sqrt</span>(<span class="dv">500</span>) <span class="co"># Calcula el error estándar para 100 casos</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>ee_100 <span class="co"># Muestra el error estándar para 25 casos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>lim_inf <span class="ot">&lt;-</span> media <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se <span class="co"># Limite inferior del Intervalo</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>lim_inf</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.1825632</code></pre>
+<pre><code>[1] 67.92647</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ee_500 <span class="co"># Muestra el error estándar para 100 casos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>lim_sup <span class="ot">&lt;-</span> media <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se <span class="co"># Límite superior del Intervalo</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>lim_sup</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.08164473</code></pre>
+<pre><code>[1] 68.25047</code></pre>
 </div>
 </div>
-<p>El error estándar disminuye de aproximadamente 0,18 a 0,08 cuando el tamaño de la muestra aumenta de 100 a 500 casos. Por lo tanto, ¨**na muestra más grande permite estimar la media con mayor precisió*. Recordemos que la desviación estándar se mantuvo igual en ambos cálculos; lo único que cambió fue el número de casos.</p>
-</section>
-<section id="cálculo-del-intervalo" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="cálculo-del-intervalo"><span class="header-section-number">1.2</span> Cálculo del intervalo</h2>
-<p>Considerando nuestros datos actuales, tenemos una media de 5.18, pero no podemos asegurar que la media poblacional sea la misma. Por ello, recurrimos a los intervalos de confianza. En términos convencionales, el resultado será significativo si podemos establecerlo con un nivel de confianza del 95%.</p>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Importante
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Dicho de otra manera, si repitiéramos muchas veces el muestreo y construyéramos un intervalo en cada ocasión, aproximadamente el <strong>95 % de esos intervalos</strong> contendría la verdadera media poblacional.</p>
-</div>
-</div>
-<p>Para construir un intervalo de confianza del 95 %, buscamos los valores Z que encierran el <strong>95 % central</strong> de la distribución normal.</p>
-<p>Recordemos que el valor crítico para un 95% de confianza es de 1.96, el cual es calculado mediante los valores z que <strong>acumulan el 95% central</strong> de la distribución normal.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>valor_critico <span class="ot">&lt;-</span> <span class="fl">1.96</span> <span class="co"># creación del objeto valor crítico</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="ot">&lt;-</span> media <span class="sc">-</span> valor_critico <span class="sc">*</span> ee <span class="co"># Calcula el límite inferior</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="ot">&lt;-</span> media <span class="sc">+</span> valor_critico <span class="sc">*</span> ee <span class="co"># Calcula el límite superior</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="co"># Muestra el límite inferior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.822988</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="co"># Muestra el límite superior</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 5.538636</code></pre>
-</div>
-</div>
-<p>El intervalo obtenido se extiende aproximadamente entre <strong>4,82 y 5,54</strong>.</p>
+<p>Generamos un gráfico para visualizar de mejor manera el intervalo de confianza que construimos</p>
 <div class="cell">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="02-practico_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02-practico_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 <figcaption>Media muestral e intervalo de confianza del 95 %.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<p>El punto representa la media de la muestra y la línea muestra el intervalo de confianza del 95%.</p>
-</section>
+<div style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;">
+<p>Podemos observar que contamos con una media muestral de 68.1 como estimación puntual. Ahora, podemos asegurar con un 95% de confianza que la media poblacional se encuentra entre 67.93 y 68.25.</p>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En simple: si estimamos 100 intervalos de confianza, <strong>95 de ellos contendrán la media poblacional</strong>.</p>
+</div>
+</div>
+<ul>
+<li>Estime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>lim_inf_99 <span class="ot">&lt;-</span> media <span class="sc">-</span> <span class="fl">2.58</span> <span class="sc">*</span> se <span class="co"># Limite inferior del Intervalo</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>lim_inf_99</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.87522</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>lim_sup_99 <span class="ot">&lt;-</span> media <span class="sc">+</span> <span class="fl">2.58</span> <span class="sc">*</span> se <span class="co"># Límite superior del Intervalo</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>lim_sup_99</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.30172</code></pre>
+</div>
+</div>
+<div style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;">
+<p>Podemos observar que al calcular el IC para un 99% de confianza, el ancho del intervalo se amplía, es decir, el rango donde se puede hallar el parámetro poblacional es mayor, encontrándose entre 67.88 y 68.30</p>
+</div>
+<ol start="5" type="1">
+<li>Explore el efecto del tamaño muestral</li>
+</ol>
+<ul>
+<li>Generemos 2 submuestras aleatorias con la función <code>sample()</code>.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>muestra_50 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">50</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>muestra_500 <span class="ot">&lt;-</span> <span class="fu">sample</span>(altura, <span class="dv">500</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Nota
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>la función <code>set.seed</code> fija una semilla para que las secuencias de números “aleatorios” que produce R sean reproducibles. Es decir, asegura que otra persona que corra el mismo script obtenga los mismos resultados</p>
+</div>
+</div>
+<ul>
+<li>Calcule el error estándar y el intervalo de confianza al 95% de cada muestra ¿Qué pasa con el error estándar y el intervalo de confianza a medida que aumenta el tamaño de la muestra?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>media_50 <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra_50)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>desv_estandar_50 <span class="ot">&lt;-</span> <span class="fu">sd</span>(muestra_50)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>n_media_50 <span class="ot">&lt;-</span> <span class="fu">length</span>(muestra_50)</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>se_50 <span class="ot">&lt;-</span> desv_estandar_50 <span class="sc">/</span> <span class="fu">sqrt</span>(n_media_50)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>se_50</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.3390383</code></pre>
+</div>
+</div>
+<p>Calculamos los límites del intervalo</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>media_50 <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_50</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.27549</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>media_50 <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_50</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.60451</code></pre>
+</div>
+</div>
+<p>La media como estimación puntual es de 67.9, mientras que con un 95% de confianza podemos asegurar que el parámetro poblacional se encuentra entre <strong>67.28 y 68.60</strong>.</p>
+<p>Ahora realicemos el mismo procedimiento con la muestra generada con 500 casos</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>media_500 <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra_500)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>desv_estandar_500 <span class="ot">&lt;-</span> <span class="fu">sd</span>(muestra_500)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>n_media_500 <span class="ot">&lt;-</span> <span class="fu">length</span>(muestra_500)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>se_500 <span class="ot">&lt;-</span> desv_estandar_500 <span class="sc">/</span> <span class="fu">sqrt</span>(n_media_500)</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>se_500</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1109578</code></pre>
+</div>
+</div>
+<p>Calculamos los límites del intervalo</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>media_500 <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_500</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.83252</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>media_500 <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_500</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.26748</code></pre>
+</div>
+</div>
+<p>Al comparar el error estándar de la muestra de 50 con la muestra de 500, podemos ver que, <strong>a medida que la muestra es más grande</strong>, <strong>el error estándar se vuelve más pequeño</strong>.</p>
+<p>De la misma manera, el intervalo de la muestra de 50 casos es de 67.28 y 68.60, mientras que el de la muestra de 500 es más reducido, conteniendo valores entre el 67.85 y 68.28. Así, podemos afirmar que <strong>una muestra con mayor cantidad de casos</strong> tenderá a entregar intervalos más pequeños, es decir, <strong>estimaciones más precisas</strong></p>
+<ul>
+<li>Calcule el error estándar y intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y intervalo de confianza a medida que aumenta el tamaño de la muestra?</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>media_50 <span class="sc">-</span> <span class="fl">2.58</span> <span class="sc">*</span> se_50</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.06528</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>media_50 <span class="sc">+</span> <span class="fl">2.58</span> <span class="sc">*</span> se_50</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.81472</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>media_500 <span class="sc">-</span> <span class="fl">2.58</span> <span class="sc">*</span> se_500</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 67.76373</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>media_500 <span class="sc">+</span> <span class="fl">2.58</span> <span class="sc">*</span> se_500</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 68.33627</code></pre>
+</div>
+</div>
+<div style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;">
+<p>A medida que la muestra se vuelve más grande, el error estándar se vuelve más pequeño, es decir, es más preciso en la estimación.</p>
+<p>A medida que el intervalo de confianza aumenta en su nivel de confiabilidad, el rango se vuelve más amplio y, en consecuencia, la estimación es menos precisa.</p>
+</div>
 </section>
 <section id="test-de-hipótesis" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Test de hipótesis</h1>
+<p>Hasta ahora utilizamos el error estándar para expresar la incertidumbre de una estimación mediante intervalos de confianza. Ahora usaremos esa misma idea de variabilidad muestral para responder una nueva pregunta: ¿las diferencias entre grupos que logramos observar en una muestra, pueden ser representativas de a nivel de la población?</p>
 <p>Para este punto, recurriremos a todas las herramientas que hemos aprendido hasta ahora:</p>
 <table class="caption-top table">
 <colgroup>
@@ -446,7 +713,7 @@ Importante
 <p>Para este ejercicio, obtendremos directamente esta base desde internet. No obstante, también tienes la opción de acceder a la misma información a través del siguiente enlace: <a href="https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"><i class="fa-solid fa-table" aria-label="table"></i> <code>CASEN 2022</code></a>. Desde allí, podrás descargar el archivo que contiene el subconjunto procesado de la base de datos CASEN 2022.</p>
 <section id="los-cinco-pasos-para-la-inferencia-estadística" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="los-cinco-pasos-para-la-inferencia-estadística"><span class="header-section-number">2.1</span> Los cinco pasos para la inferencia estadística</h2>
-<p>En inferencia, las pruebas de hipótesis nos ayudan a determinar si el resultado que obtenemos en nuestra muestra es un efecto real/extrapolable a la población o un error. Aquí recomendamos una lista de cinco pasos lógicos para enfrentarnos a la inferencia estadística:</p>
+<p>En inferencia, las pruebas de hipótesis nos permiten evaluar qué tan compatibles son los resultados observados en nuestra muestra con una hipótesis planteada sobre la población. Aquí recomendamos una lista de cinco pasos lógicos para enfrentarnos a la inferencia estadística:</p>
 <style>
   table {
     margin-left: auto; /* Ajustamos el margen izquierdo a automático */
@@ -512,6 +779,19 @@ Interpreta los resultados
 </td>
 </tr>
 </tbody></table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La hipótesis nula (<span class="math inline">\(H_{0}\)</span>) es la contraria a la hipótesis original, y es la buscamos <strong>falsear</strong></p>
+</div>
+</div>
 <p>Además de estos 5 pasos también existe la posibilidad de calcular un intervalo de confianza, que acompañe la precisión de nuestra estimación.</p>
 </section>
 <section id="preparación-datos" class="level2" data-number="2.2">
@@ -531,24 +811,37 @@ Importante
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, <span class="co"># Manipulacion datos</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>               gginference, <span class="co"># Visualizacion </span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>               rempsyc, <span class="co"># Reporte</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>               kableExtra, <span class="co"># Tablas</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>               broom, <span class="co"># Varios</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>               flextable, <span class="co"># nice table</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>               rempsyc)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># para desactivar notacion cientifica</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># para limpiar el entorno de trabajo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(dplyr, <span class="co"># Manipulación datos</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>               gginference, <span class="co"># Visualización </span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>               rempsyc, <span class="co"># Reporte</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>               kableExtra, <span class="co"># Tablas</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>               broom, <span class="co"># Varios</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>               flextable <span class="co"># nice table</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>               )</span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># para desactivar notación científica</span></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>()) <span class="co"># para limpiar el entorno de trabajo</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>dplyr</code> será uno de los paquetes más frecuentrados en nuestro flujo de trabajo, ya que nos entrega las herramientas esenciales para el procesamiento de datos sociales. Algunas de ellas nos permiten realizar el filtrado, selección, orden y creación de variables.</p>
+</div>
 </div>
 <p>Cargamos los datos directamente desde internet.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"</span>)) <span class="co">#Cargar base de datos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"</span>)) <span class="co">#Cargar base de datos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>A continuación, exploramos la base de datos <strong>proc_casen</strong>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(proc_casen) <span class="co"># Nombre de columnas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(proc_casen) <span class="co"># Nombre de columnas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "id_vivienda"      "folio"            "id_persona"       "hogar"           
  [5] "nucleo"           "varunit"          "varstrat"         "expr"            
@@ -559,7 +852,7 @@ Importante
 [25] "tipo_ocup"        "ss_salud"         "ayuda_moverse"    "ayuda_thogar"    
 [29] "disc_fisica"     </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(proc_casen) <span class="co"># Dimensiones</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(proc_casen) <span class="co"># Dimensiones</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 202111     29</code></pre>
 </div>
@@ -568,52 +861,37 @@ Importante
 </section>
 <section id="recordemos" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="recordemos"><span class="header-section-number">2.3</span> Recordemos…</h2>
-<p>En estadística, la formulación de hipótesis que implica dos variables (o la comparación de grupos) busca determinar si existen diferencias en una variable entre grupos y, de ser el caso, evaluar si esta diferencia es estadísticamente significativa.</p>
-<p>Hasta ahora, hemos aprendido a contrastar hipótesis sobre <strong>diferencias entre grupos</strong>. A esto también se le llama <strong>hipótesis de dos colas</strong>.</p>
+<p>En estadística, la formulación de hipótesis que implica dos variables (o la comparación de grupos) busca determinar si las diferencias que se encuentran en la muestra son extrapolables a la población.</p>
+<p>Ahora vamos a aprender a contrastar hipótesis sobre diferencias entre grupos. Si nuestra hipótesis plantea <strong>solamente</strong> que los <strong>grupos son diferentes</strong>, sin especificar cuál tendrá un promedio mayor, utilizamos una <strong>prueba de dos colas</strong> o <strong>no direccional</strong>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Prueba de dos colas
+<span class="screen-reader-only">Nota</span>Diferencias de medias (o prueba de dos colas)
 </div>
 </div>
 <div class="callout-body-container callout-body">
 <p>Contrastamos la <em>hipótesis nula</em> de <em>no</em> diferencias entre grupos: <span class="math display">\[  H_{0}: \mu_{1} - \mu_{2} = 0 \]</span> En relación a una <em>hipótesis alternativa</em> sobre <em>diferencias</em> entre grupos: <span class="math display">\[  H_{A}: \mu_{1} - \mu_{2} \neq 0 \]</span></p>
 </div>
 </div>
-<p>Además, podemos <strong>plantear hipótesis</strong> respecto a que el valor de cierto parámetro para un grupo <strong>puede ser mayor o menor</strong> al de otro grupo. A esto se le conoce como <strong>hipótesis de una cola</strong>.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Prueba de una cola
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><span class="math display">\[  H_{0}: \mu_{0} ≥ \mu_{1} ; \mu_{0} ≤ \mu_{1}\]</span></p>
-<p><span class="math display">\[  H_{A}: \mu_{0} &gt; \mu_{1} \]</span></p>
-<p><span class="math display">\[  H_{A}: \mu_{0} &lt; \mu_{1} \]</span></p>
-</div>
-</div>
+<p>Además, podemos <strong>plantear hipótesis</strong> respecto a que el valor de cierto parámetro para un grupo <strong>puede ser mayor o menor</strong> al de otro grupo. A esto se le conoce como <strong>hipótesis de una cola</strong> y lo veremos más adelante.</p>
 <p>Veamos ahora cómo aplicar todos estos conocimientos con ejercicios. Primero, para asegurar la reproducibilidad de los resultados, utilizamos <code>set.seed</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fijar la semilla para reproducibilidad</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb63"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># Fijar la semilla para reproducibilidad</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="ejercicio-1" class="level2" data-number="2.4">
 <h2 data-number="2.4" class="anchored" data-anchor-id="ejercicio-1"><span class="header-section-number">2.4</span> Ejercicio 1</h2>
-<p>Estamos en un escenario donde la pregunta de investigación es: <em>¿Es el salario de los hombres mayor que el de las mujeres?</em></p>
-<p>Para contrastar esta hipótesis, vamos utilizar la bbdd <code>proc_casen</code>, seleccionaremos las variables <code>sexo</code> e <code>ytrabajocor</code> y haremos un subset de datos de 1.500 casos.</p>
+<p>Estamos en un escenario donde la pregunta de investigación es: <em>¿Existen diferencias salariales entre hombres y mujeres en Chile?</em></p>
+<p>Para contrastar esta hipótesis, vamos utilizar la base de datos <code>proc_casen</code>, seleccionaremos las variables <code>sexo</code> e <code>ytrabajocor</code> (ingresos) y haremos un subset de datos de 1.500 casos.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> </span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexo, ytrabajocor) <span class="sc">%&gt;%</span> <span class="co"># seleccionamos</span></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="co"># extraemos una muestra de 1500 casos</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(casen_subset) <span class="co"># eliminamos casos perdidos (listwise)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> </span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sexo, ytrabajocor) <span class="sc">%&gt;%</span> <span class="co"># seleccionamos</span></span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="co"># extraemos una muestra de 1500 casos</span></span>
+<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(casen_subset) <span class="co"># eliminamos casos perdidos (listwise)</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -630,12 +908,12 @@ Tip
 </div>
 <p>Generamos tabla para visualizar la distribución de los datos.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="sc">%&gt;%</span> </span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica </span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="co"># columna para el N de cada categoría</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Promedio =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">SD =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="sc">%&gt;%</span> </span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(sexo) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica </span></span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="co"># columna para el N de cada categoría</span></span>
+<span id="cb65-4"><a href="#cb65-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Promedio =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>),</span>
+<span id="cb65-5"><a href="#cb65-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">SD =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm=</span><span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
+<span id="cb65-6"><a href="#cb65-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -665,35 +943,35 @@ Tip
 </div>
 <p>Ahora vamos con los <a href="https://correlacional.netlify.app/slides/05-inferencia4.html#33">5 pasos de la inferencia</a></p>
 <p><strong>1. Formulación de hipótesis</strong></p>
-<p>El primer aspecto a establecer es el tipo de hipótesis a formular: ¿Direccional o no direccional? En este caso, la pregunta indica una <strong>direccionalidad</strong> (“mayor que”), por lo tanto corresponde a una <strong>hipótesis direccional</strong>. Si hubiera sido una pregunta que hiciera referencia simplemente a diferencias (“¿Es el salario de los hombres distinto al de las mujeres?”) correspondería a una hipótesis no direccional.</p>
-<p>La hipótesis general es que el salario de los hombres es mayor que el de las mujeres. Pasando a lenguaje de hipótesis, esto se plantea como:</p>
+<p>El primer aspecto a establecer es el tipo de hipótesis a formular: ¿Direccional o no direccional? En este caso, la pregunta <strong>no</strong> indica una <strong>direccionalidad</strong>, por lo tanto corresponde a una <strong>hipótesis no direccional</strong>. Si hubiera sido una pregunta que hiciera referencia a una mayoría de un grupo por sobre otro (“¿Es el salario de los hombres mayor que el de las mujeres?”) correspondería a una hipótesis direccional.</p>
+<p>La hipótesis general es que el salario de los hombres es <strong>distinto</strong> que el de las mujeres. Pasando a lenguaje de hipótesis, esto se plantea como:</p>
 <p><strong>Hipótesis alternativa</strong>:</p>
-<p><span class="math inline">\(H_A\)</span>: Promedio salarial hombres ( <span class="math inline">\(\bar{X}_{hombres}\)</span>) - Promedio salarial mujeres ( <span class="math inline">\(\bar{X}_{mujeres}\)</span>) &gt; 0</p>
+<p><span class="math display">\[H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0\]</span></p>
 <p><strong>Hipótesis nula</strong>:</p>
-<p><span class="math inline">\(H_0\)</span>: <span class="math inline">\(\bar{X}_{hombres} - \bar{X}_{mujeres} \leq 0\)</span></p>
+<p><span class="math display">\[H_{0}: \bar{X}_{hombres} -  \bar{X}_{mujeres}= 0\]</span></p>
 <p><strong>Pasos 2, 3 y 4 de una vez con R</strong></p>
 <p>En clases vimos que los pasos 2, 3 y 4 corresponden a:</p>
-<ol type="1">
+<ul>
 <li><p>Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</p></li>
 <li><p>Establecer la probabilidad de error <span class="math inline">\(\alpha\)</span> (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente</p></li>
 <li><p>Cálculo de intervalo de confianza / contraste valores empírico/crítico</p></li>
-</ol>
+</ul>
 <p>Esta secuencia de pasos tiene un sentido pedagógico para poder entender cómo finalmente se llega a interpretar el contraste de hipótesis en el paso 5. Pero en análisis de datos, luego de establecer las hipótesis nos vamos directamente al software que nos permite obtener de una vez toda la información de los pasos 2, 3 y 4.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>test_ej1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(casen_subset<span class="sc">$</span>ytrabajocor <span class="sc">~</span> casen_subset<span class="sc">$</span>sexo, <span class="co"># define las variables que serán sometidas al test de hipótesis</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"greater"</span>, <span class="co"># define la hipótesis alternativa</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="co"># establece el nivel de confianza</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>test_ej1</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb66"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>test_ej1 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(casen_subset<span class="sc">$</span>ytrabajocor <span class="sc">~</span> casen_subset<span class="sc">$</span>sexo, <span class="co"># define las variables que serán sometidas al test de hipótesis</span></span>
+<span id="cb66-2"><a href="#cb66-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"two.sided"</span>, <span class="co"># define la hipótesis alternativa</span></span>
+<span id="cb66-3"><a href="#cb66-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>) <span class="co"># establece el nivel de confianza</span></span>
+<span id="cb66-4"><a href="#cb66-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-5"><a href="#cb66-5" aria-hidden="true" tabindex="-1"></a>test_ej1</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
 data:  casen_subset$ytrabajocor by casen_subset$sexo
-t = 2.3355, df = 674.99, p-value = 0.009906
-alternative hypothesis: true difference in means between group 1 and group 2 is greater than 0
+t = 2.3355, df = 674.99, p-value = 0.01981
+alternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0
 95 percent confidence interval:
- 31054.71      Inf
+  16781.61 193947.32
 sample estimates:
 mean in group 1 mean in group 2 
        690724.8        585360.4 </code></pre>
@@ -701,25 +979,25 @@ mean in group 1 mean in group 2
 </div>
 <p>También podemos visualizarlo en una tabla más amable.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej1, <span class="at">conf_int =</span> T) <span class="co"># se convierten los datos del test en un dataframe</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>) <span class="co"># convierte el dataframe en tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej1, <span class="at">conf_int =</span> T) <span class="co"># se convierten los datos del test en un dataframe</span></span>
+<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>) <span class="co"># convierte el dataframe en tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-405da672{table-layout:auto;}.cl-4056f4b2{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4056f4c6{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-4056f4ee{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-4059a00e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4059a02c{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4059b620{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4059b634{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-4059b648{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-405da672"><thead><tr style="overflow-wrap:break-word;"><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Method</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Alternative</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Mean 1</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">Mean 2</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">M</span><span class="cl-4056f4ee">1</span><span class="cl-4056f4b2"> - </span><span class="cl-4056f4c6">M</span><span class="cl-4056f4ee">2</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">t</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">df</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4c6">p</span></p></th><th class="cl-4059b620"><p class="cl-4059a00e"><span class="cl-4056f4b2">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-4059b634"><p class="cl-4059a02c"><span class="cl-4056f4b2">Welch Two Sample t-test</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">greater</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">690,724.82</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">585,360.36</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">105,364.47</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">2.34</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">674.99</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">.010**</span></p></td><td class="cl-4059b648"><p class="cl-4059a00e"><span class="cl-4056f4b2">[31054.71, Inf]</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-16fc74c8{table-layout:auto;}.cl-16f47d5e{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-16f47d7c{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-16f47d9a{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-16f7c202{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-16f7c220{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-16f7e494{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-16f7e4bc{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-16f7e4d0{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-16fc74c8"><thead><tr style="overflow-wrap:break-word;"><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d5e">Method</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d5e">Alternative</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d5e">Mean 1</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d5e">Mean 2</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d7c">M</span><span class="cl-16f47d9a">1</span><span class="cl-16f47d5e"> - </span><span class="cl-16f47d7c">M</span><span class="cl-16f47d9a">2</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d7c">t</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d7c">df</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d7c">p</span></p></th><th class="cl-16f7e494"><p class="cl-16f7c202"><span class="cl-16f47d5e">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-16f7e4bc"><p class="cl-16f7c220"><span class="cl-16f47d5e">Welch Two Sample t-test</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">two.sided</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">690,724.82</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">585,360.36</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">105,364.47</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">2.34</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">674.99</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">.020*</span></p></td><td class="cl-16f7e4d0"><p class="cl-16f7c202"><span class="cl-16f47d5e">[16781.61, 193947.32]</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <p>Visualicemos la distribución de esta prueba y su zona de rechazo.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggttest</span>(test_ej1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>gginference<span class="sc">::</span><span class="fu">ggttest</span>(test_ej1)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="02-practico_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="02-practico_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>5. Interpretación</strong></p>
-<p>La prueba t que evalúa la diferencia de medias entre el salario y el sexo sugiere que el efecto es positivo y estadísticamente signficativo (diferencia = 105.364,47, t = 2.34, p &lt; .05). El valor <strong><span class="math inline">\(p\)</span></strong> indica que <strong>la probabilidad de observar una diferencia de esta magnitud, o mayor, bajo la suposición de <span class="math inline">\(H_{0}\)</span> es menor al 5%</strong>. Por tanto, con un 95% de confianza, rechazamos la <span class="math inline">\(H_{0}\)</span> ya que existe <strong>evidencia a favor</strong> de nuestra <span class="math inline">\(H_{A}\)</span> respecto a que el salario de los hombres es mayor al salario de las mujeres.</p>
+<p>La prueba t que evalúa la diferencia de medias entre el salario y el sexo sugiere que el efecto es positivo y estadísticamente signficativo (diferencia = 105.364,47, t = 2.34, p &lt; .05). El valor <strong><span class="math inline">\(p\)</span></strong> indica que <strong>la probabilidad de observar una diferencia de esta magnitud, o mayor, bajo la suposición de <span class="math inline">\(H_{0}\)</span> es menor al 5%</strong>. Por tanto, con un 95% de confianza, rechazamos la <span class="math inline">\(H_{0}\)</span> ya que existe <strong>evidencia a favor</strong> de nuestra <span class="math inline">\(H_{A}\)</span> respecto a que hay diferencias de salario entre hombres y mujeres.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -736,25 +1014,25 @@ Importante
 </section>
 <section id="ejercicio-2" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="ejercicio-2"><span class="header-section-number">2.5</span> Ejercicio 2</h2>
-<p>Tomando como ejemplo el trabajo de la ganadora del Premio Nobel de Economía 2023 Claudia Goldin, en este siguiente ejercicio evaluaremos la siguiente pregunta: <em>¿Es el salario de las mujeres con hijos menor al salario de las mujeres sin hijos?</em> Por ende, usaremos <strong>prueba <span class="math inline">\(t\)</span></strong> para diferencia de medias.</p>
+<p>Tomando como ejemplo el trabajo de la ganadora del Premio Nobel de Economía 2023 Claudia Goldin, en este siguiente ejercicio evaluaremos la siguiente pregunta: <em>¿Es el salario de las mujeres con hijos distinto al salario de las mujeres sin hijos?</em> Por ende, usaremos <strong>prueba <span class="math inline">\(t\)</span></strong> para diferencia de medias.</p>
 <p>Utilizaremos la bbdd <code>proc_casen</code>, seleccionando las variables <code>ocupado</code>, <code>sexo</code>, <code>ytrabajocor</code> e <code>hijo</code>. Luego, filtraremos por <code>ocupado == 1</code> y <code>sexo == 2</code> para quedarnos sólo con mujeres ocupadas y generaremos una muestra aleatoria de 1.500 casos con la función <code>sample_n()</code>. Luego, eliminaremos los casos pérdidos con <code>na.omit()</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> <span class="co"># crear subset a partir de la base proc_casen</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ocupado, sexo, ytrabajocor, hijo) <span class="sc">%&gt;%</span> <span class="co"># selección de variables</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ocupado <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> sexo <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># se filtra solo por mujeres ocupadas</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="sc">%&gt;%</span> <span class="co"># submuestra de 1500</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()<span class="co"># creamos subset </span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb70-2"><a href="#cb70-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-3"><a href="#cb70-3" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> proc_casen <span class="sc">%&gt;%</span> <span class="co"># crear subset a partir de la base proc_casen</span></span>
+<span id="cb70-4"><a href="#cb70-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ocupado, sexo, ytrabajocor, hijo) <span class="sc">%&gt;%</span> <span class="co"># selección de variables</span></span>
+<span id="cb70-5"><a href="#cb70-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ocupado <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> sexo <span class="sc">==</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span> <span class="co"># se filtra solo por mujeres ocupadas</span></span>
+<span id="cb70-6"><a href="#cb70-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_n</span>(<span class="dv">1500</span>) <span class="sc">%&gt;%</span> <span class="co"># submuestra de 1500</span></span>
+<span id="cb70-7"><a href="#cb70-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()<span class="co"># creamos subset </span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Ahora generamos una tabla de descriptivos de los ingresos (<code>ytrabajocor</code>) según si las observaciones tienen hijos o no (<code>hijo</code>), presentando la cantidad de casos, la media y la desviación estándar.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="sc">%&gt;%</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(hijo) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(),</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Media =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm =</span> T),</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">DS =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># hacemos la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="sc">%&gt;%</span> </span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(hijo) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(),</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>                   <span class="at">Media =</span> <span class="fu">mean</span>(ytrabajocor, <span class="at">na.rm =</span> T),</span>
+<span id="cb71-5"><a href="#cb71-5" aria-hidden="true" tabindex="-1"></a>                   <span class="at">DS =</span> <span class="fu">sd</span>(ytrabajocor, <span class="at">na.rm =</span> T)) <span class="sc">%&gt;%</span> </span>
+<span id="cb71-6"><a href="#cb71-6" aria-hidden="true" tabindex="-1"></a>  kableExtra<span class="sc">::</span><span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># hacemos la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -784,44 +1062,54 @@ Importante
 </div>
 <p>Ahora vamos con los <a href="https://correlacional.netlify.app/slides/05-inferencia4.html#33">5 pasos de la inferencia</a></p>
 <p><strong>1. Formulación de hipótesis</strong></p>
-<p>El primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis direccional (<strong><em>mayor que</em></strong>)</p>
+<p>El primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis no direccional (<strong><em>distinto que</em></strong>)</p>
 <p>Luego, debemos establecer las hipótesis nula y alternativa:</p>
-<p>(<span class="math inline">\(H_0\)</span>): El promedio salarial de las mujeres sin hijos será igual o menor que el promedio salarial de las mujeres con hijos.</p>
-<p>(<span class="math inline">\(H_A\)</span>): El promedio salarial de mujeres sin hijos será mayor que el promedio salarial de las mujeres con hijos.</p>
+<p>(<span class="math inline">\(H_0\)</span>): El promedio salarial de las mujeres sin hijos es distinto que el promedio salarial de las mujeres con hijos.</p>
+<p>(<span class="math inline">\(H_A\)</span>): El promedio salarial de mujeres sin hijos no será diferente al promedio salarial de las mujeres con hijos.</p>
 <p><strong>Pasos 2, 3 y 4 de una vez con R</strong></p>
 <p>Siguiendo el ejemplo del Ejercicio 1, utilizaremos el software para estimar el test de hipótesis con un 95% de confianza.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>test_ej2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(goldin_data<span class="sc">$</span>ytrabajocor <span class="sc">~</span> goldin_data<span class="sc">$</span>hijo, </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>test_ej2</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>test_ej2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(goldin_data<span class="sc">$</span>ytrabajocor <span class="sc">~</span> goldin_data<span class="sc">$</span>hijo, </span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a>                   <span class="at">alternative =</span> <span class="st">"two.sided"</span>,</span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a>                   <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-5"><a href="#cb72-5" aria-hidden="true" tabindex="-1"></a>test_ej2</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
 
 data:  goldin_data$ytrabajocor by goldin_data$hijo
-t = 2.3914, df = 492.66, p-value = 0.008578
-alternative hypothesis: true difference in means between group 0 and group 1 is greater than 0
+t = 2.3914, df = 492.66, p-value = 0.01716
+alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
 95 percent confidence interval:
- 35835.71      Inf
+  20564.3 209967.6
 sample estimates:
 mean in group 0 mean in group 1 
        706113.7        590847.7 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej2, <span class="at">conf_int =</span> T)</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(test_ej2, <span class="at">conf_int =</span> T)</span>
+<span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-410c13e2{table-layout:auto;}.cl-41061dfc{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-41061e24{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-41061e2e{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-4108e0be{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-4108e0e6{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-41091548{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-41091566{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-41091584{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-410c13e2"><thead><tr style="overflow-wrap:break-word;"><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Method</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Alternative</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Mean 1</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">Mean 2</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">M</span><span class="cl-41061e2e">1</span><span class="cl-41061dfc"> - </span><span class="cl-41061e24">M</span><span class="cl-41061e2e">2</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">t</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">df</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061e24">p</span></p></th><th class="cl-41091548"><p class="cl-4108e0be"><span class="cl-41061dfc">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-41091566"><p class="cl-4108e0e6"><span class="cl-41061dfc">Welch Two Sample t-test</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">greater</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">706,113.65</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">590,847.70</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">115,265.96</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">2.39</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">492.66</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">.009**</span></p></td><td class="cl-41091584"><p class="cl-4108e0be"><span class="cl-41061dfc">[35835.71, Inf]</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-177e1474{table-layout:auto;}.cl-17779874{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-1777989c{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-177798b0{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-177a3e6c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-177a3e8a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-177a5a78{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-177a5a96{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-177a5aaa{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-177e1474"><thead><tr style="overflow-wrap:break-word;"><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-17779874">Method</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-17779874">Alternative</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-17779874">Mean 1</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-17779874">Mean 2</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-1777989c">M</span><span class="cl-177798b0">1</span><span class="cl-17779874"> - </span><span class="cl-1777989c">M</span><span class="cl-177798b0">2</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-1777989c">t</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-1777989c">df</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-1777989c">p</span></p></th><th class="cl-177a5a78"><p class="cl-177a3e6c"><span class="cl-17779874">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-177a5a96"><p class="cl-177a3e8a"><span class="cl-17779874">Welch Two Sample t-test</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">two.sided</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">706,113.65</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">590,847.70</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">115,265.96</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">2.39</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">492.66</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">.017*</span></p></td><td class="cl-177a5aaa"><p class="cl-177a3e6c"><span class="cl-17779874">[20564.30, 209967.62]</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <p>A partir de los resultados obtenidos: ¿es posible rechazar la hipótesis planteada?</p>
-<blockquote class="blockquote">
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
 <p>La prueba t que evalúa la diferencia de medias</p>
-</blockquote>
-<p>Con un 95% de confianza es posible rechazar la hipótesis nula planteada. El promedio salarial de las mujeres sin hijos es $115.265,96 mayor que el de las mujeres con hijos.</p>
+</div>
+</div>
+<p>Con un 95% de confianza es posible rechazar la hipótesis nula planteada. La diferencia del promedio salarial entre las mujeres sin hijos y con hijos es estadísticamente significativa.</p>
 </section>
 </section>
 <section id="ejercicio-autónomo" class="level1" data-number="3">
@@ -829,7 +1117,7 @@ mean in group 0 mean in group 1
 <p>En este ejercicio tomamos de ejemplo una pregunta clásica en ciencias sociales: <em>¿el ingreso de las personas está relacionado a su nivel educacional?</em>. Para responder esta pregunta vamos a usar una prueba <span class="math inline">\(t\)</span> de contraste de medias para dos muestras independientes. Realice lo siguiente:</p>
 <ul>
 <li><p>Utilice la bbdd <code>proc_casen</code> y seleccione las variables <code>ytrabajocor</code> y <code>universitaria</code>.</p></li>
-<li><p>Luego genere una muestra aleatoria 1500 casos con la función <code>sample_n()</code> y elimine los datos perdidos de la variable <code>ytrabajocor</code>.</p></li>
+<li><p>Luego cree una semilla con <code>set.seed</code> y genere una muestra aleatoria 1500 casos con la función <code>sample_n()</code> y elimine los datos perdidos de la variable <code>ytrabajocor</code>.</p></li>
 <li><p>Genere una tabla de descriptivos de los ingresos (<code>ytrabajocor</code>) según si las personas cuentan con educación universitaria o no (<code>universitaria</code>). Presente cantidad de observaciones por categoría, media y desviación estándar.</p></li>
 <li><p>Realice el test de hipótesis considerando los comandos que se vieron a lo largo de la clase y compruebe si es posible rechazar la hipótesis nula</p></li>
 </ul>
@@ -839,7 +1127,7 @@ mean in group 0 mean in group 1
 <p>Hoy vimos:</p>
 <ul>
 <li><p>Repaso de los intervalos de confianza, observando la importancia del error estándar y la estimación de rangos para encontrar el parámetro poblacional</p></li>
-<li><p>Contraste de hipótesis mediante pruebas de una cola y dos colas</p></li>
+<li><p>Contraste de hipótesis mediante pruebas de diferencias de medias</p></li>
 <li><p>Aplicar los 5 pasos para la inferencia mediante software</p></li>
 </ul>
 <p>Para cerrar…</p>
@@ -854,7 +1142,7 @@ Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Generalmente, nuestro objetivo será <strong>rechazar la hipótesis nula</strong></p>
+<p>Nuestro objetivo no es rechazar <span class="math inline">\(H_{0}\)</span> a toda costa, sino evaluar si los datos entregan evidencia suficiente para rechazarla. Un resultado en que no rechazamos <span class="math inline">\(H_{0}\)</span> también es un resultado estadístico válido</p>
 </div>
 </div>
 
