@@ -1,0 +1,94 @@
+---
+title: "Resolución ejercicio 2 - práctico 2"
+date: "2026-08-19"
+lang: es
+execute:
+  freeze: auto
+  cache: true
+number-sections: true
+format:
+  html:
+    code-copy: true
+    highlight-style: github
+#lightbox: true
+---
+
+# Solución ejercicio 2 práctico 2
+
+Carga de paquetes
+```{r librerias, collapse=TRUE, message=FALSE}
+pacman::p_load(dplyr, # Manipulación datos
+               gginference, # Visualización 
+               rempsyc, # Reporte
+               kableExtra, # Tablas
+               broom, # Varios
+               flextable # nice table
+               )
+
+options(scipen = 999) # para desactivar notación científica
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+Carga de la base de datos
+
+```{r datos}
+
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData")) #Cargar base de datos
+
+```
+
+Selección de variables y generación de subset de datos
+
+```{r, collapse=FALSE}
+set.seed(123)
+
+goldin_data <- proc_casen %>% # crear subset a partir de la base proc_casen
+  dplyr::select(ocupado, sexo, ytrabajocor, hijo) %>% # selección de variables
+  dplyr::filter(ocupado == 1 & sexo == 2) %>% # se filtra solo por mujeres ocupadas
+  sample_n(1500) %>% # submuestra de 1500
+  na.omit()# creamos subset 
+```
+
+Ahora generamos una tabla de descriptivos de los ingresos (`ytrabajocor`) según si las observaciones tienen hijos o no (`hijo`), 
+
+```{r}
+goldin_data %>% 
+  dplyr::group_by(hijo) %>% 
+  dplyr::summarise(Obs. = n(),
+                   Media = mean(ytrabajocor, na.rm = T),
+                   DS = sd(ytrabajocor, na.rm = T)) %>% 
+  kableExtra::kable(format = "markdown") # hacemos la tabla
+```
+
+Ahora vamos con los [5 pasos de la inferencia](https://correlacional.netlify.app/slides/05-inferencia4.html#33)
+
+**1. Formulación de hipótesis**
+
+El primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis no direccional (**_distinto que_**)
+
+Luego, debemos establecer las hipótesis nula y alternativa:
+
+($H_0$): El promedio salarial de las mujeres sin hijos es distinto que el promedio salarial de las mujeres con hijos.
+
+($H_A$): El promedio salarial de mujeres sin hijos no será diferente al promedio salarial de las mujeres con hijos.
+
+**Pasos 2, 3 y 4 de una vez con R**
+
+Siguiendo el ejemplo del Ejercicio 1, utilizaremos el software para estimar el test de hipótesis con un 95% de confianza.
+
+```{r}
+test_ej2 <- t.test(goldin_data$ytrabajocor ~ goldin_data$hijo, 
+                   alternative = "two.sided",
+                   conf.level = 0.95)
+
+test_ej2
+```
+
+```{r}
+stats.table <- tidy(test_ej2, conf_int = T)
+nice_table(stats.table, broom = "t.test")
+```
+
+A partir de los resultados obtenidos: ¿es posible rechazar la hipótesis planteada?
+
+Con un 95% de confianza es posible rechazar la hipótesis nula planteada. La diferencia del promedio salarial entre las mujeres sin hijos y con hijos es estadísticamente significativa.

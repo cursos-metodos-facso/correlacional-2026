@@ -40,6 +40,11 @@ format:
 code span.co {
   color: #5c7a2c !important;
 }
+
+/* Tamaño de fuente de los chunks de código */
+div.sourceCode pre code {
+  font-size: 1.15em;
+}
 </style>
 
 # Objetivo de la práctica {.unnumbered}
@@ -64,9 +69,8 @@ El nivel de confianza describe qué tan frecuentemente este procedimiento produc
 
 A modo de repasar el contenido de intervalos a confianza, resolveremos el ejercicio autónomo de la última sesión práctica. Trabajaremos con el conjunto de datos `Galton`, incluido en el paquete `HistData`, que contiene las estaturas de 928 hijos e hijas adultos recopiladas por Francis Galton en 1886. 
 
-::: callout-important
 Este es, de hecho, el conjunto de datos histórico que dio origen al estudio de la curva normal aplicada a variables biológicas.
-:::
+
 
 ```{r}
 #| warning: false
@@ -80,6 +84,12 @@ names(Galton) # revisar las variables disponibles: "parent" y "child"
 altura <- Galton$child # creamos el vector con la variable de interés
 ```
 
+::: callout-important
+La función `p_load` del paquete `pacman` simplifica el proceso de carga de paquetes, ya que se pueden cargar varios paquetes a la vez y, en caso de que alguno de esos paquetes no esté previamente instalado, p_load lo reconoce e instala
+:::
+
+La unidad de medida de la variable se encuentra en pulgadas.
+
 ::: callout-tip
 **Los \# en el código**
 
@@ -88,9 +98,6 @@ En este código y siguientes aparecen varios #, que son una función de comentar
 Pueden servir como herramientas para tomar apuntes mientras se trabaja en el código
 :::
 
-::: callout-tip
-La unidad de medida de la variable se encuentra en pulgadas.
-:::
 
 1.  Calcule y describa la distribución
 
@@ -120,13 +127,13 @@ hist(Galton$child,main="Histograma del Vector",xlab="Valor",ylab="Frecuencia",co
 z_scores <- (Galton$child - media) / desv_estandar # aplicamos la fórmula del puntaje Z a la variable child dentro de la base de datos Galton
 ```
 
--   Muestre los primeros 10 valores (`head()`).
+-   Muestre los primeros 6 valores (`head()`).
 
 ```{r}
 head(z_scores)
 ```
 
--   Muestre también los últimos 10 valores (`tail()`).
+-   Muestre también los últimos 6 valores (`tail()`).
 
 ```{r}
 tail(z_scores)
@@ -135,34 +142,36 @@ tail(z_scores)
 -   ¿Cuál es el máximo puntaje Z y el mínimo puntaje Z? ¿A qué estatura corresponden?
 
 ```{r}
-max(z_scores)
-```
-
-El máximo puntaje Z corresponde a 2.23
-
-```{r}
 max <- max(z_scores)
-
-(max * desv_estandar) + media
+max
 ```
 
-Para calcular el valor observado, pensemos en una lógica de ecuación: necesitamos despejar el valor observado. Entonces, si la desviación estándar está dividiendo para el cálculo del puntaje Z, para calcular el valor observado debe realizar la operación contraria, es decir, multiplicar. De igual manera, si para el cálculo del puntaje Z la media está restando, para estimar el valor observado debe pasar a ser suma. 
-
-De esta manera, observamos que la altura máxima entre todos los hijos es de 73.7 pulgadas.
-
-```{r}
-min(z_scores)
-```
-
-El mínimo puntaje corresponde a -2.53
+El máximo puntaje Z corresponde a 2.23. Esto significa que el hijo o hija más alto se encuentra $\pm$ desviaciones estándar sobre el promedio
 
 ```{r}
 min <- min(z_scores)
+min
+```
 
+El mínimo puntaje corresponde a -2.53, lo que se entiende como que el hijo o hija más bajo se encuentra -2.53 desviaciones estándar bajo el promedio
+
+Pero ahora, a qué valor observado corresponden el puntaje Z mínimo y máximo? para esto, recurriremos a una lógica de ecuación. Utilizaremos la fórmula del puntaje Z y despejaremos el valor observado.
+
+En esta fórmula, el resultado es el puntaje Z, pero ahora necesitamos que nuestro resultado sea el valor observado, entonces, para llegar a esto, debemos **dividir** el puntaje Z por la desviación estándar y sumarle la media.
+
+```{r}
+(max * desv_estandar) + media
+```
+
+Con ello, ahora podemos decir que el hijo o hija más alto mide 73.7 pulgadas.
+
+Apliquemos la misma lógica para calcular el valor observado mínimo.
+
+```{r}
 (min * desv_estandar) + media
 ```
 
-Para calcular el valor estimado seguimos el mismo procedimiento que antes, lo cual nos indica que la altura mínima entre todos los hijos es de 61.7 pulgadas.
+La altura mínima entre todos los hijos es de 61.7 pulgadas.
 
 
 -   Verifique la media y desviación estándar
@@ -173,7 +182,7 @@ mean(Galton$child)
 sd(Galton$child)
 ```
 
-En promedio, los hijos e hijas presentes en la base miden 68.10 pulgadas, y su altura varía entre $\pm$ 2.58 pulgadas respecto del promedio.
+En promedio, los hijos e hijas presentes en la base miden 68.10 pulgadas, y su altura varía entre $\pm$ 2.58 pulgadas respecto del promedio. Entonces, podríamos decir que el 68% de los hijos e hijas miden entre 65.52 y 70.68 pulgadas. En la misma línea, la estatura de el 95% de hijos e hijas se encuentra entre 62.94 y 73.26
 
 
 3.  Calcule el error estándar de la variable
@@ -283,7 +292,7 @@ text(
 ```
 
 ::: {style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;"}
-Podemos observar que contamos con una media muestral de 68.1 como estimación puntual. Ahora, podemos asegurar con un 95% de confianza que la media poblacional se encuentra entre 67.93 y 68.25.
+Podemos observar que contamos con una media muestral de 68.1 como estimación puntual. Ahora, se puede decir con un 95% de confianza que la media poblacional se encuentra entre 67.93 y 68.25.
 :::
 
 ::: callout-important
@@ -291,6 +300,8 @@ En simple: si estimamos 100 intervalos de confianza, **95 de ellos contendrán l
 :::
 
 -   Estime el IC para un 99% de confianza. ¿Qué sucede con el ancho del intervalo?
+
+El puntaje para el intervalo de confianza a un 95% es 1.96. Para un intervalo de confianza al 99% es 2.58, el cual refiere a la **área acumulada bajo la curva normal**. Entonces, calculemos el intervalo de confianza
 
 ```{r}
 lim_inf_99 <- media - 2.58 * se # Limite inferior del Intervalo
@@ -304,8 +315,13 @@ lim_sup_99
 Podemos observar que al calcular el IC para un 99% de confianza, el ancho del intervalo se amplía, es decir, el rango donde se puede hallar el parámetro poblacional es mayor, encontrándose entre 67.88 y 68.30
 :::
 
+Recordemos que también podemos utilizar la función `t.test` para calcular el intervalo de confianza de manera mucho más rápida. Solamente debemos especificar el vector y el nivel de confianza.
 
+```{r}
+t.test(Galton$child, conf.level = 0.99)$conf.int
+```
 
+Así, llegamos a los mismos resultados.
 
 5.  Explore el efecto del tamaño muestral
 
@@ -333,14 +349,13 @@ se_50 <- desv_estandar_50 / sqrt(n_media_50)
 se_50
 ```
 
-Calculamos los límites del intervalo
+Calculamos el intervalo
 
 ```{r}
-media_50 - 1.96 * se_50
-media_50 + 1.96 * se_50
+t.test(muestra_50)$conf.int
 ```
 
-La media como estimación puntual es de 67.9, mientras que con un 95% de confianza podemos asegurar que el parámetro poblacional se encuentra entre **67.28 y 68.60**.
+La media como estimación puntual es de 67.9, mientras que con un 95% de confianza podemos asegurar que el parámetro poblacional se encuentra entre **67.26 y 68.62**.
 
 Ahora realicemos el mismo procedimiento con la muestra generada con 500 casos
 
@@ -353,34 +368,31 @@ se_500 <- desv_estandar_500 / sqrt(n_media_500)
 se_500
 ```
 
-Calculamos los límites del intervalo
+Calculamos el intervalo
 
 ```{r}
-media_500 - 1.96 * se_500
-media_500 + 1.96 * se_500
+t.test(muestra_500)$conf.int
 ```
 
 Al comparar el error estándar de la muestra de 50 con la muestra de 500, podemos ver que, **a medida que la muestra es más grande**, **el error estándar se vuelve más pequeño**.
 
-De la misma manera, el intervalo de la muestra de 50 casos es de 67.28 y 68.60, mientras que el de la muestra de 500 es más reducido, conteniendo valores entre el 67.85 y 68.28. Así, podemos afirmar que **una muestra con mayor cantidad de casos** tenderá a entregar intervalos más pequeños, es decir, **estimaciones más precisas**
+De la misma manera, el intervalo de la muestra de 50 casos es de 67.28 y 68.60, mientras que el de la muestra de 500 es más reducido, conteniendo valores entre el 67.83 y 68.27. Así, podemos afirmar que **una muestra con mayor cantidad de casos** tenderá a entregar intervalos más pequeños, es decir, **estimaciones más precisas**
 
--   Calcule el error estándar y intervalo de confianza al 99% de cada muestra ¿Qué pasa con el error estándar y intervalo de confianza a medida que aumenta el tamaño de la muestra?
+-   Calcule el intervalo de confianza al 99% de cada muestra ¿Qué pasa con el intervalo de confianza a medida que aumenta el tamaño de la muestra?
 
 ```{r}
-media_50 - 2.58 * se_50
-media_50 + 2.58 * se_50
+t.test(muestra_50, conf.level = 0.99)$conf.int
 ```
 
 
 ```{r}
-media_500 - 2.58 * se_500
-media_500 + 2.58 * se_500
+t.test(muestra_500, conf.level = 0.99)$conf.int
 ```
 
 ::: {style="background-color: #b71c1c; color: #ffffff; border: 1px solid #8e0000; border-radius: 6px; padding: 0.8rem 1rem;"}
 A medida que la muestra se vuelve más grande, el error estándar se vuelve más pequeño, es decir, es más preciso en la estimación.
 
-A medida que el intervalo de confianza aumenta en su nivel de confiabilidad, el rango se vuelve más amplio y, en consecuencia, la estimación es menos precisa. 
+A medida que el intervalo de confianza aumenta en su nivel de confiabilidad, el rango se vuelve más amplio y, en consecuencia, la estimación es menos precisa, **a menos que aumente su tamaño muestral**
 :::
 
 
@@ -451,7 +463,7 @@ En inferencia, las pruebas de hipótesis nos permiten evaluar qué tan compatibl
 </table>
 
 ::: callout-important
-La hipótesis nula ($H_{0}$) es la contraria a la hipótesis original, y es la buscamos **falsear** 
+La hipótesis nula ($H_{0}$) es la contraria a la hipótesis original, y es la buscamos **falsar** 
 :::
 
 Además de estos 5 pasos también existe la posibilidad de calcular un intervalo de confianza, que acompañe la precisión de nuestra estimación.
@@ -459,10 +471,6 @@ Además de estos 5 pasos también existe la posibilidad de calcular un intervalo
 ## Preparación datos
 
 Comencemos por preparar nuestros datos. Iniciamos cargando las librerías necesarias.
-
-::: callout-important
-La función `p_load` del paquete `pacman` simplifica el proceso de carga de paquetes, ya que se pueden cargar varios paquetes a la vez y, en caso de que alguno de esos paquetes no esté previamente instalado, p_load lo reconoce e instala
-:::
 
 ```{r librerias, collapse=TRUE, message=FALSE}
 pacman::p_load(dplyr, # Manipulación datos
@@ -525,6 +533,10 @@ set.seed(123) # Fijar la semilla para reproducibilidad
 
 Estamos en un escenario donde la pregunta de investigación es: *¿Existen diferencias salariales entre hombres y mujeres en Chile?*
 
+::: callout-important
+Para diferencia de medias utilizaremos _**prueba t**_, la cual es una especie de extensión de la prueba Z para diferencia de medias, y que se asimila a Z con muestras mayores a 30. Por lo tanto, por el momento vamos a asumir que Z=t, y sus diferencias se verán en el próximo práctico
+:::
+
 Para contrastar esta hipótesis, vamos utilizar la base de datos `proc_casen`, seleccionaremos las variables `sexo` e `ytrabajocor` (ingresos) y haremos un subset de datos de 1.500 casos.
 
 ```{r warning=FALSE }
@@ -567,9 +579,55 @@ $$H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0$$
 
 $$H_{0}: \bar{X}_{hombres} -  \bar{X}_{mujeres}= 0$$
 
-**Pasos 2, 3 y 4 de una vez con R**
+**2. Obtención del error estándar y estadístico de prueba**
 
-En clases vimos que los pasos 2, 3 y 4 corresponden a:
+::: callout-important
+
+La fórmula para error estándar en diferencia de medias es:
+
+$$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$
+
+::: 
+
+Ahora aplicamos la fórmula con nuestros datos
+
+```{r}
+media_hombres <- mean(casen_subset$ytrabajocor[casen_subset$sexo == 1]) # media para hombres
+media_mujeres <- mean(casen_subset$ytrabajocor[casen_subset$sexo == 2]) # media para mujeres
+
+var_hombres <- var(casen_subset$ytrabajocor[casen_subset$sexo == 1]) # varianza para hombres
+var_mujeres <- var(casen_subset$ytrabajocor[casen_subset$sexo == 2]) # varianza para mujeres
+
+n_hombres <- length(casen_subset$ytrabajocor[casen_subset$sexo == 1]) # n para hombres
+n_mujeres <- length(casen_subset$ytrabajocor[casen_subset$sexo == 2]) # n para mujeres
+
+# aplicamos la fórmula de error estándar para diferencia de medias
+se_diff <- sqrt((var_hombres / n_hombres) + (var_mujeres / n_mujeres))
+se_diff
+```
+
+**3. Establecer probabilidad de error**
+
+Recordemos que, por convención, nuestra probabilidad de error es $a$ = 0.05
+
+**4. Intervalo de confianza**
+
+```{r}
+diff_medias <- media_hombres - media_mujeres # diferencia de medias observada
+
+lim_inf <- diff_medias - 1.96 * se_diff # límite inferior del intervalo
+lim_sup <- diff_medias + 1.96 * se_diff # límite superior del intervalo
+
+lim_inf
+lim_sup
+```
+
+Entonces nuestro intervalo de confianza quedaría de tal manera: $CI$[16939.82; 193790.1]
+
+
+Ahora...
+
+**Pasos 2, 3 y 4 de una vez con R**
 
 -   Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
 
@@ -577,7 +635,7 @@ En clases vimos que los pasos 2, 3 y 4 corresponden a:
 
 -   Cálculo de intervalo de confianza / contraste valores empírico/crítico
 
-Esta secuencia de pasos tiene un sentido pedagógico para poder entender cómo finalmente se llega a interpretar el contraste de hipótesis en el paso 5. Pero en análisis de datos, luego de establecer las hipótesis nos vamos directamente al software que nos permite obtener de una vez toda la información de los pasos 2, 3 y 4.
+Luego de establecer las hipótesis nos vamos directamente al software, ya que R nos permite obtener de una vez toda la información de los pasos 2, 3 y 4.
 
 ```{r}
 test_ej1 <- t.test(casen_subset$ytrabajocor ~ casen_subset$sexo, # define las variables que serán sometidas al test de hipótesis
@@ -600,90 +658,46 @@ Visualicemos la distribución de esta prueba y su zona de rechazo.
 gginference::ggttest(test_ej1)
 ```
 
+
+
 **5. Interpretación**
+
+Antes de la interpretación, aclaremos algunos conceptos:
+
+- El valor $p$ es la **probabilidad** de observar un resultado (una diferencia de medias, un estadístico $t$) igual o más extremo que el obtenido en la muestra, **asumiendo que $H_0$ es verdadera**
+
+- Si $p < \alpha$ → rechazamos $H_0$ (el resultado es "estadísticamente significativo": es poco probable observar algo así si $H_0$ fuera cierta)
+
+- Si $p \geq \alpha$ → no rechazamos $H_0$ (los datos son compatibles con la ausencia de efecto)
+
+Ahora, pasemos a la interpretación:
 
 La prueba t que evalúa la diferencia de medias entre el salario y el sexo sugiere que el efecto es positivo y estadísticamente signficativo (diferencia = 105.364,47, t = 2.34, p < .05). El valor **$p$** indica que **la probabilidad de observar una diferencia de esta magnitud, o mayor, bajo la suposición de $H_{0}$ es menor al 5%**. Por tanto, con un 95% de confianza, rechazamos la $H_{0}$ ya que existe **evidencia a favor** de nuestra $H_{A}$ respecto a que hay diferencias de salario entre hombres y mujeres.
 
+
+
+
 ::: callout-important
-Las hipótesis se pueden rechazar, pero **nunca se aceptan** (lógica de falsación)
+Mientras más grande (en valor absoluto) sea $t$, más lejos está el resultado observado de lo que $H_0$ predice, y por lo tanto más pequeño es el valor $p$ asociado
 :::
 
-## Ejercicio 2
+## Ejercicio autónomo
 
 Tomando como ejemplo el trabajo de la ganadora del Premio Nobel de Economía 2023 Claudia Goldin, en este siguiente ejercicio evaluaremos la siguiente pregunta: _¿Es el salario de las mujeres con hijos distinto al salario de las mujeres sin hijos?_ Por ende, usaremos **prueba $t$** para diferencia de medias.
 
-Utilizaremos la bbdd `proc_casen`, seleccionando las variables `ocupado`, `sexo`, `ytrabajocor` e `hijo`. Luego, filtraremos por `ocupado == 1` y `sexo == 2` para quedarnos sólo con mujeres ocupadas y generaremos una muestra aleatoria de 1.500 casos con la función `sample_n()`. Luego, eliminaremos los casos pérdidos con `na.omit()`. 
+Siga las siguientes instrucciones:
 
-```{r, collapse=FALSE}
-set.seed(123)
+- Utilice la base de datos `proc_casen`, seleccionando las variables `ocupado`, `sexo`, `ytrabajocor` e `hijo`
 
-goldin_data <- proc_casen %>% # crear subset a partir de la base proc_casen
-  dplyr::select(ocupado, sexo, ytrabajocor, hijo) %>% # selección de variables
-  dplyr::filter(ocupado == 1 & sexo == 2) %>% # se filtra solo por mujeres ocupadas
-  sample_n(1500) %>% # submuestra de 1500
-  na.omit()# creamos subset 
-```
+- Filtre por `ocupado == 1` y `sexo == 2` para quedarnos sólo con mujeres ocupadas
 
-Ahora generamos una tabla de descriptivos de los ingresos (`ytrabajocor`) según si las observaciones tienen hijos o no (`hijo`), presentando la cantidad de casos, la media y la desviación estándar.
+- Genere una muestra aleatoria de 1.500 casos con la función `sample_n()` y elimine los casos pérdidos con `na.omit()`
 
-```{r}
-goldin_data %>% 
-  dplyr::group_by(hijo) %>% 
-  dplyr::summarise(Obs. = n(),
-                   Media = mean(ytrabajocor, na.rm = T),
-                   DS = sd(ytrabajocor, na.rm = T)) %>% 
-  kableExtra::kable(format = "markdown") # hacemos la tabla
-```
+- Genere una tabla de descriptivos presentando la cantidad de casos, la media y la desviación estándar.
 
-Ahora vamos con los [5 pasos de la inferencia](https://correlacional.netlify.app/slides/05-inferencia4.html#33)
+- Aplique los 5 pasos para la inferencia mediante el uso de software
 
-**1. Formulación de hipótesis**
-
-El primer paso es traducir nuestra pregunta a una hipótesis estadística contrastable. Para ello cabe preguntarse, ¿direccional o no direccional? En este caso, es una hipótesis no direccional (**_distinto que_**)
-
-Luego, debemos establecer las hipótesis nula y alternativa:
-
-($H_0$): El promedio salarial de las mujeres sin hijos es distinto que el promedio salarial de las mujeres con hijos.
-
-($H_A$): El promedio salarial de mujeres sin hijos no será diferente al promedio salarial de las mujeres con hijos.
-
-**Pasos 2, 3 y 4 de una vez con R**
-
-Siguiendo el ejemplo del Ejercicio 1, utilizaremos el software para estimar el test de hipótesis con un 95% de confianza.
-
-```{r}
-test_ej2 <- t.test(goldin_data$ytrabajocor ~ goldin_data$hijo, 
-                   alternative = "two.sided",
-                   conf.level = 0.95)
-
-test_ej2
-```
-
-```{r}
-stats.table <- tidy(test_ej2, conf_int = T)
-nice_table(stats.table, broom = "t.test")
-```
-
-A partir de los resultados obtenidos: ¿es posible rechazar la hipótesis planteada?
-
-::: callout-important
-La prueba t que evalúa la diferencia de medias
-:::
-
-
-Con un 95% de confianza es posible rechazar la hipótesis nula planteada. La diferencia del promedio salarial entre las mujeres sin hijos y con hijos es estadísticamente significativa.
-
-# Ejercicio autónomo
-
-En este ejercicio tomamos de ejemplo una pregunta clásica en ciencias sociales: _¿el ingreso de las personas está relacionado a su nivel educacional?_. Para responder esta pregunta vamos a usar una prueba $t$ de contraste de medias para dos muestras independientes. Realice lo siguiente:
-
-- Utilice la bbdd `proc_casen` y seleccione las variables `ytrabajocor` y `universitaria`. 
-
-- Luego cree una semilla con `set.seed` y genere una muestra aleatoria 1500 casos con la función `sample_n()` y elimine los datos perdidos de la variable `ytrabajocor`.
-
-- Genere una tabla de descriptivos de los ingresos (`ytrabajocor`) según si las personas cuentan con educación universitaria o no (`universitaria`). Presente cantidad de observaciones por categoría, media y desviación estándar.
-
-- Realice el test de hipótesis considerando los comandos que se vieron a lo largo de la clase y compruebe si es posible rechazar la hipótesis nula
+- Interprete los resultados
 
 # Repaso
 
