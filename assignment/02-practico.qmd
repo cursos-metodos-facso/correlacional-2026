@@ -658,6 +658,10 @@ stats.table <- tidy(test_ej1, conf_int = T) # se convierten los datos del test e
 nice_table(stats.table, broom = "t.test") # convierte el dataframe en tabla
 ```
 
+::: callout-important
+Los intervalos de confianza calculados de manera manual difieren levemente de los estimados con `t.test`. Esto se debe a que `t.test` utiliza el valor crítico de la distribución *t*, el cual es 1.9635, mientras que en el cálculo manual utilizamos 1.96. En la próxima clase ahondaremos en este tema
+:::
+
 Visualicemos la distribución de esta prueba y su zona de rechazo.
 
 ```{r warning=FALSE}
