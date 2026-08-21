@@ -1,0 +1,1484 @@
+---
+title: "Prueba t: hipótesis y direccionalidad"
+date: "2026-08-26"
+lang: es
+
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-copy: true
+    code-fold: false
+    code-tools: true
+    highlight-style: github
+    embed-resources: true
+    page-layout: full
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
+
+execute:
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+---
+
+<style>
+/* Código escrito dentro del texto */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Resultados producidos por R */
+.cell-output pre {
+  color: #17233a !important;
+  background-color: #e8f5f3 !important;
+  border-left: 4px solid #009688 !important;
+  padding: 0.8em 1em !important;
+}
+
+.cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+
+/* Lectura de párrafos */
+main.content p,
+.callout-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Figuras */
+#quarto-content main.content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#TOC .nav-link {
+  font-size: 0.95rem !important;
+  line-height: 1.15;
+  padding-top: 0.12rem;
+  padding-bottom: 0.12rem;
+}
+
+div.sourceCode,
+pre.sourceCode {
+  background-color: #F7F8FA !important;
+  border: 1px solid #D9DEE7;
+  border-radius: 6px;
+}
+
+/* Evita un segundo fondo dentro del chunk */
+pre.sourceCode code {
+  background-color: transparent !important;
+}
+
+
+/* Quitar el borde azul exterior de las salidas de R */
+#quarto-content .cell-output.cell-output-stdout {
+  border: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Dar un borde gris suave solamente al resultado */
+#quarto-content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-left: 4px solid #B8C2D1 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 6px !important;
+  padding: 0.8em 1em !important;
+}
+
+</style>
+
+# Retomemos el ejercicio anterior: ¿qué nos dicen realmente los resultados?
+
+En el práctico anterior dejamos un ejercicio para trabajar de manera autónoma:
+
+> **¿Es el ingreso laboral promedio de las mujeres con hijos distinto al ingreso laboral promedio de las mujeres sin hijos?**
+
+En este ejercicio queremos comparar los ingresos de ambos grupos. Pero antes de realizar la prueba debemos distinguir entre **lo que observamos en nuestra muestra** y **lo que queremos afirmar sobre la población**.
+
+> **Si encontramos una diferencia entre los dos grupos en nuestra muestra, ¿significa que esa diferencia también existe en la población?**
+
+**No necesariamente.**
+
+Si seleccionáramos otra muestra de mujeres ocupadas, probablemente obtendríamos promedios algo distintos debido a la **variabilidad muestral**.
+
+Por eso debemos distinguir:
+
+- **Descripción:** ¿qué diferencia observamos en nuestra muestra?
+- **Inferencia:** ¿qué evidencia nos entrega esa muestra sobre una posible diferencia en la población?
+
+
+## Carguemos los datos
+
+Trabajaremos nuevamente con un subconjunto procesado de la **Encuesta CASEN 2022**.
+
+Primero cargamos la base:
+
+```{r}
+load(
+  url(
+    "https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"
+  )
+)
+```
+
+Ahora conservaremos las variables necesarias, seleccionaremos inicialmente 1.500 mujeres ocupadas y luego trabajaremos con los casos que tengan información completa en las variables utilizadas.
+
+```{r}
+
+# Fijamos una semilla para obtener siempre la misma muestra aleatoria
+set.seed(123)
+
+# Creamos una base con las variables que necesitamos
+goldin_data <- proc_casen |>
+  dplyr::select(
+    ocupado,
+    sexo,
+    ytrabajocor,
+    hijo
+  ) |>
+
+# Conservamos solo a las mujeres ocupadas
+  dplyr::filter(
+    ocupado == 1,
+    sexo == 2
+  ) |>
+
+# Seleccionamos aleatoriamente 1.500 casos
+  dplyr::sample_n(1500)
+
+
+# Eliminamos los casos con información faltante
+goldin_data <- na.omit(goldin_data)
+```
+
+Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.
+
+```{r}
+goldin_data$grupo_hijo <- factor(
+  goldin_data$hijo,
+  levels = c(0, 1),
+  labels = c(
+    "Sin hijos",
+    "Con hijos"
+  )
+)
+```
+
+
+## Primero observemos nuestra muestra
+
+Antes de realizar una prueba estadística, veamos qué encontramos **descriptivamente**.
+
+```{r}
+goldin_data |>
+  # Separamos los datos según si tienen o no hijos
+  dplyr::group_by(grupo_hijo) |>
+  # Calculamos el tamaño del grupo, la media y la desviación estándar
+  dplyr::summarise(
+    N = dplyr::n(),
+    Media = mean(ytrabajocor),
+    SD = sd(ytrabajocor)
+  )
+```
+
+Observe los resultados:
+
+> **¿Qué grupo presenta el ingreso promedio más alto?**
+
+> **¿Las medias de los dos grupos son iguales?**
+
+En nuestra muestra observamos que los promedios son diferentes.
+
+Hasta aquí solamente estamos **describiendo la muestra**.
+
+Ahora aparece nuestra pregunta inferencial:
+
+> **¿Esta diferencia entrega evidencia suficiente para pensar que también existe una diferencia en la población?**
+
+
+## Planteemos nuestras hipótesis
+
+Para responder necesitamos establecer un escenario de referencia.
+
+### Hipótesis nula: $H_0$
+
+> En la población, **no existen diferencias** en el ingreso laboral promedio entre mujeres sin hijos y mujeres con hijos.
+
+$$
+H_0:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+=
+0
+$$
+
+### Hipótesis alternativa: $H_A$
+
+> En la población, **existen diferencias** en el ingreso laboral promedio entre mujeres sin hijos y mujeres con hijos.
+
+$$
+H_A:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+\neq
+0
+$$
+
+
+El valor **0** representa nuestro escenario de referencia: que las dos medias poblacionales no presentan diferencias.
+
+Este es el escenario planteado por $H_0$: **lo utilizamos como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo.**.
+
+La pregunta será entonces:
+
+> **¿La diferencia que observamos en nuestra muestra es suficientemente grande, considerando su variabilidad, como para cuestionar este escenario?**
+
+## ¿Qué hace la prueba *t*?
+
+No basta con saber cuánto difieren las medias. También necesitamos considerar la **incertidumbre de esa diferencia**.
+
+La idea central de la prueba puede representarse así:
+
+$$
+t
+\approx
+\frac{\text{diferencia observada}}
+{\text{incertidumbre de la diferencia}}
+$$
+
+El estadístico *t* nos indica qué tan grande es la diferencia observada **en relación con su incertidumbre**.
+
+::: {.callout-important}
+## La idea detrás de *t*
+
+Cuanto más alejado de 0 se encuentre $|t|$, más extremo es el resultado respecto del escenario de diferencia igual a 0 planteado por  $H_0$.
+
+:::
+
+
+## Realicemos la prueba *t*
+
+Recordemos que nuestra pregunta es:
+
+> **¿Los ingresos promedio de ambos grupos son distintos?**
+
+La pregunta busca saber si existe una **diferencia**, pero no establece de antemano cuál de los dos grupos debería tener un promedio mayor. Por lo tanto, nos interesa detectar una diferencia en **cualquiera de las dos direcciones**.
+
+Por eso utilizamos una **prueba *t* de dos colas**.
+
+
+En R lo indicamos mediante:
+
+```r
+alternative = "two.sided"
+```
+
+Antes de observar los resultados, utilizaremos $$\alpha = .05$$ como nuestro **criterio de decisión**. Si obtenemos $$p < .05$$, consideraremos que existe evidencia suficiente para rechazar $$H_0$$.
+
+Ejecutemos la prueba:
+
+```{r}
+#| results: hide
+
+# Realizamos una prueba t de dos colas
+test_goldin <- t.test(
+  ytrabajocor ~ grupo_hijo,
+  data = goldin_data,
+  alternative = "two.sided"
+)
+
+# Mostramos el resultado completo de la prueba
+test_goldin
+```
+
+Ahora presentaremos los resultados en una tabla más sencilla de leer.
+
+```{r}
+#| warning: false
+#| message: false
+
+# Ordenamos los resultados en una tabla
+stats.table <- broom::tidy(
+  test_goldin,
+  conf.int = TRUE
+)
+
+# Presentamos la tabla en un formato más fácil de leer
+rempsyc::nice_table(
+  stats.table,
+  broom = "t.test"
+)
+```
+
+No necesitamos interpretar todas las columnas al mismo tiempo. Vamos a leerlas siguiendo el razonamiento de nuestra prueba.
+
+### 1. ¿Qué diferencia observamos?
+
+Recuerde el orden de los grupos:
+
+- `Mean 1` = mujeres **sin hijos**.
+- `Mean 2` = mujeres **con hijos**.
+- `M1 - M2` = diferencia entre ambos promedios:
+
+$$
+\text{Sin hijos} - \text{Con hijos}
+$$
+
+En nuestra muestra:
+
+- las mujeres **sin hijos** presentan un ingreso promedio de aproximadamente $706.114;
+- las mujeres **con hijos** presentan un ingreso promedio de aproximadamente $590.848;
+- la diferencia entre ambos grupos es de aproximadamente $115.266.
+
+> **¿Qué grupo presenta el promedio mayor?**
+
+Hasta aquí seguimos describiendo lo que ocurrió en nuestra muestra.
+
+
+### 2. ¿Qué nos dice *t*?
+
+Ahora observe la columna `t`.
+
+Como vimos antes, este estadístico resume qué tan grande es la diferencia observada respecto de su incertidumbre.
+
+En este caso:
+
+$$
+t=2.39
+$$
+
+> **¿El valor de $|t|$ se encuentra cerca o lejos de 0?**
+
+La columna `df` muestra los grados de libertad utilizados por la prueba. R los calcula automáticamente. 
+
+
+### 3. ¿Qué nos dice el valor *p*?
+
+Observe ahora la columna `p`.
+
+El valor *p* nos ayuda a evaluar **qué tan compatible es nuestro resultado con el escenario planteado por $H_0$**.
+
+La pregunta que responde es:
+
+> **Si $H_0$ fuera cierta, ¿qué tan inusual sería obtener un resultado como el observado o uno más extremo?**
+
+La idea es sencilla:
+
+- un valor *p* **grande** indica que nuestro resultado no sería especialmente extraño si $H_0$ fuera cierta;
+- un valor *p* **pequeño** indica que nuestro resultado sería poco frecuente bajo $H_0$ y, por lo tanto, entrega evidencia para cuestionarla.
+
+Para decidir qué consideraremos suficientemente pequeño, antes de realizar la prueba establecemos un nivel de significación, este valor funciona como nuestro **criterio de comparación**:
+
+$$
+\alpha=.05
+$$
+
+
+- si el valor *p* es **menor que .05**, consideramos que el resultado sería poco frecuente si $H_0$ fuera cierta;
+- si el valor *p* es **mayor que .05**, no tenemos evidencia suficiente para cuestionar $H_0$.
+
+> **Ahora observe su resultado: ¿el valor *p* es menor o mayor que .05?**
+
+En nuestra prueba obtuvimos:
+
+$$
+p=.017
+$$
+
+Como **.017 es menor que .05**, el resultado observado sería poco frecuente bajo el escenario planteado por $H_0$.
+
+Por lo tanto, el valor *p* entrega **evidencia en contra de $H_0$**.
+
+
+::: {.callout-important}
+## Cuidado con la interpretación de *p*
+
+El valor *p* **no es la probabilidad de que $H_0$ sea verdadera**.
+
+Por ejemplo, si obtenemos $p=.017$, esto **no significa** que exista un 1,7 % de probabilidad de que $H_0$ sea verdadera.
+
+Significa que, **si $H_0$ fuera cierta**, un resultado como el observado (o uno más extremo) sería poco frecuente.
+:::
+
+### Veamos esta evidencia gráficamente
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 8
+#| fig-height: 5
+#| fig-cap: "Distribución t de referencia y estadístico t observado."
+
+t_obs <- unname(test_goldin$statistic)
+gl <- unname(test_goldin$parameter)
+
+t_crit <- qt(
+  0.975,
+  df = gl
+)
+
+limite <- max(
+  4,
+  abs(t_obs) + 0.8,
+  t_crit + 0.8
+)
+
+x <- seq(
+  -limite,
+  limite,
+  length.out = 1500
+)
+
+y <- dt(
+  x,
+  df = gl
+)
+
+plot(
+  x,
+  y,
+  type = "l",
+  lwd = 2,
+  xlab = "Valor t",
+  ylab = "Densidad",
+  main = "",
+  bty = "n"
+)
+
+x_izq <- x[x <= -t_crit]
+
+polygon(
+  c(x_izq, rev(x_izq)),
+  c(
+    dt(x_izq, df = gl),
+    rep(0, length(x_izq))
+  ),
+  col = adjustcolor("red", alpha.f = 0.20),
+  border = NA
+)
+
+x_der <- x[x >= t_crit]
+
+polygon(
+  c(x_der, rev(x_der)),
+  c(
+    dt(x_der, df = gl),
+    rep(0, length(x_der))
+  ),
+  col = adjustcolor("red", alpha.f = 0.20),
+  border = NA
+)
+
+abline(
+  v = 0,
+  lty = 2,
+  lwd = 1.5
+)
+
+abline(
+  v = c(-t_crit, t_crit),
+  lty = 2,
+  lwd = 1.5,
+  col = "red"
+)
+
+abline(
+  v = t_obs,
+  lwd = 2.5,
+  col = "blue"
+)
+
+text(
+  0,
+  max(y) * 0.90,
+  "0",
+  pos = 4
+)
+
+text(
+  -t_crit,
+  max(y) * 0.45,
+  paste0(
+    "-t crítico = ",
+    round(t_crit, 2)
+  ),
+  pos = 2,
+  col = "red"
+)
+
+text(
+  t_crit,
+  max(y) * 0.45,
+  paste0(
+    "t crítico = ",
+    round(t_crit, 2)
+  ),
+  pos = 4,
+  col = "red"
+)
+
+text(
+  t_obs,
+  max(y) * 0.70,
+  paste0(
+    "t observado = ",
+    round(t_obs, 2)
+  ),
+  pos = ifelse(
+    t_obs >= 0,
+    4,
+    2
+  ),
+  col = "blue"
+)
+```
+
+La curva representa los valores de *t* que podríamos observar si $H_0$ fuera cierta.
+
+Los valores próximos a 0 son más compatibles con ese escenario, mientras que los valores extremos son menos compatibles.
+
+> **¿Nuestro estadístico *t* se encuentra en una zona central o en una zona extrema?**
+
+
+### 4. ¿Qué nos dice el intervalo de confianza?
+
+Finalmente observe la columna `95% CI`.
+
+Recordemos que $H_0$ plantea una **diferencia igual a 0**.
+
+Por eso preguntamos:
+
+> **¿El intervalo de confianza del 95% incluye el valor 0?**
+
+En nuestro resultado, el intervalo va aproximadamente desde **$20.564 hasta $209.968**.
+
+El intervalo **no contiene 0**.
+
+Por lo tanto, una diferencia poblacional igual a 0 no se encuentra entre los valores compatibles con los datos a este nivel de confianza.
+
+
+## Juntemos la evidencia
+
+Ahora reunamos los distintos elementos de la prueba.
+
+| Resultado | ¿Qué nos permite evaluar? |
+|---|---|
+| `M1 - M2` | Cuánto difieren los promedios en nuestra muestra |
+| ***t*** | Qué tan grande es esa diferencia respecto de su incertidumbre |
+| ***p*** | Qué tan inusual sería el resultado bajo $H_0$ |
+| **IC 95%** | Si una diferencia poblacional igual a 0 sigue siendo compatible con los datos |
+
+Todos estos elementos nos ayudan a responder una misma pregunta:
+
+> **¿Tenemos evidencia suficiente para sostener que la diferencia observada en la muestra refleja una diferencia en la población?**
+
+En nuestro resultado:
+
+- observamos una diferencia entre los promedios;
+- $|t|=2.39$;
+- $p=.017<.05$;
+- el IC del 95% no contiene 0.
+
+Estos resultados son coherentes entre sí.
+
+Por lo tanto:
+
+> **Con $\alpha=.05$, rechazamos $H_0$.**
+
+
+## Volvamos a nuestra pregunta
+
+
+> **¿Es el ingreso laboral promedio de las mujeres con hijos distinto al ingreso laboral promedio de las mujeres sin hijos?**
+
+Ya tomamos una decisión estadística. Ahora podemos expresarla en términos de nuestra pregunta.
+
+
+### ¿Qué observamos en la muestra?
+
+En nuestra muestra, las mujeres **sin hijos** presentan un ingreso laboral promedio mayor que las mujeres **con hijos**, con una diferencia aproximada de **$115.266**.
+
+Esta es nuestra **conclusión descriptiva**: señala lo que observamos en los datos analizados.
+
+
+### ¿Qué podemos decir sobre la población?
+
+> **Los datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos.**
+
+Esta es nuestra **conclusión inferencial**: la diferencia ya no se refiere solamente a los promedios observados en la muestra, sino a la evidencia que esa muestra entrega sobre una diferencia poblacional.
+
+::: {.callout-note}
+## ¿Qué no podemos concluir?
+
+Encontrar una diferencia entre ambos grupos **no significa que tener hijos sea la causa de esa diferencia en los ingresos**.
+
+La prueba identifica una diferencia entre grupos, pero no permite establecer una relación causal.
+:::
+
+
+## El camino que seguimos en una prueba *t* de dos colas
+
+| Paso | Pregunta que fuimos respondiendo |
+|---|---|
+| **1. Pregunta** | ¿Los promedios de los dos grupos son diferentes? |
+| **2. Muestra** | ¿Qué diferencia observamos entre sus medias? |
+| **3. Hipótesis** | ¿Qué plantea $H_0$ sobre la diferencia poblacional? |
+| **4. Evidencia** | ¿Qué nos dicen *t*, *p* y el IC? |
+| **5. Conclusión** | ¿Tenemos evidencia de una diferencia en la población? |
+
+En este ejercicio buscamos una diferencia **sin especificar de antemano cuál grupo debía presentar el promedio mayor**. Por eso utilizamos una prueba *t* de **dos colas**.
+
+# ¿Diferentes o uno mayor que otro? La dirección en la prueba *t*
+
+ Hasta ahora preguntamos:
+
+> **¿Los ingresos promedio de las mujeres con y sin hijos son distintos?**
+
+Ahora haremos una pregunta más específica:
+
+> **¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?**
+
+Los datos y los grupos son los mismos.
+
+**Lo que cambió fue la pregunta.**
+
+
+## ¿“Distinto” y “mayor” significan lo mismo?
+
+Pensemos en dos situaciones posibles.
+
+**Situación 1.** Las mujeres **sin hijos** presentan un ingreso promedio mayor que las mujeres con hijos.
+
+> **¿Este resultado apoyaría nuestra nueva pregunta?**
+
+Sí.
+
+**Situación 2.** Las mujeres **con hijos** presentan un ingreso promedio mayor que las mujeres sin hijos.
+
+> **¿Este resultado también la apoyaría?**
+
+No. Los grupos serían diferentes, pero la diferencia ocurriría en la dirección contraria.
+
+::: {.callout-important}
+Cuando preguntábamos si los grupos eran **distintos**, ambas direcciones podían ser relevantes.
+
+Ahora preguntamos si un grupo es **mayor** que el otro: **la dirección importa**.
+:::
+## ¿Qué signo esperamos en la diferencia?
+
+Nuestra pregunta es:
+
+> **¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?**
+
+Antes de formular las hipótesis, recordemos qué estamos comparando:
+
+- `Mean 1` = **Sin hijos**
+- `Mean 2` = **Con hijos**
+
+Por lo tanto, la diferencia se calcula como:
+
+$$
+M1-M2
+=
+\text{Sin hijos}
+-
+\text{Con hijos}
+$$
+
+Si `Mean 1` tiene un promedio mayor que `Mean 2`, esperamos que esta resta sea **positiva**:
+
+$$
+M1-M2>0
+$$
+
+Esta es la dirección que plantea nuestra pregunta.
+
+
+## ¿Cómo formulamos nuestras hipótesis?
+
+Hasta ahora hemos expresado nuestra pregunta en palabras:
+
+> **¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?**
+
+Ahora queremos expresar esa misma idea como una **hipótesis estadística sobre la población**.
+
+La lógica es la misma que acabamos de utilizar con la diferencia entre las medias:
+
+> Si el primer grupo tiene un promedio mayor que el segundo, la diferencia **Sin hijos − Con hijos** debería ser positiva.
+
+### De la pregunta a $H_A$
+
+Primero escribimos qué medias poblacionales queremos comparar:
+
+$$
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+$$
+
+Ahora incorporamos la dirección planteada por nuestra pregunta.
+
+Como esperamos que el promedio de las mujeres sin hijos sea mayor:
+
+$$
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+>0
+$$
+
+¿Por qué aparece `> 0`?
+
+Porque si a un número mayor le restamos uno menor, obtenemos un resultado positivo. Por ejemplo:
+
+$$
+700-600=100>0
+$$
+
+La misma lógica se aplica a nuestra pregunta: **“mayor” se traduce en una diferencia positiva**.
+
+Por lo tanto, nuestra hipótesis alternativa es:
+
+$$
+H_A:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+>0
+$$
+
+$H_A$ expresa justamente la dirección que queremos evaluar: que la diferencia poblacional sea **positiva**.
+
+### ¿Y qué plantea $H_0$?
+
+La hipótesis nula reúne los escenarios que **no muestran la diferencia positiva planteada por $H_A$**:
+
+$$
+H_0:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+\leq0
+$$
+
+Esto incluye dos posibilidades:
+
+- diferencia igual a 0 → los promedios son iguales;
+- diferencia menor que 0 → el promedio de las mujeres sin hijos es menor.
+
+Así, nuestras hipótesis quedan enfrentadas de esta forma:
+
+$$
+H_A:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+>0
+$$
+
+$$
+H_0:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+\leq0
+$$
+
+Si la diferencia es **positiva**, apunta en la dirección planteada por $H_A$.
+
+Si es **cero o negativa**, no apunta en esa dirección.
+
+Podemos quedarnos con una regla sencilla:
+
+::: {.callout-important}
+## Para formular una hipótesis direccional
+
+1. Identifique qué grupo aparece primero.
+2. Escriba la diferencia entre los grupos.
+3. Pregúntese qué signo debería tener esa diferencia según la pregunta.
+4. Exprese esa dirección en $H_A$.
+
+> **Primero entendemos qué afirma la pregunta; después escribimos la diferencia y recién entonces decidimos el signo de la hipótesis.**
+:::
+
+
+
+Ya sabemos qué dirección establece nuestra hipótesis. Ahora veamos cómo esa misma dirección aparece en el estadístico *t*.
+
+
+## ¿Qué signo esperamos en *t*?
+
+Nuestra hipótesis plantea una diferencia positiva:
+
+$$
+H_A:
+\mu_{\text{sin hijos}}
+-
+\mu_{\text{con hijos}}
+>0
+$$
+
+Si la diferencia observada ocurre en esa misma dirección, esperamos que el estadístico *t* también sea **positivo**.
+
+El signo de *t* conserva la dirección de la diferencia:
+
+- *t* positivo → Mean 1 > Mean 2;
+- *t* negativo → Mean 1 < Mean 2.
+
+Por lo tanto:
+
+$$
+M1-M2>0
+\Rightarrow
+t>0
+$$
+
+En nuestro caso:
+
+$$
+\text{Sin hijos > Con hijos}
+\Rightarrow
+M1-M2>0
+\Rightarrow
+t>0
+$$
+
+Pero hay una distinción importante:
+
+> **No basta con que *t* sea positivo: también debe ser suficientemente extremo.**
+
+Un valor positivo nos indica que el resultado apunta en la dirección de $H_A$, pero todavía debemos evaluar si entrega evidencia suficiente para cuestionar $H_0$.
+
+
+## ¿Por qué ahora hablamos de una cola?
+
+En una prueba de dos colas considerábamos resultados extremos en **ambas direcciones**.
+
+Ahora nuestra hipótesis alternativa establece una dirección específica.
+
+Por lo tanto, debemos concentrarnos en los resultados extremos que ocurren hacia esa dirección.
+
+> **Por eso utilizaremos una prueba *t* de una cola.**
+
+
+## ¿Cómo indicamos esta dirección en R?
+
+Ya establecimos la dirección de nuestra hipótesis.
+
+Ahora podemos expresarla en R:
+
+```{r}
+test_una_cola <- t.test(
+  ytrabajocor ~ grupo_hijo,
+  data = goldin_data,
+  alternative = "greater"
+)
+```
+
+La parte nueva es:
+
+```r
+alternative = "greater"
+```
+
+`"greater"` significa:
+
+> **Mean 1 > Mean 2**
+
+Como en nuestra comparación:
+
+- `Mean 1` = **Sin hijos**
+- `Mean 2` = **Con hijos**
+
+`"greater"` representa la misma dirección que establecimos en $H_A$.
+
+Observemos ahora el resultado de la prueba:
+
+```{r}
+#| code-fold: true
+#| warning: false
+#| message: false
+
+stats_una_cola <- broom::tidy(
+  test_una_cola,
+  conf.int = TRUE
+)
+
+rempsyc::nice_table(
+  stats_una_cola,
+  broom = "t.test"
+)
+```
+
+
+## ¿Cuándo *t* es suficientemente extremo?
+
+**Ya conocemos nuestro *t* observado. Ahora veamos dónde se encuentra respecto de los valores que consideraríamos suficientemente extremos.**
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| fig-width: 9
+#| fig-height: 8
+#| fig-cap: "El mismo estadístico t observado en una prueba de dos colas y una prueba de una cola."
+
+t_obs <- unname(test_una_cola$statistic)
+gl <- unname(test_una_cola$parameter)
+
+t_crit_dos <- qt(
+  0.975,
+  df = gl
+)
+
+t_crit_una <- qt(
+  0.95,
+  df = gl
+)
+
+limite <- max(
+  4,
+  abs(t_obs) + 1,
+  t_crit_dos + 1
+)
+
+x <- seq(
+  -limite,
+  limite,
+  length.out = 1500
+)
+
+y <- dt(
+  x,
+  df = gl
+)
+
+ylimite <- max(y) * 1.18
+
+op <- par(
+  mfrow = c(2, 1),
+  mar = c(4, 4, 3.5, 1)
+)
+
+# ---------------------------------------------------------
+# Dos colas
+# ---------------------------------------------------------
+
+plot(
+  x,
+  y,
+  type = "n",
+  xlab = "Valor t",
+  ylab = "Densidad",
+  main = "Dos colas: ¿los grupos son distintos?",
+  bty = "n",
+  xlim = c(-limite, limite),
+  ylim = c(0, ylimite)
+)
+
+x_izq <- x[x <= -t_crit_dos]
+
+polygon(
+  c(x_izq, rev(x_izq)),
+  c(
+    dt(x_izq, df = gl),
+    rep(0, length(x_izq))
+  ),
+  col = adjustcolor("red", alpha.f = 0.20),
+  border = NA
+)
+
+x_der <- x[x >= t_crit_dos]
+
+polygon(
+  c(x_der, rev(x_der)),
+  c(
+    dt(x_der, df = gl),
+    rep(0, length(x_der))
+  ),
+  col = adjustcolor("red", alpha.f = 0.20),
+  border = NA
+)
+
+lines(
+  x,
+  y,
+  lwd = 2
+)
+
+abline(
+  v = 0,
+  lty = 2
+)
+
+abline(
+  v = c(-t_crit_dos, t_crit_dos),
+  lty = 2,
+  lwd = 1.5,
+  col = "red"
+)
+
+abline(
+  v = t_obs,
+  lwd = 2.5,
+  col = "blue"
+)
+
+text(
+  -limite * 0.82,
+  max(y) * 0.22,
+  "2,5 %",
+  col = "red"
+)
+
+text(
+  limite * 0.82,
+  max(y) * 0.22,
+  "2,5 %",
+  col = "red"
+)
+
+text(
+  -t_crit_dos,
+  max(y) * 0.46,
+  paste0(
+    "t crítico = ",
+    round(-t_crit_dos, 2)
+  ),
+  pos = 2,
+  col = "red"
+)
+
+text(
+  t_crit_dos,
+  max(y) * 0.46,
+  paste0(
+    "t crítico = ",
+    round(t_crit_dos, 2)
+  ),
+  pos = 4,
+  col = "red"
+)
+
+text(
+  t_obs,
+  max(y) * 0.73,
+  paste0(
+    "t observado = ",
+    round(t_obs, 2)
+  ),
+  pos = ifelse(t_obs >= 0, 4, 2),
+  col = "blue"
+)
+
+# ---------------------------------------------------------
+# Una cola
+# ---------------------------------------------------------
+
+plot(
+  x,
+  y,
+  type = "n",
+  xlab = "Valor t",
+  ylab = "Densidad",
+  main = "Una cola: ¿Mean 1 > Mean 2?",
+  bty = "n",
+  xlim = c(-limite, limite),
+  ylim = c(0, ylimite)
+)
+
+x_der_una <- x[x >= t_crit_una]
+
+polygon(
+  c(x_der_una, rev(x_der_una)),
+  c(
+    dt(x_der_una, df = gl),
+    rep(0, length(x_der_una))
+  ),
+  col = adjustcolor("red", alpha.f = 0.20),
+  border = NA
+)
+
+lines(
+  x,
+  y,
+  lwd = 2
+)
+
+abline(
+  v = 0,
+  lty = 2
+)
+
+abline(
+  v = t_crit_una,
+  lty = 2,
+  lwd = 1.5,
+  col = "red"
+)
+
+abline(
+  v = t_obs,
+  lwd = 2.5,
+  col = "blue"
+)
+
+text(
+  limite * 0.82,
+  max(y) * 0.22,
+  "5 %",
+  col = "red"
+)
+
+text(
+  t_crit_una,
+  max(y) * 0.46,
+  paste0(
+    "t crítico = ",
+    round(t_crit_una, 2)
+  ),
+  pos = 4,
+  col = "red"
+)
+
+text(
+  t_obs,
+  max(y) * 0.73,
+  paste0(
+    "t observado = ",
+    round(t_obs, 2)
+  ),
+  pos = ifelse(t_obs >= 0, 4, 2),
+  col = "blue"
+)
+
+par(op)
+```
+
+En los dos gráficos el ***t* observado es el mismo 2.39**.
+
+Lo que cambia es dónde ubicamos la región de rechazo:
+
+- en la prueba de **dos colas**, $\alpha=.05$ se reparte entre ambos extremos;
+- en la prueba de **una cola**, ese 5 % se concentra en la dirección planteada por $H_A$.
+
+Al cambiar la región de rechazo, también cambia el **valor crítico**.
+
+::: {.callout-note}
+## El valor crítico {.unnumbered}
+El **valor crítico** funciona como una **frontera de decisión**: indica qué tan extremo debe ser nuestro *t* observado para entrar en la región de rechazo de $H_0$. Este límite depende de α, de los grados de libertad y de si la prueba considera una o dos colas.
+:::
+
+Ahora concentremos la atención en la prueba de una cola:
+
+> **¿Nuestro *t* observado cruza el valor crítico en la dirección de $H_A$, y entra en la región de rechazo?** ¿Consideramos que el resultado es suficientemente extremo para rechazar $H_0$?
+
+En nuestra prueba hacia la derecha:
+
+$$
+t_{\text{observado}}
+>
+t_{\text{crítico}}
+\Rightarrow
+\text{región de rechazo}
+$$
+
+
+En nuestro caso, el *t* observado **sí supera el valor crítico**.
+
+Por lo tanto:
+
+> **El resultado entra en la región de rechazo y tenemos evidencia para rechazar la $H_0$ con $\alpha=.05$.**
+
+
+
+## ¿Por qué cambia *p* si *t* no cambió?
+
+Comparemos directamente ambas pruebas:
+
+```{r}
+#| echo: false
+
+comparacion_pruebas <- data.frame(
+  Prueba = c(
+    "Dos colas",
+    "Una cola"
+  ),
+  t = round(
+    c(
+      unname(test_goldin$statistic),
+      unname(test_una_cola$statistic)
+    ),
+    2
+  ),
+  p = format.pval(
+    c(
+      test_goldin$p.value,
+      test_una_cola$p.value
+    ),
+    digits = 3,
+    eps = .001
+  )
+)
+
+knitr::kable(
+  comparacion_pruebas,
+  align = c("l", "c", "c"),
+  col.names = c(
+    "Prueba",
+    "t",
+    "p"
+  )
+)
+```
+
+> **El valor de *t* permaneció igual, pero el valor *p* cambió. ¿Por qué?**
+
+El t no cambia porque estamos trabajando con los mismos datos y la misma diferencia observada.
+
+Lo que cambia es qué resultados consideramos para calcular el valor p.
+
+En una prueba de dos colas, contamos resultados tan extremos como el observado o más extremos en ambas direcciones:
+
+$$
+p
+=
+\text{extremo izquierdo}
++
+\text{extremo derecho}
+$$
+
+
+En nuestra prueba de una cola hacia la derecha, solo contamos resultados tan extremos o más extremos en la dirección planteada por $H_A$:
+
+$$
+p
+=
+\text{extremo derecho}
+$$
+
+Por eso, en nuestro caso, el área considerada es menor y el valor p también es menor.
+
+> **El t no se hizo más pequeño. Se hizo más pequeña la región de la distribución que utilizamos para calcular p.**
+
+::: {.callout-important}
+No transformamos manualmente el valor p.
+
+Primero formulamos $H_A$ y después especificamos esa dirección en t.test().
+
+Además, una prueba de una cola no produce siempre un valor p menor: esto ocurre aquí porque el t observado está en la misma dirección planteada por $H_A$.
+:::
+
+## ¿Qué nos dice ahora el intervalo de confianza? {.unnumbered}
+
+Como nuestra hipótesis plantea **una dirección**, el intervalo de confianza también es **unilateral**:
+
+Por eso R entrega un intervalo de la forma:
+
+$$
+[\text{límite inferior},\ \text{Inf}]
+$$
+
+Aquí lo importante es observar el **límite inferior**.
+
+En nuestro resultado, el límite inferior es **mayor que 0**. Por lo tanto, el intervalo queda completamente del lado positivo, en la dirección planteada por $H_A$.
+
+Por lo tanto, el intervalo entrega evidencia para poner en duda $H_0$ y es coherente con la hipótesis de que el ingreso promedio de las mujeres sin hijos es mayor.
+
+
+::: {.callout-note}
+`Inf` **no significa que la diferencia pueda ser “infinita”**. Aparece porque, en esta prueba direccional, estamos estableciendo un límite inferior y no un límite superior.
+:::
+
+::: {.callout-note}
+## Conclusión{.unnumbered}
+
+Con $$\alpha = .05$$ rechazamos $H_0$. Los datos entregan evidencia de que el ingreso laboral promedio de las mujeres sin hijos es mayor que el de las mujeres con hijos.
+:::
+
+## ¿Qué cambió y qué permaneció igual?
+
+Ahora podemos reunir todo lo que observamos al pasar de una prueba de **dos colas** a una prueba de **una cola**.
+
+Lo importante es recordar que **no cambiamos los datos**. Seguimos comparando a las mismas mujeres, con las mismas medias y la misma diferencia observada.
+
+Lo que cambió fue **la pregunta que queremos responder**. 
+
+Podemos verlo como dos niveles diferentes.
+
+### Lo que proviene de los datos
+
+Los datos determinan:
+
+- las medias de los grupos;
+- la diferencia `M1 - M2`;
+- el estadístico *t*;
+- los grados de libertad.
+
+Como los datos son exactamente los mismos, estos elementos **no cambian**.
+
+### Lo que depende de nuestra pregunta
+
+Nuestra pregunta determina:
+
+- qué dirección plantea $H_A$;
+- qué extremo de la distribución es relevante;
+- dónde queda la región de rechazo;
+- cuál es el valor crítico;
+- cómo se calcula e interpreta el valor *p*.
+
+Por eso, aunque obtengamos el **mismo *t***, podemos obtener un **valor *p* diferente**.
+
+
+::: {.callout-important}
+## La idea central {.unnumbered}
+
+Cambiar de una prueba de dos colas a una prueba de una cola **no cambia lo que observamos en los datos**.
+
+Lo que cambia es **cómo evaluamos ese resultado en función de la pregunta y de la hipótesis que formulamos antes del análisis**.
+:::
+
+## ¿Qué pasa si el resultado va en la dirección contraria?
+
+Nuestra hipótesis plantea:
+
+> **Las mujeres sin hijos tienen un ingreso promedio mayor que las mujeres con hijos.**
+
+Esperamos entonces una diferencia positiva. Por ejemplo:
+
+$$
+700.000 - 600.000 = 100.000
+$$
+
+Pero imaginemos que los datos mostraran:
+
+$$
+550.000 - 700.000 = -150.000
+$$
+
+y obtuviéramos:
+
+$$
+t=-3.50
+$$
+
+El resultado es extremo, pero apunta en la **dirección contraria** a nuestra hipótesis: en este ejemplo, las mujeres sin hijos tendrían un ingreso promedio menor.
+
+> **¿Este resultado apoya $H_A$?**
+
+**No.**
+
+::: {.callout-important}
+En una prueba direccional no basta con que el resultado sea extremo.
+
+Debe ser extremo **en la dirección planteada por $H_A$**.
+:::
+
+# Ejercicio autónomo: ahora decida usted la dirección
+
+Hasta ahora resolvimos juntos una prueba direccional.
+
+Ahora aplicará la misma lógica a una relación diferente utilizando **datos reales de CASEN 2022**.
+
+Queremos comparar los **años de escolaridad** de dos grupos:
+
+- personas de **60 años o más**;
+- personas de **18 a 29 años**.
+
+### Preparemos los datos
+
+A partir de `proc_casen`, complete el código para conservar solamente estos dos grupos de edad:
+
+```{r}
+#| eval: false
+
+transfer_data <- proc_casen |>
+  dplyr::filter(
+    (edad >= ___ & edad <= ___) | edad >= ___
+  ) |>
+  dplyr::mutate(
+    grupo_edad = dplyr::case_when(
+      edad >= 60 ~ "60 años o más",
+      edad >= 18 & edad <= 29 ~ "18 a 29 años"
+    )
+  )
+```
+
+Ahora ordene los grupos para que la comparación sea:
+
+- `Mean 1` = **60 años o más**
+- `Mean 2` = **18 a 29 años**
+
+```{r}
+#| eval: false
+
+transfer_data$grupo_edad <- factor(
+  transfer_data$grupo_edad,
+  levels = c(
+    "________________",
+    "________________"
+  )
+)
+```
+
+Nuestra pregunta es:
+
+> **¿Las personas de 60 años o más presentan, en promedio, menos años de escolaridad que las personas de 18 a 29 años?**
+
+Antes de ejecutar la prueba, responda:
+
+1. **¿Cuál es nuestra hipótesis alternativa $H_A$?**
+2. **¿Esperamos una diferencia positiva o negativa entre `Mean 1 - Mean 2`?**
+3. **¿Qué signo de *t* sería coherente con nuestra hipótesis?**
+4. **¿Qué opción corresponde en `alternative`: `"two.sided"`, `"greater"` o `"less"`?**
+
+Finalmente, complete y ejecute la prueba:
+
+```{r}
+#| eval: false
+
+t.test(
+  n_educ ~ grupo_edad,
+  data = transfer_data,
+  alternative = "________"
+)
+```
+
+Una vez ejecutada la prueba, responda:
+
+1. **¿El signo de *t* coincide con la dirección planteada por $H_A$?**
+2. **¿El valor *p* es menor o mayor que $\alpha=.05$?**
+3. **¿Rechazamos o no rechazamos $H_0$?**
+4. **¿Qué podemos concluir respecto de nuestra pregunta inicial?**
+Recuerde que la conclusión final debe responder la **pregunta sustantiva**. No basta con indicar si rechazamos o no rechazamos $H_0$.
+
+
+## ¿Cómo elegimos `alternative`?
+
+| **Pregunta** | **Hipótesis alternativa** | **`alternative`** |
+|---|---|---|
+| **¿A y B son diferentes?** | $\mu_A-\mu_B\neq0$ | `"two.sided"` |
+| **¿A > B?** | $\mu_A-\mu_B>0$ | `"greater"` |
+| **¿A < B?** | $\mu_A-\mu_B<0$ | `"less"` |
+
+> **La dirección de la prueba no la decide el resultado: la decide la pregunta que formulamos antes de analizar los datos.**

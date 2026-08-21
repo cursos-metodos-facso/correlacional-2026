@@ -2519,5 +2519,152 @@
     "title": "\n            Estadística Correlacional\n        ",
     "section": "Ayudantes",
     "text": "Ayudantes\n\n\n\n\n\n\n\n\nBastián Martin\n\n\n\n\n\n\n\nFelipe Vega\n\n\n\n\n\n\n\nManuela Chateau\n\n\n\n\n\n\n\nJoaquín Núñez\n\n\n\n\n\n\n\nAmaranta González\n\n\n\n\n\n\n\n\n\nAmanda Rojo\n\n\n\n\n\n\n\nCassidy Mansilla\n\n\n\n\n\n\n\nNicolás Outerbridge\n\n\n\n\n\n\n\nCristóbal Ramírez\n\n\n\n\n\n\n\n\n\nTomás González\n\n\n\n\n\n\n\nRenato De Luca\n\n\n\n\n\n\n\nVicente Rojas\n\n\n\n\n\n\n\nAmaya Barbet"
+  },
+  {
+    "objectID": "assignment/03-practico.html",
+    "href": "assignment/03-practico.html",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "",
+    "text": "CódigoMostrar todo el códigoOcultar todo el códigoVer el código fuente\n\n\n  Sesión del miércoles, 26 de agosto de 2026"
+  },
+  {
+    "objectID": "assignment/03-practico.html#carguemos-los-datos",
+    "href": "assignment/03-practico.html#carguemos-los-datos",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.1 Carguemos los datos",
+    "text": "1.1 Carguemos los datos\nTrabajaremos nuevamente con un subconjunto procesado de la Encuesta CASEN 2022.\nPrimero cargamos la base:\n\nload(\n  url(\n    \"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData\"\n  )\n)\n\nAhora conservaremos las variables necesarias, seleccionaremos inicialmente 1.500 mujeres ocupadas y luego trabajaremos con los casos que tengan información completa en las variables utilizadas.\n\n# Fijamos una semilla para obtener siempre la misma muestra aleatoria\nset.seed(123)\n\n# Creamos una base con las variables que necesitamos\ngoldin_data &lt;- proc_casen |&gt;\n  dplyr::select(\n    ocupado,\n    sexo,\n    ytrabajocor,\n    hijo\n  ) |&gt;\n\n# Conservamos solo a las mujeres ocupadas\n  dplyr::filter(\n    ocupado == 1,\n    sexo == 2\n  ) |&gt;\n\n# Seleccionamos aleatoriamente 1.500 casos\n  dplyr::sample_n(1500)\n\n\n# Eliminamos los casos con información faltante\ngoldin_data &lt;- na.omit(goldin_data)\n\nPara facilitar la lectura, reemplazaremos los códigos de la variable hijo por etiquetas.\n\ngoldin_data$grupo_hijo &lt;- factor(\n  goldin_data$hijo,\n  levels = c(0, 1),\n  labels = c(\n    \"Sin hijos\",\n    \"Con hijos\"\n  )\n)"
+  },
+  {
+    "objectID": "assignment/03-practico.html#primero-observemos-nuestra-muestra",
+    "href": "assignment/03-practico.html#primero-observemos-nuestra-muestra",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.2 Primero observemos nuestra muestra",
+    "text": "1.2 Primero observemos nuestra muestra\nAntes de realizar una prueba estadística, veamos qué encontramos descriptivamente.\n\ngoldin_data |&gt;\n  # Separamos los datos según si tienen o no hijos\n  dplyr::group_by(grupo_hijo) |&gt;\n  # Calculamos el tamaño del grupo, la media y la desviación estándar\n  dplyr::summarise(\n    N = dplyr::n(),\n    Media = mean(ytrabajocor),\n    SD = sd(ytrabajocor)\n  )\n\n# A tibble: 2 × 4\n  grupo_hijo     N   Media      SD\n  &lt;fct&gt;      &lt;int&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 Sin hijos    353 706114. 830191.\n2 Con hijos   1098 590848. 638007.\n\n\nObserve los resultados:\n\n¿Qué grupo presenta el ingreso promedio más alto?\n\n\n¿Las medias de los dos grupos son iguales?\n\nEn nuestra muestra observamos que los promedios son diferentes.\nHasta aquí solamente estamos describiendo la muestra.\nAhora aparece nuestra pregunta inferencial:\n\n¿Esta diferencia entrega evidencia suficiente para pensar que también existe una diferencia en la población?"
+  },
+  {
+    "objectID": "assignment/03-practico.html#planteemos-nuestras-hipótesis",
+    "href": "assignment/03-practico.html#planteemos-nuestras-hipótesis",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.3 Planteemos nuestras hipótesis",
+    "text": "1.3 Planteemos nuestras hipótesis\nPara responder necesitamos establecer un escenario de referencia.\n\n1.3.1 Hipótesis nula: \\(H_0\\)\n\nEn la población, no existen diferencias en el ingreso laboral promedio entre mujeres sin hijos y mujeres con hijos.\n\n\\[\nH_0:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n=\n0\n\\]\n\n\n1.3.2 Hipótesis alternativa: \\(H_A\\)\n\nEn la población, existen diferencias en el ingreso laboral promedio entre mujeres sin hijos y mujeres con hijos.\n\n\\[\nH_A:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n\\neq\n0\n\\]\nEl valor 0 representa nuestro escenario de referencia: que las dos medias poblacionales no presentan diferencias.\nEste es el escenario planteado por \\(H_0\\): lo utilizamos como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo..\nLa pregunta será entonces:\n\n¿La diferencia que observamos en nuestra muestra es suficientemente grande, considerando su variabilidad, como para cuestionar este escenario?"
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-hace-la-prueba-t",
+    "href": "assignment/03-practico.html#qué-hace-la-prueba-t",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.4 ¿Qué hace la prueba t?",
+    "text": "1.4 ¿Qué hace la prueba t?\nNo basta con saber cuánto difieren las medias. También necesitamos considerar la incertidumbre de esa diferencia.\nLa idea central de la prueba puede representarse así:\n\\[\nt\n\\approx\n\\frac{\\text{diferencia observada}}\n{\\text{incertidumbre de la diferencia}}\n\\]\nEl estadístico t nos indica qué tan grande es la diferencia observada en relación con su incertidumbre.\n\n\n\n\n\n\nImportanteLa idea detrás de t\n\n\n\nCuanto más alejado de 0 se encuentre \\(|t|\\), más extremo es el resultado respecto del escenario de diferencia igual a 0 planteado por \\(H_0\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#realicemos-la-prueba-t",
+    "href": "assignment/03-practico.html#realicemos-la-prueba-t",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.5 Realicemos la prueba t",
+    "text": "1.5 Realicemos la prueba t\nRecordemos que nuestra pregunta es:\n\n¿Los ingresos promedio de ambos grupos son distintos?\n\nLa pregunta busca saber si existe una diferencia, pero no establece de antemano cuál de los dos grupos debería tener un promedio mayor. Por lo tanto, nos interesa detectar una diferencia en cualquiera de las dos direcciones.\nPor eso utilizamos una prueba t de dos colas.\nEn R lo indicamos mediante:\nalternative = \"two.sided\"\nAntes de observar los resultados, utilizaremos \\[\\alpha = .05\\] como nuestro criterio de decisión. Si obtenemos \\[p &lt; .05\\], consideraremos que existe evidencia suficiente para rechazar \\[H_0\\].\nEjecutemos la prueba:\n\n# Realizamos una prueba t de dos colas\ntest_goldin &lt;- t.test(\n  ytrabajocor ~ grupo_hijo,\n  data = goldin_data,\n  alternative = \"two.sided\"\n)\n\n# Mostramos el resultado completo de la prueba\ntest_goldin\n\nAhora presentaremos los resultados en una tabla más sencilla de leer.\n\n# Ordenamos los resultados en una tabla\nstats.table &lt;- broom::tidy(\n  test_goldin,\n  conf.int = TRUE\n)\n\n# Presentamos la tabla en un formato más fácil de leer\nrempsyc::nice_table(\n  stats.table,\n  broom = \"t.test\"\n)\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CIWelch Two Sample t-testtwo.sided706,113.65590,847.70115,265.962.39492.66.017*[20564.30, 209967.62]\n\n\nNo necesitamos interpretar todas las columnas al mismo tiempo. Vamos a leerlas siguiendo el razonamiento de nuestra prueba.\n\n1.5.1 1. ¿Qué diferencia observamos?\nRecuerde el orden de los grupos:\n\nMean 1 = mujeres sin hijos.\nMean 2 = mujeres con hijos.\nM1 - M2 = diferencia entre ambos promedios:\n\n\\[\n\\text{Sin hijos} - \\text{Con hijos}\n\\]\nEn nuestra muestra:\n\nlas mujeres sin hijos presentan un ingreso promedio de aproximadamente $706.114;\nlas mujeres con hijos presentan un ingreso promedio de aproximadamente $590.848;\nla diferencia entre ambos grupos es de aproximadamente $115.266.\n\n\n¿Qué grupo presenta el promedio mayor?\n\nHasta aquí seguimos describiendo lo que ocurrió en nuestra muestra.\n\n\n1.5.2 2. ¿Qué nos dice t?\nAhora observe la columna t.\nComo vimos antes, este estadístico resume qué tan grande es la diferencia observada respecto de su incertidumbre.\nEn este caso:\n\\[\nt=2.39\n\\]\n\n¿El valor de \\(|t|\\) se encuentra cerca o lejos de 0?\n\nLa columna df muestra los grados de libertad utilizados por la prueba. R los calcula automáticamente.\n\n\n1.5.3 3. ¿Qué nos dice el valor p?\nObserve ahora la columna p.\nEl valor p nos ayuda a evaluar qué tan compatible es nuestro resultado con el escenario planteado por \\(H_0\\).\nLa pregunta que responde es:\n\nSi \\(H_0\\) fuera cierta, ¿qué tan inusual sería obtener un resultado como el observado o uno más extremo?\n\nLa idea es sencilla:\n\nun valor p grande indica que nuestro resultado no sería especialmente extraño si \\(H_0\\) fuera cierta;\nun valor p pequeño indica que nuestro resultado sería poco frecuente bajo \\(H_0\\) y, por lo tanto, entrega evidencia para cuestionarla.\n\nPara decidir qué consideraremos suficientemente pequeño, antes de realizar la prueba establecemos un nivel de significación, este valor funciona como nuestro criterio de comparación:\n\\[\n\\alpha=.05\n\\]\n\nsi el valor p es menor que .05, consideramos que el resultado sería poco frecuente si \\(H_0\\) fuera cierta;\nsi el valor p es mayor que .05, no tenemos evidencia suficiente para cuestionar \\(H_0\\).\n\n\nAhora observe su resultado: ¿el valor p es menor o mayor que .05?\n\nEn nuestra prueba obtuvimos:\n\\[\np=.017\n\\]\nComo .017 es menor que .05, el resultado observado sería poco frecuente bajo el escenario planteado por \\(H_0\\).\nPor lo tanto, el valor p entrega evidencia en contra de \\(H_0\\).\n\n\n\n\n\n\nImportanteCuidado con la interpretación de p\n\n\n\nEl valor p no es la probabilidad de que \\(H_0\\) sea verdadera.\nPor ejemplo, si obtenemos \\(p=.017\\), esto no significa que exista un 1,7 % de probabilidad de que \\(H_0\\) sea verdadera.\nSignifica que, si \\(H_0\\) fuera cierta, un resultado como el observado (o uno más extremo) sería poco frecuente.\n\n\n\n\n1.5.4 Veamos esta evidencia gráficamente\n\n\n\n\n\nDistribución t de referencia y estadístico t observado.\n\n\n\n\nLa curva representa los valores de t que podríamos observar si \\(H_0\\) fuera cierta.\nLos valores próximos a 0 son más compatibles con ese escenario, mientras que los valores extremos son menos compatibles.\n\n¿Nuestro estadístico t se encuentra en una zona central o en una zona extrema?\n\n\n\n1.5.5 4. ¿Qué nos dice el intervalo de confianza?\nFinalmente observe la columna 95% CI.\nRecordemos que \\(H_0\\) plantea una diferencia igual a 0.\nPor eso preguntamos:\n\n¿El intervalo de confianza del 95% incluye el valor 0?\n\nEn nuestro resultado, el intervalo va aproximadamente desde $20.564 hasta $209.968.\nEl intervalo no contiene 0.\nPor lo tanto, una diferencia poblacional igual a 0 no se encuentra entre los valores compatibles con los datos a este nivel de confianza."
+  },
+  {
+    "objectID": "assignment/03-practico.html#juntemos-la-evidencia",
+    "href": "assignment/03-practico.html#juntemos-la-evidencia",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.6 Juntemos la evidencia",
+    "text": "1.6 Juntemos la evidencia\nAhora reunamos los distintos elementos de la prueba.\n\n\n\n\n\n\n\nResultado\n¿Qué nos permite evaluar?\n\n\n\n\nM1 - M2\nCuánto difieren los promedios en nuestra muestra\n\n\nt\nQué tan grande es esa diferencia respecto de su incertidumbre\n\n\np\nQué tan inusual sería el resultado bajo \\(H_0\\)\n\n\nIC 95%\nSi una diferencia poblacional igual a 0 sigue siendo compatible con los datos\n\n\n\nTodos estos elementos nos ayudan a responder una misma pregunta:\n\n¿Tenemos evidencia suficiente para sostener que la diferencia observada en la muestra refleja una diferencia en la población?\n\nEn nuestro resultado:\n\nobservamos una diferencia entre los promedios;\n\\(|t|=2.39\\);\n\\(p=.017&lt;.05\\);\nel IC del 95% no contiene 0.\n\nEstos resultados son coherentes entre sí.\nPor lo tanto:\n\nCon \\(\\alpha=.05\\), rechazamos \\(H_0\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#volvamos-a-nuestra-pregunta",
+    "href": "assignment/03-practico.html#volvamos-a-nuestra-pregunta",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.7 Volvamos a nuestra pregunta",
+    "text": "1.7 Volvamos a nuestra pregunta\n\n¿Es el ingreso laboral promedio de las mujeres con hijos distinto al ingreso laboral promedio de las mujeres sin hijos?\n\nYa tomamos una decisión estadística. Ahora podemos expresarla en términos de nuestra pregunta.\n\n1.7.1 ¿Qué observamos en la muestra?\nEn nuestra muestra, las mujeres sin hijos presentan un ingreso laboral promedio mayor que las mujeres con hijos, con una diferencia aproximada de $115.266.\nEsta es nuestra conclusión descriptiva: señala lo que observamos en los datos analizados.\n\n\n1.7.2 ¿Qué podemos decir sobre la población?\n\nLos datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos.\n\nEsta es nuestra conclusión inferencial: la diferencia ya no se refiere solamente a los promedios observados en la muestra, sino a la evidencia que esa muestra entrega sobre una diferencia poblacional.\n\n\n\n\n\n\nNota¿Qué no podemos concluir?\n\n\n\nEncontrar una diferencia entre ambos grupos no significa que tener hijos sea la causa de esa diferencia en los ingresos.\nLa prueba identifica una diferencia entre grupos, pero no permite establecer una relación causal."
+  },
+  {
+    "objectID": "assignment/03-practico.html#el-camino-que-seguimos-en-una-prueba-t-de-dos-colas",
+    "href": "assignment/03-practico.html#el-camino-que-seguimos-en-una-prueba-t-de-dos-colas",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "1.8 El camino que seguimos en una prueba t de dos colas",
+    "text": "1.8 El camino que seguimos en una prueba t de dos colas\n\n\n\n\n\n\n\nPaso\nPregunta que fuimos respondiendo\n\n\n\n\n1. Pregunta\n¿Los promedios de los dos grupos son diferentes?\n\n\n2. Muestra\n¿Qué diferencia observamos entre sus medias?\n\n\n3. Hipótesis\n¿Qué plantea \\(H_0\\) sobre la diferencia poblacional?\n\n\n4. Evidencia\n¿Qué nos dicen t, p y el IC?\n\n\n5. Conclusión\n¿Tenemos evidencia de una diferencia en la población?\n\n\n\nEn este ejercicio buscamos una diferencia sin especificar de antemano cuál grupo debía presentar el promedio mayor. Por eso utilizamos una prueba t de dos colas."
+  },
+  {
+    "objectID": "assignment/03-practico.html#distinto-y-mayor-significan-lo-mismo",
+    "href": "assignment/03-practico.html#distinto-y-mayor-significan-lo-mismo",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.1 ¿“Distinto” y “mayor” significan lo mismo?",
+    "text": "2.1 ¿“Distinto” y “mayor” significan lo mismo?\nPensemos en dos situaciones posibles.\nSituación 1. Las mujeres sin hijos presentan un ingreso promedio mayor que las mujeres con hijos.\n\n¿Este resultado apoyaría nuestra nueva pregunta?\n\nSí.\nSituación 2. Las mujeres con hijos presentan un ingreso promedio mayor que las mujeres sin hijos.\n\n¿Este resultado también la apoyaría?\n\nNo. Los grupos serían diferentes, pero la diferencia ocurriría en la dirección contraria.\n\n\n\n\n\n\nImportante\n\n\n\nCuando preguntábamos si los grupos eran distintos, ambas direcciones podían ser relevantes.\nAhora preguntamos si un grupo es mayor que el otro: la dirección importa."
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-signo-esperamos-en-la-diferencia",
+    "href": "assignment/03-practico.html#qué-signo-esperamos-en-la-diferencia",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.2 ¿Qué signo esperamos en la diferencia?",
+    "text": "2.2 ¿Qué signo esperamos en la diferencia?\nNuestra pregunta es:\n\n¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?\n\nAntes de formular las hipótesis, recordemos qué estamos comparando:\n\nMean 1 = Sin hijos\nMean 2 = Con hijos\n\nPor lo tanto, la diferencia se calcula como:\n\\[\nM1-M2\n=\n\\text{Sin hijos}\n-\n\\text{Con hijos}\n\\]\nSi Mean 1 tiene un promedio mayor que Mean 2, esperamos que esta resta sea positiva:\n\\[\nM1-M2&gt;0\n\\]\nEsta es la dirección que plantea nuestra pregunta."
+  },
+  {
+    "objectID": "assignment/03-practico.html#cómo-formulamos-nuestras-hipótesis",
+    "href": "assignment/03-practico.html#cómo-formulamos-nuestras-hipótesis",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.3 ¿Cómo formulamos nuestras hipótesis?",
+    "text": "2.3 ¿Cómo formulamos nuestras hipótesis?\nHasta ahora hemos expresado nuestra pregunta en palabras:\n\n¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?\n\nAhora queremos expresar esa misma idea como una hipótesis estadística sobre la población.\nLa lógica es la misma que acabamos de utilizar con la diferencia entre las medias:\n\nSi el primer grupo tiene un promedio mayor que el segundo, la diferencia Sin hijos − Con hijos debería ser positiva.\n\n\n2.3.1 De la pregunta a \\(H_A\\)\nPrimero escribimos qué medias poblacionales queremos comparar:\n\\[\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n\\]\nAhora incorporamos la dirección planteada por nuestra pregunta.\nComo esperamos que el promedio de las mujeres sin hijos sea mayor:\n\\[\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n&gt;0\n\\]\n¿Por qué aparece &gt; 0?\nPorque si a un número mayor le restamos uno menor, obtenemos un resultado positivo. Por ejemplo:\n\\[\n700-600=100&gt;0\n\\]\nLa misma lógica se aplica a nuestra pregunta: “mayor” se traduce en una diferencia positiva.\nPor lo tanto, nuestra hipótesis alternativa es:\n\\[\nH_A:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n&gt;0\n\\]\n\\(H_A\\) expresa justamente la dirección que queremos evaluar: que la diferencia poblacional sea positiva.\n\n\n2.3.2 ¿Y qué plantea \\(H_0\\)?\nLa hipótesis nula reúne los escenarios que no muestran la diferencia positiva planteada por \\(H_A\\):\n\\[\nH_0:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n\\leq0\n\\]\nEsto incluye dos posibilidades:\n\ndiferencia igual a 0 → los promedios son iguales;\ndiferencia menor que 0 → el promedio de las mujeres sin hijos es menor.\n\nAsí, nuestras hipótesis quedan enfrentadas de esta forma:\n\\[\nH_A:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n&gt;0\n\\]\n\\[\nH_0:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n\\leq0\n\\]\nSi la diferencia es positiva, apunta en la dirección planteada por \\(H_A\\).\nSi es cero o negativa, no apunta en esa dirección.\nPodemos quedarnos con una regla sencilla:\n\n\n\n\n\n\nImportantePara formular una hipótesis direccional\n\n\n\n\nIdentifique qué grupo aparece primero.\nEscriba la diferencia entre los grupos.\nPregúntese qué signo debería tener esa diferencia según la pregunta.\nExprese esa dirección en \\(H_A\\).\n\n\nPrimero entendemos qué afirma la pregunta; después escribimos la diferencia y recién entonces decidimos el signo de la hipótesis.\n\n\n\nYa sabemos qué dirección establece nuestra hipótesis. Ahora veamos cómo esa misma dirección aparece en el estadístico t."
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-signo-esperamos-en-t",
+    "href": "assignment/03-practico.html#qué-signo-esperamos-en-t",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.4 ¿Qué signo esperamos en t?",
+    "text": "2.4 ¿Qué signo esperamos en t?\nNuestra hipótesis plantea una diferencia positiva:\n\\[\nH_A:\n\\mu_{\\text{sin hijos}}\n-\n\\mu_{\\text{con hijos}}\n&gt;0\n\\]\nSi la diferencia observada ocurre en esa misma dirección, esperamos que el estadístico t también sea positivo.\nEl signo de t conserva la dirección de la diferencia:\n\nt positivo → Mean 1 &gt; Mean 2;\nt negativo → Mean 1 &lt; Mean 2.\n\nPor lo tanto:\n\\[\nM1-M2&gt;0\n\\Rightarrow\nt&gt;0\n\\]\nEn nuestro caso:\n\\[\n\\text{Sin hijos &gt; Con hijos}\n\\Rightarrow\nM1-M2&gt;0\n\\Rightarrow\nt&gt;0\n\\]\nPero hay una distinción importante:\n\nNo basta con que t sea positivo: también debe ser suficientemente extremo.\n\nUn valor positivo nos indica que el resultado apunta en la dirección de \\(H_A\\), pero todavía debemos evaluar si entrega evidencia suficiente para cuestionar \\(H_0\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#por-qué-ahora-hablamos-de-una-cola",
+    "href": "assignment/03-practico.html#por-qué-ahora-hablamos-de-una-cola",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.5 ¿Por qué ahora hablamos de una cola?",
+    "text": "2.5 ¿Por qué ahora hablamos de una cola?\nEn una prueba de dos colas considerábamos resultados extremos en ambas direcciones.\nAhora nuestra hipótesis alternativa establece una dirección específica.\nPor lo tanto, debemos concentrarnos en los resultados extremos que ocurren hacia esa dirección.\n\nPor eso utilizaremos una prueba t de una cola."
+  },
+  {
+    "objectID": "assignment/03-practico.html#cómo-indicamos-esta-dirección-en-r",
+    "href": "assignment/03-practico.html#cómo-indicamos-esta-dirección-en-r",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.6 ¿Cómo indicamos esta dirección en R?",
+    "text": "2.6 ¿Cómo indicamos esta dirección en R?\nYa establecimos la dirección de nuestra hipótesis.\nAhora podemos expresarla en R:\n\ntest_una_cola &lt;- t.test(\n  ytrabajocor ~ grupo_hijo,\n  data = goldin_data,\n  alternative = \"greater\"\n)\n\nLa parte nueva es:\nalternative = \"greater\"\n\"greater\" significa:\n\nMean 1 &gt; Mean 2\n\nComo en nuestra comparación:\n\nMean 1 = Sin hijos\nMean 2 = Con hijos\n\n\"greater\" representa la misma dirección que establecimos en \\(H_A\\).\nObservemos ahora el resultado de la prueba:\n\n\nCódigo\nstats_una_cola &lt;- broom::tidy(\n  test_una_cola,\n  conf.int = TRUE\n)\n\nrempsyc::nice_table(\n  stats_una_cola,\n  broom = \"t.test\"\n)\n\n\nMethodAlternativeMean 1Mean 2M1 - M2tdfp95% CIWelch Two Sample t-testgreater706,113.65590,847.70115,265.962.39492.66.009**[35835.71, Inf]"
+  },
+  {
+    "objectID": "assignment/03-practico.html#cuándo-t-es-suficientemente-extremo",
+    "href": "assignment/03-practico.html#cuándo-t-es-suficientemente-extremo",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.7 ¿Cuándo t es suficientemente extremo?",
+    "text": "2.7 ¿Cuándo t es suficientemente extremo?\nYa conocemos nuestro t observado. Ahora veamos dónde se encuentra respecto de los valores que consideraríamos suficientemente extremos.\n\n\n\n\n\nEl mismo estadístico t observado en una prueba de dos colas y una prueba de una cola.\n\n\n\n\nEn los dos gráficos el t observado es el mismo 2.39.\nLo que cambia es dónde ubicamos la región de rechazo:\n\nen la prueba de dos colas, \\(\\alpha=.05\\) se reparte entre ambos extremos;\nen la prueba de una cola, ese 5 % se concentra en la dirección planteada por \\(H_A\\).\n\nAl cambiar la región de rechazo, también cambia el valor crítico.\n\n\n\n\n\n\nNotaEl valor crítico\n\n\n\nEl valor crítico funciona como una frontera de decisión: indica qué tan extremo debe ser nuestro t observado para entrar en la región de rechazo de \\(H_0\\). Este límite depende de α, de los grados de libertad y de si la prueba considera una o dos colas.\n\n\nAhora concentremos la atención en la prueba de una cola:\n\n¿Nuestro t observado cruza el valor crítico en la dirección de \\(H_A\\), y entra en la región de rechazo? ¿Consideramos que el resultado es suficientemente extremo para rechazar \\(H_0\\)?\n\nEn nuestra prueba hacia la derecha:\n\\[\nt_{\\text{observado}}\n&gt;\nt_{\\text{crítico}}\n\\Rightarrow\n\\text{región de rechazo}\n\\]\nEn nuestro caso, el t observado sí supera el valor crítico.\nPor lo tanto:\n\nEl resultado entra en la región de rechazo y tenemos evidencia para rechazar la \\(H_0\\) con \\(\\alpha=.05\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#por-qué-cambia-p-si-t-no-cambió",
+    "href": "assignment/03-practico.html#por-qué-cambia-p-si-t-no-cambió",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.8 ¿Por qué cambia p si t no cambió?",
+    "text": "2.8 ¿Por qué cambia p si t no cambió?\nComparemos directamente ambas pruebas:\n\n\n\n\n\nPrueba\nt\np\n\n\n\n\nDos colas\n2.39\n0.01716\n\n\nUna cola\n2.39\n0.00858\n\n\n\n\n\n\nEl valor de t permaneció igual, pero el valor p cambió. ¿Por qué?\n\nEl t no cambia porque estamos trabajando con los mismos datos y la misma diferencia observada.\nLo que cambia es qué resultados consideramos para calcular el valor p.\nEn una prueba de dos colas, contamos resultados tan extremos como el observado o más extremos en ambas direcciones:\n\\[\np\n=\n\\text{extremo izquierdo}\n+\n\\text{extremo derecho}\n\\]\nEn nuestra prueba de una cola hacia la derecha, solo contamos resultados tan extremos o más extremos en la dirección planteada por \\(H_A\\):\n\\[\np\n=\n\\text{extremo derecho}\n\\]\nPor eso, en nuestro caso, el área considerada es menor y el valor p también es menor.\n\nEl t no se hizo más pequeño. Se hizo más pequeña la región de la distribución que utilizamos para calcular p.\n\n\n\n\n\n\n\nImportante\n\n\n\nNo transformamos manualmente el valor p.\nPrimero formulamos \\(H_A\\) y después especificamos esa dirección en t.test().\nAdemás, una prueba de una cola no produce siempre un valor p menor: esto ocurre aquí porque el t observado está en la misma dirección planteada por \\(H_A\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-nos-dice-ahora-el-intervalo-de-confianza",
+    "href": "assignment/03-practico.html#qué-nos-dice-ahora-el-intervalo-de-confianza",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "¿Qué nos dice ahora el intervalo de confianza?",
+    "text": "¿Qué nos dice ahora el intervalo de confianza?\nComo nuestra hipótesis plantea una dirección, el intervalo de confianza también es unilateral:\nPor eso R entrega un intervalo de la forma:\n\\[\n[\\text{límite inferior},\\ \\text{Inf}]\n\\]\nAquí lo importante es observar el límite inferior.\nEn nuestro resultado, el límite inferior es mayor que 0. Por lo tanto, el intervalo queda completamente del lado positivo, en la dirección planteada por \\(H_A\\).\nPor lo tanto, el intervalo entrega evidencia para poner en duda \\(H_0\\) y es coherente con la hipótesis de que el ingreso promedio de las mujeres sin hijos es mayor.\n\n\n\n\n\n\nNota\n\n\n\nInf no significa que la diferencia pueda ser “infinita”. Aparece porque, en esta prueba direccional, estamos estableciendo un límite inferior y no un límite superior.\n\n\n\n\n\n\n\n\nNotaConclusión\n\n\n\nCon \\[\\alpha = .05\\] rechazamos \\(H_0\\). Los datos entregan evidencia de que el ingreso laboral promedio de las mujeres sin hijos es mayor que el de las mujeres con hijos."
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-cambió-y-qué-permaneció-igual",
+    "href": "assignment/03-practico.html#qué-cambió-y-qué-permaneció-igual",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.9 ¿Qué cambió y qué permaneció igual?",
+    "text": "2.9 ¿Qué cambió y qué permaneció igual?\nAhora podemos reunir todo lo que observamos al pasar de una prueba de dos colas a una prueba de una cola.\nLo importante es recordar que no cambiamos los datos. Seguimos comparando a las mismas mujeres, con las mismas medias y la misma diferencia observada.\nLo que cambió fue la pregunta que queremos responder.\nPodemos verlo como dos niveles diferentes.\n\n2.9.1 Lo que proviene de los datos\nLos datos determinan:\n\nlas medias de los grupos;\nla diferencia M1 - M2;\nel estadístico t;\nlos grados de libertad.\n\nComo los datos son exactamente los mismos, estos elementos no cambian.\n\n\n2.9.2 Lo que depende de nuestra pregunta\nNuestra pregunta determina:\n\nqué dirección plantea \\(H_A\\);\nqué extremo de la distribución es relevante;\ndónde queda la región de rechazo;\ncuál es el valor crítico;\ncómo se calcula e interpreta el valor p.\n\nPor eso, aunque obtengamos el mismo t, podemos obtener un valor p diferente.\n\n\n\n\n\n\nImportanteLa idea central\n\n\n\nCambiar de una prueba de dos colas a una prueba de una cola no cambia lo que observamos en los datos.\nLo que cambia es cómo evaluamos ese resultado en función de la pregunta y de la hipótesis que formulamos antes del análisis."
+  },
+  {
+    "objectID": "assignment/03-practico.html#qué-pasa-si-el-resultado-va-en-la-dirección-contraria",
+    "href": "assignment/03-practico.html#qué-pasa-si-el-resultado-va-en-la-dirección-contraria",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "2.10 ¿Qué pasa si el resultado va en la dirección contraria?",
+    "text": "2.10 ¿Qué pasa si el resultado va en la dirección contraria?\nNuestra hipótesis plantea:\n\nLas mujeres sin hijos tienen un ingreso promedio mayor que las mujeres con hijos.\n\nEsperamos entonces una diferencia positiva. Por ejemplo:\n\\[\n700.000 - 600.000 = 100.000\n\\]\nPero imaginemos que los datos mostraran:\n\\[\n550.000 - 700.000 = -150.000\n\\]\ny obtuviéramos:\n\\[\nt=-3.50\n\\]\nEl resultado es extremo, pero apunta en la dirección contraria a nuestra hipótesis: en este ejemplo, las mujeres sin hijos tendrían un ingreso promedio menor.\n\n¿Este resultado apoya \\(H_A\\)?\n\nNo.\n\n\n\n\n\n\nImportante\n\n\n\nEn una prueba direccional no basta con que el resultado sea extremo.\nDebe ser extremo en la dirección planteada por \\(H_A\\)."
+  },
+  {
+    "objectID": "assignment/03-practico.html#cómo-elegimos-alternative",
+    "href": "assignment/03-practico.html#cómo-elegimos-alternative",
+    "title": "Prueba t: hipótesis y direccionalidad",
+    "section": "3.1 ¿Cómo elegimos alternative?",
+    "text": "3.1 ¿Cómo elegimos alternative?\n\n\n\nPregunta\nHipótesis alternativa\nalternative\n\n\n\n\n¿A y B son diferentes?\n\\(\\mu_A-\\mu_B\\neq0\\)\n\"two.sided\"\n\n\n¿A &gt; B?\n\\(\\mu_A-\\mu_B&gt;0\\)\n\"greater\"\n\n\n¿A &lt; B?\n\\(\\mu_A-\\mu_B&lt;0\\)\n\"less\"\n\n\n\n\nLa dirección de la prueba no la decide el resultado: la decide la pregunta que formulamos antes de analizar los datos."
   }
 ]
