@@ -319,3 +319,255 @@ pre.text {
   font-size: 1.1em;
   color: #007acc;
 }
+
+/* =========================================================
+   SIDEBAR PLEGABLE — PRÁCTICOS
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   Pestañita lateral
+   --------------------------------------------------------- */
+
+#practicos-sidebar-toggle {
+  position: fixed;
+
+  /* Más arriba, no al centro */
+  top: 145px;
+
+  width: 18px;
+  height: 44px;
+
+  padding: 0;
+
+  border: 0;
+  border-radius: 0 5px 5px 0;
+
+  background: #343a40;
+  color: rgba(255, 255, 255, 0.85);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  z-index: 1101;
+
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.15);
+
+  transition:
+    left 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease,
+    background-color 0.18s ease,
+    color 0.18s ease;
+}
+
+
+#practicos-sidebar-toggle:hover {
+  background: #495057;
+  color: #ffffff;
+}
+
+
+#practicos-sidebar-toggle .bi {
+  font-size: 0.72rem;
+}
+
+
+
+/* ---------------------------------------------------------
+   Zona invisible para revelar el menú al acercar el mouse
+   --------------------------------------------------------- */
+
+#practicos-sidebar-hover-zone {
+  position: fixed;
+
+  left: 0;
+  top: 70px;
+
+  width: 24px;
+  height: calc(100vh - 70px);
+
+  z-index: 1099;
+
+  background: transparent;
+}
+
+
+/*
+ * Si el menú ya está abierto, desactivamos
+ * la zona invisible.
+ */
+body:not(.practicos-sidebar-cerrado)
+#practicos-sidebar-hover-zone {
+  pointer-events: none;
+}
+
+
+
+/* ---------------------------------------------------------
+   Animación del sidebar
+   --------------------------------------------------------- */
+
+#quarto-sidebar {
+  transform: translateX(0);
+  opacity: 1;
+
+  transition:
+    transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.22s ease;
+}
+
+
+/*
+ * Cuando está cerrado lo movemos hacia fuera.
+ *
+ * No usamos display: none porque eso impediría
+ * que la animación fuera suave.
+ */
+body.practicos-sidebar-cerrado #quarto-sidebar {
+  transform: translateX(-100%);
+  opacity: 0;
+
+  pointer-events: none;
+}
+
+
+
+/* ---------------------------------------------------------
+   Suavizar el cambio del espacio de lectura
+   --------------------------------------------------------- */
+
+#quarto-content.page-columns {
+  transition:
+    grid-template-columns 0.34s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+
+/* =========================================================
+   ESCRITORIO
+   ========================================================= */
+
+@media (min-width: 992px) {
+
+  /*
+   * Cuando cerramos la sidebar, Quarto seguiría
+   * reservando su columna izquierda.
+   *
+   * Por eso reconstruimos la grilla sin ese espacio.
+   */
+
+  body.docked.practicos-sidebar-cerrado
+  #quarto-content.page-columns {
+
+    grid-template-columns:
+      [screen-start] 1.5em
+
+      [screen-start-inset
+       page-start
+       page-start-inset
+       body-start-outset
+       body-start]
+
+      1.5em
+
+      [body-content-start]
+      minmax(500px, calc(1200px - 3em))
+      [body-content-end]
+
+      1.5em
+
+      [body-end]
+      50px
+
+      [body-end-outset]
+      minmax(50px, 100px)
+
+      [page-end-inset]
+      50px
+
+      [page-end]
+      5fr
+
+      [screen-end-inset]
+      1.5em
+
+      [screen-end];
+  }
+
+
+
+  /*
+   * Para páginas sin TOC lateral:
+   * aprovechamos todavía más el ancho.
+   */
+
+  body.docked.fullcontent.practicos-sidebar-cerrado
+  #quarto-content.page-columns {
+
+    grid-template-columns:
+      [screen-start] 1.5em
+
+      [screen-start-inset
+       page-start
+       page-start-inset
+       body-start-outset
+       body-start]
+
+      1.5em
+
+      [body-content-start]
+      minmax(500px, calc(1250px - 3em))
+      [body-content-end]
+
+      1.5em
+
+      [body-end
+       body-end-outset
+       page-end-inset
+       page-end]
+
+      5fr
+
+      [screen-end-inset]
+      1.5em
+
+      [screen-end];
+  }
+
+}
+
+
+
+/* =========================================================
+   MÓVIL Y TABLET
+   ========================================================= */
+
+@media (max-width: 991.98px) {
+
+  /*
+   * En pantallas pequeñas dejamos funcionar
+   * el menú responsive nativo de Quarto.
+   */
+
+  #practicos-sidebar-toggle,
+  #practicos-sidebar-hover-zone {
+    display: none !important;
+  }
+
+
+  /*
+   * Evitamos que nuestro estado personalizado
+   * interfiera con la navegación móvil.
+   */
+
+  body.practicos-sidebar-cerrado #quarto-sidebar {
+    transform: none;
+    opacity: 1;
+
+    pointer-events: auto;
+  }
+
+}
