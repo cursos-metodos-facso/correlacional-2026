@@ -571,3 +571,74 @@ body.practicos-sidebar-cerrado #quarto-sidebar {
   }
 
 }
+
+/* =========================================================
+   AYUDANTES — grilla compacta
+   ========================================================= */
+
+.ayudantes-grid {
+  column-gap: 0.8rem;
+  row-gap: 1.15rem;
+  margin-top: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+
+/* Cada ayudante */
+.ayudante-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  text-align: center;
+
+  gap: 0.35rem;
+
+  margin: 0;
+  padding: 0.15rem;
+}
+
+
+/* Fotografía */
+.ayudante-foto {
+  width: 68px;
+  height: 68px;
+
+  border-radius: 50%;
+
+  object-fit: cover;
+  object-position: center;
+
+  display: block;
+
+  margin: 0 auto 0.2rem auto;
+}
+
+
+/* Nombre */
+.ayudante-card p {
+  margin: 0;
+  line-height: 1.15;
+
+  font-size: 0.95rem;
+}
+
+
+.ayudante-card strong {
+  font-weight: 600;
+}
+
+
+/* Un poco más pequeñas en celular */
+@media (max-width: 575.98px) {
+
+  .ayudante-foto {
+    width: 58px;
+    height: 58px;
+  }
+
+  .ayudante-card p {
+    font-size: 0.88rem;
+  }
+
+}
