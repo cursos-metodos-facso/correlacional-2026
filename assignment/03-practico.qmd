@@ -106,7 +106,7 @@ pre.sourceCode code {
 
 </style>
 
-# Retomemos el ejercicio anterior: ¿qué nos dicen realmente los resultados?
+# Retomemos el ejercicio anterior
 
 En el práctico anterior dejamos un ejercicio para trabajar de manera autónoma:
 
@@ -170,6 +170,16 @@ goldin_data <- proc_casen |>
 goldin_data <- na.omit(goldin_data)
 ```
 
+
+::: {.callout-note collapse="false"}
+- `|>` es el **pipe nativo de R**. Cumple la misma función general que `%>%`: permite encadenar pasos y leer el código como **“y luego…”**.
+
+- Cuando escribimos `dplyr::filter()`, la forma `paquete::función()` indica de qué paquete proviene la función. Por eso no necesitamos ejecutar `library(dplyr)` antes.
+
+>  **Importante:** el paquete sí debe estar instalado en el computador. Si no lo está, primero debemos instalarlo con `install.packages("dplyr")`
+:::
+
+
 Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.
 
 ```{r}
@@ -232,6 +242,15 @@ H_0:
 0
 $$
 
+El valor **0** representa nuestro escenario de referencia: que las dos medias poblacionales no presentan diferencias.
+
+Este es el escenario planteado por $H_0$: **lo utilizamos como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo.**.
+
+La pregunta será entonces:
+
+> **¿La diferencia que observamos en nuestra muestra es suficientemente grande, considerando su variabilidad, como para cuestionar este escenario?**
+
+
 ### Hipótesis alternativa: $H_A$
 
 > En la población, **existen diferencias** en el ingreso laboral promedio entre mujeres sin hijos y mujeres con hijos.
@@ -244,15 +263,6 @@ H_A:
 \neq
 0
 $$
-
-
-El valor **0** representa nuestro escenario de referencia: que las dos medias poblacionales no presentan diferencias.
-
-Este es el escenario planteado por $H_0$: **lo utilizamos como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo.**.
-
-La pregunta será entonces:
-
-> **¿La diferencia que observamos en nuestra muestra es suficientemente grande, considerando su variabilidad, como para cuestionar este escenario?**
 
 ## ¿Qué hace la prueba *t*?
 
@@ -272,7 +282,9 @@ El estadístico *t* nos indica qué tan grande es la diferencia observada **en r
 ::: {.callout-important}
 ## La idea detrás de *t*
 
-Cuanto más alejado de 0 se encuentre $|t|$, más extremo es el resultado respecto del escenario de diferencia igual a 0 planteado por  $H_0$.
+Cuanto más alejado de 0 se encuentre $|t|$, más extremo es el resultado respecto del escenario de diferencia igual a 0 planteado por $H_0$ .
+
+
 
 :::
 
@@ -283,18 +295,15 @@ Recordemos que nuestra pregunta es:
 
 > **¿Los ingresos promedio de ambos grupos son distintos?**
 
-La pregunta busca saber si existe una **diferencia**, pero no establece de antemano cuál de los dos grupos debería tener un promedio mayor. Por lo tanto, nos interesa detectar una diferencia en **cualquiera de las dos direcciones**.
+La pregunta busca saber si existe una **diferencia**, pero no establece de antemano cuál de los dos grupos debería tener un promedio mayor. Por lo tanto, nos interesa detectar una diferencia en **cualquiera de las dos direcciones**. Por eso utilizamos una **prueba *t* de dos colas**.
 
-Por eso utilizamos una **prueba *t* de dos colas**.
+Antes de observar los resultados, utilizaremos $\alpha = .05$ como nuestro **criterio de decisión**. Si obtenemos $p < .05$, consideraremos que existe evidencia suficiente para rechazar $H_0$.
 
-
-En R lo indicamos mediante:
+En R, especificamos que nuestra prueba es de **dos colas** mediante:
 
 ```r
 alternative = "two.sided"
 ```
-
-Antes de observar los resultados, utilizaremos $$\alpha = .05$$ como nuestro **criterio de decisión**. Si obtenemos $$p < .05$$, consideraremos que existe evidencia suficiente para rechazar $$H_0$$.
 
 Ejecutemos la prueba:
 
@@ -311,6 +320,7 @@ test_goldin <- t.test(
 # Mostramos el resultado completo de la prueba
 test_goldin
 ```
+
 
 Ahora presentaremos los resultados en una tabla más sencilla de leer.
 
@@ -333,7 +343,7 @@ rempsyc::nice_table(
 
 No necesitamos interpretar todas las columnas al mismo tiempo. Vamos a leerlas siguiendo el razonamiento de nuestra prueba.
 
-### 1. ¿Qué diferencia observamos?
+### ¿Qué diferencia observamos? {.unnumbered}
 
 Recuerde el orden de los grupos:
 
@@ -356,7 +366,7 @@ En nuestra muestra:
 Hasta aquí seguimos describiendo lo que ocurrió en nuestra muestra.
 
 
-### 2. ¿Qué nos dice *t*?
+### ¿Qué nos dice *t*? {.unnumbered}
 
 Ahora observe la columna `t`.
 
@@ -370,10 +380,13 @@ $$
 
 > **¿El valor de $|t|$ se encuentra cerca o lejos de 0?**
 
-La columna `df` muestra los grados de libertad utilizados por la prueba. R los calcula automáticamente. 
+::: {.callout-note}
+## ¿Qué son los grados de libertad? {.unnumbered}
+La columna `df` muestra los **grados de libertad** de la prueba. Podemos pensarlos como una medida de **cuánta información tiene la prueba para estimar la variabilidad**. En una prueba *t* de Welch, **R los calcula automáticamente**.
+:::
 
 
-### 3. ¿Qué nos dice el valor *p*?
+### ¿Qué nos dice el valor *p*? {.unnumbered}
 
 Observe ahora la columna `p`.
 
@@ -421,7 +434,7 @@ Por ejemplo, si obtenemos $p=.017$, esto **no significa** que exista un 1,7 % de
 Significa que, **si $H_0$ fuera cierta**, un resultado como el observado (o uno más extremo) sería poco frecuente.
 :::
 
-### Veamos esta evidencia gráficamente
+### Veamos esta evidencia gráficamente {.unnumbered}
 
 ```{r}
 #| echo: false
@@ -561,7 +574,7 @@ Los valores próximos a 0 son más compatibles con ese escenario, mientras que l
 > **¿Nuestro estadístico *t* se encuentra en una zona central o en una zona extrema?**
 
 
-### 4. ¿Qué nos dice el intervalo de confianza?
+### ¿Qué nos dice el intervalo de confianza? {.unnumbered}
 
 Finalmente observe la columna `95% CI`.
 
@@ -600,11 +613,13 @@ En nuestro resultado:
 - $p=.017<.05$;
 - el IC del 95% no contiene 0.
 
-Estos resultados son coherentes entre sí.
+Estos resultados son **distintas piezas de información relacionadas entre sí.**.
+
+Cuando la prueba está correctamente especificada, estos resultados deben ser coherentes entre sí respecto de la decisión sobre \(H_0\). Si aparecen contradicciones entre ellos, conviene revisar las especificaciones de la prueba o los cálculos realizados.
 
 Por lo tanto:
 
-> **Con $\alpha=.05$, rechazamos $H_0$.**
+**Con $\alpha=.05$, rechazamos $H_0$.**
 
 
 ## Volvamos a nuestra pregunta
@@ -615,14 +630,14 @@ Por lo tanto:
 Ya tomamos una decisión estadística. Ahora podemos expresarla en términos de nuestra pregunta.
 
 
-### ¿Qué observamos en la muestra?
+### ¿Qué observamos en la muestra? {.unnumbered}
 
 En nuestra muestra, las mujeres **sin hijos** presentan un ingreso laboral promedio mayor que las mujeres **con hijos**, con una diferencia aproximada de **$115.266**.
 
 Esta es nuestra **conclusión descriptiva**: señala lo que observamos en los datos analizados.
 
 
-### ¿Qué podemos decir sobre la población?
+### ¿Qué podemos decir sobre la población? {.unnumbered}
 
 > **Los datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos.**
 
@@ -666,25 +681,34 @@ Los datos y los grupos son los mismos.
 
 ## ¿“Distinto” y “mayor” significan lo mismo?
 
-Pensemos en dos situaciones posibles.
+No.
 
-**Situación 1.** Las mujeres **sin hijos** presentan un ingreso promedio mayor que las mujeres con hijos.
+Cuando preguntábamos:
 
-> **¿Este resultado apoyaría nuestra nueva pregunta?**
+> **¿Los ingresos promedio de ambos grupos son distintos?**
 
-Sí.
+nos interesaba cualquier diferencia:
 
-**Situación 2.** Las mujeres **con hijos** presentan un ingreso promedio mayor que las mujeres sin hijos.
+- que las mujeres **sin hijos** tuvieran un ingreso promedio mayor;
+- o que las mujeres **con hijos** tuvieran un ingreso promedio mayor.
 
-> **¿Este resultado también la apoyaría?**
+En cambio, ahora nuestra pregunta es:
 
-No. Los grupos serían diferentes, pero la diferencia ocurriría en la dirección contraria.
+> **¿Las mujeres sin hijos tienen un ingreso laboral promedio mayor que las mujeres con hijos?**
+
+Aquí ya no nos sirve cualquier diferencia.  
+Nos interesa una diferencia **en una dirección específica**:
+
+$$
+\text{Sin hijos} > \text{Con hijos}
+$$
 
 ::: {.callout-important}
-Cuando preguntábamos si los grupos eran **distintos**, ambas direcciones podían ser relevantes.
+Cuando preguntamos si dos grupos son **distintos**, la diferencia puede aparecer en cualquiera de las dos direcciones.
 
-Ahora preguntamos si un grupo es **mayor** que el otro: **la dirección importa**.
+Cuando preguntamos si un grupo es **mayor que otro**, estamos planteando una dirección específica.
 :::
+
 ## ¿Qué signo esperamos en la diferencia?
 
 Nuestra pregunta es:
@@ -866,7 +890,7 @@ $$
 
 Pero hay una distinción importante:
 
-> **No basta con que *t* sea positivo: también debe ser suficientemente extremo.**
+> **No basta con que *t* sea positivo: debe ser significativamente mayor que cero.**
 
 Un valor positivo nos indica que el resultado apunta en la dirección de $H_A$, pero todavía debemos evaluar si entrega evidencia suficiente para cuestionar $H_0$.
 
@@ -1326,7 +1350,7 @@ Lo que cambió fue **la pregunta que queremos responder**.
 
 Podemos verlo como dos niveles diferentes.
 
-### Lo que proviene de los datos
+### Lo que proviene de los datos {.unnumbered}
 
 Los datos determinan:
 
@@ -1337,7 +1361,7 @@ Los datos determinan:
 
 Como los datos son exactamente los mismos, estos elementos **no cambian**.
 
-### Lo que depende de nuestra pregunta
+### Lo que depende de nuestra pregunta {.unnumbered}
 
 Nuestra pregunta determina:
 
@@ -1405,7 +1429,7 @@ Queremos comparar los **años de escolaridad** de dos grupos:
 - personas de **60 años o más**;
 - personas de **18 a 29 años**.
 
-### Preparemos los datos
+### Preparemos los datos  {.unnumbered}
 
 A partir de `proc_casen`, complete el código para conservar solamente estos dos grupos de edad:
 
@@ -1473,12 +1497,31 @@ Una vez ejecutada la prueba, responda:
 Recuerde que la conclusión final debe responder la **pregunta sustantiva**. No basta con indicar si rechazamos o no rechazamos $H_0$.
 
 
-## ¿Cómo elegimos `alternative`?
+# Síntesis del práctico
+
+En este práctico trabajamos con la **prueba *t* para comparar dos medias** y vimos cómo la pregunta de investigación determina la forma en que planteamos la prueba.
+
+A lo largo del práctico aprendimos que:
+
+- la prueba *t* compara una diferencia observada con la incertidumbre asociada a esa diferencia;
+- el signo de *t* indica la **dirección de la diferencia** entre los grupos;
+- el valor *p* nos ayuda a evaluar qué tan compatible es el resultado observado con el escenario planteado por \(H_0\);
+- el intervalo de confianza nos muestra un rango de valores compatibles con los datos;
+- en una prueba de **dos colas** nos interesa detectar diferencias en cualquiera de las dos direcciones;
+- en una prueba de **una cola** nos interesa evaluar una dirección específica;
+- la dirección de la prueba debe definirse **antes de observar los resultados**, a partir de la pregunta y de \(H_A\).
+
+### ¿Cómo elegimos `alternative`? {.unnumbered}
 
 | **Pregunta** | **Hipótesis alternativa** | **`alternative`** |
 |---|---|---|
-| **¿A y B son diferentes?** | $\mu_A-\mu_B\neq0$ | `"two.sided"` |
-| **¿A > B?** | $\mu_A-\mu_B>0$ | `"greater"` |
-| **¿A < B?** | $\mu_A-\mu_B<0$ | `"less"` |
+| **¿A y B son diferentes?** | \(\mu_A-\mu_B\neq0\) | `"two.sided"` |
+| **¿A > B?** | \(\mu_A-\mu_B>0\) | `"greater"` |
+| **¿A < B?** | \(\mu_A-\mu_B<0\) | `"less"` |
 
-> **La dirección de la prueba no la decide el resultado: la decide la pregunta que formulamos antes de analizar los datos.**
+::: {.callout-important}
+## Para recordar {.unnumbered}
+
+La dirección de la prueba **no la decide el resultado**. La decide la **pregunta que formulamos antes de analizar los datos**:
+
+:::
