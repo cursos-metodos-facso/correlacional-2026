@@ -867,9 +867,14 @@
   {
     "objectID": "content/05-content.html",
     "href": "content/05-content.html",
-    "title": "Inferencia 4 - Test de hipótesis",
+    "title": "Inferencia 4 - Falsación, tipos de error y prueba t",
     "section": "",
-    "text": "Sesión del lunes, 18 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases"
+    "text": "Sesión del lunes, 18 de agosto de 2025\n\n\n\n\n\nDocumento de presentación\n\n\n\n\nLink al Foro de Clases",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Inferencia 4"
+    ]
   },
   {
     "objectID": "content/03-content.html",
@@ -1426,7 +1431,7 @@
     "href": "index.html#últimas-informaciones",
     "title": "\n            Estadística Correlacional\n        ",
     "section": "Últimas informaciones",
-    "text": "Últimas informaciones\n\n\n\n\n\n\n\n\n\n\nRepaso de R en Positron\n\n\nRecursos para repasar los conceptos de R en Positron.\n\n\n\n\n\n\nAug 14, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nNueva plataforma interactiva del curso\n\n\nConoce la plataforma interactiva de Estadística Correlacional y accede a sus recorridos, visualizaciones y laboratorios.\n\n\n\n\n\n\nAug 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenid@s al curso!\n\n\n\n\n\n\nEquipo docente\n\n\nAug 3, 2026\n\n\n\n\n\n\nNo matching items"
+    "text": "Últimas informaciones\n\n\n\n\n\n\n\n\n\n\nDel promedio al intervalo de confianza\n\n\nVideo que repasa como llegar desde un promedio muestral al intervalo de confianza\n\n\n\n\n\n\nAug 24, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nRepaso de R en Positron\n\n\nRecursos para repasar los conceptos de R en Positron.\n\n\n\n\n\n\nAug 14, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nNueva plataforma interactiva del curso\n\n\nConoce la plataforma interactiva de Estadística Correlacional y accede a sus recorridos, visualizaciones y laboratorios.\n\n\n\n\n\n\nAug 4, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\nBienvenid@s al curso!\n\n\n\n\n\n\nEquipo docente\n\n\nAug 3, 2026\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#versiones-anteriores-del-curso",
@@ -1923,7 +1928,7 @@
     "href": "slides/05-inferencia4.html#puntajes-z",
     "title": "Estadística Correlacional",
     "section": "Puntajes Z",
-    "text": "Puntajes Z\n\n\n\nel puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1\nZ expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)\nZ permite además obtener el valor del percentil de cada puntaje\n\n\n\\[z=\\frac{x-\\mu}{\\sigma}\\]"
+    "text": "Puntajes Z\n\n\n\nel puntaje Z es una transformación a una métrica de desviaciones estándar del promedio\nasumiendo distribución normal, el puntaje Z permite además obtener el valor del percentil de cada puntaje\n\nes decir, qué porcentaje de la población tiene un valor menor/mayor que el puntaje Z\n\n\n\n\\[z=\\frac{x-\\mu}{\\sigma}\\]"
   },
   {
     "objectID": "slides/05-inferencia4.html#intervalos-de-confianza-para-el-promedio",
@@ -1965,21 +1970,21 @@
     "href": "slides/05-inferencia4.html#lógica-de-contraste-de-hipótesis",
     "title": "Estadística Correlacional",
     "section": "Lógica de contraste de hipótesis",
-    "text": "Lógica de contraste de hipótesis\n\nIntentar falsar lo que es contrario a nuestra hipótesis original\n\nEn estadística, esta “hipótesis contraria” se denomina la HIPÓTESIS NULA"
+    "text": "Lógica de contraste de hipótesis\n\nIntentar falsar lo que es contrario a nuestra hipótesis original\nEn estadística, esta “hipótesis contraria” se denomina la HIPÓTESIS NULA"
   },
   {
     "objectID": "slides/05-inferencia4.html#buscamos-rechazar-la-hipótesis-nula",
     "href": "slides/05-inferencia4.html#buscamos-rechazar-la-hipótesis-nula",
     "title": "Estadística Correlacional",
     "section": "buscamos RECHAZAR LA HIPÓTESIS NULA",
-    "text": "buscamos RECHAZAR LA HIPÓTESIS NULA\n\nsi logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría\nBuscamos no encontrar cuervos blancos"
+    "text": "buscamos RECHAZAR LA HIPÓTESIS NULA\n\nsi logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría\nBuscamos NO ENCONTRAR cuervos blancos"
   },
   {
     "objectID": "slides/05-inferencia4.html#hipótesis-nula",
     "href": "slides/05-inferencia4.html#hipótesis-nula",
     "title": "Estadística Correlacional",
     "section": "Hipótesis nula",
-    "text": "Hipótesis nula\n\nHipótesis se denota con la letra \\(H\\)\nLa hipótesis nula se denota \\(H_0\\) (hache cero)\nCero porque en general se refiere a que lo que señala la teoría no existe o es cero en la población\n\n-&gt; más detalle de tipos de hipótesis prox. clase, ahora vamos a un ejemplo"
+    "text": "Hipótesis nula\n\nHipótesis se denota con la letra \\(H\\)\nLa hipótesis nula se denota \\(H_0\\) (hache cero)\nCero porque en general se refiere a que lo que señala la teoría no existe o es cero en la población"
   },
   {
     "objectID": "slides/05-inferencia4.html#existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile",
@@ -2007,7 +2012,7 @@
     "href": "slides/05-inferencia4.html#datos",
     "title": "Estadística Correlacional",
     "section": "Datos",
-    "text": "Datos\n\nstargazer(as.data.frame(casen_350), type = \"text\")\n\n\n======================================================\nStatistic  N     Mean      St. Dev.    Min      Max   \n------------------------------------------------------\nsalario   343 634,402.300 459,180.200 30,000 2,900,000\nsexo      343    1.402       0.491      1        2    \n------------------------------------------------------"
+    "text": "Datos\n\n\nstargazer(as.data.frame(casen_350), type = \"text\")\n\n\n======================================================\nStatistic  N     Mean      St. Dev.    Min      Max   \n------------------------------------------------------\nsalario   343 634,402.300 459,180.200 30,000 2,900,000\nsexo      343    1.402       0.491      1        2    \n------------------------------------------------------\n\n\n\ncasen_350 %&gt;% # se especifica la base de datos\n  dplyr::group_by(sexo = sjlabelled::as_label(sexo)) %&gt;% # se agrupan por la variable categórica y se usan sus etiquetas con as_label\n  dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %&gt;% # se agregan las operaciones a presentar en la tabla\n  kable(format = \"markdown\") # se genera la tabla\n\n\n\n\nsexo\nObs.\nPromedio\nSD\n\n\n\n\n1. Hombre\n205\n654585.4\n468692.5\n\n\n2. Mujer\n138\n604420.3\n444666.0\n\n\n\n\n\n\nDiferencia salarial = 654.585-604.420=50.165"
   },
   {
     "objectID": "slides/05-inferencia4.html#section-3",
@@ -2021,7 +2026,7 @@
     "href": "slides/05-inferencia4.html#procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey",
     "title": "Estadística Correlacional",
     "section": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)",
-    "text": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)\n\n\nFormular hipótesis ( \\(H_0\\) y \\(H_A\\))\nObtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)\nEstablecer la probabilidad de error \\(\\alpha\\) (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente\nCálculo de intervalo de confianza / contraste valores empírico/crítico\nInterpretación"
+    "text": "Procedimiento: 5 pasos de la inferencia (ajustados de Ritchey)\n\nFormular hipótesis ( \\(H_0\\) y \\(H_A\\))\nEstadístico de prueba empírico (ej: Z o t)\nEstablecer la probabilidad de error \\(\\alpha\\) (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente\nCálculo de intervalo de confianza / contraste valores empírico/crítico\nInterpretación"
   },
   {
     "objectID": "slides/05-inferencia4.html#formular-hipótesis",
@@ -2140,7 +2145,7 @@
     "href": "slides/05-inferencia4.html#interpretación",
     "title": "Estadística Correlacional",
     "section": "5. Interpretación",
-    "text": "5. Interpretación\nNuestro intervalo de confianza contiene el cero, por lo que no se rechaza la hipótesis nula\n\n\nCon un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.\nAlternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error"
+    "text": "5. Interpretación\n\nNuestro intervalo de confianza contiene el cero, ya que el valor empírico de t es menor que el valor crítico de t, por lo que no se rechaza la hipótesis nula\n\n\nCon un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.\nAlternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres sean distintas de cero, con un 5% de probabilidad de error"
   },
   {
     "objectID": "slides/05-inferencia4.html#próxima-clase-miércoles-manos-al-código",
@@ -2260,5 +2265,145 @@
     "title": "Programa",
     "section": "Programación de sesiones",
     "text": "Programación de sesiones\nVisitar la página de Planificación."
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#cuándo-se-puede-verificar-una-hipótesis",
+    "href": "slides/05-inferencia4.html#cuándo-se-puede-verificar-una-hipótesis",
+    "title": "Estadística Correlacional",
+    "section": "¿Cuándo se puede verificar una hipótesis?",
+    "text": "¿Cuándo se puede verificar una hipótesis?\n\n-&gt; NUNCA\n\n\n… pero, se puede falsar"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#volvamos-a-nuestro-ejemplo-clase-pasada",
+    "href": "slides/05-inferencia4.html#volvamos-a-nuestro-ejemplo-clase-pasada",
+    "title": "Estadística Correlacional",
+    "section": "Volvamos a nuestro ejemplo (clase pasada)",
+    "text": "Volvamos a nuestro ejemplo (clase pasada)\n¿Existen diferencias salariales entre hombres y mujeres en Chile?\n\n\n\n\n\n\n\n\nHipótesis general\nHipótesis estadística\n\n\n\n\nExisten diferencias salariales entre hombres y mujeres\nHipótesis alternativa: Las diferencias son distintas de cero\n\n\nNo existen diferencias salariales entre hombres y mujeres\nHipótesis nula: Las diferencias no son distintas de cero"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#estadístico-de-prueba",
+    "href": "slides/05-inferencia4.html#estadístico-de-prueba",
+    "title": "Estadística Correlacional",
+    "section": "2. Estadístico de prueba",
+    "text": "2. Estadístico de prueba\n\nPara la diferencia de medias, el estadístico de prueba es:\n\n\n\\[t=\\frac{\\bar{X}_{hombres}-\\bar{X}_{mujeres}}{SE}\\]\n\n\neste valor nos va a permitir contrastar la diferencia de medias empírica con la diferencia de medias teórica (que es 0, según \\(H_0\\))\n\n\n\n\n\n\n\n\nImportant\n\n\nEn general el estadístico de prueba es la magnitud de interés (en este caso, la diferencia de medias) dividido por el error estándar. Por lo tanto, su resultado nos dice cuántos errores estándar hay entre la diferencia de medias empírica y la diferencia de medias teórica (que es 0, según \\(H_0\\))"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#estadístico-de-prueba-1",
+    "href": "slides/05-inferencia4.html#estadístico-de-prueba-1",
+    "title": "Estadística Correlacional",
+    "section": "2. Estadístico de prueba",
+    "text": "2. Estadístico de prueba\n\nCada estadístico tiene su propia fórmula de error estándar\nEn el caso de la diferencia de medias (en este caso, de hombres y mujeres), el error estándar es:\n\n\n\\[SE=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}}\\]\nDonde\n\\[\\sigma_{diff}=\\frac{\\sigma^2_{a}(n_a-1)+\\sigma^2_{b}(n_b-1)}{n_a+n_b-2}\\]\n\n\ncomo se puede apreciar, es una extensión del error estándar del promedio pero para dos grupos distintos"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#estadístico-de-prueba-2",
+    "href": "slides/05-inferencia4.html#estadístico-de-prueba-2",
+    "title": "Estadística Correlacional",
+    "section": "2. Estadístico de prueba",
+    "text": "2. Estadístico de prueba\nCálculo de la desviación estándar de las diferencias de promedios:\n\\[\n\\begin{align*}\n\\sigma_{diff}&=\\frac{468692^2(205-1)+444666^2(138-1)}{205+138-2} \\\\ \\\\\n&=\\frac{44813126936256+27088715663172}{341}\\\\ \\\\\n&=210855843400\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#estadístico-de-prueba-3",
+    "href": "slides/05-inferencia4.html#estadístico-de-prueba-3",
+    "title": "Estadística Correlacional",
+    "section": "2. Estadístico de prueba",
+    "text": "2. Estadístico de prueba\nY entonces el error estándar de la diferencia de medias:\n\\[\n\\begin{align*}\nSE&=\\sqrt{\\frac{\\sigma_{diff}}{n_a}+\\frac{\\sigma_{diff}}{n_b}} \\\\ \\\\\n&=\\sqrt{\\frac{210855843400}{205}+\\frac{210855843400}{138}}\\\\ \\\\\n&=50561\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#estadístico-de-prueba-4",
+    "href": "slides/05-inferencia4.html#estadístico-de-prueba-4",
+    "title": "Estadística Correlacional",
+    "section": "2. Estadístico de prueba",
+    "text": "2. Estadístico de prueba\n\nYa que tenemos ahora el Error Estándar (SE), reemplazamos:\n\n\n\\[t=\\frac{\\bar{X}_{hombres}-\\bar{X}_{mujeres}}{SE}=\\frac{50165}{50561}=0.9904\\]\n\n\nEl valor de \\(t\\) obtenido de 0.9904(empírico) nos permite contrastar la diferencia de medias empírica con la diferencia de medias teórica (que es 0, según \\(H_0\\)).\nPor lo tanto, la pregunta es: ¿es 0.9904 un valor suficientemente grande para rechazar la hipótesis nula?\nPara poder responder esto, necesitamos establecer un nivel de confianza/probabilidad de error"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error\n\nasumimos que existe una probabilidad de error al rechazar \\(H_0\\), para lo cual fijamos un límite convencional -&gt; usualmente un 5%\n¿error de qué? -&gt; de rechazar \\(H_0\\) cuando esta existe en la población.\nEsto se conoce como la probabilidad de error Tipo I o \\(\\alpha\\) (alfa)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error-1",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error-1",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error\n\nEn nuestro ejemplo: {style=“font-size: 0.8em;”}\n\n\\[H_{0}: \\bar{X}_{sueldo\\ mujeres} -  \\bar{X}_{sueldo\\ hombres}= 0\\]\n\nSi hay diferencias de sueldo en la población y rechazamos \\(H_0\\): decisión correcta\nSi no hay diferencias de sueldo en la población y rechazamos \\(H_0\\): Error tipo I\n\n\nEl Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error-2",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error-2",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error-3",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error-3",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error\n\n\n\nError Tipo I\nEncontrar algo que no existe en la población\n\nError Tipo II\nNo encontrar algo que si existe en la población"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error-4",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error-4",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error\nHipótesis nula y \\(\\alpha\\)\n\nEntonces, el \\(\\alpha\\) es la probabilidad de error que fijamos para rechazar la hipótesis nula\nen lenguaje de prueba de hipótesis, es la probabilidad de rechazar la hipótesis nula cuando esta es verdadera\no la probabilidad de encontrar diferencias entre grupos de la población cuando estas no existen\no en simple, la probabilidad de que nos estemos equivocando"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#probabilidad-de-error-5",
+    "href": "slides/05-inferencia4.html#probabilidad-de-error-5",
+    "title": "Estadística Correlacional",
+    "section": "3. Probabilidad de error",
+    "text": "3. Probabilidad de error\nNivel de confianza y probabilidad de error \\(\\alpha\\)\n\nel nivel de confianza de una estimación se determina de manera convencional, usualmente se acepta 95% o 99% de confianza\nun nivel de confianza se expresa en una probabilidad de error \\(\\alpha\\) (alfa), que es 1 - nivel de confianza\n\npara un nivel de confianza de 95%, \\(\\alpha=1-0.95=0.05\\)\npara un nivel de confianza de 99%, \\(\\alpha=1-0.99=0.01\\)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-y-valor-crítico",
+    "href": "slides/05-inferencia4.html#intervalo-y-valor-crítico",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo y valor crítico",
+    "text": "4. Intervalo y valor crítico\n\nEn el paso 2 calculamos el t empírico. En este paso calcularemos el t crítico\nSi el t empírico es mayor que el t crítico, entonces rechazamos la hipótesis nula\na diferencia de la prueba Z (donde los valores son fijos), el los valores críticos de t dependen del tamaño muestral\nel tamaño muestral determina los grados de libertad (df) de la prueba t, que se calculan como \\(df=n_1+n_2-2\\) (es decir, es el tamaño de la muestra menos 2)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#t",
+    "href": "slides/05-inferencia4.html#t",
+    "title": "Estadística Correlacional",
+    "section": "t",
+    "text": "t"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-y-valor-crítico-1",
+    "href": "slides/05-inferencia4.html#intervalo-y-valor-crítico-1",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo y valor crítico",
+    "text": "4. Intervalo y valor crítico\n\nPara el caso de nuestra muestra, con un tamaño de 350 casos, los grados de libertad son:\n\n\n\\[df=n_1+n_2-2=205+138-2=341\\]\n\n\nLo que corresponde a un valor crítico de \\(t_{0.975}=1.96\\) (para un nivel de confianza de 95%)\nEsto se puede obtener en R con la función qt():\n\n\n\nqt(0.975, df = 341)\n\n[1] 1.966945\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\nEl valor crítico de t se aproxima al valor crítico de Z cuando el tamaño muestral es grande (usualmente n&gt;30)"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-y-valor-crítico-2",
+    "href": "slides/05-inferencia4.html#intervalo-y-valor-crítico-2",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo y valor crítico",
+    "text": "4. Intervalo y valor crítico\nAhora podemos calcular el intervalo de confianza para la diferencia de medias:\n\n\\[\n\\begin{align*}\n\\bar{x}_1-\\bar{x}_2 &\\pm t_{\\alpha/2}*SE_{\\bar{x_1}-\\bar{x_2}} \\\\\\\\\n50165 &\\pm 1.96*50561 \\\\\\\\\n50165 &\\pm 99099.56 \\\\\\\\\nCI[-49287.48&;149617.63]\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-y-valor-crítico-3",
+    "href": "slides/05-inferencia4.html#intervalo-y-valor-crítico-3",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo y valor crítico",
+    "text": "4. Intervalo y valor crítico\n\nTest de hipótesis de diferencias en R\n\n\n\nt.test(salario ~ sexo, data = casen_350, var.equal = TRUE)\n\n\n    Two Sample t-test\n\ndata:  salario by sexo\nt = 0.99215, df = 341, p-value = 0.3218\nalternative hypothesis: true difference in means between group 1 and group 2 is not equal to 0\n95 percent confidence interval:\n -49287.48 149617.63\nsample estimates:\nmean in group 1 mean in group 2 \n       654585.4        604420.3"
+  },
+  {
+    "objectID": "slides/05-inferencia4.html#intervalo-y-valor-crítico-4",
+    "href": "slides/05-inferencia4.html#intervalo-y-valor-crítico-4",
+    "title": "Estadística Correlacional",
+    "section": "4. Intervalo y valor crítico",
+    "text": "4. Intervalo y valor crítico\n\nAdemás del intervalo de confianza, podemos realizar el test de hipótesis comparando el valor empírico de t con el valor crítico de t\nSi el valor empírico de t es mayor que el valor crítico de t, entonces rechazamos la hipótesis nula\nEn nuestro caso:\n\n\n\\[\nt_{\\text{emp}}=0.9904 &gt; t_{\\text{crít}}=1.96 \\Rightarrow \\text{rechazamos } H_0\n\\]"
+  },
+  {
+    "objectID": "news/2026-08-24-prom_al_intervalo.html",
+    "href": "news/2026-08-24-prom_al_intervalo.html",
+    "title": "Del promedio al intervalo de confianza",
+    "section": "",
+    "text": "← News"
   }
 ]

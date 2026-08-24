@@ -1,5 +1,6 @@
 ---
 engine: knitr
+# quartolanguage: es
 format:
   revealjs:
     incremental: true
@@ -100,7 +101,7 @@ rep1500 <- recordPlot()
 <br>
 [**Inferencia 4**:]{style="color: white; font-size: 1.3em;"}
 
-[Test de hipótesis]{style="color: #dfc117;"}
+[Falsación, tipos de error y prueba t]{style="color: #dfc117;"}
 
 :::
 :::::
@@ -197,11 +198,11 @@ $$\sigma_{\bar{X}}=\frac{s}{\sqrt{N}}$$
 :::: {.columns}
 ::: {.column width="50%"}
 
-- el puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1
+- el puntaje Z es una transformación a una métrica de desviaciones estándar del promedio
 
-- Z expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)
+- asumiendo distribución normal, el puntaje Z permite además obtener el valor del percentil de cada puntaje
 
-- Z permite además obtener el valor del percentil de cada puntaje
+  - es decir, qué porcentaje de la población tiene un valor menor/mayor que el puntaje Z 
 
 :::
 
@@ -246,13 +247,9 @@ $$\bar{X}\pm Z*\frac{\sigma}{\sqrt{N}}$$
 
 # [¿Qué es una hipótesis?]{style="color: white;"} {data-background-color="#0C3547"}
 
-::: {.fragment}
-### [¿Cuándo una hipótesis es [verdadera]{style="color: #dfc117;"}?]{style="color: white;"}
-:::
-
 ## [Una [hipótesis]{style="color: #dfc117;"} es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio]{style="color: white;"} {data-background-color="#9B2626"}
 
-# [¿Cuándo se puede verificar una hipótesis?]{style="color: white;"} {data-background-color="#0C3547"}
+## [¿Cuándo se puede verificar una hipótesis?]{style="color: white;"} {data-background-color="#0C3547"}
 
 ::: {.fragment}
 ### [-> [NUNCA]{style="color: #dfc117;"}]{style="color: white;"}
@@ -265,13 +262,13 @@ $$\bar{X}\pm Z*\frac{\sigma}{\sqrt{N}}$$
 ## Popper y la falsabilidad {style="font-size: 0.8em;"}
 
 :::: {.columns}
-::: {.column width="40%"}
+::: {.column width="35%"}
 
 ![](img/popper.jpg){width="80%" fig-align="center"}
 
 :::
 
-::: {.column width="60%"}
+::: {.column width="58%"}
 
 _"el criterio de demarcación que hemos de adoptar no es el de la verificabilidad, sino el de la [falsabilidad]{style="color: #c0392b;"} de los sistemas. Dicho de otro modo: no exigiré que un sistema científico pueda ser seleccionado, de una vez para siempre, en un sentido positivo; pero sí que sea susceptible de selección en un sentido negativo por medio de contrastes o pruebas empíricas: ha de ser posible refutar por la experiencia un sistema científico empírico" (Popper, 1982, p. 40)_
 
@@ -305,9 +302,9 @@ _"el criterio de demarcación que hemos de adoptar no es el de la verificabilida
 
 Teoría: todos los cuervos son negros
 
-Hipótesis de verificación: hay cuervos negros
+Hipótesis de **verificación**: hay cuervos negros
 
-Hipótesis de falsación: hay cuervos blancos
+Hipótesis de **falsación**: hay cuervos blancos
 
 :::
 
@@ -322,20 +319,15 @@ Hipótesis de falsación: hay cuervos blancos
 
 ## [Lógica de contraste de hipótesis]{style="color: white;"} {data-background-color="#0C3547"}
 
-::: {style="color: white;"}
-### [Intentar falsar lo que es contrario a nuestra hipótesis original]{style="color: #dfc117;"}
-
-::: {.fragment}
-### En estadística, esta "hipótesis contraria" se denomina la [HIPÓTESIS NULA]{style="color: #dfc117;"}
-:::
-:::
+-  [Intentar falsar lo que es contrario a nuestra hipótesis original]{style="color: #dfc117;"}
+-  En estadística, esta "hipótesis contraria" se denomina la [HIPÓTESIS NULA]{style="color: #dfc117;"}
 
 ## [buscamos RECHAZAR LA HIPÓTESIS NULA]{style="color: white;"} {data-background-color="#9B2626"}
 
 ::: {style="color: white; font-size: 0.8em;"}
 si logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría
 
-Buscamos **no encontrar** cuervos blancos ![](img/white-crow.png){width="10%"}
+Buscamos NO ENCONTRAR cuervos blancos ![](img/white-crow.png){width="10%"}
 :::
 
 ## Hipótesis nula
@@ -346,11 +338,11 @@ Buscamos **no encontrar** cuervos blancos ![](img/white-crow.png){width="10%"}
 
 - **Cero** porque en general se refiere a que lo que señala la teoría no existe o **es cero en la población**
 
--> más detalle de tipos de hipótesis prox. clase, ahora vamos a un **ejemplo**
+## Volvamos a nuestro ejemplo (clase pasada)
 
-## [¿Existen diferencias salariales entre hombres y mujeres en Chile?]{style="color: white;"} {data-background-color="#0C3547"}
+**¿Existen diferencias salariales entre hombres y mujeres en Chile?**
 
-::: {style="color: white; font-size: 0.7em;"}
+::: {style="font-size: 0.7em;"}
 | Hipótesis general | Hipótesis estadística |
 |-------------------------------|-------------------------------|
 | Existen diferencias salariales entre hombres y mujeres | Hipótesis **alternativa**: Las diferencias son distintas de cero |
@@ -399,14 +391,15 @@ casen_350 <- na.omit(casen_350)
 :::
 ::::
 
-## Datos {style="font-size: 0.7em;"}
+## Datos {style="font-size: 0.85em;"}
+
+::: {.fragment style="font-size: 1.2em;"}
 
 ```{r}
 #| echo: true
 stargazer(as.data.frame(casen_350), type = "text")
 ```
 
-## {style="font-size: 0.7em;"}
 
 ```{r}
 #| echo: true
@@ -415,22 +408,22 @@ casen_350 %>% # se especifica la base de datos
   dplyr::summarise(Obs. = n(), Promedio = mean(salario, na.rm = TRUE), SD = sd(salario, na.rm = TRUE)) %>% # se agregan las operaciones a presentar en la tabla
   kable(format = "markdown") # se genera la tabla
 ```
+:::
 
 Diferencia salarial = 654.585-604.420=**50.165**
 
-## [[Procedimiento: 5 pasos de la inferencia]{style="color: #dfc117;"} (ajustados de Ritchey)]{style="color: white;"} {data-background-color="#0C3547" style="font-size: 0.8em;"}
+## [Procedimiento: 5 pasos de la inferencia]{style="color: #dfc117;"} (ajustados de Ritchey){data-background-color="#0C3547" style="font-size: 0.8em;"}
 
-::: {style="color: white;"}
 1. Formular hipótesis ( $H_0$ y $H_A$)
 
-2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+2. Estadístico de prueba empírico (ej: Z o t)
 
 3. Establecer la probabilidad de error $\alpha$ (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente
 
 4. Cálculo de intervalo de confianza / contraste valores empírico/crítico
 
 5. Interpretación
-:::
+
 
 ## 1. Formular hipótesis
 
@@ -442,37 +435,47 @@ En referencia a la siguiente hipótesis alternativa:
 
 $$H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0$$
 
-## {style="font-size: 0.8em;"}
+## 2. Estadístico de prueba {style="font-size: 0.75em;"}
 
-::: {.content-box-green}
-### (2. Error estándar y estadístico de prueba)
 
-- [(Una nota preliminar)]{style="color: #ffe08a;"} En general, existen 2 formas de realizar el contraste de hipótesis:
+- Para la diferencia de medias, el estadístico de prueba es:
 
-  - intervalo de confianza, asociado al error estándar
 
-  - contraste con valor crítico, asociado al estadístico de prueba
-
-- Ambos entregan información consistente y complementaria
-
-- En esta clase vamos a estimar solo el intervalo, la próxima veremos el contraste con valor crítico, que el caso de diferencia de medias corresponde a la prueba $t$ de student.
+::: {.fragment}
+$$t=\frac{\bar{X}_{hombres}-\bar{X}_{mujeres}}{SE}$$
 :::
 
-## 2. Error estándar (y estadístico de prueba) {style="font-size: 0.75em;"}
+- este valor nos va a permitir contrastar la diferencia de medias **empírica** con la diferencia de medias **teórica** (que es 0, según $H_0$)
+
+::: {.fragment .callout-important}
+En general el estadístico de prueba es la magnitud de interés (en este caso, la diferencia de medias) dividido por el error estándar. Por lo tanto, su resultado nos dice cuántos errores estándar hay entre la diferencia de medias empírica y la diferencia de medias teórica (que es 0, según $H_0$)
+:::
+
+
+
+
+
+
+
+## 2. Estadístico de prueba {style="font-size: 0.75em;"}
 
 - Cada estadístico tiene su propia fórmula de error estándar
 
 - En el caso de la **diferencia de medias** (en este caso, de hombres y mujeres), el error estándar es:
 
+::: {.fragment}
 $$SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}$$
 
 Donde
 
 $$\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}$$
 
+:::
+
 - como se puede apreciar, es una extensión del error estándar del promedio pero para dos grupos distintos
 
-## {style="font-size: 0.9em;"}
+
+## 2. Estadístico de prueba {style="font-size: 0.75em;"}
 
 Cálculo de la desviación estándar de las diferencias de promedios:
 
@@ -484,7 +487,7 @@ $$
 \end{align*}
 $$
 
-## {style="font-size: 0.9em;"}
+## 2. Estadístico de prueba{style="font-size: 0.75em;"}
 
 Y entonces el error estándar de la diferencia de medias:
 
@@ -496,7 +499,23 @@ SE&=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
 \end{align*}
 $$
 
-## 3. Establecer probabilidad de error {style="font-size: 0.85em;"}
+## 2. Estadístico de prueba {style="font-size: 0.75em;"}
+
+- Ya que tenemos ahora el Error Estándar (SE), reemplazamos:
+
+::: {.fragment}
+$$t=\frac{\bar{X}_{hombres}-\bar{X}_{mujeres}}{SE}=\frac{50165}{50561}=0.9904$$
+:::
+
+
+- El valor de $t$ obtenido de 0.9904(empírico) nos permite contrastar la diferencia de medias empírica con la diferencia de medias teórica (que es 0, según $H_0$). 
+
+- Por lo tanto, la pregunta es: ¿es 0.9904 un valor **suficientemente grande** para rechazar la hipótesis nula?
+
+- Para poder responder esto, necesitamos establecer un **nivel de confianza/probabilidad de error** 
+
+
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
 
 - asumimos que existe una probabilidad de error al rechazar $H_0$, para lo cual fijamos un límite convencional -> usualmente un 5%
 
@@ -504,11 +523,13 @@ $$
 
 - Esto se conoce como la **probabilidad de error Tipo I o $\alpha$ (alfa)**
 
-## Hipótesis nula ( $H_0$) y tipos de error {style="font-size: 0.8em;"}
+## 
 
 ![](img/errortypes.png){width="100%" fig-align="center"}
 
-## En nuestro ejemplo: {style="font-size: 0.8em;"}
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
+
+- En nuestro ejemplo: {style="font-size: 0.8em;"}
 
 $$H_{0}: \bar{X}_{sueldo\ mujeres} -  \bar{X}_{sueldo\ hombres}= 0$$
 
@@ -516,43 +537,37 @@ $$H_{0}: \bar{X}_{sueldo\ mujeres} -  \bar{X}_{sueldo\ hombres}= 0$$
 
 - Si **no hay** diferencias de sueldo en la población y rechazamos $H_0$: Error tipo I
 
-::: {.fragment}
-::: {.content-box-red style="text-align: center;"}
-### El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población
-:::
+
+::: {.fragment .content-box-red style="text-align: center;"}
+El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población
 :::
 
-## Hipótesis nula y tipos de error
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
 
 ![](img/errors.jpg){width="70%" fig-align="center"}
 
-## Hipótesis nula y tipos de error
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
 
 <br>
 
 :::: {.columns}
-::: {.column width="48%"}
-
-::: {.content-box-red}
+::: {.column width="48%".content-box-red}
 ### Error Tipo I
 
 Encontrar algo que no existe en la población
 :::
 
-:::
-
-::: {.column width="48%"}
-
-::: {.content-box-green}
+::: {.column width="48%" .content-box-green}
 ### Error Tipo II
 
 No encontrar algo que si existe en la población
 :::
 
-:::
 ::::
 
-## Hipótesis nula y $\alpha$ {style="font-size: 0.85em;"}
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
+
+### Hipótesis nula y $\alpha$ {style="font-size: 0.85em;"}
 
 - Entonces, el $\alpha$ es la probabilidad de error que fijamos para rechazar la hipótesis nula
 
@@ -562,7 +577,9 @@ No encontrar algo que si existe en la población
 
 - o en simple, la probabilidad de que nos estemos equivocando
 
-## Nivel de confianza y probabilidad de error $\alpha$ {style="font-size: 0.8em;"}
+## 3. Probabilidad de error {style="font-size: 0.85em;"}
+
+### Nivel de confianza y probabilidad de error $\alpha$ 
 
 - el nivel de confianza de una estimación se determina de manera **convencional**, usualmente se acepta 95% o 99% de confianza
 
@@ -580,20 +597,50 @@ No encontrar algo que si existe en la población
 
 ![](img/normal&alfa.png){width="90%" fig-align="center"}
 
-## {style="font-size: 0.8em;"}
+## 4. [Intervalo y valor crítico]{style="font-size: 0.8em;"}
 
-::: {.content-box-green}
-### 4. Intervalo de confianza [y contraste con valor crítico]
+- En el paso 2 calculamos el _t_ empírico. En este paso calcularemos el **_t_ crítico**
+  
+- Si el _t_ empírico es mayor que el _t_ crítico, entonces rechazamos la hipótesis nula  
+ 
+- a diferencia de la prueba Z (donde los valores son fijos), el los valores críticos de t dependen del **tamaño muestral**
 
-- de la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96
+- el tamaño muestral determina los **grados de libertad** (df) de la prueba t, que se calculan como $df=n_1+n_2-2$ (es decir, es el tamaño de la muestra menos 2)
 
-- para diferencia de medias se utiliza prueba $t$, donde el valor crítico es variable según en tamaño muestral
 
-- sin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase
+## _t_
+
+![](https://correlacional.netlify.app/slides/img/t_vs_z.png)
+
+## 4. Intervalo y valor crítico {style="font-size: 0.8em;"}
+
+- Para el caso de nuestra muestra, con un tamaño de 350 casos, los grados de libertad son:
+
+::: {.fragment}
+$$df=n_1+n_2-2=205+138-2=341$$
 :::
 
-## 4. Intervalo de confianza
+- Lo que corresponde a un valor crítico de $t_{0.975}=1.96$ (para un nivel de confianza de 95%)
 
+- Esto se puede obtener en R con la función `qt()`:
+
+::: {.fragment style="font-size: 1.5em;"}
+
+```{r echo=TRUE}
+qt(0.975, df = 341)
+```
+:::
+
+::: {.fragment .callout-important}
+El valor crítico de t se aproxima al valor crítico de Z cuando el tamaño muestral es grande (usualmente n>30)
+
+:::
+
+## 4. Intervalo y valor crítico {style="font-size: 0.8em;"}
+
+Ahora podemos calcular el **intervalo de confianza** para la diferencia de medias:
+
+::: {.fragment}
 $$
 \begin{align*}
 \bar{x}_1-\bar{x}_2 &\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
@@ -602,64 +649,55 @@ $$
 CI[-49287.48&;149617.63]
 \end{align*}
 $$
+:::
 
-## Test de hipótesis de diferencias en R {style="font-size: 0.75em;"}
+## 4. Intervalo y valor crítico {style="font-size: 0.8em;"}
+
+- Test de hipótesis de diferencias en R 
+
+::: {.fragment style="font-size: 1.5em;"}
 
 ```{r}
 #| echo: true
 t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)
 ```
+:::
 
-## tabla t test con `rempsyc` {style="font-size: 0.75em;"}
+## 4. Intervalo y valor crítico {style="font-size: 0.8em;"}
 
-```{r}
-#| echo: true
-pacman::p_load(rempsyc, broom)
-model <- t.test(salario ~ sexo, data = casen_350, var.equal = TRUE)
-stats.table <- tidy(model, conf.int = TRUE)
-nice_table(stats.table, broom = "t.test")
-```
+- Además del intervalo de confianza, podemos realizar el test de hipótesis comparando el valor empírico de t con el valor crítico de t
+- Si el valor empírico de t es mayor que el valor crítico de t, entonces rechazamos la hipótesis nula
+- En nuestro caso:
 
-::: {.notes}
-https://rempsyc.remi-theriault.com/articles/t-test
+::: {.fragment}
+$$
+t_{\text{emp}}=0.9904 > t_{\text{crít}}=1.96 \Rightarrow \text{rechazamos } H_0
+$$
 :::
 
 ## 5. Interpretación {style="font-size: 0.85em;"}
 
-Nuestro intervalo de confianza **contiene el cero**, por lo que no se rechaza la hipótesis nula
+- Nuestro intervalo de confianza **contiene el cero**, ya que el valor empírico de t es menor que el valor crítico de t,  por lo que **no se rechaza la hipótesis nula**
 
-::: {.fragment}
-::: {.content-box-red}
+::: {.fragment .content-box-red}
 Con un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.
 
-Alternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error
+Alternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres sean distintas de cero, con un 5% de probabilidad de error
 :::
-:::
+
 
 # [Resumen]{style="color: #dfc117;"} {data-background-color="#0C3547"}
 
 ::: {style="color: white; font-size: 0.85em;"}
 - hipótesis: aseveraciones sobre algo que ocurre en la población, usualmente asociaciones entre conceptos / variables
 
-- las hipótesis se contrastan con un criterio de falsabilidad
+- las hipótesis se contrastan con un criterio de falsabilidad: se trata de falsar/rechazar la **Hipótesis nula (H0)** 
 
-- el contraste de hipótesis en estadística opera mediante el rechazo de la hipótesis nula (o de no diferencias), con una probabilidad de error $\alpha$
+- para rechazar necesitamos un estadístico de prueba empírico, que se contrasta con un valor crítico (teórico) de rechazo según una probabilidad de error $\alpha$
 
-- 5 pasos para contraste de hipótesis
+- para la diferencia de medias, el estadístico de prueba es **t**
+
 :::
-
-## Próxima clase (miércoles): manos al código {style="font-size: 0.85em;"}
-
-::: {style="border-top: 1px solid #0C3547; margin: 0.3em 0;"}
-:::
-
-### y próximo lunes
-
-- Prueba $t$
-
-- hipótesis direccionales (mayor o menor qué) o de una cola (one tail)
-
-- inferencia para proporciones
 
 ## Recomendaciones
 

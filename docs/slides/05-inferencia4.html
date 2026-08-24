@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <title>Estadística Correlacional – inferencia4</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,9 +17,6 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -98,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3e33b8ba66d8544458334bd09eaba413.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-48e7433ce2f50b4b4a625f4977807b1e.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -191,10 +188,6 @@
       margin-right: 0; 
     }
   </style>
-  <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
-
-  <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
-
 <meta property="og:title" content="Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
@@ -232,7 +225,7 @@
 <span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 <p><br> <span style="color: white; font-size: 1.3em;"><strong>Inferencia 4</strong>:</span></p>
-<p><span style="color: #dfc117;">Test de hipótesis</span></p>
+<p><span style="color: #dfc117;">Falsación, tipos de error y prueba t</span></p>
 </div>
 </div></section>
 <section>
@@ -314,9 +307,11 @@
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>el puntaje Z es una medida de distancias del promedio en una distribución normal, que tiene promedio 0 y desviación estándar 1</p></li>
-<li class="fragment"><p>Z expresa cualquier puntaje en desviaciones estándar desde el promedio (de la curva normal)</p></li>
-<li class="fragment"><p>Z permite además obtener el valor del percentil de cada puntaje</p></li>
+<li class="fragment"><p>el puntaje Z es una transformación a una métrica de desviaciones estándar del promedio</p></li>
+<li class="fragment"><p>asumiendo distribución normal, el puntaje Z permite además obtener el valor del percentil de cada puntaje</p>
+<ul>
+<li class="fragment">es decir, qué porcentaje de la población tiene un valor menor/mayor que el puntaje Z</li>
+</ul></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <p><span class="math display">\[z=\frac{x-\mu}{\sigma}\]</span></p>
@@ -352,33 +347,28 @@
 <h1><span style="color: white;">¿Qué es una hipótesis?</span></h1>
 
 </section>
-<div class="fragment">
-<h3 id="cuándo-una-hipótesis-es-verdadera"><span style="color: white;">¿Cuándo una hipótesis es <span style="color: #dfc117;">verdadera</span>?</span></h3>
-</div>
 <section id="una-hipótesis-es-una-aseveración-o-una-predicción-que-se-desprende-de-una-teoría-sobre-una-situación-que-ocurre-en-la-población-en-estudio" class="slide level2" data-background-color="#9B2626">
 <h2><span style="color: white;">Una <span style="color: #dfc117;">hipótesis</span> es una aseveración o una predicción que se desprende de una teoría sobre una situación que ocurre en la población en estudio</span></h2>
-</section></section>
-<section>
-<section id="cuándo-se-puede-verificar-una-hipótesis" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1><span style="color: white;">¿Cuándo se puede verificar una hipótesis?</span></h1>
-
 </section>
+<section id="cuándo-se-puede-verificar-una-hipótesis" class="slide level2" data-background-color="#0C3547">
+<h2><span style="color: white;">¿Cuándo se puede verificar una hipótesis?</span></h2>
 <div class="fragment">
 <h3 id="nunca"><span style="color: white;">-&gt; <span style="color: #dfc117;">NUNCA</span></span></h3>
 </div>
 <div class="fragment">
 <h3 id="pero-se-puede-falsar"><span style="color: white;">… pero, se puede <strong><span style="color: #e8871a;">falsar</span></strong></span></h3>
 </div>
+</section>
 <section id="popper-y-la-falsabilidad" class="slide level2" style="font-size: 0.8em;">
 <h2>Popper y la falsabilidad</h2>
 <div class="columns">
-<div class="column" style="width:40%;">
+<div class="column" style="width:35%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="img/popper.jpg" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
 </figure>
 </div>
-</div><div class="column" style="width:60%;">
+</div><div class="column" style="width:58%;">
 <p><em>“el criterio de demarcación que hemos de adoptar no es el de la verificabilidad, sino el de la <span style="color: #c0392b;">falsabilidad</span> de los sistemas. Dicho de otro modo: no exigiré que un sistema científico pueda ser seleccionado, de una vez para siempre, en un sentido positivo; pero sí que sea susceptible de selección en un sentido negativo por medio de contrastes o pruebas empíricas: ha de ser posible refutar por la experiencia un sistema científico empírico” (Popper, 1982, p.&nbsp;40)</em></p>
 </div></div>
 </section>
@@ -404,8 +394,8 @@
 <div class="columns">
 <div class="column" style="width:60%;">
 <p>Teoría: todos los cuervos son negros</p>
-<p>Hipótesis de verificación: hay cuervos negros</p>
-<p>Hipótesis de falsación: hay cuervos blancos</p>
+<p>Hipótesis de <strong>verificación</strong>: hay cuervos negros</p>
+<p>Hipótesis de <strong>falsación</strong>: hay cuervos blancos</p>
 </div><div class="column" style="width:40%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-center">
@@ -417,18 +407,16 @@
 </section>
 <section id="lógica-de-contraste-de-hipótesis" class="slide level2" data-background-color="#0C3547">
 <h2><span style="color: white;">Lógica de contraste de hipótesis</span></h2>
-<div style="color: white;">
-<h3 id="intentar-falsar-lo-que-es-contrario-a-nuestra-hipótesis-original"><span style="color: #dfc117;">Intentar falsar lo que es contrario a nuestra hipótesis original</span></h3>
-<div class="fragment">
-<h3 id="en-estadística-esta-hipótesis-contraria-se-denomina-la-hipótesis-nula">En estadística, esta “hipótesis contraria” se denomina la <span style="color: #dfc117;">HIPÓTESIS NULA</span></h3>
-</div>
-</div>
+<ul>
+<li class="fragment"><span style="color: #dfc117;">Intentar falsar lo que es contrario a nuestra hipótesis original</span></li>
+<li class="fragment">En estadística, esta “hipótesis contraria” se denomina la <span style="color: #dfc117;">HIPÓTESIS NULA</span></li>
+</ul>
 </section>
 <section id="buscamos-rechazar-la-hipótesis-nula" class="slide level2" data-background-color="#9B2626">
 <h2><span style="color: white;">buscamos RECHAZAR LA HIPÓTESIS NULA</span></h2>
 <div style="color: white; font-size: 0.8em;">
 <p>si logramos rechazar la hipótesis nula (o sea, que lo contrario de nuestra teoría no es verdad), entonces encontramos evidencia a favor de nuestra teoría</p>
-<p>Buscamos <strong>no encontrar</strong> cuervos blancos <img data-src="img/white-crow.png" style="width:10.0%"></p>
+<p>Buscamos NO ENCONTRAR cuervos blancos <img data-src="img/white-crow.png" style="width:10.0%"></p>
 </div>
 </section>
 <section id="hipótesis-nula" class="slide level2">
@@ -438,11 +426,11 @@
 <li class="fragment"><p>La hipótesis nula se denota <span class="math inline">\(H_0\)</span> (hache cero)</p></li>
 <li class="fragment"><p><strong>Cero</strong> porque en general se refiere a que lo que señala la teoría no existe o <strong>es cero en la población</strong></p></li>
 </ul>
-<p>-&gt; más detalle de tipos de hipótesis prox. clase, ahora vamos a un <strong>ejemplo</strong></p>
 </section>
-<section id="existen-diferencias-salariales-entre-hombres-y-mujeres-en-chile" class="slide level2" data-background-color="#0C3547">
-<h2><span style="color: white;">¿Existen diferencias salariales entre hombres y mujeres en Chile?</span></h2>
-<div style="color: white; font-size: 0.7em;">
+<section id="volvamos-a-nuestro-ejemplo-clase-pasada" class="slide level2">
+<h2>Volvamos a nuestro ejemplo (clase pasada)</h2>
+<p><strong>¿Existen diferencias salariales entre hombres y mujeres en Chile?</strong></p>
+<div style="font-size: 0.7em;">
 <table class="caption-top">
 <colgroup>
 <col style="width: 50%">
@@ -496,19 +484,20 @@
 </div><div class="column" style="width:65%;">
 <p>Vamos a generar una submuestra de 350 casos de CASEN para ilustrar de mejor manera el sentido del test de hipótesis</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjmisc, haven, dplyr, stargazer, interpretCI, kableExtra)</span>
 <span id="cb1-2"><a></a><span class="fu">load</span>(<span class="st">"casen2022_inf2.Rdata"</span>)</span>
 <span id="cb1-3"><a></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>) <span class="co"># para evitar notación en los ceros</span></span>
 <span id="cb1-4"><a></a><span class="fu">set.seed</span>(<span class="dv">20</span>) <span class="co"># para fijar el resultado aleatorio</span></span>
 <span id="cb1-5"><a></a>casen_350 <span class="ot">&lt;-</span> casen2022_inf <span class="sc">%&gt;%</span> <span class="fu">select</span>(salario, sexo) <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">350</span>)</span>
-<span id="cb1-6"><a></a>casen_350 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(casen_350)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-6"><a></a>casen_350 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(casen_350)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div></div>
 </section>
-<section id="datos" class="slide level2" style="font-size: 0.7em;">
+<section id="datos" class="slide level2" style="font-size: 0.85em;">
 <h2>Datos</h2>
+<div class="fragment" style="font-size: 1.2em;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">stargazer</span>(<span class="fu">as.data.frame</span>(casen_350), <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">stargazer</span>(<span class="fu">as.data.frame</span>(casen_350), <span class="at">type =</span> <span class="st">"text"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 ======================================================
@@ -519,14 +508,11 @@ sexo      343    1.402       0.491      1        2
 ------------------------------------------------------</code></pre>
 </div>
 </div>
-</section>
-<section id="section-3" class="slide level2" style="font-size: 0.7em;">
-<h2></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>casen_350 <span class="sc">%&gt;%</span> <span class="co"># se especifica la base de datos</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a>casen_350 <span class="sc">%&gt;%</span> <span class="co"># se especifica la base de datos</span></span>
 <span id="cb4-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(<span class="at">sexo =</span> sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(sexo)) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica y se usan sus etiquetas con as_label</span></span>
 <span id="cb4-3"><a></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="at">Promedio =</span> <span class="fu">mean</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">SD =</span> <span class="fu">sd</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
-<span id="cb4-4"><a></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top">
 <thead>
@@ -554,19 +540,18 @@ sexo      343    1.402       0.491      1        2
 </table>
 </div>
 </div>
+</div>
 <p>Diferencia salarial = 654.585-604.420=<strong>50.165</strong></p>
 </section>
 <section id="procedimiento-5-pasos-de-la-inferencia-ajustados-de-ritchey" class="slide level2 scrollable" data-background-color="#0C3547" style="font-size: 0.8em;">
-<h2><span style="color: white;"><span style="color: #dfc117;">Procedimiento: 5 pasos de la inferencia</span> (ajustados de Ritchey)</span></h2>
-<div style="color: white;">
+<h2><span style="color: #dfc117;">Procedimiento: 5 pasos de la inferencia</span> (ajustados de Ritchey)</h2>
 <ol type="1">
 <li class="fragment"><p>Formular hipótesis ( <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span>)</p></li>
-<li class="fragment"><p>Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</p></li>
+<li class="fragment"><p>Estadístico de prueba empírico (ej: Z o t)</p></li>
 <li class="fragment"><p>Establecer la probabilidad de error <span class="math inline">\(\alpha\)</span> (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente</p></li>
 <li class="fragment"><p>Cálculo de intervalo de confianza / contraste valores empírico/crítico</p></li>
 <li class="fragment"><p>Interpretación</p></li>
 </ol>
-</div>
 </section>
 <section id="formular-hipótesis" class="slide level2">
 <h2>1. Formular hipótesis</h2>
@@ -575,36 +560,50 @@ sexo      343    1.402       0.491      1        2
 <p>En referencia a la siguiente hipótesis alternativa:</p>
 <p><span class="math display">\[H_{a}: \bar{X}_{hombres} -  \bar{X}_{mujeres} \neq 0\]</span></p>
 </section>
-<section id="section-4" class="slide level2" style="font-size: 0.8em;">
-<h2></h2>
-<section id="error-estándar-y-estadístico-de-prueba" class="content-box-green">
-<h3>(2. Error estándar y estadístico de prueba)</h3>
+<section id="estadístico-de-prueba" class="slide level2" style="font-size: 0.75em;">
+<h2>2. Estadístico de prueba</h2>
 <ul>
-<li class="fragment"><p><span style="color: #ffe08a;">(Una nota preliminar)</span> En general, existen 2 formas de realizar el contraste de hipótesis:</p>
-<ul>
-<li class="fragment"><p>intervalo de confianza, asociado al error estándar</p></li>
-<li class="fragment"><p>contraste con valor crítico, asociado al estadístico de prueba</p></li>
-</ul></li>
-<li class="fragment"><p>Ambos entregan información consistente y complementaria</p></li>
-<li class="fragment"><p>En esta clase vamos a estimar solo el intervalo, la próxima veremos el contraste con valor crítico, que el caso de diferencia de medias corresponde a la prueba <span class="math inline">\(t\)</span> de student.</p></li>
+<li class="fragment">Para la diferencia de medias, el estadístico de prueba es:</li>
 </ul>
+<div class="fragment">
+<p><span class="math display">\[t=\frac{\bar{X}_{hombres}-\bar{X}_{mujeres}}{SE}\]</span></p>
+</div>
+<ul>
+<li class="fragment">este valor nos va a permitir contrastar la diferencia de medias <strong>empírica</strong> con la diferencia de medias <strong>teórica</strong> (que es 0, según <span class="math inline">\(H_0\)</span>)</li>
+</ul>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>En general el estadístico de prueba es la magnitud de interés (en este caso, la diferencia de medias) dividido por el error estándar. Por lo tanto, su resultado nos dice cuántos errores estándar hay entre la diferencia de medias empírica y la diferencia de medias teórica (que es 0, según <span class="math inline">\(H_0\)</span>)</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-</section>
-<section id="error-estándar-y-estadístico-de-prueba-1" class="slide level2" style="font-size: 0.75em;">
-<h2>2. Error estándar (y estadístico de prueba)</h2>
+<section id="estadístico-de-prueba-1" class="slide level2" style="font-size: 0.75em;">
+<h2>2. Estadístico de prueba</h2>
 <ul>
 <li class="fragment"><p>Cada estadístico tiene su propia fórmula de error estándar</p></li>
 <li class="fragment"><p>En el caso de la <strong>diferencia de medias</strong> (en este caso, de hombres y mujeres), el error estándar es:</p></li>
 </ul>
+<div class="fragment">
 <p><span class="math display">\[SE=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}}\]</span></p>
 <p>Donde</p>
 <p><span class="math display">\[\sigma_{diff}=\frac{\sigma^2_{a}(n_a-1)+\sigma^2_{b}(n_b-1)}{n_a+n_b-2}\]</span></p>
+</div>
 <ul>
 <li class="fragment">como se puede apreciar, es una extensión del error estándar del promedio pero para dos grupos distintos</li>
 </ul>
 </section>
-<section id="section-5" class="slide level2" style="font-size: 0.9em;">
-<h2></h2>
+<section id="estadístico-de-prueba-2" class="slide level2" style="font-size: 0.75em;">
+<h2>2. Estadístico de prueba</h2>
 <p>Cálculo de la desviación estándar de las diferencias de promedios:</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -614,8 +613,8 @@ sexo      343    1.402       0.491      1        2
 \end{align*}
 \]</span></p>
 </section>
-<section id="section-6" class="slide level2" style="font-size: 0.9em;">
-<h2></h2>
+<section id="estadístico-de-prueba-3" class="slide level2" style="font-size: 0.75em;">
+<h2>2. Estadístico de prueba</h2>
 <p>Y entonces el error estándar de la diferencia de medias:</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -625,53 +624,65 @@ SE&amp;=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
 \end{align*}
 \]</span></p>
 </section>
-<section id="establecer-probabilidad-de-error" class="slide level2" style="font-size: 0.85em;">
-<h2>3. Establecer probabilidad de error</h2>
+<section id="estadístico-de-prueba-4" class="slide level2" style="font-size: 0.75em;">
+<h2>2. Estadístico de prueba</h2>
+<ul>
+<li class="fragment">Ya que tenemos ahora el Error Estándar (SE), reemplazamos:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[t=\frac{\bar{X}_{hombres}-\bar{X}_{mujeres}}{SE}=\frac{50165}{50561}=0.9904\]</span></p>
+</div>
+<ul>
+<li class="fragment"><p>El valor de <span class="math inline">\(t\)</span> obtenido de 0.9904(empírico) nos permite contrastar la diferencia de medias empírica con la diferencia de medias teórica (que es 0, según <span class="math inline">\(H_0\)</span>).</p></li>
+<li class="fragment"><p>Por lo tanto, la pregunta es: ¿es 0.9904 un valor <strong>suficientemente grande</strong> para rechazar la hipótesis nula?</p></li>
+<li class="fragment"><p>Para poder responder esto, necesitamos establecer un <strong>nivel de confianza/probabilidad de error</strong></p></li>
+</ul>
+</section>
+<section id="probabilidad-de-error" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
 <ul>
 <li class="fragment"><p>asumimos que existe una probabilidad de error al rechazar <span class="math inline">\(H_0\)</span>, para lo cual fijamos un límite convencional -&gt; usualmente un 5%</p></li>
 <li class="fragment"><p>¿error <strong>de qué</strong>? -&gt; de rechazar <span class="math inline">\(H_0\)</span> cuando esta existe en la población.</p></li>
 <li class="fragment"><p>Esto se conoce como la <strong>probabilidad de error Tipo I o <span class="math inline">\(\alpha\)</span> (alfa)</strong></p></li>
 </ul>
 </section>
-<section id="hipótesis-nula-h_0-y-tipos-de-error" class="slide level2" style="font-size: 0.8em;">
-<h2>Hipótesis nula ( <span class="math inline">\(H_0\)</span>) y tipos de error</h2>
+<section id="section-3" class="slide level2">
+<h2></h2>
 
 <img data-src="img/errortypes.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="en-nuestro-ejemplo" class="slide level2" style="font-size: 0.8em;">
-<h2>En nuestro ejemplo:</h2>
+<section id="probabilidad-de-error-1" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
+<ul>
+<li class="fragment">En nuestro ejemplo: {style=“font-size: 0.8em;”}</li>
+</ul>
 <p><span class="math display">\[H_{0}: \bar{X}_{sueldo\ mujeres} -  \bar{X}_{sueldo\ hombres}= 0\]</span></p>
 <ul>
 <li class="fragment"><p>Si <strong>hay</strong> diferencias de sueldo en la población y rechazamos <span class="math inline">\(H_0\)</span>: decisión correcta</p></li>
 <li class="fragment"><p>Si <strong>no hay</strong> diferencias de sueldo en la población y rechazamos <span class="math inline">\(H_0\)</span>: Error tipo I</p></li>
 </ul>
-<div class="fragment">
-<section id="el-error-tipo-i-equivale-a-encontrar-cosas-en-nuestra-muestra-que-no-existen-en-la-población" class="content-box-red" style="text-align: center;">
-<h3>El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población</h3>
-</section>
+<div class="fragment content-box-red" style="text-align: center;">
+<p>El Error Tipo I equivale a encontrar cosas en nuestra muestra que no existen en la población</p>
 </div>
 </section>
-<section id="hipótesis-nula-y-tipos-de-error" class="slide level2">
-<h2>Hipótesis nula y tipos de error</h2>
+<section id="probabilidad-de-error-2" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
 
 <img data-src="img/errors.jpg" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
-<section id="hipótesis-nula-y-tipos-de-error-1" class="slide level2">
-<h2>Hipótesis nula y tipos de error</h2>
+<section id="probabilidad-de-error-3" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
 <p><br></p>
 <div class="columns">
-<div class="column" style="width:48%;">
-<section id="error-tipo-i" class="content-box-red">
-<h3>Error Tipo I</h3>
+<div class="column content-box-red" style="width:48%;">
+<h3 id="error-tipo-i">Error Tipo I</h3>
 <p>Encontrar algo que no existe en la población</p>
-</section>
-</div><div class="column" style="width:48%;">
-<section id="error-tipo-ii" class="content-box-green">
-<h3>Error Tipo II</h3>
+</div><div class="column content-box-green" style="width:48%;">
+<h3 id="error-tipo-ii">Error Tipo II</h3>
 <p>No encontrar algo que si existe en la población</p>
-</section>
 </div></div>
 </section>
-<section id="hipótesis-nula-y-alpha" class="slide level2" style="font-size: 0.85em;">
-<h2>Hipótesis nula y <span class="math inline">\(\alpha\)</span></h2>
+<section id="probabilidad-de-error-4" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
+<h3 style="font-size: 0.85em;" id="hipótesis-nula-y-alpha">Hipótesis nula y <span class="math inline">\(\alpha\)</span></h3>
 <ul>
 <li class="fragment"><p>Entonces, el <span class="math inline">\(\alpha\)</span> es la probabilidad de error que fijamos para rechazar la hipótesis nula</p></li>
 <li class="fragment"><p>en lenguaje de prueba de hipótesis, es la probabilidad de rechazar la hipótesis nula cuando esta es verdadera</p></li>
@@ -679,8 +690,9 @@ SE&amp;=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
 <li class="fragment"><p>o en simple, la probabilidad de que nos estemos equivocando</p></li>
 </ul>
 </section>
-<section id="nivel-de-confianza-y-probabilidad-de-error-alpha" class="slide level2" style="font-size: 0.8em;">
-<h2>Nivel de confianza y probabilidad de error <span class="math inline">\(\alpha\)</span></h2>
+<section id="probabilidad-de-error-5" class="slide level2" style="font-size: 0.85em;">
+<h2>3. Probabilidad de error</h2>
+<h3 id="nivel-de-confianza-y-probabilidad-de-error-alpha">Nivel de confianza y probabilidad de error <span class="math inline">\(\alpha\)</span></h3>
 <ul>
 <li class="fragment"><p>el nivel de confianza de una estimación se determina de manera <strong>convencional</strong>, usualmente se acepta 95% o 99% de confianza</p></li>
 <li class="fragment"><p>un nivel de confianza se expresa en una probabilidad de error <span class="math inline">\(\alpha\)</span> (<span style="color: #c0392b;">alfa</span>), que es 1 - nivel de confianza</p>
@@ -690,27 +702,67 @@ SE&amp;=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
 </ul></li>
 </ul>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 
 <img data-src="img/normal&amp;alfa2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
-<section id="section-8" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 
 <img data-src="img/normal&amp;alfa.png" class="quarto-figure quarto-figure-center r-stretch" style="width:90.0%"></section>
-<section id="section-9" class="slide level2" style="font-size: 0.8em;">
-<h2></h2>
-<section id="intervalo-de-confianza-y-contraste-con-valor-crítico" class="content-box-green">
-<h3>4. Intervalo de confianza [y contraste con valor crítico]</h3>
+<section id="intervalo-y-valor-crítico" class="slide level2">
+<h2>4. <span style="font-size: 0.8em;">Intervalo y valor crítico</span></h2>
 <ul>
-<li class="fragment"><p>de la clase anterior con prueba Z sabemos que el valor crítico para un 95% de confianza es 1.96</p></li>
-<li class="fragment"><p>para diferencia de medias se utiliza prueba <span class="math inline">\(t\)</span>, donde el valor crítico es variable según en tamaño muestral</p></li>
-<li class="fragment"><p>sin embargo, para muestras grandes, t=Z, y por lo tanto por ahora mantendremos los valores referenciales Z (de 1.96) hasta que profundicemos en t la próxima clase</p></li>
+<li class="fragment"><p>En el paso 2 calculamos el <em>t</em> empírico. En este paso calcularemos el <strong><em>t</em> crítico</strong></p></li>
+<li class="fragment"><p>Si el <em>t</em> empírico es mayor que el <em>t</em> crítico, entonces rechazamos la hipótesis nula</p></li>
+<li class="fragment"><p>a diferencia de la prueba Z (donde los valores son fijos), el los valores críticos de t dependen del <strong>tamaño muestral</strong></p></li>
+<li class="fragment"><p>el tamaño muestral determina los <strong>grados de libertad</strong> (df) de la prueba t, que se calculan como <span class="math inline">\(df=n_1+n_2-2\)</span> (es decir, es el tamaño de la muestra menos 2)</p></li>
 </ul>
 </section>
+<section id="t" class="slide level2">
+<h2><em>t</em></h2>
+
+<img data-src="https://correlacional.netlify.app/slides/img/t_vs_z.png" class="r-stretch"></section>
+<section id="intervalo-y-valor-crítico-1" class="slide level2" style="font-size: 0.8em;">
+<h2>4. Intervalo y valor crítico</h2>
+<ul>
+<li class="fragment">Para el caso de nuestra muestra, con un tamaño de 350 casos, los grados de libertad son:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[df=n_1+n_2-2=205+138-2=341\]</span></p>
+</div>
+<ul>
+<li class="fragment"><p>Lo que corresponde a un valor crítico de <span class="math inline">\(t_{0.975}=1.96\)</span> (para un nivel de confianza de 95%)</p></li>
+<li class="fragment"><p>Esto se puede obtener en R con la función <code>qt()</code>:</p></li>
+</ul>
+<div class="fragment" style="font-size: 1.5em;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> <span class="dv">341</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1.966945</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Important</strong></p>
+</div>
+<div class="callout-content">
+<p>El valor crítico de t se aproxima al valor crítico de Z cuando el tamaño muestral es grande (usualmente n&gt;30)</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="intervalo-de-confianza" class="slide level2">
-<h2>4. Intervalo de confianza</h2>
+<section id="intervalo-y-valor-crítico-2" class="slide level2" style="font-size: 0.8em;">
+<h2>4. Intervalo y valor crítico</h2>
+<p>Ahora podemos calcular el <strong>intervalo de confianza</strong> para la diferencia de medias:</p>
+<div class="fragment">
 <p><span class="math display">\[
 \begin{align*}
 \bar{x}_1-\bar{x}_2 &amp;\pm t_{\alpha/2}*SE_{\bar{x_1}-\bar{x_2}} \\\\
@@ -719,11 +771,16 @@ SE&amp;=\sqrt{\frac{\sigma_{diff}}{n_a}+\frac{\sigma_{diff}}{n_b}} \\ \\
 CI[-49287.48&amp;;149617.63]
 \end{align*}
 \]</span></p>
+</div>
 </section>
-<section id="test-de-hipótesis-de-diferencias-en-r" class="slide level2" style="font-size: 0.75em;">
-<h2>Test de hipótesis de diferencias en R</h2>
+<section id="intervalo-y-valor-crítico-3" class="slide level2" style="font-size: 0.8em;">
+<h2>4. Intervalo y valor crítico</h2>
+<ul>
+<li class="fragment">Test de hipótesis de diferencias en R</li>
+</ul>
+<div class="fragment" style="font-size: 1.5em;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -738,40 +795,29 @@ mean in group 1 mean in group 2
        654585.4        604420.3 </code></pre>
 </div>
 </div>
+</div>
 </section>
-<section id="tabla-t-test-con-rempsyc" class="slide level2" style="font-size: 0.75em;">
-<h2>tabla t test con <code>rempsyc</code></h2>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(rempsyc, broom)</span>
-<span id="cb7-2"><a></a>model <span class="ot">&lt;-</span> <span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-3"><a></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model, <span class="at">conf.int =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb7-4"><a></a><span class="fu">nice_table</span>(stats.table, <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<div class="tabwid"><style>.cl-97bde480{table-layout:auto;}.cl-97b8d27e{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-97b8d288{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-97b8d292{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;top:3.6pt;}.cl-97baf680{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-97baf68a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-97bb0a12{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-97bb0a13{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-97bb0a1c{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-97bde480"><thead><tr style="overflow-wrap:break-word;"><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d27e">Method</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d27e">Alternative</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d27e">Mean 1</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d27e">Mean 2</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d288">M</span><span class="cl-97b8d292">1</span><span class="cl-97b8d27e"> - </span><span class="cl-97b8d288">M</span><span class="cl-97b8d292">2</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d288">t</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d288">df</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d288">p</span></p></th><th class="cl-97bb0a12"><p class="cl-97baf680"><span class="cl-97b8d27e">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-97bb0a13"><p class="cl-97baf68a"><span class="cl-97b8d27e">Two Sample t-test</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">two.sided</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">654,585.37</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">604,420.29</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">50,165.08</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">0.99</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">341</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">.322</span></p></td><td class="cl-97bb0a1c"><p class="cl-97baf680"><span class="cl-97b8d27e">[-49287.48, 149617.63]</span></p></td></tr></tbody></table></div>
+<section id="intervalo-y-valor-crítico-4" class="slide level2" style="font-size: 0.8em;">
+<h2>4. Intervalo y valor crítico</h2>
+<ul>
+<li class="fragment">Además del intervalo de confianza, podemos realizar el test de hipótesis comparando el valor empírico de t con el valor crítico de t</li>
+<li class="fragment">Si el valor empírico de t es mayor que el valor crítico de t, entonces rechazamos la hipótesis nula</li>
+<li class="fragment">En nuestro caso:</li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[
+t_{\text{emp}}=0.9904 &gt; t_{\text{crít}}=1.96 \Rightarrow \text{rechazamos } H_0
+\]</span></p>
 </div>
-</div>
-<aside class="notes">
-<p>https://rempsyc.remi-theriault.com/articles/t-test</p>
-<style type="text/css">
-        span.MJX_Assistive_MathML {
-          position:absolute!important;
-          clip: rect(1px, 1px, 1px, 1px);
-          padding: 1px 0 0 0!important;
-          border: 0!important;
-          height: 1px!important;
-          width: 1px!important;
-          overflow: hidden!important;
-          display:block!important;
-      }</style></aside>
 </section>
 <section id="interpretación" class="slide level2" style="font-size: 0.85em;">
 <h2>5. Interpretación</h2>
-<p>Nuestro intervalo de confianza <strong>contiene el cero</strong>, por lo que no se rechaza la hipótesis nula</p>
-<div class="fragment">
-<div class="content-box-red">
+<ul>
+<li class="fragment">Nuestro intervalo de confianza <strong>contiene el cero</strong>, ya que el valor empírico de t es menor que el valor crítico de t, por lo que <strong>no se rechaza la hipótesis nula</strong></li>
+</ul>
+<div class="fragment content-box-red">
 <p>Con un 95% de confianza (5% de probabilidad de error) no se encuentra evidencia de diferencias salariales entre hombres y mujeres.</p>
-<p>Alternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres son distintas de cero, con un 5% de probabilidad de error</p>
-</div>
+<p>Alternativamente: No existe evidencia que las diferencias salariales entre hombres y mujeres sean distintas de cero, con un 5% de probabilidad de error</p>
 </div>
 </section></section>
 <section>
@@ -780,23 +826,11 @@ mean in group 1 mean in group 2
 <div style="color: white; font-size: 0.85em;">
 <ul>
 <li class="fragment"><p>hipótesis: aseveraciones sobre algo que ocurre en la población, usualmente asociaciones entre conceptos / variables</p></li>
-<li class="fragment"><p>las hipótesis se contrastan con un criterio de falsabilidad</p></li>
-<li class="fragment"><p>el contraste de hipótesis en estadística opera mediante el rechazo de la hipótesis nula (o de no diferencias), con una probabilidad de error <span class="math inline">\(\alpha\)</span></p></li>
-<li class="fragment"><p>5 pasos para contraste de hipótesis</p></li>
+<li class="fragment"><p>las hipótesis se contrastan con un criterio de falsabilidad: se trata de falsar/rechazar la <strong>Hipótesis nula (H0)</strong></p></li>
+<li class="fragment"><p>para rechazar necesitamos un estadístico de prueba empírico, que se contrasta con un valor crítico (teórico) de rechazo según una probabilidad de error <span class="math inline">\(\alpha\)</span></p></li>
+<li class="fragment"><p>para la diferencia de medias, el estadístico de prueba es <strong>t</strong></p></li>
 </ul>
 </div>
-</section>
-<section id="próxima-clase-miércoles-manos-al-código" class="slide level2" style="font-size: 0.85em;">
-<h2>Próxima clase (miércoles): manos al código</h2>
-<div style="border-top: 1px solid #0C3547; margin: 0.3em 0;">
-
-</div>
-<h3 id="y-próximo-lunes">y próximo lunes</h3>
-<ul>
-<li class="fragment"><p>Prueba <span class="math inline">\(t\)</span></p></li>
-<li class="fragment"><p>hipótesis direccionales (mayor o menor qué) o de una cola (one tail)</p></li>
-<li class="fragment"><p>inferencia para proporciones</p></li>
-</ul>
 </section>
 <section id="recomendaciones" class="slide level2">
 <h2>Recomendaciones</h2>
@@ -807,7 +841,7 @@ mean in group 1 mean in group 2
 </div>
 </section></section>
 <section>
-<section id="section-10" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
+<section id="section-6" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
 <h1></h1>
 <p><br></p>
 </section>
@@ -1026,7 +1060,7 @@ mean in group 1 mean in group 2
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1053,80 +1087,42 @@ mean in group 1 mean in group 2
       });
     </script>
     
-
     <script>
-
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
       // slide changes (different for each slide format).
-
       (function () {
-
         // dispatch for htmlwidgets
-
         function fireSlideEnter() {
-
           const event = window.document.createEvent("Event");
-
           event.initEvent("slideenter", true, true);
-
           window.document.dispatchEvent(event);
-
         }
-
-    
 
         function fireSlideChanged(previousSlide, currentSlide) {
-
           fireSlideEnter();
 
-    
-
           // dispatch for shiny
-
           if (window.jQuery) {
-
             if (previousSlide) {
-
               window.jQuery(previousSlide).trigger("hidden");
-
             }
-
             if (currentSlide) {
-
               window.jQuery(currentSlide).trigger("shown");
-
             }
-
           }
-
         }
-
-    
 
         // hookup for slidy
-
         if (window.w3c_slidy) {
-
           window.w3c_slidy.add_observer(function (slide_num) {
-
             // slide_num starts at position 1
-
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
           });
-
         }
 
-    
-
       })();
-
     </script>
-
-    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1176,14 +1172,13 @@ mean in group 1 mean in group 2
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
