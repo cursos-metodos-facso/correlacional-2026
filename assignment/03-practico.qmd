@@ -168,6 +168,18 @@ goldin_data <- proc_casen |>
 
 # Eliminamos los casos con información faltante
 goldin_data <- na.omit(goldin_data)
+
+
+# Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.
+goldin_data$grupo_hijo <- factor(
+  goldin_data$hijo,
+  levels = c(0, 1),
+  labels = c(
+    "Sin hijos",
+    "Con hijos"
+  )
+)
+
 ```
 
 
@@ -178,21 +190,6 @@ goldin_data <- na.omit(goldin_data)
 
 >  **Importante:** el paquete sí debe estar instalado en el computador. Si no lo está, primero debemos instalarlo con `install.packages("dplyr")`
 :::
-
-
-Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.
-
-```{r}
-goldin_data$grupo_hijo <- factor(
-  goldin_data$hijo,
-  levels = c(0, 1),
-  labels = c(
-    "Sin hijos",
-    "Con hijos"
-  )
-)
-```
-
 
 ## Primero observemos nuestra muestra
 
@@ -244,7 +241,7 @@ $$
 
 El valor **0** representa nuestro escenario de referencia: que las dos medias poblacionales no presentan diferencias.
 
-Este es el escenario planteado por $H_0$: **lo utilizamos como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo.**.
+El escenario planteado por $H_0$ **se utiliza como referencia y evaluamos si los datos entregan evidencia suficiente para rechazarlo.**.
 
 La pregunta será entonces:
 
@@ -273,8 +270,8 @@ La idea central de la prueba puede representarse así:
 $$
 t
 \approx
-\frac{\text{diferencia observada}}
-{\text{incertidumbre de la diferencia}}
+\frac{\text{diferencia observada entre las medias}}
+{\text{error estándar de esa diferencia(incertidumbre)}}
 $$
 
 El estadístico *t* nos indica qué tan grande es la diferencia observada **en relación con su incertidumbre**.
@@ -401,17 +398,18 @@ La idea es sencilla:
 - un valor *p* **grande** indica que nuestro resultado no sería especialmente extraño si $H_0$ fuera cierta;
 - un valor *p* **pequeño** indica que nuestro resultado sería poco frecuente bajo $H_0$ y, por lo tanto, entrega evidencia para cuestionarla.
 
+::: {.callout-note}
+## Nivel de significación{.unnumbered}
 Para decidir qué consideraremos suficientemente pequeño, antes de realizar la prueba establecemos un nivel de significación, este valor funciona como nuestro **criterio de comparación**:
-
 $$
 \alpha=.05
 $$
 
-
 - si el valor *p* es **menor que .05**, consideramos que el resultado sería poco frecuente si $H_0$ fuera cierta;
 - si el valor *p* es **mayor que .05**, no tenemos evidencia suficiente para cuestionar $H_0$.
+::: 
 
-> **Ahora observe su resultado: ¿el valor *p* es menor o mayor que .05?**
+**Ahora observe su resultado: ¿el valor *p* es menor o mayor que .05?**
 
 En nuestra prueba obtuvimos:
 
@@ -615,7 +613,7 @@ En nuestro resultado:
 
 Estos resultados son **distintas piezas de información relacionadas entre sí.**.
 
-Cuando la prueba está correctamente especificada, estos resultados deben ser coherentes entre sí respecto de la decisión sobre \(H_0\). Si aparecen contradicciones entre ellos, conviene revisar las especificaciones de la prueba o los cálculos realizados.
+Cuando la prueba está correctamente especificada, estos resultados deben ser coherentes entre sí respecto de la decisión sobre $H_0$. Si aparecen contradicciones entre ellos, conviene revisar las especificaciones de la prueba o los cálculos realizados.
 
 Por lo tanto:
 
@@ -681,7 +679,7 @@ Los datos y los grupos son los mismos.
 
 ## ¿“Distinto” y “mayor” significan lo mismo?
 
-No.
+**No.**
 
 Cuando preguntábamos:
 
@@ -829,10 +827,6 @@ H_0:
 \leq0
 $$
 
-Si la diferencia es **positiva**, apunta en la dirección planteada por $H_A$.
-
-Si es **cero o negativa**, no apunta en esa dirección.
-
 Podemos quedarnos con una regla sencilla:
 
 ::: {.callout-important}
@@ -845,8 +839,6 @@ Podemos quedarnos con una regla sencilla:
 
 > **Primero entendemos qué afirma la pregunta; después escribimos la diferencia y recién entonces decidimos el signo de la hipótesis.**
 :::
-
-
 
 Ya sabemos qué dirección establece nuestra hipótesis. Ahora veamos cómo esa misma dirección aparece en el estadístico *t*.
 
@@ -892,14 +884,11 @@ Pero hay una distinción importante:
 
 > **No basta con que *t* sea positivo: debe ser significativamente mayor que cero.**
 
-Un valor positivo nos indica que el resultado apunta en la dirección de $H_A$, pero todavía debemos evaluar si entrega evidencia suficiente para cuestionar $H_0$.
-
-
 ## ¿Por qué ahora hablamos de una cola?
 
 En una prueba de dos colas considerábamos resultados extremos en **ambas direcciones**.
 
-Ahora nuestra hipótesis alternativa establece una dirección específica.
+Ahora nuestra hipótesis alternativa establece una **dirección específica.**
 
 Por lo tanto, debemos concentrarnos en los resultados extremos que ocurren hacia esa dirección.
 
@@ -913,11 +902,17 @@ Ya establecimos la dirección de nuestra hipótesis.
 Ahora podemos expresarla en R:
 
 ```{r}
+#| results: hide
+# Realizamos una prueba t de una cola.
 test_una_cola <- t.test(
   ytrabajocor ~ grupo_hijo,
   data = goldin_data,
   alternative = "greater"
 )
+
+# Mostramos el resultado completo de la prueba
+test_una_cola
+
 ```
 
 La parte nueva es:
@@ -1215,7 +1210,7 @@ El **valor crítico** funciona como una **frontera de decisión**: indica qué t
 
 Ahora concentremos la atención en la prueba de una cola:
 
-> **¿Nuestro *t* observado cruza el valor crítico en la dirección de $H_A$, y entra en la región de rechazo?** ¿Consideramos que el resultado es suficientemente extremo para rechazar $H_0$?
+**¿Nuestro *t* observado cruza el valor crítico en la dirección de $H_A$, y entra en la región de rechazo?** ¿Consideramos que el resultado es suficientemente extremo para rechazar $H_0$?
 
 En nuestra prueba hacia la derecha:
 
