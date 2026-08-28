@@ -1,0 +1,491 @@
+---
+title: "Integración e Interpretación de Inferencia"
+date: "2026-09-02"
+lang: es
+
+format:
+  html:
+    toc: true
+    toc-depth: 2
+    number-sections: true
+    code-copy: true
+    code-fold: false
+    code-tools: true
+    highlight-style: github
+    embed-resources: true
+    page-layout: full
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
+
+execute:
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+---
+
+<style>
+/* Código escrito dentro del texto */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Resultados producidos por R */
+.cell-output pre {
+  color: #17233a !important;
+  background-color: #e8f5f3 !important;
+  border-left: 4px solid #009688 !important;
+  padding: 0.8em 1em !important;
+}
+
+.cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+
+/* Lectura de párrafos */
+main.content p,
+.callout-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Figuras */
+#quarto-content main.content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+#TOC .nav-link {
+  font-size: 0.95rem !important;
+  line-height: 1.15;
+  padding-top: 0.12rem;
+  padding-bottom: 0.12rem;
+}
+
+div.sourceCode,
+pre.sourceCode {
+  background-color: #F7F8FA !important;
+  border: 1px solid #D9DEE7;
+  border-radius: 6px;
+}
+
+/* Evita un segundo fondo dentro del chunk */
+pre.sourceCode code {
+  background-color: transparent !important;
+}
+
+
+/* Quitar el borde azul exterior de las salidas de R */
+#quarto-content .cell-output.cell-output-stdout {
+  border: none !important;
+  border-left: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+/* Dar un borde gris suave solamente al resultado */
+#quarto-content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-left: 4px solid #B8C2D1 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 6px !important;
+  padding: 0.8em 1em !important;
+}
+
+</style>
+
+
+# Objetivo de la práctica
+
+Hasta ahora hemos aprendido, progresivamente:
+
+1. A calcular puntajes Z y errores estándar
+2. A calcular e interpretar intervalos de confianza
+3. A plantear y contrastar hipótesis direccionales y no direccionales
+
+Hoy el objetivo es **integrar** estos aprendizajes: Tomar decisiones pertinentes, ejecutarles en R, e interpretarlas **estadística y sociológicamente**
+
+# Repaso
+
+Pero primero, volvamos a los contenidos que desarrollados en esta unidad. 
+
+## Glosario
+
+**Curva Normal**: Distribución teórica que nos entrega un estándar para comparar distribuciones empíricas.
+
+**Puntajes Z**: Medida estandarizada que se expresa en desviaciones estándar respecto a la media.
+
+**Teorema central del límite**: Define que al calcular un estadístico de distintas muestra de una misma población, estos valores seguirán una distribución normal.
+
+**Error estándar**: Desviación estándar de los promedios de distintas muestras de una misma población. 
+
+**Intervalos de confianza**: Rango de probabilidad de un parámetro poblacional
+
+**Nivel de Confianza**: Proporción en que el rango acierta. Se define como $1-\alpha$, siendo $\alpha$ la probabilidad de error. 
+
+**Hipótesis**: Aseveración o predicción que se desprende una teoría sobre una situación que ocurren en la población.
+
+**Hipótesis nula**: Hipótesis contraria a nuestra teoría. Se expresa como $H_0$
+
+## Los 5 pasos de la inferencia
+
+| Paso | Detalle |
+|---|---|
+| 1 | Formula $H_0$ y $H_A$ y estipula la dirección de la prueba |
+| 2 | Calcula el error estándar (SE) y el valor estimado de la prueba |
+| 3 | Especifica la probabilidad de error $\alpha$ y el valor crítico |
+| 4 | Contrasta el valor estimado con el valor crítico |
+| 5 | Interpreta los resultados |
+
+## ¿IC o prueba de hipótesis?
+
+No toda pregunta requiere comparar grupos. Antes de elegir una prueba, conviene preguntarse:
+
+- ¿Quiero **estimar un valor poblacional** (un promedio, una proporción)?; o
+- ¿Quiero **comparar dos grupos**?
+
+En el primer caso, observaremos el intervalo de confianza. En el segundo, utilizaremos la prueba t para diferencias de medias. 
+
+## Dos colas o una cola?
+
+Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la dirección de nuestra hipótesis: 
+
+| Pregunta | Hipótesis alternativa | `alternative` |
+|---|---|---|
+| ¿A y B son diferentes? | $\mu_A - \mu_B \neq 0$ | `"two.sided"` |
+| ¿A > B? | $\mu_A - \mu_B > 0$ | `"greater"` |
+| ¿A < B? | $\mu_A - \mu_B < 0$ | `"less"` |
+
+::: {.callout-important}
+A la hora de decidir que técnica utilizar, no hay realmente decisiones mejores que otra. Es la pregunta de investigación la que debe guiar la elección de la técnica, no al revés. 
+:::
+
+::: {.callout-tip}
+
+## Antes de seguir
+
+Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago, ¿usaríamos un intervalo de confianza o una prueba t? Si es una prueba t, ¿de una cola o de dos?
+:::
+
+# Interpretación
+
+Hasta ahora,  nos hemos enfocado en entender y aplicar conceptos claves en la estadística inferencial. Sin embargo, tan importante como eso es **interpretar y reportar** correctamente los hallazgos que entreguen las pruebas estadísticas. Por ejemplo, observemos la siguiente interpretación a la pregunta planteada en el [práctico 3](03-practico.qmd): ¿Existen diferencias entre los ingresos laborales promedio de las mujeres con hijos y las mujeres sin hijos?
+
+```{r}
+#| echo: false
+
+load(
+  url(
+    "https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"
+  )
+)
+
+set.seed(123)
+
+# Creamos una base con las variables que necesitamos
+goldin_data <- proc_casen |>
+  dplyr::select(
+    ocupado,
+    sexo,
+    ytrabajocor,
+    hijo
+  ) |>
+
+# Conservamos solo a las mujeres ocupadas
+  dplyr::filter(
+    ocupado == 1,
+    sexo == 2
+  ) |>
+
+# Seleccionamos aleatoriamente 1.500 casos
+  dplyr::sample_n(1500)
+
+
+# Eliminamos los casos con información faltante
+goldin_data <- na.omit(goldin_data)
+
+
+# Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.
+goldin_data$grupo_hijo <- factor(
+  goldin_data$hijo,
+  levels = c(0, 1),
+  labels = c(
+    "Sin hijos",
+    "Con hijos"
+  )
+)
+
+# Realizamos una prueba t de dos colas
+test_goldin <- t.test(
+  ytrabajocor ~ grupo_hijo,
+  data = goldin_data,
+  alternative = "two.sided"
+)
+
+# Ordenamos los resultados en una tabla
+stats.table <- broom::tidy(
+  test_goldin,
+  conf.int = TRUE
+)
+
+# Presentamos la tabla en un formato más fácil de leer
+rempsyc::nice_table(
+  stats.table,
+  broom = "t.test"
+)
+```
+
+> Observamos que el ingreso de las mujeres sin hijos es diferente al de las mujeres con hijos, y que p es menor a 0.05. De tal modo, podemos comprobar que nuestra hipótesis es verdadera.
+
+¿Que está mal con esta interpretación?
+
+**¿Qué debe tener una buena interpretación estadística?**
+
+1. **Resultado descriptivo**: qué se observó en la muestra y en qué dirección. El tamaño de la muestra, la media, la desviación estándar, la diferencia, etc., según corresponda. 
+2. **Resultado inferencial**: Mencionar de manera explícita las técnicas estadísticas utilizadas, reportando el estadístico que corresponda (el valor *t* en este caso), el valor *p* y el IC — reportados con sus valores, no solo mencionados.
+3. **Decisión estadística explícita**: se rechaza o no se rechaza $H_0$ o la $H_A$, y con qué $\alpha$.
+4. **Conclusión sustantiva**: Se debe responder la pregunta de investigación en lenguaje sociológico, no solo estadístico. 
+5. **Limitaciones**: Se debe tener claro el alcance de los hallazgos, evitando sobreinterpretaciones (por ejemplo, un p significativo pero un efecto pequeño) afirmaciones grandilocuentes del tipo "comprobamos que la hipótesis es verdadera" o "establecemos que x es la causa de y". 
+
+Teniendo en cuenta estas recomendaciones, volvemos a escribir la interpretación a los resultados. 
+
+> "Los datos muestran que existe una diferencia de &#36;115.265,96 entre los ingresos de las mujeres sin hijos ($\bar{x}_1$=706.113,65) y de las mujeres con hijos ($\bar{x}_2$=590.847,69). A través de una prueba t para diferencia de medias, se observó que esta diferencia es estadísticamente significativa al 95% de confianza (*t*=2,39; *df*=492,66; *p*=0.017, *CI*[20.564,30-209.967,62]). Por lo tanto, se rechaza la $H_0$ de igualdad de medias entre los ingresos de mujeres con hijos y mujeres sin hijos"
+
+::: {.callout-important}
+¿Qué interpretación sociológica le podemos dar estos hallazgos?
+
+**Lectura sugerida**: Budig, M. J., & England, P. (2001). The wage penalty for motherhood. *American Sociological Review, 66*(2), 204–225. https://doi.org/10.2307/2657415
+:::
+
+Adicionalmente, existen paquetes en R que pueden escribir interpretaciones de manera automática (en inglés), como `report`:
+
+```{r}
+if (!require(report)) install.packages("report")
+library(report)
+
+test_goldin <- t.test(
+  ytrabajocor ~ grupo_hijo,
+  data = goldin_data,
+  alternative = "two.sided"
+)
+
+report::report(test_goldin)
+
+```
+
+
+::: {.callout-caution}
+
+Nunca se debe copiar y pegar la salida de `report`. Además de traducirla (si el reporte es en español), es necesario hacer ediciones, particularmente en el nombre de las variables y sus categorías. Una versión traducida y editada debería verse así: 
+
+La prueba t de Welch para dos muestras que evalúa la diferencia en los ingresos labores de mujeres con y sin hijos ($\bar{x}_{sin hijos}$=706.113,65, $\bar{x}_{con hijos}$=590.847,69) sugiere que el efecto es positivo, estadísticamente significativo y pequeño (diferencia = 115.265,96, IC 95% [20564,30, 209.967], t(492,66) = 2,39, p = 0,017; d de Cohen = 0,22, IC 95% [0,04, 0,39])
+:::
+
+
+::: {.callout-note}
+**¿Por que `report` indica que la diferencia es pequeña?**
+
+Porque estima un estadístico conocido como *d de Cohen* que permite estimar la **magnitud** del efecto. Se define como la diferencia entre las medias grupales divido por la desviación estándar agrupada de ambos grupos. 
+
+Cohen (1988) indicó que:
+
+- d>0.2 son considerados pequeños
+- d>0.5 son considerados medianos
+- d>0.8 son considerado grandes
+
+Por lo tanto, el efecto observado en este ejercicio (*d*=0.22) sería pequeño. 
+:::
+
+# Ejercicios de Integración e Interpretación
+
+Trabajaremos nuevamente con `proc_casen`, que se carga con el código de más abajo. 
+
+```{r}
+#| eval: false
+
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"))
+```
+
+Buscaremos responde dos preguntas de investigación. 
+
+1. ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?
+2. ¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?
+
+
+### Pregunta 1
+
+> ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?
+
+**¿Es una pregunta de estimación o de comparación entre grupos?**
+
+Solo buscamos estimar la edad promedio de un grupo de personas (quienes necesitan ayuda para moverse). Por lo tanto, esta pregunta de investigación se puede responder solo observando sus intervalos de confianza. 
+
+
+::: {.callout-important}
+¿Se podría realizar un test de hipótesis en este caso? En estricto rigor, sí. Sin embargo, la conclusión que obtendríamos es que la edad promedio de las personas que necesitan ayuda para moverse en casa es distinta a 0. ¿Es ésta una conclusión informativa para nuestra pregunta de investigación?
+:::
+
+**Preparar los datos**
+
+Ya cargamos la base de datos, ahora vamos a procesar la variable `ayuda_moverse` para responder la pregunta de investigación. 
+
+```{r}
+
+# Creamos un subset
+subset_1 <- proc_casen |> 
+  # Filtramos para dejar solo las personas que necesitan ayuda muchas veces (4) o siempre (5)
+  dplyr::filter(ayuda_moverse >= 4)
+
+```
+
+Como sabemos que vamos a necesitar el tamaño de la muestra, así como el promedio y la desviación estándar de `edad`, las calcularemos de inmediato:
+
+```{r}
+
+n_edad <- nrow(subset_1)
+media_edad <- mean(subset_1$edad)
+sd_edad <- sd(subset_1$edad)
+
+n_edad
+media_edad
+sd_edad
+```
+
+Con esto ya tenemos una estimación puntual de la edad de las personas que necesitan ayuda para moverse en su casa: 73,15 años para nuestra muestra, con una desviación estándar de 18.79.
+
+**Los 5 pasos de la inferencia estadística**
+
+*1. Formular Hipótesis*
+
+En este caso, nuestra hipótesis nula es que la edad promedio de las personas que necesitan ayuda para moverse en casa es igual a 0 en la población.
+
+$$
+H_0: \bar{x}_{edad} = 0
+$$
+
+En referencia a la siguiente hipótesis alternativa:
+
+$$
+H_a: \bar{x}_{edad} \ne 0
+$$
+**Calcular el error estándar**
+
+Recordemos que el error estándar del promedio está definido por:
+
+$$
+SE = \frac{s}{\sqrt{n}}
+$$
+
+En R, esto se calcularía así:
+
+
+```{r}
+
+se_edad <- sd_edad/sqrt(n_edad)
+
+se_edad
+```
+
+El error estándar de la media de edad de 0.39 años.
+
+*Definir la probabilidad de error $\alpha$ y el valor crítico*
+
+Seguiremos la convención de de $\alpha$=0.05, lo que se corresponde con el valor crítico de 1,96. 
+
+*Calcular el intervalo de confianza*
+
+La formula del intervalo de confianza para el promedio es:
+
+$$
+IC = \bar{x} \pm z_{\alpha/2} \cdot SE
+$$
+
+Calculemos en R:
+
+```{r}
+
+lim_inferior <- media_edad - 1.96 * se_edad
+lim_superior <- media_edad + 1.96 * se_edad
+
+lim_inferior
+lim_superior
+```
+
+**Interpretación**
+
+A partir de una muestra 2364 personas, se estimó que la edad promedio de las personas que necesitan ayuda para moverse en su casa es de 73.15 años, con una desviación estándar de 18.79 años. Considerando un nivel de 95% de confianza (*SE*=0.39), se puede afirmar que la edad promedio en la población se encuentra entre los 72.4 y los 73.9 años. 
+
+
+::: {.callout-important}
+
+Lo de arriba es una interpretación estadística de los resultados. Para dar una interpretación sociológica valdría la pena remitirnos, por ejemplo, a la literatura sobre envejecimiento o tareas de cuidado en Chile. 
+
+:::
+
+
+### Pregunta 2
+
+> ¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?
+
+**Procesar los datos**
+
+Ya hemos trabajado antes con la variable `ytrabajocor`, que indica los ingresos labores de los individuos. Identificaremos las personas con y sin discapacidad con la variable `disc_fisica`, que indica que 1=no tiene discapacidad y 2=tiene discapacidad. Vamos a limpiar los casos perdidos y ponerle etiquetas a `disc_fisica`
+
+```{r}
+
+# Creamos un subset con las variables de interés
+subset_2 <- proc_casen |>
+  dplyr::select(ytrabajocor, disc_fisica)
+
+# Eliminamos los casos con información faltante
+subset_2 <- na.omit(subset_2)
+
+# Reemplazamos los códigos de la variable `disc_fisica` por etiquetas
+subset_2$disc_fisica <- factor(
+  subset_2$disc_fisica,
+  levels = c(1, 2),
+  labels = c(
+    "No tiene discapacidad",
+    "Tiene discapacidad"
+  )
+)
+```
+
+Aprovechemos también de hacer una exploración descriptiva de los datos
+
+```{r}
+subset_2 |>
+  dplyr::group_by(disc_fisica) |>
+  dplyr::summarise(
+    N = dplyr::n(),
+    Media = mean(ytrabajocor),
+    SD = sd(ytrabajocor)
+  )
+```
+
+¿Que podemos observar en esta tabla?
+
+**Ejercicio autónomo**
+
+Para seguir, responda las siguientes preguntas:
+
+1. ¿Es una pregunta de estimación o de comparación entre grupos? ¿Qué técnica debemos utilizar?
+2. ¿Cuál es la hipótesis nula? ¿Y la alternativa?
+3. ¿La pregunta de investigación requiere de una hipótesis direccional o no direccional? ¿Por qué?
+4. Realice la inferencia y haga la interpretación de los resultados. 
+
+# Síntesis
+
+Hoy integramos lo aprendido en sesiones anteriores: decidir entre estimación (IC) y comparación de grupos (prueba t), elegir la dirección de la hipótesis, ejecutar el análisis en R, e interpretar los resultados de manera correcta. El dominio de estas herramientas nos permite pasar desde la mera descripción de una muestra a ser capaces de inferir y sacar conclusiones sobre la población de estudio. En la sociología, utilizamos estás técnicas para generar conocimiento conocimiento sobre la sociedad basada en evidencia estadística. 
