@@ -115,11 +115,14 @@ Hasta ahora hemos aprendido, progresivamente:
 2. A calcular e interpretar intervalos de confianza
 3. A plantear y contrastar hipótesis direccionales y no direccionales
 
-Hoy el objetivo es **integrar** estos aprendizajes: Tomar decisiones pertinentes, ejecutarles en R, e interpretarlas **estadística y sociológicamente**
+El objetivo de esta sesión recurrir a estos aprendizajes e intergrarlos en nuestros análisis de datos sociales, lo cual implica tomar decisiones pertinentes, ejecutarlas en R, e interpretarlas **estadística y sociológicamente**
 
 # Repaso
 
-Pero primero, volvamos a los contenidos que desarrollados en esta unidad. 
+A lo largo de esta unidad hemos trabajado bajo una misma lógica: rara vez tenemos acceso a la población completa que nos interesa estudiar, por lo que debemos conformarnos con observar una muestra de ella. A partir de esa muestra calculamos estadísticos — un promedio, una proporción, una diferencia de medias — pero nuestro verdadero interés nunca es la muestra en sí misma, sino lo que esos estadísticos nos permiten decir sobre los parámetros poblacionales, es decir, los valores reales (y desconocidos) que caracterizan a la población de la que esa muestra proviene. 
+
+La estadística inferencial es, precisamente, el conjunto de herramientas que nos permite dar ese salto desde lo observado (la muestra) hacia lo que queremos conocer (la población), reconociendo al mismo tiempo que ese salto siempre conlleva un margen de error e incertidumbre. Antes de avanzar, repasemos brevemente los conceptos y herramientas que ya hemos construido para dar ese salto.
+
 
 ## Glosario
 
@@ -127,17 +130,22 @@ Pero primero, volvamos a los contenidos que desarrollados en esta unidad.
 
 **Puntajes Z**: Medida estandarizada que se expresa en desviaciones estándar respecto a la media.
 
-**Teorema central del límite**: Define que al calcular un estadístico de distintas muestra de una misma población, estos valores seguirán una distribución normal.
+**Teorema central del límite**: Define que al tomar muchas muestras de una misma población, la distribución de sus medias muestrales tiende a aproximarse a una distribución normal a medida que aumenta el tamaño de la muestra.
 
-**Error estándar**: Desviación estándar de los promedios de distintas muestras de una misma población. 
+**Error estándar**: describe cuánto esperamos que varíe una media muestral entre diferentes muestras de una misma población y nos informa sobre la precisión de la estimación.
 
-**Intervalos de confianza**: Rango de probabilidad de un parámetro poblacional
+
+::: {.callout-important}
+No se debe confundir error estándar con distribución estándar. Mientras que el error estándar se refiere a la variabilidad de diferentes muestras, la desviación estándar describe cuánto se dispersan los **valores individuales de una muestra** alrededor de la media. 
+:::
+
+**Intervalos de confianza**: rango de valores construido a partir de una muestra para estimar un parámetro poblacional. En un IC del 95%, el procedimiento produciría intervalos que contienen el verdadero parámetro en aproximadamente el 95% de muestras repetidas.
 
 **Nivel de Confianza**: Proporción en que el rango acierta. Se define como $1-\alpha$, siendo $\alpha$ la probabilidad de error. 
 
 **Hipótesis**: Aseveración o predicción que se desprende una teoría sobre una situación que ocurren en la población.
 
-**Hipótesis nula**: Hipótesis contraria a nuestra teoría. Se expresa como $H_0$
+**Hipótesis nula**: Escenario de referencia que plantea la ausencia de la diferencia o relación que queremos evaluar. Analizamos si los datos entregan evidencia suficiente para rechazarlo.. Se expresa como $H_0$
 
 ## Los 5 pasos de la inferencia
 
@@ -149,15 +157,6 @@ Pero primero, volvamos a los contenidos que desarrollados en esta unidad.
 | 4 | Contrasta el valor estimado con el valor crítico |
 | 5 | Interpreta los resultados |
 
-## ¿IC o prueba de hipótesis?
-
-No toda pregunta requiere comparar grupos. Antes de elegir una prueba, conviene preguntarse:
-
-- ¿Quiero **estimar un valor poblacional** (un promedio, una proporción)?; o
-- ¿Quiero **comparar dos grupos**?
-
-En el primer caso, observaremos el intervalo de confianza. En el segundo, utilizaremos la prueba t para diferencias de medias. 
-
 ## Dos colas o una cola?
 
 Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la dirección de nuestra hipótesis: 
@@ -168,15 +167,15 @@ Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la 
 | ¿A > B? | $\mu_A - \mu_B > 0$ | `"greater"` |
 | ¿A < B? | $\mu_A - \mu_B < 0$ | `"less"` |
 
-::: {.callout-important}
-A la hora de decidir que técnica utilizar, no hay realmente decisiones mejores que otra. Es la pregunta de investigación la que debe guiar la elección de la técnica, no al revés. 
+::: {.callout-warning}
+Antes de elegir `"greater"` o `"less"`: revise qué grupo corresponde a *Mean 1* y cuál a *Mean 2* en la salida de R. La dirección de la prueba se refiere a la diferencia **Mean 1 - Mean 2**, así que invertir el orden de los grupos invierte también el sentido de la hipótesis direccional.
 :::
 
 ::: {.callout-tip}
 
 ## Antes de seguir
 
-Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago, ¿usaríamos un intervalo de confianza o una prueba t? Si es una prueba t, ¿de una cola o de dos?
+Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago. Si es una prueba t, ¿de una cola o de dos?
 :::
 
 # Interpretación
@@ -249,19 +248,26 @@ rempsyc::nice_table(
 
 > Observamos que el ingreso de las mujeres sin hijos es diferente al de las mujeres con hijos, y que p es menor a 0.05. De tal modo, podemos comprobar que nuestra hipótesis es verdadera.
 
-¿Que está mal con esta interpretación?
+Antes de seguir, identifique al menos tres problemas en esta interpretación. Tome las siguientes preguntas como referencia:
+
+- ¿Describe adecuadamente los resultados observados?
+- ¿Presenta la evidencia inferencial necesaria?
+- ¿Informa su decisión respecto a $H_0$?
+- ¿Realmente comprueba que la hipótesis planteada es verdadera?
+
+Notarán que la interpretación propuesta no cumple varias de estas condiciones. A continuación, vamos dar algunas recomendaciones para una buena interpretación estadística y plantear una nueva interpretación. 
 
 **¿Qué debe tener una buena interpretación estadística?**
 
 1. **Resultado descriptivo**: qué se observó en la muestra y en qué dirección. El tamaño de la muestra, la media, la desviación estándar, la diferencia, etc., según corresponda. 
 2. **Resultado inferencial**: Mencionar de manera explícita las técnicas estadísticas utilizadas, reportando el estadístico que corresponda (el valor *t* en este caso), el valor *p* y el IC — reportados con sus valores, no solo mencionados.
-3. **Decisión estadística explícita**: se rechaza o no se rechaza $H_0$ o la $H_A$, y con qué $\alpha$.
+3. **Decisión estadística explícita**: se rechaza o no se rechaza $H_0$ y con qué $\alpha$.
 4. **Conclusión sustantiva**: Se debe responder la pregunta de investigación en lenguaje sociológico, no solo estadístico. 
 5. **Limitaciones**: Se debe tener claro el alcance de los hallazgos, evitando sobreinterpretaciones (por ejemplo, un p significativo pero un efecto pequeño) afirmaciones grandilocuentes del tipo "comprobamos que la hipótesis es verdadera" o "establecemos que x es la causa de y". 
 
 Teniendo en cuenta estas recomendaciones, volvemos a escribir la interpretación a los resultados. 
 
-> "Los datos muestran que existe una diferencia de &#36;115.265,96 entre los ingresos de las mujeres sin hijos ($\bar{x}_1$=706.113,65) y de las mujeres con hijos ($\bar{x}_2$=590.847,69). A través de una prueba t para diferencia de medias, se observó que esta diferencia es estadísticamente significativa al 95% de confianza (*t*=2,39; *df*=492,66; *p*=0.017, *CI*[20.564,30-209.967,62]). Por lo tanto, se rechaza la $H_0$ de igualdad de medias entre los ingresos de mujeres con hijos y mujeres sin hijos"
+> "Los datos muestran que existe una diferencia de &#36;115.265,96 entre los ingresos de las mujeres sin hijos ($\bar{x}_1$=706.113,65) y de las mujeres con hijos ($\bar{x}_2$=590.847,69). A través de una prueba t para diferencia de medias, se observó que esta diferencia es estadísticamente significativa al 95% de confianza (*t*=2,39; *df*=492,66; *p*=0.017, *CI*[20.564,30-209.967,62]). Por lo tanto, se rechaza la $H_0$ de igualdad de medias entre los ingresos de mujeres con hijos y mujeres sin hijos. Los datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos. Ahora bien, los datos no permiten concluir que tener hijos sea la causa de esa diferencia."
 
 ::: {.callout-important}
 ¿Qué interpretación sociológica le podemos dar estos hallazgos?
@@ -295,7 +301,7 @@ La prueba t de Welch para dos muestras que evalúa la diferencia en los ingresos
 
 
 ::: {.callout-note}
-**¿Por que `report` indica que la diferencia es pequeña?**
+**¿Por qué `report` indica que la diferencia es pequeña?**
 
 Porque estima un estadístico conocido como *d de Cohen* que permite estimar la **magnitud** del efecto. Se define como la diferencia entre las medias grupales divido por la desviación estándar agrupada de ambos grupos. 
 
@@ -305,7 +311,7 @@ Cohen (1988) indicó que:
 - d>0.5 son considerados medianos
 - d>0.8 son considerado grandes
 
-Por lo tanto, el efecto observado en este ejercicio (*d*=0.22) sería pequeño. 
+Por lo tanto, el efecto observado en este ejercicio (*d*=0.22) sería pequeño en relación a la desviación estándar observada.  
 :::
 
 # Ejercicios de Integración e Interpretación
@@ -318,7 +324,7 @@ Trabajaremos nuevamente con `proc_casen`, que se carga con el código de más ab
 load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"))
 ```
 
-Buscaremos responde dos preguntas de investigación. 
+Buscaremos responder dos preguntas de investigación. 
 
 1. ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?
 2. ¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?
@@ -327,15 +333,6 @@ Buscaremos responde dos preguntas de investigación.
 ### Pregunta 1
 
 > ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?
-
-**¿Es una pregunta de estimación o de comparación entre grupos?**
-
-Solo buscamos estimar la edad promedio de un grupo de personas (quienes necesitan ayuda para moverse). Por lo tanto, esta pregunta de investigación se puede responder solo observando sus intervalos de confianza. 
-
-
-::: {.callout-important}
-¿Se podría realizar un test de hipótesis en este caso? En estricto rigor, sí. Sin embargo, la conclusión que obtendríamos es que la edad promedio de las personas que necesitan ayuda para moverse en casa es distinta a 0. ¿Es ésta una conclusión informativa para nuestra pregunta de investigación?
-:::
 
 **Preparar los datos**
 
@@ -350,7 +347,9 @@ subset_1 <- proc_casen |>
 
 ```
 
-Como sabemos que vamos a necesitar el tamaño de la muestra, así como el promedio y la desviación estándar de `edad`, las calcularemos de inmediato:
+**Estadísticos descriptivos**
+
+Como sabemos que vamos a necesitar el tamaño de la muestra, así como el promedio y la desviación estándar de `edad`. 
 
 ```{r}
 
@@ -363,23 +362,8 @@ media_edad
 sd_edad
 ```
 
-Con esto ya tenemos una estimación puntual de la edad de las personas que necesitan ayuda para moverse en su casa: 73,15 años para nuestra muestra, con una desviación estándar de 18.79.
+Con esto ya tenemos una estimación puntual de la edad de las personas que necesitan ayuda para moverse en su casa: 73,15 años para nuestra muestra de 2364 casos, con una desviación estándar de 18.79.
 
-**Los 5 pasos de la inferencia estadística**
-
-*1. Formular Hipótesis*
-
-En este caso, nuestra hipótesis nula es que la edad promedio de las personas que necesitan ayuda para moverse en casa es igual a 0 en la población.
-
-$$
-H_0: \bar{x}_{edad} = 0
-$$
-
-En referencia a la siguiente hipótesis alternativa:
-
-$$
-H_a: \bar{x}_{edad} \ne 0
-$$
 **Calcular el error estándar**
 
 Recordemos que el error estándar del promedio está definido por:
@@ -400,11 +384,11 @@ se_edad
 
 El error estándar de la media de edad de 0.39 años.
 
-*Definir la probabilidad de error $\alpha$ y el valor crítico*
+**Definir la probabilidad de error $\alpha$ y el valor crítico**
 
 Seguiremos la convención de de $\alpha$=0.05, lo que se corresponde con el valor crítico de 1,96. 
 
-*Calcular el intervalo de confianza*
+**Calcular el intervalo de confianza**
 
 La formula del intervalo de confianza para el promedio es:
 
@@ -422,6 +406,9 @@ lim_superior <- media_edad + 1.96 * se_edad
 lim_inferior
 lim_superior
 ```
+
+Noten que en este ejercicio no es necesario realizar una prueba t, pues no estamos comparando grupos. Basta estimar de forma correcta un intervalo de confianza para responder la pregunta de investigación. 
+
 
 **Interpretación**
 
@@ -441,7 +428,7 @@ Lo de arriba es una interpretación estadística de los resultados. Para dar una
 
 **Procesar los datos**
 
-Ya hemos trabajado antes con la variable `ytrabajocor`, que indica los ingresos labores de los individuos. Identificaremos las personas con y sin discapacidad con la variable `disc_fisica`, que indica que 1=no tiene discapacidad y 2=tiene discapacidad. Vamos a limpiar los casos perdidos y ponerle etiquetas a `disc_fisica`
+Ya hemos trabajado antes con la variable `ytrabajocor`, que indica los ingresos laborales de los individuos. Identificaremos las personas con y sin discapacidad con la variable `disc_fisica`, que indica que 1=no tiene discapacidad y 2=tiene discapacidad. Vamos a limpiar los casos perdidos y ponerle etiquetas a `disc_fisica`
 
 ```{r}
 
@@ -475,16 +462,27 @@ subset_2 |>
   )
 ```
 
-¿Que podemos observar en esta tabla?
+¿Qué podemos observar en esta tabla?
 
 **Ejercicio autónomo**
 
 Para seguir, responda las siguientes preguntas:
 
-1. ¿Es una pregunta de estimación o de comparación entre grupos? ¿Qué técnica debemos utilizar?
-2. ¿Cuál es la hipótesis nula? ¿Y la alternativa?
-3. ¿La pregunta de investigación requiere de una hipótesis direccional o no direccional? ¿Por qué?
-4. Realice la inferencia y haga la interpretación de los resultados. 
+1. ¿Cuál es la hipótesis nula? ¿Y la alternativa?
+2. ¿La pregunta de investigación requiere de una hipótesis direccional o no direccional? ¿Por qué?
+3. Complete y ejecute la prueba
+
+```{r}
+#| eval: false
+#| 
+t.test(
+  ytrabajocor ~ disc_fisica,
+  data = subset_2,
+  alternative = "________"
+)
+```
+
+4. Interprete estadística y sociológicamente. 
 
 # Síntesis
 
