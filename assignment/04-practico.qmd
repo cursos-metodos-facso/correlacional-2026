@@ -106,8 +106,185 @@ pre.sourceCode code {
 
 </style>
 
+# Test para proporciones
 
-# Objetivo de la práctica
+Vamos a empezar este práctico revisando un último contenido pendiente: **Test para proporciones**. Hasta el momento, hemos realizado inferencias con medidas de tendencia central, fundamentalmente los promedios. Sin embargo, es posible también realizar inferencias sobre porcentajes y proporciones. La siguiente tabla ilustra ejemplos de hipótesis para proporciones y su diferencia con lo que he¿mos revisado hasta ahora
+
+|Tipo de hipótesis  | Hipótesis para media | Hipótesis para proporciones
+|------------------ | -------------------- | ---------------------------|
+|Hipótesis puntual | La escolaridad promedio de los chilenos es de 11,9 años| EL 20% de los chilenos asiste a la educación superior|
+|Hipótesis de diferencia | La escolaridad promedio de los hombres y las mujeres es diferente | Los hombres y las mujeres tienen un distinto porcentaje de educación superior|
+|Hipótesis direccional | La escolaridad promedio de las mujeres es mayor que la de los hombres | Un porcentaje mayor de mujeres que de hombres asiste a la educación superior|
+
+Como ven, podemos seguir trabajando con hipótesis puntuales, de diferencia y direccionales, tal como con las medias. Vamos a trabajar con la siguiente pregunta de investigación para ilustrarlo de forma práctica: ¿Existen diferencias de género en el porcentaje de hombres y mujeres con educación universitaria o más en Chile? Utilizaremos la variable `universitaria` presente en `proc_casen` que codifica como 0 a quienes no cuentan con educación universitaria y como 1 a quienes tienen educación universitaria o más (magíster, doctorado, postítulo, etc). 
+
+**Prepar los datos**
+```{r}
+
+# 1. Cargar los datos
+
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData"))
+
+# 2. Cargar paquetes
+
+if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
+library(pacman)
+
+p_load(sjmisc) # sjmisc y sjPlot son paquetes que nos permiten visualizar datos
+
+# 3. Etiquetar variables de interes
+
+# Etiquetamos la variable `universitaria`
+proc_casen$universitaria <- factor(
+  proc_casen$universitaria,
+  levels = c(0, 1),
+  labels = c(
+    "No universitaria",
+    "Universitaria"
+  )
+)
+
+# Etiquetamos la variable `sexo`
+proc_casen$sexo <- factor(
+  proc_casen$sexo,
+  levels = c(1, 2),
+  labels = c(
+    "Hombre",
+    "Mujer"
+  )
+)
+
+
+
+```
+
+Primero veamos las frecuencias relativas para el total de la muestra:
+
+```{r}
+sjmisc::frq(proc_casen$universitaria)
+```
+
+Podemos observar que el 24% de la muestra cuenta con educación universitaria. ¿Existen diferencias de genero? Revisemos la siguiente tabla
+
+```{r}
+
+flat_table(proc_casen, universitaria, sexo, margin = "col")
+```
+
+El porcentaje de mujeres con educación universitaria es del 25,51%, mientras que el de hombres es de 23,16%. Es decir, el porcentaje de mujeres con educación universitaria es un 2,35% superior que el de los hombres. Pero, ¿es esta diferencias estadísticamente significativa? En otras palabras, ¿existe está diferencia en la población?
+
+## Inferencia
+
+**Establecer las hipótesis**
+
+¿Existen diferencias entre el porcentaje de mujeres y hombres con nivel educacional universitario? En este caso tenemos una hipótesis no direccional, por lo que nuestras hipótesis serían: 
+
+$$
+H_a : p_{mujeres} - p_{hombres} \neq 0
+$$
+$$
+H_ 0: p_{mujeres} - p_{hombres} = 0
+$$
+**Calcular el error estándar**
+
+Este es el mayor cambio que implica pasar de medias a proporciones. Revisemos la formula para el error estándar de una proporción. 
+
+$$
+SE_p = \sqrt{\frac{p(1-p)}{n}}
+$$
+
+Donde *p* es la **proporción** observada en la muestra. Noten que $p(1-p)$ ocupa el lugar donde hasta ahora habíamos puesto la desviación estándar. Esto es porque la varianza de una proporción está definida por el producto entre la probabilidad de éxito *p* y la probabilidad de fracaso *1-p*. 
+
+En una proporción cada dato es un 0 (por ejemplo, no tiene educación universitaria) o 1 (tiene educación universitaria). Si la proporción está muy cerca de 0 o de 1, eso implica que los datos son muy similares entre sí -- o todos tienen educación universitaria o nadie tiene, por lo que su variabilidad es muy pequeña. En cambio, entre más se acerque la proporción de 0,5, los datos están más repartidos entre 0 y 1. Si la proporción es exactamente igual a 0,5, entonces estamos en el escenario de máxima variabilidad. 
+
+Para la diferencia de proporciones agregamos a la formula la varianza de cada grupo por separado: 
+
+$$
+SE_{p_1-p_2} = \sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}
+$$
+
+Veamoslos en R aplicado a nuestro caso: 
+
+```{r}
+
+p1 <- mean(proc_casen$universitaria[proc_casen$sexo == "Mujer"] == "Universitaria")
+p2 <- mean(proc_casen$universitaria[proc_casen$sexo == "Hombre"] == "Universitaria")
+n1 <- sum(proc_casen$sexo == "Mujer")
+n2 <- sum(proc_casen$sexo == "Hombre")
+
+# Para simplificar, vamos a separar la formula 
+se_p1 <- (p1*(1-p1))/n1
+se_p2 <- (p2*(1-p2))/n2
+
+# Sumamos y calculamos el error estándar
+
+se <- sqrt(se_p1+se_p2)
+se
+```
+
+El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. 
+
+**Intervalos de confianza**
+
+A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de proporciones, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:
+
+$$
+p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}
+$$
+
+Siguiendo nuestro ejemplo, y considerando un $\alpha$ de 0,05, que equivale a un Z de 1,96
+
+```{r}
+# Creamos un objeto con la diferencia
+dif_p <- p1-p2
+
+lim_inf <- dif_p - 1.96 * se
+lim_sup <- dif_p + 1.96 * se
+
+lim_inf
+
+lim_sup
+
+```
+
+Con un 95% de confianza podemos decir que la diferencia de proporción de educación universitaria entre hombres y mujeres se encuentra entre un 1,97% y un 2,72%
+
+**Inferencia en R**
+
+Para hacer la prueba t para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:
+
+```{r}
+
+x1 <- sum(proc_casen$universitaria[proc_casen$sexo == "Mujer"] == "Universitaria")
+x2 <- sum(proc_casen$universitaria[proc_casen$sexo == "Hombre"] == "Universitaria")
+```
+
+EL tamaño muestral de cada género los calculamos anteriormente y se encuentran en los objetos n1 y n2. Hacemos la prueba con `prop.test` e interpretamos los resultados. 
+
+```{r}
+# Prueba de proporciones de dos colas
+test <- prop.test(
+  x = c(x1, x2),
+  n = c(n1, n2),
+  alternative = "two.sided",
+  correct = FALSE)
+
+# Ordenamos los resultados en una tabla
+stats.table <- broom::tidy(
+  test,
+  conf.int = TRUE
+)
+
+# Presentamos la tabla en un formato más fácil de leer
+rempsyc::nice_table(stats.table)
+
+
+
+```
+
+La prueba arroja un estadístico t de 151,19. Como esta cifra es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. 
+
+# Integración e Interpretación
 
 Hasta ahora hemos aprendido, progresivamente:
 
@@ -123,6 +300,15 @@ A lo largo de esta unidad hemos trabajado bajo una misma lógica: rara vez tenem
 
 La estadística inferencial es, precisamente, el conjunto de herramientas que nos permite dar ese salto desde lo observado (la muestra) hacia lo que queremos conocer (la población), reconociendo al mismo tiempo que ese salto siempre conlleva un margen de error e incertidumbre. Antes de avanzar, repasemos brevemente los conceptos y herramientas que ya hemos construido para dar ese salto.
 
+# Los 5 pasos de la inferencia estadística
+
+| Paso | Detalle |
+|---|---|
+| 1 | Formula $H_0$ y $H_A$ y estipula la dirección de la prueba |
+| 2 | Calcula el error estándar (SE) y el valor estimado de la prueba |
+| 3 | Especifica la probabilidad de error $\alpha$ y el valor crítico |
+| 4 | Contrasta el valor estimado con el valor crítico |
+| 5 | Interpreta los resultados |
 
 ## Glosario
 
@@ -147,15 +333,11 @@ No se debe confundir error estándar con distribución estándar. Mientras que e
 
 **Hipótesis nula**: Escenario de referencia que plantea la ausencia de la diferencia o relación que queremos evaluar. Analizamos si los datos entregan evidencia suficiente para rechazarlo.. Se expresa como $H_0$
 
-## Los 5 pasos de la inferencia
+**Valor p**: La probabilidad de observar un resultado igual o más extremo que el obtenido, si H0 fuera verdadera
 
-| Paso | Detalle |
-|---|---|
-| 1 | Formula $H_0$ y $H_A$ y estipula la dirección de la prueba |
-| 2 | Calcula el error estándar (SE) y el valor estimado de la prueba |
-| 3 | Especifica la probabilidad de error $\alpha$ y el valor crítico |
-| 4 | Contrasta el valor estimado con el valor crítico |
-| 5 | Interpreta los resultados |
+**Alpha ($\alpha$)**: Es el umbral de probabilidad *p* que el investigador fija de antemano para decidir cuando un resultado se considera lo suficientemente improbable bajo $H_0$ como para rechazarla. Convencionalmente, este valor corresponde a 0,05. 
+
+**Valor crítico**: Es el punto en la distribución muestral del estadístico que limita la zona de rechazo sobber la cual consideramos que un valor poco probable si $H_0$ fuera verdadera. Se calcula a partir de $\alpha$ y de la distribución teórica correspondiente (t, normal, etc.)
 
 ## Dos colas o una cola?
 
