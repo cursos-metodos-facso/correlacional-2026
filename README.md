@@ -7,7 +7,7 @@ La página fue construida totalmente en Quarto.
 > [!IMPORTANT]  
 > Acceso a la página:
 
-[correlacional-2026.netlify.app](https://cursos-metodos-facso.github.io/correlacional-2026/)
+[https://correlacional.metodos-facso.org/]([https://cursos-metodos-facso.github.io/correlacional-2026/](https://correlacional.metodos-facso.org/))
 
 
 ## Versiones anteriores del curso
