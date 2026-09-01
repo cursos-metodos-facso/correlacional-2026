@@ -1,5 +1,5 @@
 ---
-title: "Integración e Interpretación de Inferencia"
+title: "Proporciones, integración e interpretación de inferencia"
 date: "2026-09-02"
 lang: es
 
@@ -106,9 +106,13 @@ pre.sourceCode code {
 
 </style>
 
+
+En este práctico vamos a partir revisando el test de diferencia de proporciones, que es análogo al test de diferencia de medias (con t) pero ahora comparamos distintos porcentajes en dos grupos. Luego, haremos una revisión de los contenidos de la primera unidad de Inferencia, y posteriormente ejercicios de integración e interpretación.
+
+
 # Test para proporciones
 
-Vamos a empezar este práctico revisando un último contenido pendiente: **Test para proporciones**. Hasta el momento, hemos realizado inferencias con medidas de tendencia central, fundamentalmente los promedios. Sin embargo, es posible también realizar inferencias sobre porcentajes y proporciones. La siguiente tabla ilustra ejemplos de hipótesis para proporciones y su diferencia con lo que he¿mos revisado hasta ahora
+Vamos a empezar este práctico revisando un último contenido pendiente de la primera unidad de curso: **Test para proporciones**. Hasta el momento, hemos realizado inferencias con medidas de tendencia central, fundamentalmente los promedios. Sin embargo, es posible también realizar inferencias sobre porcentajes y proporciones. La siguiente tabla ilustra ejemplos de hipótesis para proporciones y su diferencia con lo que he¿mos revisado hasta ahora
 
 |Tipo de hipótesis  | Hipótesis para media | Hipótesis para proporciones
 |------------------ | -------------------- | ---------------------------|
@@ -118,7 +122,7 @@ Vamos a empezar este práctico revisando un último contenido pendiente: **Test 
 
 Como ven, podemos seguir trabajando con hipótesis puntuales, de diferencia y direccionales, tal como con las medias. Vamos a trabajar con la siguiente pregunta de investigación para ilustrarlo de forma práctica: ¿Existen diferencias de género en el porcentaje de hombres y mujeres con educación universitaria o más en Chile? Utilizaremos la variable `universitaria` presente en `proc_casen` que codifica como 0 a quienes no cuentan con educación universitaria y como 1 a quienes tienen educación universitaria o más (magíster, doctorado, postítulo, etc). 
 
-**Prepar los datos**
+**Preparar los datos**
 ```{r}
 
 # 1. Cargar los datos
@@ -172,8 +176,6 @@ flat_table(proc_casen, universitaria, sexo, margin = "col")
 ```
 
 El porcentaje de mujeres con educación universitaria es del 25,51%, mientras que el de hombres es de 23,16%. Es decir, el porcentaje de mujeres con educación universitaria es un 2,35% superior que el de los hombres. Pero, ¿es esta diferencias estadísticamente significativa? En otras palabras, ¿existe está diferencia en la población?
-
-## Inferencia
 
 **Establecer las hipótesis**
 
@@ -249,7 +251,7 @@ lim_sup
 
 Con un 95% de confianza podemos decir que la diferencia de proporción de educación universitaria entre hombres y mujeres se encuentra entre un 1,97% y un 2,72%
 
-**Inferencia en R**
+**En R**
 
 Para hacer la prueba t para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:
 
@@ -284,23 +286,27 @@ rempsyc::nice_table(stats.table)
 
 La prueba arroja un estadístico t de 151,19. Como esta cifra es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. 
 
+::: {.callout-important}
+**Importante**: La prueba de proporciones direccional sigue la misma lógica que la prueba t para medias. La diferencia es que en vez de comparar medias, comparamos proporciones. Por lo tanto, si quisiéramos hacer una prueba direccional, por ejemplo, para evaluar si el porcentaje de mujeres con educación universitaria es mayor que el de hombres, bastaría con cambiar `alternative` a `"greater"` y la interpretación sería análoga a la que hemos hecho hasta ahora.
+:::
+
 # Integración e Interpretación
 
 Hasta ahora hemos aprendido, progresivamente:
 
-1. A calcular puntajes Z y errores estándar
+1. A calcular puntajes Z, t y errores estándar
 2. A calcular e interpretar intervalos de confianza
-3. A plantear y contrastar hipótesis direccionales y no direccionales
+3. A plantear y contrastar hipótesis direccionales y no direccionales de diferencia de medias y de proporciones
 
 El objetivo de esta sesión recurrir a estos aprendizajes e intergrarlos en nuestros análisis de datos sociales, lo cual implica tomar decisiones pertinentes, ejecutarlas en R, e interpretarlas **estadística y sociológicamente**
 
-# Repaso
+## Repaso
 
 A lo largo de esta unidad hemos trabajado bajo una misma lógica: rara vez tenemos acceso a la población completa que nos interesa estudiar, por lo que debemos conformarnos con observar una muestra de ella. A partir de esa muestra calculamos estadísticos — un promedio, una proporción, una diferencia de medias — pero nuestro verdadero interés nunca es la muestra en sí misma, sino lo que esos estadísticos nos permiten decir sobre los parámetros poblacionales, es decir, los valores reales (y desconocidos) que caracterizan a la población de la que esa muestra proviene. 
 
 La estadística inferencial es, precisamente, el conjunto de herramientas que nos permite dar ese salto desde lo observado (la muestra) hacia lo que queremos conocer (la población), reconociendo al mismo tiempo que ese salto siempre conlleva un margen de error e incertidumbre. Antes de avanzar, repasemos brevemente los conceptos y herramientas que ya hemos construido para dar ese salto.
 
-# Los 5 pasos de la inferencia estadística
+## Los 5 pasos de la inferencia estadística
 
 | Paso | Detalle |
 |---|---|
@@ -350,7 +356,7 @@ Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la 
 | ¿A < B? | $\mu_A - \mu_B < 0$ | `"less"` |
 
 ::: {.callout-warning}
-Antes de elegir `"greater"` o `"less"`: revise qué grupo corresponde a *Mean 1* y cuál a *Mean 2* en la salida de R. La dirección de la prueba se refiere a la diferencia **Mean 1 - Mean 2**, así que invertir el orden de los grupos invierte también el sentido de la hipótesis direccional.
+Antes de elegir `"greater"` o `"less"`: revise qué grupo corresponde a *Mean 1* y cuál a *Mean 2* en la salida de R. La dirección de la prueba se refiere a la diferencia **Mean 1 - Mean 2**, así que invertir el orden de los grupos invierte también el sentido de la hipótesis.
 :::
 
 ::: {.callout-tip}
@@ -360,7 +366,7 @@ Antes de elegir `"greater"` o `"less"`: revise qué grupo corresponde a *Mean 1*
 Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago. Si es una prueba t, ¿de una cola o de dos?
 :::
 
-# Interpretación
+## Interpretación
 
 Hasta ahora,  nos hemos enfocado en entender y aplicar conceptos claves en la estadística inferencial. Sin embargo, tan importante como eso es **interpretar y reportar** correctamente los hallazgos que entreguen las pruebas estadísticas. Por ejemplo, observemos la siguiente interpretación a la pregunta planteada en el [práctico 3](03-practico.qmd): ¿Existen diferencias entre los ingresos laborales promedio de las mujeres con hijos y las mujeres sin hijos?
 
@@ -556,7 +562,6 @@ $$
 
 En R, esto se calcularía así:
 
-
 ```{r}
 
 se_edad <- sd_edad/sqrt(n_edad)
@@ -668,4 +673,6 @@ t.test(
 
 # Síntesis
 
-Hoy integramos lo aprendido en sesiones anteriores: decidir entre estimación (IC) y comparación de grupos (prueba t), elegir la dirección de la hipótesis, ejecutar el análisis en R, e interpretar los resultados de manera correcta. El dominio de estas herramientas nos permite pasar desde la mera descripción de una muestra a ser capaces de inferir y sacar conclusiones sobre la población de estudio. En la sociología, utilizamos estás técnicas para generar conocimiento conocimiento sobre la sociedad basada en evidencia estadística. 
+Hoy integramos lo aprendido en sesiones anteriores: estimación de intervalo de confianza y contraste con valor crítico para diferencia de medias (prueba t) y de proporciones (Z). Además, vimos la dirección de la hipótesis, ejecutar el análisis en R, e interpretar los resultados de manera correcta. 
+
+El dominio de estas herramientas nos permite pasar desde la mera descripción de una muestra a ser capaces de inferir y sacar conclusiones sobre la población de estudio. En la sociología, utilizamos estás técnicas para generar conocimiento sobre la sociedad basada en evidencia estadística. 
