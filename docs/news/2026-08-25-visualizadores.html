@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Visualizadores test de hipótesis – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<meta property="og:title" content="Visualizadores test de hipótesis – Estadística Correlacional">
+<meta property="og:description" content="Visualizadores interactivos para test de diferencia de medias y proporciones.">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/news/images/visualizador.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+<meta property="og:image:height" content="631">
+<meta property="og:image:width" content="1089">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#visualizador-para-test-de-diferencia-de-medias" id="toc-visualizador-para-test-de-diferencia-de-medias" class="nav-link active" data-scroll-target="#visualizador-para-test-de-diferencia-de-medias">Visualizador para test de diferencia de medias</a></li>
+  <li><a href="#visualizador-para-test-de-diferencia-de-proporciones" id="toc-visualizador-para-test-de-diferencia-de-proporciones" class="nav-link" data-scroll-target="#visualizador-para-test-de-diferencia-de-proporciones">Visualizador para test de diferencia de proporciones</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<div class="back-nav"><a href="../news/">← News</a></div>
+
+<header id="title-block-header" class="news quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Visualizadores test de hipótesis</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">info</div>
+    <div class="quarto-category">recursos</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Visualizadores interactivos para test de diferencia de medias y proporciones.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Posted</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Monday August 31, 2026 at 12:00 AM</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="visualizador-para-test-de-diferencia-de-medias" class="level1">
+<h1>Visualizador para test de diferencia de medias</h1>
+<div class="ttest-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
+  <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
+    <label>grados de libertad (df): <input type="range" id="tt-df" min="1" max="300" value="20" style="vertical-align:middle;"> <span id="tt-df-val">20</span></label>
+    <label>α (significancia): <input type="range" id="tt-alpha" min="0.001" max="0.5" step="0.001" value="0.05" style="vertical-align:middle;"> <span id="tt-alpha-val">0.05</span></label>
+    <label>t empírico: <input type="range" id="tt-tval" min="-6" max="6" step="0.01" value="1.62" style="vertical-align:middle;"> <span id="tt-tval-val">1.62</span></label>
+  </div>
+  <div style="margin-bottom:0.4em;">
+    <label style="margin-right:1.5em;"><input type="radio" name="tt-tail" value="two" checked=""> H1: μ ≠ μ0 (dos colas)</label>
+    <label style="margin-right:1.5em;"><input type="radio" name="tt-tail" value="less"> H1: μ &lt; μ0</label>
+    <label><input type="radio" name="tt-tail" value="greater"> H1: μ &gt; μ0</label>
+  </div>
+  <div id="tt-plot" style="width:100%; height:420px;"></div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script>
+(function() {
+  function gammaln(xx) {
+    var cof = [76.18009172947146,-86.50532032941677,24.01409824083091,
+               -1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+    var x = xx, y = xx;
+    var tmp = x + 5.5;
+    tmp -= (x + 0.5) * Math.log(tmp);
+    var ser = 1.000000000190015;
+    for (var j = 0; j <= 5; j++) { y += 1; ser += cof[j] / y; }
+    return -tmp + Math.log(2.5066282746310005 * ser / x);
+  }
+
+  function betacf(x, a, b) {
+    var MAXIT = 200, EPS = 3e-7, FPMIN = 1e-30;
+    var qab = a + b, qap = a + 1, qam = a - 1;
+    var c = 1, d = 1 - qab * x / qap;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    d = 1 / d;
+    var h = d;
+    for (var m = 1; m <= MAXIT; m++) {
+      var m2 = 2 * m;
+      var aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+      d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+      c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+      d = 1 / d; h *= d * c;
+      aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+      d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+      c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+      d = 1 / d;
+      var del = d * c; h *= del;
+      if (Math.abs(del - 1) < EPS) break;
+    }
+    return h;
+  }
+
+  function betai(x, a, b) {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    var bt = Math.exp(gammaln(a + b) - gammaln(a) - gammaln(b) +
+                       a * Math.log(x) + b * Math.log(1 - x));
+    if (x < (a + 1) / (a + b + 2)) return bt * betacf(x, a, b) / a;
+    else return 1 - bt * betacf(1 - x, b, a) / b;
+  }
+
+  function tcdf(t, df) {
+    var x = df / (df + t * t);
+    var p = betai(x, df / 2, 0.5);
+    return t > 0 ? 1 - 0.5 * p : 0.5 * p;
+  }
+
+  function upperTail(t, df) { return 1 - tcdf(t, df); }
+
+  function findCritT(targetUpper, df) {
+    var lo = 0, hi = 100;
+    for (var i = 0; i < 100; i++) {
+      var mid = (lo + hi) / 2;
+      if (upperTail(mid, df) > targetUpper) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function tpdf(t, df) {
+    var logC = gammaln((df + 1) / 2) - gammaln(df / 2) - 0.5 * Math.log(df * Math.PI);
+    return Math.exp(logC) * Math.pow(1 + (t * t) / df, -(df + 1) / 2);
+  }
+
+  var elDf = document.getElementById('tt-df');
+  var elAlpha = document.getElementById('tt-alpha');
+  var elTval = document.getElementById('tt-tval');
+  var elDfVal = document.getElementById('tt-df-val');
+  var elAlphaVal = document.getElementById('tt-alpha-val');
+  var elTvalVal = document.getElementById('tt-tval-val');
+  var plotDiv = document.getElementById('tt-plot');
+
+  function getTail() {
+    var radios = document.getElementsByName('tt-tail');
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
+    return 'two';
+  }
+
+  function render() {
+    var df = parseInt(elDf.value, 10);
+    var alpha = parseFloat(elAlpha.value);
+    var tval = parseFloat(elTval.value);
+    var tail = getTail();
+    elDfVal.textContent = df;
+    elAlphaVal.textContent = alpha.toFixed(3);
+    elTvalVal.textContent = tval.toFixed(2);
+
+    var xs = [], ys = [];
+    for (var x = -6; x <= 6; x += 0.03) { xs.push(x); ys.push(tpdf(x, df)); }
+
+    var critPos, critNeg, rejectRegions = [], pVal, reject, comparisonText;
+
+    if (tail === 'two') {
+      critPos = findCritT(alpha / 2, df);
+      critNeg = -critPos;
+      rejectRegions.push([-6, critNeg]);
+      rejectRegions.push([critPos, 6]);
+      pVal = 2 * upperTail(Math.abs(tval), df);
+      reject = Math.abs(tval) >= critPos;
+      comparisonText = '|t| = ' + Math.abs(tval).toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else if (tail === 'greater') {
+      critPos = findCritT(alpha, df);
+      critNeg = null;
+      rejectRegions.push([critPos, 6]);
+      pVal = upperTail(tval, df);
+      reject = tval >= critPos;
+      comparisonText = 't = ' + tval.toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else {
+      critNeg = -findCritT(alpha, df);
+      critPos = null;
+      rejectRegions.push([-6, critNeg]);
+      pVal = tcdf(tval, df);
+      reject = tval <= critNeg;
+      comparisonText = 't = ' + tval.toFixed(3) + (reject ? ' ≤ ' : ' > ') + critNeg.toFixed(3);
+    }
+
+    var traces = [{
+      x: xs, y: ys, type: 'scatter', mode: 'lines',
+      line: { color: '#2c7fb8', width: 2 }, name: 'distribución t', hoverinfo: 'skip'
+    }];
+
+    rejectRegions.forEach(function(region) {
+      var rx = [], ry = [];
+      for (var x = region[0]; x <= region[1]; x += 0.03) { rx.push(x); ry.push(tpdf(x, df)); }
+      traces.push({
+        x: rx, y: ry, type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(34,139,34,0.35)',
+        line: { color: 'rgba(34,139,34,0.6)', width: 1 },
+        name: 'zona de rechazo', hoverinfo: 'skip', showlegend: false
+      });
+    });
+
+    var shapes = [];
+    var maxY = Math.max.apply(null, ys) * 1.15;
+    [critPos, critNeg].forEach(function(cv) {
+      if (cv === null) return;
+      shapes.push({
+        type: 'line', x0: cv, x1: cv, y0: 0, y1: maxY,
+        line: { color: '#d62728', width: 2, dash: 'dash' }
+      });
+    });
+    shapes.push({
+      type: 'line', x0: tval, x1: tval, y0: 0, y1: maxY,
+      line: { color: '#111', width: 2, dash: 'dash' }
+    });
+
+    var annotations = [{
+      x: 0, y: maxY, xref: 'x', yref: 'y', showarrow: false, yanchor: 'bottom',
+      text: 'df = ' + df + ',  α = ' + alpha.toFixed(3),
+      font: { size: 13 }
+    }, {
+      x: (critNeg !== null ? critNeg : critPos), y: maxY * 0.9, xref: 'x', yref: 'y',
+      showarrow: false, font: { size: 11, color: '#d62728' },
+      text: 't crítico = ' + (critPos !== null ? critPos.toFixed(3) : critNeg.toFixed(3))
+    }, {
+      x: tval, y: maxY * 0.55, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 11, color: '#111' }, xanchor: tval >= 0 ? 'left' : 'right',
+      text: 't = ' + tval.toFixed(3)
+    }, {
+      x: -4.8, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 20, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + (reject ? 'Se rechaza H0' : 'No se rechaza H0') + '</b>'
+    }, {
+      x: 4.8, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 18, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + comparisonText + '<br>p = ' + pVal.toFixed(4) + '</b>'
+    }];
+
+    var layout = {
+      margin: { l: 40, r: 20, t: 25, b: 30 },
+      xaxis: { range: [-6, 6], title: 't' },
+      yaxis: { range: [0, maxY], title: 'densidad' },
+      shapes: shapes,
+      annotations: annotations,
+      showlegend: false
+    };
+
+    Plotly.react(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+  }
+
+  elDf.addEventListener('input', render);
+  elAlpha.addEventListener('input', render);
+  elTval.addEventListener('input', render);
+  var radios = document.getElementsByName('tt-tail');
+  for (var i = 0; i < radios.length; i++) radios[i].addEventListener('change', render);
+
+  render();
+})();
+</script>
+</section>
+<section id="visualizador-para-test-de-diferencia-de-proporciones" class="level1">
+<h1>Visualizador para test de diferencia de proporciones</h1>
+<div class="pp-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
+  <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
+    <label>p1: <input type="range" id="pp-p1" min="0.01" max="0.99" step="0.001" value="0.297" style="vertical-align:middle;"> <span id="pp-p1-val">0.297</span></label>
+    <label>n1: <input type="range" id="pp-n1" min="10" max="30000" step="1" value="7603" style="vertical-align:middle;"> <span id="pp-n1-val">7603</span></label>
+    <label>p2: <input type="range" id="pp-p2" min="0.01" max="0.99" step="0.001" value="0.214" style="vertical-align:middle;"> <span id="pp-p2-val">0.214</span></label>
+    <label>n2: <input type="range" id="pp-n2" min="10" max="30000" step="1" value="6818" style="vertical-align:middle;"> <span id="pp-n2-val">6818</span></label>
+    <label>α (significancia): <input type="range" id="pp-alpha" min="0.001" max="0.5" step="0.001" value="0.05" style="vertical-align:middle;"> <span id="pp-alpha-val">0.05</span></label>
+  </div>
+  <div style="margin-bottom:0.4em;">
+    <label style="margin-right:1.5em;"><input type="radio" name="pp-tail" value="two" checked=""> H1: p1 ≠ p2 (dos colas)</label>
+    <label style="margin-right:1.5em;"><input type="radio" name="pp-tail" value="less"> H1: p1 &lt; p2</label>
+    <label><input type="radio" name="pp-tail" value="greater"> H1: p1 &gt; p2</label>
+  </div>
+  <div id="pp-plot" style="width:100%; height:420px;"></div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script>
+(function() {
+  function erf(x) {
+    var sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    var a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741,
+        a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+    var t = 1 / (1 + p * x);
+    var y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+
+  function normCDF(z) { return 0.5 * (1 + erf(z / Math.SQRT2)); }
+  function normPDF(z) { return Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI); }
+  function upperTail(z) { return 1 - normCDF(z); }
+
+  function findCritZ(targetUpper) {
+    var lo = 0, hi = 10;
+    for (var i = 0; i < 100; i++) {
+      var mid = (lo + hi) / 2;
+      if (upperTail(mid) > targetUpper) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  var elP1 = document.getElementById('pp-p1');
+  var elN1 = document.getElementById('pp-n1');
+  var elP2 = document.getElementById('pp-p2');
+  var elN2 = document.getElementById('pp-n2');
+  var elAlpha = document.getElementById('pp-alpha');
+  var elP1Val = document.getElementById('pp-p1-val');
+  var elN1Val = document.getElementById('pp-n1-val');
+  var elP2Val = document.getElementById('pp-p2-val');
+  var elN2Val = document.getElementById('pp-n2-val');
+  var elAlphaVal = document.getElementById('pp-alpha-val');
+  var plotDiv = document.getElementById('pp-plot');
+
+  function getTail() {
+    var radios = document.getElementsByName('pp-tail');
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
+    return 'two';
+  }
+
+  function render() {
+    var p1 = parseFloat(elP1.value);
+    var n1 = parseInt(elN1.value, 10);
+    var p2 = parseFloat(elP2.value);
+    var n2 = parseInt(elN2.value, 10);
+    var alpha = parseFloat(elAlpha.value);
+    var tail = getTail();
+    elP1Val.textContent = p1.toFixed(3);
+    elN1Val.textContent = n1;
+    elP2Val.textContent = p2.toFixed(3);
+    elN2Val.textContent = n2;
+    elAlphaVal.textContent = alpha.toFixed(3);
+
+    var se = Math.sqrt(p1 * (1 - p1) / n1 + p2 * (1 - p2) / n2);
+    var zest = (p1 - p2) / se;
+
+    var xs = [], ys = [];
+    for (var x = -5; x <= 5; x += 0.03) { xs.push(x); ys.push(normPDF(x)); }
+
+    var critPos, critNeg, rejectRegions = [], pVal, reject, comparisonText;
+
+    if (tail === 'two') {
+      critPos = findCritZ(alpha / 2);
+      critNeg = -critPos;
+      rejectRegions.push([-5, critNeg]);
+      rejectRegions.push([critPos, 5]);
+      pVal = 2 * upperTail(Math.abs(zest));
+      reject = Math.abs(zest) >= critPos;
+      comparisonText = '|Z| = ' + Math.abs(zest).toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else if (tail === 'greater') {
+      critPos = findCritZ(alpha);
+      critNeg = null;
+      rejectRegions.push([critPos, 5]);
+      pVal = upperTail(zest);
+      reject = zest >= critPos;
+      comparisonText = 'Z = ' + zest.toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else {
+      critNeg = -findCritZ(alpha);
+      critPos = null;
+      rejectRegions.push([-5, critNeg]);
+      pVal = normCDF(zest);
+      reject = zest <= critNeg;
+      comparisonText = 'Z = ' + zest.toFixed(3) + (reject ? ' ≤ ' : ' > ') + critNeg.toFixed(3);
+    }
+
+    var traces = [{
+      x: xs, y: ys, type: 'scatter', mode: 'lines',
+      line: { color: '#2c7fb8', width: 2 }, name: 'distribución Z', hoverinfo: 'skip'
+    }];
+
+    rejectRegions.forEach(function(region) {
+      var rx = [], ry = [];
+      for (var x = region[0]; x <= region[1]; x += 0.03) { rx.push(x); ry.push(normPDF(x)); }
+      traces.push({
+        x: rx, y: ry, type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(34,139,34,0.35)',
+        line: { color: 'rgba(34,139,34,0.6)', width: 1 },
+        name: 'zona de rechazo', hoverinfo: 'skip', showlegend: false
+      });
+    });
+
+    var shapes = [];
+    var maxY = Math.max.apply(null, ys) * 1.15;
+    [critPos, critNeg].forEach(function(cv) {
+      if (cv === null) return;
+      shapes.push({
+        type: 'line', x0: cv, x1: cv, y0: 0, y1: maxY,
+        line: { color: '#d62728', width: 2, dash: 'dash' }
+      });
+    });
+    var zClamped = Math.max(-5, Math.min(5, zest));
+    var zWasClamped = zClamped !== zest;
+    shapes.push({
+      type: 'line', x0: zClamped, x1: zClamped, y0: 0, y1: maxY,
+      line: { color: '#111', width: 2, dash: 'dash' }
+    });
+
+    var annotations = [{
+      x: 0, y: maxY, xref: 'x', yref: 'y', showarrow: false, yanchor: 'bottom',
+      text: 'SE = ' + se.toFixed(4) + ',  α = ' + alpha.toFixed(3),
+      font: { size: 13 }
+    }, {
+      x: (critNeg !== null ? critNeg : critPos), y: maxY * 0.9, xref: 'x', yref: 'y',
+      showarrow: false, font: { size: 11, color: '#d62728' },
+      text: 'Z crítico = ' + (critPos !== null ? critPos.toFixed(3) : critNeg.toFixed(3))
+    }, {
+      x: zClamped, y: maxY * 0.55, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 11, color: '#111' },
+      xanchor: zWasClamped ? (zClamped >= 0 ? 'right' : 'left') : (zClamped >= 0 ? 'left' : 'right'),
+      text: 'Z = ' + zest.toFixed(3)
+    }, {
+      x: -3.9, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 20, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + (reject ? 'Se rechaza H0' : 'No se rechaza H0') + '</b>'
+    }, {
+      x: 3.9, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 18, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + comparisonText + '<br>p = ' + pVal.toFixed(4) + '</b>'
+    }];
+
+    var layout = {
+      margin: { l: 40, r: 20, t: 25, b: 30 },
+      xaxis: { range: [-5, 5], title: 'Z' },
+      yaxis: { range: [0, maxY], title: 'densidad' },
+      shapes: shapes,
+      annotations: annotations,
+      showlegend: false
+    };
+
+    Plotly.react(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+  }
+
+  elP1.addEventListener('input', render);
+  elN1.addEventListener('input', render);
+  elP2.addEventListener('input', render);
+  elN2.addEventListener('input', render);
+  elAlpha.addEventListener('input', render);
+  var radios = document.getElementsByName('pp-tail');
+  for (var i = 0; i < radios.length; i++) radios[i].addEventListener('change', render);
+
+  render();
+})();
+</script>
+
+
+</section>
+
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
+
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+  <i class="bi bi-chevron-left"></i>
+</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ========================================================
+     ELEMENTOS
+     ======================================================== */
+
+  const esPracticos =
+    window.location.pathname.includes("/assignment/");
+
+  const boton =
+    document.getElementById("practicos-sidebar-toggle");
+
+  const zona =
+    document.getElementById("practicos-sidebar-hover-zone");
+
+  const sidebar =
+    document.getElementById("quarto-sidebar");
+
+  if (!esPracticos || !sidebar || !boton || !zona) {
+
+    if (boton) {
+      boton.style.display = "none";
+    }
+
+    if (zona) {
+      zona.style.display = "none";
+    }
+
+    return;
+  }
+
+
+  const body = document.body;
+
+  let abiertoTemporalmente = false;
+  let temporizadorCierre = null;
+
+
+  /* ========================================================
+     POSICIÓN DE LA PESTAÑITA
+     ======================================================== */
+
+  function actualizarPosicion() {
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    if (cerrado) {
+
+      /*
+       * Menú cerrado:
+       * la pestañita queda en el borde izquierdo
+       * de la pantalla.
+       */
+      boton.style.left = "0px";
+
+    } else {
+
+      /*
+       * IMPORTANTE:
+       * usamos offsetWidth en vez de
+       * getBoundingClientRect().right.
+       *
+       * De esta forma la posición no depende
+       * del transform de la animación.
+       */
+      const anchoSidebar = sidebar.offsetWidth;
+
+      /*
+       * -2 px hace que quede ligeramente
+       * montada sobre el borde del menú,
+       * evitando una pequeña separación visual.
+       */
+      boton.style.left =
+        (anchoSidebar - 2) + "px";
+    }
+  }
+
+
+  /* ========================================================
+     ACTUALIZAR ICONO
+     ======================================================== */
+
+  function mostrarIconoAbierto() {
+
+    boton.innerHTML =
+      '<i class="bi bi-chevron-left"></i>';
+
+    boton.setAttribute(
+      "aria-label",
+      "Ocultar menú de prácticos"
+    );
+
+    boton.title =
+      "Ocultar menú";
+  }
+
+
+  function mostrarIconoCerrado() {
+
+    boton.innerHTML =
+      '<i class="bi bi-chevron-right"></i>';
+
+    boton.setAttribute(
+      "aria-label",
+      "Mostrar menú de prácticos"
+    );
+
+    boton.title =
+      "Mostrar menú";
+  }
+
+
+  /* ========================================================
+     MOSTRAR SIDEBAR
+     ======================================================== */
+
+  function mostrarSidebar(temporal = false) {
+
+    clearTimeout(temporizadorCierre);
+
+    body.classList.remove(
+      "practicos-sidebar-cerrado"
+    );
+
+    mostrarIconoAbierto();
+
+    abiertoTemporalmente = temporal;
+
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
+
+
+  /* ========================================================
+     OCULTAR SIDEBAR
+     ======================================================== */
+
+  function ocultarSidebar(guardar = false) {
+
+    clearTimeout(temporizadorCierre);
+
+    body.classList.add(
+      "practicos-sidebar-cerrado"
+    );
+
+    mostrarIconoCerrado();
+
+    abiertoTemporalmente = false;
+
+    if (guardar) {
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "cerrado"
+      );
+    }
+
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
+
+
+  /* ========================================================
+     CLICK EN LA PESTAÑITA
+     ======================================================== */
+
+/* ========================================================
+   CLICK EN LA PESTAÑITA
+   ======================================================== */
+
+boton.addEventListener("click", function () {
+
+  clearTimeout(temporizadorCierre);
+
+  const cerrado =
+    body.classList.contains(
+      "practicos-sidebar-cerrado"
+    );
+
+  /*
+   * Si está cerrado:
+   * un clic lo abre permanentemente.
+   */
+  if (cerrado) {
+
+    mostrarSidebar(false);
+
+    localStorage.setItem(
+      "practicos-sidebar",
+      "abierto"
+    );
+
+  } else {
+
+    /*
+     * Si está visible, ya sea porque:
+     * - estaba abierto normalmente, o
+     * - apareció temporalmente mediante hover,
+     *
+     * un solo clic lo cierra.
+     */
+    ocultarSidebar(true);
+  }
+
+});
+  /* ========================================================
+     HOVER EN EL BORDE IZQUIERDO
+     ======================================================== */
+
+  zona.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    if (cerrado) {
+
+      /*
+       * Lo mostramos temporalmente,
+       * sin cambiar la preferencia guardada.
+       */
+      mostrarSidebar(true);
+    }
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     SALIR DEL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseleave", function () {
+
+    /*
+     * Solo cerramos automáticamente
+     * si fue abierto mediante hover.
+     */
+    if (!abiertoTemporalmente) {
+      return;
+    }
+
+    temporizadorCierre =
+      setTimeout(function () {
+
+        ocultarSidebar(false);
+
+      }, 500);
+  });
+
+
+  /* ========================================================
+     SI EL MOUSE ENTRA EN EL BOTÓN
+     ======================================================== */
+
+  boton.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     ESTADO INICIAL
+     ======================================================== */
+
+  const estadoGuardado =
+    localStorage.getItem(
+      "practicos-sidebar"
+    );
+
+  if (estadoGuardado === "cerrado") {
+
+    ocultarSidebar(false);
+
+  } else {
+
+    mostrarSidebar(false);
+  }
+
+
+  /* ========================================================
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+     ======================================================== */
+
+  window.addEventListener(
+    "resize",
+    actualizarPosicion
+  );
+
+
+  /* ========================================================
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
+     Esto evita que después de abrir/cerrar
+     la flecha termine dentro del sidebar.
+     ======================================================== */
+
+  sidebar.addEventListener(
+    "transitionend",
+    actualizarPosicion
+  );
+
+
+  /* También esperamos el cambio de la grilla de Quarto */
+
+  const contenido =
+    document.getElementById("quarto-content");
+
+  if (contenido) {
+
+    contenido.addEventListener(
+      "transitionend",
+      actualizarPosicion
+    );
+  }
+
+
+  /* ========================================================
+     AJUSTE FINAL DESPUÉS DE CARGAR
+     ======================================================== */
+
+  requestAnimationFrame(function () {
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  });
+
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

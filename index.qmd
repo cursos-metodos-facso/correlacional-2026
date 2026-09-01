@@ -31,6 +31,137 @@ listing:
 ```
 
 
+## Últimas informaciones
+
+::: {#informaciones}
+:::
+
+```{=html}
+<style>
+#informaciones-carousel-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+#informaciones-carousel-nav button.arrow {
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+}
+#informaciones-carousel-nav button.arrow:hover {
+  background: #f0f0f0;
+}
+#informaciones-carousel-dots {
+  display: flex;
+  gap: 0.4rem;
+}
+#informaciones-carousel-dots .dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  border-radius: 50%;
+  background: #ccc;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+#informaciones-carousel-dots .dot.active {
+  background: #333;
+}
+#listing-informaciones .list {
+  transition: opacity 0.25s ease;
+}
+</style>
+
+<div id="informaciones-carousel-nav">
+  <button class="arrow" id="informaciones-prev" aria-label="Anterior">&#8249;</button>
+  <div id="informaciones-carousel-dots"></div>
+  <button class="arrow" id="informaciones-next" aria-label="Siguiente">&#8250;</button>
+</div>
+
+<script>
+(function() {
+  var PAGE_SIZE = 3;
+  var INTERVAL_MS = 6000;
+  var current = 0;
+  var pages = [];
+  var timer = null;
+
+  function showPage(idx) {
+    pages.forEach(function(pageItems, i) {
+      pageItems.forEach(function(el) { el.style.display = i === idx ? '' : 'none'; });
+    });
+    var dots = document.querySelectorAll('#informaciones-carousel-dots .dot');
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === idx); });
+    current = idx;
+  }
+
+  var hovering = false;
+
+  function startTimer() {
+    if (pages.length <= 1 || hovering) return;
+    stopTimer();
+    timer = setInterval(function() { showPage((current + 1) % pages.length); }, INTERVAL_MS);
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+
+  function init() {
+    var container = document.querySelector('#listing-informaciones .list');
+    var navEl = document.getElementById('informaciones-carousel-nav');
+    if (!container) { if (navEl) navEl.style.display = 'none'; return; }
+
+    var items = Array.prototype.slice.call(container.children);
+    if (items.length <= PAGE_SIZE) { navEl.style.display = 'none'; return; }
+
+    for (var i = 0; i < items.length; i += PAGE_SIZE) {
+      pages.push(items.slice(i, i + PAGE_SIZE));
+    }
+
+    var dotsWrap = document.getElementById('informaciones-carousel-dots');
+    pages.forEach(function(_, idx) {
+      var dot = document.createElement('button');
+      dot.className = 'dot' + (idx === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', 'Página ' + (idx + 1));
+      dot.addEventListener('click', function() { showPage(idx); startTimer(); });
+      dotsWrap.appendChild(dot);
+    });
+
+    showPage(0);
+    startTimer();
+
+    document.getElementById('informaciones-prev').addEventListener('click', function() {
+      showPage((current - 1 + pages.length) % pages.length); startTimer();
+    });
+    document.getElementById('informaciones-next').addEventListener('click', function() {
+      showPage((current + 1) % pages.length); startTimer();
+    });
+
+    var wrapEl = document.getElementById('listing-informaciones');
+    [navEl, wrapEl].forEach(function(el) {
+      el.addEventListener('mouseenter', function() { hovering = true; stopTimer(); });
+      el.addEventListener('mouseleave', function() { hovering = false; startTimer(); });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+```
+
+Más informaciones [aquí](/news/).
+
+----
+
 ::: {.home}
 
 ::: {.grid .course-details}
@@ -242,10 +373,7 @@ listing:
 
 :::
 
-## Últimas informaciones
 
-::: {#informaciones}
-:::
 
 ## Versiones anteriores del curso
 

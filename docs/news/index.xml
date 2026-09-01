@@ -9,8 +9,424 @@
 <link>https://correlacional.metodos-facso.org/news/</link>
 <atom:link href="https://correlacional.metodos-facso.org/news/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
-<generator>quarto-1.9.38</generator>
-<lastBuildDate>Tue, 25 Aug 2026 04:00:00 GMT</lastBuildDate>
+<generator>quarto-1.7.33</generator>
+<lastBuildDate>Mon, 31 Aug 2026 04:00:00 GMT</lastBuildDate>
+<item>
+  <title>Visualizadores test de hipótesis</title>
+  <link>https://correlacional.metodos-facso.org/news/2026-08-25-visualizadores.html</link>
+  <description><![CDATA[ 
+
+<div class="back-nav"><a href="../news/">← News</a></div>
+
+
+
+
+<section id="visualizador-para-test-de-diferencia-de-medias" class="level1">
+<h1>Visualizador para test de diferencia de medias</h1>
+<div class="ttest-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
+  <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
+    <label>grados de libertad (df): <input type="range" id="tt-df" min="1" max="300" value="20" style="vertical-align:middle;"> <span id="tt-df-val">20</span></label>
+    <label>α (significancia): <input type="range" id="tt-alpha" min="0.001" max="0.5" step="0.001" value="0.05" style="vertical-align:middle;"> <span id="tt-alpha-val">0.05</span></label>
+    <label>t empírico: <input type="range" id="tt-tval" min="-6" max="6" step="0.01" value="1.62" style="vertical-align:middle;"> <span id="tt-tval-val">1.62</span></label>
+  </div>
+  <div style="margin-bottom:0.4em;">
+    <label style="margin-right:1.5em;"><input type="radio" name="tt-tail" value="two" checked=""> H1: μ ≠ μ0 (dos colas)</label>
+    <label style="margin-right:1.5em;"><input type="radio" name="tt-tail" value="less"> H1: μ &lt; μ0</label>
+    <label><input type="radio" name="tt-tail" value="greater"> H1: μ &gt; μ0</label>
+  </div>
+  <div id="tt-plot" style="width:100%; height:420px;"></div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script>
+(function() {
+  function gammaln(xx) {
+    var cof = [76.18009172947146,-86.50532032941677,24.01409824083091,
+               -1.231739572450155,0.1208650973866179e-2,-0.5395239384953e-5];
+    var x = xx, y = xx;
+    var tmp = x + 5.5;
+    tmp -= (x + 0.5) * Math.log(tmp);
+    var ser = 1.000000000190015;
+    for (var j = 0; j <= 5; j++) { y += 1; ser += cof[j] / y; }
+    return -tmp + Math.log(2.5066282746310005 * ser / x);
+  }
+
+  function betacf(x, a, b) {
+    var MAXIT = 200, EPS = 3e-7, FPMIN = 1e-30;
+    var qab = a + b, qap = a + 1, qam = a - 1;
+    var c = 1, d = 1 - qab * x / qap;
+    if (Math.abs(d) < FPMIN) d = FPMIN;
+    d = 1 / d;
+    var h = d;
+    for (var m = 1; m <= MAXIT; m++) {
+      var m2 = 2 * m;
+      var aa = m * (b - m) * x / ((qam + m2) * (a + m2));
+      d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+      c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+      d = 1 / d; h *= d * c;
+      aa = -(a + m) * (qab + m) * x / ((a + m2) * (qap + m2));
+      d = 1 + aa * d; if (Math.abs(d) < FPMIN) d = FPMIN;
+      c = 1 + aa / c; if (Math.abs(c) < FPMIN) c = FPMIN;
+      d = 1 / d;
+      var del = d * c; h *= del;
+      if (Math.abs(del - 1) < EPS) break;
+    }
+    return h;
+  }
+
+  function betai(x, a, b) {
+    if (x <= 0) return 0;
+    if (x >= 1) return 1;
+    var bt = Math.exp(gammaln(a + b) - gammaln(a) - gammaln(b) +
+                       a * Math.log(x) + b * Math.log(1 - x));
+    if (x < (a + 1) / (a + b + 2)) return bt * betacf(x, a, b) / a;
+    else return 1 - bt * betacf(1 - x, b, a) / b;
+  }
+
+  function tcdf(t, df) {
+    var x = df / (df + t * t);
+    var p = betai(x, df / 2, 0.5);
+    return t > 0 ? 1 - 0.5 * p : 0.5 * p;
+  }
+
+  function upperTail(t, df) { return 1 - tcdf(t, df); }
+
+  function findCritT(targetUpper, df) {
+    var lo = 0, hi = 100;
+    for (var i = 0; i < 100; i++) {
+      var mid = (lo + hi) / 2;
+      if (upperTail(mid, df) > targetUpper) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  function tpdf(t, df) {
+    var logC = gammaln((df + 1) / 2) - gammaln(df / 2) - 0.5 * Math.log(df * Math.PI);
+    return Math.exp(logC) * Math.pow(1 + (t * t) / df, -(df + 1) / 2);
+  }
+
+  var elDf = document.getElementById('tt-df');
+  var elAlpha = document.getElementById('tt-alpha');
+  var elTval = document.getElementById('tt-tval');
+  var elDfVal = document.getElementById('tt-df-val');
+  var elAlphaVal = document.getElementById('tt-alpha-val');
+  var elTvalVal = document.getElementById('tt-tval-val');
+  var plotDiv = document.getElementById('tt-plot');
+
+  function getTail() {
+    var radios = document.getElementsByName('tt-tail');
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
+    return 'two';
+  }
+
+  function render() {
+    var df = parseInt(elDf.value, 10);
+    var alpha = parseFloat(elAlpha.value);
+    var tval = parseFloat(elTval.value);
+    var tail = getTail();
+    elDfVal.textContent = df;
+    elAlphaVal.textContent = alpha.toFixed(3);
+    elTvalVal.textContent = tval.toFixed(2);
+
+    var xs = [], ys = [];
+    for (var x = -6; x <= 6; x += 0.03) { xs.push(x); ys.push(tpdf(x, df)); }
+
+    var critPos, critNeg, rejectRegions = [], pVal, reject, comparisonText;
+
+    if (tail === 'two') {
+      critPos = findCritT(alpha / 2, df);
+      critNeg = -critPos;
+      rejectRegions.push([-6, critNeg]);
+      rejectRegions.push([critPos, 6]);
+      pVal = 2 * upperTail(Math.abs(tval), df);
+      reject = Math.abs(tval) >= critPos;
+      comparisonText = '|t| = ' + Math.abs(tval).toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else if (tail === 'greater') {
+      critPos = findCritT(alpha, df);
+      critNeg = null;
+      rejectRegions.push([critPos, 6]);
+      pVal = upperTail(tval, df);
+      reject = tval >= critPos;
+      comparisonText = 't = ' + tval.toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else {
+      critNeg = -findCritT(alpha, df);
+      critPos = null;
+      rejectRegions.push([-6, critNeg]);
+      pVal = tcdf(tval, df);
+      reject = tval <= critNeg;
+      comparisonText = 't = ' + tval.toFixed(3) + (reject ? ' ≤ ' : ' > ') + critNeg.toFixed(3);
+    }
+
+    var traces = [{
+      x: xs, y: ys, type: 'scatter', mode: 'lines',
+      line: { color: '#2c7fb8', width: 2 }, name: 'distribución t', hoverinfo: 'skip'
+    }];
+
+    rejectRegions.forEach(function(region) {
+      var rx = [], ry = [];
+      for (var x = region[0]; x <= region[1]; x += 0.03) { rx.push(x); ry.push(tpdf(x, df)); }
+      traces.push({
+        x: rx, y: ry, type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(34,139,34,0.35)',
+        line: { color: 'rgba(34,139,34,0.6)', width: 1 },
+        name: 'zona de rechazo', hoverinfo: 'skip', showlegend: false
+      });
+    });
+
+    var shapes = [];
+    var maxY = Math.max.apply(null, ys) * 1.15;
+    [critPos, critNeg].forEach(function(cv) {
+      if (cv === null) return;
+      shapes.push({
+        type: 'line', x0: cv, x1: cv, y0: 0, y1: maxY,
+        line: { color: '#d62728', width: 2, dash: 'dash' }
+      });
+    });
+    shapes.push({
+      type: 'line', x0: tval, x1: tval, y0: 0, y1: maxY,
+      line: { color: '#111', width: 2, dash: 'dash' }
+    });
+
+    var annotations = [{
+      x: 0, y: maxY, xref: 'x', yref: 'y', showarrow: false, yanchor: 'bottom',
+      text: 'df = ' + df + ',  α = ' + alpha.toFixed(3),
+      font: { size: 13 }
+    }, {
+      x: (critNeg !== null ? critNeg : critPos), y: maxY * 0.9, xref: 'x', yref: 'y',
+      showarrow: false, font: { size: 11, color: '#d62728' },
+      text: 't crítico = ' + (critPos !== null ? critPos.toFixed(3) : critNeg.toFixed(3))
+    }, {
+      x: tval, y: maxY * 0.55, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 11, color: '#111' }, xanchor: tval >= 0 ? 'left' : 'right',
+      text: 't = ' + tval.toFixed(3)
+    }, {
+      x: -4.8, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 20, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + (reject ? 'Se rechaza H0' : 'No se rechaza H0') + '</b>'
+    }, {
+      x: 4.8, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 18, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + comparisonText + '<br>p = ' + pVal.toFixed(4) + '</b>'
+    }];
+
+    var layout = {
+      margin: { l: 40, r: 20, t: 25, b: 30 },
+      xaxis: { range: [-6, 6], title: 't' },
+      yaxis: { range: [0, maxY], title: 'densidad' },
+      shapes: shapes,
+      annotations: annotations,
+      showlegend: false
+    };
+
+    Plotly.react(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+  }
+
+  elDf.addEventListener('input', render);
+  elAlpha.addEventListener('input', render);
+  elTval.addEventListener('input', render);
+  var radios = document.getElementsByName('tt-tail');
+  for (var i = 0; i < radios.length; i++) radios[i].addEventListener('change', render);
+
+  render();
+})();
+</script>
+</section>
+<section id="visualizador-para-test-de-diferencia-de-proporciones" class="level1">
+<h1>Visualizador para test de diferencia de proporciones</h1>
+<div class="pp-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
+  <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
+    <label>p1: <input type="range" id="pp-p1" min="0.01" max="0.99" step="0.001" value="0.297" style="vertical-align:middle;"> <span id="pp-p1-val">0.297</span></label>
+    <label>n1: <input type="range" id="pp-n1" min="10" max="30000" step="1" value="7603" style="vertical-align:middle;"> <span id="pp-n1-val">7603</span></label>
+    <label>p2: <input type="range" id="pp-p2" min="0.01" max="0.99" step="0.001" value="0.214" style="vertical-align:middle;"> <span id="pp-p2-val">0.214</span></label>
+    <label>n2: <input type="range" id="pp-n2" min="10" max="30000" step="1" value="6818" style="vertical-align:middle;"> <span id="pp-n2-val">6818</span></label>
+    <label>α (significancia): <input type="range" id="pp-alpha" min="0.001" max="0.5" step="0.001" value="0.05" style="vertical-align:middle;"> <span id="pp-alpha-val">0.05</span></label>
+  </div>
+  <div style="margin-bottom:0.4em;">
+    <label style="margin-right:1.5em;"><input type="radio" name="pp-tail" value="two" checked=""> H1: p1 ≠ p2 (dos colas)</label>
+    <label style="margin-right:1.5em;"><input type="radio" name="pp-tail" value="less"> H1: p1 &lt; p2</label>
+    <label><input type="radio" name="pp-tail" value="greater"> H1: p1 &gt; p2</label>
+  </div>
+  <div id="pp-plot" style="width:100%; height:420px;"></div>
+</div>
+
+<script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
+<script>
+(function() {
+  function erf(x) {
+    var sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    var a1 = 0.254829592, a2 = -0.284496736, a3 = 1.421413741,
+        a4 = -1.453152027, a5 = 1.061405429, p = 0.3275911;
+    var t = 1 / (1 + p * x);
+    var y = 1 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-x * x);
+    return sign * y;
+  }
+
+  function normCDF(z) { return 0.5 * (1 + erf(z / Math.SQRT2)); }
+  function normPDF(z) { return Math.exp(-z * z / 2) / Math.sqrt(2 * Math.PI); }
+  function upperTail(z) { return 1 - normCDF(z); }
+
+  function findCritZ(targetUpper) {
+    var lo = 0, hi = 10;
+    for (var i = 0; i < 100; i++) {
+      var mid = (lo + hi) / 2;
+      if (upperTail(mid) > targetUpper) lo = mid; else hi = mid;
+    }
+    return (lo + hi) / 2;
+  }
+
+  var elP1 = document.getElementById('pp-p1');
+  var elN1 = document.getElementById('pp-n1');
+  var elP2 = document.getElementById('pp-p2');
+  var elN2 = document.getElementById('pp-n2');
+  var elAlpha = document.getElementById('pp-alpha');
+  var elP1Val = document.getElementById('pp-p1-val');
+  var elN1Val = document.getElementById('pp-n1-val');
+  var elP2Val = document.getElementById('pp-p2-val');
+  var elN2Val = document.getElementById('pp-n2-val');
+  var elAlphaVal = document.getElementById('pp-alpha-val');
+  var plotDiv = document.getElementById('pp-plot');
+
+  function getTail() {
+    var radios = document.getElementsByName('pp-tail');
+    for (var i = 0; i < radios.length; i++) if (radios[i].checked) return radios[i].value;
+    return 'two';
+  }
+
+  function render() {
+    var p1 = parseFloat(elP1.value);
+    var n1 = parseInt(elN1.value, 10);
+    var p2 = parseFloat(elP2.value);
+    var n2 = parseInt(elN2.value, 10);
+    var alpha = parseFloat(elAlpha.value);
+    var tail = getTail();
+    elP1Val.textContent = p1.toFixed(3);
+    elN1Val.textContent = n1;
+    elP2Val.textContent = p2.toFixed(3);
+    elN2Val.textContent = n2;
+    elAlphaVal.textContent = alpha.toFixed(3);
+
+    var se = Math.sqrt(p1 * (1 - p1) / n1 + p2 * (1 - p2) / n2);
+    var zest = (p1 - p2) / se;
+
+    var xs = [], ys = [];
+    for (var x = -5; x <= 5; x += 0.03) { xs.push(x); ys.push(normPDF(x)); }
+
+    var critPos, critNeg, rejectRegions = [], pVal, reject, comparisonText;
+
+    if (tail === 'two') {
+      critPos = findCritZ(alpha / 2);
+      critNeg = -critPos;
+      rejectRegions.push([-5, critNeg]);
+      rejectRegions.push([critPos, 5]);
+      pVal = 2 * upperTail(Math.abs(zest));
+      reject = Math.abs(zest) >= critPos;
+      comparisonText = '|Z| = ' + Math.abs(zest).toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else if (tail === 'greater') {
+      critPos = findCritZ(alpha);
+      critNeg = null;
+      rejectRegions.push([critPos, 5]);
+      pVal = upperTail(zest);
+      reject = zest >= critPos;
+      comparisonText = 'Z = ' + zest.toFixed(3) + (reject ? ' ≥ ' : ' < ') + critPos.toFixed(3);
+    } else {
+      critNeg = -findCritZ(alpha);
+      critPos = null;
+      rejectRegions.push([-5, critNeg]);
+      pVal = normCDF(zest);
+      reject = zest <= critNeg;
+      comparisonText = 'Z = ' + zest.toFixed(3) + (reject ? ' ≤ ' : ' > ') + critNeg.toFixed(3);
+    }
+
+    var traces = [{
+      x: xs, y: ys, type: 'scatter', mode: 'lines',
+      line: { color: '#2c7fb8', width: 2 }, name: 'distribución Z', hoverinfo: 'skip'
+    }];
+
+    rejectRegions.forEach(function(region) {
+      var rx = [], ry = [];
+      for (var x = region[0]; x <= region[1]; x += 0.03) { rx.push(x); ry.push(normPDF(x)); }
+      traces.push({
+        x: rx, y: ry, type: 'scatter', mode: 'lines',
+        fill: 'tozeroy', fillcolor: 'rgba(34,139,34,0.35)',
+        line: { color: 'rgba(34,139,34,0.6)', width: 1 },
+        name: 'zona de rechazo', hoverinfo: 'skip', showlegend: false
+      });
+    });
+
+    var shapes = [];
+    var maxY = Math.max.apply(null, ys) * 1.15;
+    [critPos, critNeg].forEach(function(cv) {
+      if (cv === null) return;
+      shapes.push({
+        type: 'line', x0: cv, x1: cv, y0: 0, y1: maxY,
+        line: { color: '#d62728', width: 2, dash: 'dash' }
+      });
+    });
+    var zClamped = Math.max(-5, Math.min(5, zest));
+    var zWasClamped = zClamped !== zest;
+    shapes.push({
+      type: 'line', x0: zClamped, x1: zClamped, y0: 0, y1: maxY,
+      line: { color: '#111', width: 2, dash: 'dash' }
+    });
+
+    var annotations = [{
+      x: 0, y: maxY, xref: 'x', yref: 'y', showarrow: false, yanchor: 'bottom',
+      text: 'SE = ' + se.toFixed(4) + ',  α = ' + alpha.toFixed(3),
+      font: { size: 13 }
+    }, {
+      x: (critNeg !== null ? critNeg : critPos), y: maxY * 0.9, xref: 'x', yref: 'y',
+      showarrow: false, font: { size: 11, color: '#d62728' },
+      text: 'Z crítico = ' + (critPos !== null ? critPos.toFixed(3) : critNeg.toFixed(3))
+    }, {
+      x: zClamped, y: maxY * 0.55, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 11, color: '#111' },
+      xanchor: zWasClamped ? (zClamped >= 0 ? 'right' : 'left') : (zClamped >= 0 ? 'left' : 'right'),
+      text: 'Z = ' + zest.toFixed(3)
+    }, {
+      x: -3.9, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 20, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + (reject ? 'Se rechaza H0' : 'No se rechaza H0') + '</b>'
+    }, {
+      x: 3.9, y: maxY * 0.75, xref: 'x', yref: 'y', showarrow: false,
+      font: { size: 18, color: reject ? '#1a7a1a' : '#c0392b' },
+      text: '<b>' + comparisonText + '<br>p = ' + pVal.toFixed(4) + '</b>'
+    }];
+
+    var layout = {
+      margin: { l: 40, r: 20, t: 25, b: 30 },
+      xaxis: { range: [-5, 5], title: 'Z' },
+      yaxis: { range: [0, maxY], title: 'densidad' },
+      shapes: shapes,
+      annotations: annotations,
+      showlegend: false
+    };
+
+    Plotly.react(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+  }
+
+  elP1.addEventListener('input', render);
+  elN1.addEventListener('input', render);
+  elP2.addEventListener('input', render);
+  elN2.addEventListener('input', render);
+  elAlpha.addEventListener('input', render);
+  var radios = document.getElementsByName('pp-tail');
+  for (var i = 0; i < radios.length; i++) radios[i].addEventListener('change', render);
+
+  render();
+})();
+</script>
+
+
+</section>
+
+ ]]></description>
+  <category>info</category>
+  <category>recursos</category>
+  <guid>https://correlacional.metodos-facso.org/news/2026-08-25-visualizadores.html</guid>
+  <pubDate>Mon, 31 Aug 2026 04:00:00 GMT</pubDate>
+  <media:content url="https://correlacional.metodos-facso.org/news/images/visualizador.png" medium="image" type="image/png" height="83" width="144"/>
+</item>
 <item>
   <title>Grupo de Estudio Correlacional Centro IDEA</title>
   <link>https://correlacional.metodos-facso.org/news/2026-08-25-centroidea.html</link>
