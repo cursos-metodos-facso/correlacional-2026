@@ -134,7 +134,7 @@ load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_c
 if (!requireNamespace("pacman", quietly = TRUE)) install.packages("pacman")
 library(pacman)
 
-p_load(sjmisc) # sjmisc y sjPlot son paquetes que nos permiten visualizar datos
+pacman::p_load(sjmisc) # sjmisc y sjPlot son paquetes que nos permiten visualizar datos
 
 # 3. Etiquetar variables de interes
 
@@ -224,11 +224,19 @@ se <- sqrt(se_p1+se_p2)
 se
 ```
 
-El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. 
+El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. Con este valor podemos calcular el estadístico Z, que nos permite contrastar la diferencia observada con la hipótesis nula de igualdad de proporciones. La formula es:
+
+$$
+Z = \frac{(p_1 - p_2)}{SE_{p_1-p_2}} = \frac{(0,0235)}{0,0019} = 12,36  
+$$
+
+
+ Si dividimos nuestra diferencia de proporciones entre educación universitaria de mujeres y de hombres de 2,35% (es decir 0,0235) por el error estándar de 0,0019 obtenemos un estadístico Z empírico de 12,36. Luego utilizaremos este valor para el contraste de hipótesis. 
+
 
 **Intervalos de confianza**
 
-A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de proporciones, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:
+A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de medias, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:
 
 $$
 p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}
@@ -253,7 +261,7 @@ Con un 95% de confianza podemos decir que la diferencia de proporción de educac
 
 **En R**
 
-Para hacer la prueba t para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:
+Para hacer la prueba Z para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:
 
 ```{r}
 
@@ -284,7 +292,11 @@ rempsyc::nice_table(stats.table)
 
 ```
 
-La prueba arroja un estadístico t de 151,19. Como esta cifra es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. 
+La prueba arroja un estadístico $X²$ (chi cuadrado)de 151,19 para los datos de nuestra muestra. Este valor equivale a Z al cuadrado, por lo tanto si obtenemos la raíz cuadrada de este valor obtenemos:
+
+$Z = \sqrt{151,19} = 12,30$
+
+que es el valor Z empírico que habíamos calculado anteriormente. Este valor es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. Ahora, como vemos, el valor p es menor al 0.001, por lo tanto también logramos rechazar $H_0$ con un nivel de significancia de 0,1%. En otras palabras, los datos entregan evidencia suficiente para afirmar que el porcentaje de mujeres con educación universitaria es mayor que el de hombres. 
 
 ::: {.callout-important}
 **Importante**: La prueba de proporciones direccional sigue la misma lógica que la prueba t para medias. La diferencia es que en vez de comparar medias, comparamos proporciones. Por lo tanto, si quisiéramos hacer una prueba direccional, por ejemplo, para evaluar si el porcentaje de mujeres con educación universitaria es mayor que el de hombres, bastaría con cambiar `alternative` a `"greater"` y la interpretación sería análoga a la que hemos hecho hasta ahora.

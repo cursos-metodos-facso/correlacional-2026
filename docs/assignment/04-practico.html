@@ -9689,7 +9689,7 @@ padding: 0.8em 1em !important;
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;pacman&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(sjmisc) <span class="co"># sjmisc y sjPlot son paquetes que nos permiten visualizar datos</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjmisc) <span class="co"># sjmisc y sjPlot son paquetes que nos permiten visualizar datos</span></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Etiquetar variables de interes</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
@@ -9774,9 +9774,13 @@ SE_{p_1-p_2} = \sqrt{\frac{p_1(1-p_1)}{n_1} + \frac{p_2(1-p_2)}{n_2}}
 <pre><code>[1] 0.001909335</code></pre>
 </div>
 </div>
-<p>El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019.</p>
+<p>El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. Con este valor podemos calcular el estadístico Z, que nos permite contrastar la diferencia observada con la hipótesis nula de igualdad de proporciones. La formula es:</p>
+<p><span class="math display">\[
+Z = \frac{(p_1 - p_2)}{SE_{p_1-p_2}} = \frac{(0,0235)}{0,0019} = 12,36  
+\]</span></p>
+<p>Si dividimos nuestra diferencia de proporciones entre educación universitaria de mujeres y de hombres de 2,35% (es decir 0,0235) por el error estándar de 0,0019 obtenemos un estadístico Z empírico de 12,36. Luego utilizaremos este valor para el contraste de hipótesis.</p>
 <p><strong>Intervalos de confianza</strong></p>
-<p>A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de proporciones, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:</p>
+<p>A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de medias, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:</p>
 <p><span class="math display">\[
 p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}
 \]</span></p>
@@ -9799,7 +9803,7 @@ p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}
 </div>
 <p>Con un 95% de confianza podemos decir que la diferencia de proporción de educación universitaria entre hombres y mujeres se encuentra entre un 1,97% y un 2,72%</p>
 <p><strong>En R</strong></p>
-<p>Para hacer la prueba t para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:</p>
+<p>Para hacer la prueba Z para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Mujer&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Hombre&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -9822,10 +9826,12 @@ p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}
 <span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos la tabla en un formato más fácil de leer</span></span>
 <span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>rempsyc<span class="sc">::</span><span class="fu">nice_table</span>(stats.table)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-b292be3a{table-layout:auto;}.cl-b27cc7d8{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b27cc7ec{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b28f4ac0{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b28f4aca{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b28f630c{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28f6316{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b28f6320{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b292be3a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">estimate1</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">estimate2</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">statistic</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7ec">p</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">parameter</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">Method</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">Alternative</span></p></th><th class="cl-b28f630c"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b28f6316"><p class="cl-b28f4aca"><span class="cl-b27cc7d8">0.26</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">0.23</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">151.19</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">&lt; .001***</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">1.00</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">2-sample test for equality of proportions without continuity correction</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">two.sided</span></p></td><td class="cl-b28f6320"><p class="cl-b28f4ac0"><span class="cl-b27cc7d8">[0.02, 0.03]</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-98ba7664{table-layout:auto;}.cl-9889eabc{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-9889ead0{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-98b50f26{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-98b50f3a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-98b538b6{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98b538c0{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-98b538c1{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-98ba7664"><thead><tr style="overflow-wrap:break-word;"><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">estimate1</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">estimate2</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">statistic</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889ead0">p</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">parameter</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">Method</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">Alternative</span></p></th><th class="cl-98b538b6"><p class="cl-98b50f26"><span class="cl-9889eabc">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-98b538c0"><p class="cl-98b50f3a"><span class="cl-9889eabc">0.26</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">0.23</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">151.19</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">&lt; .001***</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">1.00</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">2-sample test for equality of proportions without continuity correction</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">two.sided</span></p></td><td class="cl-98b538c1"><p class="cl-98b50f26"><span class="cl-9889eabc">[0.02, 0.03]</span></p></td></tr></tbody></table></div>
 </div>
 </div>
-<p>La prueba arroja un estadístico t de 151,19. Como esta cifra es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza.</p>
+<p>La prueba arroja un estadístico <span class="math inline">\(X²\)</span> (chi cuadrado)de 151,19 para los datos de nuestra muestra. Este valor equivale a Z al cuadrado, por lo tanto si obtenemos la raíz cuadrada de este valor obtenemos:</p>
+<p><span class="math inline">\(Z = \sqrt{151,19} = 12,30\)</span></p>
+<p>que es el valor Z empírico que habíamos calculado anteriormente. Este valor es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. Ahora, como vemos, el valor p es menor al 0.001, por lo tanto también logramos rechazar <span class="math inline">\(H_0\)</span> con un nivel de significancia de 0,1%. En otras palabras, los datos entregan evidencia suficiente para afirmar que el porcentaje de mujeres con educación universitaria es mayor que el de hombres.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -9975,7 +9981,7 @@ Antes de seguir
 <p>Hasta ahora, nos hemos enfocado en entender y aplicar conceptos claves en la estadística inferencial. Sin embargo, tan importante como eso es <strong>interpretar y reportar</strong> correctamente los hallazgos que entreguen las pruebas estadísticas. Por ejemplo, observemos la siguiente interpretación a la pregunta planteada en el <a href="../assignment/03-practico.html">práctico 3</a>: ¿Existen diferencias entre los ingresos laborales promedio de las mujeres con hijos y las mujeres sin hijos?</p>
 <div class="cell">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-b8a0440a{table-layout:auto;}.cl-b89a1df0{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b89a1e04{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-b89a1e0e{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;vertical-align:sub;}.cl-b89d728e{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b89d72a2{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-b89d86a2{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b89d86ac{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-b89d86b6{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-b8a0440a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1df0">Method</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1df0">Alternative</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1df0">Mean 1</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1df0">Mean 2</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1e04">M</span><span class="cl-b89a1e0e">1</span><span class="cl-b89a1df0"> - </span><span class="cl-b89a1e04">M</span><span class="cl-b89a1e0e">2</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1e04">t</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1e04">df</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1e04">p</span></p></th><th class="cl-b89d86a2"><p class="cl-b89d728e"><span class="cl-b89a1df0">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-b89d86ac"><p class="cl-b89d72a2"><span class="cl-b89a1df0">Welch Two Sample t-test</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">two.sided</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">706,113.65</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">590,847.70</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">115,265.96</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">2.39</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">492.66</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">.017*</span></p></td><td class="cl-b89d86b6"><p class="cl-b89d728e"><span class="cl-b89a1df0">[20564.30, 209967.62]</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-99db9712{table-layout:auto;}.cl-99d47900{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-99d47914{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-99d4791e{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;vertical-align:sub;}.cl-99d862c2{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-99d862cc{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-99d877d0{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99d877da{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-99d877db{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-99db9712"><thead><tr style="overflow-wrap:break-word;"><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47900">Method</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47900">Alternative</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47900">Mean 1</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47900">Mean 2</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47914">M</span><span class="cl-99d4791e">1</span><span class="cl-99d47900"> - </span><span class="cl-99d47914">M</span><span class="cl-99d4791e">2</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47914">t</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47914">df</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47914">p</span></p></th><th class="cl-99d877d0"><p class="cl-99d862c2"><span class="cl-99d47900">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-99d877da"><p class="cl-99d862cc"><span class="cl-99d47900">Welch Two Sample t-test</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">two.sided</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">706,113.65</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">590,847.70</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">115,265.96</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">2.39</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">492.66</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">.017*</span></p></td><td class="cl-99d877db"><p class="cl-99d862c2"><span class="cl-99d47900">[20564.30, 209967.62]</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 <blockquote class="blockquote">
@@ -11186,7 +11192,7 @@ boton.addEventListener("click", function () {
 <span id="cb34-135"><a href="#cb34-135" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">&quot;pacman&quot;</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) <span class="fu">install.packages</span>(<span class="st">&quot;pacman&quot;</span>)</span>
 <span id="cb34-136"><a href="#cb34-136" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
 <span id="cb34-137"><a href="#cb34-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-138"><a href="#cb34-138" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(sjmisc) <span class="co"># sjmisc y sjPlot son paquetes que nos permiten visualizar datos</span></span>
+<span id="cb34-138"><a href="#cb34-138" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjmisc) <span class="co"># sjmisc y sjPlot son paquetes que nos permiten visualizar datos</span></span>
 <span id="cb34-139"><a href="#cb34-139" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-140"><a href="#cb34-140" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Etiquetar variables de interes</span></span>
 <span id="cb34-141"><a href="#cb34-141" aria-hidden="true" tabindex="-1"></a></span>
@@ -11274,452 +11280,464 @@ boton.addEventListener("click", function () {
 <span id="cb34-229"><a href="#cb34-229" aria-hidden="true" tabindex="-1"></a>se</span>
 <span id="cb34-230"><a href="#cb34-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-231"><a href="#cb34-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-232"><a href="#cb34-232" aria-hidden="true" tabindex="-1"></a>El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. </span>
+<span id="cb34-232"><a href="#cb34-232" aria-hidden="true" tabindex="-1"></a>El error estándar de la diferencia de proporciones con educación universitaria entre hombres y mujeres es de 0.0019. Con este valor podemos calcular el estadístico Z, que nos permite contrastar la diferencia observada con la hipótesis nula de igualdad de proporciones. La formula es:</span>
 <span id="cb34-233"><a href="#cb34-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-234"><a href="#cb34-234" aria-hidden="true" tabindex="-1"></a>**Intervalos de confianza**</span>
-<span id="cb34-235"><a href="#cb34-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-236"><a href="#cb34-236" aria-hidden="true" tabindex="-1"></a>A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de proporciones, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:</span>
+<span id="cb34-234"><a href="#cb34-234" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-235"><a href="#cb34-235" aria-hidden="true" tabindex="-1"></a>Z = \frac{(p_1 - p_2)}{SE_{p_1-p_2}} = \frac{(0,0235)}{0,0019} = 12,36  </span>
+<span id="cb34-236"><a href="#cb34-236" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb34-237"><a href="#cb34-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-238"><a href="#cb34-238" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-239"><a href="#cb34-239" aria-hidden="true" tabindex="-1"></a>p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}</span>
-<span id="cb34-240"><a href="#cb34-240" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-238"><a href="#cb34-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-239"><a href="#cb34-239" aria-hidden="true" tabindex="-1"></a> Si dividimos nuestra diferencia de proporciones entre educación universitaria de mujeres y de hombres de 2,35% (es decir 0,0235) por el error estándar de 0,0019 obtenemos un estadístico Z empírico de 12,36. Luego utilizaremos este valor para el contraste de hipótesis. </span>
+<span id="cb34-240"><a href="#cb34-240" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-241"><a href="#cb34-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-242"><a href="#cb34-242" aria-hidden="true" tabindex="-1"></a>Siguiendo nuestro ejemplo, y considerando un $\alpha$ de 0,05, que equivale a un Z de 1,96</span>
+<span id="cb34-242"><a href="#cb34-242" aria-hidden="true" tabindex="-1"></a>**Intervalos de confianza**</span>
 <span id="cb34-243"><a href="#cb34-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-246"><a href="#cb34-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-247"><a href="#cb34-247" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un objeto con la diferencia</span></span>
-<span id="cb34-248"><a href="#cb34-248" aria-hidden="true" tabindex="-1"></a>dif_p <span class="ot">&lt;-</span> p1<span class="sc">-</span>p2</span>
+<span id="cb34-244"><a href="#cb34-244" aria-hidden="true" tabindex="-1"></a>A partir de aquí, los procedimientos estadísticos siguen fundamentalmente la misma línea que la diferencia de medias, reemplazando la diferencia de medias por la diferencia de proporciones. Por ejemplo, para calcular un intervalo de confianza para proporciones la formula es:</span>
+<span id="cb34-245"><a href="#cb34-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-246"><a href="#cb34-246" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-247"><a href="#cb34-247" aria-hidden="true" tabindex="-1"></a>p_1 - p_2 \pm Z_{\alpha/2} * SE_{p_1-p_b}</span>
+<span id="cb34-248"><a href="#cb34-248" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb34-249"><a href="#cb34-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-250"><a href="#cb34-250" aria-hidden="true" tabindex="-1"></a>lim_inf <span class="ot">&lt;-</span> dif_p <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb34-251"><a href="#cb34-251" aria-hidden="true" tabindex="-1"></a>lim_sup <span class="ot">&lt;-</span> dif_p <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb34-252"><a href="#cb34-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-253"><a href="#cb34-253" aria-hidden="true" tabindex="-1"></a>lim_inf</span>
-<span id="cb34-254"><a href="#cb34-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-255"><a href="#cb34-255" aria-hidden="true" tabindex="-1"></a>lim_sup</span>
-<span id="cb34-256"><a href="#cb34-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-257"><a href="#cb34-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-258"><a href="#cb34-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-259"><a href="#cb34-259" aria-hidden="true" tabindex="-1"></a>Con un 95% de confianza podemos decir que la diferencia de proporción de educación universitaria entre hombres y mujeres se encuentra entre un 1,97% y un 2,72%</span>
+<span id="cb34-250"><a href="#cb34-250" aria-hidden="true" tabindex="-1"></a>Siguiendo nuestro ejemplo, y considerando un $\alpha$ de 0,05, que equivale a un Z de 1,96</span>
+<span id="cb34-251"><a href="#cb34-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-254"><a href="#cb34-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-255"><a href="#cb34-255" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un objeto con la diferencia</span></span>
+<span id="cb34-256"><a href="#cb34-256" aria-hidden="true" tabindex="-1"></a>dif_p <span class="ot">&lt;-</span> p1<span class="sc">-</span>p2</span>
+<span id="cb34-257"><a href="#cb34-257" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-258"><a href="#cb34-258" aria-hidden="true" tabindex="-1"></a>lim_inf <span class="ot">&lt;-</span> dif_p <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
+<span id="cb34-259"><a href="#cb34-259" aria-hidden="true" tabindex="-1"></a>lim_sup <span class="ot">&lt;-</span> dif_p <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
 <span id="cb34-260"><a href="#cb34-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-261"><a href="#cb34-261" aria-hidden="true" tabindex="-1"></a>**En R**</span>
+<span id="cb34-261"><a href="#cb34-261" aria-hidden="true" tabindex="-1"></a>lim_inf</span>
 <span id="cb34-262"><a href="#cb34-262" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-263"><a href="#cb34-263" aria-hidden="true" tabindex="-1"></a>Para hacer la prueba t para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:</span>
+<span id="cb34-263"><a href="#cb34-263" aria-hidden="true" tabindex="-1"></a>lim_sup</span>
 <span id="cb34-264"><a href="#cb34-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-267"><a href="#cb34-267" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-268"><a href="#cb34-268" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Mujer&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span>
-<span id="cb34-269"><a href="#cb34-269" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Hombre&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span>
-<span id="cb34-270"><a href="#cb34-270" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-271"><a href="#cb34-271" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-272"><a href="#cb34-272" aria-hidden="true" tabindex="-1"></a>EL tamaño muestral de cada género los calculamos anteriormente y se encuentran en los objetos n1 y n2. Hacemos la prueba con <span class="in">`prop.test`</span> e interpretamos los resultados. </span>
-<span id="cb34-273"><a href="#cb34-273" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-276"><a href="#cb34-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-277"><a href="#cb34-277" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba de proporciones de dos colas</span></span>
-<span id="cb34-278"><a href="#cb34-278" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(</span>
-<span id="cb34-279"><a href="#cb34-279" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(x1, x2),</span>
-<span id="cb34-280"><a href="#cb34-280" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(n1, n2),</span>
-<span id="cb34-281"><a href="#cb34-281" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
-<span id="cb34-282"><a href="#cb34-282" aria-hidden="true" tabindex="-1"></a>  <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb34-283"><a href="#cb34-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-284"><a href="#cb34-284" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamos los resultados en una tabla</span></span>
-<span id="cb34-285"><a href="#cb34-285" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
-<span id="cb34-286"><a href="#cb34-286" aria-hidden="true" tabindex="-1"></a>  test,</span>
-<span id="cb34-287"><a href="#cb34-287" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
-<span id="cb34-288"><a href="#cb34-288" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-289"><a href="#cb34-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-290"><a href="#cb34-290" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos la tabla en un formato más fácil de leer</span></span>
-<span id="cb34-291"><a href="#cb34-291" aria-hidden="true" tabindex="-1"></a>rempsyc<span class="sc">::</span><span class="fu">nice_table</span>(stats.table)</span>
-<span id="cb34-292"><a href="#cb34-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-293"><a href="#cb34-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-294"><a href="#cb34-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-295"><a href="#cb34-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-296"><a href="#cb34-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-297"><a href="#cb34-297" aria-hidden="true" tabindex="-1"></a>La prueba arroja un estadístico t de 151,19. Como esta cifra es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. </span>
-<span id="cb34-298"><a href="#cb34-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-299"><a href="#cb34-299" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb34-300"><a href="#cb34-300" aria-hidden="true" tabindex="-1"></a>**Importante**: La prueba de proporciones direccional sigue la misma lógica que la prueba t para medias. La diferencia es que en vez de comparar medias, comparamos proporciones. Por lo tanto, si quisiéramos hacer una prueba direccional, por ejemplo, para evaluar si el porcentaje de mujeres con educación universitaria es mayor que el de hombres, bastaría con cambiar <span class="in">`alternative`</span> a <span class="in">`&quot;greater&quot;`</span> y la interpretación sería análoga a la que hemos hecho hasta ahora.</span>
-<span id="cb34-301"><a href="#cb34-301" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-265"><a href="#cb34-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-266"><a href="#cb34-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-267"><a href="#cb34-267" aria-hidden="true" tabindex="-1"></a>Con un 95% de confianza podemos decir que la diferencia de proporción de educación universitaria entre hombres y mujeres se encuentra entre un 1,97% y un 2,72%</span>
+<span id="cb34-268"><a href="#cb34-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-269"><a href="#cb34-269" aria-hidden="true" tabindex="-1"></a>**En R**</span>
+<span id="cb34-270"><a href="#cb34-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-271"><a href="#cb34-271" aria-hidden="true" tabindex="-1"></a>Para hacer la prueba Z para proporciones en R necesitamos saber la frecuencia absoluta de mujeres y hombres con educación universitaria, así como la cantidad total de hombres y mujeres en la muestra. Calculemos:</span>
+<span id="cb34-272"><a href="#cb34-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-275"><a href="#cb34-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-276"><a href="#cb34-276" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Mujer&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span>
+<span id="cb34-277"><a href="#cb34-277" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">sum</span>(proc_casen<span class="sc">$</span>universitaria[proc_casen<span class="sc">$</span>sexo <span class="sc">==</span> <span class="st">&quot;Hombre&quot;</span>] <span class="sc">==</span> <span class="st">&quot;Universitaria&quot;</span>)</span>
+<span id="cb34-278"><a href="#cb34-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-279"><a href="#cb34-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-280"><a href="#cb34-280" aria-hidden="true" tabindex="-1"></a>EL tamaño muestral de cada género los calculamos anteriormente y se encuentran en los objetos n1 y n2. Hacemos la prueba con <span class="in">`prop.test`</span> e interpretamos los resultados. </span>
+<span id="cb34-281"><a href="#cb34-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-284"><a href="#cb34-284" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-285"><a href="#cb34-285" aria-hidden="true" tabindex="-1"></a><span class="co"># Prueba de proporciones de dos colas</span></span>
+<span id="cb34-286"><a href="#cb34-286" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(</span>
+<span id="cb34-287"><a href="#cb34-287" aria-hidden="true" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">c</span>(x1, x2),</span>
+<span id="cb34-288"><a href="#cb34-288" aria-hidden="true" tabindex="-1"></a>  <span class="at">n =</span> <span class="fu">c</span>(n1, n2),</span>
+<span id="cb34-289"><a href="#cb34-289" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>,</span>
+<span id="cb34-290"><a href="#cb34-290" aria-hidden="true" tabindex="-1"></a>  <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb34-291"><a href="#cb34-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-292"><a href="#cb34-292" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamos los resultados en una tabla</span></span>
+<span id="cb34-293"><a href="#cb34-293" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
+<span id="cb34-294"><a href="#cb34-294" aria-hidden="true" tabindex="-1"></a>  test,</span>
+<span id="cb34-295"><a href="#cb34-295" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb34-296"><a href="#cb34-296" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-297"><a href="#cb34-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-298"><a href="#cb34-298" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos la tabla en un formato más fácil de leer</span></span>
+<span id="cb34-299"><a href="#cb34-299" aria-hidden="true" tabindex="-1"></a>rempsyc<span class="sc">::</span><span class="fu">nice_table</span>(stats.table)</span>
+<span id="cb34-300"><a href="#cb34-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-301"><a href="#cb34-301" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-302"><a href="#cb34-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-303"><a href="#cb34-303" aria-hidden="true" tabindex="-1"></a><span class="fu"># Integración e Interpretación</span></span>
+<span id="cb34-303"><a href="#cb34-303" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-304"><a href="#cb34-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-305"><a href="#cb34-305" aria-hidden="true" tabindex="-1"></a>Hasta ahora hemos aprendido, progresivamente:</span>
+<span id="cb34-305"><a href="#cb34-305" aria-hidden="true" tabindex="-1"></a>La prueba arroja un estadístico $X²$ (chi cuadrado)de 151,19 para los datos de nuestra muestra. Este valor equivale a Z al cuadrado, por lo tanto si obtenemos la raíz cuadrada de este valor obtenemos:</span>
 <span id="cb34-306"><a href="#cb34-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-307"><a href="#cb34-307" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A calcular puntajes Z, t y errores estándar</span>
-<span id="cb34-308"><a href="#cb34-308" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>A calcular e interpretar intervalos de confianza</span>
-<span id="cb34-309"><a href="#cb34-309" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>A plantear y contrastar hipótesis direccionales y no direccionales de diferencia de medias y de proporciones</span>
+<span id="cb34-307"><a href="#cb34-307" aria-hidden="true" tabindex="-1"></a>$Z = \sqrt{151,19} = 12,30$</span>
+<span id="cb34-308"><a href="#cb34-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-309"><a href="#cb34-309" aria-hidden="true" tabindex="-1"></a>que es el valor Z empírico que habíamos calculado anteriormente. Este valor es mucho mayor que el valor crítico de 1,96, entonces se rechaza la hipótesis nula de igualdad de proporciones entre hombres y mujeres con educación universitaria con un 95% de confianza. Ahora, como vemos, el valor p es menor al 0.001, por lo tanto también logramos rechazar $H_0$ con un nivel de significancia de 0,1%. En otras palabras, los datos entregan evidencia suficiente para afirmar que el porcentaje de mujeres con educación universitaria es mayor que el de hombres. </span>
 <span id="cb34-310"><a href="#cb34-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-311"><a href="#cb34-311" aria-hidden="true" tabindex="-1"></a>El objetivo de esta sesión recurrir a estos aprendizajes e intergrarlos en nuestros análisis de datos sociales, lo cual implica tomar decisiones pertinentes, ejecutarlas en R, e interpretarlas **estadística y sociológicamente**</span>
-<span id="cb34-312"><a href="#cb34-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-313"><a href="#cb34-313" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repaso</span></span>
+<span id="cb34-311"><a href="#cb34-311" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb34-312"><a href="#cb34-312" aria-hidden="true" tabindex="-1"></a>**Importante**: La prueba de proporciones direccional sigue la misma lógica que la prueba t para medias. La diferencia es que en vez de comparar medias, comparamos proporciones. Por lo tanto, si quisiéramos hacer una prueba direccional, por ejemplo, para evaluar si el porcentaje de mujeres con educación universitaria es mayor que el de hombres, bastaría con cambiar <span class="in">`alternative`</span> a <span class="in">`&quot;greater&quot;`</span> y la interpretación sería análoga a la que hemos hecho hasta ahora.</span>
+<span id="cb34-313"><a href="#cb34-313" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb34-314"><a href="#cb34-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-315"><a href="#cb34-315" aria-hidden="true" tabindex="-1"></a>A lo largo de esta unidad hemos trabajado bajo una misma lógica: rara vez tenemos acceso a la población completa que nos interesa estudiar, por lo que debemos conformarnos con observar una muestra de ella. A partir de esa muestra calculamos estadísticos — un promedio, una proporción, una diferencia de medias — pero nuestro verdadero interés nunca es la muestra en sí misma, sino lo que esos estadísticos nos permiten decir sobre los parámetros poblacionales, es decir, los valores reales (y desconocidos) que caracterizan a la población de la que esa muestra proviene. </span>
+<span id="cb34-315"><a href="#cb34-315" aria-hidden="true" tabindex="-1"></a><span class="fu"># Integración e Interpretación</span></span>
 <span id="cb34-316"><a href="#cb34-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-317"><a href="#cb34-317" aria-hidden="true" tabindex="-1"></a>La estadística inferencial es, precisamente, el conjunto de herramientas que nos permite dar ese salto desde lo observado (la muestra) hacia lo que queremos conocer (la población), reconociendo al mismo tiempo que ese salto siempre conlleva un margen de error e incertidumbre. Antes de avanzar, repasemos brevemente los conceptos y herramientas que ya hemos construido para dar ese salto.</span>
+<span id="cb34-317"><a href="#cb34-317" aria-hidden="true" tabindex="-1"></a>Hasta ahora hemos aprendido, progresivamente:</span>
 <span id="cb34-318"><a href="#cb34-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-319"><a href="#cb34-319" aria-hidden="true" tabindex="-1"></a><span class="fu">## Los 5 pasos de la inferencia estadística</span></span>
-<span id="cb34-320"><a href="#cb34-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-321"><a href="#cb34-321" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Paso <span class="pp">|</span> Detalle <span class="pp">|</span></span>
-<span id="cb34-322"><a href="#cb34-322" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
-<span id="cb34-323"><a href="#cb34-323" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Formula $H_0$ y $H_A$ y estipula la dirección de la prueba <span class="pp">|</span></span>
-<span id="cb34-324"><a href="#cb34-324" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Calcula el error estándar (SE) y el valor estimado de la prueba <span class="pp">|</span></span>
-<span id="cb34-325"><a href="#cb34-325" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> Especifica la probabilidad de error $\alpha$ y el valor crítico <span class="pp">|</span></span>
-<span id="cb34-326"><a href="#cb34-326" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> Contrasta el valor estimado con el valor crítico <span class="pp">|</span></span>
-<span id="cb34-327"><a href="#cb34-327" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> Interpreta los resultados <span class="pp">|</span></span>
+<span id="cb34-319"><a href="#cb34-319" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>A calcular puntajes Z, t y errores estándar</span>
+<span id="cb34-320"><a href="#cb34-320" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>A calcular e interpretar intervalos de confianza</span>
+<span id="cb34-321"><a href="#cb34-321" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>A plantear y contrastar hipótesis direccionales y no direccionales de diferencia de medias y de proporciones</span>
+<span id="cb34-322"><a href="#cb34-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-323"><a href="#cb34-323" aria-hidden="true" tabindex="-1"></a>El objetivo de esta sesión recurrir a estos aprendizajes e intergrarlos en nuestros análisis de datos sociales, lo cual implica tomar decisiones pertinentes, ejecutarlas en R, e interpretarlas **estadística y sociológicamente**</span>
+<span id="cb34-324"><a href="#cb34-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-325"><a href="#cb34-325" aria-hidden="true" tabindex="-1"></a><span class="fu">## Repaso</span></span>
+<span id="cb34-326"><a href="#cb34-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-327"><a href="#cb34-327" aria-hidden="true" tabindex="-1"></a>A lo largo de esta unidad hemos trabajado bajo una misma lógica: rara vez tenemos acceso a la población completa que nos interesa estudiar, por lo que debemos conformarnos con observar una muestra de ella. A partir de esa muestra calculamos estadísticos — un promedio, una proporción, una diferencia de medias — pero nuestro verdadero interés nunca es la muestra en sí misma, sino lo que esos estadísticos nos permiten decir sobre los parámetros poblacionales, es decir, los valores reales (y desconocidos) que caracterizan a la población de la que esa muestra proviene. </span>
 <span id="cb34-328"><a href="#cb34-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-329"><a href="#cb34-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## Glosario</span></span>
+<span id="cb34-329"><a href="#cb34-329" aria-hidden="true" tabindex="-1"></a>La estadística inferencial es, precisamente, el conjunto de herramientas que nos permite dar ese salto desde lo observado (la muestra) hacia lo que queremos conocer (la población), reconociendo al mismo tiempo que ese salto siempre conlleva un margen de error e incertidumbre. Antes de avanzar, repasemos brevemente los conceptos y herramientas que ya hemos construido para dar ese salto.</span>
 <span id="cb34-330"><a href="#cb34-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-331"><a href="#cb34-331" aria-hidden="true" tabindex="-1"></a>**Curva Normal**: Distribución teórica que nos entrega un estándar para comparar distribuciones empíricas.</span>
+<span id="cb34-331"><a href="#cb34-331" aria-hidden="true" tabindex="-1"></a><span class="fu">## Los 5 pasos de la inferencia estadística</span></span>
 <span id="cb34-332"><a href="#cb34-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-333"><a href="#cb34-333" aria-hidden="true" tabindex="-1"></a>**Puntajes Z**: Medida estandarizada que se expresa en desviaciones estándar respecto a la media.</span>
-<span id="cb34-334"><a href="#cb34-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-335"><a href="#cb34-335" aria-hidden="true" tabindex="-1"></a>**Teorema central del límite**: Define que al tomar muchas muestras de una misma población, la distribución de sus medias muestrales tiende a aproximarse a una distribución normal a medida que aumenta el tamaño de la muestra.</span>
-<span id="cb34-336"><a href="#cb34-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-337"><a href="#cb34-337" aria-hidden="true" tabindex="-1"></a>**Error estándar**: describe cuánto esperamos que varíe una media muestral entre diferentes muestras de una misma población y nos informa sobre la precisión de la estimación.</span>
-<span id="cb34-338"><a href="#cb34-338" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-339"><a href="#cb34-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-340"><a href="#cb34-340" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb34-341"><a href="#cb34-341" aria-hidden="true" tabindex="-1"></a>No se debe confundir error estándar con distribución estándar. Mientras que el error estándar se refiere a la variabilidad de diferentes muestras, la desviación estándar describe cuánto se dispersan los **valores individuales de una muestra** alrededor de la media. </span>
-<span id="cb34-342"><a href="#cb34-342" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-343"><a href="#cb34-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-344"><a href="#cb34-344" aria-hidden="true" tabindex="-1"></a>**Intervalos de confianza**: rango de valores construido a partir de una muestra para estimar un parámetro poblacional. En un IC del 95%, el procedimiento produciría intervalos que contienen el verdadero parámetro en aproximadamente el 95% de muestras repetidas.</span>
-<span id="cb34-345"><a href="#cb34-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-346"><a href="#cb34-346" aria-hidden="true" tabindex="-1"></a>**Nivel de Confianza**: Proporción en que el rango acierta. Se define como $1-\alpha$, siendo $\alpha$ la probabilidad de error. </span>
-<span id="cb34-347"><a href="#cb34-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-348"><a href="#cb34-348" aria-hidden="true" tabindex="-1"></a>**Hipótesis**: Aseveración o predicción que se desprende una teoría sobre una situación que ocurren en la población.</span>
-<span id="cb34-349"><a href="#cb34-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-350"><a href="#cb34-350" aria-hidden="true" tabindex="-1"></a>**Hipótesis nula**: Escenario de referencia que plantea la ausencia de la diferencia o relación que queremos evaluar. Analizamos si los datos entregan evidencia suficiente para rechazarlo.. Se expresa como $H_0$</span>
+<span id="cb34-333"><a href="#cb34-333" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Paso <span class="pp">|</span> Detalle <span class="pp">|</span></span>
+<span id="cb34-334"><a href="#cb34-334" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|</span></span>
+<span id="cb34-335"><a href="#cb34-335" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 1 <span class="pp">|</span> Formula $H_0$ y $H_A$ y estipula la dirección de la prueba <span class="pp">|</span></span>
+<span id="cb34-336"><a href="#cb34-336" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 2 <span class="pp">|</span> Calcula el error estándar (SE) y el valor estimado de la prueba <span class="pp">|</span></span>
+<span id="cb34-337"><a href="#cb34-337" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 3 <span class="pp">|</span> Especifica la probabilidad de error $\alpha$ y el valor crítico <span class="pp">|</span></span>
+<span id="cb34-338"><a href="#cb34-338" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 4 <span class="pp">|</span> Contrasta el valor estimado con el valor crítico <span class="pp">|</span></span>
+<span id="cb34-339"><a href="#cb34-339" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> 5 <span class="pp">|</span> Interpreta los resultados <span class="pp">|</span></span>
+<span id="cb34-340"><a href="#cb34-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-341"><a href="#cb34-341" aria-hidden="true" tabindex="-1"></a><span class="fu">## Glosario</span></span>
+<span id="cb34-342"><a href="#cb34-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-343"><a href="#cb34-343" aria-hidden="true" tabindex="-1"></a>**Curva Normal**: Distribución teórica que nos entrega un estándar para comparar distribuciones empíricas.</span>
+<span id="cb34-344"><a href="#cb34-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-345"><a href="#cb34-345" aria-hidden="true" tabindex="-1"></a>**Puntajes Z**: Medida estandarizada que se expresa en desviaciones estándar respecto a la media.</span>
+<span id="cb34-346"><a href="#cb34-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-347"><a href="#cb34-347" aria-hidden="true" tabindex="-1"></a>**Teorema central del límite**: Define que al tomar muchas muestras de una misma población, la distribución de sus medias muestrales tiende a aproximarse a una distribución normal a medida que aumenta el tamaño de la muestra.</span>
+<span id="cb34-348"><a href="#cb34-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-349"><a href="#cb34-349" aria-hidden="true" tabindex="-1"></a>**Error estándar**: describe cuánto esperamos que varíe una media muestral entre diferentes muestras de una misma población y nos informa sobre la precisión de la estimación.</span>
+<span id="cb34-350"><a href="#cb34-350" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-351"><a href="#cb34-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-352"><a href="#cb34-352" aria-hidden="true" tabindex="-1"></a>**Valor p**: La probabilidad de observar un resultado igual o más extremo que el obtenido, si H0 fuera verdadera</span>
-<span id="cb34-353"><a href="#cb34-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-354"><a href="#cb34-354" aria-hidden="true" tabindex="-1"></a>**Alpha ($\alpha$)**: Es el umbral de probabilidad *p* que el investigador fija de antemano para decidir cuando un resultado se considera lo suficientemente improbable bajo $H_0$ como para rechazarla. Convencionalmente, este valor corresponde a 0,05. </span>
+<span id="cb34-352"><a href="#cb34-352" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb34-353"><a href="#cb34-353" aria-hidden="true" tabindex="-1"></a>No se debe confundir error estándar con distribución estándar. Mientras que el error estándar se refiere a la variabilidad de diferentes muestras, la desviación estándar describe cuánto se dispersan los **valores individuales de una muestra** alrededor de la media. </span>
+<span id="cb34-354"><a href="#cb34-354" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb34-355"><a href="#cb34-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-356"><a href="#cb34-356" aria-hidden="true" tabindex="-1"></a>**Valor crítico**: Es el punto en la distribución muestral del estadístico que limita la zona de rechazo sobber la cual consideramos que un valor poco probable si $H_0$ fuera verdadera. Se calcula a partir de $\alpha$ y de la distribución teórica correspondiente (t, normal, etc.)</span>
+<span id="cb34-356"><a href="#cb34-356" aria-hidden="true" tabindex="-1"></a>**Intervalos de confianza**: rango de valores construido a partir de una muestra para estimar un parámetro poblacional. En un IC del 95%, el procedimiento produciría intervalos que contienen el verdadero parámetro en aproximadamente el 95% de muestras repetidas.</span>
 <span id="cb34-357"><a href="#cb34-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-358"><a href="#cb34-358" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dos colas o una cola?</span></span>
+<span id="cb34-358"><a href="#cb34-358" aria-hidden="true" tabindex="-1"></a>**Nivel de Confianza**: Proporción en que el rango acierta. Se define como $1-\alpha$, siendo $\alpha$ la probabilidad de error. </span>
 <span id="cb34-359"><a href="#cb34-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-360"><a href="#cb34-360" aria-hidden="true" tabindex="-1"></a>Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la dirección de nuestra hipótesis: </span>
+<span id="cb34-360"><a href="#cb34-360" aria-hidden="true" tabindex="-1"></a>**Hipótesis**: Aseveración o predicción que se desprende una teoría sobre una situación que ocurren en la población.</span>
 <span id="cb34-361"><a href="#cb34-361" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-362"><a href="#cb34-362" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pregunta <span class="pp">|</span> Hipótesis alternativa <span class="pp">|</span> <span class="in">`alternative`</span> <span class="pp">|</span></span>
-<span id="cb34-363"><a href="#cb34-363" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
-<span id="cb34-364"><a href="#cb34-364" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A y B son diferentes? <span class="pp">|</span> $\mu_A - \mu_B \neq 0$ <span class="pp">|</span> <span class="in">`&quot;two.sided&quot;`</span> <span class="pp">|</span></span>
-<span id="cb34-365"><a href="#cb34-365" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A &gt; B? <span class="pp">|</span> $\mu_A - \mu_B &gt; 0$ <span class="pp">|</span> <span class="in">`&quot;greater&quot;`</span> <span class="pp">|</span></span>
-<span id="cb34-366"><a href="#cb34-366" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A &lt; B? <span class="pp">|</span> $\mu_A - \mu_B &lt; 0$ <span class="pp">|</span> <span class="in">`&quot;less&quot;`</span> <span class="pp">|</span></span>
+<span id="cb34-362"><a href="#cb34-362" aria-hidden="true" tabindex="-1"></a>**Hipótesis nula**: Escenario de referencia que plantea la ausencia de la diferencia o relación que queremos evaluar. Analizamos si los datos entregan evidencia suficiente para rechazarlo.. Se expresa como $H_0$</span>
+<span id="cb34-363"><a href="#cb34-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-364"><a href="#cb34-364" aria-hidden="true" tabindex="-1"></a>**Valor p**: La probabilidad de observar un resultado igual o más extremo que el obtenido, si H0 fuera verdadera</span>
+<span id="cb34-365"><a href="#cb34-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-366"><a href="#cb34-366" aria-hidden="true" tabindex="-1"></a>**Alpha ($\alpha$)**: Es el umbral de probabilidad *p* que el investigador fija de antemano para decidir cuando un resultado se considera lo suficientemente improbable bajo $H_0$ como para rechazarla. Convencionalmente, este valor corresponde a 0,05. </span>
 <span id="cb34-367"><a href="#cb34-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-368"><a href="#cb34-368" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
-<span id="cb34-369"><a href="#cb34-369" aria-hidden="true" tabindex="-1"></a>Antes de elegir <span class="in">`&quot;greater&quot;`</span> o <span class="in">`&quot;less&quot;`</span>: revise qué grupo corresponde a *Mean 1* y cuál a *Mean 2* en la salida de R. La dirección de la prueba se refiere a la diferencia **Mean 1 - Mean 2**, así que invertir el orden de los grupos invierte también el sentido de la hipótesis.</span>
-<span id="cb34-370"><a href="#cb34-370" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-368"><a href="#cb34-368" aria-hidden="true" tabindex="-1"></a>**Valor crítico**: Es el punto en la distribución muestral del estadístico que limita la zona de rechazo sobber la cual consideramos que un valor poco probable si $H_0$ fuera verdadera. Se calcula a partir de $\alpha$ y de la distribución teórica correspondiente (t, normal, etc.)</span>
+<span id="cb34-369"><a href="#cb34-369" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-370"><a href="#cb34-370" aria-hidden="true" tabindex="-1"></a><span class="fu">## Dos colas o una cola?</span></span>
 <span id="cb34-371"><a href="#cb34-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-372"><a href="#cb34-372" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb34-372"><a href="#cb34-372" aria-hidden="true" tabindex="-1"></a>Si nuestra pregunta requiere realizar una prueba t, debemos decidir cuál es la dirección de nuestra hipótesis: </span>
 <span id="cb34-373"><a href="#cb34-373" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-374"><a href="#cb34-374" aria-hidden="true" tabindex="-1"></a><span class="fu">## Antes de seguir</span></span>
-<span id="cb34-375"><a href="#cb34-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-376"><a href="#cb34-376" aria-hidden="true" tabindex="-1"></a>Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago. Si es una prueba t, ¿de una cola o de dos?</span>
-<span id="cb34-377"><a href="#cb34-377" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-378"><a href="#cb34-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-379"><a href="#cb34-379" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación</span></span>
-<span id="cb34-380"><a href="#cb34-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-381"><a href="#cb34-381" aria-hidden="true" tabindex="-1"></a>Hasta ahora,  nos hemos enfocado en entender y aplicar conceptos claves en la estadística inferencial. Sin embargo, tan importante como eso es **interpretar y reportar** correctamente los hallazgos que entreguen las pruebas estadísticas. Por ejemplo, observemos la siguiente interpretación a la pregunta planteada en el <span class="co">[</span><span class="ot">práctico 3</span><span class="co">](03-practico.qmd)</span>: ¿Existen diferencias entre los ingresos laborales promedio de las mujeres con hijos y las mujeres sin hijos?</span>
-<span id="cb34-382"><a href="#cb34-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-385"><a href="#cb34-385" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-386"><a href="#cb34-386" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb34-374"><a href="#cb34-374" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> Pregunta <span class="pp">|</span> Hipótesis alternativa <span class="pp">|</span> <span class="in">`alternative`</span> <span class="pp">|</span></span>
+<span id="cb34-375"><a href="#cb34-375" aria-hidden="true" tabindex="-1"></a><span class="pp">|---|---|---|</span></span>
+<span id="cb34-376"><a href="#cb34-376" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A y B son diferentes? <span class="pp">|</span> $\mu_A - \mu_B \neq 0$ <span class="pp">|</span> <span class="in">`&quot;two.sided&quot;`</span> <span class="pp">|</span></span>
+<span id="cb34-377"><a href="#cb34-377" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A &gt; B? <span class="pp">|</span> $\mu_A - \mu_B &gt; 0$ <span class="pp">|</span> <span class="in">`&quot;greater&quot;`</span> <span class="pp">|</span></span>
+<span id="cb34-378"><a href="#cb34-378" aria-hidden="true" tabindex="-1"></a><span class="pp">|</span> ¿A &lt; B? <span class="pp">|</span> $\mu_A - \mu_B &lt; 0$ <span class="pp">|</span> <span class="in">`&quot;less&quot;`</span> <span class="pp">|</span></span>
+<span id="cb34-379"><a href="#cb34-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-380"><a href="#cb34-380" aria-hidden="true" tabindex="-1"></a>::: {.callout-warning}</span>
+<span id="cb34-381"><a href="#cb34-381" aria-hidden="true" tabindex="-1"></a>Antes de elegir <span class="in">`&quot;greater&quot;`</span> o <span class="in">`&quot;less&quot;`</span>: revise qué grupo corresponde a *Mean 1* y cuál a *Mean 2* en la salida de R. La dirección de la prueba se refiere a la diferencia **Mean 1 - Mean 2**, así que invertir el orden de los grupos invierte también el sentido de la hipótesis.</span>
+<span id="cb34-382"><a href="#cb34-382" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-383"><a href="#cb34-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-384"><a href="#cb34-384" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb34-385"><a href="#cb34-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-386"><a href="#cb34-386" aria-hidden="true" tabindex="-1"></a><span class="fu">## Antes de seguir</span></span>
 <span id="cb34-387"><a href="#cb34-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-388"><a href="#cb34-388" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(</span>
-<span id="cb34-389"><a href="#cb34-389" aria-hidden="true" tabindex="-1"></a>  <span class="fu">url</span>(</span>
-<span id="cb34-390"><a href="#cb34-390" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData&quot;</span></span>
-<span id="cb34-391"><a href="#cb34-391" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-392"><a href="#cb34-392" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-393"><a href="#cb34-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-394"><a href="#cb34-394" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb34-395"><a href="#cb34-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-396"><a href="#cb34-396" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos una base con las variables que necesitamos</span></span>
-<span id="cb34-397"><a href="#cb34-397" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span></span>
-<span id="cb34-398"><a href="#cb34-398" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
-<span id="cb34-399"><a href="#cb34-399" aria-hidden="true" tabindex="-1"></a>    ocupado,</span>
-<span id="cb34-400"><a href="#cb34-400" aria-hidden="true" tabindex="-1"></a>    sexo,</span>
-<span id="cb34-401"><a href="#cb34-401" aria-hidden="true" tabindex="-1"></a>    ytrabajocor,</span>
-<span id="cb34-402"><a href="#cb34-402" aria-hidden="true" tabindex="-1"></a>    hijo</span>
-<span id="cb34-403"><a href="#cb34-403" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb34-404"><a href="#cb34-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-405"><a href="#cb34-405" aria-hidden="true" tabindex="-1"></a><span class="co"># Conservamos solo a las mujeres ocupadas</span></span>
-<span id="cb34-406"><a href="#cb34-406" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
-<span id="cb34-407"><a href="#cb34-407" aria-hidden="true" tabindex="-1"></a>    ocupado <span class="sc">==</span> <span class="dv">1</span>,</span>
-<span id="cb34-408"><a href="#cb34-408" aria-hidden="true" tabindex="-1"></a>    sexo <span class="sc">==</span> <span class="dv">2</span></span>
-<span id="cb34-409"><a href="#cb34-409" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb34-410"><a href="#cb34-410" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-411"><a href="#cb34-411" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos aleatoriamente 1.500 casos</span></span>
-<span id="cb34-412"><a href="#cb34-412" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">sample_n</span>(<span class="dv">1500</span>)</span>
-<span id="cb34-413"><a href="#cb34-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-414"><a href="#cb34-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-415"><a href="#cb34-415" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminamos los casos con información faltante</span></span>
-<span id="cb34-416"><a href="#cb34-416" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(goldin_data)</span>
-<span id="cb34-417"><a href="#cb34-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-418"><a href="#cb34-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-419"><a href="#cb34-419" aria-hidden="true" tabindex="-1"></a><span class="co"># Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.</span></span>
-<span id="cb34-420"><a href="#cb34-420" aria-hidden="true" tabindex="-1"></a>goldin_data<span class="sc">$</span>grupo_hijo <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb34-421"><a href="#cb34-421" aria-hidden="true" tabindex="-1"></a>  goldin_data<span class="sc">$</span>hijo,</span>
-<span id="cb34-422"><a href="#cb34-422" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
-<span id="cb34-423"><a href="#cb34-423" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb34-424"><a href="#cb34-424" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Sin hijos&quot;</span>,</span>
-<span id="cb34-425"><a href="#cb34-425" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Con hijos&quot;</span></span>
-<span id="cb34-426"><a href="#cb34-426" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-427"><a href="#cb34-427" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-428"><a href="#cb34-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-429"><a href="#cb34-429" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos una prueba t de dos colas</span></span>
-<span id="cb34-430"><a href="#cb34-430" aria-hidden="true" tabindex="-1"></a>test_goldin <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
-<span id="cb34-431"><a href="#cb34-431" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> grupo_hijo,</span>
-<span id="cb34-432"><a href="#cb34-432" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> goldin_data,</span>
-<span id="cb34-433"><a href="#cb34-433" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
-<span id="cb34-434"><a href="#cb34-434" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-435"><a href="#cb34-435" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-436"><a href="#cb34-436" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamos los resultados en una tabla</span></span>
-<span id="cb34-437"><a href="#cb34-437" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
-<span id="cb34-438"><a href="#cb34-438" aria-hidden="true" tabindex="-1"></a>  test_goldin,</span>
-<span id="cb34-439"><a href="#cb34-439" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
-<span id="cb34-440"><a href="#cb34-440" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-441"><a href="#cb34-441" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-442"><a href="#cb34-442" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos la tabla en un formato más fácil de leer</span></span>
-<span id="cb34-443"><a href="#cb34-443" aria-hidden="true" tabindex="-1"></a>rempsyc<span class="sc">::</span><span class="fu">nice_table</span>(</span>
-<span id="cb34-444"><a href="#cb34-444" aria-hidden="true" tabindex="-1"></a>  stats.table,</span>
-<span id="cb34-445"><a href="#cb34-445" aria-hidden="true" tabindex="-1"></a>  <span class="at">broom =</span> <span class="st">&quot;t.test&quot;</span></span>
+<span id="cb34-388"><a href="#cb34-388" aria-hidden="true" tabindex="-1"></a>Si quisiéramos comparar el ingreso promedio entre personas de dos comunas del Gran Santiago. Si es una prueba t, ¿de una cola o de dos?</span>
+<span id="cb34-389"><a href="#cb34-389" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-390"><a href="#cb34-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-391"><a href="#cb34-391" aria-hidden="true" tabindex="-1"></a><span class="fu">## Interpretación</span></span>
+<span id="cb34-392"><a href="#cb34-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-393"><a href="#cb34-393" aria-hidden="true" tabindex="-1"></a>Hasta ahora,  nos hemos enfocado en entender y aplicar conceptos claves en la estadística inferencial. Sin embargo, tan importante como eso es **interpretar y reportar** correctamente los hallazgos que entreguen las pruebas estadísticas. Por ejemplo, observemos la siguiente interpretación a la pregunta planteada en el <span class="co">[</span><span class="ot">práctico 3</span><span class="co">](03-practico.qmd)</span>: ¿Existen diferencias entre los ingresos laborales promedio de las mujeres con hijos y las mujeres sin hijos?</span>
+<span id="cb34-394"><a href="#cb34-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-397"><a href="#cb34-397" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-398"><a href="#cb34-398" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb34-399"><a href="#cb34-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-400"><a href="#cb34-400" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(</span>
+<span id="cb34-401"><a href="#cb34-401" aria-hidden="true" tabindex="-1"></a>  <span class="fu">url</span>(</span>
+<span id="cb34-402"><a href="#cb34-402" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData&quot;</span></span>
+<span id="cb34-403"><a href="#cb34-403" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-404"><a href="#cb34-404" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-405"><a href="#cb34-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-406"><a href="#cb34-406" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb34-407"><a href="#cb34-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-408"><a href="#cb34-408" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos una base con las variables que necesitamos</span></span>
+<span id="cb34-409"><a href="#cb34-409" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span></span>
+<span id="cb34-410"><a href="#cb34-410" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(</span>
+<span id="cb34-411"><a href="#cb34-411" aria-hidden="true" tabindex="-1"></a>    ocupado,</span>
+<span id="cb34-412"><a href="#cb34-412" aria-hidden="true" tabindex="-1"></a>    sexo,</span>
+<span id="cb34-413"><a href="#cb34-413" aria-hidden="true" tabindex="-1"></a>    ytrabajocor,</span>
+<span id="cb34-414"><a href="#cb34-414" aria-hidden="true" tabindex="-1"></a>    hijo</span>
+<span id="cb34-415"><a href="#cb34-415" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb34-416"><a href="#cb34-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-417"><a href="#cb34-417" aria-hidden="true" tabindex="-1"></a><span class="co"># Conservamos solo a las mujeres ocupadas</span></span>
+<span id="cb34-418"><a href="#cb34-418" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(</span>
+<span id="cb34-419"><a href="#cb34-419" aria-hidden="true" tabindex="-1"></a>    ocupado <span class="sc">==</span> <span class="dv">1</span>,</span>
+<span id="cb34-420"><a href="#cb34-420" aria-hidden="true" tabindex="-1"></a>    sexo <span class="sc">==</span> <span class="dv">2</span></span>
+<span id="cb34-421"><a href="#cb34-421" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb34-422"><a href="#cb34-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-423"><a href="#cb34-423" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos aleatoriamente 1.500 casos</span></span>
+<span id="cb34-424"><a href="#cb34-424" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">sample_n</span>(<span class="dv">1500</span>)</span>
+<span id="cb34-425"><a href="#cb34-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-426"><a href="#cb34-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-427"><a href="#cb34-427" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminamos los casos con información faltante</span></span>
+<span id="cb34-428"><a href="#cb34-428" aria-hidden="true" tabindex="-1"></a>goldin_data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(goldin_data)</span>
+<span id="cb34-429"><a href="#cb34-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-430"><a href="#cb34-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-431"><a href="#cb34-431" aria-hidden="true" tabindex="-1"></a><span class="co"># Para facilitar la lectura, reemplazaremos los códigos de la variable `hijo` por etiquetas.</span></span>
+<span id="cb34-432"><a href="#cb34-432" aria-hidden="true" tabindex="-1"></a>goldin_data<span class="sc">$</span>grupo_hijo <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb34-433"><a href="#cb34-433" aria-hidden="true" tabindex="-1"></a>  goldin_data<span class="sc">$</span>hijo,</span>
+<span id="cb34-434"><a href="#cb34-434" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>),</span>
+<span id="cb34-435"><a href="#cb34-435" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb34-436"><a href="#cb34-436" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Sin hijos&quot;</span>,</span>
+<span id="cb34-437"><a href="#cb34-437" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Con hijos&quot;</span></span>
+<span id="cb34-438"><a href="#cb34-438" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-439"><a href="#cb34-439" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-440"><a href="#cb34-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-441"><a href="#cb34-441" aria-hidden="true" tabindex="-1"></a><span class="co"># Realizamos una prueba t de dos colas</span></span>
+<span id="cb34-442"><a href="#cb34-442" aria-hidden="true" tabindex="-1"></a>test_goldin <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb34-443"><a href="#cb34-443" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> grupo_hijo,</span>
+<span id="cb34-444"><a href="#cb34-444" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> goldin_data,</span>
+<span id="cb34-445"><a href="#cb34-445" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
 <span id="cb34-446"><a href="#cb34-446" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-447"><a href="#cb34-447" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-448"><a href="#cb34-448" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-449"><a href="#cb34-449" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Observamos que el ingreso de las mujeres sin hijos es diferente al de las mujeres con hijos, y que p es menor a 0.05. De tal modo, podemos comprobar que nuestra hipótesis es verdadera.</span></span>
-<span id="cb34-450"><a href="#cb34-450" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-451"><a href="#cb34-451" aria-hidden="true" tabindex="-1"></a>Antes de seguir, identifique al menos tres problemas en esta interpretación. Tome las siguientes preguntas como referencia:</span>
-<span id="cb34-452"><a href="#cb34-452" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-453"><a href="#cb34-453" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Describe adecuadamente los resultados observados?</span>
-<span id="cb34-454"><a href="#cb34-454" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Presenta la evidencia inferencial necesaria?</span>
-<span id="cb34-455"><a href="#cb34-455" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Informa su decisión respecto a $H_0$?</span>
-<span id="cb34-456"><a href="#cb34-456" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Realmente comprueba que la hipótesis planteada es verdadera?</span>
-<span id="cb34-457"><a href="#cb34-457" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-458"><a href="#cb34-458" aria-hidden="true" tabindex="-1"></a>Notarán que la interpretación propuesta no cumple varias de estas condiciones. A continuación, vamos dar algunas recomendaciones para una buena interpretación estadística y plantear una nueva interpretación. </span>
-<span id="cb34-459"><a href="#cb34-459" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-460"><a href="#cb34-460" aria-hidden="true" tabindex="-1"></a>**¿Qué debe tener una buena interpretación estadística?**</span>
-<span id="cb34-461"><a href="#cb34-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-462"><a href="#cb34-462" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Resultado descriptivo**: qué se observó en la muestra y en qué dirección. El tamaño de la muestra, la media, la desviación estándar, la diferencia, etc., según corresponda. </span>
-<span id="cb34-463"><a href="#cb34-463" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Resultado inferencial**: Mencionar de manera explícita las técnicas estadísticas utilizadas, reportando el estadístico que corresponda (el valor *t* en este caso), el valor *p* y el IC — reportados con sus valores, no solo mencionados.</span>
-<span id="cb34-464"><a href="#cb34-464" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Decisión estadística explícita**: se rechaza o no se rechaza $H_0$ y con qué $\alpha$.</span>
-<span id="cb34-465"><a href="#cb34-465" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Conclusión sustantiva**: Se debe responder la pregunta de investigación en lenguaje sociológico, no solo estadístico. </span>
-<span id="cb34-466"><a href="#cb34-466" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Limitaciones**: Se debe tener claro el alcance de los hallazgos, evitando sobreinterpretaciones (por ejemplo, un p significativo pero un efecto pequeño) afirmaciones grandilocuentes del tipo &quot;comprobamos que la hipótesis es verdadera&quot; o &quot;establecemos que x es la causa de y&quot;. </span>
-<span id="cb34-467"><a href="#cb34-467" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-468"><a href="#cb34-468" aria-hidden="true" tabindex="-1"></a>Teniendo en cuenta estas recomendaciones, volvemos a escribir la interpretación a los resultados. </span>
+<span id="cb34-447"><a href="#cb34-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-448"><a href="#cb34-448" aria-hidden="true" tabindex="-1"></a><span class="co"># Ordenamos los resultados en una tabla</span></span>
+<span id="cb34-449"><a href="#cb34-449" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">tidy</span>(</span>
+<span id="cb34-450"><a href="#cb34-450" aria-hidden="true" tabindex="-1"></a>  test_goldin,</span>
+<span id="cb34-451"><a href="#cb34-451" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.int =</span> <span class="cn">TRUE</span></span>
+<span id="cb34-452"><a href="#cb34-452" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-453"><a href="#cb34-453" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-454"><a href="#cb34-454" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos la tabla en un formato más fácil de leer</span></span>
+<span id="cb34-455"><a href="#cb34-455" aria-hidden="true" tabindex="-1"></a>rempsyc<span class="sc">::</span><span class="fu">nice_table</span>(</span>
+<span id="cb34-456"><a href="#cb34-456" aria-hidden="true" tabindex="-1"></a>  stats.table,</span>
+<span id="cb34-457"><a href="#cb34-457" aria-hidden="true" tabindex="-1"></a>  <span class="at">broom =</span> <span class="st">&quot;t.test&quot;</span></span>
+<span id="cb34-458"><a href="#cb34-458" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-459"><a href="#cb34-459" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-460"><a href="#cb34-460" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-461"><a href="#cb34-461" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; Observamos que el ingreso de las mujeres sin hijos es diferente al de las mujeres con hijos, y que p es menor a 0.05. De tal modo, podemos comprobar que nuestra hipótesis es verdadera.</span></span>
+<span id="cb34-462"><a href="#cb34-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-463"><a href="#cb34-463" aria-hidden="true" tabindex="-1"></a>Antes de seguir, identifique al menos tres problemas en esta interpretación. Tome las siguientes preguntas como referencia:</span>
+<span id="cb34-464"><a href="#cb34-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-465"><a href="#cb34-465" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Describe adecuadamente los resultados observados?</span>
+<span id="cb34-466"><a href="#cb34-466" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Presenta la evidencia inferencial necesaria?</span>
+<span id="cb34-467"><a href="#cb34-467" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Informa su decisión respecto a $H_0$?</span>
+<span id="cb34-468"><a href="#cb34-468" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>¿Realmente comprueba que la hipótesis planteada es verdadera?</span>
 <span id="cb34-469"><a href="#cb34-469" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-470"><a href="#cb34-470" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; &quot;Los datos muestran que existe una diferencia de </span><span class="dv">&amp;#36;</span><span class="at">115.265,96 entre los ingresos de las mujeres sin hijos ($\bar{x}_1$=706.113,65) y de las mujeres con hijos ($\bar{x}_2$=590.847,69). A través de una prueba t para diferencia de medias, se observó que esta diferencia es estadísticamente significativa al 95% de confianza (*t*=2,39; *df*=492,66; *p*=0.017, *CI*</span><span class="co">[</span><span class="ot">20.564,30-209.967,62</span><span class="co">]</span><span class="at">). Por lo tanto, se rechaza la $H_0$ de igualdad de medias entre los ingresos de mujeres con hijos y mujeres sin hijos. Los datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos. Ahora bien, los datos no permiten concluir que tener hijos sea la causa de esa diferencia.&quot;</span></span>
+<span id="cb34-470"><a href="#cb34-470" aria-hidden="true" tabindex="-1"></a>Notarán que la interpretación propuesta no cumple varias de estas condiciones. A continuación, vamos dar algunas recomendaciones para una buena interpretación estadística y plantear una nueva interpretación. </span>
 <span id="cb34-471"><a href="#cb34-471" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-472"><a href="#cb34-472" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb34-473"><a href="#cb34-473" aria-hidden="true" tabindex="-1"></a>¿Qué interpretación sociológica le podemos dar estos hallazgos?</span>
-<span id="cb34-474"><a href="#cb34-474" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-475"><a href="#cb34-475" aria-hidden="true" tabindex="-1"></a>**Lectura sugerida**: Budig, M. J., &amp; England, P. (2001). The wage penalty for motherhood. *American Sociological Review, 66*(2), 204–225. https://doi.org/10.2307/2657415</span>
-<span id="cb34-476"><a href="#cb34-476" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-477"><a href="#cb34-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-478"><a href="#cb34-478" aria-hidden="true" tabindex="-1"></a>Adicionalmente, existen paquetes en R que pueden escribir interpretaciones de manera automática (en inglés), como <span class="in">`report`</span>:</span>
+<span id="cb34-472"><a href="#cb34-472" aria-hidden="true" tabindex="-1"></a>**¿Qué debe tener una buena interpretación estadística?**</span>
+<span id="cb34-473"><a href="#cb34-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-474"><a href="#cb34-474" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Resultado descriptivo**: qué se observó en la muestra y en qué dirección. El tamaño de la muestra, la media, la desviación estándar, la diferencia, etc., según corresponda. </span>
+<span id="cb34-475"><a href="#cb34-475" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Resultado inferencial**: Mencionar de manera explícita las técnicas estadísticas utilizadas, reportando el estadístico que corresponda (el valor *t* en este caso), el valor *p* y el IC — reportados con sus valores, no solo mencionados.</span>
+<span id="cb34-476"><a href="#cb34-476" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Decisión estadística explícita**: se rechaza o no se rechaza $H_0$ y con qué $\alpha$.</span>
+<span id="cb34-477"><a href="#cb34-477" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Conclusión sustantiva**: Se debe responder la pregunta de investigación en lenguaje sociológico, no solo estadístico. </span>
+<span id="cb34-478"><a href="#cb34-478" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Limitaciones**: Se debe tener claro el alcance de los hallazgos, evitando sobreinterpretaciones (por ejemplo, un p significativo pero un efecto pequeño) afirmaciones grandilocuentes del tipo &quot;comprobamos que la hipótesis es verdadera&quot; o &quot;establecemos que x es la causa de y&quot;. </span>
 <span id="cb34-479"><a href="#cb34-479" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-482"><a href="#cb34-482" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-483"><a href="#cb34-483" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(report)) <span class="fu">install.packages</span>(<span class="st">&quot;report&quot;</span>)</span>
-<span id="cb34-484"><a href="#cb34-484" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(report)</span>
-<span id="cb34-485"><a href="#cb34-485" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-486"><a href="#cb34-486" aria-hidden="true" tabindex="-1"></a>test_goldin <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
-<span id="cb34-487"><a href="#cb34-487" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> grupo_hijo,</span>
-<span id="cb34-488"><a href="#cb34-488" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> goldin_data,</span>
-<span id="cb34-489"><a href="#cb34-489" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
-<span id="cb34-490"><a href="#cb34-490" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-480"><a href="#cb34-480" aria-hidden="true" tabindex="-1"></a>Teniendo en cuenta estas recomendaciones, volvemos a escribir la interpretación a los resultados. </span>
+<span id="cb34-481"><a href="#cb34-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-482"><a href="#cb34-482" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; &quot;Los datos muestran que existe una diferencia de </span><span class="dv">&amp;#36;</span><span class="at">115.265,96 entre los ingresos de las mujeres sin hijos ($\bar{x}_1$=706.113,65) y de las mujeres con hijos ($\bar{x}_2$=590.847,69). A través de una prueba t para diferencia de medias, se observó que esta diferencia es estadísticamente significativa al 95% de confianza (*t*=2,39; *df*=492,66; *p*=0.017, *CI*</span><span class="co">[</span><span class="ot">20.564,30-209.967,62</span><span class="co">]</span><span class="at">). Por lo tanto, se rechaza la $H_0$ de igualdad de medias entre los ingresos de mujeres con hijos y mujeres sin hijos. Los datos entregan evidencia de que el ingreso laboral promedio difiere entre las mujeres ocupadas con hijos y las mujeres ocupadas sin hijos. Ahora bien, los datos no permiten concluir que tener hijos sea la causa de esa diferencia.&quot;</span></span>
+<span id="cb34-483"><a href="#cb34-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-484"><a href="#cb34-484" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb34-485"><a href="#cb34-485" aria-hidden="true" tabindex="-1"></a>¿Qué interpretación sociológica le podemos dar estos hallazgos?</span>
+<span id="cb34-486"><a href="#cb34-486" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-487"><a href="#cb34-487" aria-hidden="true" tabindex="-1"></a>**Lectura sugerida**: Budig, M. J., &amp; England, P. (2001). The wage penalty for motherhood. *American Sociological Review, 66*(2), 204–225. https://doi.org/10.2307/2657415</span>
+<span id="cb34-488"><a href="#cb34-488" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-489"><a href="#cb34-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-490"><a href="#cb34-490" aria-hidden="true" tabindex="-1"></a>Adicionalmente, existen paquetes en R que pueden escribir interpretaciones de manera automática (en inglés), como <span class="in">`report`</span>:</span>
 <span id="cb34-491"><a href="#cb34-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-492"><a href="#cb34-492" aria-hidden="true" tabindex="-1"></a>report<span class="sc">::</span><span class="fu">report</span>(test_goldin)</span>
-<span id="cb34-493"><a href="#cb34-493" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-494"><a href="#cb34-494" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-495"><a href="#cb34-495" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-496"><a href="#cb34-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-497"><a href="#cb34-497" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
-<span id="cb34-498"><a href="#cb34-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-499"><a href="#cb34-499" aria-hidden="true" tabindex="-1"></a>Nunca se debe copiar y pegar la salida de <span class="in">`report`</span>. Además de traducirla (si el reporte es en español), es necesario hacer ediciones, particularmente en el nombre de las variables y sus categorías. Una versión traducida y editada debería verse así: </span>
-<span id="cb34-500"><a href="#cb34-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-501"><a href="#cb34-501" aria-hidden="true" tabindex="-1"></a>La prueba t de Welch para dos muestras que evalúa la diferencia en los ingresos labores de mujeres con y sin hijos ($\bar{x}_{sin hijos}$=706.113,65, $\bar{x}_{con hijos}$=590.847,69) sugiere que el efecto es positivo, estadísticamente significativo y pequeño (diferencia = 115.265,96, IC 95% <span class="co">[</span><span class="ot">20564,30, 209.967</span><span class="co">]</span>, t(492,66) = 2,39, p = 0,017; d de Cohen = 0,22, IC 95% <span class="co">[</span><span class="ot">0,04, 0,39</span><span class="co">]</span>)</span>
-<span id="cb34-502"><a href="#cb34-502" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-494"><a href="#cb34-494" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-495"><a href="#cb34-495" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">require</span>(report)) <span class="fu">install.packages</span>(<span class="st">&quot;report&quot;</span>)</span>
+<span id="cb34-496"><a href="#cb34-496" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(report)</span>
+<span id="cb34-497"><a href="#cb34-497" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-498"><a href="#cb34-498" aria-hidden="true" tabindex="-1"></a>test_goldin <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb34-499"><a href="#cb34-499" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> grupo_hijo,</span>
+<span id="cb34-500"><a href="#cb34-500" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> goldin_data,</span>
+<span id="cb34-501"><a href="#cb34-501" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span></span>
+<span id="cb34-502"><a href="#cb34-502" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb34-503"><a href="#cb34-503" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-504"><a href="#cb34-504" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-505"><a href="#cb34-505" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
-<span id="cb34-506"><a href="#cb34-506" aria-hidden="true" tabindex="-1"></a>**¿Por qué `report` indica que la diferencia es pequeña?**</span>
+<span id="cb34-504"><a href="#cb34-504" aria-hidden="true" tabindex="-1"></a>report<span class="sc">::</span><span class="fu">report</span>(test_goldin)</span>
+<span id="cb34-505"><a href="#cb34-505" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-506"><a href="#cb34-506" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-507"><a href="#cb34-507" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-508"><a href="#cb34-508" aria-hidden="true" tabindex="-1"></a>Porque estima un estadístico conocido como *d de Cohen* que permite estimar la **magnitud** del efecto. Se define como la diferencia entre las medias grupales divido por la desviación estándar agrupada de ambos grupos. </span>
-<span id="cb34-509"><a href="#cb34-509" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-510"><a href="#cb34-510" aria-hidden="true" tabindex="-1"></a>Cohen (1988) indicó que:</span>
-<span id="cb34-511"><a href="#cb34-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-512"><a href="#cb34-512" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.2 son considerados pequeños</span>
-<span id="cb34-513"><a href="#cb34-513" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.5 son considerados medianos</span>
-<span id="cb34-514"><a href="#cb34-514" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.8 son considerado grandes</span>
+<span id="cb34-508"><a href="#cb34-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-509"><a href="#cb34-509" aria-hidden="true" tabindex="-1"></a>::: {.callout-caution}</span>
+<span id="cb34-510"><a href="#cb34-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-511"><a href="#cb34-511" aria-hidden="true" tabindex="-1"></a>Nunca se debe copiar y pegar la salida de <span class="in">`report`</span>. Además de traducirla (si el reporte es en español), es necesario hacer ediciones, particularmente en el nombre de las variables y sus categorías. Una versión traducida y editada debería verse así: </span>
+<span id="cb34-512"><a href="#cb34-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-513"><a href="#cb34-513" aria-hidden="true" tabindex="-1"></a>La prueba t de Welch para dos muestras que evalúa la diferencia en los ingresos labores de mujeres con y sin hijos ($\bar{x}_{sin hijos}$=706.113,65, $\bar{x}_{con hijos}$=590.847,69) sugiere que el efecto es positivo, estadísticamente significativo y pequeño (diferencia = 115.265,96, IC 95% <span class="co">[</span><span class="ot">20564,30, 209.967</span><span class="co">]</span>, t(492,66) = 2,39, p = 0,017; d de Cohen = 0,22, IC 95% <span class="co">[</span><span class="ot">0,04, 0,39</span><span class="co">]</span>)</span>
+<span id="cb34-514"><a href="#cb34-514" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb34-515"><a href="#cb34-515" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-516"><a href="#cb34-516" aria-hidden="true" tabindex="-1"></a>Por lo tanto, el efecto observado en este ejercicio (*d*=0.22) sería pequeño en relación a la desviación estándar observada.  </span>
-<span id="cb34-517"><a href="#cb34-517" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb34-518"><a href="#cb34-518" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-519"><a href="#cb34-519" aria-hidden="true" tabindex="-1"></a><span class="fu"># Ejercicios de Integración e Interpretación</span></span>
-<span id="cb34-520"><a href="#cb34-520" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-521"><a href="#cb34-521" aria-hidden="true" tabindex="-1"></a>Trabajaremos nuevamente con <span class="in">`proc_casen`</span>, que se carga con el código de más abajo. </span>
-<span id="cb34-522"><a href="#cb34-522" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-525"><a href="#cb34-525" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-526"><a href="#cb34-526" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb34-516"><a href="#cb34-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-517"><a href="#cb34-517" aria-hidden="true" tabindex="-1"></a>::: {.callout-note}</span>
+<span id="cb34-518"><a href="#cb34-518" aria-hidden="true" tabindex="-1"></a>**¿Por qué `report` indica que la diferencia es pequeña?**</span>
+<span id="cb34-519"><a href="#cb34-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-520"><a href="#cb34-520" aria-hidden="true" tabindex="-1"></a>Porque estima un estadístico conocido como *d de Cohen* que permite estimar la **magnitud** del efecto. Se define como la diferencia entre las medias grupales divido por la desviación estándar agrupada de ambos grupos. </span>
+<span id="cb34-521"><a href="#cb34-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-522"><a href="#cb34-522" aria-hidden="true" tabindex="-1"></a>Cohen (1988) indicó que:</span>
+<span id="cb34-523"><a href="#cb34-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-524"><a href="#cb34-524" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.2 son considerados pequeños</span>
+<span id="cb34-525"><a href="#cb34-525" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.5 son considerados medianos</span>
+<span id="cb34-526"><a href="#cb34-526" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>d&gt;0.8 son considerado grandes</span>
 <span id="cb34-527"><a href="#cb34-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-528"><a href="#cb34-528" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData&quot;</span>))</span>
-<span id="cb34-529"><a href="#cb34-529" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-528"><a href="#cb34-528" aria-hidden="true" tabindex="-1"></a>Por lo tanto, el efecto observado en este ejercicio (*d*=0.22) sería pequeño en relación a la desviación estándar observada.  </span>
+<span id="cb34-529"><a href="#cb34-529" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb34-530"><a href="#cb34-530" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-531"><a href="#cb34-531" aria-hidden="true" tabindex="-1"></a>Buscaremos responder dos preguntas de investigación. </span>
+<span id="cb34-531"><a href="#cb34-531" aria-hidden="true" tabindex="-1"></a><span class="fu"># Ejercicios de Integración e Interpretación</span></span>
 <span id="cb34-532"><a href="#cb34-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-533"><a href="#cb34-533" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?</span>
-<span id="cb34-534"><a href="#cb34-534" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?</span>
-<span id="cb34-535"><a href="#cb34-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-536"><a href="#cb34-536" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-537"><a href="#cb34-537" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pregunta 1</span></span>
-<span id="cb34-538"><a href="#cb34-538" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-539"><a href="#cb34-539" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?</span></span>
-<span id="cb34-540"><a href="#cb34-540" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-541"><a href="#cb34-541" aria-hidden="true" tabindex="-1"></a>**Preparar los datos**</span>
+<span id="cb34-533"><a href="#cb34-533" aria-hidden="true" tabindex="-1"></a>Trabajaremos nuevamente con <span class="in">`proc_casen`</span>, que se carga con el código de más abajo. </span>
+<span id="cb34-534"><a href="#cb34-534" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-537"><a href="#cb34-537" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-538"><a href="#cb34-538" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb34-539"><a href="#cb34-539" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-540"><a href="#cb34-540" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/proc_casen.RData&quot;</span>))</span>
+<span id="cb34-541"><a href="#cb34-541" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-542"><a href="#cb34-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-543"><a href="#cb34-543" aria-hidden="true" tabindex="-1"></a>Ya cargamos la base de datos, ahora vamos a procesar la variable <span class="in">`ayuda_moverse`</span> para responder la pregunta de investigación. </span>
+<span id="cb34-543"><a href="#cb34-543" aria-hidden="true" tabindex="-1"></a>Buscaremos responder dos preguntas de investigación. </span>
 <span id="cb34-544"><a href="#cb34-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-547"><a href="#cb34-547" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-548"><a href="#cb34-548" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un subset</span></span>
-<span id="cb34-549"><a href="#cb34-549" aria-hidden="true" tabindex="-1"></a>subset_1 <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span> </span>
-<span id="cb34-550"><a href="#cb34-550" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filtramos para dejar solo las personas que necesitan ayuda muchas veces (4) o siempre (5)</span></span>
-<span id="cb34-551"><a href="#cb34-551" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ayuda_moverse <span class="sc">&gt;=</span> <span class="dv">4</span>)</span>
+<span id="cb34-545"><a href="#cb34-545" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?</span>
+<span id="cb34-546"><a href="#cb34-546" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?</span>
+<span id="cb34-547"><a href="#cb34-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-548"><a href="#cb34-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-549"><a href="#cb34-549" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pregunta 1</span></span>
+<span id="cb34-550"><a href="#cb34-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-551"><a href="#cb34-551" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Cuál es la edad promedio de las personas que necesitan ayuda para moverse dentro de su casa?</span></span>
 <span id="cb34-552"><a href="#cb34-552" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-553"><a href="#cb34-553" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-553"><a href="#cb34-553" aria-hidden="true" tabindex="-1"></a>**Preparar los datos**</span>
 <span id="cb34-554"><a href="#cb34-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-555"><a href="#cb34-555" aria-hidden="true" tabindex="-1"></a>**Estadísticos descriptivos**</span>
+<span id="cb34-555"><a href="#cb34-555" aria-hidden="true" tabindex="-1"></a>Ya cargamos la base de datos, ahora vamos a procesar la variable <span class="in">`ayuda_moverse`</span> para responder la pregunta de investigación. </span>
 <span id="cb34-556"><a href="#cb34-556" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-557"><a href="#cb34-557" aria-hidden="true" tabindex="-1"></a>Como sabemos que vamos a necesitar el tamaño de la muestra, así como el promedio y la desviación estándar de <span class="in">`edad`</span>. </span>
-<span id="cb34-558"><a href="#cb34-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-561"><a href="#cb34-561" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-562"><a href="#cb34-562" aria-hidden="true" tabindex="-1"></a>n_edad <span class="ot">&lt;-</span> <span class="fu">nrow</span>(subset_1)</span>
-<span id="cb34-563"><a href="#cb34-563" aria-hidden="true" tabindex="-1"></a>media_edad <span class="ot">&lt;-</span> <span class="fu">mean</span>(subset_1<span class="sc">$</span>edad)</span>
-<span id="cb34-564"><a href="#cb34-564" aria-hidden="true" tabindex="-1"></a>sd_edad <span class="ot">&lt;-</span> <span class="fu">sd</span>(subset_1<span class="sc">$</span>edad)</span>
-<span id="cb34-565"><a href="#cb34-565" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-566"><a href="#cb34-566" aria-hidden="true" tabindex="-1"></a>n_edad</span>
-<span id="cb34-567"><a href="#cb34-567" aria-hidden="true" tabindex="-1"></a>media_edad</span>
-<span id="cb34-568"><a href="#cb34-568" aria-hidden="true" tabindex="-1"></a>sd_edad</span>
-<span id="cb34-569"><a href="#cb34-569" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-559"><a href="#cb34-559" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-560"><a href="#cb34-560" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un subset</span></span>
+<span id="cb34-561"><a href="#cb34-561" aria-hidden="true" tabindex="-1"></a>subset_1 <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span> </span>
+<span id="cb34-562"><a href="#cb34-562" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filtramos para dejar solo las personas que necesitan ayuda muchas veces (4) o siempre (5)</span></span>
+<span id="cb34-563"><a href="#cb34-563" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(ayuda_moverse <span class="sc">&gt;=</span> <span class="dv">4</span>)</span>
+<span id="cb34-564"><a href="#cb34-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-565"><a href="#cb34-565" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-566"><a href="#cb34-566" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-567"><a href="#cb34-567" aria-hidden="true" tabindex="-1"></a>**Estadísticos descriptivos**</span>
+<span id="cb34-568"><a href="#cb34-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-569"><a href="#cb34-569" aria-hidden="true" tabindex="-1"></a>Como sabemos que vamos a necesitar el tamaño de la muestra, así como el promedio y la desviación estándar de <span class="in">`edad`</span>. </span>
 <span id="cb34-570"><a href="#cb34-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-571"><a href="#cb34-571" aria-hidden="true" tabindex="-1"></a>Con esto ya tenemos una estimación puntual de la edad de las personas que necesitan ayuda para moverse en su casa: 73,15 años para nuestra muestra de 2364 casos, con una desviación estándar de 18.79.</span>
-<span id="cb34-572"><a href="#cb34-572" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-573"><a href="#cb34-573" aria-hidden="true" tabindex="-1"></a>**Calcular el error estándar**</span>
-<span id="cb34-574"><a href="#cb34-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-575"><a href="#cb34-575" aria-hidden="true" tabindex="-1"></a>Recordemos que el error estándar del promedio está definido por:</span>
-<span id="cb34-576"><a href="#cb34-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-577"><a href="#cb34-577" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-578"><a href="#cb34-578" aria-hidden="true" tabindex="-1"></a>SE = \frac{s}{\sqrt{n}}</span>
-<span id="cb34-579"><a href="#cb34-579" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-580"><a href="#cb34-580" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-581"><a href="#cb34-581" aria-hidden="true" tabindex="-1"></a>En R, esto se calcularía así:</span>
+<span id="cb34-573"><a href="#cb34-573" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-574"><a href="#cb34-574" aria-hidden="true" tabindex="-1"></a>n_edad <span class="ot">&lt;-</span> <span class="fu">nrow</span>(subset_1)</span>
+<span id="cb34-575"><a href="#cb34-575" aria-hidden="true" tabindex="-1"></a>media_edad <span class="ot">&lt;-</span> <span class="fu">mean</span>(subset_1<span class="sc">$</span>edad)</span>
+<span id="cb34-576"><a href="#cb34-576" aria-hidden="true" tabindex="-1"></a>sd_edad <span class="ot">&lt;-</span> <span class="fu">sd</span>(subset_1<span class="sc">$</span>edad)</span>
+<span id="cb34-577"><a href="#cb34-577" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-578"><a href="#cb34-578" aria-hidden="true" tabindex="-1"></a>n_edad</span>
+<span id="cb34-579"><a href="#cb34-579" aria-hidden="true" tabindex="-1"></a>media_edad</span>
+<span id="cb34-580"><a href="#cb34-580" aria-hidden="true" tabindex="-1"></a>sd_edad</span>
+<span id="cb34-581"><a href="#cb34-581" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-582"><a href="#cb34-582" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-585"><a href="#cb34-585" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-586"><a href="#cb34-586" aria-hidden="true" tabindex="-1"></a>se_edad <span class="ot">&lt;-</span> sd_edad<span class="sc">/</span><span class="fu">sqrt</span>(n_edad)</span>
-<span id="cb34-587"><a href="#cb34-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-588"><a href="#cb34-588" aria-hidden="true" tabindex="-1"></a>se_edad</span>
-<span id="cb34-589"><a href="#cb34-589" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-590"><a href="#cb34-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-591"><a href="#cb34-591" aria-hidden="true" tabindex="-1"></a>El error estándar de la media de edad de 0.39 años.</span>
+<span id="cb34-583"><a href="#cb34-583" aria-hidden="true" tabindex="-1"></a>Con esto ya tenemos una estimación puntual de la edad de las personas que necesitan ayuda para moverse en su casa: 73,15 años para nuestra muestra de 2364 casos, con una desviación estándar de 18.79.</span>
+<span id="cb34-584"><a href="#cb34-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-585"><a href="#cb34-585" aria-hidden="true" tabindex="-1"></a>**Calcular el error estándar**</span>
+<span id="cb34-586"><a href="#cb34-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-587"><a href="#cb34-587" aria-hidden="true" tabindex="-1"></a>Recordemos que el error estándar del promedio está definido por:</span>
+<span id="cb34-588"><a href="#cb34-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-589"><a href="#cb34-589" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-590"><a href="#cb34-590" aria-hidden="true" tabindex="-1"></a>SE = \frac{s}{\sqrt{n}}</span>
+<span id="cb34-591"><a href="#cb34-591" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb34-592"><a href="#cb34-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-593"><a href="#cb34-593" aria-hidden="true" tabindex="-1"></a>**Definir la probabilidad de error $\alpha$ y el valor crítico**</span>
+<span id="cb34-593"><a href="#cb34-593" aria-hidden="true" tabindex="-1"></a>En R, esto se calcularía así:</span>
 <span id="cb34-594"><a href="#cb34-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-595"><a href="#cb34-595" aria-hidden="true" tabindex="-1"></a>Seguiremos la convención de de $\alpha$=0.05, lo que se corresponde con el valor crítico de 1,96. </span>
-<span id="cb34-596"><a href="#cb34-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-597"><a href="#cb34-597" aria-hidden="true" tabindex="-1"></a>**Calcular el intervalo de confianza**</span>
-<span id="cb34-598"><a href="#cb34-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-599"><a href="#cb34-599" aria-hidden="true" tabindex="-1"></a>La formula del intervalo de confianza para el promedio es:</span>
-<span id="cb34-600"><a href="#cb34-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-601"><a href="#cb34-601" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb34-602"><a href="#cb34-602" aria-hidden="true" tabindex="-1"></a>IC = \bar{x} \pm z_{\alpha/2} \cdot SE</span>
-<span id="cb34-603"><a href="#cb34-603" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-597"><a href="#cb34-597" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-598"><a href="#cb34-598" aria-hidden="true" tabindex="-1"></a>se_edad <span class="ot">&lt;-</span> sd_edad<span class="sc">/</span><span class="fu">sqrt</span>(n_edad)</span>
+<span id="cb34-599"><a href="#cb34-599" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-600"><a href="#cb34-600" aria-hidden="true" tabindex="-1"></a>se_edad</span>
+<span id="cb34-601"><a href="#cb34-601" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-602"><a href="#cb34-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-603"><a href="#cb34-603" aria-hidden="true" tabindex="-1"></a>El error estándar de la media de edad de 0.39 años.</span>
 <span id="cb34-604"><a href="#cb34-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-605"><a href="#cb34-605" aria-hidden="true" tabindex="-1"></a>Calculemos en R:</span>
+<span id="cb34-605"><a href="#cb34-605" aria-hidden="true" tabindex="-1"></a>**Definir la probabilidad de error $\alpha$ y el valor crítico**</span>
 <span id="cb34-606"><a href="#cb34-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-609"><a href="#cb34-609" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-610"><a href="#cb34-610" aria-hidden="true" tabindex="-1"></a>lim_inferior <span class="ot">&lt;-</span> media_edad <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_edad</span>
-<span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>lim_superior <span class="ot">&lt;-</span> media_edad <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_edad</span>
+<span id="cb34-607"><a href="#cb34-607" aria-hidden="true" tabindex="-1"></a>Seguiremos la convención de de $\alpha$=0.05, lo que se corresponde con el valor crítico de 1,96. </span>
+<span id="cb34-608"><a href="#cb34-608" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-609"><a href="#cb34-609" aria-hidden="true" tabindex="-1"></a>**Calcular el intervalo de confianza**</span>
+<span id="cb34-610"><a href="#cb34-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>La formula del intervalo de confianza para el promedio es:</span>
 <span id="cb34-612"><a href="#cb34-612" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a>lim_inferior</span>
-<span id="cb34-614"><a href="#cb34-614" aria-hidden="true" tabindex="-1"></a>lim_superior</span>
-<span id="cb34-615"><a href="#cb34-615" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb34-614"><a href="#cb34-614" aria-hidden="true" tabindex="-1"></a>IC = \bar{x} \pm z_{\alpha/2} \cdot SE</span>
+<span id="cb34-615"><a href="#cb34-615" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb34-616"><a href="#cb34-616" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-617"><a href="#cb34-617" aria-hidden="true" tabindex="-1"></a>Noten que en este ejercicio no es necesario realizar una prueba t, pues no estamos comparando grupos. Basta estimar de forma correcta un intervalo de confianza para responder la pregunta de investigación. </span>
+<span id="cb34-617"><a href="#cb34-617" aria-hidden="true" tabindex="-1"></a>Calculemos en R:</span>
 <span id="cb34-618"><a href="#cb34-618" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-619"><a href="#cb34-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-620"><a href="#cb34-620" aria-hidden="true" tabindex="-1"></a>**Interpretación**</span>
-<span id="cb34-621"><a href="#cb34-621" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-622"><a href="#cb34-622" aria-hidden="true" tabindex="-1"></a>A partir de una muestra 2364 personas, se estimó que la edad promedio de las personas que necesitan ayuda para moverse en su casa es de 73.15 años, con una desviación estándar de 18.79 años. Considerando un nivel de 95% de confianza (*SE*=0.39), se puede afirmar que la edad promedio en la población se encuentra entre los 72.4 y los 73.9 años. </span>
-<span id="cb34-623"><a href="#cb34-623" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-621"><a href="#cb34-621" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-622"><a href="#cb34-622" aria-hidden="true" tabindex="-1"></a>lim_inferior <span class="ot">&lt;-</span> media_edad <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se_edad</span>
+<span id="cb34-623"><a href="#cb34-623" aria-hidden="true" tabindex="-1"></a>lim_superior <span class="ot">&lt;-</span> media_edad <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se_edad</span>
 <span id="cb34-624"><a href="#cb34-624" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-625"><a href="#cb34-625" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
-<span id="cb34-626"><a href="#cb34-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-627"><a href="#cb34-627" aria-hidden="true" tabindex="-1"></a>Lo de arriba es una interpretación estadística de los resultados. Para dar una interpretación sociológica valdría la pena remitirnos, por ejemplo, a la literatura sobre envejecimiento o tareas de cuidado en Chile. </span>
+<span id="cb34-625"><a href="#cb34-625" aria-hidden="true" tabindex="-1"></a>lim_inferior</span>
+<span id="cb34-626"><a href="#cb34-626" aria-hidden="true" tabindex="-1"></a>lim_superior</span>
+<span id="cb34-627"><a href="#cb34-627" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb34-628"><a href="#cb34-628" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-629"><a href="#cb34-629" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-629"><a href="#cb34-629" aria-hidden="true" tabindex="-1"></a>Noten que en este ejercicio no es necesario realizar una prueba t, pues no estamos comparando grupos. Basta estimar de forma correcta un intervalo de confianza para responder la pregunta de investigación. </span>
 <span id="cb34-630"><a href="#cb34-630" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb34-631"><a href="#cb34-631" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-632"><a href="#cb34-632" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pregunta 2</span></span>
+<span id="cb34-632"><a href="#cb34-632" aria-hidden="true" tabindex="-1"></a>**Interpretación**</span>
 <span id="cb34-633"><a href="#cb34-633" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-634"><a href="#cb34-634" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?</span></span>
+<span id="cb34-634"><a href="#cb34-634" aria-hidden="true" tabindex="-1"></a>A partir de una muestra 2364 personas, se estimó que la edad promedio de las personas que necesitan ayuda para moverse en su casa es de 73.15 años, con una desviación estándar de 18.79 años. Considerando un nivel de 95% de confianza (*SE*=0.39), se puede afirmar que la edad promedio en la población se encuentra entre los 72.4 y los 73.9 años. </span>
 <span id="cb34-635"><a href="#cb34-635" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-636"><a href="#cb34-636" aria-hidden="true" tabindex="-1"></a>**Procesar los datos**</span>
-<span id="cb34-637"><a href="#cb34-637" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-638"><a href="#cb34-638" aria-hidden="true" tabindex="-1"></a>Ya hemos trabajado antes con la variable <span class="in">`ytrabajocor`</span>, que indica los ingresos laborales de los individuos. Identificaremos las personas con y sin discapacidad con la variable <span class="in">`disc_fisica`</span>, que indica que 1=no tiene discapacidad y 2=tiene discapacidad. Vamos a limpiar los casos perdidos y ponerle etiquetas a <span class="in">`disc_fisica`</span></span>
-<span id="cb34-639"><a href="#cb34-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-642"><a href="#cb34-642" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-643"><a href="#cb34-643" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un subset con las variables de interés</span></span>
-<span id="cb34-644"><a href="#cb34-644" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span></span>
-<span id="cb34-645"><a href="#cb34-645" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ytrabajocor, disc_fisica)</span>
-<span id="cb34-646"><a href="#cb34-646" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-647"><a href="#cb34-647" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminamos los casos con información faltante</span></span>
-<span id="cb34-648"><a href="#cb34-648" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(subset_2)</span>
+<span id="cb34-636"><a href="#cb34-636" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-637"><a href="#cb34-637" aria-hidden="true" tabindex="-1"></a>::: {.callout-important}</span>
+<span id="cb34-638"><a href="#cb34-638" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-639"><a href="#cb34-639" aria-hidden="true" tabindex="-1"></a>Lo de arriba es una interpretación estadística de los resultados. Para dar una interpretación sociológica valdría la pena remitirnos, por ejemplo, a la literatura sobre envejecimiento o tareas de cuidado en Chile. </span>
+<span id="cb34-640"><a href="#cb34-640" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-641"><a href="#cb34-641" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb34-642"><a href="#cb34-642" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-643"><a href="#cb34-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-644"><a href="#cb34-644" aria-hidden="true" tabindex="-1"></a><span class="fu">### Pregunta 2</span></span>
+<span id="cb34-645"><a href="#cb34-645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-646"><a href="#cb34-646" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ¿Existen diferencias en el ingreso promedio de las personas con discapacidad y sin discapacidad?</span></span>
+<span id="cb34-647"><a href="#cb34-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-648"><a href="#cb34-648" aria-hidden="true" tabindex="-1"></a>**Procesar los datos**</span>
 <span id="cb34-649"><a href="#cb34-649" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-650"><a href="#cb34-650" aria-hidden="true" tabindex="-1"></a><span class="co"># Reemplazamos los códigos de la variable `disc_fisica` por etiquetas</span></span>
-<span id="cb34-651"><a href="#cb34-651" aria-hidden="true" tabindex="-1"></a>subset_2<span class="sc">$</span>disc_fisica <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
-<span id="cb34-652"><a href="#cb34-652" aria-hidden="true" tabindex="-1"></a>  subset_2<span class="sc">$</span>disc_fisica,</span>
-<span id="cb34-653"><a href="#cb34-653" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
-<span id="cb34-654"><a href="#cb34-654" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
-<span id="cb34-655"><a href="#cb34-655" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;No tiene discapacidad&quot;</span>,</span>
-<span id="cb34-656"><a href="#cb34-656" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Tiene discapacidad&quot;</span></span>
-<span id="cb34-657"><a href="#cb34-657" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-658"><a href="#cb34-658" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-659"><a href="#cb34-659" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb34-660"><a href="#cb34-660" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-661"><a href="#cb34-661" aria-hidden="true" tabindex="-1"></a>Aprovechemos también de hacer una exploración descriptiva de los datos</span>
-<span id="cb34-662"><a href="#cb34-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-665"><a href="#cb34-665" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-666"><a href="#cb34-666" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="sc">|&gt;</span></span>
-<span id="cb34-667"><a href="#cb34-667" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(disc_fisica) <span class="sc">|&gt;</span></span>
-<span id="cb34-668"><a href="#cb34-668" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
-<span id="cb34-669"><a href="#cb34-669" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
-<span id="cb34-670"><a href="#cb34-670" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(ytrabajocor),</span>
-<span id="cb34-671"><a href="#cb34-671" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(ytrabajocor)</span>
-<span id="cb34-672"><a href="#cb34-672" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb34-673"><a href="#cb34-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-650"><a href="#cb34-650" aria-hidden="true" tabindex="-1"></a>Ya hemos trabajado antes con la variable <span class="in">`ytrabajocor`</span>, que indica los ingresos laborales de los individuos. Identificaremos las personas con y sin discapacidad con la variable <span class="in">`disc_fisica`</span>, que indica que 1=no tiene discapacidad y 2=tiene discapacidad. Vamos a limpiar los casos perdidos y ponerle etiquetas a <span class="in">`disc_fisica`</span></span>
+<span id="cb34-651"><a href="#cb34-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-654"><a href="#cb34-654" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-655"><a href="#cb34-655" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un subset con las variables de interés</span></span>
+<span id="cb34-656"><a href="#cb34-656" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="ot">&lt;-</span> proc_casen <span class="sc">|&gt;</span></span>
+<span id="cb34-657"><a href="#cb34-657" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(ytrabajocor, disc_fisica)</span>
+<span id="cb34-658"><a href="#cb34-658" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-659"><a href="#cb34-659" aria-hidden="true" tabindex="-1"></a><span class="co"># Eliminamos los casos con información faltante</span></span>
+<span id="cb34-660"><a href="#cb34-660" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(subset_2)</span>
+<span id="cb34-661"><a href="#cb34-661" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-662"><a href="#cb34-662" aria-hidden="true" tabindex="-1"></a><span class="co"># Reemplazamos los códigos de la variable `disc_fisica` por etiquetas</span></span>
+<span id="cb34-663"><a href="#cb34-663" aria-hidden="true" tabindex="-1"></a>subset_2<span class="sc">$</span>disc_fisica <span class="ot">&lt;-</span> <span class="fu">factor</span>(</span>
+<span id="cb34-664"><a href="#cb34-664" aria-hidden="true" tabindex="-1"></a>  subset_2<span class="sc">$</span>disc_fisica,</span>
+<span id="cb34-665"><a href="#cb34-665" aria-hidden="true" tabindex="-1"></a>  <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>),</span>
+<span id="cb34-666"><a href="#cb34-666" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb34-667"><a href="#cb34-667" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;No tiene discapacidad&quot;</span>,</span>
+<span id="cb34-668"><a href="#cb34-668" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Tiene discapacidad&quot;</span></span>
+<span id="cb34-669"><a href="#cb34-669" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-670"><a href="#cb34-670" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-671"><a href="#cb34-671" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-672"><a href="#cb34-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-673"><a href="#cb34-673" aria-hidden="true" tabindex="-1"></a>Aprovechemos también de hacer una exploración descriptiva de los datos</span>
 <span id="cb34-674"><a href="#cb34-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-675"><a href="#cb34-675" aria-hidden="true" tabindex="-1"></a>¿Qué podemos observar en esta tabla?</span>
-<span id="cb34-676"><a href="#cb34-676" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-677"><a href="#cb34-677" aria-hidden="true" tabindex="-1"></a>**Ejercicio autónomo**</span>
-<span id="cb34-678"><a href="#cb34-678" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-679"><a href="#cb34-679" aria-hidden="true" tabindex="-1"></a>Para seguir, responda las siguientes preguntas:</span>
-<span id="cb34-680"><a href="#cb34-680" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-681"><a href="#cb34-681" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>¿Cuál es la hipótesis nula? ¿Y la alternativa?</span>
-<span id="cb34-682"><a href="#cb34-682" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿La pregunta de investigación requiere de una hipótesis direccional o no direccional? ¿Por qué?</span>
-<span id="cb34-683"><a href="#cb34-683" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Complete y ejecute la prueba</span>
-<span id="cb34-684"><a href="#cb34-684" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-687"><a href="#cb34-687" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb34-688"><a href="#cb34-688" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb34-689"><a href="#cb34-689" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
-<span id="cb34-690"><a href="#cb34-690" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(</span>
-<span id="cb34-691"><a href="#cb34-691" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> disc_fisica,</span>
-<span id="cb34-692"><a href="#cb34-692" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> subset_2,</span>
-<span id="cb34-693"><a href="#cb34-693" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;________&quot;</span></span>
-<span id="cb34-694"><a href="#cb34-694" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb34-695"><a href="#cb34-695" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-677"><a href="#cb34-677" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-678"><a href="#cb34-678" aria-hidden="true" tabindex="-1"></a>subset_2 <span class="sc">|&gt;</span></span>
+<span id="cb34-679"><a href="#cb34-679" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(disc_fisica) <span class="sc">|&gt;</span></span>
+<span id="cb34-680"><a href="#cb34-680" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(</span>
+<span id="cb34-681"><a href="#cb34-681" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> dplyr<span class="sc">::</span><span class="fu">n</span>(),</span>
+<span id="cb34-682"><a href="#cb34-682" aria-hidden="true" tabindex="-1"></a>    <span class="at">Media =</span> <span class="fu">mean</span>(ytrabajocor),</span>
+<span id="cb34-683"><a href="#cb34-683" aria-hidden="true" tabindex="-1"></a>    <span class="at">SD =</span> <span class="fu">sd</span>(ytrabajocor)</span>
+<span id="cb34-684"><a href="#cb34-684" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb34-685"><a href="#cb34-685" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-686"><a href="#cb34-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-687"><a href="#cb34-687" aria-hidden="true" tabindex="-1"></a>¿Qué podemos observar en esta tabla?</span>
+<span id="cb34-688"><a href="#cb34-688" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-689"><a href="#cb34-689" aria-hidden="true" tabindex="-1"></a>**Ejercicio autónomo**</span>
+<span id="cb34-690"><a href="#cb34-690" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-691"><a href="#cb34-691" aria-hidden="true" tabindex="-1"></a>Para seguir, responda las siguientes preguntas:</span>
+<span id="cb34-692"><a href="#cb34-692" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-693"><a href="#cb34-693" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>¿Cuál es la hipótesis nula? ¿Y la alternativa?</span>
+<span id="cb34-694"><a href="#cb34-694" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>¿La pregunta de investigación requiere de una hipótesis direccional o no direccional? ¿Por qué?</span>
+<span id="cb34-695"><a href="#cb34-695" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Complete y ejecute la prueba</span>
 <span id="cb34-696"><a href="#cb34-696" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-697"><a href="#cb34-697" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Interprete estadística y sociológicamente. </span>
-<span id="cb34-698"><a href="#cb34-698" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-699"><a href="#cb34-699" aria-hidden="true" tabindex="-1"></a><span class="fu"># Síntesis</span></span>
-<span id="cb34-700"><a href="#cb34-700" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-701"><a href="#cb34-701" aria-hidden="true" tabindex="-1"></a>Hoy integramos lo aprendido en sesiones anteriores: estimación de intervalo de confianza y contraste con valor crítico para diferencia de medias (prueba t) y de proporciones (Z). Además, vimos la dirección de la hipótesis, ejecutar el análisis en R, e interpretar los resultados de manera correcta. </span>
-<span id="cb34-702"><a href="#cb34-702" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-703"><a href="#cb34-703" aria-hidden="true" tabindex="-1"></a>El dominio de estas herramientas nos permite pasar desde la mera descripción de una muestra a ser capaces de inferir y sacar conclusiones sobre la población de estudio. En la sociología, utilizamos estás técnicas para generar conocimiento sobre la sociedad basada en evidencia estadística. </span>
+<span id="cb34-699"><a href="#cb34-699" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb34-700"><a href="#cb34-700" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb34-701"><a href="#cb34-701" aria-hidden="true" tabindex="-1"></a><span class="co">#| </span></span>
+<span id="cb34-702"><a href="#cb34-702" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(</span>
+<span id="cb34-703"><a href="#cb34-703" aria-hidden="true" tabindex="-1"></a>  ytrabajocor <span class="sc">~</span> disc_fisica,</span>
+<span id="cb34-704"><a href="#cb34-704" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> subset_2,</span>
+<span id="cb34-705"><a href="#cb34-705" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">&quot;________&quot;</span></span>
+<span id="cb34-706"><a href="#cb34-706" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb34-707"><a href="#cb34-707" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb34-708"><a href="#cb34-708" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-709"><a href="#cb34-709" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>Interprete estadística y sociológicamente. </span>
+<span id="cb34-710"><a href="#cb34-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-711"><a href="#cb34-711" aria-hidden="true" tabindex="-1"></a><span class="fu"># Síntesis</span></span>
+<span id="cb34-712"><a href="#cb34-712" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-713"><a href="#cb34-713" aria-hidden="true" tabindex="-1"></a>Hoy integramos lo aprendido en sesiones anteriores: estimación de intervalo de confianza y contraste con valor crítico para diferencia de medias (prueba t) y de proporciones (Z). Además, vimos la dirección de la hipótesis, ejecutar el análisis en R, e interpretar los resultados de manera correcta. </span>
+<span id="cb34-714"><a href="#cb34-714" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-715"><a href="#cb34-715" aria-hidden="true" tabindex="-1"></a>El dominio de estas herramientas nos permite pasar desde la mera descripción de una muestra a ser capaces de inferir y sacar conclusiones sobre la población de estudio. En la sociología, utilizamos estás técnicas para generar conocimiento sobre la sociedad basada en evidencia estadística. </span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
