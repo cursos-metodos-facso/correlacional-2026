@@ -10,7 +10,7 @@ format:
     code-download: true
 ---
 
-# Ejercicio de inferencia
+# Ejercicio de inferencia 1: medias
 
 A Ud. se le ha solicitado estimar el promedio de salarios en la población, así como también si existen diferencias salariales entre quienes han completado la educación superior en institutos técnico-profesionales (IP) y  quienes lo han hecho en instituciones universitarias. Para ello se le ha proporcionado la siguiente información:
   
@@ -43,7 +43,7 @@ promedio_salarios <- 850000;desviacion_estandar_salarios <- 300000  # Desviació
 ingresos <- rnorm(n, mean = promedio_salarios, sd = desviacion_estandar_salarios)
 ```
 
-## A. Estimación del promedio de salarios (de la población)
+## Estimación del promedio de salarios (de la población)
 
 - Tengo que el promedio de salarios de la muestra es: 900.000
 - Promedio de salarios de la población: $X$?
@@ -199,8 +199,105 @@ CI[270600&\ ;329400]
 _Se llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p < .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos._
 
 
+# Ejercicio de inferencia 2: diferencia de proporciones
 
+A Ud. se le ha solicitado establecer si existen diferencias en el apoyo a la política de sala cuna universal entre mujeres y hombres. En particular, se plantea la pregunta de si las mujeres  apoyan en mayor medida esta política que los hombres. Para ello se le ha proporcionado la siguiente información:
 
+  - Datos: Encuesta de opinión, muestra aleatoria N=1.000 casos (550 mujeres, 450 hombres)
+  - Proporción de apoyo a sala cuna universal en mujeres: 0,68
+  - Proporción de apoyo a sala cuna universal en hombres: 0,56
+  - valor crítico z (una cola) para diferencia de proporciones con un $\alpha$ de 5% (0,05)= 1,645; y con un $\alpha$ de 1% (0,01)= 2,33
+  - Error estándar de la diferencia de proporciones de apoyo para esta muestra= 0,03
 
+```{r}
+# Generación de los datos
+options(scipen = 999)
+
+# Establecer la semilla para garantizar la reproducibilidad
+set.seed(281217)
+
+# Parámetros
+n_mujeres <- 550
+n_hombres <- 450
+
+p_mujeres <- 0.68  # Proporción de apoyo a sala cuna universal en mujeres
+p_hombres <- 0.56  # Proporción de apoyo a sala cuna universal en hombres
+
+# Generar las muestras de apoyo por grupo (1= apoya, 0= no apoya)
+apoyo_mujeres <- rbinom(n_mujeres, size = 1, prob = p_mujeres)
+apoyo_hombres <- rbinom(n_hombres, size = 1, prob = p_hombres)
+```
+
+Con esta información ya podemos calcular la diferencia de proporciones de la muestra:
+
+$\hat{p}_{mujeres}-\hat{p}_{hombres}=0,68-0,56=0,12$
+
+La pregunta ahora es: ¿existe esta diferencia de proporciones en la población, en la dirección esperada (mujeres apoyan más que hombres)?
+
+### Test de hipótesis a realizar
+
+Al igual que en la estimación de diferencias de promedio, en este caso (estimación de diferencias de proporciones) se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. A diferencia del ejercicio anterior, aquí contamos con una expectativa sobre la **dirección** de la diferencia (mujeres apoyan más que hombres), por lo que corresponde un **test de hipótesis direccional (una cola)** en lugar de uno bilateral.
+
+Por lo tanto, en este caso lo que es más pertinente es la alternativa a: **contraste con valor crítico direccional**, complementado con el intervalo de confianza de una cola.
+
+### Contraste con valor crítico y 5 pasos de la inferencia
+
+Los 5 pasos de la inferencia en esta caso son los siguientes:
+
+#### 1. Formular hipótesis
+
+Contrastamos la *hipótesis nula* (no hay diferencia, o las mujeres no apoyan más que los hombres):
+
+$$H_{0}: \hat{p}_{mujeres} -  \hat{p}_{hombres} \leq 0$$
+
+En referencia a la siguiente hipótesis alternativa **direccional** (las mujeres apoyan más la política que los hombres):
+
+$$H_{a}: \hat{p}_{mujeres} -  \hat{p}_{hombres} > 0$$
+
+#### 2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)
+
+El error estándar de la diferencia de proporciones es:
+
+$$SE=\sqrt{\frac{\hat{p}_{1}(1-\hat{p}_{1})}{n_{1}}+\frac{\hat{p}_{2}(1-\hat{p}_{2})}{n_{2}}}$$
+
+La información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 0,03
+
+Con esto podemos calcular el valor del z empírico:
+
+$z=\frac{diferenciaproporciones}{se_{diferenciaproporciones}} \frac{(\hat{p}_1-\hat{p}_2)}{se_{(\hat{p}_1-\hat{p}_2)}}$
+
+Con nuestros datos:
+
+$z=\frac{0,12}{0,03}=4$
+
+```{r}
+diferencia_proporciones <- p_mujeres - p_hombres
+error_estandar_diff <- 0.03
+z_empirico <- diferencia_proporciones / error_estandar_diff
+z_empirico
+```
+
+#### 3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente
+
+Como se trata de un test direccional (una cola), el valor crítico ya no divide el área de rechazo en ambos extremos, sino que se concentra en un solo extremo de la distribución: $\alpha=5\%$, valor crítico (una cola)= 1,645
+
+#### 4. Contraste valores empírico/crítico (e intervalo de confianza)
+
+z empírico= 4 > z crítico (una cola)=1,645
+
+Como el z empírico es mayor al z crítico, se rechaza $H_0$ a favor de $H_a$: existe evidencia de que las mujeres apoyan en mayor medida la política de sala cuna universal que los hombres.
+
+Intervalo de confianza de una cola al 95% (límite inferior, dado que la hipótesis alternativa es "mayor que"):
+
+\begin{align*}
+\hat{p}_1-\hat{p}_2 &- Z_{\alpha}*SE_{\hat{p_1}-\hat{p_2}} \\\\
+0,12 &- 1,645*0,03 \\\\
+0,12 &- 0,0494 \\\\
+CI[0,0706&\ ; +\infty)
+\end{align*}
+
+#### 5. Interpretación
+
+_Se llevó a cabo una prueba z direccional (una cola) para evaluar si las mujeres apoyan en mayor medida que los hombres la política de sala cuna universal, utilizando muestras de 550 mujeres y 450 hombres. La diferencia de proporciones observada fue de 0,12 a favor de las mujeres, con un error estándar de 0,03 para esta diferencia. El análisis resultó en un valor z de 4, superior al valor crítico de una cola de 1,645 ($\alpha=0,05$), indicando que la diferencia es estadísticamente significativa en la dirección esperada (p < .01). Estos resultados sugieren que las mujeres apoyan significativamente más que los hombres la política de sala cuna universal, lo que podría ser de interés para el diseño e implementación de dicha política._
 
 

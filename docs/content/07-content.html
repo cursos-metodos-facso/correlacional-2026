@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Ejercicio de repaso general Unidad 1 – Estadística Correlacional</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -75,10 +72,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-628f9a5d31c3ee493bf57b721354c864.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -95,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -110,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -123,7 +120,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -207,9 +204,9 @@ window.Quarto = {
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#ejercicio-de-inferencia" id="toc-ejercicio-de-inferencia" class="nav-link active" data-scroll-target="#ejercicio-de-inferencia">Ejercicio de inferencia</a>
+  <li><a href="#ejercicio-de-inferencia-1-medias" id="toc-ejercicio-de-inferencia-1-medias" class="nav-link active" data-scroll-target="#ejercicio-de-inferencia-1-medias">Ejercicio de inferencia 1: medias</a>
   <ul class="collapse">
-  <li><a href="#a.-estimación-del-promedio-de-salarios-de-la-población" id="toc-a.-estimación-del-promedio-de-salarios-de-la-población" class="nav-link" data-scroll-target="#a.-estimación-del-promedio-de-salarios-de-la-población">A. Estimación del promedio de salarios (de la población)</a>
+  <li><a href="#estimación-del-promedio-de-salarios-de-la-población" id="toc-estimación-del-promedio-de-salarios-de-la-población" class="nav-link" data-scroll-target="#estimación-del-promedio-de-salarios-de-la-población">Estimación del promedio de salarios (de la población)</a>
   <ul class="collapse">
   <li><a href="#test-de-hipótesis-a-realizar" id="toc-test-de-hipótesis-a-realizar" class="nav-link" data-scroll-target="#test-de-hipótesis-a-realizar">Test de hipótesis a realizar</a></li>
   <li><a href="#construcción-de-intervalo-y-5-pasos-de-la-inferencia" id="toc-construcción-de-intervalo-y-5-pasos-de-la-inferencia" class="nav-link" data-scroll-target="#construcción-de-intervalo-y-5-pasos-de-la-inferencia">Construcción de intervalo y 5 pasos de la inferencia</a></li>
@@ -219,6 +216,11 @@ window.Quarto = {
   <li><a href="#test-de-hipótesis-a-realizar-1" id="toc-test-de-hipótesis-a-realizar-1" class="nav-link" data-scroll-target="#test-de-hipótesis-a-realizar-1">Test de hipótesis a realizar</a></li>
   <li><a href="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia" id="toc-contraste-con-valor-crítico-y-5-pasos-de-la-inferencia" class="nav-link" data-scroll-target="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia">Contraste con valor crítico y 5 pasos de la inferencia</a></li>
   </ul></li>
+  </ul></li>
+  <li><a href="#ejercicio-de-inferencia-2-diferencia-de-proporciones" id="toc-ejercicio-de-inferencia-2-diferencia-de-proporciones" class="nav-link" data-scroll-target="#ejercicio-de-inferencia-2-diferencia-de-proporciones">Ejercicio de inferencia 2: diferencia de proporciones</a>
+  <ul class="collapse">
+  <li><a href="#test-de-hipótesis-a-realizar-2" id="toc-test-de-hipótesis-a-realizar-2" class="nav-link" data-scroll-target="#test-de-hipótesis-a-realizar-2">Test de hipótesis a realizar</a></li>
+  <li><a href="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia-1" id="toc-contraste-con-valor-crítico-y-5-pasos-de-la-inferencia-1" class="nav-link" data-scroll-target="#contraste-con-valor-crítico-y-5-pasos-de-la-inferencia-1">Contraste con valor crítico y 5 pasos de la inferencia</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -235,8 +237,8 @@ window.Quarto = {
 </header>
 
 
-<section id="ejercicio-de-inferencia" class="level1">
-<h1>Ejercicio de inferencia</h1>
+<section id="ejercicio-de-inferencia-1-medias" class="level1">
+<h1>Ejercicio de inferencia 1: medias</h1>
 <p>A Ud. se le ha solicitado estimar el promedio de salarios en la población, así como también si existen diferencias salariales entre quienes han completado la educación superior en institutos técnico-profesionales (IP) y quienes lo han hecho en instituciones universitarias. Para ello se le ha proporcionado la siguiente información:</p>
 <ul>
 <li>Datos: Encuesta de Ingresos, muestra aleatoria N=900 casos</li>
@@ -257,7 +259,7 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generación de los datos</span></span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generación de los datos</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Establecer la semilla para garantizar la reproducibilidad</span></span>
@@ -268,11 +270,11 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>promedio_salarios <span class="ot">&lt;-</span> <span class="dv">850000</span>;desviacion_estandar_salarios <span class="ot">&lt;-</span> <span class="dv">300000</span>  <span class="co"># Desviación estándar de los salarios</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar la muestra con la nueva semilla y parámetros</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ingresos <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> promedio_salarios, <span class="at">sd =</span> desviacion_estandar_salarios)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ingresos <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(n, <span class="at">mean =</span> promedio_salarios, <span class="at">sd =</span> desviacion_estandar_salarios)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="a.-estimación-del-promedio-de-salarios-de-la-población" class="level2">
-<h2 class="anchored" data-anchor-id="a.-estimación-del-promedio-de-salarios-de-la-población">A. Estimación del promedio de salarios (de la población)</h2>
+<section id="estimación-del-promedio-de-salarios-de-la-población" class="level2">
+<h2 class="anchored" data-anchor-id="estimación-del-promedio-de-salarios-de-la-población">Estimación del promedio de salarios (de la población)</h2>
 <ul>
 <li>Tengo que el promedio de salarios de la muestra es: 900.000</li>
 <li>Promedio de salarios de la población: <span class="math inline">\(X\)</span>?</li>
@@ -306,8 +308,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>error_estandar <span class="ot">&lt;-</span> desviacion_estandar_salarios <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>error_estandar</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>error_estandar <span class="ot">&lt;-</span> desviacion_estandar_salarios <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>error_estandar</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 10000</code></pre>
@@ -331,13 +333,13 @@ CI[830400&amp;;869600]
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el intervalo de confianza al 95%</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el intervalo de confianza al 95%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>z_95 <span class="ot">&lt;-</span> <span class="fl">1.96</span>  <span class="co"># Valor z para el 95% de confianza</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>limite_inferior <span class="ot">&lt;-</span> promedio_salarios <span class="sc">-</span> z_95 <span class="sc">*</span> error_estandar</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>limite_superior <span class="ot">&lt;-</span> promedio_salarios <span class="sc">+</span> z_95 <span class="sc">*</span> error_estandar</span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostrar los resultados</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Intervalo de confianza al 95%: ["</span>, <span class="fu">round</span>(limite_inferior, <span class="dv">2</span>), <span class="st">", "</span>, <span class="fu">round</span>(limite_superior, <span class="dv">2</span>), <span class="st">"]</span><span class="sc">\n</span><span class="st">"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Intervalo de confianza al 95%: ["</span>, <span class="fu">round</span>(limite_inferior, <span class="dv">2</span>), <span class="st">", "</span>, <span class="fu">round</span>(limite_superior, <span class="dv">2</span>), <span class="st">"]</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo de confianza al 95%: [ 830400 ,  869600 ]</code></pre>
@@ -407,9 +409,102 @@ CI[270600&amp;\ ;329400]
 <section id="interpretación-1" class="level4">
 <h4 class="anchored" data-anchor-id="interpretación-1">5. Interpretación</h4>
 <p><em>Se llevó a cabo una prueba t para evaluar las diferencias salariales entre graduados de institutos técnicos-profesionales y universidades, utilizando un tamaño de muestra de 900 para cada grupo. La diferencia de medias observada fue de $750,000, con un error estándar fijo de $15,000 para esta diferencia. El análisis resultó en un valor t de 50.00, indicando una diferencia estadísticamente significativa entre los dos grupos (p &lt; .01). Este valor t refleja que los graduados universitarios tienen un ingreso promedio significativamente mayor en comparación con los graduados de institutos técnicos-profesionales. Estos resultados sugieren una marcada disparidad salarial en función del nivel educativo alcanzado, subrayando la importancia de las decisiones educativas en las trayectorias de ingresos de los individuos.</em></p>
-
-
 </section>
+</section>
+</section>
+</section>
+<section id="ejercicio-de-inferencia-2-diferencia-de-proporciones" class="level1">
+<h1>Ejercicio de inferencia 2: diferencia de proporciones</h1>
+<p>A Ud. se le ha solicitado establecer si existen diferencias en el apoyo a la política de sala cuna universal entre mujeres y hombres. En particular, se plantea la pregunta de si las mujeres apoyan en mayor medida esta política que los hombres. Para ello se le ha proporcionado la siguiente información:</p>
+<ul>
+<li>Datos: Encuesta de opinión, muestra aleatoria N=1.000 casos (550 mujeres, 450 hombres)</li>
+<li>Proporción de apoyo a sala cuna universal en mujeres: 0,68</li>
+<li>Proporción de apoyo a sala cuna universal en hombres: 0,56</li>
+<li>valor crítico z (una cola) para diferencia de proporciones con un <span class="math inline">\(\alpha\)</span> de 5% (0,05)= 1,645; y con un <span class="math inline">\(\alpha\)</span> de 1% (0,01)= 2,33</li>
+<li>Error estándar de la diferencia de proporciones de apoyo para esta muestra= 0,03</li>
+</ul>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generación de los datos</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">scipen =</span> <span class="dv">999</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Establecer la semilla para garantizar la reproducibilidad</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">281217</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>n_mujeres <span class="ot">&lt;-</span> <span class="dv">550</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>n_hombres <span class="ot">&lt;-</span> <span class="dv">450</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>p_mujeres <span class="ot">&lt;-</span> <span class="fl">0.68</span>  <span class="co"># Proporción de apoyo a sala cuna universal en mujeres</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>p_hombres <span class="ot">&lt;-</span> <span class="fl">0.56</span>  <span class="co"># Proporción de apoyo a sala cuna universal en hombres</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Generar las muestras de apoyo por grupo (1= apoya, 0= no apoya)</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>apoyo_mujeres <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_mujeres, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p_mujeres)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>apoyo_hombres <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(n_hombres, <span class="at">size =</span> <span class="dv">1</span>, <span class="at">prob =</span> p_hombres)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Con esta información ya podemos calcular la diferencia de proporciones de la muestra:</p>
+<p><span class="math inline">\(\hat{p}_{mujeres}-\hat{p}_{hombres}=0,68-0,56=0,12\)</span></p>
+<p>La pregunta ahora es: ¿existe esta diferencia de proporciones en la población, en la dirección esperada (mujeres apoyan más que hombres)?</p>
+<section id="test-de-hipótesis-a-realizar-2" class="level3">
+<h3 class="anchored" data-anchor-id="test-de-hipótesis-a-realizar-2">Test de hipótesis a realizar</h3>
+<p>Al igual que en la estimación de diferencias de promedio, en este caso (estimación de diferencias de proporciones) se utiliza el contraste con valor crítico, ya que lo central es poder establecer si existen o no diferencias en la población. A diferencia del ejercicio anterior, aquí contamos con una expectativa sobre la <strong>dirección</strong> de la diferencia (mujeres apoyan más que hombres), por lo que corresponde un <strong>test de hipótesis direccional (una cola)</strong> en lugar de uno bilateral.</p>
+<p>Por lo tanto, en este caso lo que es más pertinente es la alternativa a: <strong>contraste con valor crítico direccional</strong>, complementado con el intervalo de confianza de una cola.</p>
+</section>
+<section id="contraste-con-valor-crítico-y-5-pasos-de-la-inferencia-1" class="level3">
+<h3 class="anchored" data-anchor-id="contraste-con-valor-crítico-y-5-pasos-de-la-inferencia-1">Contraste con valor crítico y 5 pasos de la inferencia</h3>
+<p>Los 5 pasos de la inferencia en esta caso son los siguientes:</p>
+<section id="formular-hipótesis-2" class="level4">
+<h4 class="anchored" data-anchor-id="formular-hipótesis-2">1. Formular hipótesis</h4>
+<p>Contrastamos la <em>hipótesis nula</em> (no hay diferencia, o las mujeres no apoyan más que los hombres):</p>
+<p><span class="math display">\[H_{0}: \hat{p}_{mujeres} -  \hat{p}_{hombres} \leq 0\]</span></p>
+<p>En referencia a la siguiente hipótesis alternativa <strong>direccional</strong> (las mujeres apoyan más la política que los hombres):</p>
+<p><span class="math display">\[H_{a}: \hat{p}_{mujeres} -  \hat{p}_{hombres} &gt; 0\]</span></p>
+</section>
+<section id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t-2" class="level4">
+<h4 class="anchored" data-anchor-id="obtener-error-estándar-y-estadístico-de-prueba-empírico-correspondiente-ej-z-o-t-2">2. Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</h4>
+<p>El error estándar de la diferencia de proporciones es:</p>
+<p><span class="math display">\[SE=\sqrt{\frac{\hat{p}_{1}(1-\hat{p}_{1})}{n_{1}}+\frac{\hat{p}_{2}(1-\hat{p}_{2})}{n_{2}}}\]</span></p>
+<p>La información sobre el resultado de este cálculo se nos entrega inicialmente y es igual a 0,03</p>
+<p>Con esto podemos calcular el valor del z empírico:</p>
+<p><span class="math inline">\(z=\frac{diferenciaproporciones}{se_{diferenciaproporciones}} \frac{(\hat{p}_1-\hat{p}_2)}{se_{(\hat{p}_1-\hat{p}_2)}}\)</span></p>
+<p>Con nuestros datos:</p>
+<p><span class="math inline">\(z=\frac{0,12}{0,03}=4\)</span></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>diferencia_proporciones <span class="ot">&lt;-</span> p_mujeres <span class="sc">-</span> p_hombres</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>error_estandar_diff <span class="ot">&lt;-</span> <span class="fl">0.03</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>z_empirico <span class="ot">&lt;-</span> diferencia_proporciones <span class="sc">/</span> error_estandar_diff</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>z_empirico</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+</div>
+</section>
+<section id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente-2" class="level4">
+<h4 class="anchored" data-anchor-id="establecer-la-probabilidad-de-error-α-y-valor-crítico-teórico-de-la-prueba-correspondiente-2">3. Establecer la probabilidad de error α y valor crítico (teórico) de la prueba correspondiente</h4>
+<p>Como se trata de un test direccional (una cola), el valor crítico ya no divide el área de rechazo en ambos extremos, sino que se concentra en un solo extremo de la distribución: <span class="math inline">\(\alpha=5\%\)</span>, valor crítico (una cola)= 1,645</p>
+</section>
+<section id="contraste-valores-empíricocrítico-e-intervalo-de-confianza-1" class="level4">
+<h4 class="anchored" data-anchor-id="contraste-valores-empíricocrítico-e-intervalo-de-confianza-1">4. Contraste valores empírico/crítico (e intervalo de confianza)</h4>
+<p>z empírico= 4 &gt; z crítico (una cola)=1,645</p>
+<p>Como el z empírico es mayor al z crítico, se rechaza <span class="math inline">\(H_0\)</span> a favor de <span class="math inline">\(H_a\)</span>: existe evidencia de que las mujeres apoyan en mayor medida la política de sala cuna universal que los hombres.</p>
+<p>Intervalo de confianza de una cola al 95% (límite inferior, dado que la hipótesis alternativa es “mayor que”):</p>
+<p><span class="math display">\[\begin{align*}
+\hat{p}_1-\hat{p}_2 &amp;- Z_{\alpha}*SE_{\hat{p_1}-\hat{p_2}} \\\\
+0,12 &amp;- 1,645*0,03 \\\\
+0,12 &amp;- 0,0494 \\\\
+CI[0,0706&amp;\ ; +\infty)
+\end{align*}\]</span></p>
+</section>
+<section id="interpretación-2" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-2">5. Interpretación</h4>
+<p><em>Se llevó a cabo una prueba z direccional (una cola) para evaluar si las mujeres apoyan en mayor medida que los hombres la política de sala cuna universal, utilizando muestras de 550 mujeres y 450 hombres. La diferencia de proporciones observada fue de 0,12 a favor de las mujeres, con un error estándar de 0,03 para esta diferencia. El análisis resultó en un valor z de 4, superior al valor crítico de una cola de 1,645 (<span class="math inline">\(\alpha=0,05\)</span>), indicando que la diferencia es estadísticamente significativa en la dirección esperada (p &lt; .01). Estos resultados sugieren que las mujeres apoyan significativamente más que los hombres la política de sala cuna universal, lo que podría ser de interés para el diseño e implementación de dicha política.</em></p>
+
+
 </section>
 </section>
 </section>
@@ -417,714 +512,359 @@ CI[270600&amp;\ ;329400]
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
 
-
-
   const esPracticos =
-
     window.location.pathname.includes("/assignment/");
 
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo
-
        * de la pantalla.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * IMPORTANTE:
-
        * usamos offsetWidth en vez de
-
        * getBoundingClientRect().right.
-
        *
-
        * De esta forma la posición no depende
-
        * del transform de la animación.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       /*
-
        * -2 px hace que quede ligeramente
-
        * montada sobre el borde del menú,
-
        * evitando una pequeña separación visual.
-
        */
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
 
-
-
 /* ========================================================
-
    CLICK EN LA PESTAÑITA
-
    ======================================================== */
-
-
 
 boton.addEventListener("click", function () {
 
-
-
   clearTimeout(temporizadorCierre);
 
-
-
   const cerrado =
-
     body.classList.contains(
-
       "practicos-sidebar-cerrado"
-
     );
 
-
-
   /*
-
    * Si está cerrado:
-
    * un clic lo abre permanentemente.
-
    */
-
   if (cerrado) {
-
-
 
     mostrarSidebar(false);
 
-
-
     localStorage.setItem(
-
       "practicos-sidebar",
-
       "abierto"
-
     );
-
-
 
   } else {
 
-
-
     /*
-
      * Si está visible, ya sea porque:
-
      * - estaba abierto normalmente, o
-
      * - apareció temporalmente mediante hover,
-
      *
-
      * un solo clic lo cierra.
-
      */
-
     ocultarSidebar(true);
-
   }
 
-
-
 });
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Lo mostramos temporalmente,
-
        * sin cambiar la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerramos automáticamente
-
      * si fue abierto mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SI EL MOUSE ENTRA EN EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   const estadoGuardado =
-
     localStorage.getItem(
-
       "practicos-sidebar"
-
     );
-
-
 
   if (estadoGuardado === "cerrado") {
 
-
-
     ocultarSidebar(false);
-
-
 
   } else {
 
-
-
     mostrarSidebar(false);
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
 
-
-
      Esto evita que después de abrir/cerrar
-
      la flecha termine dentro del sidebar.
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* También esperamos el cambio de la grilla de Quarto */
 
-
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
-
 
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1177,14 +917,13 @@ boton.addEventListener("click", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
