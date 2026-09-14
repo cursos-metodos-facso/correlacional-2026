@@ -4312,7 +4312,40 @@ padding: 0.8em 1em !important;
 color: #17233a !important;
 background-color: transparent !important;
 }
+
+.recurso-wrap {
+display: flex;
+justify-content: flex-end;
+margin: 1rem 0 1.5rem 0;
+}
+.recurso-btn {
+display: inline-flex;
+align-items: center;
+gap: 0.45rem;
+background: #ffffff;
+color: #d44848 !important;
+border: 2px solid #d44848;
+padding: 0.55rem 0.9rem;
+border-radius: 7px;
+font-size: 0.95rem;
+font-weight: 600;
+line-height: 1.2;
+text-decoration: none !important;
+box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+transition:
+background-color 0.15s ease,
+color 0.15s ease,
+transform 0.15s ease;
+}
+.recurso-btn:hover {
+background: #d44848;
+color: #ffffff !important;
+transform: translateY(-1px);
+}
 </style>
+<div class="recurso-wrap">
+<p><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m08_asociacion_covarianza_correlacion_pearson.html" target="_blank"> <span>Recurso complementario · Estadística Correlacional Interactiva</span> <span>↗</span> </a></p>
+</div>
 <section id="asociación-entre-dos-variables" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Asociación entre dos variables</h1>
 <p>Hasta ahora hemos trabajado principalmente con <strong>diferencias entre grupos</strong>. Ahora cambia la pregunta: en vez de comparar dos grupos, queremos saber si los valores de <strong>dos variables</strong> tienden a presentar algún patrón conjunto.</p>
