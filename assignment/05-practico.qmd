@@ -1,0 +1,892 @@
+---
+title: "Asociación, covarianza y correlación"
+date: "2026-09-23"
+lang: es
+
+format:
+  html:
+    toc: true
+    toc-depth: 1
+    number-sections: true
+    code-copy: true
+    code-fold: false
+    highlight-style: github
+    embed-resources: true
+    page-layout: full
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
+
+execute:
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
+---
+
+<style>
+/* Código escrito dentro del texto */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Lectura de párrafos */
+main.content p,
+.callout-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Figuras */
+#quarto-content main.content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Índice */
+#TOC .nav-link {
+  font-size: 0.95rem !important;
+  line-height: 1.15;
+  padding-top: 0.12rem;
+  padding-bottom: 0.12rem;
+}
+
+/* Código visible */
+div.sourceCode,
+pre.sourceCode {
+  background-color: #F7F8FA !important;
+  border: 1px solid #D9DEE7;
+  border-radius: 6px;
+}
+
+pre.sourceCode code {
+  background-color: transparent !important;
+}
+
+/* Resultados producidos por R */
+#quarto-content .cell-output.cell-output-stdout {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+#quarto-content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-left: 4px solid #B8C2D1 !important;
+  border-radius: 6px !important;
+  padding: 0.8em 1em !important;
+}
+
+#quarto-content .cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+</style>
+
+```{r}
+#| label: setup
+#| include: false
+
+options(scipen = 999)
+options(timeout = max(600, getOption("timeout")))
+
+# Estilo general de los gráficos del práctico.
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 13))
+ggplot2::update_geom_defaults("point", list(alpha = 0.35, size = 1.6))
+
+# -----------------------------------------------------------------------------
+# Funciones técnicas SOLO para formatear resultados del documento.
+# No construyen la base CASEN ni los objetos principales del análisis.
+# -----------------------------------------------------------------------------
+
+fmt_entero <- function(x) {
+  format(round(x, 0), big.mark = ".", decimal.mark = ",", scientific = FALSE, trim = TRUE)
+}
+
+fmt_decimal <- function(x, digits = 1) {
+  format(
+    round(x, digits),
+    big.mark = ".",
+    decimal.mark = ",",
+    nsmall = digits,
+    scientific = FALSE,
+    trim = TRUE
+  )
+}
+
+fmt_signo <- function(x, digits = 1) {
+  prefijo <- ifelse(x > 0, "+", "")
+  paste0(prefijo, fmt_decimal(x, digits))
+}
+```
+
+# Asociación entre dos variables
+
+Hasta ahora hemos trabajado principalmente con **diferencias entre grupos**. Ahora cambia la pregunta: en vez de comparar dos grupos, queremos saber si los valores de **dos variables** tienden a presentar algún patrón conjunto.
+
+Trabajaremos con datos reales de la **Encuesta CASEN 2024**. Como la encuesta contiene muchas observaciones, prepararemos una submuestra aleatoria reproducible para que sea más fáciles de leer. Esa misma submuestra se utilizará durante todo el práctico.
+
+Nuestra pregunta principal será:
+
+> **¿En qué medida los años de escolaridad y el ingreso de la ocupación principal se encuentran asociados?**
+
+| Variable | Qué representa |
+|---|---|
+| `escolaridad` | Años de escolaridad |
+| `ingreso_laboral` | Ingreso de la ocupación principal, en pesos |
+| `horas_trabajo` | Horas trabajadas habitualmente por semana en la actividad principal |
+
+::: {.callout-important title="La regla del práctico"}
+Primero miramos el patrón entre las variables y después lo resumimos con una medida de asociación.
+
+$$
+\text{Mirar}
+\rightarrow
+\text{anticipar}
+\rightarrow
+\text{calcular}
+\rightarrow
+\text{volver a mirar}
+$$
+:::
+
+
+**Preparemos los datos**
+
+Trabajaremos con la base oficial de **CASEN 2024**. R puede cargarla directamente desde el sitio del Ministerio de Desarrollo Social y Familia, por lo que no necesitamos descargar el archivo manualmente.
+
+Primero cargamos solamente los dos paquetes que utilizaremos durante el práctico:
+
+```{r}
+#| label: cargar-paquetes
+
+library(dplyr)    # Para trabajar con los datos
+library(ggplot2)  # Para crear gráficos
+```
+
+La dirección del archivo oficial se asigna en el objeto `url_casen`. Luego `load()` abre la base directamente desde Internet. Podemos leer `<-` como **“guardar como”**.
+
+```{r}
+#| label: cargar-casen
+
+url_casen <- "https://bid-ckan.ministeriodesarrollosocial.gob.cl/dataset/105286d9-10a8-410a-b060-a335f3168a46/resource/cacc6ad5-fca1-4476-82f1-b7ea119fae98/download/casen_2024.rdata"  # Dirección oficial de CASEN 2024
+
+load(
+  url(url_casen)  # Carga la base directamente desde Internet
+)
+```
+
+El archivo crea en R un objeto llamado `casen_2024`, que contiene la base original. Para este práctico solo necesitamos tres variables y trabajaremos con una submuestra de 1.000 personas.
+
+```{r}
+#| label: preparar-datos
+
+set.seed(2026)  # Hace que todas y todos obtengamos los mismos casos
+
+datos <- casen_2024 |>                                # Partimos desde la base oficial
+  transmute(                                           # Conservamos y renombramos tres variables
+    escolaridad = haven::zap_labels(esc),              # Años de escolaridad
+    horas_trabajo = na_if(haven::zap_labels(o10), -88), # Horas semanales; -88 significa "No sabe"
+    ingreso_laboral = haven::zap_labels(yoprcor)       # Ingreso de la ocupación principal
+  ) |>
+  na.omit() |>                                         # Conservamos casos con información completa
+  slice_sample(n = 1000)                               # Seleccionamos 1.000 personas al azar
+```
+
+
+::: {.callout-note collapse="false"}
+- El símbolo `|>` puede leerse como **“y luego”**: toma el resultado del paso anterior y lo utiliza en el siguiente. Algunas variables de CASEN tienen etiquetas; `haven::zap_labels()` las retira para trabajar directamente con sus valores numéricos.
+
+- `set.seed(2026)` hace que R repita la misma selección aleatoria cada vez. A partir de aquí, **todo el práctico utiliza el objeto `datos` y las mismas 1.000 personas**.
+:::
+
+
+
+```{r}
+#| label: objetos-tecnicos-practico
+#| include: false
+
+# Objetos dinámicos utilizados por las explicaciones del práctico.
+media_escolaridad <- mean(datos$escolaridad)
+media_ingreso <- mean(datos$ingreso_laboral)
+
+ejemplo_escolaridad_alta <- 15
+ejemplo_escolaridad_baja <- 10
+desv_ejemplo_alta <- ejemplo_escolaridad_alta - media_escolaridad
+desv_ejemplo_baja <- ejemplo_escolaridad_baja - media_escolaridad
+
+cov_pesos <- cov(datos$escolaridad, datos$ingreso_laboral)
+r_pesos <- cor(datos$escolaridad, datos$ingreso_laboral)
+
+direccion_principal <- if (r_pesos >= 0) "positiva" else "negativa"
+interpretacion_principal <- if (r_pesos >= 0) {
+  "las personas con mayor escolaridad tienden a presentar ingresos más altos"
+} else {
+  "las personas con mayor escolaridad tienden a presentar ingresos más bajos"
+}
+
+media_escolaridad_fmt <- fmt_decimal(media_escolaridad, 1)
+media_ingreso_fmt <- fmt_entero(media_ingreso)
+desv_ejemplo_alta_fmt <- fmt_signo(desv_ejemplo_alta, 1)
+desv_ejemplo_baja_fmt <- fmt_signo(desv_ejemplo_baja, 1)
+cov_pesos_fmt <- fmt_entero(cov_pesos)
+r_pesos_fmt <- fmt_decimal(r_pesos, 2)
+
+# Cuatro casos reales: una observación por cada combinación de signos.
+datos_cov <- datos |>
+  mutate(
+    desv_escolaridad = escolaridad - media_escolaridad,
+    desv_ingreso = ingreso_laboral - media_ingreso,
+    producto = desv_escolaridad * desv_ingreso
+  )
+
+seleccionar_caso_tipico <- function(df, caso) {
+  if (nrow(df) == 0) {
+    return(NULL)
+  }
+
+  objetivo <- median(abs(df$producto), na.rm = TRUE)
+
+  df |>
+    mutate(distancia_tipica = abs(abs(producto) - objetivo)) |>
+    slice_min(order_by = distancia_tipica, n = 1, with_ties = FALSE) |>
+    mutate(caso = caso)
+}
+
+caso_a <- seleccionar_caso_tipico(
+  datos_cov |> filter(desv_escolaridad > 0, desv_ingreso > 0),
+  "Caso A"
+)
+caso_b <- seleccionar_caso_tipico(
+  datos_cov |> filter(desv_escolaridad < 0, desv_ingreso < 0),
+  "Caso B"
+)
+caso_c <- seleccionar_caso_tipico(
+  datos_cov |> filter(desv_escolaridad > 0, desv_ingreso < 0),
+  "Caso C"
+)
+caso_d <- seleccionar_caso_tipico(
+  datos_cov |> filter(desv_escolaridad < 0, desv_ingreso > 0),
+  "Caso D"
+)
+
+casos_cov_raw <- bind_rows(caso_a, caso_b, caso_c, caso_d)
+
+if (nrow(casos_cov_raw) != 4) {
+  stop(
+    paste0(
+      "No fue posible encontrar las cuatro combinaciones de signos en la submuestra. ",
+      "Revise la semilla o el tamaño de la muestra antes de publicar el práctico."
+    )
+  )
+}
+
+casos_cov <- casos_cov_raw |>
+  transmute(
+    Caso = factor(caso, levels = c("Caso A", "Caso B", "Caso C", "Caso D")),
+    Escolaridad = fmt_decimal(escolaridad, 0),
+    `Desv. escolaridad` = fmt_signo(desv_escolaridad, 1),
+    Ingreso = paste0("$", fmt_entero(ingreso_laboral)),
+    `Desv. ingreso` = fmt_signo(desv_ingreso, 0),
+    Producto = fmt_signo(producto, 0)
+  ) |>
+  arrange(Caso)
+
+# Ejemplos didácticos controlados para las limitaciones de Pearson.
+datos_no_lineales <- tibble::tibble(
+  x = seq(-4, 4, length.out = 81),
+  y = x^2
+)
+r_no_lineal <- cor(datos_no_lineales$x, datos_no_lineales$y)
+
+sin_extremo <- tibble::tibble(
+  x = 1:10,
+  y = c(2.1, 4.3, 5.8, 8.6, 9.9, 12.4, 13.7, 16.5, 17.8, 20.2)
+)
+con_extremo <- bind_rows(
+  sin_extremo,
+  tibble::tibble(x = 11, y = -5)
+)
+
+anscombe_largo <- bind_rows(
+  tibble::tibble(conjunto = "1", x = anscombe$x1, y = anscombe$y1),
+  tibble::tibble(conjunto = "2", x = anscombe$x2, y = anscombe$y2),
+  tibble::tibble(conjunto = "3", x = anscombe$x3, y = anscombe$y3),
+  tibble::tibble(conjunto = "4", x = anscombe$x4, y = anscombe$y4)
+)
+```
+
+# Observemos la asociación
+
+## La nube de puntos
+
+Una **nube de puntos** o *scatterplot* representa conjuntamente dos variables cuantitativas. Cada punto corresponde a una persona: su posición horizontal indica sus años de escolaridad y su posición vertical indica el ingreso de su ocupación principal.
+
+```{r}
+#| label: scatter-principal
+#| fig-width: 7
+#| fig-height: 5
+#| fig-cap: "Años de escolaridad e ingreso de la ocupación principal · CASEN 2024"
+
+ggplot(datos, aes(                 # Usamos nuestra submuestra
+  x = escolaridad,                    # Eje X: años de escolaridad
+  y = ingreso_laboral                 # Eje Y: ingreso laboral
+)) +
+  geom_point()                        # Cada punto representa una persona
+```
+
+> **A medida que aumenta la escolaridad, ¿el ingreso parece tender a valores más altos o más bajos?**
+
+> **¿La nube parece seguir una tendencia aproximadamente recta o presenta una forma claramente curva?**
+
+> **¿Hay algún caso que llame especialmente la atención?**
+
+Estas tres preguntas cumplen funciones distintas. La primera nos ayuda a pensar en la **dirección** de la asociación; la segunda, en su **forma**; y la tercera nos recuerda que algunos casos pueden alejarse bastante del patrón general.
+
+Los datos reales no forman una línea perfecta. Justamente por eso conviene observar primero la nube completa antes de resumirla mediante un único número.
+
+# Del gráfico a la covarianza
+
+## De la posición de cada persona al patrón del conjunto
+
+En el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entender cómo podemos pasar desde la posición de **cada persona** a un **resumen del patrón** que aparece en el conjunto.
+
+En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$escolaridad` significa **“la variable escolaridad que está dentro de la base datos”**.
+
+```{r}
+#| label: medias-recordatorio
+#| results: false
+
+mean(datos$escolaridad)      # Promedio de escolaridad
+mean(datos$ingreso_laboral)  # Promedio de ingreso
+```
+
+En nuestra submuestra, la escolaridad promedio es aproximadamente **`r media_escolaridad_fmt` años** y el ingreso promedio es aproximadamente **$`r media_ingreso_fmt`**. Empecemos con una sola variable: **la escolaridad.**
+
+Pensemos primero en una persona con **15 años de escolaridad**. Para saber dónde se encuentra respecto del promedio, restamos su valor menos la media:
+
+> **15 − `r media_escolaridad_fmt` = `r desv_ejemplo_alta_fmt`**
+
+El resultado **`r desv_ejemplo_alta_fmt`** significa que esta persona se encuentra aproximadamente `r fmt_decimal(abs(desv_ejemplo_alta), 1)` años **sobre el promedio de escolaridad** de nuestra muestra.
+
+Ahora pensemos en una persona con **10 años de escolaridad**:
+
+> **10 − `r media_escolaridad_fmt` = `r desv_ejemplo_baja_fmt`**
+
+El signo negativo indica que esta persona se encuentra aproximadamente `r fmt_decimal(abs(desv_ejemplo_baja), 1)` años **bajo el promedio**.
+
+En general, escribimos esta diferencia como:
+
+$$
+x_i-\bar{x}
+$$
+
+que puede leerse como:
+
+$$
+\text{valor de una persona}
+-
+\text{promedio de la variable}
+$$
+
+
+::: {.callout-important title="Desviación no es desviación estándar"}
+Aquí usamos **desviación** para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la **desviación estándar**, que resume la dispersión de todos los casos.
+:::
+
+## El producto de las desviaciones
+
+Para trabajar con dos variables necesitamos hacer lo mismo con ambas. En nuestra submuestra:
+
+- la escolaridad promedio es **`r media_escolaridad_fmt` años**;
+- el ingreso laboral promedio es **$`r media_ingreso_fmt`**.
+
+Una misma persona ocupa, entonces, **dos posiciones**: una respecto del promedio de escolaridad y otra respecto del promedio de ingreso.
+
+Si una persona está **sobre ambos promedios**, sus dos desviaciones son positivas:
+
+$$
+(+)(+)=+
+$$
+
+El producto es positivo porque ambas variables ubican a esa persona del **mismo lado** de sus respectivas medias.
+
+Si una persona está **bajo ambos promedios**, sus dos desviaciones son negativas:
+
+$$
+(-)(-)=+
+$$
+
+El producto vuelve a ser positivo: otra vez ambas variables están del mismo lado de sus medias.
+
+En cambio, si una persona está sobre el promedio en una variable y bajo el promedio en la otra:
+
+$$
+(+)(-)=-
+$$
+
+el producto es negativo, porque las dos variables ubican al caso en **lados opuestos** de sus medias.
+
+::: {.callout-important title="¿Por qué hacemos esta multiplicación?"}
+ Porque el producto nos entrega una forma compacta de registrar, para **cada persona**, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.
+::: 
+
+**Los casos anteriores pueden resumirse así:**
+
+| Escolaridad respecto de su media | Ingreso respecto de su media | Producto |
+|---|---|---:|
+| Sobre | Sobre | Positivo |
+| Bajo | Bajo | Positivo |
+| Sobre | Bajo | Negativo |
+| Bajo | Sobre | Negativo |
+
+Veamos ahora cuatro casos reales de la misma submuestra de CASEN. Cada fila representa una de esas cuatro combinaciones:
+
+```{r}
+#| label: tabla-casos-cov
+#| echo: false
+
+knitr::kable(
+  casos_cov,
+  align = c("l", "r", "r", "r", "r", "r")
+)
+```
+
+> **Miren el caso A. ¿Está sobre o bajo el promedio en escolaridad? ¿Y respecto del ingreso?**
+>
+> **Entonces, ¿por qué su producto es positivo?**
+
+Ahora generalicen:
+
+> **¿Qué tienen en común los casos con producto positivo? ¿Y qué ocurre en los casos con producto negativo?**
+
+Cada persona de la muestra aporta un producto como estos. Algunos serán positivos y otros negativos. Pero nuestra pregunta no se refiere a una sola persona: queremos describir el patrón de **toda la muestra**.
+
+> **¿Cómo podemos reunir todos esos aportes en un único número?**
+
+## Covarianza
+
+La **covarianza** combina los productos de desviaciones de todas las personas para resumir hacia qué lado queda el balance general.
+
+Después de entender la idea, podemos representar ese procedimiento mediante la fórmula:
+
+$$
+\operatorname{cov}(X,Y)
+=
+\frac{
+\sum_{i=1}^{n}
+(x_i-\bar{x})(y_i-\bar{y})
+}{n-1}
+$$
+
+Podemos leerla paso a paso:
+
+- $(x_i-\bar{x})(y_i-\bar{y})$ es el **aporte de una persona**;
+- $\sum$ indica que reunimos los aportes de **todas las personas**;
+- $n-1$ aparece en el denominador porque estamos calculando la covarianza a partir de **una muestra**.
+
+::: {.callout-tip title="La idea central"}
+Si el balance de los productos queda del lado **positivo**, la covarianza será positiva.
+
+Si el balance queda del lado **negativo**, la covarianza será negativa.
+:::
+
+> **Considerando la nube de puntos y los casos anteriores, ¿qué signo esperarían para la covarianza: positivo o negativo?**
+
+La función `cov()` necesita las dos variables cuya covarianza queremos calcular:
+
+```{r}
+#| label: covarianza-principal
+#| results: false
+
+cov(
+  datos$escolaridad,       # Años de escolaridad
+  datos$ingreso_laboral    # Ingreso laboral
+)
+```
+
+La covarianza obtenida es aproximadamente **`r cov_pesos_fmt`**.
+
+Lo primero que podemos interpretar con facilidad es el **signo**. En nuestra submuestra, el balance general es `r if (cov_pesos >= 0) "positivo" else "negativo"`. Esto indica que `r if (cov_pesos >= 0) "los casos con escolaridad relativamente alta tienden a encontrarse acompañados por ingresos relativamente altos, y los casos con escolaridad relativamente baja por ingresos relativamente bajos" else "los casos relativamente altos en una variable tienden a encontrarse acompañados por valores relativamente bajos en la otra"`.
+
+El número completo, en cambio, es difícil de interpretar directamente. No tenemos una escala fija que nos diga si **`r cov_pesos_fmt`** representa por sí solo una asociación poco o muy marcada. 
+
+La covarianza nos ayuda a identificar la **dirección** del patrón, pero su magnitud depende de las unidades utilizadas. Necesitamos entonces una medida que conserve la información sobre el patrón conjunto y coloque el resultado en una **escala común**.
+
+Esa medida es la **correlación de Pearson**.
+
+# De la covarianza a Pearson
+
+## Correlación de Pearson
+
+En este contexto, **estandarizar** significa llevar las variaciones a una escala común para que el resultado no dependa de las unidades originales. Queremos una medida que describa el patrón lineal sin cambiar su valor debido a unidad de medida.
+
+Pearson realiza esa estandarización dividiendo la covarianza por las desviaciones estándar de las dos variables:
+
+$$
+r=
+\frac{
+\operatorname{cov}(X,Y)
+}{
+s_Xs_Y
+}
+$$
+
+Las desviaciones estándar conservan las mismas unidades que las variables originales. Por eso, al dividir, las unidades se cancelan. En nuestro ejemplo:
+
+$$
+\frac{
+\text{años}\times\text{pesos}
+}{
+\text{años}\times\text{pesos}
+}
+=
+\text{sin unidades}
+$$
+
+El resultado queda además en una escala fija:
+
+$$
+-1\leq r\leq1
+$$
+
+La función `cor()` calcula la **correlación de Pearson** entre dos variables cuantitativas:
+
+```{r}
+#| label: comparar-correlaciones
+
+cor(
+  datos$escolaridad,       # Escolaridad
+  datos$ingreso_laboral    # Ingreso en pesos
+)
+
+```
+
+
+Pearson produce un coeficiente comparable que **no depende de si expresamos el ingreso en pesos o en miles de pesos**. Es **estandarizar**. 
+
+## Cómo interpretar $r$
+
+Para interpretar Pearson necesitamos responder dos preguntas diferentes.
+
+**1. ¿En qué dirección aparece el patrón?**
+
+El **signo** de $r$ indica la dirección:
+
+$$
+r>0 \rightarrow \text{asociación directa}
+$$
+
+$$
+r<0 \rightarrow \text{asociación inversa}
+$$
+
+**2. ¿Qué tan marcado es el patrón lineal?**
+
+Observamos el valor absoluto:
+
+$$
+|r|
+$$
+
+Un **patrón lineal** es aquel cuya tendencia general puede resumirse razonablemente mediante una dirección aproximadamente recta. Esto no significa que todos los puntos deban encontrarse exactamente sobre una línea.
+
+Cuanto más cerca de $1$ se encuentra $|r|$, más marcado es ese patrón lineal; cuanto más cerca de $0$, menos marcado es. 
+
+::: {.callout-warning title="Interpretación"}
+En esta submuestra de CASEN 2024, la correlación entre escolaridad e ingreso de la ocupación principal es $r=$ **`r r_pesos_fmt`** y su dirección es **`r direccion_principal`**. En términos sustantivos, `r interpretacion_principal`. 
+
+> **El valor de $r$ indica qué tan marcado es ese patrón lineal en los casos analizados, pero sigue existiendo variabilidad entre las personas.**
+:::
+
+```{r}
+#| label: grafico-correlacion
+#| message: false
+#| echo: FALSE
+ggplot(datos, aes(                      # Usamos la misma submuestra
+  x = escolaridad,                     # Eje X: escolaridad
+  y = ingreso_laboral                  # Eje Y: ingreso laboral
+)) +
+  geom_point() +                       # Cada punto representa una persona
+  geom_smooth(
+    method = "lm",                     # Agrega una tendencia lineal
+    formula = y ~ x,
+    se = FALSE                         # No muestra la banda de confianza
+  ) +
+  annotate(
+    "text",
+    x = Inf,
+    y = Inf,
+    label = paste0(
+      "r = ",
+      round(
+        cor(datos$escolaridad, datos$ingreso_laboral),
+        2
+      )
+    ),
+    hjust = 1.2,
+    vjust = 1.5,
+    size = 5
+  )
+```
+
+Esta asociación **no demuestra por sí sola que una variable cause la otra**.
+
+::: {.callout-important title="Para interpretar r"}
+**Signo** $\rightarrow$ dirección de la asociación.  
+**$|r|$** $\rightarrow$ qué tan marcado es el patrón **lineal**.
+:::
+
+::: {style="text-align: center;"}
+
+![Ejemplos de distintos valores del coeficiente de correlación de Pearson.](https://www.statlect.com/images/linear-correlation-coefficient.png){fig-alt="Nubes de puntos que muestran distintos valores de correlación lineal, desde correlaciones negativas hasta positivas." width="50%"}
+:::
+
+
+# Por qué debemos mirar el gráfico
+
+## Limitaciones de Pearson
+
+Para aislar algunas limitaciones de Pearson utilizaremos ahora ejemplos didácticos construidos específicamente para mostrar cada situación. La rutina será la misma: **mirar → anticipar → calcular → volver a mirar**.
+
+**1. Una relación no lineal**
+
+Aquí existe un patrón claro entre $X$ e $Y$, pero su forma es curva:
+
+```{r}
+#| label: scatter-no-lineal
+#| echo: false
+#| fig-width: 7
+#| fig-height: 5
+
+ggplot(datos_no_lineales, aes(x = x, y = y)) +
+  geom_point() +
+  labs(x = "X", y = "Y")
+```
+
+> **Si existe un patrón evidente, ¿qué esperan que ocurra con Pearson cuando ese patrón no es lineal?**
+
+```{r}
+#| label: cor-no-lineal
+
+cor(datos_no_lineales$x, datos_no_lineales$y)  # Calcula Pearson: resume solamente la asociación lineal
+```
+
+El valor es aproximadamente `r round(r_no_lineal, 3)`. Esto no significa que las variables carezcan de relación: significa que **no presentan una asociación lineal marcada**.
+
+**2. Un valor extremo**
+
+Comparemos un patrón lineal claro con el mismo conjunto después de agregar una sola observación extrema:
+
+```{r}
+#| label: graficos-extremos
+#| echo: false
+#| layout-ncol: 2
+#| fig-width: 5
+#| fig-height: 4
+
+p_sin <- ggplot(sin_extremo, aes(x = x, y = y)) +
+  geom_point() +
+  labs(
+    x = "X",
+    y = "Y",
+    title = "Sin el caso extremo"
+  )
+
+p_con <- ggplot(con_extremo, aes(x = x, y = y)) +
+  geom_point() +
+  geom_point(
+    data = con_extremo |> slice_tail(n = 1),
+    color = "red",
+    size = 3
+  ) +
+  labs(
+    x = "X",
+    y = "Y",
+    title = "Con un caso extremo"
+  )
+
+p_sin
+p_con
+```
+
+```{r}
+#| label: comparar-extremos
+#| echo: false
+
+knitr::kable(
+  tibble::tibble(
+    Escenario = c("Sin caso extremo", "Con caso extremo"),
+    r = round(c(
+      cor(sin_extremo$x, sin_extremo$y),
+      cor(con_extremo$x, con_extremo$y)
+    ), 3)
+  )
+)
+```
+
+> **¿Cambió el patrón de la mayoría de los puntos? ¿Qué ocurrió con $r$ al agregar una sola observación?**
+
+Pearson puede ser sensible a valores extremos. Por eso, incluso después de calcular $r$, necesitamos volver al gráfico.
+
+**3. Un mismo $r$, patrones distintos**
+
+El cuarteto de Anscombe contiene cuatro conjuntos con resúmenes numéricos muy parecidos, incluida una correlación prácticamente igual, pero con formas gráficas muy distintas:
+
+```{r}
+#| label: grafico-anscombe
+#| echo: false
+#| fig-width: 9
+#| fig-height: 6
+#| out-width: "100%"
+
+ggplot(anscombe_largo, aes(x = x, y = y)) +
+  geom_point(size = 2.0) +
+  facet_wrap(~conjunto, ncol = 2) +
+  labs(
+    x = "X",
+    y = "Y",
+    title = "Cuarteto de Anscombe"
+  ) +
+  theme(
+    text = element_text(size = 14),
+    plot.title = element_text(size = 16),
+    strip.text = element_text(size = 12),
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10)
+  )
+```
+
+```{r}
+#| label: cor-anscombe
+#| echo: false
+
+knitr::kable(
+  tibble::tibble(
+    Conjunto = 1:4,
+    r = round(c(
+      cor(anscombe$x1, anscombe$y1),
+      cor(anscombe$x2, anscombe$y2),
+      cor(anscombe$x3, anscombe$y3),
+      cor(anscombe$x4, anscombe$y4)
+    ), 3)
+  )
+)
+```
+
+> **¿Qué perderíamos si observáramos solamente los coeficientes y no los gráficos?**
+
+**Un coeficiente resume los datos, pero no reemplaza mirar los datos.**
+
+**4. Correlación no implica causalidad**
+
+Hasta ahora hemos usado la correlación de Pearson para describir **cómo se relacionan dos variables**. Sin embargo, encontrar una correlación no significa que una variable sea la causa de la otra.
+
+Una asociación puede aparecer porque existe una **tercera variable** relacionada con ambas.
+
+Por ejemplo, imaginemos que observamos una asociación positiva entre:
+
+- el **tamaño del calzado** de niños y niñas;
+- su **capacidad de lectura**.
+
+Esto no significa que tener pies más grandes mejore la lectura. Ambas variables cambian con una tercera variable: la **edad**.
+
+$$
+\text{Edad}
+\longrightarrow
+\begin{cases}
+\text{Tamaño del calzado} \\
+\text{Capacidad de lectura}
+\end{cases}
+$$
+
+En este tipo de situaciones podemos observar una **correlación espuria**: existe una asociación entre dos variables, pero esa asociación puede explicarse por la influencia de otra variable.
+
+::: {.callout-important title="Correlación no es causalidad"}
+
+La correlación de Pearson nos dice **en qué dirección y qué tan marcado es el patrón lineal entre dos variables**.
+
+Por sí sola, no permite concluir que una variable cause cambios en la otra.
+
+:::
+
+# Ahora ustedes
+
+Ahora analizarán una pregunta nueva utilizando **exactamente la misma submuestra de 1.000 casos de CASEN 2024**:
+
+> **¿En qué medida las horas trabajadas habitualmente por semana y el ingreso de la ocupación principal se encuentran asociados?**
+
+Esta vez deberán recorrer la secuencia con mayor autonomía.
+
+**1. Observen**
+
+Construyan la nube de puntos completando solamente las variables:
+
+```{r}
+#| label: ejercicio-scatter
+#| eval: false
+
+ggplot(datos, aes(                 # Usen la misma submuestra
+  x = __________,                     # Completen la variable del eje X
+  y = __________                      # Completen la variable del eje Y
+)) +
+  geom_point()                        # Cada punto representa una persona
+```
+
+> **¿A medida que aumentan las horas de trabajo, el ingreso parece tender a valores más altos o más bajos?**
+
+**2. Evalúen la forma**
+
+> **¿El patrón parece aproximadamente lineal o presenta otra forma clara?**
+
+**3. Anticipen**
+
+> **¿Qué signo esperan obtener para $r$?**
+
+**4. Calculen**
+
+```{r}
+#| label: ejercicio-cor
+#| eval: false
+
+cor(
+  datos$__________,  # Completen la primera variable
+  datos$__________     # Completen la segunda variable
+)
+```
+
+**5. Interpreten**
+
+En una conclusión breve respondan:
+
+- ¿qué les dice el **signo** de $r$?;
+- ¿qué les dice su **magnitud** sobre el patrón lineal?;
+- ¿cómo expresarían sustantivamente la asociación entre horas habituales de trabajo e ingreso?
+
+**6. Vuelvan al gráfico**
+
+> **¿El coeficiente representa razonablemente el patrón observado en el scatterplot? Justifiquen brevemente.**
+
+# Para cerrar
+
+La secuencia utilizada durante el práctico puede resumirse así:
+
+| Paso | Pregunta |
+|---|---|
+| **Pregunta** | ¿Qué dos variables queremos relacionar? |
+| **Gráfico** | ¿Qué patrón observamos? |
+| **Posición** | ¿Cómo se ubican los casos respecto de las medias? |
+| **Covarianza** | ¿Qué signo presenta el balance de los productos? |
+| **Pearson** | ¿Qué valor toma $r$ y qué nos dice? |
+| **Evaluación** | ¿El coeficiente representa bien lo que vemos? |
+
+> **La correlación resume un patrón lineal. No reemplaza mirar los datos.**

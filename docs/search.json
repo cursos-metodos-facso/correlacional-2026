@@ -2567,5 +2567,264 @@
     "title": "Programa",
     "section": "Programación de sesiones",
     "text": "Programación de sesiones\nVisitar la página de Planificación."
+  },
+  {
+    "objectID": "assignment/05-practico.html",
+    "href": "assignment/05-practico.html",
+    "title": "Asociación, covarianza y correlación",
+    "section": "",
+    "text": "Sesión del miércoles, 23 de septiembre de 2026"
+  },
+  {
+    "objectID": "assignment/05-practico.html#de-comparar-grupos-a-estudiar-asociaciones",
+    "href": "assignment/05-practico.html#de-comparar-grupos-a-estudiar-asociaciones",
+    "title": "Asociación, covarianza y correlación",
+    "section": "1.1 De comparar grupos a estudiar asociaciones",
+    "text": "1.1 De comparar grupos a estudiar asociaciones\nHasta ahora hemos trabajado principalmente con preguntas como:\n\n¿Existen diferencias entre grupos?\n\nEn esta unidad cambia el tipo de pregunta. Ya no queremos comparar solamente grupos, sino estudiar si dos fenómenos varían conjuntamente.\nPor ejemplo:\n\n¿Las personas que trabajan más horas a la semana tienden a presentar mayores ingresos laborales mensuales?\n\nAquí tenemos dos variables cuantitativas observadas en las mismas personas. Nuestro objetivo será estudiar cómo se relacionan sus valores.\n\n\n\n\n\n\nImportanteUna regla para este práctico\n\n\n\nUna asociación no es primero un número. Es un patrón conjunto entre dos variables que podemos observar, describir y luego resumir numéricamente.\n\n\nDurante el práctico seguiremos esta rutina:\n\\[\n\\boxed{\n\\text{Mirar}\n\\rightarrow\n\\text{anticipar}\n\\rightarrow\n\\text{calcular}\n\\rightarrow\n\\text{volver a mirar}\n}\n\\]"
+  },
+  {
+    "objectID": "assignment/05-practico.html#nuestra-pregunta",
+    "href": "assignment/05-practico.html#nuestra-pregunta",
+    "title": "Asociación, covarianza y correlación",
+    "section": "1.2 Nuestra pregunta",
+    "text": "1.2 Nuestra pregunta\nTrabajaremos con un conjunto de datos simulado con fines pedagógicos que representa a 120 personas ocupadas.\nLa pregunta que guiará la primera parte será:\n\n¿En qué medida las horas trabajadas semanalmente y el ingreso laboral mensual se encuentran asociados?\n\nNo buscamos establecer que una variable cause la otra. Por ahora queremos describir el patrón de asociación que aparece en estos datos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#conozcamos-las-variables",
+    "href": "assignment/05-practico.html#conozcamos-las-variables",
+    "title": "Asociación, covarianza y correlación",
+    "section": "1.3 Conozcamos las variables",
+    "text": "1.3 Conozcamos las variables\n\n\n\n\n\n\n\n\nVariable\nQué representa\nTipo\n\n\n\n\nhoras_trabajo\nHoras trabajadas habitualmente por semana\nCuantitativa\n\n\ningreso_laboral\nIngreso laboral mensual en pesos\nCuantitativa\n\n\nescolaridad\nAños de escolaridad\nCuantitativa\n\n\nedad\nEdad en años\nCuantitativa\n\n\n\nLa base no contiene valores perdidos, por lo que en este práctico no necesitaremos tomar decisiones adicionales sobre casos incompletos.\nVeamos algunas observaciones:\n\ndatos |&gt;\n  select(id, edad, escolaridad, horas_trabajo, ingreso_laboral) |&gt;\n  slice_head(n = 6)\n\n# A tibble: 6 × 5\n     id  edad escolaridad horas_trabajo ingreso_laboral\n  &lt;int&gt; &lt;int&gt;       &lt;dbl&gt;         &lt;dbl&gt;           &lt;dbl&gt;\n1     1    48          10          38.4         2010000\n2     2    52          16          43.8         1980000\n3     3    57          10          39.6         1080000\n4     4    64          10          29.9         1700000\n5     5    46          13          39.3         1850000\n6     6    63          15          51.6         2330000"
+  },
+  {
+    "objectID": "assignment/05-practico.html#construyamos-una-nube-de-puntos",
+    "href": "assignment/05-practico.html#construyamos-una-nube-de-puntos",
+    "title": "Asociación, covarianza y correlación",
+    "section": "2.1 Construyamos una nube de puntos",
+    "text": "2.1 Construyamos una nube de puntos\nCuando queremos estudiar conjuntamente dos variables cuantitativas, una primera herramienta es la nube de puntos o scatterplot.\nCada punto representa una persona:\n\nsu posición horizontal corresponde a sus horas de trabajo;\nsu posición vertical corresponde a su ingreso laboral mensual.\n\n\nggplot(\n  datos,\n  aes(x = horas_trabajo, y = ingreso_laboral)\n) +\n  geom_point(alpha = 0.55, size = 2) +\n  labs(\n    x = \"Horas de trabajo semanales\",\n    y = \"Ingreso laboral mensual (pesos)\"\n  ) +\n  tema_practico\n\n\n\n\nHoras de trabajo e ingreso laboral mensual\n\n\n\n\n\nAntes de calcular ningún coeficiente: ¿qué patrón observan?\n\n¿La asociación parece directa, inversa o sin una dirección lineal clara?\n¿El patrón parece aproximadamente lineal?\n¿Hay algún caso que llame especialmente la atención?"
+  },
+  {
+    "objectID": "assignment/05-practico.html#dirección-forma-y-casos-particulares",
+    "href": "assignment/05-practico.html#dirección-forma-y-casos-particulares",
+    "title": "Asociación, covarianza y correlación",
+    "section": "2.2 Dirección, forma y casos particulares",
+    "text": "2.2 Dirección, forma y casos particulares\nAl mirar una nube de puntos conviene separar tres preguntas.\n\n\n\n\n\n\n\nPregunta\nQué observamos\n\n\n\n\nDirección\nSi al aumentar una variable la otra tiende a aumentar o disminuir\n\n\nForma\nSi el patrón parece aproximadamente lineal o adopta otra forma\n\n\nCasos particulares\nSi existen puntos muy alejados del patrón general\n\n\n\nEn nuestro ejemplo podemos anticipar el signo que debería tener una medida de asociación, pero todavía no sabemos cómo resumir numéricamente ese patrón.\n\n\nDespués de discutir el gráfico, revisemos la idea\n\nLa nube sugiere una tendencia general directa: las personas con más horas de trabajo tienden, en promedio, a aparecer en niveles de ingreso mayores. Sin embargo, los puntos no forman una línea perfecta: existe variabilidad alrededor del patrón.\nEsa variabilidad será importante para entender qué mide una correlación."
+  },
+  {
+    "objectID": "assignment/05-practico.html#recordemos-distancia-respecto-de-la-media",
+    "href": "assignment/05-practico.html#recordemos-distancia-respecto-de-la-media",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.1 Recordemos: distancia respecto de la media",
+    "text": "3.1 Recordemos: distancia respecto de la media\nAntes de estudiar cómo varían dos variables juntas, recuperemos una idea conocida.\nPara una variable \\(X\\), podemos observar la distancia entre cada valor y su media:\n\\[\nx_i-\\bar{x}\n\\]\n\nsi \\(x_i&gt;\\bar{x}\\), la desviación es positiva;\nsi \\(x_i&lt;\\bar{x}\\), la desviación es negativa;\nsi \\(x_i\\) está cerca de \\(\\bar{x}\\), la desviación está cerca de 0.\n\nPodemos obtener la media de horas de trabajo en R:\n\nmean(datos$horas_trabajo)\n\n[1] 41.23\n\nvar(datos$horas_trabajo)\n\n[1] 32.18548\n\n\nNo volveremos a calcular manualmente toda la varianza. Lo que necesitamos conservar es la idea de distancia respecto de la media."
+  },
+  {
+    "objectID": "assignment/05-practico.html#qué-ocurre-con-dos-desviaciones-al-mismo-tiempo",
+    "href": "assignment/05-practico.html#qué-ocurre-con-dos-desviaciones-al-mismo-tiempo",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.2 ¿Qué ocurre con dos desviaciones al mismo tiempo?",
+    "text": "3.2 ¿Qué ocurre con dos desviaciones al mismo tiempo?\nAhora tenemos dos variables. Para cada persona podemos preguntar simultáneamente:\n\n¿Sus horas de trabajo están sobre o bajo la media?\n¿Su ingreso está sobre o bajo la media?\n\nLa clave está en multiplicar ambas desviaciones:\n\\[\n(x_i-\\bar{x})(y_i-\\bar{y})\n\\]\nAntes de usar datos, observemos las cuatro posibilidades:\n\n\n\n\n\n\n\n\n\n\\(X\\) respecto de su media\n\\(Y\\) respecto de su media\nProducto\nAporte\n\n\n\n\nsobre\nsobre\n\\(+\\times +=+\\)\npositivo\n\n\nbajo\nbajo\n\\(-\\times -=+\\)\npositivo\n\n\nsobre\nbajo\n\\(+\\times -=-\\)\nnegativo\n\n\nbajo\nsobre\n\\(-\\times +=-\\)\nnegativo\n\n\n\nLos productos son positivos cuando ambas variables se encuentran del mismo lado de sus respectivas medias y negativos cuando se encuentran en lados opuestos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#el-signo-de-los-productos",
+    "href": "assignment/05-practico.html#el-signo-de-los-productos",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.3 El signo de los productos",
+    "text": "3.3 El signo de los productos\nCalculemos las desviaciones en nuestra base. Para hacer visible la lógica seleccionaremos solamente cuatro observaciones: dos con productos positivos y dos con productos negativos.\n\ncasos_cov\n\n# A tibble: 4 × 6\n     id horas_trabajo ingreso_laboral desv_horas desv_ingreso producto\n  &lt;int&gt;         &lt;dbl&gt;           &lt;dbl&gt;      &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;\n1    10          50.9         2750000        9.7      1178250 11393678\n2    43          48.2          890000        7        -681750 -4751798\n3   108          51           1130000        9.8      -441750 -4315898\n4   116          27            570000      -14.2     -1001750 14254902\n\n\n\nMiren primero los signos.\n¿Qué tienen en común los casos cuyo producto es positivo?\n¿Qué ocurre en los casos cuyo producto es negativo?\n\n\n\nMostrar explicación\n\nCuando las dos desviaciones tienen el mismo signo, el producto es positivo. Cuando tienen signos opuestos, el producto es negativo.\nPor eso estos productos nos permiten pasar de estudiar la dispersión de una variable a estudiar cómo dos variables se alejan conjuntamente de sus medias."
+  },
+  {
+    "objectID": "assignment/05-practico.html#covarianza",
+    "href": "assignment/05-practico.html#covarianza",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.3 Covarianza",
+    "text": "3.3 Covarianza\nLa covarianza combina los productos de desviaciones de todas las personas para resumir hacia qué lado queda el balance general.\nDespués de entender la idea, podemos representar ese procedimiento mediante la fórmula:\n\\[\n\\operatorname{cov}(X,Y)\n=\n\\frac{\n\\sum_{i=1}^{n}\n(x_i-\\bar{x})(y_i-\\bar{y})\n}{n-1}\n\\]\nPodemos leerla paso a paso:\n\n\\((x_i-\\bar{x})(y_i-\\bar{y})\\) es el aporte de una persona;\n\\(\\sum\\) indica que reunimos los aportes de todas las personas;\n\\(n-1\\) aparece en el denominador porque estamos calculando la covarianza a partir de una muestra.\n\n\n\n\n\n\n\nTipLa idea central\n\n\n\nSi el balance de los productos queda del lado positivo, la covarianza será positiva.\nSi el balance queda del lado negativo, la covarianza será negativa.\n\n\n\nConsiderando la nube de puntos y los casos anteriores, ¿qué signo esperarían para la covarianza: positivo o negativo?\n\nLa función cov() necesita las dos variables cuya covarianza queremos calcular:\n\ncov(\n  datos$escolaridad,       # Años de escolaridad\n  datos$ingreso_laboral    # Ingreso laboral\n)\n\nLa covarianza obtenida es aproximadamente 1.130.120.\nLo primero que podemos interpretar con facilidad es el signo. En nuestra submuestra, el balance general es positivo. Esto indica que los casos con escolaridad relativamente alta tienden a encontrarse acompañados por ingresos relativamente altos, y los casos con escolaridad relativamente baja por ingresos relativamente bajos.\nEl número completo, en cambio, es difícil de interpretar directamente. No tenemos una escala fija que nos diga si 1.130.120 representa por sí solo una asociación poco o muy marcada.\nLa covarianza nos ayuda a identificar la dirección del patrón, pero su magnitud depende de las unidades utilizadas. Necesitamos entonces una medida que conserve la información sobre el patrón conjunto y coloque el resultado en una escala común.\nEsa medida es la correlación de Pearson."
+  },
+  {
+    "objectID": "assignment/05-practico.html#calculemos-la-covarianza-en-r",
+    "href": "assignment/05-practico.html#calculemos-la-covarianza-en-r",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.5 Calculemos la covarianza en R",
+    "text": "3.5 Calculemos la covarianza en R\nAntes de ejecutar el código:\n\nSegún el scatterplot y los productos que acabamos de observar, ¿esperaríamos una covarianza positiva o negativa?\n\nAhora sí:\n\ncov(datos$horas_trabajo, datos$ingreso_laboral)\n\n[1] 1183140\n\n\nEl signo coincide con la dirección general que habíamos anticipado observando la nube de puntos.\nPero aparece un nuevo problema.\n\n¿Qué significa exactamente una covarianza de 1183140.34?\n¿Es grande? ¿Es pequeña? ¿Con qué valor deberíamos compararla?\n\nTodavía no tenemos una respuesta clara."
+  },
+  {
+    "objectID": "assignment/05-practico.html#un-problema-la-covarianza-depende-de-las-unidades",
+    "href": "assignment/05-practico.html#un-problema-la-covarianza-depende-de-las-unidades",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.6 Un problema: la covarianza depende de las unidades",
+    "text": "3.6 Un problema: la covarianza depende de las unidades\nEl ingreso está expresado en pesos. Podemos representar exactamente los mismos ingresos en miles de pesos:\n\ndatos &lt;- datos |&gt;\n  mutate(\n    ingreso_miles = ingreso_laboral / 1000\n  )\n\nNo hemos cambiado ninguna persona ni ningún ingreso real. Solo cambiamos la unidad en que expresamos la misma variable.\nComparemos las dos covarianzas:\n\ncov_pesos &lt;- cov(datos$horas_trabajo, datos$ingreso_laboral)\ncov_miles &lt;- cov(datos$horas_trabajo, datos$ingreso_miles)\n\ntibble(\n  escala_ingreso = c(\"Pesos\", \"Miles de pesos\"),\n  covarianza = c(cov_pesos, cov_miles)\n)\n\n# A tibble: 2 × 2\n  escala_ingreso covarianza\n  &lt;chr&gt;               &lt;dbl&gt;\n1 Pesos            1183140.\n2 Miles de pesos      1183.\n\n\n\nSi la asociación observada es exactamente la misma, ¿por qué cambió tanto el valor de la covarianza?\n\nTambién podemos representar la misma nube utilizando la nueva unidad:\n\nggplot(\n  datos,\n  aes(x = horas_trabajo, y = ingreso_miles)\n) +\n  geom_point(alpha = 0.55, size = 2) +\n  labs(\n    x = \"Horas de trabajo semanales\",\n    y = \"Ingreso laboral mensual (miles de pesos)\"\n  ) +\n  tema_practico\n\n\n\n\n\n\n\n\nEl patrón entre los puntos es el mismo. Lo que cambió fue la escala numérica del eje vertical.\n\n\n¿Qué aprendemos de esta comparación?\n\nLa magnitud de la covarianza depende de las unidades en que medimos las variables.\nPor eso su signo es útil para describir la dirección del movimiento conjunto, pero su valor numérico no tiene una escala fija que podamos interpretar directamente como “poca” o “mucha” asociación."
+  },
+  {
+    "objectID": "assignment/05-practico.html#correlación-de-pearson-una-covarianza-estandarizada",
+    "href": "assignment/05-practico.html#correlación-de-pearson-una-covarianza-estandarizada",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.7 Correlación de Pearson: una covarianza estandarizada",
+    "text": "3.7 Correlación de Pearson: una covarianza estandarizada\nNecesitamos una medida que conserve la información sobre el movimiento conjunto, pero que no dependa de si expresamos el ingreso en pesos, miles de pesos u otra unidad equivalente.\nLa correlación producto-momento de Pearson, que representamos mediante \\(r\\), puede entenderse como una covarianza estandarizada:\n\\[\nr=\n\\frac{\\operatorname{cov}(X,Y)}\n{s_Xs_Y}\n\\]\nAl dividir la covarianza por las desviaciones estándar de ambas variables eliminamos la dependencia de las unidades originales.\nEl resultado queda en una escala fija:\n\\[\n-1\\leq r\\leq1\n\\]\nNo necesitamos calcular esta fórmula manualmente. Lo importante es comprender qué problema resuelve la estandarización."
+  },
+  {
+    "objectID": "assignment/05-practico.html#calculemos-r",
+    "href": "assignment/05-practico.html#calculemos-r",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.8 Calculemos \\(r\\)",
+    "text": "3.8 Calculemos \\(r\\)\nAhora comparemos la correlación utilizando ingreso en pesos y en miles de pesos:\n\nr_pesos &lt;- cor(datos$horas_trabajo, datos$ingreso_laboral)\nr_miles &lt;- cor(datos$horas_trabajo, datos$ingreso_miles)\n\ntibble(\n  escala_ingreso = c(\"Pesos\", \"Miles de pesos\"),\n  r = c(r_pesos, r_miles)\n)\n\n# A tibble: 2 × 2\n  escala_ingreso     r\n  &lt;chr&gt;          &lt;dbl&gt;\n1 Pesos          0.382\n2 Miles de pesos 0.382\n\n\n\n¿Qué permaneció igual? ¿Qué cambió respecto de lo que vimos con la covarianza?\n\nLa relación sustantiva es la misma y ahora también obtenemos el mismo coeficiente, aunque cambiemos las unidades.\n\n\n\n\n\n\n\nCovarianza\nCorrelación de Pearson\n\n\n\n\nSu magnitud depende de la escala de las variables\nEstá estandarizada\n\n\nNo tiene una escala fija\nSiempre se encuentra entre \\(-1\\) y \\(1\\)\n\n\nEl signo informa dirección\nEl signo informa dirección\n\n\nSu magnitud es difícil de comparar directamente\nPermite describir cuán marcado es el patrón lineal"
+  },
+  {
+    "objectID": "assignment/05-practico.html#signo-dirección",
+    "href": "assignment/05-practico.html#signo-dirección",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.9 Signo: dirección",
+    "text": "3.9 Signo: dirección\nEl signo de \\(r\\) nos informa la dirección de la asociación lineal.\n\\[\nr&gt;0\n\\Rightarrow\n\\text{asociación directa}\n\\]\nValores mayores de una variable tienden a aparecer junto con valores mayores de la otra.\n\\[\nr&lt;0\n\\Rightarrow\n\\text{asociación inversa}\n\\]\nValores mayores de una variable tienden a aparecer junto con valores menores de la otra.\nEl signo no nos dice si una relación es “buena” o “mala”. Describe solamente su dirección."
+  },
+  {
+    "objectID": "assignment/05-practico.html#magnitud-fuerza-de-la-asociación-lineal",
+    "href": "assignment/05-practico.html#magnitud-fuerza-de-la-asociación-lineal",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.10 Magnitud: fuerza de la asociación lineal",
+    "text": "3.10 Magnitud: fuerza de la asociación lineal\nPara estudiar qué tan marcado es el patrón lineal observamos el valor absoluto:\n\\[\n|r|\n\\]\nCuanto más cerca de \\(1\\) se encuentra \\(|r|\\), más marcado es el patrón lineal. Cuanto más cerca de \\(0\\), menos marcado es ese patrón lineal.\nConsideren estos valores:\n\\[\nr=.72 \\qquad r=-.72 \\qquad r=.15 \\qquad r=-.15 \\qquad r=0\n\\]\n\n¿Cuáles representan asociaciones lineales de igual magnitud pero distinta dirección?\n\nY ahora:\n\n¿Cuál representa una asociación lineal más marcada: \\(r=-.80\\) o \\(r=.50\\)?\n\n\n\nMostrar respuesta\n\nEl signo describe la dirección y el valor absoluto describe qué tan marcado es el patrón lineal.\nPor eso:\n\\[\n|-.80|=.80&gt;.50=|.50|\n\\]\nLa asociación con \\(r=-.80\\) es linealmente más marcada, aunque su signo sea negativo.\nDel mismo modo, \\(r=.72\\) y \\(r=-.72\\) tienen igual magnitud y direcciones opuestas.\n\nNo utilizaremos cortes universales como “.10 = débil”, “.30 = moderada” o “.50 = fuerte”. La interpretación depende del contexto, de los datos y del patrón que observamos gráficamente.\n\n\n\n\n\n\nImportantePara interpretar \\(r\\)\n\n\n\nSigno \\(\\rightarrow\\) dirección de la asociación.\n\\(|r|\\) \\(\\rightarrow\\) qué tan marcado es el patrón lineal."
+  },
+  {
+    "objectID": "assignment/05-practico.html#interpretemos-nuestro-resultado",
+    "href": "assignment/05-practico.html#interpretemos-nuestro-resultado",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.11 Interpretemos nuestro resultado",
+    "text": "3.11 Interpretemos nuestro resultado\nEn nuestros datos obtenemos:\n\nr_principal &lt;- cor(datos$horas_trabajo, datos$ingreso_laboral)\nr_principal\n\n[1] 0.3818393\n\n\nUna interpretación completa no consiste solo en reportar el número.\nPodemos organizarla alrededor de tres ideas:\n\ndirección de la asociación;\nqué tan marcado aparece el patrón lineal en estos datos;\nsignificado sustantivo de esa dirección.\n\nPor ejemplo:\n\nEntre las horas de trabajo semanal y el ingreso laboral mensual observamos una asociación lineal de dirección positiva. El coeficiente obtenido es \\(r=\\) 0.38. En estos datos, las personas que trabajan más horas tienden a presentar ingresos laborales mensuales mayores, aunque existe variabilidad alrededor del patrón.\n\nEste resultado describe una asociación entre variables. Por sí solo no permite afirmar que trabajar más horas cause un determinado nivel de ingreso."
+  },
+  {
+    "objectID": "assignment/05-practico.html#volvamos-al-scatterplot",
+    "href": "assignment/05-practico.html#volvamos-al-scatterplot",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.12 Volvamos al scatterplot",
+    "text": "3.12 Volvamos al scatterplot\nRegresemos al gráfico con el que comenzamos.\n\nggplot(\n  datos,\n  aes(x = horas_trabajo, y = ingreso_laboral)\n) +\n  geom_point(alpha = 0.55, size = 2) +\n  labs(\n    x = \"Horas de trabajo semanales\",\n    y = \"Ingreso laboral mensual (pesos)\"\n  ) +\n  tema_practico\n\n\n\n\n\n\n\n\n\n¿El valor de \\(r\\) coincide con lo que habíamos anticipado observando la nube de puntos?\n\nLa correlación y el gráfico no compiten entre sí. Entregan información complementaria:\n\\[\n\\boxed{\n\\text{gráfico}\n+\n\\text{coeficiente}\n}\n\\]\nEl gráfico nos muestra la forma completa del patrón. El coeficiente resume específicamente su componente lineal."
+  },
+  {
+    "objectID": "assignment/05-practico.html#qué-ocurre-con-una-relación-no-lineal",
+    "href": "assignment/05-practico.html#qué-ocurre-con-una-relación-no-lineal",
+    "title": "Asociación, covarianza y correlación",
+    "section": "4.1 ¿Qué ocurre con una relación no lineal?",
+    "text": "4.1 ¿Qué ocurre con una relación no lineal?\nPearson mide asociación lineal. Veamos por qué esa palabra importa.\nConstruiremos un ejemplo sencillo en el que existe una relación clara entre \\(X\\) e \\(Y\\), pero su forma es curva.\n\nggplot(datos_no_lineales, aes(x = x, y = y)) +\n  geom_point(size = 2) +\n  labs(\n    x = \"X\",\n    y = \"Y\"\n  ) +\n  tema_practico\n\n\n\n\n\n\n\n\n\n¿Existe un patrón entre \\(X\\) e \\(Y\\)?\nAntes de ejecutar el siguiente código, ¿esperarían que Pearson resumiera bien esta relación?\n\n\ncor(datos_no_lineales$x, datos_no_lineales$y)\n\n[1] 0.0000000000000001633663\n\n\nEl coeficiente es aproximadamente 0, aun cuando el gráfico muestra una relación perfectamente reconocible.\n\n¿Podemos concluir que \\(X\\) e \\(Y\\) no tienen ninguna relación?\n\nNo. Lo que podemos decir es que no presentan una asociación lineal importante. Pearson no está diseñado para resumir adecuadamente este tipo de forma curva.\n\n\n\n\n\n\nTipLa palabra clave es “lineal”\n\n\n\nUn valor de \\(r\\) cercano a 0 no demuestra que entre dos variables no exista ningún patrón. Indica que no observamos un patrón lineal marcado mediante este coeficiente."
+  },
+  {
+    "objectID": "assignment/05-practico.html#qué-ocurre-con-un-valor-extremo",
+    "href": "assignment/05-practico.html#qué-ocurre-con-un-valor-extremo",
+    "title": "Asociación, covarianza y correlación",
+    "section": "4.2 ¿Qué ocurre con un valor extremo?",
+    "text": "4.2 ¿Qué ocurre con un valor extremo?\nPearson también puede ser sensible a observaciones muy alejadas del patrón general.\nPrimero observemos este conjunto:\n\nggplot(sin_extremo, aes(x = x, y = y)) +\n  geom_point(size = 2.5) +\n  labs(x = \"X\", y = \"Y\", title = \"Sin el caso extremo\") +\n  tema_practico\n\n\n\n\n\n\n\n\nAhora agregamos una sola observación alejada del patrón:\n\nggplot(con_extremo, aes(x = x, y = y)) +\n  geom_point(size = 2.5) +\n  labs(x = \"X\", y = \"Y\", title = \"Con un caso extremo\") +\n  tema_practico\n\n\n\n\n\n\n\n\nComparemos las correlaciones:\n\ntibble(\n  escenario = c(\"Sin caso extremo\", \"Con caso extremo\"),\n  r = c(\n    cor(sin_extremo$x, sin_extremo$y),\n    cor(con_extremo$x, con_extremo$y)\n  )\n)\n\n# A tibble: 2 × 2\n  escenario            r\n  &lt;chr&gt;            &lt;dbl&gt;\n1 Sin caso extremo 0.999\n2 Con caso extremo 0.336\n\n\n\n¿Cambió el patrón de la mayoría de los puntos? ¿Qué ocurrió con \\(r\\) al agregar una sola observación?\n\nLa comparación muestra por qué no conviene interpretar una correlación sin observar también la nube de puntos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#un-mismo-r-patrones-distintos",
+    "href": "assignment/05-practico.html#un-mismo-r-patrones-distintos",
+    "title": "Asociación, covarianza y correlación",
+    "section": "4.3 Un mismo \\(r\\), patrones distintos",
+    "text": "4.3 Un mismo \\(r\\), patrones distintos\nExiste todavía otra razón para mirar los datos.\nEl cuarteto de Anscombe contiene cuatro conjuntos con resúmenes numéricos muy parecidos, incluida una correlación prácticamente igual, pero con patrones gráficos muy diferentes.\n\n\n\n\n\n\n\n\n\n\n\n# A tibble: 4 × 2\n  conjunto     r\n     &lt;int&gt; &lt;dbl&gt;\n1        1 0.816\n2        2 0.816\n3        3 0.816\n4        4 0.817\n\n\n\n¿Qué perderíamos si solo observáramos la columna de correlaciones y no los cuatro gráficos?\n\nDos conjuntos pueden producir coeficientes muy similares y, sin embargo, contener estructuras muy distintas.\n\n\n\n\n\n\nImportanteLa regla que nos llevamos\n\n\n\nNo interpretes una correlación sin observar primero la nube de puntos.\nUn coeficiente resume los datos, pero no reemplaza mirar los datos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#una-nueva-pregunta",
+    "href": "assignment/05-practico.html#una-nueva-pregunta",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.1 Una nueva pregunta",
+    "text": "5.1 Una nueva pregunta\nHasta ahora trabajamos con horas de trabajo e ingreso laboral. Ahora queremos analizar otra pregunta con la misma base:\n\n¿En qué medida los años de escolaridad y el ingreso laboral mensual se encuentran asociados en estas personas?\n\nEsta vez ustedes deberán recorrer la secuencia con mayor autonomía."
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-1.-identifiquen-las-variables",
+    "href": "assignment/05-practico.html#paso-1.-identifiquen-las-variables",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.2 Paso 1. Identifiquen las variables",
+    "text": "5.2 Paso 1. Identifiquen las variables\nA partir de la pregunta anterior:\n\n¿Qué variable corresponde al eje horizontal?\n¿Qué variable corresponde al eje vertical?\n\nRecuerden los nombres disponibles:\n\nedad\nescolaridad\nhoras_trabajo\ningreso_laboral"
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-2.-construyan-el-scatterplot",
+    "href": "assignment/05-practico.html#paso-2.-construyan-el-scatterplot",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.3 Paso 2. Construyan el scatterplot",
+    "text": "5.3 Paso 2. Construyan el scatterplot\nCompleten las variables que faltan y ejecuten el código.\n\nggplot(\n  datos,\n  aes(\n    x = __________,\n    y = __________\n  )\n) +\n  geom_point(alpha = 0.55, size = 2) +\n  labs(\n    x = \"Años de escolaridad\",\n    y = \"Ingreso laboral mensual (pesos)\"\n  ) +\n  tema_practico"
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-3.-anticipen-antes-de-calcular",
+    "href": "assignment/05-practico.html#paso-3.-anticipen-antes-de-calcular",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.4 Paso 3. Anticipen antes de calcular",
+    "text": "5.4 Paso 3. Anticipen antes de calcular\nSin utilizar todavía cor(), respondan:\n\n¿La asociación parece directa, inversa o sin una dirección lineal clara?\n¿El patrón parece aproximadamente lineal?\n¿Existe algún caso que deba llamarnos especialmente la atención?\n¿Qué signo esperan obtener para \\(r\\)?"
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-4.-calculen-r",
+    "href": "assignment/05-practico.html#paso-4.-calculen-r",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.5 Paso 4. Calculen \\(r\\)",
+    "text": "5.5 Paso 4. Calculen \\(r\\)\nCompleten la función con las variables correspondientes:\n\ncor(\n  datos$__________,\n  datos$__________\n)"
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-5.-interpreten",
+    "href": "assignment/05-practico.html#paso-5.-interpreten",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.6 Paso 5. Interpreten",
+    "text": "5.6 Paso 5. Interpreten\nEscriban una conclusión breve que incluya:\n\nla dirección de la asociación;\nel valor obtenido de \\(r\\);\nqué tan marcado aparece el patrón lineal en relación con el gráfico;\nuna interpretación sustantiva en términos de escolaridad e ingreso.\n\nEviten una respuesta que se limite a:\n\n“La correlación es …”"
+  },
+  {
+    "objectID": "assignment/05-practico.html#paso-6.-vuelvan-al-gráfico",
+    "href": "assignment/05-practico.html#paso-6.-vuelvan-al-gráfico",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.7 Paso 6. Vuelvan al gráfico",
+    "text": "5.7 Paso 6. Vuelvan al gráfico\n\n¿El coeficiente de correlación representa razonablemente el patrón que observan en el scatterplot? Justifiquen brevemente.\n\nEsta última pregunta es tan importante como el cálculo del coeficiente."
+  },
+  {
+    "objectID": "assignment/05-practico.html#nuestro-procedimiento-para-estudiar-una-asociación",
+    "href": "assignment/05-practico.html#nuestro-procedimiento-para-estudiar-una-asociación",
+    "title": "Asociación, covarianza y correlación",
+    "section": "6.1 Nuestro procedimiento para estudiar una asociación",
+    "text": "6.1 Nuestro procedimiento para estudiar una asociación\nA lo largo del práctico seguimos una secuencia que conviene conservar para futuros análisis:\n\n\n\nPaso\nPregunta\n\n\n\n\n1. Pregunta\n¿Qué dos variables queremos relacionar?\n\n\n2. Gráfico\n¿Qué patrón observamos?\n\n\n3. Forma\n¿Parece aproximadamente lineal?\n\n\n4. Dirección\n¿La asociación es directa o inversa?\n\n\n5. Predicción\n¿Qué signo esperamos para \\(r\\)?\n\n\n6. Coeficiente\n¿Qué valor toma \\(r\\)?\n\n\n7. Interpretación\n¿Qué significa sustantivamente?\n\n\n8. Evaluación\n¿El número representa bien lo que vemos?\n\n\n\n\\[\n\\boxed{\n\\text{Pregunta}\n\\rightarrow\n\\text{Scatterplot}\n\\rightarrow\n\\text{Predicción}\n\\rightarrow\n\\text{Correlación}\n\\rightarrow\n\\text{Interpretación}\n\\rightarrow\n\\text{Volver al gráfico}\n}\n\\]\n\nLa correlación resume un patrón lineal. No reemplaza mirar los datos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#la-nube-de-puntos",
+    "href": "assignment/05-practico.html#la-nube-de-puntos",
+    "title": "Asociación, covarianza y correlación",
+    "section": "2.1 La nube de puntos",
+    "text": "2.1 La nube de puntos\nUna nube de puntos o scatterplot representa conjuntamente dos variables cuantitativas. Cada punto corresponde a una persona: su posición horizontal indica sus años de escolaridad y su posición vertical indica el ingreso de su ocupación principal.\n\nggplot(datos, aes(                 # Usamos nuestra submuestra\n  x = escolaridad,                    # Eje X: años de escolaridad\n  y = ingreso_laboral                 # Eje Y: ingreso laboral\n)) +\n  geom_point()                        # Cada punto representa una persona\n\n\n\n\nAños de escolaridad e ingreso de la ocupación principal · CASEN 2024\n\n\n\n\n\nA medida que aumenta la escolaridad, ¿el ingreso parece tender a valores más altos o más bajos?\n\n\n¿La nube parece seguir una tendencia aproximadamente recta o presenta una forma claramente curva?\n\n\n¿Hay algún caso que llame especialmente la atención?\n\nEstas tres preguntas cumplen funciones distintas. La primera nos ayuda a pensar en la dirección de la asociación; la segunda, en su forma; y la tercera nos recuerda que algunos casos pueden alejarse bastante del patrón general.\nLos datos reales no forman una línea perfecta. Justamente por eso conviene observar primero la nube completa antes de resumirla mediante un único número."
+  },
+  {
+    "objectID": "assignment/05-practico.html#de-las-desviaciones-al-movimiento-conjunto",
+    "href": "assignment/05-practico.html#de-las-desviaciones-al-movimiento-conjunto",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.1 De las desviaciones al movimiento conjunto",
+    "text": "3.1 De las desviaciones al movimiento conjunto\nEn la clase vimos que una desviación indica dónde se encuentra un valor respecto de su media:\n\\[\nx_i-\\bar{x}\n\\]\nUn valor sobre la media tiene una desviación positiva; uno bajo la media, una desviación negativa. Podemos recuperar la media de escolaridad con:\n\nmean(datos$escolaridad)  # Calcula el promedio de años de escolaridad\n\n[1] 12.78\n\n\nSi ahora observamos dos variables al mismo tiempo, podemos multiplicar sus desviaciones:\n\\[\n(x_i-\\bar{x})(y_i-\\bar{y})\n\\]\n\n\n\nX respecto de su media\nY respecto de su media\nProducto\n\n\n\n\nsobre\nsobre\npositivo\n\n\nbajo\nbajo\npositivo\n\n\nsobre\nbajo\nnegativo\n\n\nbajo\nsobre\nnegativo\n\n\n\nObservemos algunos casos reales de nuestra muestra. El código que los selecciona está preparado de antemano para que aquí podamos concentrarnos en la lógica de los signos:\n\n\n# A tibble: 4 × 5\n  escolaridad ingreso_laboral desv_escolaridad desv_ingreso producto\n        &lt;dbl&gt;           &lt;dbl&gt;            &lt;dbl&gt;        &lt;dbl&gt;    &lt;dbl&gt;\n1          15          540000              2.2      -215083  -477484\n2          15          540000              2.2      -215083  -477484\n3          16          900000              3.2       144917   466634\n4          16          900000              3.2       144917   466634\n\n\n\n¿Qué tienen en común los casos con producto positivo y qué ocurre con los casos con producto negativo?\n\nCuando ambas variables están del mismo lado de sus respectivas medias, el producto es positivo. Cuando están en lados opuestos, el producto es negativo. Esa lógica permite pasar de la dispersión de una variable al movimiento conjunto de dos variables."
+  },
+  {
+    "objectID": "assignment/05-practico.html#correlación-de-pearson",
+    "href": "assignment/05-practico.html#correlación-de-pearson",
+    "title": "Asociación, covarianza y correlación",
+    "section": "4.1 Correlación de Pearson",
+    "text": "4.1 Correlación de Pearson\nEn este contexto, estandarizar significa llevar las variaciones a una escala común para que el resultado no dependa de las unidades originales. Queremos una medida que describa el patrón lineal sin cambiar su valor debido a unidad de medida.\nPearson realiza esa estandarización dividiendo la covarianza por las desviaciones estándar de las dos variables:\n\\[\nr=\n\\frac{\n\\operatorname{cov}(X,Y)\n}{\ns_Xs_Y\n}\n\\]\nLas desviaciones estándar conservan las mismas unidades que las variables originales. Por eso, al dividir, las unidades se cancelan. En nuestro ejemplo:\n\\[\n\\frac{\n\\text{años}\\times\\text{pesos}\n}{\n\\text{años}\\times\\text{pesos}\n}\n=\n\\text{sin unidades}\n\\]\nEl resultado queda además en una escala fija:\n\\[\n-1\\leq r\\leq1\n\\]\nLa función cor() calcula la correlación de Pearson entre dos variables cuantitativas:\n\ncor(\n  datos$escolaridad,       # Escolaridad\n  datos$ingreso_laboral    # Ingreso en pesos\n)\n\n[1] 0.4244602\n\n\nPearson produce un coeficiente comparable que no depende de si expresamos el ingreso en pesos o en miles de pesos. Es estandarizar."
+  },
+  {
+    "objectID": "assignment/05-practico.html#cómo-interpretar-r",
+    "href": "assignment/05-practico.html#cómo-interpretar-r",
+    "title": "Asociación, covarianza y correlación",
+    "section": "4.2 Cómo interpretar \\(r\\)",
+    "text": "4.2 Cómo interpretar \\(r\\)\nPara interpretar Pearson necesitamos responder dos preguntas diferentes.\n1. ¿En qué dirección aparece el patrón?\nEl signo de \\(r\\) indica la dirección:\n\\[\nr&gt;0 \\rightarrow \\text{asociación directa}\n\\]\n\\[\nr&lt;0 \\rightarrow \\text{asociación inversa}\n\\]\n2. ¿Qué tan marcado es el patrón lineal?\nObservamos el valor absoluto:\n\\[\n|r|\n\\]\nUn patrón lineal es aquel cuya tendencia general puede resumirse razonablemente mediante una dirección aproximadamente recta. Esto no significa que todos los puntos deban encontrarse exactamente sobre una línea.\nCuanto más cerca de \\(1\\) se encuentra \\(|r|\\), más marcado es ese patrón lineal; cuanto más cerca de \\(0\\), menos marcado es.\n\n\n\n\n\n\nAdvertenciaInterpretación\n\n\n\nEn esta submuestra de CASEN 2024, la correlación entre escolaridad e ingreso de la ocupación principal es \\(r=\\) 0,42 y su dirección es positiva. En términos sustantivos, las personas con mayor escolaridad tienden a presentar ingresos más altos.\n\nEl valor de \\(r\\) indica qué tan marcado es ese patrón lineal en los casos analizados, pero sigue existiendo variabilidad entre las personas.\n\n\n\n\n\n\n\n\n\n\n\n\nEsta asociación no demuestra por sí sola que una variable cause la otra.\n\n\n\n\n\n\nImportantePara interpretar r\n\n\n\nSigno \\(\\rightarrow\\) dirección de la asociación.\n\\(|r|\\) \\(\\rightarrow\\) qué tan marcado es el patrón lineal.\n\n\n\n\n\n\nEjemplos de distintos valores del coeficiente de correlación de Pearson."
+  },
+  {
+    "objectID": "assignment/05-practico.html#limitaciones-de-pearson",
+    "href": "assignment/05-practico.html#limitaciones-de-pearson",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.1 Limitaciones de Pearson",
+    "text": "5.1 Limitaciones de Pearson\nPara aislar algunas limitaciones de Pearson utilizaremos ahora ejemplos didácticos construidos específicamente para mostrar cada situación. La rutina será la misma: mirar → anticipar → calcular → volver a mirar.\n1. Una relación no lineal\nAquí existe un patrón claro entre \\(X\\) e \\(Y\\), pero su forma es curva:\n\n\n\n\n\n\n\n\n\n\nSi existe un patrón evidente, ¿qué esperan que ocurra con Pearson cuando ese patrón no es lineal?\n\n\ncor(datos_no_lineales$x, datos_no_lineales$y)  # Calcula Pearson: resume solamente la asociación lineal\n\n[1] 0.0000000000000001633663\n\n\nEl valor es aproximadamente 0. Esto no significa que las variables carezcan de relación: significa que no presentan una asociación lineal marcada.\n2. Un valor extremo\nComparemos un patrón lineal claro con el mismo conjunto después de agregar una sola observación extrema:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEscenario\nr\n\n\n\n\nSin caso extremo\n0.999\n\n\nCon caso extremo\n0.336\n\n\n\n\n\n\n¿Cambió el patrón de la mayoría de los puntos? ¿Qué ocurrió con \\(r\\) al agregar una sola observación?\n\nPearson puede ser sensible a valores extremos. Por eso, incluso después de calcular \\(r\\), necesitamos volver al gráfico.\n3. Un mismo \\(r\\), patrones distintos\nEl cuarteto de Anscombe contiene cuatro conjuntos con resúmenes numéricos muy parecidos, incluida una correlación prácticamente igual, pero con formas gráficas muy distintas:\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nConjunto\nr\n\n\n\n\n1\n0.816\n\n\n2\n0.816\n\n\n3\n0.816\n\n\n4\n0.817\n\n\n\n\n\n\n¿Qué perderíamos si observáramos solamente los coeficientes y no los gráficos?\n\nUn coeficiente resume los datos, pero no reemplaza mirar los datos.\n4. Correlación no implica causalidad\nHasta ahora hemos usado la correlación de Pearson para describir cómo se relacionan dos variables. Sin embargo, encontrar una correlación no significa que una variable sea la causa de la otra.\nUna asociación puede aparecer porque existe una tercera variable relacionada con ambas.\nPor ejemplo, imaginemos que observamos una asociación positiva entre:\n\nel tamaño del calzado de niños y niñas;\nsu capacidad de lectura.\n\nEsto no significa que tener pies más grandes mejore la lectura. Ambas variables cambian con una tercera variable: la edad.\n\\[\n\\text{Edad}\n\\longrightarrow\n\\begin{cases}\n\\text{Tamaño del calzado} \\\\\n\\text{Capacidad de lectura}\n\\end{cases}\n\\]\nEn este tipo de situaciones podemos observar una correlación espuria: existe una asociación entre dos variables, pero esa asociación puede explicarse por la influencia de otra variable.\n\n\n\n\n\n\nImportanteCorrelación no es causalidad\n\n\n\nLa correlación de Pearson nos dice en qué dirección y qué tan marcado es el patrón lineal entre dos variables.\nPor sí sola, no permite concluir que una variable cause cambios en la otra."
+  },
+  {
+    "objectID": "assignment/05-practico.html#de-la-posición-de-cada-persona-al-patrón-del-conjunto",
+    "href": "assignment/05-practico.html#de-la-posición-de-cada-persona-al-patrón-del-conjunto",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.1 De la posición de cada persona al patrón del conjunto",
+    "text": "3.1 De la posición de cada persona al patrón del conjunto\nEn el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entender cómo podemos pasar desde la posición de cada persona a un resumen del patrón que aparece en el conjunto.\nEn R, $ permite elegir una variable dentro de una base. Por ejemplo, datos$escolaridad significa “la variable escolaridad que está dentro de la base datos”.\n\nmean(datos$escolaridad)      # Promedio de escolaridad\nmean(datos$ingreso_laboral)  # Promedio de ingreso\n\nEn nuestra submuestra, la escolaridad promedio es aproximadamente 12,8 años y el ingreso promedio es aproximadamente $749.203. Empecemos con una sola variable: la escolaridad.\nPensemos primero en una persona con 15 años de escolaridad. Para saber dónde se encuentra respecto del promedio, restamos su valor menos la media:\n\n15 − 12,8 = +2,2\n\nEl resultado +2,2 significa que esta persona se encuentra aproximadamente 2,2 años sobre el promedio de escolaridad de nuestra muestra.\nAhora pensemos en una persona con 10 años de escolaridad:\n\n10 − 12,8 = -2,8\n\nEl signo negativo indica que esta persona se encuentra aproximadamente 2,8 años bajo el promedio.\nEn general, escribimos esta diferencia como:\n\\[\nx_i-\\bar{x}\n\\]\nque puede leerse como:\n\\[\n\\text{valor de una persona}\n-\n\\text{promedio de la variable}\n\\]\n\n\n\n\n\n\nImportanteDesviación no es desviación estándar\n\n\n\nAquí usamos desviación para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la desviación estándar, que resume la dispersión de todos los casos."
+  },
+  {
+    "objectID": "assignment/05-practico.html#el-producto-de-las-desviaciones",
+    "href": "assignment/05-practico.html#el-producto-de-las-desviaciones",
+    "title": "Asociación, covarianza y correlación",
+    "section": "3.2 El producto de las desviaciones",
+    "text": "3.2 El producto de las desviaciones\nPara trabajar con dos variables necesitamos hacer lo mismo con ambas. En nuestra submuestra:\n\nla escolaridad promedio es 12,8 años;\nel ingreso laboral promedio es $749.203.\n\nUna misma persona ocupa, entonces, dos posiciones: una respecto del promedio de escolaridad y otra respecto del promedio de ingreso.\nSi una persona está sobre ambos promedios, sus dos desviaciones son positivas:\n\\[\n(+)(+)=+\n\\]\nEl producto es positivo porque ambas variables ubican a esa persona del mismo lado de sus respectivas medias.\nSi una persona está bajo ambos promedios, sus dos desviaciones son negativas:\n\\[\n(-)(-)=+\n\\]\nEl producto vuelve a ser positivo: otra vez ambas variables están del mismo lado de sus medias.\nEn cambio, si una persona está sobre el promedio en una variable y bajo el promedio en la otra:\n\\[\n(+)(-)=-\n\\]\nel producto es negativo, porque las dos variables ubican al caso en lados opuestos de sus medias.\n\n\n\n\n\n\nImportante¿Por qué hacemos esta multiplicación?\n\n\n\nPorque el producto nos entrega una forma compacta de registrar, para cada persona, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.\n\n\nLos casos anteriores pueden resumirse así:\n\n\n\n\n\n\n\n\nEscolaridad respecto de su media\nIngreso respecto de su media\nProducto\n\n\n\n\nSobre\nSobre\nPositivo\n\n\nBajo\nBajo\nPositivo\n\n\nSobre\nBajo\nNegativo\n\n\nBajo\nSobre\nNegativo\n\n\n\nVeamos ahora cuatro casos reales de la misma submuestra de CASEN. Cada fila representa una de esas cuatro combinaciones:\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaso\nEscolaridad\nDesv. escolaridad\nIngreso\nDesv. ingreso\nProducto\n\n\n\n\nCaso A\n17\n+4,2\n$1.100.000\n+350.797\n+1.480.364\n\n\nCaso B\n12\n-0,8\n$300.000\n-449.203\n+350.378\n\n\nCaso C\n15\n+2,2\n$500.000\n-249.203\n-553.231\n\n\nCaso D\n12\n-0,8\n$1.000.000\n+250.797\n-195.622\n\n\n\n\n\n\nMiren el caso A. ¿Está sobre o bajo el promedio en escolaridad? ¿Y respecto del ingreso?\nEntonces, ¿por qué su producto es positivo?\n\nAhora generalicen:\n\n¿Qué tienen en común los casos con producto positivo? ¿Y qué ocurre en los casos con producto negativo?\n\nCada persona de la muestra aporta un producto como estos. Algunos serán positivos y otros negativos. Pero nuestra pregunta no se refiere a una sola persona: queremos describir el patrón de toda la muestra.\n\n¿Cómo podemos reunir todos esos aportes en un único número?"
+  },
+  {
+    "objectID": "assignment/05-practico.html#correlación-no-implica-causalidad",
+    "href": "assignment/05-practico.html#correlación-no-implica-causalidad",
+    "title": "Asociación, covarianza y correlación",
+    "section": "5.2 Correlación no implica causalidad",
+    "text": "5.2 Correlación no implica causalidad\nHasta ahora hemos usado la correlación de Pearson para describir cómo se relacionan dos variables. Sin embargo, encontrar una correlación no significa que una variable sea la causa de la otra.\nUna asociación puede aparecer porque existe una tercera variable relacionada con ambas.\nPor ejemplo, imaginemos que observamos una asociación positiva entre:\n\nel tamaño del calzado de niños y niñas;\nsu capacidad de lectura.\n\nEsto no significa que tener pies más grandes mejore la lectura. Ambas variables cambian con una tercera variable: la edad.\n\\[\n\\text{Edad}\n\\longrightarrow\n\\begin{cases}\n\\text{Tamaño del calzado} \\\\\n\\text{Capacidad de lectura}\n\\end{cases}\n\\]\nEn este tipo de situaciones podemos observar una correlación espuria: existe una asociación entre dos variables, pero esa asociación puede explicarse por la influencia de otra variable.\n\n\n\n\n\n\nImportanteCorrelación no es causalidad\n\n\n\nLa correlación de Pearson nos dice en qué dirección y qué tan marcado es el patrón lineal entre dos variables.\nPor sí sola, no permite concluir que una variable cause cambios en la otra."
   }
 ]
