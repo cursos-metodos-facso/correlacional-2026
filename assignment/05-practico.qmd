@@ -47,8 +47,9 @@ main.content p,
   display: block;
   max-width: 100%;
   height: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
-
 /* Índice */
 #TOC .nav-link {
   font-size: 0.95rem !important;
@@ -184,7 +185,7 @@ fmt_signo <- function(x, digits = 1) {
 
 Hasta ahora hemos trabajado principalmente con **diferencias entre grupos**. Ahora cambia la pregunta: en vez de comparar dos grupos, queremos saber si los valores de **dos variables** tienden a presentar algún patrón conjunto.
 
-Trabajaremos con datos reales de la **Encuesta CASEN 2024**. Como la encuesta contiene muchas observaciones, prepararemos una submuestra aleatoria reproducible para que sea más fáciles de leer. Esa misma submuestra se utilizará durante todo el práctico.
+Trabajaremos con datos reales de la **Encuesta CASEN 2024**. Para facilitar el trabajo durante el práctico, utilizaremos una submuestra aleatoria reproducible de **1.000 personas ocupadas con información válida en las tres variables analizadas**. Esa misma submuestra se utilizará durante todo el práctico.
 
 Nuestra pregunta principal será:
 
@@ -571,10 +572,9 @@ Lo primero que podemos interpretar con facilidad es el **signo**. En nuestra sub
 
 El número completo, en cambio, es difícil de interpretar directamente. No tenemos una escala fija que nos diga si **`r cov_pesos_fmt`** representa por sí solo una asociación poco o muy marcada. 
 
-La covarianza nos ayuda a identificar la **dirección** del patrón, pero su magnitud depende de las unidades utilizadas. Necesitamos entonces una medida que conserve la información sobre el patrón conjunto y coloque el resultado en una **escala común**.
+La covarianza nos ayuda a identificar la **dirección del patrón lineal conjunto**, pero su magnitud depende de las unidades utilizadas. Necesitamos entonces una medida que conserve esta información y coloque el resultado en una **escala común**.
 
 Esa medida es la **correlación de Pearson**.
-
 # De la covarianza a Pearson
 
 ## Correlación de Pearson
@@ -623,7 +623,7 @@ cor(
 ```
 
 
-Pearson produce un coeficiente comparable que **no depende de si expresamos el ingreso en pesos o en miles de pesos**. Es **estandarizar**. 
+Pearson produce un coeficiente comparable que **no depende de si expresamos el ingreso en pesos o en miles de pesos**. Esto es posible porque el coeficiente está **estandarizado**.
 
 ## Cómo interpretar $r$
 
@@ -653,16 +653,26 @@ Un **patrón lineal** es aquel cuya tendencia general puede resumirse razonablem
 
 Cuanto más cerca de $1$ se encuentra $|r|$, más marcado es ese patrón lineal; cuanto más cerca de $0$, menos marcado es. 
 
+::: {style="text-align: center;"}
+
+![Ejemplos de distintos valores del coeficiente de correlación de Pearson.](https://www.statlect.com/images/linear-correlation-coefficient.png){fig-alt="Nubes de puntos que muestran distintos valores de correlación lineal, desde correlaciones negativas hasta positivas." width="50%"}
+:::
+
+
 ::: {.callout-warning title="Interpretación"}
 En esta submuestra de CASEN 2024, la correlación entre escolaridad e ingreso de la ocupación principal es $r=$ **`r r_pesos_fmt`** y su dirección es **`r direccion_principal`**. En términos sustantivos, `r interpretacion_principal`. 
 
 > **El valor de $r$ indica qué tan marcado es ese patrón lineal en los casos analizados, pero sigue existiendo variabilidad entre las personas.**
 :::
 
+Volvamos ahora a la nube de puntos. Para ayudarnos a visualizar la dirección general del patrón agregaremos una **línea de tendencia lineal**, que nos ayuda a visualizar la tendencia lineal que Pearson resume mediante un coeficiente.
+
 ```{r}
 #| label: grafico-correlacion
 #| message: false
 #| echo: FALSE
+#| fig-cap: "Nota: La línea muestra la tendencia lineal general de los datos. No es la correlación y su pendiente no corresponde al valor de r; solo ayuda a visualizar el patrón lineal que Pearson resume numéricamente."
+
 ggplot(datos, aes(                      # Usamos la misma submuestra
   x = escolaridad,                     # Eje X: escolaridad
   y = ingreso_laboral                  # Eje Y: ingreso laboral
@@ -697,10 +707,6 @@ Esta asociación **no demuestra por sí sola que una variable cause la otra**.
 **$|r|$** $\rightarrow$ qué tan marcado es el patrón **lineal**.
 :::
 
-::: {style="text-align: center;"}
-
-![Ejemplos de distintos valores del coeficiente de correlación de Pearson.](https://www.statlect.com/images/linear-correlation-coefficient.png){fig-alt="Nubes de puntos que muestran distintos valores de correlación lineal, desde correlaciones negativas hasta positivas." width="50%"}
-:::
 
 
 # Por qué debemos mirar el gráfico
@@ -921,7 +927,7 @@ En una conclusión breve respondan:
 
 - ¿qué les dice el **signo** de $r$?;
 - ¿qué les dice su **magnitud** sobre el patrón lineal?;
-- ¿cómo expresarían sustantivamente la asociación entre horas habituales de trabajo e ingreso?
+- ¿cómo expresarían sustantivamente la asociación observada entre horas habituales de trabajo e ingreso **en la submuestra analizada**?
 
 **6. Vuelvan al gráfico**
 
