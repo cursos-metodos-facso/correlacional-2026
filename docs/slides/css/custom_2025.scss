@@ -88,6 +88,42 @@ strong, b {
   border-radius: 1px;
 }
 
+.content-box-gray {
+  background-color: #e6e6e6;
+  color: #222;
+  padding: 0.5em;
+  border-radius: 1px;
+}
+
+/* contraste: texto destacado y títulos sobre fondos de color */
+.content-box-red strong, .content-box-red b,
+.content-box-green strong, .content-box-green b {
+  color: #ffe45c;
+}
+
+.content-box-red h1, .content-box-red h2, .content-box-red h3, .content-box-red h4,
+.content-box-green h1, .content-box-green h2, .content-box-green h3, .content-box-green h4 {
+  color: white !important;
+}
+
+.reveal section[data-background-color="#0C3547"] strong,
+.reveal section[data-background-color="#0C3547"] b,
+.reveal section[data-background-color="#9B2626"] strong,
+.reveal section[data-background-color="#9B2626"] b,
+.reveal section[data-background-color="#0c4712"] strong,
+.reveal section[data-background-color="#0c4712"] b {
+  color: #dfc117;
+}
+
+.reveal section[data-background-color="#0C3547"] h3,
+.reveal section[data-background-color="#0C3547"] h4,
+.reveal section[data-background-color="#9B2626"] h3,
+.reveal section[data-background-color="#9B2626"] h4,
+.reveal section[data-background-color="#0c4712"] h3,
+.reveal section[data-background-color="#0c4712"] h4 {
+  color: white !important;
+}
+
 .reveal .columns {
   display: flex !important;
   gap: min(4vw, 1.5em);
@@ -130,4 +166,20 @@ strong, b {
 .reveal.print-pdf .slides section .fragment.visible,
 .reveal.overview .slides section .fragment.visible {
   opacity: 1 !important;
+}
+
+/* caja gris: texto oscuro aunque la slide tenga fondo de color */
+.reveal section[data-background-color] .content-box-gray h3,
+.reveal section[data-background-color] .content-box-gray h4 {
+  color: #222 !important;
+}
+
+/* título sobre fondo rojo: mismo rojo que el fondo */
+.reveal section[data-background-color="#9B2626"] h2 {
+  background-color: #9B2626;
+}
+
+/* código más legible (por defecto reveal usa 0.55em) */
+.reveal pre {
+  font-size: 0.65em;
 }
