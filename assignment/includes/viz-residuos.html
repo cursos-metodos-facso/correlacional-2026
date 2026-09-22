@@ -1,0 +1,736 @@
+<div id="viz-residuos">
+  <div class="viz-residuos__intro">
+    <strong>Explora cómo aporta una persona.</strong>
+    Selecciona un punto para observar cómo su posición respecto de ambas medias determina
+    los signos de sus residuos y del producto resultante.
+  </div>
+
+  <div class="viz-residuos__controls" role="group" aria-label="Ejemplos según posición respecto de las medias">
+    <button type="button" data-zone="pp" aria-pressed="false">Sobre / Sobre · (+)(+)</button>
+    <button type="button" data-zone="nn" aria-pressed="false">Bajo / Bajo · (−)(−)</button>
+    <button type="button" data-zone="pn" aria-pressed="false">Sobre / Bajo · (+)(−)</button>
+    <button type="button" data-zone="np" aria-pressed="false">Bajo / Sobre · (−)(+)</button>
+  </div>
+
+  <p class="viz-residuos__status" data-role="status">Cargando la visualización…</p>
+
+  <div class="viz-residuos__layout">
+    <div class="viz-residuos__chart-wrap" data-role="chart-wrap">
+      <svg role="img" aria-labelledby="viz-residuos-svg-title viz-residuos-svg-desc"></svg>
+      <p class="viz-residuos__scale-note" data-role="scale-note" hidden></p>
+    </div>
+
+    <div class="viz-residuos__panel" data-role="panel" role="region" aria-labelledby="viz-residuos-panel-title" aria-live="polite">
+      <div class="viz-residuos__panel-title" id="viz-residuos-panel-title">Caso seleccionado</div>
+
+      <div class="viz-residuos__section">
+        <div class="viz-residuos__row"><span>Escolaridad</span><strong data-field="x-value">—</strong></div>
+        <div class="viz-residuos__row"><span>Promedio</span><span data-field="x-mean">—</span></div>
+        <div class="viz-residuos__calc">
+          Residuo respecto de la media:<br>
+          <strong data-field="x-calc">—</strong>
+        </div>
+      </div>
+
+      <div class="viz-residuos__section">
+        <div class="viz-residuos__row"><span>Ingreso</span><strong data-field="y-value">—</strong></div>
+        <div class="viz-residuos__row"><span>Promedio</span><span data-field="y-mean">—</span></div>
+        <div class="viz-residuos__calc">
+          Residuo respecto de la media:<br>
+          <strong data-field="y-calc">—</strong>
+        </div>
+      </div>
+
+      <div class="viz-residuos__section">
+        <strong>Producto de los residuos</strong>
+        <div class="viz-residuos__calc viz-residuos__product" data-field="product-calc">—</div>
+        <div class="viz-residuos__badge" data-field="product-sign" data-sign="cero">—</div>
+        <p class="viz-residuos__explanation" data-field="explanation"></p>
+        <p class="viz-residuos__future">
+          Este producto será uno de los aportes que luego reuniremos para construir el balance general.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <noscript>Esta visualización interactiva requiere JavaScript.</noscript>
+</div>
+
+<style>
+/* ==========================================================
+   Visualización interactiva · producto de residuos
+   Ajuste final para Quarto:
+   - respeta el ancho del cuerpo;
+   - no invade el TOC;
+   - gráfico principal amplio;
+   - panel horizontal inferior;
+   - tipografía reforzada para proyección.
+   ========================================================== */
+
+#viz-residuos {
+  container: residuos / inline-size;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin: 1.25rem 0 1.75rem;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+#viz-residuos *,
+#viz-residuos *::before,
+#viz-residuos *::after {
+  box-sizing: border-box;
+}
+
+#viz-residuos p {
+  text-align: left;
+}
+
+#viz-residuos .viz-residuos__intro {
+  width: 100%;
+  margin: 0 0 0.9rem 0;
+  color: #374151;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+#viz-residuos .viz-residuos__intro strong {
+  color: #1f2937;
+}
+
+#viz-residuos .viz-residuos__controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0.8rem 0 0.9rem;
+}
+
+#viz-residuos .viz-residuos__controls button {
+  appearance: none;
+  border: 1px solid #cfd6df;
+  background: #ffffff;
+  color: #374151;
+  border-radius: 6px;
+  padding: 0.52rem 0.78rem;
+  min-height: 44px;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+
+#viz-residuos .viz-residuos__controls button:hover {
+  border-color: #d44848;
+}
+
+#viz-residuos .viz-residuos__controls button[aria-pressed="true"] {
+  border-color: #d44848;
+  background: #fff4f4;
+  color: #b53636;
+}
+
+#viz-residuos .viz-residuos__controls button:focus-visible {
+  outline: 3px solid rgba(212, 72, 72, 0.25);
+  outline-offset: 2px;
+}
+
+#viz-residuos .viz-residuos__status {
+  width: 100%;
+  margin: 0 0 0.8rem;
+  color: #6b7280;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* El gráfico ocupa el ancho útil del componente. */
+#viz-residuos .viz-residuos__layout {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+#viz-residuos .viz-residuos__chart-wrap {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #d9dee7;
+  border-radius: 8px;
+  background: #ffffff;
+  padding: 0.5rem;
+}
+
+#viz-residuos svg {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+#viz-residuos .viz-zone-positive {
+  fill: #f0f8f5;
+}
+
+#viz-residuos .viz-zone-negative {
+  fill: #fff5f3;
+}
+
+/* Textos del gráfico reforzados para proyección */
+#viz-residuos .viz-quadrant-label {
+  fill: #596579;
+  font-size: 17px;
+  font-weight: 700;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+#viz-residuos .viz-grid line {
+  stroke: #e1e6ec;
+  stroke-width: 1;
+}
+
+#viz-residuos .viz-axis-tick {
+  fill: #596579;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+#viz-residuos .viz-axis-title {
+  fill: #253244;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+#viz-residuos .viz-mean-x {
+  stroke: #2f6fed;
+  stroke-width: 2.4;
+  stroke-dasharray: 7 5;
+}
+
+#viz-residuos .viz-mean-y {
+  stroke: #c96a00;
+  stroke-width: 2.4;
+  stroke-dasharray: 7 5;
+}
+
+#viz-residuos .viz-mean-label {
+  font-size: 16px;
+  font-weight: 750;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+
+#viz-residuos .viz-mean-label-x {
+  fill: #2f6fed;
+}
+
+#viz-residuos .viz-mean-label-y {
+  fill: #b45d00;
+}
+
+#viz-residuos .viz-point {
+  fill: #356fe3;
+  opacity: 0.38;
+  cursor: pointer;
+}
+
+#viz-residuos .viz-point:hover {
+  opacity: 0.82;
+}
+
+#viz-residuos .viz-point-clipped {
+  opacity: 0.52;
+}
+
+#viz-residuos .viz-resid-x {
+  stroke: #2f6fed;
+  stroke-width: 2.6;
+  stroke-dasharray: 6 5;
+}
+
+#viz-residuos .viz-resid-y {
+  stroke: #c96a00;
+  stroke-width: 2.6;
+  stroke-dasharray: 6 5;
+}
+
+#viz-residuos .viz-resid-label {
+  font-size: 16px;
+  font-weight: 750;
+  paint-order: stroke;
+  stroke: #ffffff;
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+
+#viz-residuos .viz-resid-label-x {
+  fill: #2f6fed;
+}
+
+#viz-residuos .viz-resid-label-y {
+  fill: #b45d00;
+}
+
+#viz-residuos .viz-selected {
+  stroke: #1f2937;
+  stroke-width: 3.2;
+  vector-effect: non-scaling-stroke;
+}
+
+#viz-residuos .viz-selected-positive {
+  fill: #24796c;
+}
+
+#viz-residuos .viz-selected-negative {
+  fill: #d44848;
+}
+
+#viz-residuos .viz-selected-zero {
+  fill: #6b7280;
+}
+
+#viz-residuos .viz-clipped-arrow {
+  fill: #374151;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+#viz-residuos .viz-residuos__scale-note {
+  margin: 0.5rem 0.6rem 0.45rem;
+  color: #6b7280;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Panel horizontal inferior */
+#viz-residuos .viz-residuos__panel {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 0;
+  margin-top: 0.85rem;
+  border: 1px solid #d9dee7;
+  border-left: 4px solid #d44848;
+  border-radius: 8px;
+  background: #f8f9fb;
+  padding: 0.95rem 1.05rem 1.05rem;
+}
+
+#viz-residuos .viz-residuos__panel-title {
+  grid-column: 1 / -1;
+  font-size: 1.25rem;
+  font-weight: 750;
+  color: #1f2937;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.65rem;
+  border-bottom: 1px solid #e1e6ec;
+}
+
+#viz-residuos .viz-residuos__section {
+  min-width: 0;
+  padding: 0.3rem 0.85rem 0.2rem 0;
+  border-top: none;
+  font-size: 1.05rem;
+}
+
+#viz-residuos .viz-residuos__section + .viz-residuos__section {
+  border-left: 1px solid #e1e6ec;
+  padding-left: 1rem;
+}
+
+#viz-residuos .viz-residuos__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.7rem;
+  margin: 0.22rem 0;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+#viz-residuos .viz-residuos__row span:first-child {
+  color: #667085;
+}
+
+#viz-residuos .viz-residuos__row strong {
+  color: #344054;
+  font-weight: 700;
+}
+
+#viz-residuos .viz-residuos__calc {
+  margin-top: 0.55rem;
+  padding: 0.55rem 0.65rem;
+  background: #ffffff;
+  border: 1px solid #e1e6ec;
+  border-radius: 5px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+#viz-residuos .viz-residuos__product {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+#viz-residuos .viz-residuos__badge {
+  display: inline-block;
+  margin-top: 0.65rem;
+  padding: 0.34rem 0.62rem;
+  border-radius: 5px;
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+#viz-residuos .viz-residuos__badge[data-sign="positivo"] {
+  background: #e8f5f1;
+  color: #17685d;
+}
+
+#viz-residuos .viz-residuos__badge[data-sign="negativo"] {
+  background: #fdeceb;
+  color: #a92f2f;
+}
+
+#viz-residuos .viz-residuos__badge[data-sign="cero"] {
+  background: #eceff3;
+  color: #4b5563;
+}
+
+#viz-residuos .viz-residuos__explanation {
+  margin: 0.75rem 0 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #475467;
+}
+
+#viz-residuos .viz-residuos__future {
+  margin: 0.65rem 0 0;
+  color: #667085;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+/* Tablet: dos columnas en el panel */
+@container residuos (max-width: 900px) {
+  #viz-residuos .viz-residuos__panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #viz-residuos .viz-residuos__section:last-child {
+    grid-column: 1 / -1;
+    border-left: none;
+    border-top: 1px solid #e1e6ec;
+    margin-top: 0.75rem;
+    padding-top: 0.85rem;
+    padding-left: 0;
+  }
+}
+
+/* Móvil: todo apilado */
+@container residuos (max-width: 620px) {
+  #viz-residuos .viz-residuos__controls {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  #viz-residuos .viz-residuos__controls button {
+    width: 100%;
+    font-size: 0.92rem;
+  }
+
+  #viz-residuos .viz-residuos__panel {
+    grid-template-columns: 1fr;
+  }
+
+  #viz-residuos .viz-residuos__section,
+  #viz-residuos .viz-residuos__section + .viz-residuos__section,
+  #viz-residuos .viz-residuos__section:last-child {
+    grid-column: auto;
+    border-left: none;
+    border-top: 1px solid #e1e6ec;
+    margin-top: 0.6rem;
+    padding: 0.75rem 0 0;
+  }
+
+  #viz-residuos .viz-residuos__section:nth-child(2) {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0.25rem;
+  }
+
+}
+</style>
+
+<script>
+(() => {
+  const root = document.getElementById("viz-residuos");
+  const dataNode = document.getElementById("viz-residuos-data");
+  if (!root || !dataNode || root.dataset.initialized === "true") return;
+  root.dataset.initialized = "true";
+
+  let payload;
+  try {
+    payload = JSON.parse(dataNode.textContent);
+  } catch (e) {
+    root.querySelector('[data-role="status"]').textContent = "No fue posible cargar los datos de la visualización.";
+    return;
+  }
+
+  const meanX = Number(payload.medias.escolaridad);
+  const meanY = Number(payload.medias.ingreso);
+  const points = (payload.puntos || []).map(d => ({
+    id: Number(d.id),
+    escolaridad: Number(d.escolaridad),
+    ingreso: Number(d.ingreso)
+  })).filter(d => Number.isFinite(d.escolaridad) && Number.isFinite(d.ingreso));
+
+  if (!points.length || !Number.isFinite(meanX) || !Number.isFinite(meanY)) {
+    root.querySelector('[data-role="status"]').textContent = "No hay datos válidos para construir la visualización.";
+    return;
+  }
+
+  const svg = root.querySelector("svg");
+  const panel = root.querySelector('[data-role="panel"]');
+  const status = root.querySelector('[data-role="status"]');
+  const buttons = [...root.querySelectorAll("[data-zone]")];
+  const NS = "http://www.w3.org/2000/svg";
+
+  const fmt1 = new Intl.NumberFormat("es-CL",{minimumFractionDigits:1,maximumFractionDigits:1});
+  const fmt0 = new Intl.NumberFormat("es-CL",{maximumFractionDigits:0});
+  const fmtMoneyAxis = new Intl.NumberFormat("es-CL",{maximumFractionDigits:1});
+  const money = v => "$" + fmt0.format(Math.round(v));
+  const signedNumber = v => Math.abs(v)<1e-10 ? "0,0" : (v>0?"+":"−")+fmt1.format(Math.abs(v));
+  const signedMoney = v => Math.abs(v)<0.5 ? "$0" : (v>0?"+":"−")+"$"+fmt0.format(Math.abs(Math.round(v)));
+  const signedInteger = v => Math.abs(v)<0.5 ? "0" : (v>0?"+":"−")+fmt0.format(Math.abs(Math.round(v)));
+  const axisMoney = v => Math.abs(v)>=1000000 ? fmtMoneyAxis.format(v/1000000)+" M" : Math.abs(v)>=1000 ? fmt0.format(Math.round(v/1000))+" mil" : fmt0.format(v);
+
+  const zoneOf = p => {
+    const rx=p.escolaridad-meanX, ry=p.ingreso-meanY;
+    if(rx>0&&ry>0)return"pp";
+    if(rx<0&&ry<0)return"nn";
+    if(rx>0&&ry<0)return"pn";
+    if(rx<0&&ry>0)return"np";
+    return"zero";
+  };
+
+  const exampleMap = {};
+  for (const ex of payload.ejemplos || []) {
+    const e={escolaridad:Number(ex.escolaridad),ingreso:Number(ex.ingreso)};
+    const z=zoneOf(e);
+    if(z==="zero"||exampleMap[z])continue;
+    const match=points.find(p=>p.escolaridad===e.escolaridad&&p.ingreso===e.ingreso);
+    if(match)exampleMap[z]=match;
+  }
+  for(const z of ["pp","nn","pn","np"]) if(!exampleMap[z]) exampleMap[z]=points.find(p=>zoneOf(p)===z)||null;
+
+  let selected=exampleMap.pp||points[0];
+  let lastWidth=0;
+
+  const quantile98 = values => {
+    const s=[...values].sort((a,b)=>a-b);
+    return s[Math.max(0,Math.min(s.length-1,Math.floor((s.length-1)*.98)))];
+  };
+  const niceStep=(span,target)=>{
+    const rough=span/Math.max(1,target), power=10**Math.floor(Math.log10(Math.max(rough,1e-12))), error=rough/power;
+    return (error>=5?5:error>=2?2:1)*power;
+  };
+  const makeTicks=(min,max,target)=>{
+    const step=niceStep(max-min,target),start=Math.ceil(min/step)*step,t=[];
+    for(let v=start;v<=max+step*.001;v+=step)t.push(v);
+    return t;
+  };
+  const el=(tag,attrs={})=>{
+    const n=document.createElementNS(NS,tag);
+    Object.entries(attrs).forEach(([k,v])=>n.setAttribute(k,String(v)));
+    return n;
+  };
+
+  function explanation(p){
+    const rx=p.escolaridad-meanX,ry=p.ingreso-meanY;
+    if(rx>0&&ry>0)return"Esta persona se encuentra sobre ambas medias. Como los dos residuos tienen el mismo signo, su producto es positivo.";
+    if(rx<0&&ry<0)return"Esta persona se encuentra bajo ambas medias. Como los dos residuos tienen el mismo signo, su producto es positivo.";
+    if(rx>0&&ry<0)return"Esta persona está sobre la media de escolaridad y bajo la media de ingreso. Como los residuos tienen signos opuestos, su producto es negativo.";
+    if(rx<0&&ry>0)return"Esta persona está bajo la media de escolaridad y sobre la media de ingreso. Como los residuos tienen signos opuestos, su producto es negativo.";
+    return"Esta persona se encuentra exactamente sobre una de las medias. Por eso uno de sus residuos es 0 y su producto también es 0.";
+  }
+
+  function updatePanel(p){
+    const rx=p.escolaridad-meanX,ry=p.ingreso-meanY,prod=rx*ry;
+    const sign=prod>0?"positivo":prod<0?"negativo":"cero";
+    panel.querySelector('[data-field="x-value"]').textContent=fmt0.format(p.escolaridad)+" años";
+    panel.querySelector('[data-field="x-mean"]').textContent=fmt1.format(meanX)+" años";
+    panel.querySelector('[data-field="x-calc"]').textContent=`${fmt0.format(p.escolaridad)} − ${fmt1.format(meanX)} = ${signedNumber(rx)}`;
+    panel.querySelector('[data-field="y-value"]').textContent=money(p.ingreso);
+    panel.querySelector('[data-field="y-mean"]').textContent=money(meanY);
+    panel.querySelector('[data-field="y-calc"]').textContent=`${money(p.ingreso)} − ${money(meanY)} = ${signedMoney(ry)}`;
+    panel.querySelector('[data-field="product-calc"]').textContent=`(${signedNumber(rx)}) × (${signedInteger(ry)}) = ${signedInteger(prod)}`;
+    const badge=panel.querySelector('[data-field="product-sign"]');
+    badge.textContent=sign==="positivo"?"APORTE POSITIVO":sign==="negativo"?"APORTE NEGATIVO":"APORTE 0";
+    badge.dataset.sign=sign;
+    panel.querySelector('[data-field="explanation"]').textContent=explanation(p);
+    buttons.forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.zone===zoneOf(p))));
+  }
+
+  function drawSelection(ctx){
+    svg.querySelectorAll(".viz-selection-layer").forEach(n=>n.remove());
+    const {sx,sy,mx,my,margin,plotRight,plotBottom,yMax}=ctx;
+    const px=sx(selected.escolaridad), py=sy(selected.ingreso);
+    const rx=selected.escolaridad-meanX, ry=selected.ingreso-meanY, prod=rx*ry;
+    const g=el("g",{class:"viz-selection-layer","aria-hidden":"true"});
+    g.appendChild(el("line",{x1:mx,x2:px,y1:py,y2:py,class:"viz-resid-x"}));
+    g.appendChild(el("line",{x1:px,x2:px,y1:my,y2:py,class:"viz-resid-y"}));
+
+    const tx=el("text",{x:(mx+px)/2,y:Math.max(margin.top+14,py-8),"text-anchor":"middle",class:"viz-resid-label viz-resid-label-x"});
+    tx.textContent=`xᵢ − x̄ = ${signedNumber(rx)}`; g.appendChild(tx);
+
+    const rightSide=px>(margin.left+plotRight)/2;
+    const ty=el("text",{x:rightSide?px-8:px+8,y:(my+py)/2,"text-anchor":rightSide?"end":"start",class:"viz-resid-label viz-resid-label-y"});
+    ty.textContent=`yᵢ − ȳ = ${signedMoney(ry)}`; g.appendChild(ty);
+
+    const cls=prod>0?"viz-selected-positive":prod<0?"viz-selected-negative":"viz-selected-zero";
+    g.appendChild(el("circle",{cx:px,cy:py,r:9,class:`viz-selected ${cls}`}));
+
+    if(selected.ingreso>yMax){
+      const arrow=el("text",{x:px,y:margin.top+12,"text-anchor":"middle",class:"viz-clipped-arrow"});
+      arrow.textContent="↑"; g.appendChild(arrow);
+    }
+    svg.appendChild(g);
+
+    // Ajustar etiquetas seg?n su tama?o real, sin reducir la fuente.
+    const occupied=[...svg.querySelectorAll(".viz-mean-label, .viz-quadrant-label")]
+      .map(n=>n.getBBox());
+    occupied.push({x:px-12,y:py-12,width:24,height:24});
+    const overlaps=(a,b)=>a.x<b.x+b.width+5&&a.x+a.width+5>b.x&&
+      a.y<b.y+b.height+5&&a.y+a.height+5>b.y;
+    for (const label of [tx,ty]) {
+      const originalY=Number(label.getAttribute("y"));
+      for (let step=0;step<40;step++) {
+        const offset=step===0?0:Math.ceil(step/2)*24*(step%2?-1:1);
+        label.setAttribute("y",originalY+offset);
+        let box=label.getBBox();
+        const shift=Math.max(0,margin.left+4-box.x)-Math.max(0,box.x+box.width-(plotRight-4));
+        label.setAttribute("x",Number(label.getAttribute("x"))+shift);
+        box=label.getBBox();
+        if(box.y>=margin.top+4&&box.y+box.height<=plotBottom-4&&
+           !occupied.some(other=>overlaps(box,other))) break;
+      }
+      occupied.push(label.getBBox());
+    }
+  }
+
+  function draw(){
+    const wrap=root.querySelector('[data-role="chart-wrap"]');
+    const width=svg.getBoundingClientRect().width;
+    if (!width) return;
+    if(Math.abs(width-lastWidth)<2&&svg.childNodes.length){updatePanel(selected);return;}
+    lastWidth=width;
+
+    const mobile=width<560, height=mobile?430:520;
+    const margin=mobile?{top:48,right:18,bottom:64,left:70}:{top:52,right:28,bottom:66,left:86};
+    const innerW=width-margin.left-margin.right, innerH=height-margin.top-margin.bottom;
+    svg.setAttribute("viewBox",`0 0 ${width} ${height}`);
+    svg.setAttribute("height",String(height));
+    while(svg.firstChild)svg.removeChild(svg.firstChild);
+
+    const title=el("title",{id:"viz-residuos-svg-title"}); title.textContent="Posición de las personas respecto de las medias de escolaridad e ingreso"; svg.appendChild(title);
+    const desc=el("desc",{id:"viz-residuos-svg-desc"}); desc.textContent="Cada punto representa una persona. Las líneas de promedio dividen el plano en cuatro zonas. Al seleccionar una persona se muestran sus residuos respecto de ambas medias."; svg.appendChild(desc);
+
+    const xs=points.map(d=>d.escolaridad), ys=points.map(d=>d.ingreso);
+    const xMinRaw=Math.min(...xs), xMaxRaw=Math.max(...xs), xPad=Math.max(.75,(xMaxRaw-xMinRaw)*.04);
+    const xMin=Math.max(0,xMinRaw-xPad), xMax=xMaxRaw+xPad;
+    const yMin=Math.min(0,Math.min(...ys)), yMax=Math.max(meanY*1.8,quantile98(ys),1)*1.05;
+
+    const sx=v=>margin.left+((v-xMin)/(xMax-xMin))*innerW;
+    const syRaw=v=>margin.top+(1-((v-yMin)/(yMax-yMin)))*innerH;
+    const sy=v=>Math.max(margin.top,Math.min(margin.top+innerH,syRaw(v)));
+    const mx=sx(meanX), my=sy(meanY), plotRight=margin.left+innerW, plotBottom=margin.top+innerH;
+
+    const bg=el("g",{"aria-hidden":"true"});
+    const zones=[
+      {x:margin.left,y:margin.top,w:mx-margin.left,h:my-margin.top,cls:"viz-zone-negative",label:"− × + = −",lx:(margin.left+mx)/2,ly:margin.top+24},
+      {x:mx,y:margin.top,w:plotRight-mx,h:my-margin.top,cls:"viz-zone-positive",label:"+ × + = +",lx:(mx+plotRight)/2,ly:margin.top+24},
+      {x:margin.left,y:my,w:mx-margin.left,h:plotBottom-my,cls:"viz-zone-positive",label:"− × − = +",lx:(margin.left+mx)/2,ly:plotBottom-14},
+      {x:mx,y:my,w:plotRight-mx,h:plotBottom-my,cls:"viz-zone-negative",label:"+ × − = −",lx:(mx+plotRight)/2,ly:plotBottom-14}
+    ];
+    zones.forEach(z=>{
+      bg.appendChild(el("rect",{x:z.x,y:z.y,width:Math.max(0,z.w),height:Math.max(0,z.h),class:z.cls}));
+      if(z.w>0&&z.h>45){const t=el("text",{x:z.lx,y:z.ly,class:"viz-quadrant-label","text-anchor":"middle"});t.textContent=z.label;bg.appendChild(t);}
+    });
+    svg.appendChild(bg);
+
+    const grid=el("g",{class:"viz-grid","aria-hidden":"true"});
+    makeTicks(xMin,xMax,mobile?4:6).forEach(t=>{
+      const x=sx(t); grid.appendChild(el("line",{x1:x,x2:x,y1:margin.top,y2:plotBottom}));
+      const l=el("text",{x,y:plotBottom+24,"text-anchor":"middle",class:"viz-axis-tick"});l.textContent=fmt0.format(t);grid.appendChild(l);
+    });
+    makeTicks(yMin,yMax,mobile?4:5).forEach(t=>{
+      const y=sy(t); grid.appendChild(el("line",{x1:margin.left,x2:plotRight,y1:y,y2:y}));
+      const l=el("text",{x:margin.left-10,y:y+4,"text-anchor":"end",class:"viz-axis-tick"});l.textContent=axisMoney(t);grid.appendChild(l);
+    });
+    svg.appendChild(grid);
+
+    const means=el("g",{class:"viz-means","aria-hidden":"true"});
+    means.appendChild(el("line",{x1:mx,x2:mx,y1:margin.top,y2:plotBottom,class:"viz-mean-x"}));
+    means.appendChild(el("line",{x1:margin.left,x2:plotRight,y1:my,y2:my,class:"viz-mean-y"}));
+    const lx=el("text",{x:Math.min(plotRight-6,mx+8),y:margin.top-14,class:"viz-mean-label viz-mean-label-x"});lx.textContent=`x̄ = ${fmt1.format(meanX)}`;means.appendChild(lx);
+    const ly=el("text",{x:plotRight-6,y:Math.max(margin.top+16,my-8),"text-anchor":"end",class:"viz-mean-label viz-mean-label-y"});ly.textContent=`ȳ = ${money(meanY)}`;means.appendChild(ly);
+    svg.appendChild(means);
+
+    const pg=el("g",{class:"viz-points"});
+    points.forEach(p=>{
+      const c=el("circle",{cx:sx(p.escolaridad),cy:sy(p.ingreso),r:3.6,class:p.ingreso>yMax?"viz-point viz-point-clipped":"viz-point","data-id":p.id});
+      c.addEventListener("click",()=>{selected=p;updatePanel(selected);drawSelection({sx,sy,mx,my,margin,plotRight,plotBottom,yMax});});
+      pg.appendChild(c);
+    });
+    svg.appendChild(pg);
+    // Las etiquetas quedan sobre los puntos para conservar su legibilidad.
+    bg.querySelectorAll("text").forEach(label=>svg.appendChild(label));
+    means.querySelectorAll("text").forEach(label=>svg.appendChild(label));
+
+    const labels=el("g",{"aria-hidden":"true"});
+    const xt=el("text",{x:margin.left+innerW/2,y:height-12,"text-anchor":"middle",class:"viz-axis-title"});xt.textContent="Años de escolaridad";labels.appendChild(xt);
+    const yt=el("text",{x:18,y:margin.top+innerH/2,transform:`rotate(-90 18 ${margin.top+innerH/2})`,"text-anchor":"middle",class:"viz-axis-title"});yt.textContent="Ingreso de la ocupación principal";labels.appendChild(yt);
+    svg.appendChild(labels);
+
+    drawSelection({sx,sy,mx,my,margin,plotRight,plotBottom,yMax});
+    updatePanel(selected);
+
+    const clipped=points.filter(p=>p.ingreso>yMax).length;
+    const note=root.querySelector('[data-role="scale-note"]');
+    note.hidden=clipped===0;
+    if(clipped>0)note.textContent=`Para mantener legible la nube, ${clipped} caso${clipped===1?"":"s"} con ingresos excepcionalmente altos se muestran en el borde superior. Los cálculos conservan sus valores reales.`;
+  }
+
+  buttons.forEach(b=>b.addEventListener("click",()=>{
+    const p=exampleMap[b.dataset.zone];
+    if(!p)return;
+    selected=p;lastWidth=0;draw();
+  }));
+
+  status.textContent="Selecciona cualquier punto o usa los botones para recorrer las cuatro combinaciones.";
+  const wrap=root.querySelector('[data-role="chart-wrap"]');
+  if("ResizeObserver" in window){
+    const ro=new ResizeObserver(()=>draw());
+    ro.observe(wrap);
+  } else {
+    window.addEventListener("resize",draw,{passive:true});
+  }
+  draw();
+})();
+</script>

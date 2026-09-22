@@ -256,7 +256,7 @@ $$
 
 Trabajaremos con la base oficial de **CASEN 2024**. R puede cargarla directamente desde el sitio del Ministerio de Desarrollo Social y Familia, por lo que no necesitamos descargar el archivo manualmente.
 
-Primero cargamos solamente los dos paquetes que utilizaremos durante el práctico:
+Primero cargamos solamente los tres paquetes que utilizaremos durante el práctico:
 
 ```{r}
 #| label: cargar-paquetes
@@ -298,9 +298,9 @@ datos <- casen_2024 |>                                # Partimos desde la base o
 
 ::: {.callout-note}
 
-- El símbolo `|>` puede leerse como **“y luego”**: toma el resultado del paso anterior y lo utiliza en el siguiente. Algunas variables de CASEN tienen etiquetas; `haven::zap_labels()` las retira para trabajar directamente con sus valores numéricos.
-
--`set.seed(2026)` hace que R repita la misma selección aleatoria cada vez. A partir de aquí, **todo el práctico utiliza el objeto `datos` y las mismas 1.000 personas**.
+- El símbolo `|>` puede leerse como **“y luego”**: toma el resultado del paso anterior y lo utiliza en el siguiente.
+- Algunas variables de CASEN tienen etiquetas; `haven::zap_labels()` las retira para trabajar directamente con sus valores numéricos.
+- `set.seed(2026)` hace que R repita la misma selección aleatoria cada vez. A partir de aquí, **todo el práctico utiliza el objeto `datos` y las mismas 1.000 personas**.
 
 :::
 
@@ -446,6 +446,7 @@ ggplot(datos, aes(                 # Usamos nuestra submuestra
 > **¿Hay algún caso que llame especialmente la atención?**
 
 Estas tres preguntas cumplen funciones distintas. 
+
 - La primera nos ayuda a pensar en la **dirección** de la asociación.
 - La segunda, en su **forma**.
 - La tercera nos recuerda que algunos casos pueden alejarse bastante del patrón general.
@@ -537,11 +538,9 @@ $$
 
 el producto es negativo, porque las dos variables ubican al caso en **lados opuestos** de sus medias.
 
-Para visualizar esta idea, observemos un **ejemplo didáctico con valores simplificados**. Las medias de la figura no corresponden a las medias de nuestra submuestra; lo importante es observar cómo estas dividen el plano y determinan los signos de las desviaciones.
-
-::: {style="text-align: center;"}
-![Ejemplo de plano cartesiano para interpretar los signos de las desviaciones.](images\plano_cartesiano.png){fig-alt="Plano cartesiano con las medias de escolaridad e ingreso. Una observación ubicada sobre ambas medias presenta una desviación positiva en escolaridad y una desviación positiva en ingreso, por lo que el producto de ambas desviaciones es positivo." width="50%"}
-:::
+::: {.callout-important title="¿Por qué hacemos esta multiplicación?"}
+ Porque el producto nos entrega una forma compacta de registrar, para **cada persona**, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.
+::: 
 
 **Los casos anteriores pueden resumirse así:**
 
@@ -552,27 +551,54 @@ Para visualizar esta idea, observemos un **ejemplo didáctico con valores simpli
 | Sobre | Bajo | Negativo |
 | Bajo | Sobre | Negativo |
 
-
-::: {.callout-important title="¿Por qué hacemos esta multiplicación?"}
- Porque el producto nos entrega una forma compacta de registrar, para **cada persona**, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.
-::: 
-
-
-Veamos ahora cuatro casos reales de la misma submuestra de CASEN. Cada fila representa una de esas cuatro combinaciones:
+Antes de reunir todos los aportes en la covarianza, observemos qué ocurre con una persona a la vez. Seleccionen un punto y fíjense en el signo de sus residuos respecto de ambas medias y en el producto que resulta.
 
 ```{r}
-#| label: tabla-casos-cov
+#| label: datos-viz-residuos
 #| echo: false
+#| results: asis
 
-knitr::kable(
-  casos_cov,
-  align = c("l", "r", "r", "r", "r", "r")
+viz_puntos <- datos |>
+  transmute(
+    id = row_number(),
+    escolaridad = as.numeric(escolaridad),
+    ingreso = as.numeric(ingreso_laboral)
+  )
+
+viz_ejemplos <- casos_cov_raw |>
+  transmute(
+    escolaridad = as.numeric(escolaridad),
+    ingreso = as.numeric(ingreso_laboral)
+  )
+
+viz_payload <- list(
+  medias = list(
+    escolaridad = as.numeric(media_escolaridad),
+    ingreso = as.numeric(media_ingreso)
+  ),
+  puntos = viz_puntos,
+  ejemplos = viz_ejemplos
+)
+
+viz_json <- jsonlite::toJSON(
+  viz_payload,
+  dataframe = "rows",
+  auto_unbox = TRUE,
+  digits = NA,
+  na = "null"
+)
+
+cat(
+  '<script type="application/json" id="viz-residuos-data">',
+  viz_json,
+  '</script>',
+  sep = ""
 )
 ```
 
-> **Miren el caso A. ¿Está sobre o bajo el promedio en escolaridad? ¿Y respecto del ingreso?**
->
-> **Entonces, ¿por qué su producto es positivo?**
+```{=html}
+{{< include includes/viz-residuos.html >}}
+```
 
 Ahora generalicen:
 
@@ -599,8 +625,8 @@ $$
 
 Podemos leerla paso a paso:
 
-- $(x_i-\bar{x})(y_i-\bar{y})$ es el **aporte de una persona**;
-- $\sum$ indica que reunimos los aportes de **todas las personas**(sumatoria);
+- $(x_i-\bar{x})(y_i-\bar{y})$ es el **aporte de una persona**.
+- $\sum$ indica que reunimos los aportes de **todas las personas** (sumatoria).
 - $n-1$ aparece en el denominador porque estamos calculando la covarianza a partir de **una muestra**.
 
 ::: {.callout-tip title="La idea central"}
