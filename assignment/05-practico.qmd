@@ -458,6 +458,10 @@ Los datos reales no forman una línea perfecta. Justamente por eso conviene obse
 
 En el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entender cómo podemos pasar desde la posición de **cada persona** a un **resumen del patrón** que aparece en el conjunto.
 
+::: {.callout-note}
+En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$escolaridad` significa **“la variable escolaridad que está dentro de la base datos”**.
+:::
+
 ```{r}
 #| label: medias-recordatorio
 #| results: false
@@ -465,11 +469,6 @@ En el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entend
 mean(datos$escolaridad)      # Promedio de escolaridad
 mean(datos$ingreso_laboral)  # Promedio de ingreso
 ```
-
-::: {.callout-note}
-En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$escolaridad` significa **“la variable escolaridad que está dentro de la base datos”**.
-:::
-
 
 En nuestra submuestra, la escolaridad promedio es aproximadamente **`r media_escolaridad_fmt` años** y el ingreso promedio es aproximadamente **$`r media_ingreso_fmt`**. Empecemos con una sola variable: **la escolaridad.**
 
@@ -502,7 +501,7 @@ $$
 
 
 ::: {.callout-important title="Residuo no es desviación estándar"}
-Aquí usamos **residuo** para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la **desviación estándar**, que resume la dispersión de todos los casos.
+En este práctico llamaremos **residuo respecto de la media** a la diferencia entre el valor de una persona y el promedio de la variable. Esta diferencia también puede denominarse **desviación respecto de la media**. No es lo mismo que la **desviación estándar**, que resume la dispersión de todos los casos.
 :::
 
 ## El producto de las desviaciones

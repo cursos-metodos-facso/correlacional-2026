@@ -4376,7 +4376,7 @@ margin: 1rem 0 1.5rem 0;
 <section id="asociación-entre-dos-variables" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Asociación entre dos variables</h1>
 <p>Hasta ahora hemos trabajado principalmente con <strong>diferencias entre grupos</strong>. Ahora cambia la pregunta: en vez de comparar dos grupos, queremos saber si los valores de <strong>dos variables</strong> tienden a presentar algún patrón conjunto.</p>
-<p>Trabajaremos con datos reales de la <strong>Encuesta CASEN 2024</strong>. Para facilitar el trabajo durante el práctico, utilizaremos una submuestra aleatoria reproducible de <strong>1.000 personas ocupadas con información válida en las tres variables analizadas</strong>. Esa misma submuestra se utilizará durante todo el práctico.</p>
+<p>Trabajaremos con datos reales de la <strong>Encuesta CASEN 2024</strong>. Para facilitar el trabajo durante el práctico, utilizaremos una submuestra aleatoria reproducible de <strong>1.000 personas ocupadas con información completa en las tres variables analizadas</strong>. Esa misma submuestra se utilizará durante todo el práctico.</p>
 <p>Nuestra pregunta principal será:</p>
 <blockquote class="blockquote">
 <p><strong>¿En qué medida los años de escolaridad y el ingreso de la ocupación principal se encuentran asociados?</strong></p>
@@ -4434,7 +4434,8 @@ margin: 1rem 0 1.5rem 0;
 <p>Primero cargamos solamente los dos paquetes que utilizaremos durante el práctico:</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)    <span class="co"># Para trabajar con los datos</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  <span class="co"># Para crear gráficos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)  <span class="co"># Para crear gráficos</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven)  <span class="co"># Para trabajar con las etiquetas de CASEN</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>La dirección del archivo oficial se asigna en el objeto <code>url_casen</code>. Luego <code>load()</code> abre la base directamente desde Internet. Podemos leer <code>&lt;-</code> como <strong>“guardar como”</strong>.</p>
 <div class="cell">
@@ -4512,10 +4513,6 @@ Nota
 <section id="de-la-posición-de-cada-persona-al-patrón-del-conjunto" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="de-la-posición-de-cada-persona-al-patrón-del-conjunto"><span class="header-section-number">3.1</span> De la posición de cada persona al patrón del conjunto</h2>
 <p>En el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entender cómo podemos pasar desde la posición de <strong>cada persona</strong> a un <strong>resumen del patrón</strong> que aparece en el conjunto.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>escolaridad)      <span class="co"># Promedio de escolaridad</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>ingreso_laboral)  <span class="co"># Promedio de ingreso</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -4528,6 +4525,10 @@ Nota
 <div class="callout-body-container callout-body">
 <p>En R, <code>$</code> permite elegir una variable dentro de una base. Por ejemplo, <code>datos$escolaridad</code> significa <strong>“la variable escolaridad que está dentro de la base datos”</strong>.</p>
 </div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>escolaridad)      <span class="co"># Promedio de escolaridad</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(datos<span class="sc">$</span>ingreso_laboral)  <span class="co"># Promedio de ingreso</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>En nuestra submuestra, la escolaridad promedio es aproximadamente <strong>12,8 años</strong> y el ingreso promedio es aproximadamente <strong>$749.203</strong>. Empecemos con una sola variable: <strong>la escolaridad.</strong></p>
 <p>Pensemos primero en una persona con <strong>15 años de escolaridad</strong>. Para saber dónde se encuentra respecto del promedio, restamos su valor menos la media:</p>
@@ -4560,7 +4561,7 @@ x_i-\bar{x}
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Aquí usamos <strong>residuo</strong> para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la <strong>desviación estándar</strong>, que resume la dispersión de todos los casos.</p>
+<p>En este práctico llamaremos <strong>residuo respecto de la media</strong> a la diferencia entre el valor de una persona y el promedio de la variable. Esta diferencia también puede denominarse <strong>desviación respecto de la media</strong>. No es lo mismo que la <strong>desviación estándar</strong>, que resume la dispersión de todos los casos.</p>
 </div>
 </div>
 </section>
@@ -4587,6 +4588,7 @@ x_i-\bar{x}
 (+)(-)=-
 \]</span></p>
 <p>el producto es negativo, porque las dos variables ubican al caso en <strong>lados opuestos</strong> de sus medias.</p>
+<p>Para visualizar esta idea, observemos un <strong>ejemplo didáctico con valores simplificados</strong>. Las medias de la figura no corresponden a las medias de nuestra submuestra; lo importante es observar cómo estas dividen el plano y determinan los signos de las desviaciones.</p>
 <div style="text-align: center;">
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
