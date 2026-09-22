@@ -1260,9 +1260,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+  const pathname = window.location.pathname;
+
+
+
   const esPracticos =
 
-    window.location.pathname.includes("/assignment/");
+    /\/assignment(?:\/|$)/.test(pathname);
+
+
+
+  /*
+
+   * Detecta específicamente:
+
+   *
+
+   * /assignment
+
+   * /assignment/
+
+   * /assignment/index.html
+
+   */
+
+  const esPaginaPrincipalPracticos =
+
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
+
+
 
 
 
@@ -1281,6 +1307,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const sidebar =
 
     document.getElementById("quarto-sidebar");
+
+
 
 
 
@@ -1354,9 +1382,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
        * Menú cerrado:
 
-       * la pestañita queda en el borde izquierdo
-
-       * de la pantalla.
+       * la pestañita queda en el borde izquierdo.
 
        */
 
@@ -1370,33 +1396,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
       /*
 
-       * IMPORTANTE:
+       * Usamos offsetWidth para que la posición
 
-       * usamos offsetWidth en vez de
-
-       * getBoundingClientRect().right.
-
-       *
-
-       * De esta forma la posición no depende
-
-       * del transform de la animación.
+       * no dependa de la animación del sidebar.
 
        */
 
       const anchoSidebar = sidebar.offsetWidth;
 
 
-
-      /*
-
-       * -2 px hace que quede ligeramente
-
-       * montada sobre el borde del menú,
-
-       * evitando una pequeña separación visual.
-
-       */
 
       boton.style.left =
 
@@ -1590,83 +1598,75 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-/* ========================================================
-
-   CLICK EN LA PESTAÑITA
-
-   ======================================================== */
+  boton.addEventListener("click", function () {
 
 
 
-boton.addEventListener("click", function () {
+    clearTimeout(temporizadorCierre);
 
 
 
-  clearTimeout(temporizadorCierre);
+    const cerrado =
 
+      body.classList.contains(
 
+        "practicos-sidebar-cerrado"
 
-  const cerrado =
-
-    body.classList.contains(
-
-      "practicos-sidebar-cerrado"
-
-    );
-
-
-
-  /*
-
-   * Si está cerrado:
-
-   * un clic lo abre permanentemente.
-
-   */
-
-  if (cerrado) {
-
-
-
-    mostrarSidebar(false);
-
-
-
-    localStorage.setItem(
-
-      "practicos-sidebar",
-
-      "abierto"
-
-    );
-
-
-
-  } else {
+      );
 
 
 
     /*
 
-     * Si está visible, ya sea porque:
+     * Si está cerrado:
 
-     * - estaba abierto normalmente, o
-
-     * - apareció temporalmente mediante hover,
-
-     *
-
-     * un solo clic lo cierra.
+     * un clic lo abre permanentemente.
 
      */
 
-    ocultarSidebar(true);
-
-  }
+    if (cerrado) {
 
 
 
-});
+      mostrarSidebar(false);
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "abierto"
+
+      );
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Si está visible, un solo clic lo cierra,
+
+       * independientemente de si se abrió por
+
+       * hover o normalmente.
+
+       */
+
+      ocultarSidebar(true);
+
+    }
+
+
+
+  });
+
+
+
+
 
   /* ========================================================
 
@@ -1700,9 +1700,9 @@ boton.addEventListener("click", function () {
 
       /*
 
-       * Lo mostramos temporalmente,
+       * Mostrar temporalmente sin modificar
 
-       * sin cambiar la preferencia guardada.
+       * la preferencia guardada.
 
        */
 
@@ -1750,9 +1750,9 @@ boton.addEventListener("click", function () {
 
     /*
 
-     * Solo cerramos automáticamente
+     * Solo cerrar automáticamente si se abrió
 
-     * si fue abierto mediante hover.
+     * mediante hover.
 
      */
 
@@ -1784,7 +1784,7 @@ boton.addEventListener("click", function () {
 
   /* ========================================================
 
-     SI EL MOUSE ENTRA EN EL BOTÓN
+     MOUSE SOBRE EL BOTÓN
 
      ======================================================== */
 
@@ -1810,21 +1810,29 @@ boton.addEventListener("click", function () {
 
 
 
-  const estadoGuardado =
+  /*
 
-    localStorage.getItem(
+   * PORTADA DE PRÁCTICOS
 
-      "practicos-sidebar"
+   *
 
-    );
+   * Siempre comienza desplegada cada vez
+
+   * que se entra o recarga la página.
+
+   *
+
+   * Aun así, después de cargarla el usuario
+
+   * puede plegarla normalmente.
+
+   */
+
+  if (esPaginaPrincipalPracticos) {
 
 
 
-  if (estadoGuardado === "cerrado") {
-
-
-
-    ocultarSidebar(false);
+    mostrarSidebar(false);
 
 
 
@@ -1832,7 +1840,39 @@ boton.addEventListener("click", function () {
 
 
 
-    mostrarSidebar(false);
+    /*
+
+     * En los prácticos individuales sí respetamos
+
+     * el estado que dejó anteriormente el usuario.
+
+     */
+
+    const estadoGuardado =
+
+      localStorage.getItem(
+
+        "practicos-sidebar"
+
+      );
+
+
+
+    if (estadoGuardado === "cerrado") {
+
+
+
+      ocultarSidebar(false);
+
+
+
+    } else {
+
+
+
+      mostrarSidebar(false);
+
+    }
 
   }
 
@@ -1864,12 +1904,6 @@ boton.addEventListener("click", function () {
 
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
 
-
-
-     Esto evita que después de abrir/cerrar
-
-     la flecha termine dentro del sidebar.
-
      ======================================================== */
 
 
@@ -1886,9 +1920,13 @@ boton.addEventListener("click", function () {
 
 
 
-  /* También esperamos el cambio de la grilla de Quarto */
+  /*
 
+   * También esperamos el cambio de la
 
+   * grilla de Quarto.
+
+   */
 
   const contenido =
 
@@ -1935,8 +1973,6 @@ boton.addEventListener("click", function () {
 
 
     });
-
-
 
   });
 
