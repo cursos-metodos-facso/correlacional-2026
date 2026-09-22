@@ -96,7 +96,7 @@ pre.sourceCode code {
 .recurso-wrap {
   display: flex;
   justify-content: flex-end;
-  margin: 1rem 0 1.5rem 0;
+  margin: 0.35rem 0;
 }
 
 .recurso-btn {
@@ -128,6 +128,34 @@ pre.sourceCode code {
   background: #d44848;
   color: #ffffff !important;
   transform: translateY(-1px);
+}
+
+/* Bloque desplegable con fórmulas equivalentes de Pearson */
+details.formulas-pearson {
+  background-color: #f3f7fb;
+  border: 1px solid #d7e3ef;
+  border-left: 4px solid #2c7fb8;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+details.formulas-pearson summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+details.formulas-pearson[open] summary {
+  margin-bottom: 1rem;
+}
+
+.recursos-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem 0;
 }
 
 </style>
@@ -169,23 +197,35 @@ fmt_signo <- function(x, digits = 1) {
 }
 ```
 
+<div class="recursos-wrap">
 
-<div class="recurso-wrap">
+  <a
+    class="recurso-btn"
+    href="https://karavena.github.io/social-r/"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span>Ejercita R · Social R interactivo</span>
+    <span>↗</span>
+  </a>
+
   <a
     class="recurso-btn"
     href="https://karavena.github.io/estadistica-social/modules/m08_asociacion_covarianza_correlacion_pearson.html"
     target="_blank"
+    rel="noopener noreferrer"
   >
     <span>Recurso complementario · Estadística Correlacional Interactiva</span>
     <span>↗</span>
   </a>
+
 </div>
 
 # Asociación entre dos variables
 
 Hasta ahora hemos trabajado principalmente con **diferencias entre grupos**. Ahora cambia la pregunta: en vez de comparar dos grupos, queremos saber si los valores de **dos variables** tienden a presentar algún patrón conjunto.
 
-Trabajaremos con datos reales de la **Encuesta CASEN 2024**. Para facilitar el trabajo durante el práctico, utilizaremos una submuestra aleatoria reproducible de **1.000 personas ocupadas con información válida en las tres variables analizadas**. Esa misma submuestra se utilizará durante todo el práctico.
+Trabajaremos con datos reales de la **Encuesta CASEN 2024**. Para facilitar el trabajo durante el práctico, utilizaremos una submuestra aleatoria reproducible de **1.000 personas ocupadas con información completa en las tres variables analizadas**. Esa misma submuestra se utilizará durante todo el práctico.
 
 Nuestra pregunta principal será:
 
@@ -223,6 +263,7 @@ Primero cargamos solamente los dos paquetes que utilizaremos durante el práctic
 
 library(dplyr)    # Para trabajar con los datos
 library(ggplot2)  # Para crear gráficos
+library(haven)  # Para trabajar con las etiquetas de CASEN
 ```
 
 La dirección del archivo oficial se asigna en el objeto `url_casen`. Luego `load()` abre la base directamente desde Internet. Podemos leer `<-` como **“guardar como”**.
@@ -255,10 +296,12 @@ datos <- casen_2024 |>                                # Partimos desde la base o
 ```
 
 
-::: {.callout-note collapse="false"}
+::: {.callout-note}
+
 - El símbolo `|>` puede leerse como **“y luego”**: toma el resultado del paso anterior y lo utiliza en el siguiente. Algunas variables de CASEN tienen etiquetas; `haven::zap_labels()` las retira para trabajar directamente con sus valores numéricos.
 
-- `set.seed(2026)` hace que R repita la misma selección aleatoria cada vez. A partir de aquí, **todo el práctico utiliza el objeto `datos` y las mismas 1.000 personas**.
+-`set.seed(2026)` hace que R repita la misma selección aleatoria cada vez. A partir de aquí, **todo el práctico utiliza el objeto `datos` y las mismas 1.000 personas**.
+
 :::
 
 
@@ -402,7 +445,10 @@ ggplot(datos, aes(                 # Usamos nuestra submuestra
 
 > **¿Hay algún caso que llame especialmente la atención?**
 
-Estas tres preguntas cumplen funciones distintas. La primera nos ayuda a pensar en la **dirección** de la asociación; la segunda, en su **forma**; y la tercera nos recuerda que algunos casos pueden alejarse bastante del patrón general.
+Estas tres preguntas cumplen funciones distintas. 
+- La primera nos ayuda a pensar en la **dirección** de la asociación.
+- La segunda, en su **forma**.
+- La tercera nos recuerda que algunos casos pueden alejarse bastante del patrón general.
 
 Los datos reales no forman una línea perfecta. Justamente por eso conviene observar primero la nube completa antes de resumirla mediante un único número.
 
@@ -412,8 +458,6 @@ Los datos reales no forman una línea perfecta. Justamente por eso conviene obse
 
 En el gráfico vimos a todas las personas al mismo tiempo. Ahora queremos entender cómo podemos pasar desde la posición de **cada persona** a un **resumen del patrón** que aparece en el conjunto.
 
-En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$escolaridad` significa **“la variable escolaridad que está dentro de la base datos”**.
-
 ```{r}
 #| label: medias-recordatorio
 #| results: false
@@ -421,6 +465,11 @@ En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$es
 mean(datos$escolaridad)      # Promedio de escolaridad
 mean(datos$ingreso_laboral)  # Promedio de ingreso
 ```
+
+::: {.callout-note}
+En R, `$` permite elegir una variable dentro de una base. Por ejemplo, `datos$escolaridad` significa **“la variable escolaridad que está dentro de la base datos”**.
+:::
+
 
 En nuestra submuestra, la escolaridad promedio es aproximadamente **`r media_escolaridad_fmt` años** y el ingreso promedio es aproximadamente **$`r media_ingreso_fmt`**. Empecemos con una sola variable: **la escolaridad.**
 
@@ -451,8 +500,9 @@ $$
 $$
 
 
-::: {.callout-important title="Desviación no es desviación estándar"}
-Aquí usamos **desviación** para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la **desviación estándar**, que resume la dispersión de todos los casos.
+
+::: {.callout-important title="Residuo no es desviación estándar"}
+Aquí usamos **residuo** para referirnos a esta diferencia entre el valor de una persona y la media. No es lo mismo que la **desviación estándar**, que resume la dispersión de todos los casos.
 :::
 
 ## El producto de las desviaciones
@@ -488,9 +538,11 @@ $$
 
 el producto es negativo, porque las dos variables ubican al caso en **lados opuestos** de sus medias.
 
-::: {.callout-important title="¿Por qué hacemos esta multiplicación?"}
- Porque el producto nos entrega una forma compacta de registrar, para **cada persona**, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.
-::: 
+Para visualizar esta idea, observemos un **ejemplo didáctico con valores simplificados**. Las medias de la figura no corresponden a las medias de nuestra submuestra; lo importante es observar cómo estas dividen el plano y determinan los signos de las desviaciones.
+
+::: {style="text-align: center;"}
+![Ejemplo de plano cartesiano para interpretar los signos de las desviaciones.](images\plano_cartesiano.png){fig-alt="Plano cartesiano con las medias de escolaridad e ingreso. Una observación ubicada sobre ambas medias presenta una desviación positiva en escolaridad y una desviación positiva en ingreso, por lo que el producto de ambas desviaciones es positivo." width="50%"}
+:::
 
 **Los casos anteriores pueden resumirse así:**
 
@@ -500,6 +552,12 @@ el producto es negativo, porque las dos variables ubican al caso en **lados opue
 | Bajo | Bajo | Positivo |
 | Sobre | Bajo | Negativo |
 | Bajo | Sobre | Negativo |
+
+
+::: {.callout-important title="¿Por qué hacemos esta multiplicación?"}
+ Porque el producto nos entrega una forma compacta de registrar, para **cada persona**, si las dos variables se encuentran del mismo lado de sus medias o en lados opuestos. Además, una persona muy alejada de ambas medias aporta un producto de mayor magnitud que una persona ubicada muy cerca de los promedios.
+::: 
+
 
 Veamos ahora cuatro casos reales de la misma submuestra de CASEN. Cada fila representa una de esas cuatro combinaciones:
 
@@ -543,7 +601,7 @@ $$
 Podemos leerla paso a paso:
 
 - $(x_i-\bar{x})(y_i-\bar{y})$ es el **aporte de una persona**;
-- $\sum$ indica que reunimos los aportes de **todas las personas**;
+- $\sum$ indica que reunimos los aportes de **todas las personas**(sumatoria);
 - $n-1$ aparece en el denominador porque estamos calculando la covarianza a partir de **una muestra**.
 
 ::: {.callout-tip title="La idea central"}
@@ -575,11 +633,12 @@ El número completo, en cambio, es difícil de interpretar directamente. No tene
 La covarianza nos ayuda a identificar la **dirección del patrón lineal conjunto**, pero su magnitud depende de las unidades utilizadas. Necesitamos entonces una medida que conserve esta información y coloque el resultado en una **escala común**.
 
 Esa medida es la **correlación de Pearson**.
+
 # De la covarianza a Pearson
 
 ## Correlación de Pearson
 
-En este contexto, **estandarizar** significa llevar las variaciones a una escala común para que el resultado no dependa de las unidades originales. Queremos una medida que describa el patrón lineal sin cambiar su valor debido a unidad de medida.
+En este contexto, **estandarizar** significa llevar las variaciones a una escala común para que el resultado no dependa de las unidades originales. Queremos una medida que describa el patrón lineal sin cambiar su valor debido a la unidad de medida.
 
 Pearson realiza esa estandarización dividiendo la covarianza por las desviaciones estándar de las dos variables:
 
@@ -588,9 +647,43 @@ r=
 \frac{
 \operatorname{cov}(X,Y)
 }{
-s_Xs_Y
+s_X s_Y
 }
 $$
+
+En clases vimos que el coeficiente de Pearson también puede escribirse mediante otras fórmulas **equivalentes**. Todas producen el mismo valor de \(r\).
+
+<details class="formulas-pearson">
+<summary>Mostrar otras fórmulas equivalentes de Pearson</summary>
+
+Al reemplazar la covarianza por su fórmula:
+
+$$
+r=
+\frac{
+\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+}{
+(n-1)s_X s_Y
+}
+$$
+
+También puede escribirse directamente a partir de las desviaciones respecto de las medias:
+
+$$
+r=
+\frac{
+\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})
+}{
+\sqrt{
+\left[\sum_{i=1}^{n}(x_i-\bar{x})^2\right]
+\left[\sum_{i=1}^{n}(y_i-\bar{y})^2\right]
+}
+}
+$$
+
+Las tres expresiones son **equivalentes**. No es necesario memorizar cada una: lo importante es comprender que todas permiten obtener el mismo coeficiente de correlación de Pearson.
+
+</details>
 
 Las desviaciones estándar conservan las mismas unidades que las variables originales. Por eso, al dividir, las unidades se cancelan. En nuestro ejemplo:
 
@@ -617,11 +710,9 @@ La función `cor()` calcula la **correlación de Pearson** entre dos variables c
 
 cor(
   datos$escolaridad,       # Escolaridad
-  datos$ingreso_laboral    # Ingreso en pesos
+  datos$ingreso_laboral    # Ingreso laboral
 )
-
 ```
-
 
 Pearson produce un coeficiente comparable que **no depende de si expresamos el ingreso en pesos o en miles de pesos**. Esto es posible porque el coeficiente está **estandarizado**.
 
@@ -634,11 +725,11 @@ Para interpretar Pearson necesitamos responder dos preguntas diferentes.
 El **signo** de $r$ indica la dirección:
 
 $$
-r>0 \rightarrow \text{asociación directa}
+r>0 \rightarrow \text{asociación directa (positiva)}
 $$
 
 $$
-r<0 \rightarrow \text{asociación inversa}
+r<0 \rightarrow \text{asociación inversa (negativa)}
 $$
 
 **2. ¿Qué tan marcado es el patrón lineal?**
@@ -657,7 +748,6 @@ Cuanto más cerca de $1$ se encuentra $|r|$, más marcado es ese patrón lineal;
 
 ![Ejemplos de distintos valores del coeficiente de correlación de Pearson.](https://www.statlect.com/images/linear-correlation-coefficient.png){fig-alt="Nubes de puntos que muestran distintos valores de correlación lineal, desde correlaciones negativas hasta positivas." width="50%"}
 :::
-
 
 ::: {.callout-warning title="Interpretación"}
 En esta submuestra de CASEN 2024, la correlación entre escolaridad e ingreso de la ocupación principal es $r=$ **`r r_pesos_fmt`** y su dirección es **`r direccion_principal`**. En términos sustantivos, `r interpretacion_principal`. 
@@ -734,6 +824,7 @@ ggplot(datos_no_lineales, aes(x = x, y = y)) +
 
 ```{r}
 #| label: cor-no-lineal
+#| echo: FALSE
 
 cor(datos_no_lineales$x, datos_no_lineales$y)  # Calcula Pearson: resume solamente la asociación lineal
 ```
@@ -876,7 +967,7 @@ Por sí sola, no permite concluir que una variable cause cambios en la otra.
 
 :::
 
-# Ahora ustedes
+# Ejercicio Autónomo
 
 Ahora analizarán una pregunta nueva utilizando **exactamente la misma submuestra de 1.000 casos de CASEN 2024**:
 
@@ -925,8 +1016,8 @@ cor(
 
 En una conclusión breve respondan:
 
-- ¿qué les dice el **signo** de $r$?;
-- ¿qué les dice su **magnitud** sobre el patrón lineal?;
+- ¿qué les dice el **signo** de $r$?.
+- ¿qué les dice su **magnitud** sobre el patrón lineal?.
 - ¿cómo expresarían sustantivamente la asociación observada entre horas habituales de trabajo e ingreso **en la submuestra analizada**?
 
 **6. Vuelvan al gráfico**
