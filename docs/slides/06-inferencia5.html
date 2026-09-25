@@ -1,228 +1,334 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<link href="../images/logo.png" rel="icon" type="image/png">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>inferencia5 – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6357a59cc198ef7ef3c751a17518a47f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
+<script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
 
-  <title>Estadística Correlacional – inferencia5</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3ef9c4146380ba388b3aa79dcf52e29f.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
-  <link href="../site_libs/tabwid-1.1.3/tabwid.css" rel="stylesheet">
-
-  <script src="../site_libs/tabwid-1.1.3/tabwid.js"></script>
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Estadística Correlacional">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
-<body class="quarto-light">
-  <div class="reveal">
-    <div class="slides">
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a>
+  <ul class="collapse">
+  <li><a href="#esta-clase" id="toc-esta-clase" class="nav-link" data-scroll-target="#esta-clase">Esta clase</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-direccionales" id="toc-hipótesis-direccionales" class="nav-link" data-scroll-target="#hipótesis-direccionales"><span style="color: white;">1. Hipótesis direccionales</span></a>
+  <ul class="collapse">
+  <li><a href="#comparación-entre-grupos" id="toc-comparación-entre-grupos" class="nav-link" data-scroll-target="#comparación-entre-grupos"><span style="font-size: 0.9em;">Comparación entre grupos</span></a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a>
+  <ul class="collapse">
+  <li><a href="#es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias" id="toc-es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias" class="nav-link" data-scroll-target="#es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias"><span style="color: #dfc117; font-size: 1.3em;"><em>¿Es posible traducir una pregunta de investigación en una hipótesis de diferencia de medias?</em></span></a></li>
+  </ul></li>
+  <li><a href="#comparación-de-medias-barx" id="toc-comparación-de-medias-barx" class="nav-link" data-scroll-target="#comparación-de-medias-barx">Comparación de <strong>medias</strong> ( <span class="math inline">\(\bar{X}\)</span>)</a></li>
+  <li><a href="#la-prueba-t" id="toc-la-prueba-t" class="nav-link" data-scroll-target="#la-prueba-t">La prueba t</a></li>
+  <li><a href="#visualización-interactiva-prueba-t" id="toc-visualización-interactiva-prueba-t" class="nav-link" data-scroll-target="#visualización-interactiva-prueba-t">Visualización interactiva: prueba <span class="math inline">\(t\)</span></a></li>
+  <li><a href="#el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis" id="toc-el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis" class="nav-link" data-scroll-target="#el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis"><span style="color: white;">El <strong>valor crítico</strong> es el punto (o los puntos) en la distribución de un estadístico de prueba que separa la región de aceptación de la región de rechazo en una prueba de hipótesis</span></a></li>
+  <li><a href="#los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico" id="toc-los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico" class="nav-link" data-scroll-target="#los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico">Los <strong>grados de libertad</strong> son la cantidad de información independiente disponible para estimar parámetros o calcular un estadístico</a></li>
+  <li><a href="#t-y-probabilidad-de-error-p" id="toc-t-y-probabilidad-de-error-p" class="nav-link" data-scroll-target="#t-y-probabilidad-de-error-p"><span class="math inline">\(t\)</span> y probabilidad de error <span class="math inline">\(p\)</span></a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#en-nuestro-ejemplo" id="toc-en-nuestro-ejemplo" class="nav-link" data-scroll-target="#en-nuestro-ejemplo">En nuestro ejemplo</a></li>
+  <li><a href="#p-y-mayores-niveles-de-confianza" id="toc-p-y-mayores-niveles-de-confianza" class="nav-link" data-scroll-target="#p-y-mayores-niveles-de-confianza"><em>p</em> y mayores niveles de confianza</a></li>
+  <li><a href="#a-mayor-valor-t-menor-probabilidad-de-error-p" id="toc-a-mayor-valor-t-menor-probabilidad-de-error-p" class="nav-link" data-scroll-target="#a-mayor-valor-t-menor-probabilidad-de-error-p"><span style="color: white;">A mayor valor <span class="math inline">\(t\)</span>, menor probabilidad de error <span class="math inline">\(p\)</span></span></a></li>
+  <li><a href="#test-de-hipótesis-insumos-complementarios" id="toc-test-de-hipótesis-insumos-complementarios" class="nav-link" data-scroll-target="#test-de-hipótesis-insumos-complementarios">Test de hipótesis: insumos complementarios</a></li>
+  <li><a href="#test-de-hipótesis-de-diferencias-en-r" id="toc-test-de-hipótesis-de-diferencias-en-r" class="nav-link" data-scroll-target="#test-de-hipótesis-de-diferencias-en-r">Test de hipótesis de diferencias en R</a></li>
+  <li><a href="#reporte-formato-apa" id="toc-reporte-formato-apa" class="nav-link" data-scroll-target="#reporte-formato-apa">Reporte formato APA</a></li>
+  <li><a href="#en-r-con-librería-report" id="toc-en-r-con-librería-report" class="nav-link" data-scroll-target="#en-r-con-librería-report">En R con librería <code>report</code></a></li>
+  <li><a href="#tipos-de-preguntas-e-hipótesis-ej-con-promedios" id="toc-tipos-de-preguntas-e-hipótesis-ej-con-promedios" class="nav-link" data-scroll-target="#tipos-de-preguntas-e-hipótesis-ej-con-promedios">Tipos de preguntas e hipótesis (ej: con promedio(s))</a></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a></li>
+  <li><a href="#pasos-en-test-de-hipótesis" id="toc-pasos-en-test-de-hipótesis" class="nav-link" data-scroll-target="#pasos-en-test-de-hipótesis">Pasos en test de hipótesis</a></li>
+  <li><a href="#probabilidad-de-error-y-valor-crítico" id="toc-probabilidad-de-error-y-valor-crítico" class="nav-link" data-scroll-target="#probabilidad-de-error-y-valor-crítico">3. Probabilidad de error y valor crítico</a></li>
+  <li><a href="#probabilidad-de-error-y-valor-crítico-1" id="toc-probabilidad-de-error-y-valor-crítico-1" class="nav-link" data-scroll-target="#probabilidad-de-error-y-valor-crítico-1">3. Probabilidad de error y valor crítico</a></li>
+  <li><a href="#contraste" id="toc-contraste" class="nav-link" data-scroll-target="#contraste">4. Contraste</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">5. Interpretación</a></li>
+  <li><a href="#qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto" id="toc-qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto" class="nav-link" data-scroll-target="#qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto"><span style="color: white;">¿Qué habría pasado con un tamaño muestral más grande, y/o con un nivel de probabilidad de error distinto?</span></a></li>
+  <li><a href="#sub-muestra-casen-1500-casos" id="toc-sub-muestra-casen-1500-casos" class="nav-link" data-scroll-target="#sub-muestra-casen-1500-casos">sub-muestra CASEN 1500 casos</a></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#actividad-práctica" id="toc-actividad-práctica" class="nav-link" data-scroll-target="#actividad-práctica">Actividad práctica</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-para-proporciones" id="toc-hipótesis-para-proporciones" class="nav-link" data-scroll-target="#hipótesis-para-proporciones"><span style="color: white;">Hipótesis para proporciones</span></a>
+  <ul class="collapse">
+  <li><a href="#test-para-proporciones" id="toc-test-para-proporciones" class="nav-link" data-scroll-target="#test-para-proporciones">Test para proporciones</a></li>
+  <li><a href="#datos" id="toc-datos" class="nav-link" data-scroll-target="#datos">Datos</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
+  <li><a href="#variable-ed.-universitaria" id="toc-variable-ed.-universitaria" class="nav-link" data-scroll-target="#variable-ed.-universitaria">Variable ed.&nbsp;universitaria</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#diferencias-entre-proporciones" id="toc-diferencias-entre-proporciones" class="nav-link" data-scroll-target="#diferencias-entre-proporciones">Diferencias entre proporciones</a></li>
+  <li><a href="#diferencias-entre-proporciones-1" id="toc-diferencias-entre-proporciones-1" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-1">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#establecer-las-hipótesis" id="toc-establecer-las-hipótesis" class="nav-link" data-scroll-target="#establecer-las-hipótesis">1. Establecer las hipótesis</a></li>
+  </ul></li>
+  <li><a href="#diferencias-entre-proporciones-2" id="toc-diferencias-entre-proporciones-2" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-2">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#cálculo-de-error-estándar-se" id="toc-cálculo-de-error-estándar-se" class="nav-link" data-scroll-target="#cálculo-de-error-estándar-se">2. Cálculo de error estándar (SE)</a></li>
+  </ul></li>
+  <li><a href="#estimación-de-error-estándar" id="toc-estimación-de-error-estándar" class="nav-link" data-scroll-target="#estimación-de-error-estándar">Estimación de error estándar</a></li>
+  <li><a href="#diferencias-entre-proporciones-3" id="toc-diferencias-entre-proporciones-3" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-3">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#cálculo-de-estadístico-de-prueba" id="toc-cálculo-de-estadístico-de-prueba" class="nav-link" data-scroll-target="#cálculo-de-estadístico-de-prueba">3. Cálculo de estadístico de prueba</a></li>
+  </ul></li>
+  <li><a href="#diferencias-entre-proporciones-4" id="toc-diferencias-entre-proporciones-4" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-4">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#establecer-valor-crítico-de-prueba" id="toc-establecer-valor-crítico-de-prueba" class="nav-link" data-scroll-target="#establecer-valor-crítico-de-prueba">4. Establecer valor crítico de prueba</a></li>
+  </ul></li>
+  <li><a href="#diferencias-entre-proporciones-5" id="toc-diferencias-entre-proporciones-5" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-5">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#interpretación-1" id="toc-interpretación-1" class="nav-link" data-scroll-target="#interpretación-1">5. Interpretación</a></li>
+  </ul></li>
+  <li><a href="#diferencias-entre-proporciones-6" id="toc-diferencias-entre-proporciones-6" class="nav-link" data-scroll-target="#diferencias-entre-proporciones-6">Diferencias entre proporciones</a>
+  <ul class="collapse">
+  <li><a href="#construcción-intervalo-de-confianza" id="toc-construcción-intervalo-de-confianza" class="nav-link" data-scroll-target="#construcción-intervalo-de-confianza">(6). Construcción intervalo de confianza</a></li>
+  </ul></li>
+  <li><a href="#estimación-directamente-en-r-con-prop.test" id="toc-estimación-directamente-en-r-con-prop.test" class="nav-link" data-scroll-target="#estimación-directamente-en-r-con-prop.test">Estimación directamente en R con <code>prop.test</code></a></li>
+  <li><a href="#hipótesis-direccionales-de-proporciones" id="toc-hipótesis-direccionales-de-proporciones" class="nav-link" data-scroll-target="#hipótesis-direccionales-de-proporciones">Hipótesis direccionales de proporciones</a>
+  <ul class="collapse">
+  <li><a href="#paso-1-hipótesis" id="toc-paso-1-hipótesis" class="nav-link" data-scroll-target="#paso-1-hipótesis">Paso 1: hipótesis</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-direccionales-de-proporciones-1" id="toc-hipótesis-direccionales-de-proporciones-1" class="nav-link" data-scroll-target="#hipótesis-direccionales-de-proporciones-1">Hipótesis direccionales de proporciones</a>
+  <ul class="collapse">
+  <li><a href="#paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales" id="toc-paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales" class="nav-link" data-scroll-target="#paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales">Paso 2 (SE) y 3 (estadístico de prueba) igual que para hipótesis no direccionales</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-direccionales-de-proporciones-2" id="toc-hipótesis-direccionales-de-proporciones-2" class="nav-link" data-scroll-target="#hipótesis-direccionales-de-proporciones-2">Hipótesis direccionales de proporciones</a>
+  <ul class="collapse">
+  <li><a href="#paso-4-valor-crítico-de-prueba" id="toc-paso-4-valor-crítico-de-prueba" class="nav-link" data-scroll-target="#paso-4-valor-crítico-de-prueba">Paso 4: Valor crítico de prueba</a></li>
+  </ul></li>
+  <li><a href="#hipótesis-direccionales-de-proporciones-3" id="toc-hipótesis-direccionales-de-proporciones-3" class="nav-link" data-scroll-target="#hipótesis-direccionales-de-proporciones-3">Hipótesis direccionales de proporciones</a>
+  <ul class="collapse">
+  <li><a href="#paso-5-interpretación" id="toc-paso-5-interpretación" class="nav-link" data-scroll-target="#paso-5-interpretación">Paso 5: Interpretación</a></li>
+  </ul></li>
+  <li><a href="#estimación-directamente-en-r-con-prop.test-1" id="toc-estimación-directamente-en-r-con-prop.test-1" class="nav-link" data-scroll-target="#estimación-directamente-en-r-con-prop.test-1">Estimación directamente en R con <code>prop.test</code></a></li>
+  <li><a href="#visualización-interactiva-prueba-de-diferencia-de-proporciones" id="toc-visualización-interactiva-prueba-de-diferencia-de-proporciones" class="nav-link" data-scroll-target="#visualización-interactiva-prueba-de-diferencia-de-proporciones">Visualización interactiva: prueba de diferencia de proporciones</a></li>
+  <li><a href="#resumen-de-inferencia" id="toc-resumen-de-inferencia" class="nav-link" data-scroll-target="#resumen-de-inferencia">Resumen de inferencia</a></li>
+  </ul></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="06-inferencia5.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<section>
-<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
+
+
+<section id="section" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
 <p><br></p>
-</section>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -233,50 +339,49 @@
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 <p><br> <span style="color: white; font-size: 1.3em;"><strong>Inferencia 5</strong>:</span></p>
 <p><span style="color: #dfc117;">Hipótesis direccionales y de proporciones</span></p>
+</section>
 </div>
-</div></section>
-<section>
-<section id="section-1" class="title-slide slide level1 center scrollable">
+</div>
+</section>
+<section id="section-1" class="level1">
 <h1></h1>
 <p><span style="color: #ef0303; font-size: 1.3em;">Recordando 5 pasos de la inferencia</span></p>
 <ol type="1">
-<li class="fragment"><p>Formular hipótesis ( <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span>)</p></li>
-<li class="fragment"><p>Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</p></li>
-<li class="fragment"><p>Establecer la probabilidad de error <span class="math inline">\(\alpha\)</span> (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente</p></li>
-<li class="fragment"><p>Cálculo de intervalo de confianza / contraste valores empírico/crítico</p></li>
-<li class="fragment"><p>Interpretación</p></li>
+<li><p>Formular hipótesis ( <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span>)</p></li>
+<li><p>Obtener error estándar y estadístico de prueba empírico correspondiente (ej: Z o t)</p></li>
+<li><p>Establecer la probabilidad de error <span class="math inline">\(\alpha\)</span> (usualmente 0.05) y obtener valor crítico (teórico) de la prueba correspondiente</p></li>
+<li><p>Cálculo de intervalo de confianza / contraste valores empírico/crítico</p></li>
+<li><p>Interpretación</p></li>
 </ol>
-</section>
-<section id="esta-clase" class="slide level2 scrollable" data-background-color="#9B2626">
-<h2>Esta clase</h2>
+<section id="esta-clase" class="level2" data-background-color="#9B2626">
+<h2 data-background-color="#9B2626" class="anchored" data-anchor-id="esta-clase">Esta clase</h2>
 <div style="color: white;">
 <ol type="1">
-<li class="fragment"><p>hipótesis direccionales de diferencia de medias</p></li>
-<li class="fragment"><p>hipótesis para proporciones (por ejemplo, mayor o menor qué)</p></li>
+<li><p>hipótesis direccionales de diferencia de medias</p></li>
+<li><p>hipótesis para proporciones (por ejemplo, mayor o menor qué)</p></li>
 </ol>
 </div>
-</section></section>
-<section>
-<section id="hipótesis-direccionales" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1><span style="color: white;">1. Hipótesis direccionales</span></h1>
-
 </section>
-<section id="comparación-entre-grupos" class="slide level2">
-<h2><span style="font-size: 0.9em;">Comparación entre grupos</span></h2>
+</section>
+<section id="hipótesis-direccionales" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"><span style="color: white;">1. Hipótesis direccionales</span></h1>
+<section id="comparación-entre-grupos" class="level2">
+<h2 class="anchored" data-anchor-id="comparación-entre-grupos"><span style="font-size: 0.9em;">Comparación entre grupos</span></h2>
 <div class="columns">
 <div class="column" style="font-size: 0.9em;">
 <ul>
-<li class="fragment"><p>gran parte de las hipótesis de investigación se relacionan con <strong>diferencias entre grupos</strong>, ej:</p></li>
-<li class="fragment"><p>hombres obtienen mayor salario que las mujeres</p></li>
-<li class="fragment"><p>los chilenos son más prejuiciosos que los migrantes</p></li>
-<li class="fragment"><p>ahora se apoyan los cambios más graduales que antes (comparación en el tiempo)</p></li>
+<li><p>gran parte de las hipótesis de investigación se relacionan con <strong>diferencias entre grupos</strong>, ej:</p></li>
+<li><p>hombres obtienen mayor salario que las mujeres</p></li>
+<li><p>los chilenos son más prejuiciosos que los migrantes</p></li>
+<li><p>ahora se apoyan los cambios más graduales que antes (comparación en el tiempo)</p></li>
 </ul>
 </div><div class="column" style="width:50%;">
-<p><img data-src="img/Normal_TwoGroups.png"></p>
-</div></div>
+<p><img src="img/Normal_TwoGroups.png" class="img-fluid"></p>
+</div>
+</div>
 </section>
-<section id="section-2" class="slide level2" data-background-color="#0C3547">
-<h2></h2>
+<section id="section-2" class="level2" data-background-color="#0C3547">
+<h2 data-background-color="#0C3547" class="anchored" data-anchor-id="section-2"></h2>
 <div style="color: white; font-size: 1.3em; text-align: right;">
 <p><em>“la sociología comparada no es una rama especial de la sociología, sino que es la sociología misma en tanto deja de ser puramente descriptiva y aspira a dar razón de los hechos”</em></p>
 </div>
@@ -284,29 +389,31 @@
 <p>Durkheim (1895), <em>Les règles de la méthode sociologique</em>, op. cit., p.&nbsp;137</p>
 </div>
 </section>
-<section id="section-3" class="slide level2" data-background-color="#0c4712" style="color: white; text-align: center;">
-<h2></h2>
-<h3 id="es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias"><span style="color: #dfc117; font-size: 1.3em;"><em>¿Es posible traducir una pregunta de investigación en una hipótesis de diferencia de medias?</em></span></h3>
+<section id="section-3" class="level2" data-background-color="#0c4712" style="color: white; text-align: center;">
+<h2 data-background-color="#0c4712" style="color: white; text-align: center;" class="anchored" data-anchor-id="section-3"></h2>
+<section id="es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias" class="level3">
+<h3 class="anchored" data-anchor-id="es-posible-traducir-una-pregunta-de-investigación-en-una-hipótesis-de-diferencia-de-medias"><span style="color: #dfc117; font-size: 1.3em;"><em>¿Es posible traducir una pregunta de investigación en una hipótesis de diferencia de medias?</em></span></h3>
 </section>
-<section id="comparación-de-medias-barx" class="slide level2" style="font-size: 0.85em;">
-<h2>Comparación de <strong>medias</strong> ( <span class="math inline">\(\bar{X}\)</span>)</h2>
+</section>
+<section id="comparación-de-medias-barx" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="comparación-de-medias-barx">Comparación de <strong>medias</strong> ( <span class="math inline">\(\bar{X}\)</span>)</h2>
 <ul>
-<li class="fragment"><p>la comparación de medias es una manera de contrastar empíricamente teorías e hipótesis de investigación</p></li>
-<li class="fragment"><p>al traducir a este lenguaje, se puede aplicar <strong>inferencia estadística</strong> para contrastar la hipótesis planteada</p></li>
+<li><p>la comparación de medias es una manera de contrastar empíricamente teorías e hipótesis de investigación</p></li>
+<li><p>al traducir a este lenguaje, se puede aplicar <strong>inferencia estadística</strong> para contrastar la hipótesis planteada</p></li>
 </ul>
 </section>
-<section id="la-prueba-t" class="slide level2" style="font-size: 0.9em;">
-<h2>La prueba t</h2>
+<section id="la-prueba-t" class="level2" style="font-size: 0.9em;">
+<h2 style="font-size: 0.9em;" class="anchored" data-anchor-id="la-prueba-t">La prueba t</h2>
 <ul>
-<li class="fragment"><p>tenemos un valor de diferencia de medias: <span class="math inline">\(\bar{X}_1 - \bar{X}_2\)</span></p></li>
-<li class="fragment"><p>vamos a <strong>TRANSFORMAR</strong> este valor a un estándar comparable que nos permita evaluar <strong>QUE TAN GRANDE</strong> es esta diferencia</p></li>
-<li class="fragment"><p>¿Qué es GRANDE? -&gt; qué tan distinto es de 0 en términos de <strong>desviaciones estándar</strong></p></li>
-<li class="fragment"><p>para esto, la diferencia de medias se divide por su ERROR ESTANDAR - &gt; <strong>PRUEBA t</strong></p></li>
-<li class="fragment"><p>Este valor t de nuesta diferencia de medias (t empírico) se compara con el <strong>t crítico</strong></p></li>
+<li><p>tenemos un valor de diferencia de medias: <span class="math inline">\(\bar{X}_1 - \bar{X}_2\)</span></p></li>
+<li><p>vamos a <strong>TRANSFORMAR</strong> este valor a un estándar comparable que nos permita evaluar <strong>QUE TAN GRANDE</strong> es esta diferencia</p></li>
+<li><p>¿Qué es GRANDE? -&gt; qué tan distinto es de 0 en términos de <strong>desviaciones estándar</strong></p></li>
+<li><p>para esto, la diferencia de medias se divide por su ERROR ESTANDAR - &gt; <strong>PRUEBA t</strong></p></li>
+<li><p>Este valor t de nuesta diferencia de medias (t empírico) se compara con el <strong>t crítico</strong></p></li>
 </ul>
 </section>
-<section id="visualización-interactiva-prueba-t" class="slide level2" style="font-size: 0.8em;">
-<h2>Visualización interactiva: prueba <span class="math inline">\(t\)</span></h2>
+<section id="visualización-interactiva-prueba-t" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="visualización-interactiva-prueba-t">Visualización interactiva: prueba <span class="math inline">\(t\)</span></h2>
 <div class="ttest-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
   <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
     <label>grados de libertad (df): <input type="range" id="tt-df" min="1" max="300" value="20" style="vertical-align:middle;"> <span id="tt-df-val">20</span></label>
@@ -515,78 +622,78 @@
 })();
 </script>
 </section>
-<section id="el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis" class="slide level2" data-background-color="#9B2626">
-<h2><span style="color: white;">El <strong>valor crítico</strong> es el punto (o los puntos) en la distribución de un estadístico de prueba que separa la región de aceptación de la región de rechazo en una prueba de hipótesis</span></h2>
+<section id="el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis" class="level2" data-background-color="#9B2626">
+<h2 data-background-color="#9B2626" class="anchored" data-anchor-id="el-valor-crítico-es-el-punto-o-los-puntos-en-la-distribución-de-un-estadístico-de-prueba-que-separa-la-región-de-aceptación-de-la-región-de-rechazo-en-una-prueba-de-hipótesis"><span style="color: white;">El <strong>valor crítico</strong> es el punto (o los puntos) en la distribución de un estadístico de prueba que separa la región de aceptación de la región de rechazo en una prueba de hipótesis</span></h2>
 </section>
-<section id="los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico" class="slide level2" data-background-color="#0C3547" style="font-size: 0.8em;">
-<h2>Los <strong>grados de libertad</strong> son la cantidad de información independiente disponible para estimar parámetros o calcular un estadístico</h2>
+<section id="los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico" class="level2" data-background-color="#0C3547" style="font-size: 0.8em;">
+<h2 data-background-color="#0C3547" style="font-size: 0.8em;" class="anchored" data-anchor-id="los-grados-de-libertad-son-la-cantidad-de-información-independiente-disponible-para-estimar-parámetros-o-calcular-un-estadístico">Los <strong>grados de libertad</strong> son la cantidad de información independiente disponible para estimar parámetros o calcular un estadístico</h2>
 <ul>
-<li class="fragment"><p>Cada restricción (como conocer un promedio, fijar una suma, etc.) reduce en 1 los grados de libertad.</p></li>
-<li class="fragment"><p>Por ejemplo, si hay tres números que tienen promedio 10, se pueden elegir libremente 2 de ellos, y el tercero ya está determinado. Por lo tanto, hay 3-1 grados de libertad</p></li>
+<li><p>Cada restricción (como conocer un promedio, fijar una suma, etc.) reduce en 1 los grados de libertad.</p></li>
+<li><p>Por ejemplo, si hay tres números que tienen promedio 10, se pueden elegir libremente 2 de ellos, y el tercero ya está determinado. Por lo tanto, hay 3-1 grados de libertad</p></li>
 </ul>
 </section>
-<section id="t-y-probabilidad-de-error-p" class="slide level2" style="font-size: 0.9em;">
-<h2><span class="math inline">\(t\)</span> y probabilidad de error <span class="math inline">\(p\)</span></h2>
+<section id="t-y-probabilidad-de-error-p" class="level2" style="font-size: 0.9em;">
+<h2 style="font-size: 0.9em;" class="anchored" data-anchor-id="t-y-probabilidad-de-error-p"><span class="math inline">\(t\)</span> y probabilidad de error <span class="math inline">\(p\)</span></h2>
 <ul>
-<li class="fragment"><p>el cálculo de <span class="math inline">\(t\)</span> (estimado) nos da un valor que puede ser transformado a un valor de área bajo la curva (tal como en Z)</p></li>
-<li class="fragment"><p><em>¿cuál es la probabilidad de error (valor p) de un <span class="math inline">\(t\)</span> específico?</em></p></li>
-<li class="fragment"><p>hay que recordar que tanto Z como t tienen promedio 0 y son simétricas, y por lo tanto el 0 divide el área de la curva en 0.5</p></li>
-<li class="fragment"><p>0.5 es la mayor probabilidad de error (=azar total), y a medida que se aleja del 0.5 disminuye la probabilidad de error</p></li>
+<li><p>el cálculo de <span class="math inline">\(t\)</span> (estimado) nos da un valor que puede ser transformado a un valor de área bajo la curva (tal como en Z)</p></li>
+<li><p><em>¿cuál es la probabilidad de error (valor p) de un <span class="math inline">\(t\)</span> específico?</em></p></li>
+<li><p>hay que recordar que tanto Z como t tienen promedio 0 y son simétricas, y por lo tanto el 0 divide el área de la curva en 0.5</p></li>
+<li><p>0.5 es la mayor probabilidad de error (=azar total), y a medida que se aleja del 0.5 disminuye la probabilidad de error</p></li>
 </ul>
 </section>
-<section id="section-4" class="slide level2">
-<h2></h2>
+<section id="section-4" class="level2">
+<h2 class="anchored" data-anchor-id="section-4"></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>(<span class="fu">qt</span>(t, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">qt</span>(t, df, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Donde:</p>
 <ul>
-<li class="fragment"><p>qt: función que entrega la probabilidad para un valor <span class="math inline">\(t\)</span></p></li>
-<li class="fragment"><p>df: grados de libertad (degrees of freedom)</p></li>
-<li class="fragment"><p>lower.tail=FALSE: considera las probabilidades acumuladas hacia la cola superior de la curva</p></li>
-<li class="fragment"><p>*2: al ser una prueba de diferencias, considera zona de rechazo en ambas direcciones de la curva, por lo que las probabilidades se multiplican por 2</p></li>
+<li><p>qt: función que entrega la probabilidad para un valor <span class="math inline">\(t\)</span></p></li>
+<li><p>df: grados de libertad (degrees of freedom)</p></li>
+<li><p>lower.tail=FALSE: considera las probabilidades acumuladas hacia la cola superior de la curva</p></li>
+<li><p>*2: al ser una prueba de diferencias, considera zona de rechazo en ambas direcciones de la curva, por lo que las probabilidades se multiplican por 2</p></li>
 </ul>
 </section>
-<section id="en-nuestro-ejemplo" class="slide level2" style="font-size: 0.8em;">
-<h2>En nuestro ejemplo</h2>
+<section id="en-nuestro-ejemplo" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="en-nuestro-ejemplo">En nuestro ejemplo</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a>(<span class="fu">pt</span>(<span class="fl">0.99215</span>, <span class="dv">341</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(<span class="fu">pt</span>(<span class="fl">0.99215</span>, <span class="dv">341</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)) <span class="sc">*</span> <span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3218278</code></pre>
 </div>
 </div>
 <ul>
-<li class="fragment"><p>La probabilidad de error del <span class="math inline">\(t\)</span> estimado es de 0.322.</p></li>
-<li class="fragment"><p>Esto quiere decir es que en la estimación de esta diferencia de medias, nos estamos equivocando aproximadamente un tercio de las veces (lejos del nivel convencional de rechazo de <span class="math inline">\(H_0\)</span> de 0.05)</p></li>
+<li><p>La probabilidad de error del <span class="math inline">\(t\)</span> estimado es de 0.322.</p></li>
+<li><p>Esto quiere decir es que en la estimación de esta diferencia de medias, nos estamos equivocando aproximadamente un tercio de las veces (lejos del nivel convencional de rechazo de <span class="math inline">\(H_0\)</span> de 0.05)</p></li>
 </ul>
 </section>
-<section id="p-y-mayores-niveles-de-confianza" class="slide level2" style="font-size: 0.8em;">
-<h2><em>p</em> y mayores niveles de confianza</h2>
+<section id="p-y-mayores-niveles-de-confianza" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="p-y-mayores-niveles-de-confianza"><em>p</em> y mayores niveles de confianza</h2>
 <ul>
-<li class="fragment"><p>La obtención del valor <span class="math inline">\(p\)</span> podría también entregar información para rechazar <span class="math inline">\(H_0\)</span> con un mayor nivel de confianza al establecido</p></li>
-<li class="fragment"><p>Si bien el p&lt;0.05 es aceptado, en el caso que el p sea menor a 0.01 o 0.001, se reporta por convención el valor p menor</p></li>
-<li class="fragment"><p>Usualmente en los trabajos de investigación esto se representa con asteriscos: <span class="math inline">\(^{\ast}p&lt;0.05\)</span>, <span class="math inline">\(^{\ast\ast}p&lt;0.01\)</span>, y <span class="math inline">\(^{\ast\ast\ast}p&lt;0.001\)</span></p></li>
+<li><p>La obtención del valor <span class="math inline">\(p\)</span> podría también entregar información para rechazar <span class="math inline">\(H_0\)</span> con un mayor nivel de confianza al establecido</p></li>
+<li><p>Si bien el p&lt;0.05 es aceptado, en el caso que el p sea menor a 0.01 o 0.001, se reporta por convención el valor p menor</p></li>
+<li><p>Usualmente en los trabajos de investigación esto se representa con asteriscos: <span class="math inline">\(^{\ast}p&lt;0.05\)</span>, <span class="math inline">\(^{\ast\ast}p&lt;0.01\)</span>, y <span class="math inline">\(^{\ast\ast\ast}p&lt;0.001\)</span></p></li>
 </ul>
 </section>
-<section id="a-mayor-valor-t-menor-probabilidad-de-error-p" class="slide level2" data-background-color="#0C3547">
-<h2><span style="color: white;">A mayor valor <span class="math inline">\(t\)</span>, menor probabilidad de error <span class="math inline">\(p\)</span></span></h2>
+<section id="a-mayor-valor-t-menor-probabilidad-de-error-p" class="level2" data-background-color="#0C3547">
+<h2 data-background-color="#0C3547" class="anchored" data-anchor-id="a-mayor-valor-t-menor-probabilidad-de-error-p"><span style="color: white;">A mayor valor <span class="math inline">\(t\)</span>, menor probabilidad de error <span class="math inline">\(p\)</span></span></h2>
 </section>
-<section id="test-de-hipótesis-insumos-complementarios" class="slide level2" style="font-size: 0.8em;">
-<h2>Test de hipótesis: insumos complementarios</h2>
+<section id="test-de-hipótesis-insumos-complementarios" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="test-de-hipótesis-insumos-complementarios">Test de hipótesis: insumos complementarios</h2>
 <p>Entonces, se logra rechazar la hipótesis nula cuando:</p>
 <ul>
-<li class="fragment"><p>el intervalo de confianza no contiene el 0</p></li>
-<li class="fragment"><p><span class="math inline">\(t_{calculado} &gt; t_{crítico}\)</span></p></li>
-<li class="fragment"><p><span class="math inline">\(p_{calculado} &lt; p_{crítico}\)</span></p>
+<li><p>el intervalo de confianza no contiene el 0</p></li>
+<li><p><span class="math inline">\(t_{calculado} &gt; t_{crítico}\)</span></p></li>
+<li><p><span class="math inline">\(p_{calculado} &lt; p_{crítico}\)</span></p>
 <ul>
-<li class="fragment">o en términos generales convencionales, p&lt;0.05</li>
+<li>o en términos generales convencionales, p&lt;0.05</li>
 </ul></li>
 </ul>
 </section>
-<section id="test-de-hipótesis-de-diferencias-en-r" class="slide level2" style="font-size: 0.8em;">
-<h2>Test de hipótesis de diferencias en R</h2>
+<section id="test-de-hipótesis-de-diferencias-en-r" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="test-de-hipótesis-de-diferencias-en-r">Test de hipótesis de diferencias en R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Two Sample t-test
@@ -602,24 +709,24 @@ mean in group 1 mean in group 2
 </div>
 </div>
 </section>
-<section id="reporte-formato-apa" class="slide level2" style="font-size: 0.75em;">
-<h2>Reporte formato APA</h2>
+<section id="reporte-formato-apa" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="reporte-formato-apa">Reporte formato APA</h2>
 <p><br></p>
 <p><em>“Se realizó una prueba t para muestras independientes para comparar los salarios entre hombres y mujeres. Los resultados indicaron una diferencia no significativa en los salarios entre hombres (M = 654585, SD = 468692) y mujeres (M = 604420, SD = 444666); t(341)=0.9921, p=0.321. El intervalo de confianza del 95% para la diferencia de medias fue [−49288.49;149618.5].</em></p>
 <p>[diferencia no significativa=no se logra rechazar <span class="math inline">\(H_0\)</span>]</p>
 </section>
-<section id="en-r-con-librería-report" class="slide level2" style="font-size: 0.75em;">
-<h2>En R con librería <code>report</code></h2>
+<section id="en-r-con-librería-report" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="en-r-con-librería-report">En R con librería <code>report</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>model <span class="ot">&lt;-</span> <span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb6-2"><a></a>report<span class="sc">::</span><span class="fu">report</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">t.test</span>(salario <span class="sc">~</span> sexo, <span class="at">data =</span> casen_350, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>report<span class="sc">::</span><span class="fu">report</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><em>La prueba t de dos muestras que evalúa la diferencia de salario según sexo (media en el grupo 1 = 654585, media en el grupo 2 = 604420) sugiere que el efecto es positivo, estadísticamente no significativo y muy pequeño (diferencia = 50165, IC del 95% [-49,287.48, 150,000], t(341) = 0.99, p = 0.322).</em></p>
 <p><span style="font-size: 0.7em;">traducido y con mínima edición</span></p>
 </section>
-<section id="tipos-de-preguntas-e-hipótesis-ej-con-promedios" class="slide level2" style="font-size: 0.65em;">
-<h2>Tipos de preguntas e hipótesis (ej: con promedio(s))</h2>
-<table class="caption-top">
+<section id="tipos-de-preguntas-e-hipótesis-ej-con-promedios" class="level2" style="font-size: 0.65em;">
+<h2 style="font-size: 0.65em;" class="anchored" data-anchor-id="tipos-de-preguntas-e-hipótesis-ej-con-promedios">Tipos de preguntas e hipótesis (ej: con promedio(s))</h2>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
 <col style="width: 62%">
@@ -651,23 +758,24 @@ mean in group 1 mean in group 2
 </tbody>
 </table>
 </section>
-<section id="section-5" class="slide level2" style="font-size: 0.8em;">
-<h2></h2>
+<section id="section-5" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="section-5"></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/direccional-derecha.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/direccional-derecha.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <p>Si bien en teoría las hipótesis direccionales se pueden plantear en ambas direcciones, en general (y por simpleza) se expresan en términos de “mayor que”, quedando la zona de rechazo de <span class="math inline">\(H_0\)</span> a la derecha</p>
-</div></div>
+</div>
+</div>
 </section>
-<section id="pasos-en-test-de-hipótesis" class="slide level2 scrollable" style="font-size: 0.75em;">
-<h2>Pasos en test de hipótesis</h2>
+<section id="pasos-en-test-de-hipótesis" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="pasos-en-test-de-hipótesis">Pasos en test de hipótesis</h2>
 <ol type="1">
-<li class="fragment">Formulación: El salario de los hombres (grupo 1) es mayor al de las mujeres (grupo 2)</li>
+<li>Formulación: El salario de los hombres (grupo 1) es mayor al de las mujeres (grupo 2)</li>
 </ol>
 <div class="fragment">
 <p><span class="math display">\[
@@ -678,57 +786,58 @@ H_{0}: \bar{X}_1 \leq  \bar{X}_2
 \]</span></p>
 </div>
 <ol start="2" type="1">
-<li class="fragment">Obtener error estándar y estadístico de prueba (lo mismo que para el caso anterior)</li>
+<li>Obtener error estándar y estadístico de prueba (lo mismo que para el caso anterior)</li>
 </ol>
 <div class="fragment">
 <p><span class="math display">\[t=\frac{(\bar{x}_1-\bar{x}_2)}{\sqrt{\frac{s_1²}{\sqrt{n_1}}+\frac{s_2²}{\sqrt{n_2}} }}=\frac{50165}{50561}=0.9921\]</span></p>
 </div>
 </section>
-<section id="probabilidad-de-error-y-valor-crítico" class="slide level2" style="font-size: 0.8em;">
-<h2>3. Probabilidad de error y valor crítico</h2>
+<section id="probabilidad-de-error-y-valor-crítico" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="probabilidad-de-error-y-valor-crítico">3. Probabilidad de error y valor crítico</h2>
 <ul>
-<li class="fragment">seguimos con probabilidad de error ( <span class="math inline">\(\alpha\)</span> 0.05), pero a diferencia de las no-direccionales no se divide entre 2 (colas), sino que es solo para una</li>
+<li>seguimos con probabilidad de error ( <span class="math inline">\(\alpha\)</span> 0.05), pero a diferencia de las no-direccionales no se divide entre 2 (colas), sino que es solo para una</li>
 </ul>
 <div class="fragment">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/One_tailed_and_two_tailed_t-test.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<figure class="figure">
+<p><img src="img/One_tailed_and_two_tailed_t-test.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
 </section>
-<section id="probabilidad-de-error-y-valor-crítico-1" class="slide level2" style="font-size: 0.8em;">
-<h2>3. Probabilidad de error y valor crítico</h2>
+<section id="probabilidad-de-error-y-valor-crítico-1" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="probabilidad-de-error-y-valor-crítico-1">3. Probabilidad de error y valor crítico</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>para un nivel de error <span class="math inline">\(\alpha=0.05\)</span> (de una cola)</p></li>
-<li class="fragment"><p>grados de libertad N-2= 343-2 = 341</p></li>
+<li><p>para un nivel de error <span class="math inline">\(\alpha=0.05\)</span> (de una cola)</p></li>
+<li><p>grados de libertad N-2= 343-2 = 341</p></li>
 </ul>
 </div><div class="column fragment" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">05</span>,</span>
-<span id="cb7-2"><a></a>   <span class="at">df =</span> <span class="dv">341</span>,</span>
-<span id="cb7-3"><a></a>   <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="at">p =</span> .<span class="dv">05</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>   <span class="at">df =</span> <span class="dv">341</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>   <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.649334</code></pre>
 </div>
 </div>
 <p><span style="font-size: 0.8em;">lower.tail=FALSE se refiere que el cálculo refiere a la cola superior</span></p>
-</div></div>
+</div>
+</div>
 </section>
-<section id="contraste" class="slide level2" style="font-size: 0.8em;">
-<h2>4. Contraste</h2>
+<section id="contraste" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="contraste">4. Contraste</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment">Recordemos nuestra hipótesis nula:</li>
+<li>Recordemos nuestra hipótesis nula:</li>
 </ul>
 <div class="fragment">
 <p><span class="math display">\[H_{0}: \bar{X}_{hombres} \leq  \bar{X}_{mujeres}\]</span></p>
 </div>
 <ul>
-<li class="fragment">Considerando los valores de contraste:</li>
+<li>Considerando los valores de contraste:</li>
 </ul>
 <div class="fragment">
 <p><span class="math display">\[t_{estimado}=0.992 &lt; t_{crítico}=1.6\]</span></p>
@@ -737,16 +846,17 @@ H_{0}: \bar{X}_1 \leq  \bar{X}_2
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="06-inferencia5_files/figure-revealjs/unnamed-chunk-7-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="06-inferencia5_files/figure-revealjs/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="interpretación" class="slide level2" style="font-size: 0.8em;">
-<h2>5. Interpretación</h2>
+<section id="interpretación" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="interpretación">5. Interpretación</h2>
 <div class="cell">
 <div class="cell-output-display">
 <div class="tabwid"><style>.cl-f289a0ca{table-layout:auto;}.cl-f285732e{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2857338{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2857339{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;vertical-align:sub;}.cl-f2874d16{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2874d2a{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2875e3c{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2875e46{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2875e47{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f289a0ca"><thead><tr style="overflow-wrap:break-word;"><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f285732e">Method</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f285732e">Alternative</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f285732e">Mean 1</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f285732e">Mean 2</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f2857338">M</span><span class="cl-f2857339">1</span><span class="cl-f285732e"> - </span><span class="cl-f2857338">M</span><span class="cl-f2857339">2</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f2857338">t</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f2857338">df</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f2857338">p</span></p></th><th class="cl-f2875e3c"><p class="cl-f2874d16"><span class="cl-f285732e">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f2875e46"><p class="cl-f2874d2a"><span class="cl-f285732e">Two Sample t-test</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">greater</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">654,585.37</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">604,420.29</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">50,165.08</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">0.99</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">341</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">.161</span></p></td><td class="cl-f2875e47"><p class="cl-f2874d16"><span class="cl-f285732e">[-33228.46, Inf]</span></p></td></tr></tbody></table></div>
@@ -757,18 +867,18 @@ H_{0}: \bar{X}_1 \leq  \bar{X}_2
 Nota: en el práctico cambiar el N de la muestra y establecer distintos niveles de confianza
 -->
 </section>
-<section id="qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto" class="slide level2" data-background-color="#0C3547">
-<h2><span style="color: white;">¿Qué habría pasado con un tamaño muestral más grande, y/o con un nivel de probabilidad de error distinto?</span></h2>
+<section id="qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto" class="level2" data-background-color="#0C3547">
+<h2 data-background-color="#0C3547" class="anchored" data-anchor-id="qué-habría-pasado-con-un-tamaño-muestral-más-grande-yo-con-un-nivel-de-probabilidad-de-error-distinto"><span style="color: white;">¿Qué habría pasado con un tamaño muestral más grande, y/o con un nivel de probabilidad de error distinto?</span></h2>
 </section>
-<section id="sub-muestra-casen-1500-casos" class="slide level2" style="font-size: 0.8em;">
-<h2>sub-muestra CASEN 1500 casos</h2>
+<section id="sub-muestra-casen-1500-casos" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="sub-muestra-casen-1500-casos">sub-muestra CASEN 1500 casos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>casen_1500 <span class="sc">%&gt;%</span> <span class="co"># se especifica la base de datos</span></span>
-<span id="cb9-2"><a></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(<span class="at">sexo =</span> sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(sexo)) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica y se usan sus etiquetas con as_label</span></span>
-<span id="cb9-3"><a></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="at">Promedio =</span> <span class="fu">mean</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">SD =</span> <span class="fu">sd</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
-<span id="cb9-4"><a></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>casen_1500 <span class="sc">%&gt;%</span> <span class="co"># se especifica la base de datos</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">group_by</span>(<span class="at">sexo =</span> sjlabelled<span class="sc">::</span><span class="fu">as_label</span>(sexo)) <span class="sc">%&gt;%</span> <span class="co"># se agrupan por la variable categórica y se usan sus etiquetas con as_label</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">Obs. =</span> <span class="fu">n</span>(), <span class="at">Promedio =</span> <span class="fu">mean</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">SD =</span> <span class="fu">sd</span>(salario, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> <span class="co"># se agregan las operaciones a presentar en la tabla</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">kable</span>(<span class="at">format =</span> <span class="st">"markdown"</span>) <span class="co"># se genera la tabla</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top">
+<table class="caption-top table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;">sexo</th>
@@ -795,20 +905,20 @@ Nota: en el práctico cambiar el N de la muestra y establecer distintos niveles 
 </div>
 </div>
 </section>
-<section id="section-6" class="slide level2" style="font-size: 0.75em;">
-<h2></h2>
+<section id="section-6" class="level2" style="font-size: 0.75em;">
+<h2 style="font-size: 0.75em;" class="anchored" data-anchor-id="section-6"></h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>model_dir2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
-<span id="cb10-2"><a></a>  salario <span class="sc">~</span> sexo,</span>
-<span id="cb10-3"><a></a>  <span class="at">data =</span> casen_1500,</span>
-<span id="cb10-4"><a></a>  <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
-<span id="cb10-5"><a></a>  <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb10-6"><a></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
-<span id="cb10-7"><a></a>stats.table4 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_dir2)</span>
-<span id="cb10-8"><a></a><span class="fu">nice_table</span>(stats.table4,</span>
-<span id="cb10-9"><a></a>           <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>model_dir2 <span class="ot">&lt;-</span> <span class="fu">t.test</span>(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  salario <span class="sc">~</span> sexo,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> casen_1500,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">alternative =</span> <span class="st">"greater"</span>,</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">var.equal =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>stats.table4 <span class="ot">&lt;-</span> <span class="fu">tidy</span>(model_dir2)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table4,</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">broom =</span> <span class="st">"t.test"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div class="tabwid"><style>.cl-f2c38d6c{table-layout:auto;}.cl-f2a6373a{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2a63744{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2a63745{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;vertical-align:sub;}.cl-f2a7f8a4{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2a7f8ae{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2a80948{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2a80952{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2a80953{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f2c38d6c"><thead><tr style="overflow-wrap:break-word;"><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">Method</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">Alternative</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">Mean 1</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">Mean 2</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a63744">M</span><span class="cl-f2a63745">1</span><span class="cl-f2a6373a"> - </span><span class="cl-f2a63744">M</span><span class="cl-f2a63745">2</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a63744">t</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a63744">df</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a63744">p</span></p></th><th class="cl-f2a80948"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">95% CI</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f2a80952"><p class="cl-f2a7f8ae"><span class="cl-f2a6373a">Two Sample t-test</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">greater</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">756,712.01</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">605,150.23</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">151,561.78</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">4.01</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">1,435</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">&lt; .001***</span></p></td><td class="cl-f2a80953"><p class="cl-f2a7f8a4"><span class="cl-f2a6373a">[89291.57, Inf]</span></p></td></tr></tbody></table></div>
 </div>
@@ -817,38 +927,37 @@ Nota: en el práctico cambiar el N de la muestra y establecer distintos niveles 
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="06-inferencia5_files/figure-revealjs/unnamed-chunk-11-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="06-inferencia5_files/figure-revealjs/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="actividad-práctica" class="slide level2">
-<h2>Actividad práctica</h2>
-
-<img data-src="img/menti-clase-final.png" class="r-stretch"></section></section>
-<section>
-<section id="hipótesis-para-proporciones" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1><span style="color: white;">Hipótesis para proporciones</span></h1>
-
+<section id="actividad-práctica" class="level2">
+<h2 class="anchored" data-anchor-id="actividad-práctica">Actividad práctica</h2>
+<p><img src="img/menti-clase-final.png" class="img-fluid"></p>
 </section>
-<section id="test-para-proporciones" class="slide level2" style="font-size: 0.8em;">
-<h2>Test para proporciones</h2>
+</section>
+<section id="hipótesis-para-proporciones" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"><span style="color: white;">Hipótesis para proporciones</span></h1>
+<section id="test-para-proporciones" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="test-para-proporciones">Test para proporciones</h2>
 <ul>
-<li class="fragment"><p>además de las inferencias con medidas de tendencia central (como promedios), es posible también realizar inferencia sobre porcentajes/proporciones, ej:</p>
+<li><p>además de las inferencias con medidas de tendencia central (como promedios), es posible también realizar inferencia sobre porcentajes/proporciones, ej:</p>
 <ul>
-<li class="fragment"><p>El 20% de l_s chilen_s asiste a la educación superior (hipótesis puntual)</p></li>
-<li class="fragment"><p>Los hombres y las mujeres tienen un distinto porcentaje de acceso a la educación superior (hipótesis de diferencia)</p></li>
-<li class="fragment"><p>Las mujeres asisten más a la educación superior que los hombres (hipótesis direccional)</p></li>
+<li><p>El 20% de l_s chilen_s asiste a la educación superior (hipótesis puntual)</p></li>
+<li><p>Los hombres y las mujeres tienen un distinto porcentaje de acceso a la educación superior (hipótesis de diferencia)</p></li>
+<li><p>Las mujeres asisten más a la educación superior que los hombres (hipótesis direccional)</p></li>
 </ul></li>
 </ul>
 </section>
-<section id="datos" class="slide level2" style="font-size: 1.2em;">
-<h2>Datos</h2>
+<section id="datos" class="level2" style="font-size: 1.2em;">
+<h2 style="font-size: 1.2em;" class="anchored" data-anchor-id="datos">Datos</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">stargazer</span>(<span class="fu">as.data.frame</span>(casen2022_inf), <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stargazer</span>(<span class="fu">as.data.frame</span>(casen2022_inf), <span class="at">type =</span> <span class="st">"text"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 =========================================================
@@ -861,10 +970,10 @@ educacion 57,530   10.350       2.245      1       15
 </div>
 </div>
 </section>
-<section id="section-7" class="slide level2" style="font-size: 0.8em;">
-<h2></h2>
+<section id="section-7" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="section-7"></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">frq</span>(casen2022_inf<span class="sc">$</span>educacion)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(casen2022_inf<span class="sc">$</span>educacion)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>e6a_no_asiste. ¿Cuál es el nivel educacional más alto al cual asistió? (x) &lt;numeric&gt; 
 # total N=57530 valid N=57530 mean=10.35 sd=2.25
@@ -909,11 +1018,11 @@ Value |     N | Raw % | Valid % | Cum. %
 </div>
 </div>
 </section>
-<section id="variable-ed.-universitaria" class="slide level2" style="font-size: 0.85em;">
-<h2>Variable ed.&nbsp;universitaria</h2>
+<section id="variable-ed.-universitaria" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="variable-ed.-universitaria">Variable ed.&nbsp;universitaria</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>casen2022_inf<span class="sc">$</span>educ_sup <span class="ot">&lt;-</span> <span class="fu">rec</span>(casen2022_inf<span class="sc">$</span>educacion, <span class="at">rec =</span> <span class="st">"1:12=0;13:15=1"</span>, <span class="at">val.labels =</span> <span class="fu">c</span>(<span class="st">"Menos que universitaria"</span>, <span class="st">"Universitaria o más"</span>))</span>
-<span id="cb15-2"><a></a><span class="fu">frq</span>(casen2022_inf<span class="sc">$</span>educ_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>casen2022_inf<span class="sc">$</span>educ_sup <span class="ot">&lt;-</span> <span class="fu">rec</span>(casen2022_inf<span class="sc">$</span>educacion, <span class="at">rec =</span> <span class="st">"1:12=0;13:15=1"</span>, <span class="at">val.labels =</span> <span class="fu">c</span>(<span class="st">"Menos que universitaria"</span>, <span class="st">"Universitaria o más"</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">frq</span>(casen2022_inf<span class="sc">$</span>educ_sup)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>e6a_no_asiste. ¿Cuál es el nivel educacional más alto al cual asistió? (x) &lt;numeric&gt; 
 # total N=57530 valid N=57530 mean=0.25 sd=0.43
@@ -926,15 +1035,15 @@ Value |                   Label |     N | Raw % | Valid % | Cum. %
 </div>
 </div>
 </section>
-<section id="section-8" class="slide level2" style="font-size: 0.8em;">
-<h2></h2>
+<section id="section-8" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="section-8"></h2>
 <div class="columns">
 <div class="column" style="font-size: 0.8em;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjPlot)</span>
-<span id="cb17-2"><a></a>casen2022_inf <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a></a>  <span class="fu">sjtab</span>(educ_sup, sexo,</span>
-<span id="cb17-4"><a></a>  <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjPlot)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>casen2022_inf <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sjtab</span>(educ_sup, sexo,</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table style="border-collapse:collapse; border:none;">
  <tbody><tr>
@@ -983,30 +1092,34 @@ Value |                   Label |     N | Raw % | Valid % | Cum. %
 <div class="content-box-red" style="text-align: center;">
 <p><span style="color: #ffffff;">¿Es significativa esta diferencia?</span></p>
 </div>
-</div></div>
+</div>
+</div>
 <!--
 ver: http://www.sthda.com/english/wiki/two-proportions-z-test-in-r
 -->
 </section>
-<section id="diferencias-entre-proporciones" class="slide level2 scrollable" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
+<section id="diferencias-entre-proporciones" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones">Diferencias entre proporciones</h2>
 <ol type="1">
-<li class="fragment"><p>Establecer las hipótesis (y definir si son o no direccionales)</p></li>
-<li class="fragment"><p>Calcular error estándar</p></li>
-<li class="fragment"><p>Estimar estadístico de prueba (Z)</p></li>
-<li class="fragment"><p>Establecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza)</p></li>
-<li class="fragment"><p>Contraste e interpretación</p></li>
+<li><p>Establecer las hipótesis (y definir si son o no direccionales)</p></li>
+<li><p>Calcular error estándar</p></li>
+<li><p>Estimar estadístico de prueba (Z)</p></li>
+<li><p>Establecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza)</p></li>
+<li><p>Contraste e interpretación</p></li>
 </ol>
 </section>
-<section id="diferencias-entre-proporciones-1" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="establecer-las-hipótesis">1. Establecer las hipótesis</h3>
+<section id="diferencias-entre-proporciones-1" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-1">Diferencias entre proporciones</h2>
+<section id="establecer-las-hipótesis" class="level3">
+<h3 class="anchored" data-anchor-id="establecer-las-hipótesis">1. Establecer las hipótesis</h3>
 <p>¿Existen diferencias entre el porcentaje de mujeres y hombres con nivel educacional universitario?</p>
 <p><span class="math display">\[H_{a}: p_{mujeres} -  p_{hombres} \neq 0\]</span> <span class="math display">\[H_{0}: p_{mujeres} -  p_{hombres}= 0\]</span></p>
 </section>
-<section id="diferencias-entre-proporciones-2" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="cálculo-de-error-estándar-se">2. Cálculo de error estándar (SE)</h3>
+</section>
+<section id="diferencias-entre-proporciones-2" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-2">Diferencias entre proporciones</h2>
+<section id="cálculo-de-error-estándar-se" class="level3">
+<h3 class="anchored" data-anchor-id="cálculo-de-error-estándar-se">2. Cálculo de error estándar (SE)</h3>
 <p>El SE para una proporción es:</p>
 <p><span class="math display">\[SE_p=\sqrt{\frac{p(1-p)}{n}}\]</span></p>
 <p>Y para diferencia de proporciones:</p>
@@ -1015,8 +1128,9 @@ ver: http://www.sthda.com/english/wiki/two-proportions-z-test-in-r
 https://online.stat.psu.edu/stat415/lesson/9/9.4
 -->
 </section>
-<section id="estimación-de-error-estándar" class="slide level2" style="font-size: 0.8em;">
-<h2>Estimación de error estándar</h2>
+</section>
+<section id="estimación-de-error-estándar" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="estimación-de-error-estándar">Estimación de error estándar</h2>
 <p><span class="math display">\[
 \begin{align*}
 SE_{p_a - p_b}&amp;=\sqrt{\frac{p_a(1-p_a)}{n_a}+\frac{p_b(1-p_b)}{n_b}} \\\\
@@ -1025,32 +1139,39 @@ SE_{p_m - p_h}&amp;=\sqrt{\frac{0.209}{7603}+\frac{0.168}{6818}}=\sqrt{0.0000275
 \end{align*}
 \]</span></p>
 </section>
-<section id="diferencias-entre-proporciones-3" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="cálculo-de-estadístico-de-prueba">3. Cálculo de estadístico de prueba</h3>
+<section id="diferencias-entre-proporciones-3" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-3">Diferencias entre proporciones</h2>
+<section id="cálculo-de-estadístico-de-prueba" class="level3">
+<h3 class="anchored" data-anchor-id="cálculo-de-estadístico-de-prueba">3. Cálculo de estadístico de prueba</h3>
 <p>Para diferencia de proporciones se utiliza la prueba <span class="math inline">\(Z\)</span></p>
 <p><span class="math display">\[Z_{est}=\frac{p_m -  p_h}{SE_{p_m -p_h}}=\frac{0.083}{0.0072}=11.528\]</span></p>
 </section>
-<section id="diferencias-entre-proporciones-4" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="establecer-valor-crítico-de-prueba">4. Establecer valor crítico de prueba</h3>
+</section>
+<section id="diferencias-entre-proporciones-4" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-4">Diferencias entre proporciones</h2>
+<section id="establecer-valor-crítico-de-prueba" class="level3">
+<h3 class="anchored" data-anchor-id="establecer-valor-crítico-de-prueba">4. Establecer valor crítico de prueba</h3>
 <p>Y comparamos este valor con el Z crítico para un <span class="math inline">\(\alpha=0.05\)</span> de dos colas (porque es hipótesis de diferencia)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">qnorm</span>(<span class="at">p =</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> .<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.959964</code></pre>
 </div>
 </div>
 </section>
-<section id="diferencias-entre-proporciones-5" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="interpretación-1">5. Interpretación</h3>
+</section>
+<section id="diferencias-entre-proporciones-5" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-5">Diferencias entre proporciones</h2>
+<section id="interpretación-1" class="level3">
+<h3 class="anchored" data-anchor-id="interpretación-1">5. Interpretación</h3>
 <p>En este caso, nuestro <span class="math inline">\(Z_{est}=11.528 &gt; Z_{crít}=1.96\)</span>, por lo tanto se rechaza <span class="math inline">\(H_0\)</span></p>
 <p>La proporción de universitarias y universitarios es diferente, con un 95% de confianza</p>
 </section>
-<section id="diferencias-entre-proporciones-6" class="slide level2" style="font-size: 0.8em;">
-<h2>Diferencias entre proporciones</h2>
-<h3 id="construcción-intervalo-de-confianza">(6). Construcción intervalo de confianza</h3>
+</section>
+<section id="diferencias-entre-proporciones-6" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="diferencias-entre-proporciones-6">Diferencias entre proporciones</h2>
+<section id="construcción-intervalo-de-confianza" class="level3">
+<h3 class="anchored" data-anchor-id="construcción-intervalo-de-confianza">(6). Construcción intervalo de confianza</h3>
 <p>Para obtener un intervalo de confianza, a la diferencia de proporciones se le suman/restan errores estándar multiplicados por el valor Z crítico según nivel de confianza, en este caso <span class="math inline">\(\alpha/2=0.05/2\)</span> (prueba de dos colas)</p>
 <p><span class="math display">\[
 \begin{align*}
@@ -1062,13 +1183,14 @@ p_1 - p_2 &amp;\pm Z_{crit_{\alpha/2}}*SE_{p_a - p_b} \\
 <p><span class="math display">\[CI[0.07;0.09]\]</span></p>
 <p>Podemos entonces decir con un 95% de confianza que la diferencia de proporción de universitari_s entre hombres y mujeres se encuentra entre un 7% y un 9%</p>
 </section>
-<section id="estimación-directamente-en-r-con-prop.test" class="slide level2" style="font-size: 0.7em;">
-<h2>Estimación directamente en R con <code>prop.test</code></h2>
+</section>
+<section id="estimación-directamente-en-r-con-prop.test" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="estimación-directamente-en-r-con-prop.test">Estimación directamente en R con <code>prop.test</code></h2>
 <div class="columns">
 <div class="column" style="width:55%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>prop_dif <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">7603</span>, <span class="dv">6818</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">25610</span>, <span class="dv">31920</span>))</span>
-<span id="cb20-2"><a></a>prop_dif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>prop_dif <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">7603</span>, <span class="dv">6818</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">25610</span>, <span class="dv">31920</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>prop_dif</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>2-sample test for equality of proportions with continuity
     correction
@@ -1084,47 +1206,56 @@ sample estimates:
 </div><div class="column fragment" style="width:45%;">
 <p>Dos cosas importantes para reporte de este output:</p>
 <ul>
-<li class="fragment"><p>probabilidad de error p: si es menor al nivel de error especificado ( <span class="math inline">\(\alpha\)</span>), se rechaza la hipótesis nula. En este caso, las diferencias entre grupos son significativamente distintas de cero.</p></li>
-<li class="fragment"><p>el intervalo de confianza: rango de valores con un 95% de confianza para la diferencia estimada.</p></li>
+<li><p>probabilidad de error p: si es menor al nivel de error especificado ( <span class="math inline">\(\alpha\)</span>), se rechaza la hipótesis nula. En este caso, las diferencias entre grupos son significativamente distintas de cero.</p></li>
+<li><p>el intervalo de confianza: rango de valores con un 95% de confianza para la diferencia estimada.</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="hipótesis-direccionales-de-proporciones" class="slide level2" style="font-size: 0.8em;">
-<h2>Hipótesis direccionales de proporciones</h2>
-<h3 id="paso-1-hipótesis">Paso 1: hipótesis</h3>
+<section id="hipótesis-direccionales-de-proporciones" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="hipótesis-direccionales-de-proporciones">Hipótesis direccionales de proporciones</h2>
+<section id="paso-1-hipótesis" class="level3">
+<h3 class="anchored" data-anchor-id="paso-1-hipótesis">Paso 1: hipótesis</h3>
 <p>¿Es superior la proporción de mujeres con educación superior?</p>
 <p>En este caso,</p>
 <p><span class="math display">\[H_{0}: p_{mujeres} \leq  p_{hombres}\]</span></p>
 <p>En relación a la siguiente hipótesis alternativa:</p>
 <p><span class="math display">\[H_{a}: p_{mujeres} \gt  p_{hombres}\]</span></p>
 </section>
-<section id="hipótesis-direccionales-de-proporciones-1" class="slide level2" style="font-size: 0.8em;">
-<h2>Hipótesis direccionales de proporciones</h2>
-<h3 id="paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales">Paso 2 (SE) y 3 (estadístico de prueba) igual que para hipótesis no direccionales</h3>
 </section>
-<section id="hipótesis-direccionales-de-proporciones-2" class="slide level2" style="font-size: 0.8em;">
-<h2>Hipótesis direccionales de proporciones</h2>
-<h3 id="paso-4-valor-crítico-de-prueba">Paso 4: Valor crítico de prueba</h3>
+<section id="hipótesis-direccionales-de-proporciones-1" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="hipótesis-direccionales-de-proporciones-1">Hipótesis direccionales de proporciones</h2>
+<section id="paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales" class="level3">
+<h3 class="anchored" data-anchor-id="paso-2-se-y-3-estadístico-de-prueba-igual-que-para-hipótesis-no-direccionales">Paso 2 (SE) y 3 (estadístico de prueba) igual que para hipótesis no direccionales</h3>
+</section>
+</section>
+<section id="hipótesis-direccionales-de-proporciones-2" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="hipótesis-direccionales-de-proporciones-2">Hipótesis direccionales de proporciones</h2>
+<section id="paso-4-valor-crítico-de-prueba" class="level3">
+<h3 class="anchored" data-anchor-id="paso-4-valor-crítico-de-prueba">Paso 4: Valor crítico de prueba</h3>
 <p>Valor crítico de Z para una cola</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">qnorm</span>(<span class="at">p =</span> .<span class="dv">05</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qnorm</span>(<span class="at">p =</span> .<span class="dv">05</span>, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1.644854</code></pre>
 </div>
 </div>
 </section>
-<section id="hipótesis-direccionales-de-proporciones-3" class="slide level2" style="font-size: 0.8em;">
-<h2>Hipótesis direccionales de proporciones</h2>
-<h3 id="paso-5-interpretación">Paso 5: Interpretación</h3>
+</section>
+<section id="hipótesis-direccionales-de-proporciones-3" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="hipótesis-direccionales-de-proporciones-3">Hipótesis direccionales de proporciones</h2>
+<section id="paso-5-interpretación" class="level3">
+<h3 class="anchored" data-anchor-id="paso-5-interpretación">Paso 5: Interpretación</h3>
 <p>Valor crítico se compara con el valor estimado de Z para la diferencia de proporciones,</p>
 <p>En este caso, <span class="math display">\[Z_{est}=11.528 \gt Z_{crít}=1.644\]</span></p>
 <p>Por lo tanto se rechaza <span class="math inline">\(H_0\)</span>, con un 95% de confianza podemos decir que la proporción de mujeres universitarias es mayor en mujeres que en hombres.</p>
 </section>
-<section id="estimación-directamente-en-r-con-prop.test-1" class="slide level2" style="font-size: 0.7em;">
-<h2>Estimación directamente en R con <code>prop.test</code></h2>
+</section>
+<section id="estimación-directamente-en-r-con-prop.test-1" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="estimación-directamente-en-r-con-prop.test-1">Estimación directamente en R con <code>prop.test</code></h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a>prop_greater <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">7603</span>, <span class="dv">6818</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">25610</span>, <span class="dv">31920</span>), <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
-<span id="cb24-2"><a></a>prop_greater</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>prop_greater <span class="ot">&lt;-</span> <span class="fu">prop.test</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">7603</span>, <span class="dv">6818</span>), <span class="at">n =</span> <span class="fu">c</span>(<span class="dv">25610</span>, <span class="dv">31920</span>), <span class="at">alternative =</span> <span class="st">"greater"</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>prop_greater</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <pre><code>    2-sample test for equality of proportions with continuity
     correction
@@ -1138,8 +1269,8 @@ sample estimates:
    prop 1    prop 2
 0.2968762 0.2135965</code></pre>
 </section>
-<section id="visualización-interactiva-prueba-de-diferencia-de-proporciones" class="slide level2" style="font-size: 0.8em;">
-<h2>Visualización interactiva: prueba de diferencia de proporciones</h2>
+<section id="visualización-interactiva-prueba-de-diferencia-de-proporciones" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="visualización-interactiva-prueba-de-diferencia-de-proporciones">Visualización interactiva: prueba de diferencia de proporciones</h2>
 <div class="pp-widget" style="font-size: 0.5em; color: #222; line-height: 1.4;">
   <div style="display:flex; gap:2em; flex-wrap:wrap; align-items:center; margin-bottom:0.4em;">
     <label>p1: <input type="range" id="pp-p1" min="0.01" max="0.99" step="0.001" value="0.297" style="vertical-align:middle;"> <span id="pp-p1-val">0.297</span></label>
@@ -1324,32 +1455,32 @@ sample estimates:
 })();
 </script>
 </section>
-<section id="resumen-de-inferencia" class="slide level2">
-<h2>Resumen de inferencia</h2>
+<section id="resumen-de-inferencia" class="level2">
+<h2 class="anchored" data-anchor-id="resumen-de-inferencia">Resumen de inferencia</h2>
 <ul>
-<li class="fragment">La inferencia estadística permite sacar conclusiones sobre una población a partir de una muestra.</li>
-<li class="fragment">Se basa en un contraste de hipótesis, que puede ser direccional o no direccional.</li>
-<li class="fragment">La lógica de falsación busca rechazar la hipótesis nula, y se basa en el cálculo de un estadístico de prueba y su comparación con un valor crítico.</li>
+<li>La inferencia estadística permite sacar conclusiones sobre una población a partir de una muestra.</li>
+<li>Se basa en un contraste de hipótesis, que puede ser direccional o no direccional.</li>
+<li>La lógica de falsación busca rechazar la hipótesis nula, y se basa en el cálculo de un estadístico de prueba y su comparación con un valor crítico.</li>
 </ul>
-</section></section>
-<section>
-<section id="section-9" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
-<p><br></p>
 </section>
+</section>
+<section id="section-9" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional-1" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -1358,470 +1489,842 @@ sample estimates:
 <span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
 <span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</section>
 </div>
 </div>
+
 
 </section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
-<div class="footer footer-default">
 
-</div>
-</div></div>
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+  <i class="bi bi-chevron-left"></i>
+</button>
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <script>
+  /* ========================================================
+     ELEMENTOS
+     ======================================================== */
 
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
- 
-        // Display controls in the bottom right corner
-        controls: false,
+  const pathname = window.location.pathname;
 
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+  const esPracticos =
+    /\/assignment(?:\/|$)/.test(pathname);
 
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
+  /*
+   * Detecta específicamente:
+   *
+   * /assignment
+   * /assignment/
+   * /assignment/index.html
+   */
+  const esPaginaPrincipalPracticos =
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
 
-        // Display a presentation progress bar
-        progress: true,
+  const boton =
+    document.getElementById("practicos-sidebar-toggle");
 
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
+  const zona =
+    document.getElementById("practicos-sidebar-hover-zone");
 
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
+  const sidebar =
+    document.getElementById("quarto-sidebar");
 
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
 
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
+  if (!esPracticos || !sidebar || !boton || !zona) {
 
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
+    if (boton) {
+      boton.style.display = "none";
+    }
 
-        // Push each slide change to the browser history
-        history: true,
+    if (zona) {
+      zona.style.display = "none";
+    }
 
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
+    return;
+  }
 
-        // Enable the slide overview mode
-        overview: true,
 
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
+  const body = document.body;
 
-        // Vertical centering of slides
-        center: false,
+  let abiertoTemporalmente = false;
+  let temporizadorCierre = null;
 
-        // Enables touch navigation on devices with touch input
-        touch: true,
 
-        // Loop the presentation
-        loop: false,
+  /* ========================================================
+     POSICIÓN DE LA PESTAÑITA
+     ======================================================== */
 
-        // Change the presentation direction to be RTL
-        rtl: false,
+  function actualizarPosicion() {
 
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
 
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
+    if (cerrado) {
 
-        // Turns fragments on and off globally
-        fragments: true,
+      /*
+       * Menú cerrado:
+       * la pestañita queda en el borde izquierdo.
+       */
+      boton.style.left = "0px";
 
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
+    } else {
 
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
+      /*
+       * Usamos offsetWidth para que la posición
+       * no dependa de la animación del sidebar.
+       */
+      const anchoSidebar = sidebar.offsetWidth;
 
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
+      boton.style.left =
+        (anchoSidebar - 2) + "px";
+    }
+  }
 
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
 
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+  /* ========================================================
+     ACTUALIZAR ICONO
+     ======================================================== */
 
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
+  function mostrarIconoAbierto() {
 
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-left"></i>';
 
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
+    boton.setAttribute(
+      "aria-label",
+      "Ocultar menú de prácticos"
+    );
 
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
+    boton.title =
+      "Ocultar menú";
+  }
 
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
 
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
+  function mostrarIconoCerrado() {
 
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-right"></i>';
 
-        // The display mode that will be used to show slides
-        display: 'block',
+    boton.setAttribute(
+      "aria-label",
+      "Mostrar menú de prácticos"
+    );
 
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
+    boton.title =
+      "Mostrar menú";
+  }
 
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
 
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
+  /* ========================================================
+     MOSTRAR SIDEBAR
+     ======================================================== */
 
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+  function mostrarSidebar(temporal = false) {
 
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'slow',
+    clearTimeout(temporizadorCierre);
 
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+    body.classList.remove(
+      "practicos-sidebar-cerrado"
+    );
 
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
+    mostrarIconoAbierto();
 
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
+    abiertoTemporalmente = temporal;
 
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
 
-        height: 700,
 
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+  /* ========================================================
+     OCULTAR SIDEBAR
+     ======================================================== */
 
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
+  function ocultarSidebar(guardar = false) {
 
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+    clearTimeout(temporizadorCierre);
 
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+    body.classList.add(
+      "practicos-sidebar-cerrado"
+    );
+
+    mostrarIconoCerrado();
+
+    abiertoTemporalmente = false;
+
+    if (guardar) {
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "cerrado"
+      );
+    }
+
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
+
+
+  /* ========================================================
+     CLICK EN LA PESTAÑITA
+     ======================================================== */
+
+  boton.addEventListener("click", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    /*
+     * Si está cerrado:
+     * un clic lo abre permanentemente.
+     */
+    if (cerrado) {
+
+      mostrarSidebar(false);
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "abierto"
+      );
+
+    } else {
+
+      /*
+       * Si está visible, un solo clic lo cierra,
+       * independientemente de si se abrió por
+       * hover o normalmente.
+       */
+      ocultarSidebar(true);
+    }
+
+  });
+
+
+  /* ========================================================
+     HOVER EN EL BORDE IZQUIERDO
+     ======================================================== */
+
+  zona.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    if (cerrado) {
+
+      /*
+       * Mostrar temporalmente sin modificar
+       * la preferencia guardada.
+       */
+      mostrarSidebar(true);
+    }
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     SALIR DEL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseleave", function () {
+
+    /*
+     * Solo cerrar automáticamente si se abrió
+     * mediante hover.
+     */
+    if (!abiertoTemporalmente) {
+      return;
+    }
+
+    temporizadorCierre =
+      setTimeout(function () {
+
+        ocultarSidebar(false);
+
+      }, 500);
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL BOTÓN
+     ======================================================== */
+
+  boton.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     ESTADO INICIAL
+     ======================================================== */
+
+  /*
+   * PORTADA DE PRÁCTICOS
+   *
+   * Siempre comienza desplegada cada vez
+   * que se entra o recarga la página.
+   *
+   * Aun así, después de cargarla el usuario
+   * puede plegarla normalmente.
+   */
+  if (esPaginaPrincipalPracticos) {
+
+    mostrarSidebar(false);
+
+  } else {
+
+    /*
+     * En los prácticos individuales sí respetamos
+     * el estado que dejó anteriormente el usuario.
+     */
+    const estadoGuardado =
+      localStorage.getItem(
+        "practicos-sidebar"
+      );
+
+    if (estadoGuardado === "cerrado") {
+
+      ocultarSidebar(false);
+
+    } else {
+
+      mostrarSidebar(false);
+    }
+  }
+
+
+  /* ========================================================
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+     ======================================================== */
+
+  window.addEventListener(
+    "resize",
+    actualizarPosicion
+  );
+
+
+  /* ========================================================
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+     ======================================================== */
+
+  sidebar.addEventListener(
+    "transitionend",
+    actualizarPosicion
+  );
+
+
+  /*
+   * También esperamos el cambio de la
+   * grilla de Quarto.
+   */
+  const contenido =
+    document.getElementById("quarto-content");
+
+  if (contenido) {
+
+    contenido.addEventListener(
+      "transitionend",
+      actualizarPosicion
+    );
+  }
+
+
+  /* ========================================================
+     AJUSTE FINAL DESPUÉS DE CARGAR
+     ======================================================== */
+
+  requestAnimationFrame(function () {
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+  });
+
+});
+</script>
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
       });
-    </script>
-    
+    }
 
-    <script>
+  })();
+</script>
 
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
         }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-
-    
-
-      })();
-
-    </script>
-
-    
-
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
 
 </body></html>

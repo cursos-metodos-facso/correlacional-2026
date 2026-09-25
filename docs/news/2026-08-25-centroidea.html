@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Grupo de Estudio Correlacional Centro IDEA – Estadística Correlacional</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -36,14 +33,15 @@ ul.task-list li input[type="checkbox"] {
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-628f9a5d31c3ee493bf57b721354c864.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6357a59cc198ef7ef3c751a17518a47f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -89,6 +87,8 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -193,750 +193,377 @@ ul.task-list li input[type="checkbox"] {
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
