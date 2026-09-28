@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.38">
 
   <title>Estadística Correlacional – bivariada2</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -17,6 +17,9 @@
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
   <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -95,7 +98,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-db38453fddc50d20cddc072c985e9613.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3ef9c4146380ba388b3aa79dcf52e29f.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -189,7 +192,9 @@
     }
   </style>
   <script src="../site_libs/kePrint-0.0.1/kePrint.js"></script>
+
   <link href="../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
 <meta property="og:title" content="Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
@@ -254,7 +259,7 @@
 <div class="column" style="font-size: 0.7em;">
 <div class="cell">
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th style="text-align: right;" data-quarto-table-cell-role="th">id</th>
@@ -411,7 +416,7 @@
 <div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:550px; overflow-x: scroll; width:500px; ">
-<table class="caption-top" data-quarto-postprocess="true">
+<table class="caption-top">
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th" style="text-align: right; position: sticky; top: 0; background-color: #FFFFFF;">educ</th>
@@ -487,15 +492,15 @@
 <p><span class="math display">\[r=\frac{\sum(x-\bar{x})(y-\bar{y})}{\sqrt{\sum(x-\bar{x})^{2} \sum(y-\bar{y})^{2}}}\]</span></p>
 <div style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_xy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_xy)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 51.625</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_m_educ2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_m_educ2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 36.875</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_m_ing2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">sum</span>(data<span class="sc">$</span>dif_m_ing2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 79.875</code></pre>
 </div>
@@ -519,7 +524,7 @@ r &amp;= \frac{\sum(x-\bar{x})(y-\bar{y})}{\sqrt{\sum(x-\bar{x})^{2} \sum(y-\bar
 <div style="font-size: 1.3em;">
 <p>En R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(data<span class="sc">$</span>educ,data<span class="sc">$</span>ing)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor</span>(data<span class="sc">$</span>educ,data<span class="sc">$</span>ing)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9512367</code></pre>
 </div>
@@ -558,9 +563,9 @@ r &amp;= \frac{\sum(x-\bar{x})(y-\bar{y})}{\sqrt{\sum(x-\bar{x})^{2} \sum(y-\bar
 <div style="font-size: 1.3em;">
 <p>Simulamos dos variables: edad, y puntaje en escala de izquierda (1) - derecha (10):</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>edad <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">25</span>,<span class="dv">40</span>,<span class="dv">55</span>,<span class="dv">70</span>, <span class="dv">82</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a>edad <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">18</span>,<span class="dv">25</span>,<span class="dv">40</span>,<span class="dv">55</span>,<span class="dv">70</span>, <span class="dv">82</span>)</span>
 <span id="cb9-2"><a></a>iz_der <span class="ot">&lt;-</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">9</span>,<span class="dv">5</span>,<span class="dv">7</span>)</span>
-<span id="cb9-3"><a></a><span class="fu">cor</span>(edad,iz_der)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a></a><span class="fu">cor</span>(edad,iz_der)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5070278</code></pre>
 </div>
@@ -572,13 +577,13 @@ r &amp;= \frac{\sum(x-\bar{x})(y-\bar{y})}{\sqrt{\sum(x-\bar{x})^{2} \sum(y-\bar
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>plot1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(,</span>
 <span id="cb11-2"><a></a>  <span class="fu">aes</span>(<span class="at">x=</span>edad, <span class="at">y=</span>iz_der)) <span class="sc">+</span></span>
 <span id="cb11-3"><a></a>  <span class="fu">geom_point</span>(</span>
 <span id="cb11-4"><a></a>    <span class="at">colour =</span> <span class="st">"red"</span>,</span>
 <span id="cb11-5"><a></a>    <span class="at">size =</span> <span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb11-6"><a></a>  <span class="fu">theme</span>(<span class="at">text =</span></span>
-<span id="cb11-7"><a></a>    <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-7"><a></a>    <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:50%;">
 <div class="cell">
@@ -635,9 +640,9 @@ t_r&amp;=\frac{r}{SE_r} \\\\
 </ul>
 </div><div class="fragment column" style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">qt</span>(<span class="at">p=</span>.<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="fu">qt</span>(<span class="at">p=</span>.<span class="dv">05</span><span class="sc">/</span><span class="dv">2</span>,</span>
 <span id="cb12-2"><a></a>   <span class="at">df=</span><span class="dv">4</span>,</span>
-<span id="cb12-3"><a></a>   <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="co"># bidireccional</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-3"><a></a>   <span class="at">lower.tail=</span><span class="cn">FALSE</span>) <span class="co"># bidireccional</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2.776445</code></pre>
 </div>
@@ -658,7 +663,7 @@ t_r&amp;=\frac{r}{SE_r} \\\\
 <section id="en-r" class="slide level2">
 <h2>En R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">cor.test</span>(iz_der,edad)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">cor.test</span>(iz_der,edad)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's product-moment correlation
@@ -751,13 +756,13 @@ sample estimates:
 <div class="fragment">
 <div style="font-size: 1.1em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(edad, iz_der)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(edad, iz_der)</span>
 <span id="cb16-2"><a></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(edad)</span>
 <span id="cb16-3"><a></a>z <span class="ot">&lt;-</span> <span class="fu">atanh</span>(r)</span>
 <span id="cb16-4"><a></a>se_z <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">/</span><span class="fu">sqrt</span>(n<span class="dv">-3</span>)</span>
 <span id="cb16-5"><a></a>crit <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)</span>
 <span id="cb16-6"><a></a>ci_z <span class="ot">&lt;-</span> z <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span>crit<span class="sc">*</span>se_z</span>
-<span id="cb16-7"><a></a><span class="fu">tanh</span>(ci_z)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-7"><a></a><span class="fu">tanh</span>(ci_z)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.5174601  0.9341863</code></pre>
 </div>
@@ -772,7 +777,7 @@ sample estimates:
 <p>En R, <code>cor.test()</code> entrega directamente el intervalo de confianza (ya calculado con la transformación de Fisher):</p>
 <div style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">cor.test</span>(iz_der, edad)<span class="sc">$</span>conf.int</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">cor.test</span>(iz_der, edad)<span class="sc">$</span>conf.int</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] -0.5174601  0.9341863
 attr(,"conf.level")
@@ -838,7 +843,7 @@ attr(,"conf.level")
 <div class="column" style="width:50%;">
 <div style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ing <span class="sc">~</span> educ, <span class="at">data=</span>data)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a>reg1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(ing <span class="sc">~</span> educ, <span class="at">data=</span>data)</span>
 <span id="cb20-2"><a></a>data<span class="sc">$</span>predict <span class="ot">&lt;-</span><span class="fu">predict.lm</span>(reg1)</span>
 <span id="cb20-3"><a></a></span>
 <span id="cb20-4"><a></a>plot2 <span class="ot">&lt;-</span><span class="fu">ggplot</span>(data,</span>
@@ -849,13 +854,13 @@ attr(,"conf.level")
 <span id="cb20-9"><a></a>  <span class="fu">theme</span>(<span class="at">text =</span></span>
 <span id="cb20-10"><a></a>    <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">20</span>))<span class="sc">+</span></span>
 <span id="cb20-11"><a></a>  <span class="fu">stat_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>,</span>
-<span id="cb20-12"><a></a>    <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">fullrange =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-12"><a></a>    <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">fullrange =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div><div class="column" style="width:50%;">
 <div style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>plot2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a>plot2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -900,11 +905,11 @@ SS_{tot}&amp;=SS_{reg} + SS_{error} \\
 <p>Por lo tanto, en nuestro ejemplo:</p>
 <div style="font-size: 1.3em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">cor</span>(edad,iz_der)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">cor</span>(edad,iz_der)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.5070278</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">cor</span>(edad,iz_der)<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="fu">cor</span>(edad,iz_der)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.2570772</code></pre>
 </div>
@@ -1181,7 +1186,7 @@ R^2&amp;= 0.25
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1208,42 +1213,80 @@ R^2&amp;= 0.25
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1293,13 +1336,14 @@ R^2&amp;= 0.25
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
