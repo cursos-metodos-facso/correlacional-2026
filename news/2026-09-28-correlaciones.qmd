@@ -1,0 +1,69 @@
+---
+title: "Visualización Interactiva: Interpretando Correlaciones"
+date: "2026-09-28"
+categories: [info, recursos]
+image: /news/images/r_social.png
+description: "Visualización interactiva de correlación, varianza compartida y test de hipótesis en correlación"
+---
+<style>
+.platform-access {
+  margin: 1.75rem 0;
+  text-align: center;
+}
+
+.course-resource-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  background: var(--bs-primary, #1f5f8b);
+  color: #ffffff !important;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none !important;
+  transition:
+    filter 0.2s ease,
+    transform 0.2s ease;
+}
+
+.course-resource-button:hover {
+  filter: brightness(0.92);
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.course-resource-button:focus-visible {
+  outline: 3px solid var(--bs-primary, #1f5f8b);
+  outline-offset: 3px;
+}
+
+@media (max-width: 576px) {
+  .course-resource-button {
+    width: 100%;
+  }
+}
+</style>
+
+![Interpretando Correlaciones](images/interpretando-correlaciones.png){.news-main-image}
+
+En este post podrán encontrar la visualización interactiva *Interpretando Correlaciones*, presentada en la clase lectiva del 28 de septiembre. A través del visualizador pueden explorar de forma gráfica cómo interactúan el coeficiente de correlación de Pearson, el tamaño muestral y el nivel de confianza, y cómo esto afecta la interpretación del coeficiente.
+
+En el primer panel podrán observar la nube de puntos generada a partir del tamaño muestral y el *r* de Pearson seleccionados. En el segundo panel, en tanto, podrán revisar información sobre la magnitud del coeficiente, el estadístico *t* y el valor *p*. Asimismo, se muestra una representación gráfica de la varianza compartida entre *x* e *y*, que corresponde al $r^2$.
+
+<iframe src="https://gabcortes97.github.io/correlacion/significancia-correlacion.html"
+        width="100%" height="900" style="border: none;"
+        title="Visualizador: significancia de la correlación"
+        loading="lazy"></iframe>
+
+<div class="platform-access">
+
+  <a href="https://gabcortes97.github.io/correlacion/significancia-correlacion.html"
+     class="course-resource-button"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Abrir el visualizador en una nueva pestaña">
+    Abrir visualizador en pantalla completa →
+  </a>
+
+</div>
