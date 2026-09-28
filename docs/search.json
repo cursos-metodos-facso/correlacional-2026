@@ -3064,14 +3064,14 @@
     "href": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación",
     "title": "Estadística Correlacional",
     "section": "c) Intervalos de confianza en correlación",
-    "text": "c) Intervalos de confianza en correlación\n\n\n\nEl coeficiente \\(r\\) no se distribuye de forma normal, especialmente cuando su valor se acerca a \\(\\pm1\\)\n\n\nSolución: la transformación z de Fisher, que normaliza la distribución de \\(r\\)\n\\[z'=\\frac{1}{2}\\ln\\left(\\frac{1+r}{1-r}\\right)\\] \\[SE_{z'}=\\frac{1}{\\sqrt{n-3}}\\]\n\n\n\nSe construye el intervalo en la escala \\(z'\\) y luego se transforma de vuelta a la escala de \\(r\\):\n\\[r=\\frac{e^{2z}-1}{e^{2z}+1}\\]\n\n\n\n\nr &lt;- cor(edad, iz_der)\nn &lt;- length(edad)\nz &lt;- atanh(r)\nse_z &lt;- 1/sqrt(n-3)\ncrit &lt;- qnorm(0.975)\nci_z &lt;- z + c(-1,1)*crit*se_z\ntanh(ci_z)\n\n[1] -0.5174601  0.9341863"
+    "text": "c) Intervalos de confianza en correlación\n\nEl coeficiente \\(r\\) no se distribuye de forma normal, especialmente cuando su valor se acerca a \\(\\pm1\\)\nAl estar limitado entre valores (-1 y 1), en la medida que se acerca a |1| , la distribución se vuelve asimétrica y sesgada"
   },
   {
     "objectID": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-1",
     "href": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-1",
     "title": "Estadística Correlacional",
     "section": "c) Intervalos de confianza en correlación",
-    "text": "c) Intervalos de confianza en correlación\n\nEn R, cor.test() entrega directamente el intervalo de confianza (ya calculado con la transformación de Fisher):\n\n\ncor.test(iz_der, edad)$conf.int\n\n[1] -0.5174601  0.9341863\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\n\n\nInterpretación: con un 95% de confianza, el verdadero valor de la correlación poblacional entre edad y orientación izquierda-derecha se encuentra en este intervalo, el cual incluye el cero, consistente con la prueba de hipótesis anterior"
+    "text": "c) Intervalos de confianza en correlación\n\n\n\nSolución: la transformación z de Fisher, que normaliza la distribución de \\(r\\)\n\\[z'=\\frac{1}{2}\\ln\\left(\\frac{1+r}{1-r}\\right)\\] \\[SE_{z'}=\\frac{1}{\\sqrt{n-3}}\\]\n\n\n\nSe construye el intervalo en la escala \\(z'\\) y luego se transforma de vuelta a la escala de \\(r\\):\n\\[r=\\frac{e^{2z}-1}{e^{2z}+1}\\]\n\n\n\n\nr &lt;- cor(edad, iz_der)\nn &lt;- length(edad)\nz &lt;- atanh(r)\nse_z &lt;- 1/sqrt(n-3)\ncrit &lt;- qnorm(0.975)\nci_z &lt;- z + c(-1,1)*crit*se_z\ntanh(ci_z)\n\n[1] -0.5174601  0.9341863"
   },
   {
     "objectID": "slides/09-bivariada2.html#section-8",
@@ -3247,5 +3247,12 @@
     "title": "Programa",
     "section": "Programación de sesiones",
     "text": "Programación de sesiones\nVisitar la página de Planificación."
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-2",
+    "href": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-2",
+    "title": "Estadística Correlacional",
+    "section": "c) Intervalos de confianza en correlación",
+    "text": "c) Intervalos de confianza en correlación\n\nEn R, cor.test() entrega directamente el intervalo de confianza (ya calculado con la transformación de Fisher):\n\n\ncor.test(iz_der, edad)$conf.int\n\n[1] -0.5174601  0.9341863\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\n\n\nInterpretación: con un 95% de confianza, el verdadero valor de la correlación poblacional entre edad y orientación izquierda-derecha se encuentra en este intervalo, el cual incluye el cero, consistente con la prueba de hipótesis anterior"
   }
 ]

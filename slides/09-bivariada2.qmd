@@ -541,12 +541,17 @@ $$SE_r=\sqrt{\frac{1-r^{2}}{n-2}}$$
 
 ## c) Intervalos de confianza en correlación {style="font-size: 0.7em;"}
 
+- El coeficiente $r$ **no** se distribuye de forma normal, especialmente cuando su valor se acerca a $\pm1$
+
+- Al estar limitado entre valores (-1 y 1), en la medida que se acerca a |1| , la distribución se vuelve asimétrica y sesgada
+
+![](https://blogs.sas.com/content/iml/files/2024/02/CorrDist1.png){fig-align="center"}
+
+
+## c) Intervalos de confianza en correlación {style="font-size: 0.7em;"}
+
 :::: {.columns}
 ::: {.column width="50%"}
-
-::: {.fragment}
-El coeficiente $r$ **no** se distribuye de forma normal, especialmente cuando su valor se acerca a $\pm1$
-:::
 
 ::: {.fragment}
 Solución: la **transformación z de Fisher**, que normaliza la distribución de $r$
@@ -583,6 +588,7 @@ tanh(ci_z)
 
 :::
 ::::
+
 
 ## c) Intervalos de confianza en correlación {style="font-size: 0.75em;"}
 
