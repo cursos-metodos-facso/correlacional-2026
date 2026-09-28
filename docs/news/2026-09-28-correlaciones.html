@@ -41,7 +41,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57aea3e77703211fcfdb7b4c4cf603e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-6357a59cc198ef7ef3c751a17518a47f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -257,7 +257,7 @@ window.Quarto = {
 </figure>
 </div>
 <p>En este post podrán encontrar la visualización interactiva <em>Interpretando Correlaciones</em>, presentada en la clase lectiva del 28 de septiembre. A través del visualizador pueden explorar de forma gráfica cómo interactúan el coeficiente de correlación de Pearson, el tamaño muestral y el nivel de confianza, y cómo esto afecta la interpretación del coeficiente.</p>
-<p>En el primer panel podrán observar la nube de puntos generada a partir del tamaño muestral y el <em>r</em> de Pearson seleccionados. En el segundo panel, en tanto, podrán revisar información sobre la magnitud del coeficiente, el estadístico <em>t</em> y el valor <em>p</em>. Asimismo, se muestra una representación gráfica de la varianza compartida entre <em>x</em> e <em>y</em>, calculada como <span class="math inline">\(r^2\)</span>.</p>
+<p>En el primer panel podrán observar la nube de puntos generada a partir del tamaño muestral y el <em>r</em> de Pearson seleccionados. En el segundo panel, en tanto, podrán revisar información sobre la magnitud del coeficiente, el estadístico <em>t</em> y el valor <em>p</em>. Asimismo, se muestra una representación gráfica de la varianza compartida entre <em>x</em> e <em>y</em>, que corresponde al <span class="math inline">\(r^2\)</span>.</p>
 <iframe src="https://gabcortes97.github.io/correlacion/significancia-correlacion.html" width="100%" height="900" style="border: none;" title="Visualizador: significancia de la correlación" loading="lazy">
 </iframe>
 <div class="platform-access">
@@ -269,750 +269,377 @@ window.Quarto = {
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

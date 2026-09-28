@@ -221,23 +221,23 @@ fmt_signo <- function(x, digits = 1) {
 
 </div>
 
-## Objetivo de la sesión {.unnumbered}
-
+## Objetivo de la sesión 
+                                                                                                          
 Este práctico tiene como objetivo aprender una serie de criterios para estudiar la asociación entre dos variables mediante R. Considerando esto, la sesión se compone de cuatro objetivos específicos:
 
 - Repasar los fundamentos de la correlación de Pearson
 
 - Aprender los criterios de Cohen para tamaños de efecto
 
-- Aplicar pruebas de hipótesis en correlación
-
 - Entender cómo estimar e interpretar el Coeficiente de determinación ($R^{2}$)
+
+- Aplicar pruebas de hipótesis en correlación
 
 ## Correlación de Pearson
 
 Recordemos que la Correlación de Pearson ($r$) es un **valor numérico** que representa la **asociación lineal entre dos variables**. Algunas de sus propiedades son:
 
-1) _**Valor estandarizado**_: la correlación no considera las unidades de medidas originales de las variables, pues está construida en una **escala común** (lo cual facilita su interpretación)
+1) _**Valor estandarizado**_: la correlación no considera las unidades de medidas originales de las variables, pues está construida en una **escala común** que varía entre -1 y 1 (lo cual facilita su interpretación)
 
 2) _**Direccionalidad**_: una correlación **siempre** presenta alguna dirección, ya sea negativa o positiva. El rango de valores varía entre -1 y +1   
 
@@ -301,7 +301,7 @@ Para este práctico utilizaremos 5 variables:
 set.seed(2026)  # Hace que todas y todos obtengamos los mismos casos
 
 datos <- casen_2024 |>                                # Partimos desde la base oficial
-  filter(edad > 18) |>                                 # Solo personas mayores de 18 años
+  filter(edad >= 18) |>                                 # Solo personas mayores de 18 años
   transmute(                                           # Conservamos y renombramos tres variables
     escolaridad = haven::zap_labels(esc),
     metros_vivienda = haven::zap_labels(v12mt),             # Años de escolaridad
@@ -410,6 +410,20 @@ cor(datos$edad,
 
 La función `cor` **sólo** permite estimar la asociación entre **dos** variables. Existen formas de observar la correlación entre una mayor cantidad de variables, pero lo veremos en las próximas sesiones
 
+
+::: {.callout-tip}
+
+Para aprender sobre los argumentos que pueden utilizar ciertas funciones y más detalles, pueden utilizar la función `help`. Por ejemplo, para saber más sobre la función `cor`:
+
+```{r}
+#| eval: false
+
+help(cor)
+```
+
+:::
+
+
 Volvamos al ejercicio. Tenemos la correlación de Pearson entre la edad y el ingreso laboral mensual de nuestra muestra:
 
 ```{r}
@@ -422,7 +436,7 @@ cor(datos$edad,
 
 ::: {.callout-warning title="Interpretación"}
 
-A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.05**, presentando una dirección negativa. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen
+A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.05**, presentando una dirección negativa. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen. Más adelante hablaremos sobre la magnitud de la correlación.
 
 :::
 
@@ -430,11 +444,14 @@ Dependiendo del signo de la correlación, la lógica de asociación entre variab
 
 | Signo de la asociación | Tipo de asociación | Interpretación |
 |---|---|---|
-| Positivo (+) | Directa | Si una variable aumenta, la otra también |
-| Negativo (-) | Inversa | Si una variable aumenta, la otra disminuye |
+| Positivo (+) | Directa | Si una variable tiende a aumentar, la otra también |
+| Negativo (-) | Inversa | Si una variable tiende a aumentar, la otra disminuye |
 
+## Magnitud de la correlación
 
-## Criterios de magnitud
+Ahora profundizaremos en dos puntos que nos permiten interpretar una correlación: el tamaño de efecto **(1)** y el coeficiente de determinación **(2)**.
+
+### Criterios de magnitud
 
 Ya sabemos cómo interpretar una correlación en términos de su direccionalidad, pero ¿podemos decir algo sobre su efecto? 
 
@@ -491,13 +508,37 @@ A partir de la submuestra de la CASEN 2024, se pudo observar que correlación en
 :::
 
 
+### Coeficiente de determinación
+
+A lo largo del práctico hemos profundizado en cómo estudiar la correlación entre dos variables, cuyo valor se desprende de la covarianza. Entonces, siguiendo el ejemplo de asociación entre los años de escolaridad y el ingreso laboral, si ambas variables presentan una correlación, podemos asumir que también covarían, es decir, **comparten varianza**. Ahora la pregunta es: _**¿Cuánta varianza comparten?**_
+
+Para responder a esta pregunta atendemos al coeficiente de determinación ($R²$), una medida estadística que indica la proporción de la varianza total que una variable comparte con otra(s) variable(s). En pocas palabras:
+
+-  Evaluar qué proporción de variabilidad comparten ambas variables.
+
+- Sus valores van desde 0 a 1, en donde 0 indica que ambas variables comparten el 0% de su varianza, y 1 que comparten el 100% de su varianza.
+
+En el contexto de la correlación entre solo dos variables, el $R²$ es igual a elevar al cuadrado el coeficiente de correlación de Pearson, quedando expresado de la siguiente manera: **$(r)^2$**. Esto nos permite conocer qué tanto la variabilidad de una variable X estaría asociado a la variabilidad de otra variable Y.
+
+Apliquemos esto en R:
+
+```{r}
+coef_corr <- cor(datos$escolaridad,
+                datos$ingreso_laboral) # estimamos la correlación y la guardamos en el objeto coef_corr
+
+(coef_corr)^2
+```
+
+
+A partir del resultado, podemos decir que los años de escolaridad y el ingreso laboral mensual comparten un 14% de su varianza.
+
 ## Ejercicio intermedio 
 
 Pongamos en práctica los contenidos que hemos visto hasta ahora siguiendo los siguientes pasos:
 
 Utilicen las variables `horas_trabajo` y `escolaridad` de la base de datos `datos` y realicen lo siguiente:
 
-1) Analicen el patrón de su asociación mediante una nube de puntos o *scatterplot*. Para ello, completen el código de abajo:
+1) Analice el patrón de su asociación mediante una nube de puntos o *scatterplot*. Para ello, complete el código de abajo:
 
 ```{r}
 #| eval: false
@@ -509,7 +550,7 @@ ggplot(____, aes(
   geom_point()                        
 ```
 
-2) Estimen la correlación entre `horas_trabajo` y `escolaridad` y reporten:
+2) Estime la correlación entre `horas_trabajo` y `escolaridad` y reporte:
 
 - Dirección
 
@@ -517,7 +558,7 @@ ggplot(____, aes(
 
 - Interpretación sustantiva
 
-Completen el siguiente código para desarrollar el punto 2):
+Complete el siguiente código para desarrollar el punto 2):
 
 ```{r}
 #| eval: false
@@ -526,25 +567,47 @@ cor(datos$____,
     datos$____)
 ```
 
+3) Calcule el coeficiente de determinación de la correlación e interprételo. Para ello, complete el siguiente código con las variables y símbolos que faltan
+
+```{r}
+#| eval: false
+
+coeficiente <- cor(datos$____,
+                   datos$____)
+
+(coeficiente)__
+```
+
 ## Inferencia en correlación
 
-Ahora vincularemos el contenido de esta Segunda Unidad con el concepto central de la Unidad 1: la inferencia. En el práctico pasado nos preguntamos cómo se asocian dos variables, pero ahora pasamos a una pregunta distinta: ¿La asociación observada entre dos variables es representativa a nivel de la población?
+Ahora vincularemos el contenido de esta Segunda Unidad con el concepto central de la Unidad 1: la inferencia. En el práctico pasado nos preguntamos cómo se asocian dos variables, pero ahora pasamos a una pregunta distinta: ¿Hay evidencia de que la asociación observada existe a nivel poblacional?
 
 Retomamos el foco: la estadística en ciencias sociales busca encontrar hallazgos no sólo a nivel de la muestra, sino que en **la población**.
 
 Para realizar el cálculo inferencial en correlación seguiremos los mismos 5 pasos que en la Unidad 1:
 
-**1) Formulación de hipótesis**
-**2) Cálculo de error estándar y estadístico de prueba (t)**
-**3) Probabilidad de error y valor crítico para t**
-**4) Contraste de valores empírico y crítico**
-**5) Interpretación**
+- **1) Formulación de hipótesis**
+- **2) Cálculo de error estándar y estadístico de prueba (t)**
+- **3) Probabilidad de error y valor crítico para t**
+- **4) Contraste de valores empírico y crítico**
+- **5) Interpretación**
 
 ### Ejemplo 1
 
 Para aplicar este contenido seguiremos utilizando las variables edad e ingreso laboral de nuestro subconjunto de datos.
 
 **1) Formulación de hipótesis**
+
+
+::: {.callout-important}
+
+Estadístico de correlación: $r$
+
+Parámetro poblacional de correlación: $\rho$
+
+:::
+
+
 
 Para inferencia en correlación, nuestro objetivo es comprobar si un respectivo $r$ existe en la población, cuya expresión formal es $\rho$ (rho). Entonces, nuestra hipótesis quedaría:
 
@@ -585,7 +648,8 @@ En este código realizamos lo siguiente: Estimamos `cor.test` utilizando las var
 ```{r}
 cor_results <- cor.test(x = datos$edad,
                         y = datos$ingreso_laboral,
-                        method = "pearson")
+                        method = "pearson",
+                        alpha = 0.05)
 
 cor_results
 ```
@@ -598,11 +662,11 @@ Este output es legible pero no muy amigable visualmente, así que lo adaptaremos
 | Estadístico de prueba ($t$) | `r fmt_decimal(cor_results$statistic)` |
 | Grados de libertad ($gl$) | `r cor_results$parameter` |
 | Valor p | `r ifelse(cor_results$p.value < 0.001, "< 0.001", fmt_decimal(cor_results$p.value, 3))` |
-| Intervalo de confianza 95% | [`r fmt_decimal(cor_results$conf.int[1])`, `r fmt_decimal(cor_results$conf.int[2])`] |
+| Intervalo de confianza 95% | [`r fmt_decimal(cor_results$conf.int[1], 2)`, `r fmt_decimal(cor_results$conf.int[2], 2)`] |
 
 **5) Interpretación**
 
-> La asociación entre la edad y los ingresos mensuales es negativa, con un efecto muy pequeño y no es estadísticamente significativa ($r$ = -0.5, $p$ > 0.05). Por tanto, no se puede rechazar la $H_{0}$ de no asociación entre variables, existiendo evidencia a favor de que no hay asociación a nivel poblacional entre la edad y los ingresos laborales
+> La asociación entre la edad y los ingresos mensuales es negativa, con un efecto muy pequeño y no es estadísticamente significativa ($r$ = -0.05, $p$ > 0.05, IC 95% [-0.13 , 0.02]). Por tanto, hay evidencia insuficiente para rechazar la hipótesis de no asociación ($H_{0}$) entre la edad y los ingresos laborales
 
 ### Ejemplo 2
 
@@ -629,11 +693,11 @@ cor_results_2 <- cor.test(x = datos$escolaridad,
 | Estadístico de prueba ($t$) | `r fmt_decimal(cor_results_2$statistic)` |
 | Grados de libertad ($gl$) | `r cor_results_2$parameter` |
 | Valor p | `r ifelse(cor_results_2$p.value < 0.001, "< 0.001", fmt_decimal(cor_results_2$p.value, 3))` |
-| Intervalo de confianza 95% | [`r fmt_decimal(cor_results_2$conf.int[1])`, `r fmt_decimal(cor_results_2$conf.int[2])`] |
+| Intervalo de confianza 95% | [`r fmt_decimal(cor_results_2$conf.int[1], 2)`, `r fmt_decimal(cor_results_2$conf.int[2], 2)`] |
 
 **5) Interpretación**
 
-> La asociación entre los ingresos reales y los ingresos justos es positiva, moderada y estadísticamente significativa ($r$ = 0.37; $p$ < .001). Por tanto, con un 95% de confianza se puede rechazar la $H_{0}$
+> La asociación entre los ingresos reales y los años de escolaridad es positiva, moderada y estadísticamente significativa ($r$ = 0.37; $p$ < .001). Por tanto, con un 99% de confianza se puede rechazar la $H_{0}$
 de no asociación entre variables, existiendo evidencia a favor de la $H_{1}$
 sobre una asociación significativa entre los años de escolaridad y los ingresos mensuales.
 
@@ -666,7 +730,8 @@ Para responder a la pregunta, visualizaremos las pruebas estadísticas que reali
 | Estadístico de prueba ($t$) | `r fmt_decimal(cor_results_2$statistic)` | `r fmt_decimal(cor_results_3$statistic)` |
 | Grados de libertad ($gl$) | `r cor_results_2$parameter` | `r cor_results_3$parameter` |
 | Valor p | `r ifelse(cor_results_2$p.value < 0.001, "< 0.001", fmt_decimal(cor_results_2$p.value, 3))` | `r ifelse(cor_results_3$p.value < 0.001, "< 0.001", fmt_decimal(cor_results_3$p.value, 3))` |
-| Intervalo de confianza 95% | [`r fmt_decimal(cor_results_2$conf.int[1])`, `r fmt_decimal(cor_results_2$conf.int[2])`] | [`r fmt_decimal(cor_results_3$conf.int[1])`, `r fmt_decimal(cor_results_3$conf.int[2])`] |
+| Error estándar ($SE_r$) | `r fmt_decimal(sqrt((1 - cor_results_2$estimate^2) / cor_results_2$parameter), 2)` | `r fmt_decimal(sqrt((1 - cor_results_3$estimate^2) / cor_results_3$parameter), 2)` |
+| Intervalo de confianza 95% | [`r fmt_decimal(cor_results_2$conf.int[1], 2)`, `r fmt_decimal(cor_results_2$conf.int[2], 2)`] | [`r fmt_decimal(cor_results_3$conf.int[1], 2)`, `r fmt_decimal(cor_results_3$conf.int[2], 2)`] |
 
 Analicemos la tabla:
 
@@ -678,9 +743,11 @@ Esto se debe a que el cálculo del estadístico de prueba se realiza con los val
 
 **3)** Los grados de libertad se calculan directamente con el tamaño de la muestra, por lo que una muestra más grande nos otorga más grados de libertad en nuestras estimaciones
 
-**4)** A medida que aumenta el tamaño muestral, el valor $p$ disminuye, permitiendo observar que, correlaciones con un tamaño de efecto muy pequeño, pueden ser significativas en una muestra grande
+**4)** A medida que aumenta el tamaño muestral (manteniendo un tamaño de efecto similar), el valor $p$ disminuye, permitiendo observar que, correlaciones con un tamaño de efecto moderado, pueden ser significativas en una muestra grande
 
-**5)** Recordemos que el intervalo de confianza se calcula utilizando el error estándar. Al igual que en los test de hipótesis de la Unidad Uno, aquí se sigue la misma regla: Un mayor tamaño muestral permite obtener un **error estándar más pequeño** y, por lo tanto, **una estimación más precisa**
+**5)** El error estándar de la correlación depende tanto del tamaño de la asociación como del tamaño muestral. Cuando tenemos un tamaño de efecto similar, **una muestra más grande conlleva un menor error estándar**
+
+**6)** Recordemos que el intervalo de confianza se calcula utilizando el error estándar. Al igual que en los test de hipótesis de la Unidad Uno, aquí se sigue la misma regla: Un mayor tamaño muestral permite obtener un **error estándar más pequeño** y, por lo tanto, **una estimación más precisa**
 
 Adicionalmente, observemos cómo varían los patrones de la correlación al diferenciar su tamaño muestral
 
@@ -718,47 +785,13 @@ ggplot(datos_2, aes(                 # Usamos nuestra submuestra
 
 > **¿Cómo varían los patrones entre variables al modificar su tamaño muestral?**
 
-## Coeficiente de determinación
-
-A lo largo del práctico hemos profundizado en cómo estudiar la correlación entre dos variables, cuyo valor se desprende de la covarianza. Entonces, siguiendo el ejemplo de asociación entre los años de escolaridad y el ingreso laboral, si ambas variables presentan una correlación, podemos asumir que también covarían, es decir, **comparten varianza**. Ahora la pregunta es: _**¿Cuánta varianza comparten?**_
-
-Para responder a esta pregunta atendemos al coeficiente de determinación ($R²$), una medida estadística que indica la proporción de la varianza total de una variable que es explicada por otra(s) variable(s). En pocas palabras:
-
--  Evaluar cuánta de la variabilidad de una variable se debe a otra variable.
-
-- Sus valores van desde 0 a 1, en donde 0 indica que ambas variables comparten el 0% de su varianza, y 1 que comparten el 100% de su varianza.
-
-En el contexto de la correlación entre solo dos variables, el $R²$ es igual a elevar al cuadrado el coeficiente de correlación de Pearson, quedando expresado de la siguiente manera: **$(r)^2$**. Esto nos permite conocer qué tanto la variabilidad de una variable X estaría asociado a la variabilidad de otra variable Y.
-
-Apliquemos esto en R:
-
-```{r}
-coef_corr <- cor(datos$escolaridad,
-                datos$ingreso_laboral) # estimamos la correlación y la guardamos en el objeto coef_corr
-
-(coef_corr)^2
-```
-
-
-A partir del resultado, podemos decir que los años de escolaridad y el ingreso laboral mensual comparten un 14% de su varianza. Por lo tanto, 
-
 ## Ejercicios autónomos
 
 ### Ejercicio 1 
 
 A partir de la base `datos` respondan la siguiente pregunta: _**¿En qué medida el tamaño de superficie del hogar está asociado al ingreso laboral mensual?**_
 
-1) Construya una nube de puntos y comente el patrón de la asociación
-
-2) Estime la correlación de Pearson entre ambas variables y reporte su dirección, tamaño de efecto y cómo se interpreta la asociación
-
-3) Calcule el coeficiente de determinación de esta relación e interprete el resultado
-
-### Ejercicio 2 
-
-Utilizando la misma base de datos que el Ejercicio 1, respondan esta interrogante: _**¿En qué medida el tamaño de superficie del hogar está asociado a los años de escolaridad?**_
-
-1) Visualice la asociación de las variables mediante una nube de puntos o *scatterplot*
+1) Visualice la asociación de las variables mediante una nube de puntos o *scatterplot* y describa brevemente su patrón
 
 2) Realice una prueba de hipótesis para esta asociación mediante `cor.test`, siguiendo los 5 pasos de la inferencia
 
@@ -768,10 +801,27 @@ Utilizando la misma base de datos que el Ejercicio 1, respondan esta interrogant
 
 5) Calcule la correlación entre ambas variables utilizando `cor`, guarde este resultado en un objeto llamado `resultado_cor` y estime su coeficiente de determinación. Interprete el resultado
 
+### Ejercicio 2 
+
+Utilizando la misma base de datos que el Ejercicio 1, respondan esta interrogante: _**¿En qué medida el tamaño de superficie del hogar está asociado a los años de escolaridad?**_
+
+1) Visualice la asociación de las variables mediante una nube de puntos o *scatterplot* y describa brevemente su patrón
+
+2) Realice una prueba de hipótesis para esta asociación mediante `cor.test`, siguiendo los 5 pasos de la inferencia
+
+3) Interprete la correlación en cuanto a su direccionalidad, magnitud y significancia estadística
+
+4) Responda la pregunta: A partir de los resultados ¿Existe evidencia a favor de rechazar $H_{0}$?
+
+5) Calcule la correlación entre ambas variables utilizando `cor`, guarde este resultado en un objeto llamado `resultado_cor` y estime su coeficiente de determinación. Interprete el resultado
+
+::: {.callout-note}
+
 **Para cerrar** 
 
-- Los criterios de Cohen (1988) nos permiten establecer la **magnitud de la asociación** entre variables, mientras que el signo de la asociación sólo nos indica direccionalidad
-
-- En la prueba de hipótesis para correlación buscamos evidencia a favor de **rechazar la hipótesis de no asociación** ($H_{0}$)
+- Los criterios de Cohen (1988) nos permiten establecer la **magnitud de la asociación** entre variables
 
 - El coeficiente de determinación establece el **grado de varianza compartida** entre dos variables
+
+- En la prueba de hipótesis para correlación buscamos evidencia a favor de **rechazar la hipótesis de no asociación** ($H_{0}$)
+:::
