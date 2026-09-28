@@ -1921,7 +1921,12 @@
     "href": "content/09-content.html",
     "title": "Inferencia en correlación y magnitud del coeficiente",
     "section": "",
-    "text": "Sesión del miércoles, 10 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del lunes, 28 de septiembre de 2026\n\n\n\n\n\nDocumento de presentación",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Bivariada 2"
+    ]
   },
   {
     "objectID": "content/11-content.html",
@@ -3060,5 +3065,250 @@
     "title": "Inferencia en correlación y criterios de magnitud",
     "section": "6 Ejercicios autónomos",
     "text": "6 Ejercicios autónomos\n\n6.1 Ejercicio 1\nA partir de la base datos respondan la siguiente pregunta: ¿En qué medida el tamaño de superficie del hogar está asociado al ingreso laboral mensual?\n\nConstruya una nube de puntos y comente el patrón de la asociación\nEstime la correlación de Pearson entre ambas variables y reporte su dirección, tamaño de efecto y cómo se interpreta la asociación\nCalcule el coeficiente de determinación de esta relación e interprete el resultado\n\n\n\n6.2 Ejercicio 2\nUtilizando la misma base de datos que el Ejercicio 1, respondan esta interrogante: ¿En qué medida el tamaño de superficie del hogar está asociado a los años de escolaridad?\n\nVisualice la asociación de las variables mediante una nube de puntos o scatterplot\nRealice una prueba de hipótesis para esta asociación mediante cor.test, siguiendo los 5 pasos de la inferencia\nInterprete la correlación en cuanto a su direccionalidad, magnitud y significancia estadística\nResponda la pregunta: A partir de los resultados ¿Existe evidencia a favor de rechazar \\(H_{0}\\)?\nCalcule la correlación entre ambas variables utilizando cor, guarde este resultado en un objeto llamado resultado_cor y estime su coeficiente de determinación. Interprete el resultado\n\nPara cerrar\n\nLos criterios de Cohen (1988) nos permiten establecer la magnitud de la asociación entre variables, mientras que el signo de la asociación sólo nos indica direccionalidad\nEn la prueba de hipótesis para correlación buscamos evidencia a favor de rechazar la hipótesis de no asociación (\\(H_{0}\\))\nEl coeficiente de determinación establece el grado de varianza compartida entre dos variables"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-2",
+    "href": "slides/09-bivariada2.html#section-2",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "id\neduc\ning\n\n\n\n\n1\n2\n1\n\n\n2\n3\n3\n\n\n3\n4\n3\n\n\n4\n4\n5\n\n\n5\n5\n4\n\n\n6\n7\n7\n\n\n7\n8\n9\n\n\n8\n8\n11"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#varianzas",
+    "href": "slides/09-bivariada2.html#varianzas",
+    "title": "Estadística Correlacional",
+    "section": "Varianzas",
+    "text": "Varianzas\n\n\n\n\n\n\n\n\n\n\n\n\nEducación\n\n\n\n\n\n\n\n\n\n\n\n\nIngreso"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#nube-de-puntos",
+    "href": "slides/09-bivariada2.html#nube-de-puntos",
+    "title": "Estadística Correlacional",
+    "section": "Nube de puntos",
+    "text": "Nube de puntos"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#covarianza",
+    "href": "slides/09-bivariada2.html#covarianza",
+    "title": "Estadística Correlacional",
+    "section": "Covarianza",
+    "text": "Covarianza\n\n\n\nVarianza educación (x)\n\\[\\sigma_{edu}^{2}={\\sum_{i=1}^{N}(x_{i}-\\bar{x})^{2}\\over {N - 1}}\\] \\[\\sigma_{edu}^{2}={\\sum_{i=1}^{N}(x_{i}-\\bar{x})(x_{i}-\\bar{x})\\over {N - 1}}\\]\n\n\n\nVarianza ingreso (y)\n\\[\\sigma_{ing}^{2}={\\sum_{i=1}^{N}(y_{i}-\\bar{y})^{2}\\over {N - 1}}\\] \\[\\sigma_{ing}^{2}={\\sum_{i=1}^{N}(y_{i}-\\bar{y})(y_{i}-\\bar{y})\\over {N - 1}}\\]\n\n\n\n\\[Covarianza=cov(x,y) = \\frac{\\sum_{i=1}^{N}(x_i - \\bar{x})(y_i - \\bar{y})} {N-1}\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-3",
+    "href": "slides/09-bivariada2.html#section-3",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Covarianza\n\n\nvalor numérico que refleja la asociación entre dos variables\nel signo indica si la asociación es positiva o negativa\nvalor no interpretable directamente, depende de valores de cada variable\n\n\n\nCorrelación\n\n\nvalor numérico que refleja la asociación entre dos variables\nel signo indica si la asociación es positiva o negativa\nrango de variación fijo entre -1 y +1, interpretable en términos de magnitud"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#cálculo-correlación",
+    "href": "slides/09-bivariada2.html#cálculo-correlación",
+    "title": "Estadística Correlacional",
+    "section": "Cálculo correlación",
+    "text": "Cálculo correlación\n\n\n\n\n\n\n\n\neduc\ning\ndif_m_educ2\ndif_m_ing2\ndif_xy\n\n\n\n\n2\n1\n9.77\n19.14\n13.67\n\n\n3\n3\n4.52\n5.64\n5.05\n\n\n4\n3\n1.27\n5.64\n2.67\n\n\n4\n5\n1.27\n0.14\n0.42\n\n\n5\n4\n0.02\n1.89\n0.17\n\n\n7\n7\n3.52\n2.64\n3.05\n\n\n8\n9\n8.27\n13.14\n10.42\n\n\n8\n11\n8.27\n31.64\n16.17\n\n\n\n\n\n\n\n\\[r=\\frac{\\sum(x-\\bar{x})(y-\\bar{y})}{\\sqrt{\\sum(x-\\bar{x})^{2} \\sum(y-\\bar{y})^{2}}}\\]\n\n\nsum(data$dif_xy)\n\n[1] 51.625\n\nsum(data$dif_m_educ2)\n\n[1] 36.875\n\nsum(data$dif_m_ing2)\n\n[1] 79.875"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#cálculo-correlación-1",
+    "href": "slides/09-bivariada2.html#cálculo-correlación-1",
+    "title": "Estadística Correlacional",
+    "section": "Cálculo correlación",
+    "text": "Cálculo correlación\n\n\n\\[\n\\begin{align*}\nr &= \\frac{\\sum(x-\\bar{x})(y-\\bar{y})}{\\sqrt{\\sum(x-\\bar{x})^{2} \\sum(y-\\bar{y})^{2}}} \\\\ \\\\\n&= \\frac{51.625}{ \\sqrt{36.875*79.875}} \\\\ \\\\\n&= \\frac{51.625}{54.271} \\\\ \\\\\n&= 0.951\n\\end{align*}\n\\]\n\n\nEn R:\n\ncor(data$educ,data$ing)\n\n[1] 0.9512367"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#interpretación",
+    "href": "slides/09-bivariada2.html#interpretación",
+    "title": "Estadística Correlacional",
+    "section": "Interpretación",
+    "text": "Interpretación\n\n\nEl coeficiente de correlación (de Pearson) es una medida de asociación lineal entre variables, que indica el sentido y la fuerza de la asociación\nVaría entre +1 y -1, donde\n\nvalores positivos indican relación directa (aumenta una, aumenta la otra)\nvalores negativos indican relación inversa (aumenta una, disminuye la otra)"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#nubes-de-puntos-scatterplot-y-correlación",
+    "href": "slides/09-bivariada2.html#nubes-de-puntos-scatterplot-y-correlación",
+    "title": "Estadística Correlacional",
+    "section": "Nubes de puntos (scatterplot) y correlación",
+    "text": "Nubes de puntos (scatterplot) y correlación"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#datos",
+    "href": "slides/09-bivariada2.html#datos",
+    "title": "Estadística Correlacional",
+    "section": "Datos",
+    "text": "Datos\n\nSimulamos dos variables: edad, y puntaje en escala de izquierda (1) - derecha (10):\n\nedad &lt;-c(18,25,40,55,70, 82)\niz_der &lt;-c(5,4,5,9,5,7)\ncor(edad,iz_der)\n\n[1] 0.5070278"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-5",
+    "href": "slides/09-bivariada2.html#section-5",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "plot1 &lt;- ggplot(,\n  aes(x=edad, y=iz_der)) +\n  geom_point(\n    colour = \"red\",\n    size = 5) +\n  theme(text =\n    element_text(size = 20))"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación",
+    "href": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación",
+    "title": "Estadística Correlacional",
+    "section": "Prueba de hipótesis de correlación",
+    "text": "Prueba de hipótesis de correlación\n1. Formulación de hipótesis\nSiendo \\(\\rho\\) (rho) la correlación \\(r\\) en la población:\n\\[H_0: \\rho = 0\\] \\[H_a: \\rho \\neq 0\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#la-hipótesis-de-correlación-refiere-a-asociación-no-a-explicación-ni-a-causalidad",
+    "href": "slides/09-bivariada2.html#la-hipótesis-de-correlación-refiere-a-asociación-no-a-explicación-ni-a-causalidad",
+    "title": "Estadística Correlacional",
+    "section": "La hipótesis de correlación refiere a asociación, no a explicación ni a causalidad",
+    "text": "La hipótesis de correlación refiere a asociación, no a explicación ni a causalidad"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-1",
+    "href": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-1",
+    "title": "Estadística Correlacional",
+    "section": "Prueba de hipótesis de correlación",
+    "text": "Prueba de hipótesis de correlación\n2. Error estándar y estadístico de prueba (\\(t\\))\n\n\n\\[\n\\begin{align*}\nSE_r=&\\sqrt{\\frac{1-r²}{n-2}} \\\\\\\\\n=&\\sqrt{\\frac{1-0.257}{6-2}} \\\\\\\\\n=&\\sqrt{\\frac{0.743}{4}}=\\sqrt{0.186}=0.431\n\\end{align*}\n\\]\n\n\\[\n\\begin{align*}\nt_r&=\\frac{r}{SE_r} \\\\\\\\\n&=\\frac{0.51}{0.431} \\\\\\\\\n&=1.18\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-2",
+    "href": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-2",
+    "title": "Estadística Correlacional",
+    "section": "Prueba de hipótesis de correlación",
+    "text": "Prueba de hipótesis de correlación\n3. Probabilidad de error y valor crítico para \\(t\\)\n\n\n\npara un nivel de error \\(\\alpha=0.05\\)\ny una hipótesis de diferencia de dos colas: \\(\\alpha/2=[0.025-0.975]\\)\ngrados de libertad N-2= 6-2 = 4\n\n\n\nqt(p=.05/2,\n   df=4,\n   lower.tail=FALSE) # bidireccional\n\n[1] 2.776445"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-3",
+    "href": "slides/09-bivariada2.html#prueba-de-hipótesis-de-correlación-3",
+    "title": "Estadística Correlacional",
+    "section": "Prueba de hipótesis de correlación",
+    "text": "Prueba de hipótesis de correlación\n4. Contraste de valores empírico y crítico\n\nContraste: \\(t_{r}=1.18 &lt; t_{cri}=2.77\\)\n\n\n5. Interpretación\nNuestro t estimado es menor que el valor t crítico para un 95% de confianza, por lo tanto no rechazamos la hipótesis nula. No existe evidencia en nuestros datos para afirmar que la correlación entre la escala izquierda-derecha y edad es distinta de cero en la población."
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#en-r",
+    "href": "slides/09-bivariada2.html#en-r",
+    "title": "Estadística Correlacional",
+    "section": "En R",
+    "text": "En R\n\ncor.test(iz_der,edad)\n\n\n    Pearson's product-moment correlation\n\ndata:  iz_der and edad\nt = 1.1765, df = 4, p-value = 0.3046\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.5174601  0.9341863\nsample estimates:\n      cor \n0.5070278"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-8",
+    "href": "slides/09-bivariada2.html#section-8",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Si dos variables covarían, entonces comparten varianza\n\n\n¿Cuánta varianza comparten?"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#estableciendo-la-varianza-compartida",
+    "href": "slides/09-bivariada2.html#estableciendo-la-varianza-compartida",
+    "title": "Estadística Correlacional",
+    "section": "Estableciendo la varianza compartida",
+    "text": "Estableciendo la varianza compartida\n\n\nLa varianza compartida puede pensarse como 1 - la varianza no compartida (o varianza única)\nLa varianza no compartida se asocia al concepto de residuos, es decir, la cantidad de varianza que no está contenida en la correlación"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#estableciendo-la-varianza-compartida-1",
+    "href": "slides/09-bivariada2.html#estableciendo-la-varianza-compartida-1",
+    "title": "Estadística Correlacional",
+    "section": "Estableciendo la varianza compartida",
+    "text": "Estableciendo la varianza compartida\n\n\nPara poder obtener los residuos vamos a generar una recta que represente la asociación entre las variables. Esta es la recta de regresión 1\nEsta recta nos permite obtener un valor estimado de \\(y\\) para cada valor de \\(x\\)\n\n[1] Detalles próximo semestre"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-9",
+    "href": "slides/09-bivariada2.html#section-9",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "reg1 &lt;- lm(ing ~ educ, data=data)\ndata$predict &lt;-predict.lm(reg1)\n\nplot2 &lt;-ggplot(data,\n  aes(x=educ, y=predict)) +\n  geom_point(\n    colour = \"red\",\n    size = 5) +\n  theme(text =\n    element_text(size = 20))+\n  stat_smooth(method = \"lm\",\n    se = FALSE, fullrange = T)\n\n\n\n\n\nplot2"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#section-10",
+    "href": "slides/09-bivariada2.html#section-10",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "\\[\n\\begin{align*}\nSS_{tot}&=SS_{reg} + SS_{error} \\\\\n\\Sigma(y_i - \\bar{y})^2&=\\Sigma (\\hat{y}_i-\\bar{y})^2 +\\Sigma(y_i-\\hat{y}_i)^2\n\\end{align*}\n\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#varianza-compartida",
+    "href": "slides/09-bivariada2.html#varianza-compartida",
+    "title": "Estadística Correlacional",
+    "section": "Varianza compartida",
+    "text": "Varianza compartida\n\n\\[SS_{tot}=SS_{reg} + SS_{error}\\]\n\n\n\\[\\frac{SS_{tot}}{SS_{tot}}=\\frac{SS_{reg}}{SS_{tot}} + \\frac{SS_{error}}{SS_{tot}}\\]\n\n\n\\[1=\\frac{SS_{reg}}{SS_{tot}}+\\frac{SS_{error}}{SS_{tot}}\\]\n\n\n\\[\\frac{SS_{reg}}{SS_{tot}}= 1- \\frac{SS_{error}}{SS_{tot}}=R^2\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#qué-relación-tienen-r2-y-r-correlación",
+    "href": "slides/09-bivariada2.html#qué-relación-tienen-r2-y-r-correlación",
+    "title": "Estadística Correlacional",
+    "section": "¿Qué relación tienen \\(R^2\\) y \\(r\\) (correlación)?",
+    "text": "¿Qué relación tienen \\(R^2\\) y \\(r\\) (correlación)?\n\n\n\\(R^2=r^2\\)\nPor lo tanto, en nuestro ejemplo:\n\n\ncor(edad,iz_der)\n\n[1] 0.5070278\n\ncor(edad,iz_der)^2\n\n[1] 0.2570772\n\n\n\n\\[\n\\begin{align*}\nR^2&= 0.25\n\\end{align*}\n\\]\n\n\nInterpretación:\nEl porcentaje de varianza compartida entre edad y orientación izquierda-derecha es de 25%.\nEs decir, ambas variables comparten el 25% de su varianza"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#r2-o-coeficiente-de-determinación",
+    "href": "slides/09-bivariada2.html#r2-o-coeficiente-de-determinación",
+    "title": "Estadística Correlacional",
+    "section": "\\(R^2\\) o coeficiente de determinación",
+    "text": "\\(R^2\\) o coeficiente de determinación\n\n¿Cuánto de los ingresos se asocia a educación, y viceversa?\nel \\(R^2\\)\n\nes la proporción de la varianza de Y que se asocia a X\nvaría entre 0 y 1, y usualmente se expresa en porcentaje"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#tamaños-de-efecto",
+    "href": "slides/09-bivariada2.html#tamaños-de-efecto",
+    "title": "Estadística Correlacional",
+    "section": "Tamaños de efecto",
+    "text": "Tamaños de efecto\n\nEl coeficiente de correlación \\(r\\) de Pearson nos indica la dirección y la fuerza/intensidad de la asociación.\nPero, ¿qué nos dice el tamaño del coeficiente? Por ejemplo, si el coeficiente es 0.5, ¿esto es pequeño, mediano o grande?\nCohen (1988, 1992) sugiere una serie de criterios convencionales para clasificar efectos como pequeños, medianos o grandes."
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#criterios-de-cohen-para-tamaños-de-efecto",
+    "href": "slides/09-bivariada2.html#criterios-de-cohen-para-tamaños-de-efecto",
+    "title": "Estadística Correlacional",
+    "section": "Criterios de Cohen para tamaños de efecto",
+    "text": "Criterios de Cohen para tamaños de efecto\n\nEl coeficiente de correlación \\(r\\) de Pearson nos indica la dirección y la fuerza/intensidad de la asociación.\nPero, ¿qué nos dice el tamaño del coeficiente? Por ejemplo, si el coeficiente es 0.5, ¿esto es pequeño, mediano o grande?\nCohen (1988, 1992) sugiere una serie de criterios convencionales para clasificar efectos como pequeños, medianos o grandes."
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#para-el-caso-de-correlación-de-pearson-cohen-sugiere",
+    "href": "slides/09-bivariada2.html#para-el-caso-de-correlación-de-pearson-cohen-sugiere",
+    "title": "Estadística Correlacional",
+    "section": "Para el caso de correlación de Pearson, Cohen sugiere:",
+    "text": "Para el caso de correlación de Pearson, Cohen sugiere:\n\ntamaño de efecto pequeño: alrededor de 0.10\ntamaño de efecto mediano: alrededor de 0.30\ntamaño de efecto grande: alrededor de 0.50 y más"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#a-por-qué-usamos-la-prueba-t",
+    "href": "slides/09-bivariada2.html#a-por-qué-usamos-la-prueba-t",
+    "title": "Estadística Correlacional",
+    "section": "a) ¿Por qué usamos la prueba t?",
+    "text": "a) ¿Por qué usamos la prueba t?\n\nLa prueba \\(t\\) la conocemos originalmente para contrastar diferencias de medias:\n\\[t=\\frac{\\bar{x}-\\mu_0}{SE_{\\bar{x}}}\\]\n\n\nSu lógica es general: siempre compara un estimador con un valor hipotetizado, en unidades de su error estándar\n\\[t=\\frac{\\text{estimador} - \\text{valor hipotetizado}}{SE_{\\text{estimador}}}\\]"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#b-base-estadística-del-error-estándar",
+    "href": "slides/09-bivariada2.html#b-base-estadística-del-error-estándar",
+    "title": "Estadística Correlacional",
+    "section": "b) Base estadística del error estándar",
+    "text": "b) Base estadística del error estándar\n\n\\[SE_r=\\sqrt{\\frac{1-r^{2}}{n-2}}\\]\n\n\n\n\\(1-r^{2}\\): proporción de varianza no explicada por la asociación entre las variables\n\nmientras más fuerte la correlación, menor el error estándar\n\n\n\n\n\n\\(n-2\\): grados de libertad disponibles, descontando los dos parámetros estimados (pendiente e intercepto de la recta que relaciona las variables)\n\na mayor tamaño muestral, menor el error estándar y mayor la certeza de la estimación"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación",
+    "href": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación",
+    "title": "Estadística Correlacional",
+    "section": "c) Intervalos de confianza en correlación",
+    "text": "c) Intervalos de confianza en correlación\n\n\n\nEl coeficiente \\(r\\) no se distribuye de forma normal, especialmente cuando su valor se acerca a \\(\\pm1\\)\n\n\nSolución: la transformación z de Fisher, que normaliza la distribución de \\(r\\)\n\\[z'=\\frac{1}{2}\\ln\\left(\\frac{1+r}{1-r}\\right)\\] \\[SE_{z'}=\\frac{1}{\\sqrt{n-3}}\\]\n\n\n\nSe construye el intervalo en la escala \\(z'\\) y luego se transforma de vuelta a la escala de \\(r\\):\n\\[r=\\frac{e^{2z}-1}{e^{2z}+1}\\]\n\n\n\n\nr &lt;- cor(edad, iz_der)\nn &lt;- length(edad)\nz &lt;- atanh(r)\nse_z &lt;- 1/sqrt(n-3)\ncrit &lt;- qnorm(0.975)\nci_z &lt;- z + c(-1,1)*crit*se_z\ntanh(ci_z)\n\n[1] -0.5174601  0.9341863"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-1",
+    "href": "slides/09-bivariada2.html#c-intervalos-de-confianza-en-correlación-1",
+    "title": "Estadística Correlacional",
+    "section": "c) Intervalos de confianza en correlación",
+    "text": "c) Intervalos de confianza en correlación\n\nEn R, cor.test() entrega directamente el intervalo de confianza (ya calculado con la transformación de Fisher):\n\n\ncor.test(iz_der, edad)$conf.int\n\n[1] -0.5174601  0.9341863\nattr(,\"conf.level\")\n[1] 0.95\n\n\n\n\n\nInterpretación: con un 95% de confianza, el verdadero valor de la correlación poblacional entre edad y orientación izquierda-derecha se encuentra en este intervalo, el cual incluye el cero, consistente con la prueba de hipótesis anterior"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#a-por-qué-usamos-la-prueba-t-1",
+    "href": "slides/09-bivariada2.html#a-por-qué-usamos-la-prueba-t-1",
+    "title": "Estadística Correlacional",
+    "section": "a) ¿Por qué usamos la prueba t?",
+    "text": "a) ¿Por qué usamos la prueba t?\n\nEsta misma lógica se extiende al coeficiente de correlación, reemplazando el estimador por \\(r\\) (y el valor hipotetizado por 0):\n\\[t_r=\\frac{r-0}{SE_r}=\\frac{r\\sqrt{n-2}}{\\sqrt{1-r^{2}}}\\]\n\n\nEl coeficiente \\(r\\) se calcula a partir de una muestra, por lo que su error estándar poblacional es desconocido y debe estimarse de los datos, tal como ocurre con el promedio\n\n\nEsa incertidumbre adicional es la que modela la distribución \\(t\\), según los grados de libertad disponibles (\\(n-2\\))\n\n\nCon muestras grandes, \\(t\\) se aproxima a la normal (\\(z\\))"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#en-r-1",
+    "href": "slides/09-bivariada2.html#en-r-1",
+    "title": "Estadística Correlacional",
+    "section": "En R",
+    "text": "En R\n\ncor.test(iz_der,edad)\n\n\n    Pearson's product-moment correlation\n\ndata:  iz_der and edad\nt = 1.1765, df = 4, p-value = 0.3046\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.5174601  0.9341863\nsample estimates:\n      cor \n0.5070278"
+  },
+  {
+    "objectID": "slides/09-bivariada2.html#criterios-de-cohen",
+    "href": "slides/09-bivariada2.html#criterios-de-cohen",
+    "title": "Estadística Correlacional",
+    "section": "Criterios de Cohen",
+    "text": "Criterios de Cohen\n\ntamaño de efecto pequeño: alrededor de 0.10\ntamaño de efecto mediano: alrededor de 0.30\ntamaño de efecto grande: alrededor de 0.50 y más"
   }
 ]
