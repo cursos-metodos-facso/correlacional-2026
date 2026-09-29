@@ -6,7 +6,7 @@ lang: es
 format:
   html:
     toc: true
-    toc-depth: 1
+    toc-depth: 2
     number-sections: true
     code-copy: true
     code-fold: false
@@ -259,18 +259,19 @@ $$
 
 Al igual que el práctico anterior, trabajaremos con un subconjunto de datos de CASEN 2024. 
 
-Para esto, cargamos la base de datos desde el sitio del Ministerio de Desarrollo Social y Familia a partir del link que se guarda en el objeto `url_casen`. 
+Para esto, cargamos la base de datos desde un repositorio a partir del link que se guarda en el objeto `url_casen`. 
 
 Esto genera el objeto con el link asociado a la base de datos, pero **no carga automáticamente** la base de datos en nuestro entorno de trabajo. Para ello, debemos ejecutar la función `load`, la cual llama al objeto  `url_casen`.
 
 ```{r}
 #| label: cargar-casen
 
-url_casen <- "https://bid-ckan.ministeriodesarrollosocial.gob.cl/dataset/105286d9-10a8-410a-b060-a335f3168a46/resource/cacc6ad5-fca1-4476-82f1-b7ea119fae98/download/casen_2024.rdata"  # Dirección oficial de CASEN 2024
+url_casen <- "https://github.com/cursos-metodos-facso/datos-ejemplos/raw/refs/heads/main/casen_2024.RData"  # Link de la base de datos
 
 load(
   url(url_casen)  # Carga la base directamente desde Internet
 )
+
 ```
 
 Una vez tenemos la base en nuestro entorno, cargamos las librerías con las que trabajaremos
@@ -300,7 +301,7 @@ Para este práctico utilizaremos 5 variables:
 
 set.seed(2026)  # Hace que todas y todos obtengamos los mismos casos
 
-datos <- casen_2024 |>                                # Partimos desde la base oficial
+datos <- sub_casen_2024 |>                                # Partimos desde la base oficial
   filter(edad >= 18) |>                                 # Solo personas mayores de 18 años
   transmute(                                           # Conservamos y renombramos tres variables
     escolaridad = haven::zap_labels(esc),
@@ -436,7 +437,7 @@ cor(datos$edad,
 
 ::: {.callout-warning title="Interpretación"}
 
-A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.05**, presentando una dirección negativa. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen. Más adelante hablaremos sobre la magnitud de la correlación.
+A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.06**, presentando una dirección negativa. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen. Más adelante hablaremos sobre la magnitud de la correlación.
 
 :::
 
@@ -504,7 +505,7 @@ Para darle una interpretación a la magnitud de una correlación recurrimos a lo
 Gracias a estos criterios, podemos profundizar en la interpretación de las correlaciones que estudiemos. Tomando en cuenta el ejemplo de asociación entre edad e ingreso laboral, ahora podemos agregar lo siguiente:
 
 ::: {.callout-warning title="Interpretación"}
-A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.05**, presentando una dirección negativa <span style="color:red">con un efecto muy pequeño</span>. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen.
+A partir de la submuestra de la CASEN 2024, se pudo observar que correlación entre la edad y el ingreso laboral mensual es $r$ = **-0.06**, presentando una dirección negativa <span style="color:red">con un efecto muy pequeño</span>. En términos sustantivos, se puede concluir que, a medida que las personas alcanzan edades mayores, sus ingresos laborales disminuyen.
 :::
 
 
@@ -666,7 +667,7 @@ Este output es legible pero no muy amigable visualmente, así que lo adaptaremos
 
 **5) Interpretación**
 
-> La asociación entre la edad y los ingresos mensuales es negativa, con un efecto muy pequeño y no es estadísticamente significativa ($r$ = -0.05, $p$ > 0.05, IC 95% [-0.13 , 0.02]). Por tanto, hay evidencia insuficiente para rechazar la hipótesis de no asociación ($H_{0}$) entre la edad y los ingresos laborales
+> La asociación entre la edad y los ingresos mensuales es negativa, con un efecto muy pequeño y no es estadísticamente significativa ($r$ = -0.06; $p$ > 0.05; IC 95% [-0.13 , 0.02]). Por tanto, hay evidencia insuficiente para rechazar la hipótesis de no asociación ($H_{0}$) entre la edad y los ingresos laborales
 
 ### Ejemplo 2
 
@@ -697,7 +698,7 @@ cor_results_2 <- cor.test(x = datos$escolaridad,
 
 **5) Interpretación**
 
-> La asociación entre los ingresos reales y los años de escolaridad es positiva, moderada y estadísticamente significativa ($r$ = 0.37; $p$ < .001). Por tanto, con un 99% de confianza se puede rechazar la $H_{0}$
+> La asociación entre los ingresos reales y los años de escolaridad es positiva, moderada y estadísticamente significativa ($r$ = 0.39; $p$ < .001). Por tanto, con un 99% de confianza se puede rechazar la $H_{0}$
 de no asociación entre variables, existiendo evidencia a favor de la $H_{1}$
 sobre una asociación significativa entre los años de escolaridad y los ingresos mensuales.
 
@@ -758,7 +759,7 @@ Adicionalmente, observemos cómo varían los patrones de la correlación al dife
 ```{r}
 #| echo: false
 #| label: fig-corr-1000
-#| fig-cap: Años de escolaridad e ingreso mensual - CASEN 2024 (N = 1000)
+#| fig-cap: Años de escolaridad e ingreso mensual - CASEN 2024 (N = 700)
 
 ggplot(datos, aes(                 # Usamos nuestra submuestra
   x = escolaridad,                    # Eje X: escolaridad
