@@ -1991,7 +1991,12 @@
     "href": "content/10-content.html",
     "title": "Ordinales y matrices",
     "section": "",
-    "text": "Sesión del miércoles, 24 de septiembre de 2025\n\n\n\n\n\nDocumento de presentación"
+    "text": "Sesión del domingo, 5 de octubre de 2025\n\n\n\n\n\nDocumento de presentación",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Bivariada 3"
+    ]
   },
   {
     "objectID": "content/12-content.html",
@@ -3366,5 +3371,467 @@
     "title": "Correlaciones ordinales y matrices de correlación",
     "section": "4 Síntesis",
     "text": "4 Síntesis\n\nSpearman y Kendall son alternativas a Pearson basadas en rankings, adecuadas para variables ordinales o con distribuciones asimétricas. Kendall es preferible cuando la muestra es pequeña o se observan demasiados empates.\nUna matriz de correlación permite examinar simultáneamente varias asociaciones; su lectura debe considerar sentido, magnitud y significación de cada par\nLa decisión sobre casos perdidos (listwise o pairwise) afecta el \\(N\\) y debe ser reportada."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#coeficiente-de-correlación-de-spearman",
+    "href": "slides/10-bivariada3.html#coeficiente-de-correlación-de-spearman",
+    "title": "Estadística Correlacional",
+    "section": "Coeficiente de correlación de Spearman",
+    "text": "Coeficiente de correlación de Spearman\n\nse utiliza para variables ordinales y/o cuando se violan supuestos de distribución normal\nes equivalente a la correlación de Pearson del ranking de las observaciones analizadas\nes alta cuando las observaciones tienen un ranking similar"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#cálculo-spearman",
+    "href": "slides/10-bivariada3.html#cálculo-spearman",
+    "title": "Estadística Correlacional",
+    "section": "Cálculo Spearman",
+    "text": "Cálculo Spearman\n\nse le asigna un número de ranking a cada valor\nel valor más bajo obtiene el mayor ranking, y el más alto el menor\nen caso de valores repetidos se produce un “empate”, y entonces el ranking se promedia."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ejemplo-variable-educación",
+    "href": "slides/10-bivariada3.html#ejemplo-variable-educación",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo: variable Educación",
+    "text": "Ejemplo: variable Educación\n\n\n\ndata$educ\n\n[1] 2 3 4 4 5 7 8 8\n\n\nComo estos valores están ordenados de menor a mayor, en principio los valores de ranking serían:\n8 7 6 5 4 3 2 1.\n\nPero, hay un par de empates\n\nel valor 4 está repetido y corresponden a los ranking 6 y 5, por lo tanto a ambos se les asigna el promedio de estos rankings: 5,5\nlo mismo sucede con el valor 8 en los rankings 2 y 1, por lo tanto a ambos se les asigna el valor 1,5"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ranking-y-correlación",
+    "href": "slides/10-bivariada3.html#ranking-y-correlación",
+    "title": "Estadística Correlacional",
+    "section": "Ranking y correlación",
+    "text": "Ranking y correlación\n\ndata_spr &lt;- data %&gt;%\n  select(educ, ing) %&gt;%\n  mutate(educ_rank = c(8,7,5.5,5.5,4,3,1.5,1.5),\n         ing_rank  = c(8,6.5,6.5,4,5,3,2,1))\ndata_spr\n\n  educ ing educ_rank ing_rank\n1    2   1       8.0      8.0\n2    3   3       7.0      6.5\n3    4   3       5.5      6.5\n4    4   5       5.5      4.0\n5    5   4       4.0      5.0\n6    7   7       3.0      3.0\n7    8   9       1.5      2.0\n8    8  11       1.5      1.0\n\ncor(data_spr$educ_rank, data_spr$ing_rank)\n\n[1] 0.9394112"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#cálculo-directo-en-r",
+    "href": "slides/10-bivariada3.html#cálculo-directo-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Cálculo directo en R",
+    "text": "Cálculo directo en R\n\ncor.test(data$educ, data$ing, \"two.sided\", \"spearman\")\n\n\n    Spearman's rank correlation rho\n\ndata:  data$educ and data$ing\nS = 5.0895, p-value = 0.0005311\nalternative hypothesis: true rho is not equal to 0\nsample estimates:\n      rho \n0.9394112"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-2",
+    "href": "slides/10-bivariada3.html#section-2",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "cormat_NA &lt;- data %&gt;% select(educ, ing, edad) %&gt;% cor(.)\nround(cormat_NA,3)\n\n      educ   ing edad\neduc 1.000 0.951   NA\ning  0.951 1.000   NA\nedad    NA    NA    1\n\n\n\ncormat_listwise &lt;- data %&gt;% select(educ, ing, edad) %&gt;%\n  cor(., use = \"complete.obs\")\nround(cormat_listwise, 3)\n\n       educ    ing   edad\neduc  1.000  0.962 -0.669\ning   0.962  1.000 -0.494\nedad -0.669 -0.494  1.000"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#coeficiente-de-correlación-tau-de-kendall",
+    "href": "slides/10-bivariada3.html#coeficiente-de-correlación-tau-de-kendall",
+    "title": "Estadística Correlacional",
+    "section": "Coeficiente de correlación Tau de Kendall",
+    "text": "Coeficiente de correlación Tau de Kendall\n\n\n\nRecomendado cuando hay un set de datos pequeños y/o cuando hay mucha repetición de observaciones en el mismo ranking\nSe basa en una comparación de pares de observaciones concordantes y discordantes\n\n\nEn R:\n\ncor.test(data$educ, data$ing,\n         \"two.sided\",\n         \"kendall\")\n\n\n    Kendall's rank correlation tau\n\ndata:  data$educ and data$ing\nz = 2.9115, p-value = 0.003597\nalternative hypothesis: true tau is not equal to 0\nsample estimates:\n      tau \n0.8680791"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#tau-de-kendall-ejemplo-paso-a-paso-10-pares",
+    "href": "slides/10-bivariada3.html#tau-de-kendall-ejemplo-paso-a-paso-10-pares",
+    "title": "Estadística Correlacional",
+    "section": "Tau de Kendall — ejemplo paso a paso (10 pares)",
+    "text": "Tau de Kendall — ejemplo paso a paso (10 pares)\nDatos (5 casos ⇒ 10 pares de comparaciones)\n\n\n\nCaso\nX\nY\n\n\n\n\nP1\n1\n3\n\n\nP2\n2\n1\n\n\nP3\n3\n4\n\n\nP4\n4\n5\n\n\nP5\n5\n2\n\n\n\n\\(Pares=\\frac{n(n-1)}{2}=\\frac{5*4}{2}=10\\)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#enumeración-de-pares-y-clasificación",
+    "href": "slides/10-bivariada3.html#enumeración-de-pares-y-clasificación",
+    "title": "Estadística Correlacional",
+    "section": "Enumeración de pares y clasificación",
+    "text": "Enumeración de pares y clasificación\n\npares concordantes: van en la misma dirección\npares discordantes: van en la dirección contraria\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n#\nPar\n(Xi, Yi)\n(Xj, Yj)\nΔX\nΔY\nsgn(ΔX)\nsgn(ΔY)\nClasificación\n\n\n\n\n1\n(P1,P2)\n(1,3)\n(2,1)\n+1\n-2\n+\n-\nDiscordante\n\n\n2\n(P1,P3)\n(1,3)\n(3,4)\n+2\n+1\n+\n+\nConcordante\n\n\n3\n(P1,P4)\n(1,3)\n(4,5)\n+3\n+2\n+\n+\nConcordante\n\n\n4\n(P1,P5)\n(1,3)\n(5,2)\n+4\n-1\n+\n-\nDiscordante\n\n\n5\n(P2,P3)\n(2,1)\n(3,4)\n+1\n+3\n+\n+\nConcordante\n\n\n6\n(P2,P4)\n(2,1)\n(4,5)\n+2\n+4\n+\n+\nConcordante\n\n\n7\n(P2,P5)\n(2,1)\n(5,2)\n+3\n+1\n+\n+\nConcordante\n\n\n8\n(P3,P4)\n(3,4)\n(4,5)\n+1\n+1\n+\n+\nConcordante\n\n\n9\n(P3,P5)\n(3,4)\n(5,2)\n+2\n-2\n+\n-\nDiscordante\n\n\n10\n(P4,P5)\n(4,5)\n(5,2)\n+1\n-3\n+\n-\nDiscordante"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#conteo",
+    "href": "slides/10-bivariada3.html#conteo",
+    "title": "Estadística Correlacional",
+    "section": "Conteo",
+    "text": "Conteo\n\nConcordantes \\(C = 6\\) → 2,3,5,6,7,8\nDiscordantes \\(D = 4\\) → 1,4,9,10\nEmpates \\(T_x = 0\\), \\(T_y = 0\\)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#cálculo-de-tau",
+    "href": "slides/10-bivariada3.html#cálculo-de-tau",
+    "title": "Estadística Correlacional",
+    "section": "Cálculo de \\(\\tau\\)",
+    "text": "Cálculo de \\(\\tau\\)\nNúmero total de pares: \\(C + D + \\text{(empates)} = 6 + 4 + 0 = 10\\).\nTau-a (sin empates):\n\\[\n\\tau_a = \\frac{C - D}{pares} = \\frac{6 - 4}{10} = 0.20\n\\]\nTau-b (corrige empates):\n\\[\n\\tau_b = \\frac{C - D}{\\sqrt{(C + D + T_x)(C + D + T_y)}} = \\frac{6 - 4}{\\sqrt{(10 + 0)(10 + 0)}} = 0.20\n\\]\nInterpretación: \\(\\tau = 0.20\\) indica una asociación positiva débil: hay más pares que mantienen el orden entre \\(X\\) y \\(Y\\) que pares que lo invierten."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#recomendaciones-generales",
+    "href": "slides/10-bivariada3.html#recomendaciones-generales",
+    "title": "Estadística Correlacional",
+    "section": "Recomendaciones generales",
+    "text": "Recomendaciones generales\n\n\nPearson es el coeficiente de correlación por defecto\nEn caso de datos en escala de medición ordinal se puede aplicar Spearman (aunque Pearson es también aceptado en este contexto).\nKendall se reporta en casos muy específicos donde hay un set de datos pequeños y repetición de observaciones en el mismo ranking (“empates”)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlación",
+    "href": "slides/10-bivariada3.html#matriz-de-correlación",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlación",
+    "text": "Matriz de correlación\n\nuna matriz de correlación se conforma cuando se representa simultáneamente más de un par de asociaciones bivariadas\npor ejemplo, si agregamos la variable edad a nuestra base de datos de educ e ingreso:\n\n\n\ndata$edad &lt;- c(50, 65, 27, 15, 40, 22, 25, 38)\n\n\n\n\nTenemos 3 variables, y por lo tanto los siguientes pares de correlaciones posibles: ingreso-educación, ingreso-edad, y educación-edad"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlación-en-r",
+    "href": "slides/10-bivariada3.html#matriz-de-correlación-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlación en R",
+    "text": "Matriz de correlación en R\n\ncor_mat &lt;- data %&gt;%\n  select(educ, ing, edad) %&gt;%\n  cor(.)\n\ncor_mat\n\n           educ        ing       edad\neduc  1.0000000  0.9512367 -0.4704649\ning   0.9512367  1.0000000 -0.4058455\nedad -0.4704649 -0.4058455  1.0000000\n\nround(cor_mat, 3)\n\n       educ    ing   edad\neduc  1.000  0.951 -0.470\ning   0.951  1.000 -0.406\nedad -0.470 -0.406  1.000"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#tabla-con-sjplottab_corr",
+    "href": "slides/10-bivariada3.html#tabla-con-sjplottab_corr",
+    "title": "Estadística Correlacional",
+    "section": "Tabla con sjPlot::tab_corr",
+    "text": "Tabla con sjPlot::tab_corr\n\nsjPlot::tab_corr(cor_mat)\n\n\n\n\n \neduc\ning\nedad\n\n\neduc\n \n0.951\n-0.470\n\n\ning\n0.951\n \n-0.406\n\n\nedad\n-0.470\n-0.406\n \n\n\nComputed correlation used pearson-method with listwise-deletion."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciónes",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciónes",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlación(es)",
+    "text": "Matriz de correlación(es)\n\ntabla de doble entrada donde las variables se presentan tanto en las filas como en las columnas\nel coeficiente de correlación correspondiente al par de variables aparece en la intersección de las columnas\nexiste información redundante\n\nlas correlaciones se repiten, dado que las variables se intersectan dos veces en la tabla\nla diagonal tiene solo unos (1), ya que es la correlación de la variable consigo misma"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ajustando-tabla-sjplottab_corr",
+    "href": "slides/10-bivariada3.html#ajustando-tabla-sjplottab_corr",
+    "title": "Estadística Correlacional",
+    "section": "Ajustando tabla sjPlot::tab_corr",
+    "text": "Ajustando tabla sjPlot::tab_corr\n\nsjPlot::tab_corr(cor_mat,\n  triangle = \"lower\",\n  title = \"Tabla de correlaciones del ejemplo\"\n  )\n\n\nTabla de correlaciones del ejemplo\n\n\n \neduc\ning\nedad\n\n\neduc\n \n \n \n\n\ning\n0.951\n \n \n\n\nedad\n-0.470\n-0.406\n \n\n\nComputed correlation used pearson-method with listwise-deletion."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-con-librería-corrplot",
+    "href": "slides/10-bivariada3.html#matriz-con-librería-corrplot",
+    "title": "Estadística Correlacional",
+    "section": "Matriz con librería corrplot",
+    "text": "Matriz con librería corrplot\n\n\n\nlibrary(corrplot)\ncorrplot(cor_mat)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-con-corrplot-números",
+    "href": "slides/10-bivariada3.html#matriz-con-corrplot-números",
+    "title": "Estadística Correlacional",
+    "section": "Matriz con corrplot: números",
+    "text": "Matriz con corrplot: números\n\n\n\ncorrplot(cor_mat,\n  method = 'number')"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#corrplot-triángulo-inferior",
+    "href": "slides/10-bivariada3.html#corrplot-triángulo-inferior",
+    "title": "Estadística Correlacional",
+    "section": "corrplot: triángulo inferior",
+    "text": "corrplot: triángulo inferior\n\n\n\ncorrplot(cor_mat,\n  method = 'number',\n  type = 'lower',\n  number.cex = 3,\n  tl.cex = 3,\n  diag = FALSE)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#corrplot.mixed",
+    "href": "slides/10-bivariada3.html#corrplot.mixed",
+    "title": "Estadística Correlacional",
+    "section": "corrplot.mixed",
+    "text": "corrplot.mixed\n\n\n\ncorrplot.mixed(cor_mat,\n  lower = \"number\",\n  upper = \"circle\",\n  number.cex = 3,\n  tl.cex = 3,\n  diag = \"n\")"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#corrplot-coeficientes-sobre-colores",
+    "href": "slides/10-bivariada3.html#corrplot-coeficientes-sobre-colores",
+    "title": "Estadística Correlacional",
+    "section": "corrplot: coeficientes sobre colores",
+    "text": "corrplot: coeficientes sobre colores\n\n\n\ncorrplot(cor_mat,\n  type = \"lower\",\n  addCoef.col = 'white',\n  number.cex = 3,\n  tl.cex = 3,\n  diag = FALSE)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#corrplot-método-square",
+    "href": "slides/10-bivariada3.html#corrplot-método-square",
+    "title": "Estadística Correlacional",
+    "section": "corrplot: método square",
+    "text": "corrplot: método square\n\n\n\ncorrplot(cor_mat,\n  type = \"lower\",\n  addCoef.col = 'white',\n  number.cex = 3,\n  tl.cex = 3,\n  diag = FALSE,\n  method = 'square')"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#consideraciones-sobre-casos-perdidos",
+    "href": "slides/10-bivariada3.html#consideraciones-sobre-casos-perdidos",
+    "title": "Estadística Correlacional",
+    "section": "Consideraciones sobre casos perdidos",
+    "text": "Consideraciones sobre casos perdidos\n\nCuando hay casos perdidos en las variables, ¿cuál es el número de casos de la matriz de correlaciones?\nLas correlaciones bivariadas se calculan con información completa, por lo tanto si hay un dato perdido en una de las variables se elimina el caso completo\nAlgunas funciones lo hacen de manera automática, en otras hay que especificarlo previamente"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ejemplo",
+    "href": "slides/10-bivariada3.html#ejemplo",
+    "title": "Estadística Correlacional",
+    "section": "Ejemplo",
+    "text": "Ejemplo\nAgreguemos un caso perdido (NA en R) a una de nuestras variables\n\ndata$edad\n\n[1] 50 65 27 15 40 22 25 38\n\ndata$edad &lt;- replace(data$edad, data$edad==15, NA)\ndata$edad\n\n[1] 50 65 27 NA 40 22 25 38"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-3",
+    "href": "slides/10-bivariada3.html#section-3",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "cormat_NA &lt;- data %&gt;% select(educ, ing, edad) %&gt;% cor(.)\nround(cormat_NA,3)\n\n      educ   ing edad\neduc 1.000 0.951   NA\ning  0.951 1.000   NA\nedad    NA    NA    1\n\n\n\ncormat_listwise &lt;- data %&gt;% select(educ, ing, edad) %&gt;%\n  cor(., use = \"complete.obs\")\nround(cormat_listwise, 3)\n\n       educ    ing   edad\neduc  1.000  0.962 -0.669\ning   0.962  1.000 -0.494\nedad -0.669 -0.494  1.000"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#eliminación-de-casos-perdidos-por-lista-o-listwise",
+    "href": "slides/10-bivariada3.html#eliminación-de-casos-perdidos-por-lista-o-listwise",
+    "title": "Estadística Correlacional",
+    "section": "Eliminación de casos perdidos por lista (o listwise)",
+    "text": "Eliminación de casos perdidos por lista (o listwise)\n\nlas correlaciones bivariadas requieren eliminación de casos perdidos tipo listwise, es decir, si hay un dato perdido en una variable se pierde el caso completo\nPara conocer el número de casos con que se calculó la matriz:\n\n\n\nsum(complete.cases(data))\n\n[1] 7\n\n\n\n\nPor lo tanto, en el cálculo se perdió el caso o fila completa de la base (de 8 casos) que tenía el caso perdido."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#eliminación-de-casos-perdidos-por-pares-o-pairwise",
+    "href": "slides/10-bivariada3.html#eliminación-de-casos-perdidos-por-pares-o-pairwise",
+    "title": "Estadística Correlacional",
+    "section": "Eliminación de casos perdidos por pares (o pairwise)",
+    "text": "Eliminación de casos perdidos por pares (o pairwise)\n\nen el caso de las matrices de correlaciones es posible tomar la opción pairwise para casos perdidos\npairwise quiere decir que se eliminan los casos perdidos solo cuando afectan al cálculo de un par específico.\nen nuestro ejemplo, si consideramos listwise todas las correlaciones tienen 7 casos, pero con pairwise la correlación entre educación e ingreso mantendría 8 casos.\npor lo tanto, pairwise permite mayor rescate de información y mayor N en el cálculo de matrices de correlaciones"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#opción-pairwise-en-correlación-en-r",
+    "href": "slides/10-bivariada3.html#opción-pairwise-en-correlación-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Opción pairwise en correlación en R",
+    "text": "Opción pairwise en correlación en R\n\ndata %&gt;% select(educ, ing, edad) %&gt;%\n  cor(., use = \"pairwise\")\n\n           educ        ing       edad\neduc  1.0000000  0.9512367 -0.6693607\ning   0.9512367  1.0000000 -0.4941732\nedad -0.6693607 -0.4941732  1.0000000\n\n\nEn este caso vemos una leve variación en el coeficiente comprometido (educ-ing) comparando listwise con pairwise"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#número-de-casos-pairwise",
+    "href": "slides/10-bivariada3.html#número-de-casos-pairwise",
+    "title": "Estadística Correlacional",
+    "section": "Número de casos pairwise",
+    "text": "Número de casos pairwise\n\ndata %&gt;% select(educ, ing, edad) %&gt;% psych::pairwiseCount()\n\n     educ ing edad\neduc    8   8    7\ning     8   8    7\nedad    7   7    7\n\n\nSe indica que en las correlaciones con edad se utilizaron 7 casos, mientras en la correlación entre ingreso y educación se utilizan 8 casos con el método pairwise"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#preguntas-y-error-de-medición",
+    "href": "slides/10-bivariada3.html#preguntas-y-error-de-medición",
+    "title": "Estadística Correlacional",
+    "section": "Preguntas y error de medición",
+    "text": "Preguntas y error de medición\n\n\nPara medir hechos observables simples usualmente se utiliza una pregunta (ej: edad)\nFenómenos complejos se miden en general con más de una pregunta, con el objetivo de dar mejor cuenta del atributo (i.e. minimizar error de medición)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#baterías-de-indicadores-múltiples",
+    "href": "slides/10-bivariada3.html#baterías-de-indicadores-múltiples",
+    "title": "Estadística Correlacional",
+    "section": "Baterías de indicadores múltiples",
+    "text": "Baterías de indicadores múltiples\n\nen general las encuestas suelen incluir varias preguntas respecto de un mismo tema → baterías de indicadores múltiples\ncubren distintos aspectos de un mismo fenómeno complejo que no se agota en solo un indicador → minimiza error de medición\nproblema: ¿cómo se analizan indicadores que están relacionados? ¿cómo se muestran los resultados?"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías",
+    "href": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías",
+    "title": "Estadística Correlacional",
+    "section": "Análisis de indicadores en baterías",
+    "text": "Análisis de indicadores en baterías\n\n\n\nUnivariado: se sugiere presentar análisis descriptivos que contengan todos los indicadores para poder comparar frecuencias\n\n\n\n\n\n\n\n\n(likert plot, sjPlot)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías-1",
+    "href": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías-1",
+    "title": "Estadística Correlacional",
+    "section": "Análisis de indicadores en baterías",
+    "text": "Análisis de indicadores en baterías\n\n\n2. Bivariado: tablas/gráficos de correlaciones\n(corrplot)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías-2",
+    "href": "slides/10-bivariada3.html#análisis-de-indicadores-en-baterías-2",
+    "title": "Estadística Correlacional",
+    "section": "Análisis de indicadores en baterías",
+    "text": "Análisis de indicadores en baterías\n\nSe podría asumir un concepto o dimensión subyacente a la batería de items\nPara facilitar el avance en el análisis (por ejemplo, relacionar ese concepto subyacente con otras variables), muchas veces se reduce la batería a algún tipo de índice (sumativo/promedio)\n¿Podemos asegurar que los items están realmente midiendo lo mismo?"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#miden-lo-mismo",
+    "href": "slides/10-bivariada3.html#miden-lo-mismo",
+    "title": "Estadística Correlacional",
+    "section": "¿Miden lo mismo?",
+    "text": "¿Miden lo mismo?"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#preguntas-y-error-de-medición-1",
+    "href": "slides/10-bivariada3.html#preguntas-y-error-de-medición-1",
+    "title": "Estadística Correlacional",
+    "section": "Preguntas y error de medición",
+    "text": "Preguntas y error de medición\n\n\nEn este marco se asume que el indicador es distinto del atributo, y que la medición del atributo o variable latente conlleva error\nCuando el atributo se mide con más de una pregunta, se puede intentar estimar la variable latente mediante índices o técnicas de análisis factorial"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#medición-y-error",
+    "href": "slides/10-bivariada3.html#medición-y-error",
+    "title": "Estadística Correlacional",
+    "section": "Medición y error",
+    "text": "Medición y error\n\n\n\n\n\n\n\n\n\nantes de agrupar indicadores en un índice hay que evaluar si los indicadores se encuentran relacionados\n\n→ si miden constructos similares\n→ si la medición es confiable"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-5",
+    "href": "slides/10-bivariada3.html#section-5",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "var\nlabel\nn\nNA.prc\nmean\nsd\nrange\n\n\n\n\n2\nfalthab\nRazones pobreza falta de habilidad\n1228\n1.365462\n2.630293\n1.254220\n4 (1-5)\n\n\n3\nmalasue\nRazones pobreza mala suerte\n1227\n1.445783\n2.019560\n1.140079\n4 (1-5)\n\n\n1\nfaltesf\nRazones pobreza falta de esfuerzo\n1238\n0.562249\n3.155897\n1.290758\n4 (1-5)\n\n\n4\nsisecon\nRazones pobreza sistema económico\n1218\n2.168675\n4.036946\n1.095047\n4 (1-5)\n\n\n5\nsiseduc\nRazones pobreza sistema educativo\n1227\n1.445783\n4.088835\n1.088767\n4 (1-5)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones-1",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones-1",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones (1)",
+    "text": "Matriz de correlaciones (1)\n\n\nMatriz hipotética de indicadores que miden un mismo constructo"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ej.-matriz-de-correlaciones-2",
+    "href": "slides/10-bivariada3.html#ej.-matriz-de-correlaciones-2",
+    "title": "Estadística Correlacional",
+    "section": "Ej. Matriz de correlaciones (2)",
+    "text": "Ej. Matriz de correlaciones (2)\n\n\nMatriz hipotética de indicadores que miden constructos independientes"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#ej.-matriz-de-correlaciones-3",
+    "href": "slides/10-bivariada3.html#ej.-matriz-de-correlaciones-3",
+    "title": "Estadística Correlacional",
+    "section": "Ej. Matriz de correlaciones (3)",
+    "text": "Ej. Matriz de correlaciones (3)\n\n\nMatriz hipotética de variables que miden dos constructos independientes"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#entonces",
+    "href": "slides/10-bivariada3.html#entonces",
+    "title": "Estadística Correlacional",
+    "section": "Entonces:",
+    "text": "Entonces:\n\n\nAnalizar la matriz de correlaciones antes de generar cualquier técnica de reducción de información (ej: crear índice)\nEvaluar la posibilidad de generar algún tipo de índice que resuma la información"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#datos-ejemplo",
+    "href": "slides/10-bivariada3.html#datos-ejemplo",
+    "title": "Estadística Correlacional",
+    "section": "Datos ejemplo",
+    "text": "Datos ejemplo\n\nbatería atribuciones de pobreza, encuesta “Desigualdad, Justicia y Participación Política” - FONDECYT Iniciación 11121203 (2013-2015) Social justice and citizenship participation"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-6",
+    "href": "slides/10-bivariada3.html#section-6",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "var\nlabel\nn\nNA.prc\nmean\nsd\nrange\n\n\n\n\n2\nfalthab\nRazones pobreza falta de habilidad\n1228\n1.365462\n2.630293\n1.254220\n4 (1-5)\n\n\n3\nmalasue\nRazones pobreza mala suerte\n1227\n1.445783\n2.019560\n1.140079\n4 (1-5)\n\n\n1\nfaltesf\nRazones pobreza falta de esfuerzo\n1238\n0.562249\n3.155897\n1.290758\n4 (1-5)\n\n\n4\nsisecon\nRazones pobreza sistema económico\n1218\n2.168675\n4.036946\n1.095047\n4 (1-5)\n\n\n5\nsiseduc\nRazones pobreza sistema educativo\n1227\n1.445783\n4.088835\n1.088767\n4 (1-5)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones",
+    "text": "Matriz de correlaciones\n\ncormat &lt;- cor(data_atrib)\ncormat\n\n        falthab malasue faltesf sisecon siseduc\nfalthab       1      NA      NA      NA      NA\nmalasue      NA       1      NA      NA      NA\nfaltesf      NA      NA       1      NA      NA\nsisecon      NA      NA      NA       1      NA\nsiseduc      NA      NA      NA      NA       1\n\n\nEsta función no resulta ya que requiere que no existan casos perdidos"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones-2",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones-2",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones",
+    "text": "Matriz de correlaciones\nEntonces:\n\ncormat &lt;- cor(na.omit(data_atrib))\ncormat\n\n             falthab    malasue     faltesf     sisecon      siseduc\nfalthab  1.000000000 0.31793357  0.36246039 -0.02787884 -0.005893529\nmalasue  0.317933565 1.00000000  0.16936872  0.02755708  0.013865045\nfaltesf  0.362460395 0.16936872  1.00000000 -0.06579454 -0.020114542\nsisecon -0.027878843 0.02755708 -0.06579454  1.00000000  0.593625639\nsiseduc -0.005893529 0.01386504 -0.02011454  0.59362564  1.000000000"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones-formato-publicable",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones-formato-publicable",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones (formato publicable)",
+    "text": "Matriz de correlaciones (formato publicable)\n\ntab_corr(data)\n\n\n\n\n \nRazones pobreza falta de habilidad\nRazones pobreza mala suerte\nRazones pobreza falta de esfuerzo\nRazones pobreza sistema económico\nRazones pobreza sistema educativo\n\n\nRazones pobreza falta de habilidad\n \n0.318***\n0.362***\n-0.028\n-0.006\n\n\nRazones pobreza mala suerte\n0.318***\n \n0.169***\n0.028\n0.014\n\n\nRazones pobreza falta de esfuerzo\n0.362***\n0.169***\n \n-0.066*\n-0.020\n\n\nRazones pobreza sistema económico\n-0.028\n0.028\n-0.066*\n \n0.594***\n\n\nRazones pobreza sistema educativo\n-0.006\n0.014\n-0.020\n0.594***\n \n\n\nComputed correlation used pearson-method with listwise-deletion."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones---gráfico",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones---gráfico",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones - gráfico",
+    "text": "Matriz de correlaciones - gráfico\n\n\n\ncorrplot(cormat)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones---gráfico-ajustado",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones---gráfico-ajustado",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones - gráfico ajustado",
+    "text": "Matriz de correlaciones - gráfico ajustado\n\n\n\ncorrplot::corrplot(cormat,\n  method = \"color\",\n  addCoef.col = \"#000390\",\n  type = \"upper\",\n  tl.col = \"black\",\n  col = colorRampPalette(c(\"white\",\"#0068DC\"))(8),\n  bg = \"white\",\n  na.label = \"-\")"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#alpha-de-cronbach",
+    "href": "slides/10-bivariada3.html#alpha-de-cronbach",
+    "title": "Estadística Correlacional",
+    "section": "Alpha de Cronbach",
+    "text": "Alpha de Cronbach\n\níndice de consistencia interna de una batería\nen general, interpretable como la correlación [absoluta] promedio entre distintas variables que componen una batería de medición\nvaría entre 0 y 1; valores más cercanos a 1 indican mayor consistencia\nen general valores sobre 0.6 se consideran aceptables"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#alpha-de-cronbach-en-r",
+    "href": "slides/10-bivariada3.html#alpha-de-cronbach-en-r",
+    "title": "Estadística Correlacional",
+    "section": "Alpha de Cronbach en R",
+    "text": "Alpha de Cronbach en R\n\n\n\nfunción alpha de la librería psych\nse genera un objeto (lo llamaremos alpha). Contiene bastante información, por ahora nos enfocaremos solo en el valor de alpha (raw_alpha)\n\n\n\nnames(data_atrib)\n\n[1] \"falthab\" \"malasue\" \"faltesf\" \"sisecon\" \"siseduc\"\n\nalpha &lt;- psych::alpha(data_atrib)\n\nSome items ( falthab malasue faltesf ) were negatively correlated with the first principal component and \nprobably should be reversed.  \nTo do this, run the function again with the 'check.keys=TRUE' option\n\nalpha$total$raw_alpha\n\n[1] 0.4363206"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#alpha-de-cronbach-interpretación",
+    "href": "slides/10-bivariada3.html#alpha-de-cronbach-interpretación",
+    "title": "Estadística Correlacional",
+    "section": "Alpha de Cronbach: interpretación",
+    "text": "Alpha de Cronbach: interpretación\n\npuntaje 0.43, por lo tanto bajo los valores aceptables de consistencia interna\nesto ya se podía anticipar desde la matriz de correlaciones, que aparentemente mostraba dos dimensiones subyacentes a la batería\nademás, se genera un mensaje de advertencia sobre posibles items codificados a la inversa (dada la correlación entre items de dimensiones distintas)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#opciones",
+    "href": "slides/10-bivariada3.html#opciones",
+    "title": "Estadística Correlacional",
+    "section": "Opciones",
+    "text": "Opciones\n\nconstrucción de índices basados en la información de la matriz de correlaciones\nanálisis factorial:\n\npermite identificar dimensiones subyacentes a la batería de indicadores\npermite generar índices factoriales (scores) que representan cada dimensión\n(tema para otro curso)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#índice-promedio",
+    "href": "slides/10-bivariada3.html#índice-promedio",
+    "title": "Estadística Correlacional",
+    "section": "Índice promedio",
+    "text": "Índice promedio\n\nvamos a generar 2 índices a partir de esta batería: uno para atribución interna (falthab, faltesf, malasue) y otro para externa (sisecon, siseduc)\n\n\n\ndata_atrib &lt;- cbind(data_atrib, \"interna_prom\" = rowMeans(data_atrib %&gt;% select(falthab, faltesf, malasue), na.rm = TRUE))\n\ndata_atrib &lt;- cbind(data_atrib, \"externa_prom\" = rowMeans(data_atrib %&gt;% select(sisecon, siseduc), na.rm = TRUE))\n\nnames(data_atrib)\n\n[1] \"falthab\"      \"malasue\"      \"faltesf\"      \"sisecon\"      \"siseduc\"     \n[6] \"interna_prom\" \"externa_prom\""
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#índices-de-atribución-interna-y-externa-promedios",
+    "href": "slides/10-bivariada3.html#índices-de-atribución-interna-y-externa-promedios",
+    "title": "Estadística Correlacional",
+    "section": "Índices de atribución interna y externa (promedios)",
+    "text": "Índices de atribución interna y externa (promedios)\n\ndata &lt;- cbind(data, \"interna_prom\" = rowMeans(data %&gt;% select(falthab, faltesf, malasue), na.rm = TRUE))\n\ndata &lt;- cbind(data, \"externa_prom\" = rowMeans(data %&gt;% select(sisecon, siseduc), na.rm = TRUE))\n\nnames(data)\n\n[1] \"falthab\"      \"malasue\"      \"faltesf\"      \"sisecon\"      \"siseduc\"     \n[6] \"interna_prom\" \"externa_prom\""
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#resumen",
+    "href": "slides/10-bivariada3.html#resumen",
+    "title": "Estadística Correlacional",
+    "section": "Resumen",
+    "text": "Resumen\n\n\nCorrelación de Spearman: apropiada para variables ordinales, equivale a la correlación de Pearson del ranking de las variables\nMatriz de correlaciones: forma tradicional de reporte de asociaciones de las variables de una investigación, importante considerar tratamiento de datos perdidos (listwise o pairwise)\nÍndices y consistencia interna en matrices"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables",
+    "href": "slides/10-bivariada3.html#el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables",
+    "title": "Estadística Correlacional",
+    "section": "El coeficiente de correlación de Spearman no es más que una correlación de Pearson del ranking de las variables",
+    "text": "El coeficiente de correlación de Spearman no es más que una correlación de Pearson del ranking de las variables"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-4",
+    "href": "slides/10-bivariada3.html#section-4",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "Cuando hay casos perdidos, no es posible calcular correlación\n\n\n\ncormat_NA &lt;- data %&gt;% select(educ, ing, edad) %&gt;% cor(.)\nround(cormat_NA,3)\n\n      educ   ing edad\neduc 1.000 0.951   NA\ning  0.951 1.000   NA\nedad    NA    NA    1\n\n\n\n\nSe elimina el caso perdido (fila completa) con la opción use = \"complete.obs\" (listwise deletion)\n\n\n\ncormat_listwise &lt;- data %&gt;% select(educ, ing, edad) %&gt;%\n  cor(., use = \"complete.obs\")\nround(cormat_listwise, 3)\n\n       educ    ing   edad\neduc  1.000  0.962 -0.669\ning   0.962  1.000 -0.494\nedad -0.669 -0.494  1.000"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#correlación-de-spearman",
+    "href": "slides/10-bivariada3.html#correlación-de-spearman",
+    "title": "Estadística Correlacional",
+    "section": "Correlación de Spearman",
+    "text": "Correlación de Spearman\n\nse utiliza para variables ordinales y/o cuando se violan supuestos de distribución normal\nes equivalente a la correlación de Pearson del ranking de las observaciones analizadas\nes alta cuando las observaciones tienen un ranking similar"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#correlación-tau-de-kendall",
+    "href": "slides/10-bivariada3.html#correlación-tau-de-kendall",
+    "title": "Estadística Correlacional",
+    "section": "Correlación Tau de Kendall",
+    "text": "Correlación Tau de Kendall\n\n\n\nRecomendado cuando hay un set de datos pequeños y/o cuando hay mucha repetición de observaciones en el mismo ranking\nSe basa en una comparación de pares de observaciones concordantes y discordantes\n\n\nEn R:\n\ncor.test(data$educ, data$ing,\n         \"two.sided\",\n         \"kendall\")\n\n\n    Kendall's rank correlation tau\n\ndata:  data$educ and data$ing\nz = 2.9115, p-value = 0.003597\nalternative hypothesis: true tau is not equal to 0\nsample estimates:\n      tau \n0.8680791"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#recomendaciones",
+    "href": "slides/10-bivariada3.html#recomendaciones",
+    "title": "Estadística Correlacional",
+    "section": "Recomendaciones",
+    "text": "Recomendaciones\n\n\nPearson es el coeficiente de correlación por defecto\nEn caso de datos en escala de medición ordinal se puede aplicar Spearman (aunque Pearson es también aceptado en este contexto).\nKendall se reporta en casos muy específicos donde hay un set de datos pequeños y repetición de observaciones en el mismo ranking (“empates”)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-7",
+    "href": "slides/10-bivariada3.html#section-7",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "¿Cómo estimar el nivel de relación entre indicadores que miden un mismo constructo?\n\n\nDistintas maneras, pero todas se basan en la técnica de la correlación"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#section-8",
+    "href": "slides/10-bivariada3.html#section-8",
+    "title": "Estadística Correlacional",
+    "section": "",
+    "text": "var\nlabel\nn\nNA.prc\nmean\nsd\nrange\n\n\n\n\n2\nfalthab\nRazones pobreza falta de habilidad\n1228\n1.365462\n2.630293\n1.254220\n4 (1-5)\n\n\n3\nmalasue\nRazones pobreza mala suerte\n1227\n1.445783\n2.019560\n1.140079\n4 (1-5)\n\n\n1\nfaltesf\nRazones pobreza falta de esfuerzo\n1238\n0.562249\n3.155897\n1.290758\n4 (1-5)\n\n\n4\nsisecon\nRazones pobreza sistema económico\n1218\n2.168675\n4.036946\n1.095047\n4 (1-5)\n\n\n5\nsiseduc\nRazones pobreza sistema educativo\n1227\n1.445783\n4.088835\n1.088767\n4 (1-5)"
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#tabla-con-sjplot",
+    "href": "slides/10-bivariada3.html#tabla-con-sjplot",
+    "title": "Estadística Correlacional",
+    "section": "Tabla con sjPlot",
+    "text": "Tabla con sjPlot\nFunción: tab_corr\n\nsjPlot::tab_corr(cor_mat, \n  triangle = \"lower\",\n  title = \"Tabla de correlaciones del ejemplo\"\n  )\n\n\nTabla de correlaciones del ejemplo\n\n\n \neduc\ning\nedad\n\n\neduc\n \n \n \n\n\ning\n0.951\n \n \n\n\nedad\n-0.470\n-0.406\n \n\n\nComputed correlation used pearson-method with listwise-deletion."
+  },
+  {
+    "objectID": "slides/10-bivariada3.html#matriz-de-correlaciones-3",
+    "href": "slides/10-bivariada3.html#matriz-de-correlaciones-3",
+    "title": "Estadística Correlacional",
+    "section": "Matriz de correlaciones",
+    "text": "Matriz de correlaciones\n\nsjPlot::tab_corr(data_atrib,\n  triangle = \"lower\",\n  na.deletion = \"pairwise\",\n  var.labels = c(\"Falta de habilidad\", \"Mala suerte\", \"Falta de esfuerzo\",\n                 \"Sistema económico\", \"Sistema educativo\"),\n  wrap.labels = 15,\n  title = \"Matriz de correlaciones de la batería de atribuciones de pobreza\")\n\n\nMatriz de correlaciones de la batería de atribuciones de pobreza\n\n\n\n\n\n\n\n\n\n\n \nFalta de\nhabilidad\nMala suerte\nFalta de\nesfuerzo\nSistema\neconómico\nSistema\neducativo\n\n\nFalta de\nhabilidad\n \n \n \n \n \n\n\nMala suerte\n0.318***\n \n \n \n \n\n\nFalta de\nesfuerzo\n0.356***\n0.162***\n \n \n \n\n\nSistema\neconómico\n-0.030\n0.027\n-0.066*\n \n \n\n\nSistema\neducativo\n-0.002\n0.016\n-0.026\n0.594***\n \n\n\nComputed correlation used pearson-method with pairwise-deletion."
   }
 ]
