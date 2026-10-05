@@ -223,7 +223,7 @@ fmt_p <- function(p) {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <span>Recurso complementario Interactivo· Matrices y casos perdidos</span>
+    <span>Recurso complementario Interactivo · Matrices y casos perdidos</span>
     <span>↗</span>
   </a>
 
@@ -231,15 +231,17 @@ fmt_p <- function(p) {
 
 ## Objetivo de la sesión
 
-A diferencia de los prácticos anteriores, aquí el foco no está en seguir paso a paso un ejemplo, sino en **tomar decisiones de análisis**, ejecutarlas en R y justificarlas. Los objetivos específicos son:
+Los objetivos de esta sesión son revisar los siguientes contenidos:
 
 - Repasar cuándo utilizar los coeficientes de Pearson, Spearman y Kendall
 
 - Estimar e interpretar matrices de correlación, decidiendo cómo tratar los casos perdidos
 
-- Integrar visualización, inferencia, magnitud y sentido del efecto en un reporte breve
+- Integrar visualización, inferencia, magnitud y sentido de la asociación en un reporte breve
 
-## Correlaciones Ordinales y Matrices de Correlación. 
+La actividad autónoma en esta sesión será distinta a versiones anteriores: en esta ocasión, daremos a elegir bases de datos con las que trabajar y el foco estará en **tomar decisiones de análisis, ejecutarlas en R y justificarlas**
+
+## Correlaciones Ordinales y Matrices de Correlación
 
 ### Preparación de datos
 
@@ -280,7 +282,7 @@ datos <- elsoc_2023 |>
         ess,
         educ,
         edad) |> 
-  mutate(across(everything(), ~ ifelse(.x < 0, NA, .x)))  # -999, -888, -777 y -666 son casos perdidos
+   sjmisc::set_na(na = c(-999, -888, -777, -666))  # Codificamos los casos negativos como casos perdidos
 ```
 
 | Variable | Qué representa | Nivel de medición |
@@ -339,11 +341,11 @@ El desplazamiento de `geom_jitter()` es solo visual: **no modifica los datos** n
 
 :::
 
-> ¿Se puede identificar algún patron a partir de esta visualización?
+> ¿Se puede identificar algún patrón a partir de esta visualización?
 
 ### ¿Qué coeficiente utilizar?
 
-Hasta ahora, hemos trabajados con el coeficiente de correlación de Pearson, que supone variables continuas y que tienen una relación lineal entre ellas. Sin embargo, en ciencias sociales muchas veces trabajamos con variables que son ordinales: Escalas Likert, nivel educacional, clase social, etc. Para estos casos, existen coeficientes de relación basados en **rankings**: El Coeficiente de correlación de Spearman y el Coeficiente de correlación de rango de Kendall. 
+Hasta ahora, hemos trabajado con el coeficiente de correlación de Pearson, que supone variables continuas y que tienen una relación lineal entre ellas. Sin embargo, en ciencias sociales muchas veces trabajamos con variables que son ordinales: Escalas Likert, nivel educacional, clase social, etc. Para estos casos, existen coeficientes de relación basados en **rankings**: El Coeficiente de correlación de Spearman y el Coeficiente de correlación de rango de Kendall. 
 
 | Coeficiente | Símbolo | ¿Cuándo usarlo? | ¿Cómo se calcula? |
 |---|---|---|---|
@@ -355,7 +357,7 @@ Los tres coeficientes se interpretan de la misma forma:
 
 - Varían entre -1 y 1.
 - Su **signo** indica el sentido de la asociación.
-- Su **valor absoluto** su magnitud, que se pueden interpretar según los criterios de Cohen. Con todo, se debe considera que los valores de Kendal tienden a ser más pequeños que Spearman y Pearson. 
+- Su **valor absoluto** indica su magnitud, que se puede interpretar según los criterios de Cohen. Con todo, se debe considerar que los valores de Kendall tienden a ser más pequeños que los de Spearman y Pearson. 
 
 
 Para estimar Spearman o Kendall usamos la misma función `cor.test` que utilizamos para Pearson, cambiando el argumento `method`:
@@ -382,13 +384,11 @@ Comparemos los tres coeficientes:
 | Spearman ($r_s$) | `r fmt_decimal(cor_spearman$estimate)` | `r fmt_p(cor_spearman$p.value)` |
 | Kendall ($\tau$) | `r fmt_decimal(cor_kendall$estimate)`  | `r fmt_p(cor_kendall$p.value)` |
 
-Cada coeficiente usa un estadístico de prueba distinto. Pearson usa $t$, igual que en el práctico anterior. Spearman reporta $S$, la suma de las diferencias al cuadrado entre los rangos de ambas variables; por eso es un número muy grande que no se compara directamente con un valor crítico. Kendall, con `exact = FALSE`, usa una aproximación a la distribución normal ($z$). En los tres casos, la decisión sobre $H_0$ se toma a partir del **valor $p$**.
-
-Dado que en este caso tenemos una muestra grande y variables ordinales, nos guíaremos por el Coeficiente de Correlación de Spearman. A continuación, interpretamos el resultado: 
+Dado que en este caso tenemos una muestra grande y variables ordinales, nos guiaremos por el Coeficiente de Correlación de Spearman. A continuación, interpretamos el resultado: 
 
 ::: {.callout-warning title="Interpretación"}
 
-Dado que ambas variables son ordinales, se utilizó la correlación de Spearman para medir la asociación entre nivel educacional y estatus social subjetivo. Se observa una asociación positiva, de magnitud pequeña y estadísticamente significativa entre ambas variables ($r_s$ = `r fmt_decimal(cor_spearman$estimate)`; $p$ < 0,001; $N$ = `r fmt_entero(sum(complete.cases(datos$educ, datos$ess)))`). Por tanto, se rechaza la hipótesis nula de no asociación con un 99,9% de confianza. Por lo tanto, detectamos evidencia de que las personas con mayor nivel educacional tienden a ubicarse en posiciones más altas en la escala de estatus social.
+Dado que ambas variables son ordinales, se utilizó la correlación de Spearman para medir la asociación entre nivel educacional y estatus social subjetivo. Se observa una asociación positiva, de magnitud pequeña y estadísticamente significativa entre ambas variables ($r_s$ = `r fmt_decimal(cor_spearman$estimate)`; $p$ < 0,001; $N$ = `r fmt_entero(sum(complete.cases(datos$educ, datos$ess)))`). Por tanto, dado que $p$ < 0,001, existe evidencia estadística suficiente para rechazar la hipótesis nula de ausencia de asociación. Por lo tanto, detectamos evidencia de que las personas con mayor nivel educacional tienden a ubicarse en posiciones más altas en la escala de estatus social.
 :::
 
 ::: {.callout-important}
@@ -399,22 +399,26 @@ Dado que ambas variables son ordinales, se utilizó la correlación de Spearman 
 
 ### Matrices de correlación
 
-Una **matriz de correlación** presenta simultáneamente todas las correlaciones entre pares de un conjunto de variables. Cada celda corresponde a la correlación entre la variable de la fila y la de la columna; la diagonal siempre es 1 (la correlación de una variable consigo misma) y los valores sobre y bajo la diagonal se repiten.
+Hasta ahora hemos analizado la asociación entre dos variables. Si quisiéramos examinar simultáneamente las asociaciones entre varias variables a la vez, podemos organizarlas en una matriz de correlación. Una **matriz de correlación** presenta simultáneamente todas las correlaciones entre pares de un conjunto de variables. Cada celda corresponde a la correlación entre la variable de la fila y la de la columna; la diagonal siempre es 1 (la correlación de una variable consigo misma) y los valores sobre y bajo la diagonal se repiten.
 
 #### Tratamiento de casos perdidos {.unnumbered}
 
-Tratar con casos perdidos es complejos, existiendo múltiples enfoques desde la eliminación a la imputación. En este práctico nos enfocaremos en las dos estrategias más comunes: 
+Tratar con casos perdidos es complejo, existiendo múltiples enfoques desde la eliminación a la imputación. En este práctico nos enfocaremos en las dos estrategias más comunes: 
 
 - Trabajar exclusivamente con casos completos, o *listwise*
-- Retener valores perdidos, pero excluir al calcular estadístico, o *pairwise*
+- Retener valores perdidos, pero excluirlos al calcular cada estadístico, o *pairwise*
 
 
-| Opción | Qué hace | En `cor.test` |
+| Opción | Qué hace | En `cor` |
 |---|---|---|
 | **Listwise** (por lista) | Elimina el caso completo si tiene un `NA` en **cualquiera** de las variables de la matriz. Todas las correlaciones usan el mismo $N$ | `use = "complete.obs"` |
 | **Pairwise** (por pares) | Elimina el caso solo de las correlaciones donde tiene `NA`. Cada correlación puede tener un $N$ distinto, pero se rescata más información | `use = "pairwise.complete.obs"` |
 
-A partir de la variables que seleccionamos de ELSCO, veamos cuántos casos tenemos con cada opción:
+La siguiente figura ilustra los efectos de cada tratamiento: 
+
+![Eliminación listwise y pairwise de casos perdidos](images/listwise_pairwise.svg){#fig-perdidos width=90%}
+
+A partir de las variables que seleccionamos de ELSOC, veamos cuántos casos tenemos con cada opción:
 
 ```{r}
 #| label: perdidos-repaso
@@ -445,9 +449,10 @@ Con `cor` obtenemos la matriz completa, indicando el método y el tratamiento de
 ```{r}
 #| label: matriz-cor
 
-matriz <- cor(datos,
-              method = "spearman",
-              use = "pairwise.complete.obs") # Creamos un objeto llamado "matriz"
+# Creamos un objeto llamado "matriz"
+matriz <- cor(datos, 
+              method = "spearman", # Lo calcularemos con la correlación de Spearman
+              use = "complete.obs")  # Solo casos completos, es decir, Listwise
 ```
 
 Para reportarla, `sjPlot::tab_corr` genera una tabla que además indica la **significación estadística** de cada correlación mediante asteriscos:
@@ -457,7 +462,7 @@ Para reportarla, `sjPlot::tab_corr` genera una tabla que además indica la **sig
 
 sjPlot::tab_corr(datos,
                  corr.method = "spearman",  # "pearson", "spearman" o "kendall"
-                 na.deletion = "pairwise",  # "listwise" o "pairwise"
+                 na.deletion = "listwise",  # "listwise" o "pairwise"
                  triangle = "lower",        # Mostramos solo la mitad inferior
                  title = "Matriz de correlaciones de Spearman · ELSOC 2023")
 ```
@@ -470,9 +475,11 @@ Y `corrplot` nos permite visualizarla:
 #| fig-height: 6
 
 corrplot::corrplot(matriz,
-                   method = "number",  # Muestra los coeficientes
-                   type = "lower",     # Solo la mitad inferior
-                   diag = FALSE)       # Sin la diagonal
+                   method = "color",         # Colorea cada celda según el coeficiente
+                   addCoef.col = "black",    # Escribe el coeficiente en negro
+                   number.cex = 1.2,         # Tamaño de los números
+                   type = "lower",           # Solo la mitad inferior
+                   diag = FALSE)             # Sin la diagonal
 ```
 
 ::: {.callout-warning title="Lectura de la matriz"}
@@ -481,13 +488,13 @@ corrplot::corrplot(matriz,
 
 - `educ` y `edad` presentan una asociación negativa y moderada ($r_s$ = `r fmt_decimal(matriz["educ", "edad"])`): las personas de mayor edad tienen, en promedio, menor nivel educacional.
 
-- Como ya vimos antes, también existe una asociación leve y positiva entre nivel eduacional y estatus social subjetivo. 
+- Como ya vimos antes, también existe una asociación leve y positiva entre nivel educacional y estatus social subjetivo. 
 
 - Con un $N$ cercano a 2.700, incluso correlaciones muy pequeñas pueden resultar estadísticamente significativas. 
 
 :::
 
-### Checklist para reportar una correlación
+### Checklist para reportar una correlación {#sec-checklist}
 
 Al interpretar una correlación, consideren siempre:
 
@@ -609,24 +616,24 @@ Esta base de datos contiene las siguientes variables:
 
 **Parte 1: Exploración**
 
-1.1. Seleccione dos variables y planteen una pregunta de investigación. 
+1.1 Seleccionar dos variables y plantear una pregunta de investigación. 
 
-1.1 Identifiquen el **nivel de medición** de las variables que utilizarán. 
+1.2 Identificar el **nivel de medición** de las variables que utilizarán. 
 
-1.2 Revisen la distribución de esas variables y cuenten los casos perdidos con `colSums(is.na())`. ¿Alguna variable concentra muchos `NA`?
+1.3 Revisar la distribución de esas variables y contar los casos perdidos con `colSums(is.na())`. ¿Alguna variable concentra muchos `NA`?
 
 **Parte 2: Correlación**
 
-2.1 Visualicen la asociación mediante una nube de puntos y describan brevemente el patrón observado.
+2.1 Visualizar la asociación mediante una nube de puntos y describir brevemente el patrón observado.
 
-2.2 Elijan un coeficiente de correlación, **justifiquen su elección** y estímenlo.
+2.2 Seleccionar y estimar un coeficiente de correlación, **justificando su elección**.
 
-2.3 Interpreten el resultado considerando **inferencia estadística, magnitud y sentido** del efecto. Planteen $H_0$ y $H_1$ e indiquen con qué nivel de confianza pueden (o no) rechazar $H_0$.
+2.3 Interpretar el resultado considerando **inferencia estadística, magnitud y sentido** de la asociación. Se debe plantear $H_0$ y $H_1$ e indicar con qué nivel de confianza se puede (o no) rechazar $H_0$.
 
 
 **Parte 3: Matriz de correlaciones**
 
-3.1 Seleccionen un grupo de variables (por lo menos 3). Estimen y reporten la matriz de correlaciones para esas variables. 
+3.1 Seleccionar un grupo de variables (por lo menos 3). Luego, estimar y reportar la matriz de correlaciones para esas variables. 
 
 3.2 ¿Qué decisión tomaron sobre los casos perdidos (*listwise* o *pairwise*)? ¿Por qué? Comparen el $N$ que obtienen con cada opción.
 
@@ -635,6 +642,8 @@ Esta base de datos contiene las siguientes variables:
 3.4 ¿Qué correlaciones de la matriz son estadísticamente significativas? ¿Con qué nivel de confianza se puede rechazar la hipótesis nula en esos casos?
 
 **Parte 4: Reporte**
+
+4.1 Redactar un párrafo breve que responda la pregunta de investigación de la Parte 1 siguiendo el [checklist para reportar una correlación](#sec-checklist), mencione los principales hallazgos de la matriz de correlaciones y cierre con una conclusión sustantiva.
 
 
 ### Ayuda de código {#sec-ayuda}
@@ -698,7 +707,9 @@ sjPlot::tab_corr(mi_matriz,
 corrplot::corrplot(cor(mi_matriz,
                        method = "____",  # "pearson", "spearman" o "kendall"
                        use = "____"),    # "complete.obs" o "pairwise.complete.obs"
-                   method = "number",
+                   method = "color",
+                   addCoef.col = "black",
+                   tl.col = "black",
                    type = "lower",
                    diag = FALSE)
 ```
@@ -718,7 +729,7 @@ corrplot::corrplot(cor(mi_matriz,
 | `cor()` devuelve `NA` | Alguna de las variables tiene casos perdidos | Agregar `use = "complete.obs"` o `use = "pairwise.complete.obs"` |
 | `'x' must be numeric` | Se incluyó una variable de texto en la correlación o en la matriz (por ejemplo, `pais_name` en LAPOP) | Quitar esa variable del `select()` antes de calcular la matriz |
 | `'arg' should be one of "pearson", "kendall", "spearman"` | El método está mal escrito (por ejemplo, `"Spearman"` o `"spearmann"`) | Escribirlo en minúsculas y entre comillas: `"pearson"`, `"spearman"` o `"kendall"` |
-| `unused argument` | El nombre de un argumento está mal escrito (por ejemplo, `corr_method` por `corr.method` ) | Revisar el nombre correcto de los argumentos con `help()`|
+| `unused argument` | El nombre de un argumento está mal escrito (por ejemplo, `corr_method` por `corr.method`) | Revisar el nombre correcto de los argumentos con `help()`|
 | Aviso `Cannot compute exact p-value with ties` | Hay empates en los rangos (normal en variables ordinales) | No es un error. Para evitar el aviso, agregar `exact = FALSE` |
 | El filtro de un país devuelve 0 casos | El nombre no coincide exactamente (mayúsculas, tildes o espacios) | Revisar los nombres con `unique(datos_lapop$pais_name)` y copiarlos tal cual, por ejemplo `filter(pais_name == "Chile")` |
 | `Error: unexpected symbol` o `unexpected ')'` | Falta (o sobra) una coma, un paréntesis o unas comillas | Revisar que cada argumento esté separado por `,` y que los paréntesis y las comillas se abran y cierren |
