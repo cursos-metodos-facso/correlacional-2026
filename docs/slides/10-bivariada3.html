@@ -7,8 +7,8 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.25">
 
   <title>Estadística Correlacional – bivariada3</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -95,7 +95,7 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-db38453fddc50d20cddc072c985e9613.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-374733f0aae0b45e86aa651d3641b1e8.css">
   <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -273,7 +273,7 @@
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>data<span class="sc">$</span>educ</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>data<span class="sc">$</span>educ</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 3 4 4 5 7 8 8</code></pre>
 </div>
@@ -291,11 +291,11 @@
 <section id="ranking-y-correlación" class="slide level2" style="font-size: 0.85em;">
 <h2>Ranking y correlación</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>data_spr <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>data_spr <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a></a>  <span class="fu">select</span>(educ, ing) <span class="sc">%&gt;%</span></span>
 <span id="cb3-3"><a></a>  <span class="fu">mutate</span>(<span class="at">educ_rank =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">7</span>,<span class="fl">5.5</span>,<span class="fl">5.5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>),</span>
 <span id="cb3-4"><a></a>         <span class="at">ing_rank  =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="fl">6.5</span>,<span class="fl">6.5</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb3-5"><a></a>data_spr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-5"><a></a>data_spr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  educ ing educ_rank ing_rank
 1    2   1       8.0      8.0
@@ -307,7 +307,7 @@
 7    8   9       1.5      2.0
 8    8  11       1.5      1.0</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cor</span>(data_spr<span class="sc">$</span>educ_rank, data_spr<span class="sc">$</span>ing_rank)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cor</span>(data_spr<span class="sc">$</span>educ_rank, data_spr<span class="sc">$</span>ing_rank)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9394112</code></pre>
 </div>
@@ -316,7 +316,7 @@
 <section id="cálculo-directo-en-r" class="slide level2" style="font-size: 0.85em;">
 <h2>Cálculo directo en R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing, <span class="st">"two.sided"</span>, <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing, <span class="st">"two.sided"</span>, <span class="st">"spearman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
@@ -344,9 +344,9 @@ sample estimates:
 </div><div class="column fragment" style="width:50%;">
 <p>En <code>R</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing,</span>
 <span id="cb9-2"><a></a>         <span class="st">"two.sided"</span>,</span>
-<span id="cb9-3"><a></a>         <span class="st">"kendall"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-3"><a></a>         <span class="st">"kendall"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kendall's rank correlation tau
@@ -597,7 +597,7 @@ sample estimates:
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">27</span>, <span class="dv">15</span>, <span class="dv">40</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">38</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">27</span>, <span class="dv">15</span>, <span class="dv">40</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">38</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment">
@@ -609,18 +609,18 @@ sample estimates:
 <section id="matriz-de-correlación-en-r" class="slide level2" style="font-size: 0.85em;">
 <h2>Matriz de correlación en R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>cor_mat <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>cor_mat <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a></a>  <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
 <span id="cb12-3"><a></a>  <span class="fu">cor</span>(.)</span>
 <span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a>cor_mat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-5"><a></a>cor_mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           educ        ing       edad
 educ  1.0000000  0.9512367 -0.4704649
 ing   0.9512367  1.0000000 -0.4058455
 edad -0.4704649 -0.4058455  1.0000000</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">round</span>(cor_mat, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">round</span>(cor_mat, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       educ    ing   edad
 educ  1.000  0.951 -0.470
@@ -645,19 +645,19 @@ edad -0.470 -0.406  1.000</code></pre>
 <h2>Tabla con <strong>sjPlot</strong></h2>
 <p>Función: tab_corr</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cor_mat, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cor_mat, </span>
 <span id="cb16-2"><a></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb16-3"><a></a>  <span class="at">title =</span> <span class="st">"Tabla de correlaciones del ejemplo"</span></span>
-<span id="cb16-4"><a></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb16-4"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true" style="border-collapse:collapse; border:none;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
 <caption>Tabla de correlaciones del ejemplo</caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">educ</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">ing</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">edad</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">educ</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">ing</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">edad</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">educ</td>
@@ -690,8 +690,8 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb17-2"><a></a><span class="fu">corrplot</span>(cor_mat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb17-2"><a></a><span class="fu">corrplot</span>(cor_mat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -710,8 +710,8 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb18-2"><a></a>  <span class="at">method =</span> <span class="st">'number'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb18-2"><a></a>  <span class="at">method =</span> <span class="st">'number'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -730,12 +730,12 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
 <span id="cb19-2"><a></a>  <span class="at">method =</span> <span class="st">'number'</span>,</span>
 <span id="cb19-3"><a></a>  <span class="at">type =</span> <span class="st">'lower'</span>,</span>
 <span id="cb19-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
 <span id="cb19-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb19-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -754,12 +754,12 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">corrplot.mixed</span>(cor_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">corrplot.mixed</span>(cor_mat,</span>
 <span id="cb20-2"><a></a>  <span class="at">lower =</span> <span class="st">"number"</span>,</span>
 <span id="cb20-3"><a></a>  <span class="at">upper =</span> <span class="st">"circle"</span>,</span>
 <span id="cb20-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
 <span id="cb20-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb20-6"><a></a>  <span class="at">diag =</span> <span class="st">"n"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb20-6"><a></a>  <span class="at">diag =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -778,12 +778,12 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
 <span id="cb21-2"><a></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
 <span id="cb21-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
 <span id="cb21-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
 <span id="cb21-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb21-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -802,13 +802,13 @@ edad -0.470 -0.406  1.000</code></pre>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
 <span id="cb22-2"><a></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
 <span id="cb22-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
 <span id="cb22-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
 <span id="cb22-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
 <span id="cb22-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb22-7"><a></a>  <span class="at">method =</span> <span class="st">'square'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb22-7"><a></a>  <span class="at">method =</span> <span class="st">'square'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -845,12 +845,12 @@ edad -0.470 -0.406  1.000</code></pre>
 <h2>Ejemplo</h2>
 <p>Agreguemos un caso perdido (NA en R) a una de nuestras variables</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>data<span class="sc">$</span>edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50 65 27 15 40 22 25 38</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">replace</span>(data<span class="sc">$</span>edad, data<span class="sc">$</span>edad<span class="sc">==</span><span class="dv">15</span>, <span class="cn">NA</span>)</span>
-<span id="cb25-2"><a></a>data<span class="sc">$</span>edad</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">replace</span>(data<span class="sc">$</span>edad, data<span class="sc">$</span>edad<span class="sc">==</span><span class="dv">15</span>, <span class="cn">NA</span>)</span>
+<span id="cb25-2"><a></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50 65 27 NA 40 22 25 38</code></pre>
 </div>
@@ -863,8 +863,8 @@ edad -0.470 -0.406  1.000</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>cormat_NA <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(.)</span>
-<span id="cb27-2"><a></a><span class="fu">round</span>(cormat_NA,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>cormat_NA <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(.)</span>
+<span id="cb27-2"><a></a><span class="fu">round</span>(cormat_NA,<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      educ   ing edad
 educ 1.000 0.951   NA
@@ -878,9 +878,9 @@ edad    NA    NA    1</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cormat_listwise <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cormat_listwise <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb29-3"><a></a><span class="fu">round</span>(cormat_listwise, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-3"><a></a><span class="fu">round</span>(cormat_listwise, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       educ    ing   edad
 educ  1.000  0.962 -0.669
@@ -898,7 +898,7 @@ edad -0.669 -0.494  1.000</code></pre>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(data))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
@@ -920,8 +920,8 @@ edad -0.669 -0.494  1.000</code></pre>
 <section id="opción-pairwise-en-correlación-en-r" class="slide level2" style="font-size: 0.85em;">
 <h2>Opción pairwise en correlación en R</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"pairwise"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"pairwise"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           educ        ing       edad
 educ  1.0000000  0.9512367 -0.6693607
@@ -934,7 +934,7 @@ edad -0.6693607 -0.4941732  1.0000000</code></pre>
 <section id="número-de-casos-pairwise" class="slide level2" style="font-size: 0.85em;">
 <h2>Número de casos pairwise</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">pairwiseCount</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">pairwiseCount</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     educ ing edad
 educ    8   8    7
@@ -1182,8 +1182,8 @@ edad    7   7    7</code></pre>
 <section id="matriz-de-correlaciones" class="slide level2" style="font-size: 0.85em;">
 <h2>Matriz de correlaciones</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_atrib)</span>
-<span id="cb37-2"><a></a>cormat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_atrib)</span>
+<span id="cb37-2"><a></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        falthab malasue faltesf sisecon siseduc
 falthab       1      NA      NA      NA      NA
@@ -1199,8 +1199,8 @@ siseduc      NA      NA      NA      NA       1</code></pre>
 <h2>Matriz de correlaciones</h2>
 <p>Entonces:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">na.omit</span>(data_atrib))</span>
-<span id="cb39-2"><a></a>cormat</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">na.omit</span>(data_atrib))</span>
+<span id="cb39-2"><a></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             falthab    malasue     faltesf     sisecon      siseduc
 falthab  1.000000000 0.31793357  0.36246039 -0.02787884 -0.005893529
@@ -1214,15 +1214,15 @@ siseduc -0.005893529 0.01386504 -0.02011454  0.59362564  1.000000000</code></pre
 <section id="matriz-de-correlaciones-3" class="slide level2" style="font-size: 0.6em;">
 <h2>Matriz de correlaciones</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(data_atrib,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(data_atrib,</span>
 <span id="cb41-2"><a></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb41-3"><a></a>  <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
 <span id="cb41-4"><a></a>  <span class="at">var.labels =</span> <span class="fu">c</span>(<span class="st">"Falta de habilidad"</span>, <span class="st">"Mala suerte"</span>, <span class="st">"Falta de esfuerzo"</span>,</span>
 <span id="cb41-5"><a></a>                 <span class="st">"Sistema económico"</span>, <span class="st">"Sistema educativo"</span>),</span>
 <span id="cb41-6"><a></a>  <span class="at">wrap.labels =</span> <span class="dv">15</span>,</span>
-<span id="cb41-7"><a></a>  <span class="at">title =</span> <span class="st">"Matriz de correlaciones de la batería de atribuciones de pobreza"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb41-7"><a></a>  <span class="at">title =</span> <span class="st">"Matriz de correlaciones de la batería de atribuciones de pobreza"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top" data-quarto-postprocess="true" style="border-collapse:collapse; border:none;">
+<table class="caption-top" style="border-collapse:collapse; border:none;">
 <caption>Matriz de correlaciones de la batería de atribuciones de pobreza</caption>
 <colgroup>
 <col style="width: 16%">
@@ -1234,16 +1234,16 @@ siseduc -0.005893529 0.01386504 -0.02011454  0.59362564  1.000000000</code></pre
 </colgroup>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Falta de<br>
-habilidad</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Mala suerte</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Falta de<br>
-esfuerzo</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Sistema<br>
-económico</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Sistema<br>
-educativo</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Falta de<br>
+habilidad</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Mala suerte</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Falta de<br>
+esfuerzo</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Sistema<br>
+económico</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">Sistema<br>
+educativo</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">Falta de<br>
@@ -1302,7 +1302,7 @@ educativo</td>
 <div class="columns">
 <div class="column" style="width:30%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">corrplot</span>(cormat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">corrplot</span>(cormat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:70%;">
 <div class="cell">
@@ -1321,14 +1321,14 @@ educativo</td>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cormat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cormat,</span>
 <span id="cb43-2"><a></a>  <span class="at">method =</span> <span class="st">"color"</span>,</span>
 <span id="cb43-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">"#000390"</span>,</span>
 <span id="cb43-4"><a></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
 <span id="cb43-5"><a></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
 <span id="cb43-6"><a></a>  <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"#0068DC"</span>))(<span class="dv">8</span>),</span>
 <span id="cb43-7"><a></a>  <span class="at">bg =</span> <span class="st">"white"</span>,</span>
-<span id="cb43-8"><a></a>  <span class="at">na.label =</span> <span class="st">"-"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb43-8"><a></a>  <span class="at">na.label =</span> <span class="st">"-"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
@@ -1372,17 +1372,17 @@ educativo</td>
 </ul>
 </div><div class="column fragment" style="width: 55%; font-size: 0.85em;">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">names</span>(data_atrib)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "falthab" "malasue" "faltesf" "sisecon" "siseduc"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>alpha <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(data_atrib)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>alpha <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Some items ( falthab malasue faltesf ) were negatively correlated with the first principal component and 
 probably should be reversed.  
 To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>alpha<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>alpha<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4363206</code></pre>
 </div>
@@ -1416,11 +1416,11 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"interna_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(falthab, faltesf, malasue), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"interna_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(falthab, faltesf, malasue), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb50-2"><a></a></span>
 <span id="cb50-3"><a></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"externa_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(sisecon, siseduc), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
 <span id="cb50-4"><a></a></span>
-<span id="cb50-5"><a></a><span class="fu">names</span>(data_atrib)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb50-5"><a></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "falthab"      "malasue"      "faltesf"      "sisecon"      "siseduc"     
 [6] "interna_prom" "externa_prom"</code></pre>
@@ -1658,7 +1658,7 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -1685,42 +1685,80 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
       });
     </script>
     
+
     <script>
+
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
       // slide changes (different for each slide format).
+
       (function () {
+
         // dispatch for htmlwidgets
+
         function fireSlideEnter() {
+
           const event = window.document.createEvent("Event");
+
           event.initEvent("slideenter", true, true);
+
           window.document.dispatchEvent(event);
+
         }
+
+    
 
         function fireSlideChanged(previousSlide, currentSlide) {
+
           fireSlideEnter();
 
+    
+
           // dispatch for shiny
+
           if (window.jQuery) {
+
             if (previousSlide) {
+
               window.jQuery(previousSlide).trigger("hidden");
+
             }
+
             if (currentSlide) {
+
               window.jQuery(currentSlide).trigger("shown");
+
             }
+
           }
+
         }
+
+    
 
         // hookup for slidy
+
         if (window.w3c_slidy) {
+
           window.w3c_slidy.add_observer(function (slide_num) {
+
             // slide_num starts at position 1
+
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
           });
+
         }
 
+    
+
       })();
+
     </script>
+
+    
 
     <script id="quarto-html-after-body" type="application/javascript">
       window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1770,13 +1808,14 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
