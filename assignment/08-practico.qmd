@@ -1,5 +1,6 @@
 ---
-title: "Spearman, Kendall y tablas de contingencia"
+title: "Correlaciones y tablas de contingencia"
+subtitle: "Spearman, Kendall y análisis de asociaciones"
 date: "2026-10-08"
 lang: es
 format:
@@ -301,7 +302,28 @@ details.formulas-inf[open] summary {
 
 <noscript><style>.ec08 .ec08-widget .ec08-actions,.ec08 .ec08-widget .ec08-pair-select,.ec08 .ec08-plot{display:none!important}</style><p class="ec08-question">JavaScript está desactivado: utiliza la tabla original y los desplegables con rangos y pares para estudiar los ejemplos. Los botones interactivos solo funcionan al activar JavaScript.</p></noscript>
 
-<div class="recursos-wrap"><a class="recurso-btn" href="https://karavena.github.io/social-r/" target="_blank" rel="noopener noreferrer">Ejercita R · Social R ↗</a><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m10_correlaciones_ordinales_spearman_kendall.html" target="_blank" rel="noopener noreferrer">Recurso complementario · Spearman y Kendall ↗</a></div>
+<div class="recursos-wrap">
+  <a class="recurso-btn"
+     href="https://karavena.github.io/social-r/"
+     target="_blank" rel="noopener noreferrer">
+    Ejercita R · Social R ↗
+  </a>
+
+  <a class="recurso-btn"
+     href="https://karavena.github.io/estadistica-social/modules/m10_correlaciones_ordinales_spearman_kendall.html"
+     target="_blank" rel="noopener noreferrer">
+    Recurso complementario · Spearman y Kendall ↗
+  </a>
+
+  <a class="recurso-btn"
+     href="https://karavena.github.io/estadistica-social/modules/m13_variables_categoricas_tablas_contingencia.html"
+     target="_blank" rel="noopener noreferrer">
+    Recurso complementario · Tablas de contingencia ↗
+  </a>
+</div>
+
+
+
 
 En este práctico aprenderemos a **elegir e interpretar correlaciones** (Spearman y Kendall) y a **construir e interpretar tablas de contingencia** utilizando datos reales.
 
@@ -456,7 +478,7 @@ En el escenario original, $\tau_b=0{,}60$ indica una **asociación ordinal posit
 :::
 
 ::: {.callout-note title="¿Qué hace Kendall tau-b con los empates?"}
-Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente
+Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente.
 :::
 
 :::
@@ -572,7 +594,7 @@ nrow(datos_cor) # Casos válidos para la correlación
 
 ### Elijamos y calculemos
 
-**Antes de ver el resultado:** ¿elegirías Pearson, Spearman o Kendall? ¿Por qué? Para Spearman, plantea el contraste bilateral:
+**Antes de ver el resultado:**¿elegirías Pearson, Spearman o Kendall? ¿Por qué?
 
 
 
@@ -591,10 +613,6 @@ Donde $\rho_S$ representa la **correlación de Spearman en la población**.
 ```{r}
 #| label: ec08-cep-cor-test
 #| message: false
-#| warning: false
-
-
-```{r}
 #| warning: false
 
 # Seleccionamos las dos variables
@@ -667,7 +685,7 @@ confianza <- factor(datos_tabla$conf_partidos, levels = 1:4,
 tabla_cep <- table(sexo, confianza)
 
 # Agregamos los totales
-tabla_total <- addmargins(tabla_cep, FUN = list(Total = sum))
+tabla_total <- addmargins(tabla_cep, FUN = list(Total = sum), quiet = TRUE)
 
 # Mostramos la tabla
 knitr::kable(tabla_total,
@@ -855,7 +873,7 @@ knitr::kable(
 
 Cada fila representa el **100 % de un grupo**. Cada celda muestra la cantidad de personas (n) y, debajo, el porcentaje dentro de su grupo (%).
 
-**Observa:** **Recuerda: cada fila representa el 100% de su grupo. Por eso podemos comparar hombres y mujeres aunque los grupos tengan tamaños diferentes.**
+**Observa:** los porcentajes permiten comparar hombres y mujeres aunque los grupos tengan tamaños diferentes.
 
 > Por ejemplo, 277 hombres (52,2%) respondieron «Nada de confianza». Esto significa que 277 de los 531 hombres eligieron esa alternativa. Los totales de la derecha muestran cuántas personas hay en cada grupo, mientras que los totales de abajo muestran cuántas eligieron cada nivel de confianza.
 
@@ -914,7 +932,7 @@ $$
 
 :::
 
-## Aplicación autónoma: LAPOP 2023 {#sec-comprobacion}
+# Aplicación autónoma: LAPOP 2023 {#sec-comprobacion}
 
 ::: {.ec08}
 

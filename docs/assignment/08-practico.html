@@ -8,7 +8,7 @@
 
 <meta name="description" content="Estadística Correlacional">
 
-<title>Spearman, Kendall y tablas de contingencia – Estadística Correlacional</title>
+<title>Correlaciones y tablas de contingencia – Estadística Correlacional</title>
 <style>
 
 code{white-space: pre-wrap;}
@@ -4165,7 +4165,8 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Spearman, Kendall y tablas de contingencia – Estadística Correlacional">
+<meta property="og:title" content="Correlaciones y tablas de contingencia – Estadística Correlacional">
+<meta property="og:description" content="Spearman, Kendall y análisis de asociaciones">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/assignment/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -4245,17 +4246,20 @@ window.Quarto = {
   <li><a href="#sec-proporciones" id="toc-sec-proporciones" class="nav-link" data-scroll-target="#sec-proporciones"><span class="header-section-number">2.2</span> ¿100% de quiénes?</a></li>
   <li><a href="#sec-asociacion" id="toc-sec-asociacion" class="nav-link" data-scroll-target="#sec-asociacion"><span class="header-section-number">2.3</span> ¿Cómo identificamos una asociación?</a></li>
   <li><a href="#sec-independencia" id="toc-sec-independencia" class="nav-link" data-scroll-target="#sec-independencia"><span class="header-section-number">2.4</span> ¿Qué significa independencia?</a></li>
-  <li><a href="#sec-comprobacion" id="toc-sec-comprobacion" class="nav-link" data-scroll-target="#sec-comprobacion"><span class="header-section-number">2.5</span> Aplicación autónoma: LAPOP 2023</a></li>
-  <li><a href="#sec-cierre" id="toc-sec-cierre" class="nav-link" data-scroll-target="#sec-cierre"><span class="header-section-number">2.6</span> Síntesis</a></li>
+  </ul></li>
+  <li><a href="#sec-comprobacion" id="toc-sec-comprobacion" class="nav-link" data-scroll-target="#sec-comprobacion"><span class="header-section-number">3</span> Aplicación autónoma: LAPOP 2023</a>
+  <ul class="collapse">
+  <li><a href="#sec-cierre" id="toc-sec-cierre" class="nav-link" data-scroll-target="#sec-cierre"><span class="header-section-number">3.1</span> Síntesis</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Spearman, Kendall y tablas de contingencia</h1></header>
+<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Correlaciones y tablas de contingencia</h1></header>
 
 <header id="title-block-header">
 
+<p class="subtitle lead">Spearman, Kendall y análisis de asociaciones</p>
 
 <div class="date-block bg-assignment text-white p-2">
   <p class="date">Sesión del jueves, 8 de octubre de 2026</p>
@@ -4523,7 +4527,9 @@ JavaScript está desactivado: utiliza la tabla original y los desplegables con r
 </p>
 </noscript>
 <div class="recursos-wrap">
-<a class="recurso-btn" href="https://karavena.github.io/social-r/" target="_blank" rel="noopener noreferrer">Ejercita R · Social R ↗</a><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m10_correlaciones_ordinales_spearman_kendall.html" target="_blank" rel="noopener noreferrer">Recurso complementario · Spearman y Kendall ↗</a>
+<p><a class="recurso-btn" href="https://karavena.github.io/social-r/" target="_blank" rel="noopener noreferrer"> Ejercita R · Social R ↗ </a></p>
+<p><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m10_correlaciones_ordinales_spearman_kendall.html" target="_blank" rel="noopener noreferrer"> Recurso complementario · Spearman y Kendall ↗ </a></p>
+<p><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m13_variables_categoricas_tablas_contingencia.html" target="_blank" rel="noopener noreferrer"> Recurso complementario · Tablas de contingencia ↗ </a></p>
 </div>
 <p>En este práctico aprenderemos a <strong>elegir e interpretar correlaciones</strong> (Spearman y Kendall) y a <strong>construir e interpretar tablas de contingencia</strong> utilizando datos reales.</p>
 <p><strong>Para comenzar · Compartamos nuestros hallazgos</strong></p>
@@ -5253,7 +5259,7 @@ Sin JavaScript, consulta el recuento del ejemplo original en los desplegables po
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente</p>
+<p>Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente.</p>
 </div>
 </div>
 </section>
@@ -5452,7 +5458,7 @@ Para realizar el juego interactivo es necesario activar JavaScript. Puedes estud
 </section>
 <section id="elijamos-y-calculemos" class="level3" data-number="1.4.2">
 <h3 data-number="1.4.2" class="anchored" data-anchor-id="elijamos-y-calculemos"><span class="header-section-number">1.4.2</span> Elijamos y calculemos</h3>
-<p><strong>Antes de ver el resultado:</strong> ¿elegirías Pearson, Spearman o Kendall? ¿Por qué? Para Spearman, plantea el contraste bilateral:</p>
+<p><strong>Antes de ver el resultado:</strong>¿elegirías Pearson, Spearman o Kendall? ¿Por qué?</p>
 <p>Usaremos <strong>Spearman</strong> para estudiar los rangos y calcularemos <strong>Kendall tau-b</strong> como alternativa válida. Planteamos las siguientes hipótesis:</p>
 <p><span class="math display">\[
 H_0: \rho_S = 0 \qquad H_A: \rho_S \neq 0
@@ -5552,16 +5558,11 @@ Revisar la interpretación
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>tabla_cep <span class="ot">&lt;-</span> <span class="fu">table</span>(sexo, confianza)</span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregamos los totales</span></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>tabla_total <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(tabla_cep, <span class="at">FUN =</span> <span class="fu">list</span>(<span class="at">Total =</span> sum))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Margins computed over dimensions
-in the following order:
-1: sexo
-2: confianza</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la tabla</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tabla_total,</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Confianza en partidos según sexo (sin ponderar)&quot;</span>) <span class="co"># Muestra la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>tabla_total <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(tabla_cep, <span class="at">FUN =</span> <span class="fu">list</span>(<span class="at">Total =</span> sum), <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la tabla</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(tabla_total,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Confianza en partidos según sexo (sin ponderar)&quot;</span>) <span class="co"># Muestra la tabla</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>CEP 2026 · Confianza en partidos según sexo (sin ponderar)</caption>
@@ -5640,26 +5641,26 @@ in the following order:
 <p><strong>Practiquemos · Construyamos una tabla 2 × 2</strong></p>
 <p>Hasta ahora construimos una tabla <strong>2 × 4</strong>. Ahora agruparemos la confianza en <strong>«Nada o poca»</strong> (niveles 1–2) y <strong>«Bastante o mucha»</strong> (niveles 3–4) para comparar hombres y mujeres.</p>
 <p><strong>Completa los espacios <code>___</code>, ejecuta el código en R y responde las preguntas.</strong> Si necesitas ayuda, abre la pista.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Agrupamos los niveles de confianza</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>confianza_2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(datos_tabla<span class="sc">$</span>conf_partidos <span class="sc">&lt;=</span> <span class="dv">2</span>,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Nada o poca&quot;</span>, <span class="st">&quot;Bastante o mucha&quot;</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>confianza_2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(confianza_2,</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Nada o poca&quot;</span>, <span class="st">&quot;Bastante o mucha&quot;</span>))</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Construimos una tabla 2 × 2</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>tabla_2x2 <span class="ot">&lt;-</span> <span class="fu">table</span>(___, ___)</span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Agregamos totales y mostramos la tabla</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>tabla_total_2x2 <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(tabla_2x2, <span class="at">FUN =</span> <span class="fu">list</span>(<span class="at">Total =</span> sum),</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(___, <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Confianza agrupada&quot;</span>)</span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Calculamos porcentajes por fila</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>porcentajes_2x2 <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(___, ___) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Mostramos los porcentajes con un decimal</span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(porcentajes_2x2, <span class="dv">1</span>),</span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Porcentajes por fila (%)&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Agrupamos los niveles de confianza</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>confianza_2 <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(datos_tabla<span class="sc">$</span>conf_partidos <span class="sc">&lt;=</span> <span class="dv">2</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Nada o poca&quot;</span>, <span class="st">&quot;Bastante o mucha&quot;</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>confianza_2 <span class="ot">&lt;-</span> <span class="fu">factor</span>(confianza_2,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>                      <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;Nada o poca&quot;</span>, <span class="st">&quot;Bastante o mucha&quot;</span>))</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Construimos una tabla 2 × 2</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>tabla_2x2 <span class="ot">&lt;-</span> <span class="fu">table</span>(___, ___)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Agregamos totales y mostramos la tabla</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>tabla_total_2x2 <span class="ot">&lt;-</span> <span class="fu">addmargins</span>(tabla_2x2, <span class="at">FUN =</span> <span class="fu">list</span>(<span class="at">Total =</span> sum),</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>                              <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(___, <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Confianza agrupada&quot;</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Calculamos porcentajes por fila</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>porcentajes_2x2 <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(___, ___) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Mostramos los porcentajes con un decimal</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">round</span>(porcentajes_2x2, <span class="dv">1</span>),</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Porcentajes por fila (%)&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Observa tus resultados:</strong></p>
 <p><strong>a)</strong> ¿Cuántas filas y columnas tiene la nueva tabla, sin contar los totales?</p>
 <p><strong>b)</strong> ¿Cuántos hombres respondieron «Bastante o mucha» confianza?</p>
@@ -5852,39 +5853,39 @@ Mujeres
 <p><strong>La cantidad es la misma (277); lo que cambia es quiénes representan el 100 %.</strong></p>
 <p>Para comparar hombres y mujeres, necesitamos observar las respuestas <strong>dentro de cada grupo</strong>. Una tabla de porcentajes por fila muestra precisamente eso: <strong>cada fila suma 100 %</strong>.</p>
 <div class="cell" title="Tabla de frecuencias y porcentajes por fila">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos los porcentajes por fila</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabla_cep, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la frecuencia y debajo su porcentaje</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    tabla_cep, <span class="st">&quot;&lt;br&gt;&lt;span style=&#39;color:#198754&#39;&gt;&quot;</span>,</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatC</span>(porcentajes, <span class="at">format =</span> <span class="st">&quot;f&quot;</span>, <span class="at">digits =</span> <span class="dv">1</span>, <span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>),</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; %&lt;/span&gt;&quot;</span></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="fu">nrow</span>(tabla_cep),</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">dimnames</span>(tabla_cep)</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregamos los totales a la derecha</span></span>
-<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
-<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
-<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total =</span> <span class="fu">paste0</span>(<span class="fu">rowSums</span>(tabla_cep), <span class="st">&quot;&lt;br&gt;100 %&quot;</span>)</span>
-<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregamos los totales abajo</span></span>
-<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
-<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total =</span> <span class="fu">c</span>(<span class="fu">colSums</span>(tabla_cep), <span class="fu">sum</span>(tabla_cep))</span>
-<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la tabla</span></span>
-<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
-<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
-<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">&quot;html&quot;</span>,</span>
-<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">escape =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Frecuencias y porcentajes por fila (sin ponderar)&quot;</span></span>
-<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos los porcentajes por fila</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(tabla_cep, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la frecuencia y debajo su porcentaje</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste0</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    tabla_cep, <span class="st">&quot;&lt;br&gt;&lt;span style=&#39;color:#198754&#39;&gt;&quot;</span>,</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">formatC</span>(porcentajes, <span class="at">format =</span> <span class="st">&quot;f&quot;</span>, <span class="at">digits =</span> <span class="dv">1</span>, <span class="at">decimal.mark =</span> <span class="st">&quot;,&quot;</span>),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot; %&lt;/span&gt;&quot;</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nrow =</span> <span class="fu">nrow</span>(tabla_cep),</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">dimnames</span>(tabla_cep)</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregamos los totales a la derecha</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">cbind</span>(</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total =</span> <span class="fu">paste0</span>(<span class="fu">rowSums</span>(tabla_cep), <span class="st">&quot;&lt;br&gt;100 %&quot;</span>)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Agregamos los totales abajo</span></span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>celdas <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">Total =</span> <span class="fu">c</span>(<span class="fu">colSums</span>(tabla_cep), <span class="fu">sum</span>(tabla_cep))</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos la tabla</span></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>  celdas,</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">&quot;html&quot;</span>,</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="at">escape =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>  <span class="at">caption =</span> <span class="st">&quot;CEP 2026 · Frecuencias y porcentajes por fila (sin ponderar)&quot;</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <caption>CEP 2026 · Frecuencias y porcentajes por fila (sin ponderar)</caption>
@@ -5947,7 +5948,7 @@ Mujeres
 </div>
 <p><strong>¿Qué nos muestra esta tabla?</strong></p>
 <p>Cada fila representa el <strong>100 % de un grupo</strong>. Cada celda muestra la cantidad de personas (n) y, debajo, el porcentaje dentro de su grupo (%).</p>
-<p><strong>Observa:</strong> <strong>Recuerda: cada fila representa el 100% de su grupo. Por eso podemos comparar hombres y mujeres aunque los grupos tengan tamaños diferentes.</strong></p>
+<p><strong>Observa:</strong> los porcentajes permiten comparar hombres y mujeres aunque los grupos tengan tamaños diferentes.</p>
 <blockquote class="blockquote">
 <p>Por ejemplo, 277 hombres (52,2%) respondieron «Nada de confianza». Esto significa que 277 de los 531 hombres eligieron esa alternativa. Los totales de la derecha muestran cuántas personas hay en cada grupo, mientras que los totales de abajo muestran cuántas eligieron cada nivel de confianza.</p>
 </blockquote>
@@ -6025,8 +6026,9 @@ H_A:\text{las variables están asociadas en la población}
 <p><strong>Próxima clase:</strong> aprenderemos a utilizar chi-cuadrado para evaluar si las diferencias observadas aportan evidencia de asociación en la población.</p>
 </div>
 </section>
-<section id="sec-comprobacion" class="level2" data-number="2.5">
-<h2 data-number="2.5" class="anchored" data-anchor-id="sec-comprobacion"><span class="header-section-number">2.5</span> Aplicación autónoma: LAPOP 2023</h2>
+</section>
+<section id="sec-comprobacion" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Aplicación autónoma: LAPOP 2023</h1>
 <div class="ec08">
 <p><strong>Ahora te toca investigar.</strong> Con datos de <strong>LAPOP 2023 para Chile</strong>, elige una pregunta que te interese, construye una tabla de contingencia y decide qué porcentajes permiten responderla.</p>
 <p><strong>Cómo trabajar:</strong> completa <code>___</code> en los códigos, ejecútalos en R y responde con tus propios resultados. Puedes abrir una pista cuando la necesites; al final encontrarás una pauta y <strong>un ejemplo resuelto</strong>, no una respuesta única para todas las opciones.</p>
@@ -6072,24 +6074,24 @@ H_A:\text{las variables están asociadas en la población}
 <p><strong>Decide:</strong> ¿qué pregunta elegiste?, ¿qué variable identifica los grupos? y ¿qué respuestas quieres comparar?</p>
 <p><strong>Paso 2 · Prepara los datos</strong></p>
 <p>Primero carga la base. La dirección ya está escrita:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos LAPOP 2023</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>cursos<span class="sc">-</span>metodos<span class="sc">-</span>facso<span class="sc">/</span>datos<span class="sc">-</span>ejemplos<span class="sc">/</span>raw<span class="sc">/</span>main<span class="sc">/</span>subset_lapop2023.rdata</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos LAPOP 2023</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>cursos<span class="sc">-</span>metodos<span class="sc">-</span>facso<span class="sc">/</span>datos<span class="sc">-</span>ejemplos<span class="sc">/</span>raw<span class="sc">/</span>main<span class="sc">/</span>subset_lapop2023.rdata</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Después completa <strong>los nombres y códigos</strong> de tu opción. <code>[[...]]</code> sirve para acceder a una columna usando el nombre que guardaste.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos las variables y sus códigos válidos</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;___&quot;</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;___&quot;</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> ___</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> ___</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Conservamos las respuestas válidas de ambas variables</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos las variables y sus códigos válidos</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;___&quot;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;___&quot;</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> ___</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> ___</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Conservamos las respuestas válidas de ambas variables</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Comprueba:</strong> ¿cuántos casos quedaron? Ejecuta <code>nrow(mis_datos)</code>.</p>
 <details class="formulas-inf">
 <summary>
@@ -6099,15 +6101,15 @@ Pista · ¿Qué completar?
 </details>
 <p><strong>Paso 3 · Construye tu tabla</strong></p>
 <p>Decide qué variable colocarás <strong>en las filas</strong> y cuál <strong>en las columnas</strong>. Completa los nombres de los objetos, sin comillas, y ejecuta:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cruzamos las dos variables elegidas</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  mis_datos[[___]],</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  mis_datos[[___]]</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos las frecuencias y los totales</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">addmargins</span>(mi_tabla),</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;LAPOP 2023 · Chile · Frecuencias&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cruzamos las dos variables elegidas</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  mis_datos[[___]],</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  mis_datos[[___]]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos las frecuencias y los totales</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">addmargins</span>(mi_tabla),</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;LAPOP 2023 · Chile · Frecuencias&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Responde:</strong> ¿qué tamaño tiene tu tabla?, ¿cuántas respuestas válidas incluye? y ¿qué significa una de sus celdas?</p>
 <details class="formulas-inf">
 <summary>
@@ -6117,11 +6119,11 @@ Pista · ¿Cómo leer la tabla?
 </details>
 <p><strong>Paso 4 · Elige el porcentaje adecuado</strong></p>
 <p><strong>¿Quiénes deben representar el 100 % para responder tu pregunta?</strong> Decide si necesitas porcentajes por <strong>fila (<code>1</code>)</strong> o por <strong>columna (<code>2</code>)</strong>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos porcentajes según el denominador elegido</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, ___) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos los porcentajes con un decimal</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculamos porcentajes según el denominador elegido</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, ___) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Mostramos los porcentajes con un decimal</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Responde:</strong> ¿por qué elegiste ese denominador? Compara la <strong>misma categoría de respuesta</strong> entre al menos dos grupos.</p>
 <details class="formulas-inf">
 <summary>
@@ -6131,9 +6133,9 @@ Pista · ¿Fila o columna?
 </details>
 <p><strong>Paso 5 · Compara e interpreta</strong></p>
 <p>Elige una categoría que ayude a responder tu pregunta: ¿qué porcentaje aparece en cada grupo?, ¿cuántos <strong>puntos porcentuales</strong> los separan? Puedes calcularlo así:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restamos dos porcentajes de la misma respuesta</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>diferencia <span class="ot">&lt;-</span> ___ <span class="sc">-</span> ___</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>diferencia</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Restamos dos porcentajes de la misma respuesta</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>diferencia <span class="ot">&lt;-</span> ___ <span class="sc">-</span> ___</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>diferencia</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En <strong>dos o tres frases</strong>, explica qué variables comparaste, qué porcentajes encontraste y qué indican <strong>descriptivamente</strong> las diferencias.</p>
 <details class="formulas-inf">
 <summary>
@@ -6194,34 +6196,33 @@ Ver pauta y ejemplo resuelto
 <p>La tabla es <strong>2 × 4</strong> y contiene <strong>411 casos válidos</strong>. La celda «Mujeres × nivel 1» contiene <strong>26 personas</strong>.</p>
 <p>En el nivel 1, respondieron <strong>12,4 % de las mujeres</strong> y <strong>10,9 % de los hombres</strong>: una diferencia de <strong>1,5 puntos porcentuales</strong>. Esto describe los registros analizados; no demuestra causalidad ni asociación significativa en la población.</p>
 <p><strong>Código de ejemplo para comprobarlo</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos la opción A: género y satisfacción democrática</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;mujer&quot;</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;satisf_dem&quot;</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile y conservamos respuestas válidas</span></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construimos la tabla y mostramos los totales</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(mis_datos[[variable_grupo]],</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                  mis_datos[[variable_respuesta]])</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(mi_tabla)</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Como los grupos están en filas, usamos porcentajes por fila</span></span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos la opción A: género y satisfacción democrática</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;mujer&quot;</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;satisf_dem&quot;</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile y conservamos respuestas válidas</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construimos la tabla y mostramos los totales</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(mis_datos[[variable_grupo]],</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>                  mis_datos[[variable_respuesta]])</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(mi_tabla)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Como los grupos están en filas, usamos porcentajes por fila</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <p><em>Importante:</em> las cifras no incluyen ponderadores ni ajustes por el diseño muestral. Describen los registros analizados, no estimaciones oficiales representativas.</p>
 </div>
-</section>
-<section id="sec-cierre" class="level2" data-number="2.6">
-<h2 data-number="2.6" class="anchored" data-anchor-id="sec-cierre"><span class="header-section-number">2.6</span> Síntesis</h2>
+<section id="sec-cierre" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="sec-cierre"><span class="header-section-number">3.1</span> Síntesis</h2>
 <div class="ec08">
 <p>En este práctico aprendimos a <strong>identificar, analizar e interpretar relaciones entre variables</strong>:</p>
 <ul>
