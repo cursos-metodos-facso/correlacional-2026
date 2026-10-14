@@ -325,7 +325,7 @@ details.formulas-inf[open] summary {
 
 
 
-En este práctico aprenderemos a **elegir e interpretar correlaciones** (Spearman y Kendall) y a **construir e interpretar tablas de contingencia** utilizando datos reales.
+En este práctico aprenderemos a **construir e interpretar tablas de contingencia** utilizando datos reales.
 
 **Para comenzar · Compartamos nuestros hallazgos**
 
@@ -337,224 +337,28 @@ Invitamos a un grupo a compartir brevemente sus hallazgos con el curso.
 
 :::
 
-# Correlaciones: elegir e interpretar {#sec-parte-correlaciones}
 
+::: {.callout-note title="Explora los laboratorios interactivos"}
 
-## Recordemos las escalas de medición 
+**visita la noticia Laboratorios interactivos: Spearman y Kendall**. Encontrarás tres actividades guiadas:
 
-::: {.ec08}
+- **Laboratorio 1 · Spearman:** compara las posiciones de cinco personas en dos rankings y observa cómo cambia la correlación.
+- **Laboratorio 2 · Kendall:** compara pares de personas e identifica concordancias, discordancias y empates.
+- **¿Qué correlación utilizarías?:** practica la elección de una técnica en seis situaciones de investigación.
 
-Antes de elegir una correlación, revisemos qué información contienen las variables.
-
-| Escala | ¿Qué nos permite hacer? | Ejemplos |
-|:---|:---|:---|
-| **Nominal** | Distinguir categorías **sin orden**. | País, sexo, nacionalidad. |
-| **Ordinal** | Ordenar categorías, **sin asumir distancias iguales** entre ellas. | Nivel educacional, satisfacción, estatus social subjetivo. |
-| **Intervalo** | Comparar **diferencias iguales**, sin un cero absoluto. | Temperatura en °C o °F. |
-| **Razón** | Comparar diferencias y proporciones; **cero significa ausencia** de la cantidad. | Edad, ingreso en pesos, distancia, años de escolaridad. |
-
-**Ojo:** los números no siempre son cantidades. `nivel_educ` (categorías ordenadas) es **ordinal**, mientras que `escolaridad` (cantidad de años) es **de razón**. 
-
-
-## Spearman: correlación entre rankings {#sec-spearman}
-
-::: {.ec08}
-
-### ¿Cuándo utilizamos Spearman? {.unnumbered}
-
-**Spearman** permite estudiar si las personas que ocupan posiciones más altas en el ranking de una variable también tienden a ocupar posiciones más altas o más bajas en el ranking de otra. Para ello, compara las posiciones de las mismas personas en ambos ordenamientos, en lugar de trabajar directamente con los valores originales. Es útil con variables ordinales y también con variables cuantitativas cuando nos interesa una relación **monotónica** (al aumentar una variable, la otra tiende a aumentar o disminuir consistentemente, aunque no siga una línea recta).
-
-Por ejemplo, podemos preguntar si las personas con más **años de escolaridad** tienden a ocupar posiciones más altas en el ranking de **ingresos**. Spearman evalúa hasta qué punto coinciden o se relacionan las posiciones de cada persona en ambos rankings.
-
-Trabajaremos con cinco personas ficticias. Ambas variables son **ordinales**: las categorías se pueden ordenar, pero las distancias entre ellas no necesariamente son iguales.
-
-- **Categorías de X:** 1 Básica incompleta · 2 Básica completa · 3 Media incompleta · 4 Media completa · 5 Educación superior.
-
-- **Categorías de Y:** 1 Muy bajo · 2 Bajo · 3 Medio · 4 Alto · 5 Muy alto.
-
-**Observe:** ¿las personas ocupan siempre la misma posición en ambas variables?
-
-| Persona | Nivel educacional (X) | Estatus social subjetivo (Y) |
-|:---|---:|---:|
-| A | 1 | 1 |
-| B | 2 | 3 |
-| C | 3 | 2 |
-| D | 4 | 5 |
-| E | 5 | 4 |
-
-::: {.callout-note}
-**Lineal:** sigue aproximadamente una recta. **Monotónica:** mantiene una tendencia ascendente o descendente, aunque sea curva.
-:::
-
-### Exploremos qué hace Spearman
-
-<section id="ec08-spearman" class="ec08-lab" aria-labelledby="ec08-s-heading">
-<div class="ec08-lab-head"><h3 id="ec08-s-heading">Laboratorio 1 · De valores a rankings</h3><div class="ec08-lab-head-actions"><span class="ec08-mode">Escenario actual: <strong id="ec08-mode">Relación original</strong></span><button type="button" class="ec08-btn ec08-open-explore" data-ec08-s-open-drawer aria-controls="ec08-explore-drawer" aria-expanded="false">Explorar otras relaciones →</button></div></div>
-<div class="ec08-stagebar" role="group" aria-label="Etapas guiadas de Spearman"><button class="ec08-step" type="button" data-s-step="1" aria-current="step">1 · Valores</button><button class="ec08-step" type="button" data-s-step="2">2 · Rankings</button><button class="ec08-step" type="button" data-s-step="3">3 · Interpretar</button></div>
-<p class="ec08-lab-prompt" id="ec08-s-question">Observa las cinco personas. ¿Quién tiene mayor nivel educacional? ¿Quién tiene mayor estatus subjetivo?</p>
-<div class="ec08-lab-layout">
-  <div class="ec08-lab-panel"><h4>Los mismos casos, dos variables</h4><div class="ec08-scroll"><table class="ec08-table" aria-label="Valores y rankings de los cinco casos"><thead><tr><th scope="col">Persona</th><th scope="col">X</th><th class="ec08-rank-col" scope="col" hidden>Posición en X</th><th scope="col">Y</th><th class="ec08-rank-col" scope="col" hidden>Posición en Y</th></tr></thead><tbody id="ec08-spearman-tbody"><tr><th scope="row">A</th><td>1</td><td class="ec08-rank-col" hidden>1</td><td>1</td><td class="ec08-rank-col" hidden>1</td></tr><tr><th scope="row">B</th><td>2</td><td class="ec08-rank-col" hidden>2</td><td>3</td><td class="ec08-rank-col" hidden>3</td></tr><tr><th scope="row">C</th><td>3</td><td class="ec08-rank-col" hidden>3</td><td>2</td><td class="ec08-rank-col" hidden>2</td></tr><tr><th scope="row">D</th><td>4</td><td class="ec08-rank-col" hidden>4</td><td>5</td><td class="ec08-rank-col" hidden>5</td></tr><tr><th scope="row">E</th><td>5</td><td class="ec08-rank-col" hidden>5</td><td>4</td><td class="ec08-rank-col" hidden>4</td></tr></tbody></table></div><p class="ec08-person-note" id="ec08-s-person-note" aria-live="polite">Selecciona una persona para seguir sus valores.</p></div>
-  <div class="ec08-lab-panel"><h4 id="ec08-s-visual-heading">Valores originales</h4><svg id="ec08-plot" viewBox="0 0 460 248" role="img" aria-label="Valores de las cinco personas"></svg><p class="ec08-subtle" id="ec08-s-visual-note">Las barras muestran los códigos ordinales 1–5.</p></div>
+<div class="recurso-wrap">
+  <a class="recurso-btn"
+     href="../news/2026-10-13-spearman-kendall.html"
+     target="_blank"
+     rel="noopener noreferrer">
+    Ir a los laboratorios interactivos ↗
+  </a>
 </div>
-<div id="ec08-s-prediction" hidden><fieldset><legend>¿Cómo esperas que se relacionen las posiciones en ambos rankings?</legend><div class="ec08-prediction-options"><label><input type="radio" name="ec08-s-guess" value="positiva"> Positivamente</label><label><input type="radio" name="ec08-s-guess" value="negativa"> Negativamente</label><label><input type="radio" name="ec08-s-guess" value="cero"> Cerca de cero</label></div></fieldset><div class="ec08-actions"><button class="ec08-btn ec08-primary" type="button" id="ec08-s-reveal">Comprobar predicción</button></div></div>
-<div class="ec08-result" id="ec08-s-result" role="status" aria-live="polite" hidden><strong id="ec08-s-value">ρ = 0,800</strong><p id="ec08-s-interp">Las posiciones altas en un ranking tienden a acompañarse de posiciones altas en el otro, sin coincidencia perfecta.</p></div>
-<div class="ec08-steps-nav"><button class="ec08-btn" id="ec08-s-back" type="button" disabled>← Anterior</button><button class="ec08-btn ec08-primary" id="ec08-s-next" type="button">Comparar rankings →</button></div>
-
-<div class="ec08-drawer-backdrop" id="ec08-explore-backdrop" hidden></div>
-<aside id="ec08-explore-drawer" class="ec08-explore-drawer" role="dialog" aria-modal="false" aria-labelledby="ec08-drawer-heading" aria-describedby="ec08-drawer-intro" hidden>
-<div class="ec08-drawer-top"><h4 id="ec08-drawer-heading">Explorar otras relaciones</h4><button type="button" id="ec08-drawer-close" class="ec08-btn ec08-drawer-close" aria-label="Cerrar panel de exploración">×</button></div>
-<p class="ec08-drawer-intro" id="ec08-drawer-intro">Cambia el orden de los cinco casos de Spearman y observa cómo varía su correlación.</p>
-<div class="ec08-drawer-prediction"><label for="ec08-drawer-guess">Antes de cambiar: ¿qué crees que ocurrirá con Spearman?</label><select id="ec08-drawer-guess"><option value="">Elige una predicción (si quieres)</option><option value="aumentan">Spearman aumentará</option><option value="signo">Cambiará el signo de la asociación</option><option value="disminuyen">Spearman disminuirá</option><option value="iguales">No cambiarán</option></select></div>
-<div class="ec08-drawer-options" role="group" aria-label="Elige una relación para comparar">
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="original" aria-pressed="true"><strong>Relación original</strong><small>Positiva con algunas inversiones del orden</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="swap" aria-pressed="false"><strong>Mejor correspondencia</strong><small>Intercambiar las categorías de estatus de B y C</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="reverse" aria-pressed="false"><strong>Relación negativa perfecta</strong><small>Invertir las categorías de estatus</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="tie" aria-pressed="false"><strong>Relación con empates</strong><small>Asignar estatus subjetivo 3 a B y C</small></button>
-</div>
-<div class="ec08-drawer-compare">
-<h5>¿Qué cambió respecto del original?</h5>
-<table><thead><tr><th scope="col">Coeficiente</th><th scope="col">Original</th><th scope="col">Actual</th></tr></thead><tbody><tr><th scope="row">Spearman</th><td id="ec08-drawer-s-base">0,800</td><td id="ec08-drawer-s-value" class="ec08-drawer-value">0,800</td></tr></tbody></table>
-<p id="ec08-drawer-reason" class="ec08-drawer-reason" role="status" aria-live="polite">En este coeficiente se observa una asociación positiva; el orden no coincide completamente.</p>
-<p class="ec08-drawer-prediction-feedback" id="ec08-drawer-feedback" aria-live="polite"></p>
-</div>
-<details class="ec08-drawer-sort" id="ec08-drawer-sort"><summary>Ordenar las filas de Spearman</summary><div class="ec08-scenario-list" role="group" aria-label="Orden visual de filas en Spearman"><button type="button" class="ec08-btn" data-ec08-sort="original" aria-pressed="true">A–E</button><button type="button" class="ec08-btn" data-ec08-sort="x" aria-pressed="false">Por X</button><button type="button" class="ec08-btn" data-ec08-sort="y" aria-pressed="false">Por Y</button></div><p class="ec08-subtle">Ordenar filas no modifica los coeficientes.</p></details>
-<div class="ec08-drawer-bottom"><button type="button" class="ec08-btn ec08-drawer-reset" id="ec08-drawer-reset">↺ Volver a los datos originales</button></div>
-</aside>
-<noscript><p>Sin JavaScript, usa los datos originales y el desplegable con rankings que sigue a este laboratorio.</p></noscript>
-</section>
-
-::: {.callout-important}
-## ¿Cómo interpretamos el resultado de Spearman?
-
-En esta muestra, $\rho_s=0{,}80$ indica una **asociación positiva elevada entre las posiciones de ambos rankings**. Quienes tienen mayor nivel educacional tienden a ubicarse en posiciones más altas en el ranking de estatus subjetivo, aunque las posiciones no coinciden siempre.
-
-> Este resultado describe únicamente los **cinco casos ficticios**. No demuestra causalidad ni permite generalizar a una población. 
-
-::: 
-
-:::
-
-## Kendall: comparación entre pares {#sec-kendall}
-
-::: {.ec08}
-
-### ¿Cuándo utilizamos Kendall? {.unnumbered}
-
-**Kendall tau-b** compara personas **de dos en dos**: registra si sus órdenes **coinciden** (pares concordantes), se **invierten** (discordantes) o presentan **empates**. Es útil cuando interesa interpretar esas comparaciones, especialmente con escalas ordinales.
-
-> **Spearman y Kendall pueden ser adecuados para las mismas variables.** Los empates no obligan a utilizar Kendall; tau-b ofrece una forma específica de considerarlos.
-
-<section id="ec08-kendall" class="ec08-lab" aria-labelledby="ec08-k-heading">
-<div class="ec08-lab-head"><h3 id="ec08-k-heading">Laboratorio 2 · Comparar dos personas</h3><div class="ec08-lab-head-actions"><span class="ec08-mode">Escenario actual: <strong id="ec08-mode-k">Relación original</strong></span><button type="button" class="ec08-btn ec08-open-explore" data-ec08-k-open-drawer aria-controls="ec08-k-explore-drawer" aria-expanded="false">Explorar otras relaciones →</button></div></div>
-<p class="ec08-subtle">Cinco personas ficticias; nivel educacional y estatus social subjetivo, con categorías ordenadas de 1 a 5. Kendall las compara de dos en dos: observa si el orden coincide, se invierte o presenta un empate.</p>
-<p><strong>Si una persona tiene mayor nivel educacional que otra, ¿también tiene mayor estatus subjetivo?</strong></p>
-<div class="ec08-stagebar" role="group" aria-label="Etapas guiadas de Kendall"><button class="ec08-step" type="button" data-k-step="1" aria-current="step">1 · Observar</button><button class="ec08-step" type="button" data-k-step="2">2 · Clasificar</button><button class="ec08-step" type="button" data-k-step="3">3 · Coeficiente</button></div>
-<p class="ec08-lab-prompt" id="ec08-k-question">Observemos dos personas: ¿quién tiene mayor nivel educacional? ¿Quién tiene mayor estatus subjetivo?</p>
-<div class="ec08-choose"><label for="ec08-pair-a">Persona 1</label><select id="ec08-pair-a"><option selected>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><label for="ec08-pair-b">Persona 2</label><select id="ec08-pair-b"><option>A</option><option selected>B</option><option>C</option><option>D</option><option>E</option></select></div>
-<div class="ec08-compare" aria-label="Dos comparaciones de las mismas personas">
- <div class="ec08-compare-row"><strong>Nivel educacional (X)</strong><div class="ec08-compare-cell"><div class="ec08-compare-label"><span id="ec08-x-label-a">A</span><output id="ec08-x-val-a">1</output></div><div class="ec08-compare-track"><div class="ec08-compare-fill" id="ec08-x-bar-a" style="width:20%"></div></div></div><div class="ec08-compare-cell ec08-person2"><div class="ec08-compare-label"><span id="ec08-x-label-b">B</span><output id="ec08-x-val-b">2</output></div><div class="ec08-compare-track"><div class="ec08-compare-fill" id="ec08-x-bar-b" style="width:40%"></div></div></div><span class="ec08-compare-winner" id="ec08-x-winner">Mayor: B</span></div>
- <div class="ec08-compare-row"><strong>Estatus subjetivo (Y)</strong><div class="ec08-compare-cell"><div class="ec08-compare-label"><span id="ec08-y-label-a">A</span><output id="ec08-y-val-a">1</output></div><div class="ec08-compare-track"><div class="ec08-compare-fill" id="ec08-y-bar-a" style="width:20%"></div></div></div><div class="ec08-compare-cell ec08-person2"><div class="ec08-compare-label"><span id="ec08-y-label-b">B</span><output id="ec08-y-val-b">3</output></div><div class="ec08-compare-track"><div class="ec08-compare-fill" id="ec08-y-bar-b" style="width:60%"></div></div></div><span class="ec08-compare-winner" id="ec08-y-winner">Mayor: B</span></div>
-</div>
-<p class="ec08-order-summary" id="ec08-k-order-summary" aria-live="polite">Mayor nivel educacional: B · Mayor estatus subjetivo: B.</p>
-<div id="ec08-k-prediction" hidden><fieldset><legend>Tu clasificación del par</legend><div class="ec08-prediction-options"><label><input type="radio" name="ec08-k-guess" value="Concordante"> Concordante</label><label><input type="radio" name="ec08-k-guess" value="Discordante"> Discordante</label><label><input type="radio" name="ec08-k-guess" value="Empate"> Empate</label></div></fieldset><p class="ec08-subtle" id="ec08-k-classify-guide">Concordante: la misma persona tiene una categoría mayor en ambas variables. Discordante: una tiene mayor educación y la otra, mayor estatus. Empate: tienen la misma categoría en una variable o en ambas.</p><div class="ec08-actions"><button type="button" class="ec08-btn ec08-primary" id="ec08-pair-check">Comprobar respuesta</button></div></div>
-<div class="ec08-result" id="ec08-pair-result" role="status" aria-live="polite" hidden></div>
-<div id="ec08-k-summary" hidden><p>Con cinco personas podemos formar diez pares distintos. Kendall considera las concordancias, discordancias y empates para resumir la asociación.</p><div class="ec08-metric-grid"><div class="ec08-metric"><strong id="ec08-count-n">10</strong><small>Pares totales</small></div><div class="ec08-metric"><strong id="ec08-count-c">8</strong><small>Concordantes</small></div><div class="ec08-metric"><strong id="ec08-count-d">2</strong><small>Discordantes</small></div><div class="ec08-metric"><strong id="ec08-count-t">0</strong><small>Empates</small></div></div><p id="ec08-k-total" class="ec08-subtle">Pares totales = concordantes + discordantes + empatados: 10 = 8 + 2 + 0.</p><div class="ec08-actions"><button type="button" class="ec08-btn ec08-primary" id="ec08-k-reveal">Interpretar Kendall tau-b</button></div><div class="ec08-result" id="ec08-k-result" role="status" aria-live="polite" hidden><strong id="ec08-k-value">τ<sub>b</sub> = 0,600</strong><p id="ec08-k-balance">8 − 2 = 6; 6/10 = 0,60.</p><p id="ec08-k-counts" class="ec08-subtle">0,600 no significa 60% de pares concordantes: son 8 de 10, es decir, el 80%.</p><details class="ec08-explore"><summary>¿Cómo se ajusta Kendall cuando hay empates?</summary><p>τ<sub>b</sub> = (C − D) / √[(C + D + T<sub>X</sub>)(C + D + T<sub>Y</sub>)]</p><p class="ec08-subtle">C: pares concordantes; D: discordantes; T<sub>X</sub>: empates solo en nivel educacional; T<sub>Y</sub>: empates solo en estatus. Los empates en ambas variables no se suman a T<sub>X</sub> ni a T<sub>Y</sub>.</p><p id="ec08-k-adjustment"></p></details></div><details class="ec08-explore" id="ec08-all-pairs"><summary>Ver los 10 pares y su clasificación</summary><div class="ec08-scroll"><table class="ec08-table"><caption>Comparaciones con los valores actuales</caption><thead><tr><th scope="col">Par</th><th scope="col">Nivel educacional</th><th scope="col">Estatus subjetivo</th><th scope="col">Tipo</th></tr></thead><tbody id="ec08-pairs-tbody"><tr><th scope="row">A–B</th><td>A &lt; B</td><td>A &lt; B</td><td>Concordante</td></tr><tr><th scope="row">B–C</th><td>B &lt; C</td><td>B &gt; C</td><td>Discordante</td></tr></tbody></table></div></details></div>
-<div class="ec08-steps-nav"><button type="button" id="ec08-k-back" class="ec08-btn" disabled>← Anterior</button><button type="button" id="ec08-k-next" class="ec08-btn ec08-primary">Clasificar este par →</button></div>
-
-<div class="ec08-drawer-backdrop" id="ec08-k-explore-backdrop" hidden></div>
-<aside id="ec08-k-explore-drawer" class="ec08-explore-drawer" role="dialog" aria-modal="false" aria-labelledby="ec08-k-drawer-heading" aria-describedby="ec08-k-drawer-intro" hidden>
-<div class="ec08-drawer-top"><h4 id="ec08-k-drawer-heading">Explorar otras relaciones</h4><button type="button" id="ec08-k-drawer-close" class="ec08-btn ec08-drawer-close" aria-label="Cerrar panel de exploración">×</button></div>
-<p class="ec08-drawer-intro" id="ec08-k-drawer-intro">Cambia el estatus de estas cinco personas y observa qué pares cambian de clasificación.</p>
-<div class="ec08-drawer-prediction"><label for="ec08-k-drawer-guess">Respecto del original, ¿qué crees que ocurrirá con Kendall?</label><select id="ec08-k-drawer-guess"><option value="">Elige una predicción (si quieres)</option><option value="aumentan">Kendall aumentará</option><option value="signo">Cambiará el signo de la asociación</option><option value="disminuyen">Kendall disminuirá</option><option value="iguales">No cambiará</option></select></div>
-<div class="ec08-drawer-options" role="group" aria-label="Elige una relación para comparar">
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="original" aria-pressed="true"><strong>Relación original</strong><small>Positiva con algunas inversiones del orden</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="swap" aria-pressed="false"><strong>Mejor correspondencia</strong><small>Intercambiar las categorías de estatus de B y C</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="reverse" aria-pressed="false"><strong>Relación negativa perfecta</strong><small>Invertir las categorías de estatus</small></button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="tie" aria-pressed="false"><strong>Relación con empates</strong><small>Asignar estatus subjetivo 3 a B y C</small></button>
-</div>
-<div class="ec08-drawer-compare">
-<h5>¿Qué cambió respecto del original?</h5>
-<table><thead><tr><th scope="col">Coeficiente</th><th scope="col">Original</th><th scope="col">Actual</th></tr></thead><tbody><tr><th scope="row">Kendall</th><td id="ec08-k-drawer-k-base">0,600</td><td id="ec08-k-drawer-k-value" class="ec08-drawer-value">0,600</td></tr></tbody></table>
-<div id="ec08-k-tie-comparison" hidden><p class="ec08-subtle" id="ec08-k-tie-before"></p><p class="ec08-subtle" id="ec08-k-tie-after"></p></div>
-<p id="ec08-k-drawer-reason" class="ec08-drawer-reason" role="status" aria-live="polite">Hay 8 pares concordantes y 2 discordantes: predominan los que coinciden en el orden.</p>
-<p class="ec08-drawer-prediction-feedback" id="ec08-k-drawer-feedback" aria-live="polite"></p>
-</div>
-
-<div class="ec08-drawer-bottom"><button type="button" class="ec08-btn ec08-drawer-reset" id="ec08-k-drawer-reset">↺ Volver a los datos originales</button></div>
-</aside>
-<noscript><p>Sin JavaScript, consulta el recuento del ejemplo original en los desplegables posteriores.</p></noscript>
-</section>
-
-::: {.callout-important}
-## ¿Cómo interpretamos el resultado de Kendall? 
-
-En el escenario original, $\tau_b=0{,}60$ indica una **asociación ordinal positiva**. De diez pares posibles, ocho son concordantes y dos discordantes: habitualmente, quien tiene mayor nivel educacional también ocupa una categoría mayor de estatus subjetivo.
-
-> **Importante:** 0,60 no significa 60% de pares concordantes. Aquí son **8 de 10**. El coeficiente tampoco demuestra causalidad ni debe compararse directamente con el valor de Spearman.
-
-:::
-
-::: {.callout-note title="¿Qué hace Kendall tau-b con los empates?"}
-Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente.
-:::
 
 :::
 
 
-### ¿Cómo elegimos el coeficiente? {.unnumbered}
-
-**Spearman y Kendall** permiten estudiar asociaciones entre variables ordenadas, pero utilizan procedimientos diferentes:
-
-- **Spearman:** lo elegimos cuando queremos saber si las personas que ocupan posiciones más altas en una variable también tienden a ocupar posiciones más altas (o más bajas) en otra. Para ello, **compara las posiciones asignadas a las observaciones en dos rankings**.
-
-- **Kendall tau-b:** lo elegimos cuando nos interesa comparar personas de dos en dos y observar si sus posiciones coinciden (**concordancia**), se invierten (**discordancia**) o presentan **empates**. Es especialmente útil con variables ordinales de pocas categorías, donde pueden existir muchos empates.
-
-**¿Podemos utilizar ambos?** Sí. Los dos son adecuados para estudiar asociaciones ordinales. La elección depende de qué queremos analizar y de las características de los datos. Los empates **no obligan** a usar Kendall, pues Spearman también puede trabajar con posiciones empatadas (asignando la posición promedio a las observaciones en empate).
-
-En nuestros cinco casos, **Spearman = 0,80** y **Kendall = 0,60**. Los resultados son distintos porque cada coeficiente resume el orden de manera diferente. No debemos comparar directamente sus valores para concluir que uno muestra una asociación más débil que el otro.
-
-
-#### ¿Cuándo conviene cada coeficiente? {.unnumbered}
-
-Reconocer la escala es el primer paso. Después debemos considerar **qué relación queremos estudiar**.
-
-| Coeficiente | ¿Cuándo conviene utilizarlo? |
-|:---|:---|
-| **Pearson** | Para estudiar una **relación lineal** entre variables cuantitativas. |
-| **Spearman** | Para estudiar si las **posiciones en dos rankings** tienden a aumentar o disminuir juntas. |
-| **Kendall tau-b** | Para estudiar la **concordancia entre pares**, considerando también los empates. |
-
-**Recuerda:** la escala de medición orienta la elección, pero **no determina por sí sola** el coeficiente.
-
-:::
-
-## ¿Qué correlación utilizarías? {#sec-juego-coeficientes}
-
-::: {.ec08}
-
-En cada situación, **clasifica X e Y** (nominal, ordinal, intervalo o razón) y **elige un coeficiente**. La explicación indicará si existen otras respuestas válidas.
-
-<div id="ec08-game" class="ec08-game" aria-label="Juego de selección de coeficientes">
-<div id="ec08-game-play">
-<div class="ec08-game-progress" id="ec08-game-progress" aria-live="polite">Situación 1 de 6</div>
-<h3 id="ec08-game-title">Reconoce las variables</h3>
-<p id="ec08-game-context"></p>
-<p class="ec08-game-question" id="ec08-game-question"></p>
-<div class="ec08-game-vars">
-  <div class="ec08-game-var"><strong id="ec08-game-x-name">Variable X</strong><small id="ec08-game-x-description"></small><label for="ec08-game-x-level">Nivel de medición de X</label><select id="ec08-game-x-level"><option value="">Selecciona una opción</option><option value="nominal">Nominal</option><option value="ordinal">Ordinal</option><option value="intervalo">Intervalo</option><option value="razon">Razón</option></select></div>
-  <div class="ec08-game-var"><strong id="ec08-game-y-name">Variable Y</strong><small id="ec08-game-y-description"></small><label for="ec08-game-y-level">Nivel de medición de Y</label><select id="ec08-game-y-level"><option value="">Selecciona una opción</option><option value="nominal">Nominal</option><option value="ordinal">Ordinal</option><option value="intervalo">Intervalo</option><option value="razon">Razón</option></select></div>
-</div>
-<div class="ec08-game-coef"><label for="ec08-game-coef-choice">¿Qué coeficiente o procedimiento elegirías para esta pregunta?</label><select id="ec08-game-coef-choice"><option value="">Selecciona una opción</option><option value="pearson">Pearson</option><option value="spearman">Spearman</option><option value="kendall">Kendall tau-b</option><option value="ninguno">Ninguno de estos tres</option></select></div>
-<div class="ec08-game-actions"><button type="button" id="ec08-game-check" class="ec08-game-main">Comprobar respuesta</button><button type="button" id="ec08-game-prev">← Anterior</button><button type="button" id="ec08-game-next" disabled>Siguiente situación →</button><button type="button" id="ec08-game-reset">↺ Reiniciar</button></div>
-<div id="ec08-game-feedback" class="ec08-game-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
-</div>
-<div id="ec08-game-finish" class="ec08-game-finish" hidden><h3>Recorrido completado</h3><p>Para elegir una técnica, revisa <strong>las variables y la pregunta</strong>. Pearson estudia linealidad; Spearman, posiciones en rankings; Kendall, pares. Para comparar categorías sin orden, comienza con una tabla.</p><p><strong>Intervalo:</strong> temperatura en °C; las diferencias son comparables, pero cero no es ausencia de temperatura.</p><div class="ec08-game-actions"><button type="button" id="ec08-game-repeat" class="ec08-game-main">Volver a practicar</button></div></div>
-<noscript><p>Para realizar el juego interactivo es necesario activar JavaScript. Puedes estudiar las situaciones de las tres bases disponibles en el práctico anterior y justificar tu elección por escrito.</p></noscript>
-</div>
-
-**Sin nota.** Seguiremos con una aplicación a CEP 2026.
-
-:::
+En este practico, aplicaremos lo aprendido con datos de **CEP 2026** y continuaremos con tablas de contingencia y un desafío con **LAPOP 2023**.
 
 ## Correlación con datos reales: CEP 2026 {#sec-cep-correlacion}
 
@@ -977,11 +781,11 @@ $$
 
 **Paso 2 · Prepara los datos**
 
-Primero carga la base. La dirección ya está escrita:
+Primero carga la base:
 
 ```r
 # Cargamos LAPOP 2023
-https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/subset_lapop2023.rdata
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/subset_lapop2023.rdata"))
 ```
 
 Después completa **los nombres y códigos** de tu opción. `[[...]]` sirve para acceder a una columna usando el nombre que guardaste.
@@ -1074,6 +878,25 @@ Compara **porcentajes**, no solo frecuencias; resta los porcentajes para obtener
 
 </details>
 
+**Para seguir explorando · Presenta tu tabla con sjPlot (opcional)**
+
+Ya construiste tu tabla, calculaste los porcentajes e interpretaste los resultados. Ahora puedes utilizar `sjPlot` para presentar las frecuencias y porcentajes en una tabla más fácil de leer. Comprueba que sus resultados coincidan con los que calculaste anteriormente (si no tienes el paquete instalado, puedes instalarlo una sola vez con `install.packages("sjPlot")`).
+
+En esta presentación ubicamos los grupos en las filas, por lo que utilizamos porcentajes por fila (`show.row.prc = TRUE`). Si construiste tu primera tabla con los grupos en las columnas, los porcentajes correspondientes deben coincidir aunque cambie la orientación de la tabla:
+
+```r
+# Presentamos nuestra tabla con sjPlot
+sjPlot::tab_xtab(
+  mis_datos[[variable_grupo]],
+  mis_datos[[variable_respuesta]],
+  show.obs = TRUE,
+  show.row.prc = TRUE,
+  show.summary = FALSE
+)
+```
+
+**Comprueba:** ¿las frecuencias y los porcentajes coinciden con los resultados que calculaste anteriormente?
+
 **Revisemos nuestro análisis**
 
 ```{r}
@@ -1107,7 +930,7 @@ diferencia_lapop <- round(abs(mujeres_nivel1 - hombres_nivel1), 1)
 
 <details class="formulas-inf"><summary>Ver pauta y ejemplo resuelto</summary>
 
-**Comprueba tu procedimiento:** la pregunta se responde con las variables elegidas; conservaste códigos válidos; sabes qué representa cada celda; tus porcentajes usan el **100 % correcto**; comparaste la misma respuesta en grupos distintos; la conclusión es descriptiva y no causal.
+**Comprueba tu procedimiento:** la pregunta se responde con las variables elegidas; conservaste códigos válidos; sabes qué representa cada celda; tus porcentajes usan el **100 % correcto**; comparaste la misma respuesta en grupos distintos; la conclusión es descriptiva y no causal. Si utilizaste sjPlot, revisa que las frecuencias y los porcentajes correspondan a los resultados obtenidos con table() y prop.table().
 
 **Ejemplo resuelto · Opción A: género y satisfacción democrática.** Si elegiste otra opción, tus resultados serán diferentes.
 
@@ -1152,6 +975,15 @@ addmargins(mi_tabla)
 # Como los grupos están en filas, usamos porcentajes por fila
 mis_porcentajes <- prop.table(mi_tabla, 1) * 100
 round(mis_porcentajes, 1)
+
+# Opcional: presentación con sjPlot
+sjPlot::tab_xtab(
+  mis_datos[[variable_grupo]],
+  mis_datos[[variable_respuesta]],
+  show.obs = TRUE,
+  show.row.prc = TRUE,
+  show.summary = FALSE
+)
 ```
 
 </details>

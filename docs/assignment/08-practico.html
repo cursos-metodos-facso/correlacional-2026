@@ -4172,7 +4172,7 @@ window.Quarto = {
 <meta property="og:locale" content="es">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -4206,7 +4206,7 @@ window.Quarto = {
 <span class="menu-text">Clases</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../assignment/index.html"> 
+    <a class="nav-link active" href="../assignment/index.html" aria-current="page"> 
 <span class="menu-text">Prácticos</span></a>
   </li>  
   <li class="nav-item">
@@ -4223,38 +4223,121 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assignment/practico-positron.html">Guías</a></li><li class="breadcrumb-item"><a href="../assignment/08-practico.html">8: Correlaciones y tablas de contingencia</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Guías</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/practico-positron.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción a Positron</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/01-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">1: Curva Normal e Intervalos de Confianza</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/02-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2: Intervalos de confianza y Test de hipótesis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/03-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">3: Prueba t: hipótesis y direccionalidad</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/04-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">4: Integración e Interpretación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/05-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">5: Asociación, covarianza y correlación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/06-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">6: Inferencia y criterios de magnitud</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/07-practico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">7: Correlaciones ordinales y matrices de correlación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../assignment/08-practico.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">8: Correlaciones y tablas de contingencia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">En esta página</h2>
    
   <ul class="collapse">
-  <li><a href="#sec-parte-correlaciones" id="toc-sec-parte-correlaciones" class="nav-link active" data-scroll-target="#sec-parte-correlaciones"><span class="header-section-number">1</span> Correlaciones: elegir e interpretar</a>
+  <li><a href="#sec-cep-correlacion" id="toc-sec-cep-correlacion" class="nav-link active" data-scroll-target="#sec-cep-correlacion"><span class="header-section-number">0.1</span> Correlación con datos reales: CEP 2026</a></li>
+  <li><a href="#sec-parte-tablas" id="toc-sec-parte-tablas" class="nav-link" data-scroll-target="#sec-parte-tablas"><span class="header-section-number">1</span> Tablas de contingencia y asociación</a>
   <ul class="collapse">
-  <li><a href="#recordemos-las-escalas-de-medición" id="toc-recordemos-las-escalas-de-medición" class="nav-link" data-scroll-target="#recordemos-las-escalas-de-medición"><span class="header-section-number">1.1</span> Recordemos las escalas de medición</a></li>
-  <li><a href="#sec-juego-coeficientes" id="toc-sec-juego-coeficientes" class="nav-link" data-scroll-target="#sec-juego-coeficientes"><span class="header-section-number">1.4</span> ¿Qué correlación utilizarías?</a></li>
-  <li><a href="#sec-cep-correlacion" id="toc-sec-cep-correlacion" class="nav-link" data-scroll-target="#sec-cep-correlacion"><span class="header-section-number">1.5</span> Correlación con datos reales: CEP 2026</a></li>
+  <li><a href="#sec-categorias" id="toc-sec-categorias" class="nav-link" data-scroll-target="#sec-categorias"><span class="header-section-number">1.1</span> ¿Qué es una tabla de contingencia?</a></li>
+  <li><a href="#sec-proporciones" id="toc-sec-proporciones" class="nav-link" data-scroll-target="#sec-proporciones"><span class="header-section-number">1.2</span> ¿100% de quiénes?</a></li>
+  <li><a href="#sec-asociacion" id="toc-sec-asociacion" class="nav-link" data-scroll-target="#sec-asociacion"><span class="header-section-number">1.3</span> ¿Cómo identificamos una asociación?</a></li>
+  <li><a href="#sec-independencia" id="toc-sec-independencia" class="nav-link" data-scroll-target="#sec-independencia"><span class="header-section-number">1.4</span> ¿Qué significa independencia?</a></li>
   </ul></li>
-  <li><a href="#sec-parte-tablas" id="toc-sec-parte-tablas" class="nav-link" data-scroll-target="#sec-parte-tablas"><span class="header-section-number">2</span> Tablas de contingencia y asociación</a>
+  <li><a href="#sec-comprobacion" id="toc-sec-comprobacion" class="nav-link" data-scroll-target="#sec-comprobacion"><span class="header-section-number">2</span> Aplicación autónoma: LAPOP 2023</a>
   <ul class="collapse">
-  <li><a href="#sec-categorias" id="toc-sec-categorias" class="nav-link" data-scroll-target="#sec-categorias"><span class="header-section-number">2.1</span> ¿Qué es una tabla de contingencia?</a></li>
-  <li><a href="#sec-proporciones" id="toc-sec-proporciones" class="nav-link" data-scroll-target="#sec-proporciones"><span class="header-section-number">2.2</span> ¿100% de quiénes?</a></li>
-  <li><a href="#sec-asociacion" id="toc-sec-asociacion" class="nav-link" data-scroll-target="#sec-asociacion"><span class="header-section-number">2.3</span> ¿Cómo identificamos una asociación?</a></li>
-  <li><a href="#sec-independencia" id="toc-sec-independencia" class="nav-link" data-scroll-target="#sec-independencia"><span class="header-section-number">2.4</span> ¿Qué significa independencia?</a></li>
-  </ul></li>
-  <li><a href="#sec-comprobacion" id="toc-sec-comprobacion" class="nav-link" data-scroll-target="#sec-comprobacion"><span class="header-section-number">3</span> Aplicación autónoma: LAPOP 2023</a>
-  <ul class="collapse">
-  <li><a href="#sec-cierre" id="toc-sec-cierre" class="nav-link" data-scroll-target="#sec-cierre"><span class="header-section-number">3.1</span> Síntesis</a></li>
+  <li><a href="#sec-cierre" id="toc-sec-cierre" class="nav-link" data-scroll-target="#sec-cierre"><span class="header-section-number">2.1</span> Síntesis</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content page-columns page-full" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Correlaciones y tablas de contingencia</h1></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../assignment/practico-positron.html">Guías</a></li><li class="breadcrumb-item"><a href="../assignment/08-practico.html">8: Correlaciones y tablas de contingencia</a></li></ol></nav><h1 class="title display-7">Correlaciones y tablas de contingencia</h1></header>
 
 <header id="title-block-header">
 
@@ -4530,7 +4613,7 @@ JavaScript está desactivado: utiliza la tabla original y los desplegables con r
 <p><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m10_correlaciones_ordinales_spearman_kendall.html" target="_blank" rel="noopener noreferrer"> Recurso complementario · Spearman y Kendall ↗ </a></p>
 <p><a class="recurso-btn" href="https://karavena.github.io/estadistica-social/modules/m13_variables_categoricas_tablas_contingencia.html" target="_blank" rel="noopener noreferrer"> Recurso complementario · Tablas de contingencia ↗ </a></p>
 </div>
-<p>En este práctico aprenderemos a <strong>elegir e interpretar correlaciones</strong> (Spearman y Kendall) y a <strong>construir e interpretar tablas de contingencia</strong> utilizando datos reales.</p>
+<p>En este práctico aprenderemos a <strong>construir e interpretar tablas de contingencia</strong> utilizando datos reales.</p>
 <p><strong>Para comenzar · Compartamos nuestros hallazgos</strong></p>
 <p>En el práctico anterior exploraron asociaciones entre variables utilizando datos de <strong>CASEN, CEP o LAPOP</strong>. Antes de avanzar, retomemos esa experiencia:</p>
 <blockquote class="blockquote">
@@ -4538,895 +4621,38 @@ JavaScript está desactivado: utiliza la tabla original y los desplegables con r
 </blockquote>
 <p>Invitamos a un grupo a compartir brevemente sus hallazgos con el curso.</p>
 </div>
-<section id="sec-parte-correlaciones" class="level1 page-columns page-full" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Correlaciones: elegir e interpretar</h1>
-<section id="recordemos-las-escalas-de-medición" class="level2 page-columns page-full" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="recordemos-las-escalas-de-medición"><span class="header-section-number">1.1</span> Recordemos las escalas de medición</h2>
-<div class="ec08 page-columns page-full">
-<p>Antes de elegir una correlación, revisemos qué información contienen las variables.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Escala</th>
-<th style="text-align: left;">¿Qué nos permite hacer?</th>
-<th style="text-align: left;">Ejemplos</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Nominal</strong></td>
-<td style="text-align: left;">Distinguir categorías <strong>sin orden</strong>.</td>
-<td style="text-align: left;">País, sexo, nacionalidad.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Ordinal</strong></td>
-<td style="text-align: left;">Ordenar categorías, <strong>sin asumir distancias iguales</strong> entre ellas.</td>
-<td style="text-align: left;">Nivel educacional, satisfacción, estatus social subjetivo.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Intervalo</strong></td>
-<td style="text-align: left;">Comparar <strong>diferencias iguales</strong>, sin un cero absoluto.</td>
-<td style="text-align: left;">Temperatura en °C o °F.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Razón</strong></td>
-<td style="text-align: left;">Comparar diferencias y proporciones; <strong>cero significa ausencia</strong> de la cantidad.</td>
-<td style="text-align: left;">Edad, ingreso en pesos, distancia, años de escolaridad.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Ojo:</strong> los números no siempre son cantidades. <code>nivel_educ</code> (categorías ordenadas) es <strong>ordinal</strong>, mientras que <code>escolaridad</code> (cantidad de años) es <strong>de razón</strong>.</p>
-<section id="sec-spearman" class="level2 page-columns page-full" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-spearman"><span class="header-section-number">1.2</span> Spearman: correlación entre rankings</h2>
-<div class="ec08 page-columns page-full">
-<section id="cuándo-utilizamos-spearman" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="cuándo-utilizamos-spearman">¿Cuándo utilizamos Spearman?</h3>
-<p><strong>Spearman</strong> permite estudiar si las personas que ocupan posiciones más altas en el ranking de una variable también tienden a ocupar posiciones más altas o más bajas en el ranking de otra. Para ello, compara las posiciones de las mismas personas en ambos ordenamientos, en lugar de trabajar directamente con los valores originales. Es útil con variables ordinales y también con variables cuantitativas cuando nos interesa una relación <strong>monotónica</strong> (al aumentar una variable, la otra tiende a aumentar o disminuir consistentemente, aunque no siga una línea recta).</p>
-<p>Por ejemplo, podemos preguntar si las personas con más <strong>años de escolaridad</strong> tienden a ocupar posiciones más altas en el ranking de <strong>ingresos</strong>. Spearman evalúa hasta qué punto coinciden o se relacionan las posiciones de cada persona en ambos rankings.</p>
-<p>Trabajaremos con cinco personas ficticias. Ambas variables son <strong>ordinales</strong>: las categorías se pueden ordenar, pero las distancias entre ellas no necesariamente son iguales.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Explora los laboratorios interactivos">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Explora los laboratorios interactivos
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>visita la noticia Laboratorios interactivos: Spearman y Kendall</strong>. Encontrarás tres actividades guiadas:</p>
 <ul>
-<li><p><strong>Categorías de X:</strong> 1 Básica incompleta · 2 Básica completa · 3 Media incompleta · 4 Media completa · 5 Educación superior.</p></li>
-<li><p><strong>Categorías de Y:</strong> 1 Muy bajo · 2 Bajo · 3 Medio · 4 Alto · 5 Muy alto.</p></li>
+<li><strong>Laboratorio 1 · Spearman:</strong> compara las posiciones de cinco personas en dos rankings y observa cómo cambia la correlación.</li>
+<li><strong>Laboratorio 2 · Kendall:</strong> compara pares de personas e identifica concordancias, discordancias y empates.</li>
+<li><strong>¿Qué correlación utilizarías?:</strong> practica la elección de una técnica en seis situaciones de investigación.</li>
 </ul>
-<p><strong>Observe:</strong> ¿las personas ocupan siempre la misma posición en ambas variables?</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Persona</th>
-<th style="text-align: right;">Nivel educacional (X)</th>
-<th style="text-align: right;">Estatus social subjetivo (Y)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">A</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">B</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">C</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">D</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">5</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">E</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">4</td>
-</tr>
-</tbody>
-</table>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="recurso-wrap">
+<p><a class="recurso-btn" href="../news/2026-10-13-spearman-kendall.html" target="_blank" rel="noopener noreferrer"> Ir a los laboratorios interactivos ↗ </a></p>
 </div>
-<div class="callout-title-container flex-fill">
-Nota
 </div>
 </div>
-<div class="callout-body-container callout-body">
-<p><strong>Lineal:</strong> sigue aproximadamente una recta. <strong>Monotónica:</strong> mantiene una tendencia ascendente o descendente, aunque sea curva.</p>
-</div>
-</div>
-</section>
-<section id="exploremos-qué-hace-spearman" class="level3 page-columns page-full" data-number="1.2.1">
-<h3 data-number="1.2.1" class="anchored" data-anchor-id="exploremos-qué-hace-spearman"><span class="header-section-number">1.2.1</span> Exploremos qué hace Spearman</h3>
-<section id="ec08-spearman" class="ec08-lab page-columns page-full" aria-labelledby="ec08-s-heading">
-<div class="ec08-lab-head">
-<h3 id="ec08-s-heading" class="anchored">
-Laboratorio 1 · De valores a rankings
-</h3>
-<div class="ec08-lab-head-actions">
-<span class="ec08-mode">Escenario actual: <strong id="ec08-mode">Relación original</strong></span><button type="button" class="ec08-btn ec08-open-explore" data-ec08-s-open-drawer aria-controls="ec08-explore-drawer" aria-expanded="false">Explorar otras relaciones →</button>
-</div>
-</div>
-<div class="ec08-stagebar" role="group" aria-label="Etapas guiadas de Spearman">
-<button class="ec08-step" type="button" data-s-step="1" aria-current="step">
-1 · Valores
-</button>
-<button class="ec08-step" type="button" data-s-step="2">
-2 · Rankings
-</button>
-<button class="ec08-step" type="button" data-s-step="3">
-3 · Interpretar
-</button>
-</div>
-<p class="ec08-lab-prompt" id="ec08-s-question">
-Observa las cinco personas. ¿Quién tiene mayor nivel educacional? ¿Quién tiene mayor estatus subjetivo?
-</p>
-<div class="ec08-lab-layout">
-<div class="ec08-lab-panel">
-<h4 class="anchored">
-Los mismos casos, dos variables
-</h4>
-<div class="ec08-scroll">
-<table class="ec08-table" aria-label="Valores y rankings de los cinco casos">
-<thead>
-<tr>
-<th scope="col">
-Persona
-</th>
-<th scope="col">
-X
-</th>
-<th class="ec08-rank-col" scope="col" hidden>
-Posición en X
-</th>
-<th scope="col">
-Y
-</th>
-<th class="ec08-rank-col" scope="col" hidden>
-Posición en Y
-</th>
-</tr>
-</thead>
-<tbody id="ec08-spearman-tbody">
-<tr>
-<th scope="row">
-A
-</th>
-<td>
-1
-</td>
-<td class="ec08-rank-col" hidden>
-1
-</td>
-<td>
-1
-</td>
-<td class="ec08-rank-col" hidden>
-1
-</td>
-</tr>
-<tr>
-<th scope="row">
-B
-</th>
-<td>
-2
-</td>
-<td class="ec08-rank-col" hidden>
-2
-</td>
-<td>
-3
-</td>
-<td class="ec08-rank-col" hidden>
-3
-</td>
-</tr>
-<tr>
-<th scope="row">
-C
-</th>
-<td>
-3
-</td>
-<td class="ec08-rank-col" hidden>
-3
-</td>
-<td>
-2
-</td>
-<td class="ec08-rank-col" hidden>
-2
-</td>
-</tr>
-<tr>
-<th scope="row">
-D
-</th>
-<td>
-4
-</td>
-<td class="ec08-rank-col" hidden>
-4
-</td>
-<td>
-5
-</td>
-<td class="ec08-rank-col" hidden>
-5
-</td>
-</tr>
-<tr>
-<th scope="row">
-E
-</th>
-<td>
-5
-</td>
-<td class="ec08-rank-col" hidden>
-5
-</td>
-<td>
-4
-</td>
-<td class="ec08-rank-col" hidden>
-4
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p class="ec08-person-note" id="ec08-s-person-note" aria-live="polite">
-Selecciona una persona para seguir sus valores.
-</p>
-</div>
-<div class="ec08-lab-panel">
-<h4 id="ec08-s-visual-heading" class="anchored">
-Valores originales
-</h4>
-<svg id="ec08-plot" viewbox="0 0 460 248" role="img" aria-label="Valores de las cinco personas">
-</svg>
-<p class="ec08-subtle" id="ec08-s-visual-note">
-Las barras muestran los códigos ordinales 1–5.
-</p>
-</div>
-</div>
-<div id="ec08-s-prediction" hidden>
-<fieldset>
-<legend>¿Cómo esperas que se relacionen las posiciones en ambos rankings?</legend>
-<div class="ec08-prediction-options">
-<label><input type="radio" name="ec08-s-guess" value="positiva"> Positivamente</label><label><input type="radio" name="ec08-s-guess" value="negativa"> Negativamente</label><label><input type="radio" name="ec08-s-guess" value="cero"> Cerca de cero</label>
-</div>
-</fieldset>
-<div class="ec08-actions">
-<button class="ec08-btn ec08-primary" type="button" id="ec08-s-reveal">
-Comprobar predicción
-</button>
-</div>
-</div>
-<div id="ec08-s-result" class="ec08-result" role="status" aria-live="polite" hidden>
-<strong id="ec08-s-value">ρ = 0,800</strong>
-<p id="ec08-s-interp">
-Las posiciones altas en un ranking tienden a acompañarse de posiciones altas en el otro, sin coincidencia perfecta.
-</p>
-</div>
-<div class="ec08-steps-nav">
-<button class="ec08-btn" id="ec08-s-back" type="button" disabled>
-← Anterior
-</button>
-<button class="ec08-btn ec08-primary" id="ec08-s-next" type="button">
-Comparar rankings →
-</button>
-</div>
-<div id="ec08-explore-backdrop" class="ec08-drawer-backdrop" hidden>
-
-</div>
-<aside id="ec08-explore-drawer" class="ec08-explore-drawer" role="dialog" aria-modal="false" aria-labelledby="ec08-drawer-heading" aria-describedby="ec08-drawer-intro" hidden>
-<div class="ec08-drawer-top">
-<h4 id="ec08-drawer-heading" class="anchored">
-Explorar otras relaciones
-</h4>
-<button type="button" id="ec08-drawer-close" class="ec08-btn ec08-drawer-close" aria-label="Cerrar panel de exploración">
-×
-</button>
-</div>
-<p class="ec08-drawer-intro" id="ec08-drawer-intro">
-Cambia el orden de los cinco casos de Spearman y observa cómo varía su correlación.
-</p>
-<div class="ec08-drawer-prediction">
-<label for="ec08-drawer-guess">Antes de cambiar: ¿qué crees que ocurrirá con Spearman?</label><select id="ec08-drawer-guess"><option value>Elige una predicción (si quieres)</option><option value="aumentan">Spearman aumentará</option><option value="signo">Cambiará el signo de la asociación</option><option value="disminuyen">Spearman disminuirá</option><option value="iguales">No cambiarán</option></select>
-</div>
-<div class="ec08-drawer-options" role="group" aria-label="Elige una relación para comparar">
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="original" aria-pressed="true">
-<strong>Relación original</strong><small>Positiva con algunas inversiones del orden</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="swap" aria-pressed="false">
-<strong>Mejor correspondencia</strong><small>Intercambiar las categorías de estatus de B y C</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="reverse" aria-pressed="false">
-<strong>Relación negativa perfecta</strong><small>Invertir las categorías de estatus</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-scenario="tie" aria-pressed="false">
-<strong>Relación con empates</strong><small>Asignar estatus subjetivo 3 a B y C</small>
-</button>
-</div>
-<div class="ec08-drawer-compare">
-<h5 class="anchored">
-¿Qué cambió respecto del original?
-</h5>
-<table>
-<thead>
-<tr>
-<th scope="col">
-Coeficiente
-</th>
-<th scope="col">
-Original
-</th>
-<th scope="col">
-Actual
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th scope="row">
-Spearman
-</th>
-<td id="ec08-drawer-s-base">
-0,800
-</td>
-<td id="ec08-drawer-s-value" class="ec08-drawer-value">
-0,800
-</td>
-</tr>
-</tbody>
-</table>
-<p id="ec08-drawer-reason" class="ec08-drawer-reason" role="status" aria-live="polite">
-En este coeficiente se observa una asociación positiva; el orden no coincide completamente.
-</p>
-<p class="ec08-drawer-prediction-feedback" id="ec08-drawer-feedback" aria-live="polite">
-</p>
-</div>
-<details class="ec08-drawer-sort" id="ec08-drawer-sort">
-<summary>
-Ordenar las filas de Spearman
-</summary>
-<div class="ec08-scenario-list" role="group" aria-label="Orden visual de filas en Spearman">
-<button type="button" class="ec08-btn" data-ec08-sort="original" aria-pressed="true">
-A–E
-</button>
-<button type="button" class="ec08-btn" data-ec08-sort="x" aria-pressed="false">
-Por X
-</button>
-<button type="button" class="ec08-btn" data-ec08-sort="y" aria-pressed="false">
-Por Y
-</button>
-</div>
-<p class="ec08-subtle">
-Ordenar filas no modifica los coeficientes.
-</p>
-</details>
-<div class="ec08-drawer-bottom">
-<button type="button" class="ec08-btn ec08-drawer-reset" id="ec08-drawer-reset">
-↺ Volver a los datos originales
-</button>
-</div>
-</aside>
-<noscript>
-<p>
-Sin JavaScript, usa los datos originales y el desplegable con rankings que sigue a este laboratorio.
-</p>
-</noscript>
-</section>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>¿Cómo interpretamos el resultado de Spearman?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>En esta muestra, <span class="math inline">\(\rho_s=0{,}80\)</span> indica una <strong>asociación positiva elevada entre las posiciones de ambos rankings</strong>. Quienes tienen mayor nivel educacional tienden a ubicarse en posiciones más altas en el ranking de estatus subjetivo, aunque las posiciones no coinciden siempre.</p>
-<blockquote class="blockquote">
-<p>Este resultado describe únicamente los <strong>cinco casos ficticios</strong>. No demuestra causalidad ni permite generalizar a una población.</p>
-</blockquote>
-</div>
-</div>
-</section>
-</div>
-</section>
-<section id="sec-kendall" class="level2 page-columns page-full" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="sec-kendall"><span class="header-section-number">1.3</span> Kendall: comparación entre pares</h2>
-<section id="cuándo-utilizamos-kendall" class="level3 unnumbered ec08 page-columns page-full">
-<h3 class="unnumbered anchored" data-anchor-id="cuándo-utilizamos-kendall">¿Cuándo utilizamos Kendall?</h3>
-<p><strong>Kendall tau-b</strong> compara personas <strong>de dos en dos</strong>: registra si sus órdenes <strong>coinciden</strong> (pares concordantes), se <strong>invierten</strong> (discordantes) o presentan <strong>empates</strong>. Es útil cuando interesa interpretar esas comparaciones, especialmente con escalas ordinales.</p>
-<blockquote class="blockquote">
-<p><strong>Spearman y Kendall pueden ser adecuados para las mismas variables.</strong> Los empates no obligan a utilizar Kendall; tau-b ofrece una forma específica de considerarlos.</p>
-</blockquote>
-<section id="ec08-kendall" class="ec08-lab page-columns page-full" aria-labelledby="ec08-k-heading">
-<div class="ec08-lab-head">
-<h3 id="ec08-k-heading" class="anchored">
-Laboratorio 2 · Comparar dos personas
-</h3>
-<div class="ec08-lab-head-actions">
-<span class="ec08-mode">Escenario actual: <strong id="ec08-mode-k">Relación original</strong></span><button type="button" class="ec08-btn ec08-open-explore" data-ec08-k-open-drawer aria-controls="ec08-k-explore-drawer" aria-expanded="false">Explorar otras relaciones →</button>
-</div>
-</div>
-<p class="ec08-subtle">
-Cinco personas ficticias; nivel educacional y estatus social subjetivo, con categorías ordenadas de 1 a 5. Kendall las compara de dos en dos: observa si el orden coincide, se invierte o presenta un empate.
-</p>
-<p>
-<strong>Si una persona tiene mayor nivel educacional que otra, ¿también tiene mayor estatus subjetivo?</strong>
-</p>
-<div class="ec08-stagebar" role="group" aria-label="Etapas guiadas de Kendall">
-<button class="ec08-step" type="button" data-k-step="1" aria-current="step">
-1 · Observar
-</button>
-<button class="ec08-step" type="button" data-k-step="2">
-2 · Clasificar
-</button>
-<button class="ec08-step" type="button" data-k-step="3">
-3 · Coeficiente
-</button>
-</div>
-<p class="ec08-lab-prompt" id="ec08-k-question">
-Observemos dos personas: ¿quién tiene mayor nivel educacional? ¿Quién tiene mayor estatus subjetivo?
-</p>
-<div class="ec08-choose">
-<label for="ec08-pair-a">Persona 1</label><select id="ec08-pair-a"><option selected>A</option><option>B</option><option>C</option><option>D</option><option>E</option></select><label for="ec08-pair-b">Persona 2</label><select id="ec08-pair-b"><option>A</option><option selected>B</option><option>C</option><option>D</option><option>E</option></select>
-</div>
-<div class="ec08-compare" aria-label="Dos comparaciones de las mismas personas">
-<div class="ec08-compare-row">
-<strong>Nivel educacional (X)</strong>
-<div class="ec08-compare-cell">
-<div class="ec08-compare-label">
-<span id="ec08-x-label-a">A</span>
-<output id="ec08-x-val-a">
-1
-</output>
-</div>
-<div class="ec08-compare-track">
-<div id="ec08-x-bar-a" class="ec08-compare-fill" style="width:20%">
-
-</div>
-</div>
-</div>
-<div class="ec08-compare-cell ec08-person2">
-<div class="ec08-compare-label">
-<span id="ec08-x-label-b">B</span>
-<output id="ec08-x-val-b">
-2
-</output>
-</div>
-<div class="ec08-compare-track">
-<div id="ec08-x-bar-b" class="ec08-compare-fill" style="width:40%">
-
-</div>
-</div>
-</div>
-<span id="ec08-x-winner" class="ec08-compare-winner">Mayor: B</span>
-</div>
-<div class="ec08-compare-row">
-<strong>Estatus subjetivo (Y)</strong>
-<div class="ec08-compare-cell">
-<div class="ec08-compare-label">
-<span id="ec08-y-label-a">A</span>
-<output id="ec08-y-val-a">
-1
-</output>
-</div>
-<div class="ec08-compare-track">
-<div id="ec08-y-bar-a" class="ec08-compare-fill" style="width:20%">
-
-</div>
-</div>
-</div>
-<div class="ec08-compare-cell ec08-person2">
-<div class="ec08-compare-label">
-<span id="ec08-y-label-b">B</span>
-<output id="ec08-y-val-b">
-3
-</output>
-</div>
-<div class="ec08-compare-track">
-<div id="ec08-y-bar-b" class="ec08-compare-fill" style="width:60%">
-
-</div>
-</div>
-</div>
-<span id="ec08-y-winner" class="ec08-compare-winner">Mayor: B</span>
-</div>
-</div>
-<p class="ec08-order-summary" id="ec08-k-order-summary" aria-live="polite">
-Mayor nivel educacional: B · Mayor estatus subjetivo: B.
-</p>
-<div id="ec08-k-prediction" hidden>
-<fieldset>
-<legend>Tu clasificación del par</legend>
-<div class="ec08-prediction-options">
-<label><input type="radio" name="ec08-k-guess" value="Concordante"> Concordante</label><label><input type="radio" name="ec08-k-guess" value="Discordante"> Discordante</label><label><input type="radio" name="ec08-k-guess" value="Empate"> Empate</label>
-</div>
-</fieldset>
-<p class="ec08-subtle" id="ec08-k-classify-guide">
-Concordante: la misma persona tiene una categoría mayor en ambas variables. Discordante: una tiene mayor educación y la otra, mayor estatus. Empate: tienen la misma categoría en una variable o en ambas.
-</p>
-<div class="ec08-actions">
-<button type="button" class="ec08-btn ec08-primary" id="ec08-pair-check">
-Comprobar respuesta
-</button>
-</div>
-</div>
-<div id="ec08-pair-result" class="ec08-result" role="status" aria-live="polite" hidden>
-
-</div>
-<div id="ec08-k-summary" hidden>
-<p>
-Con cinco personas podemos formar diez pares distintos. Kendall considera las concordancias, discordancias y empates para resumir la asociación.
-</p>
-<div class="ec08-metric-grid">
-<div class="ec08-metric">
-<strong id="ec08-count-n">10</strong><small>Pares totales</small>
-</div>
-<div class="ec08-metric">
-<strong id="ec08-count-c">8</strong><small>Concordantes</small>
-</div>
-<div class="ec08-metric">
-<strong id="ec08-count-d">2</strong><small>Discordantes</small>
-</div>
-<div class="ec08-metric">
-<strong id="ec08-count-t">0</strong><small>Empates</small>
-</div>
-</div>
-<p id="ec08-k-total" class="ec08-subtle">
-Pares totales = concordantes + discordantes + empatados: 10 = 8 + 2 + 0.
-</p>
-<div class="ec08-actions">
-<button type="button" class="ec08-btn ec08-primary" id="ec08-k-reveal">
-Interpretar Kendall tau-b
-</button>
-</div>
-<div id="ec08-k-result" class="ec08-result" role="status" aria-live="polite" hidden>
-<strong id="ec08-k-value">τ<sub>b</sub> = 0,600</strong>
-<p id="ec08-k-balance">
-8 − 2 = 6; 6/10 = 0,60.
-</p>
-<p id="ec08-k-counts" class="ec08-subtle">
-0,600 no significa 60% de pares concordantes: son 8 de 10, es decir, el 80%.
-</p>
-<details class="ec08-explore">
-<summary>
-¿Cómo se ajusta Kendall cuando hay empates?
-</summary>
-<p>
-τ<sub>b</sub> = (C − D) / √[(C + D + T<sub>X</sub>)(C + D + T<sub>Y</sub>)]
-</p>
-<p class="ec08-subtle">
-C: pares concordantes; D: discordantes; T<sub>X</sub>: empates solo en nivel educacional; T<sub>Y</sub>: empates solo en estatus. Los empates en ambas variables no se suman a T<sub>X</sub> ni a T<sub>Y</sub>.
-</p>
-<p id="ec08-k-adjustment">
-</p>
-</details>
-</div>
-<details class="ec08-explore" id="ec08-all-pairs">
-<summary>
-Ver los 10 pares y su clasificación
-</summary>
-<div class="ec08-scroll">
-<table class="ec08-table">
-<caption>
-Comparaciones con los valores actuales
-</caption>
-<thead>
-<tr>
-<th scope="col">
-Par
-</th>
-<th scope="col">
-Nivel educacional
-</th>
-<th scope="col">
-Estatus subjetivo
-</th>
-<th scope="col">
-Tipo
-</th>
-</tr>
-</thead>
-<tbody id="ec08-pairs-tbody">
-<tr>
-<th scope="row">
-A–B
-</th>
-<td>
-A &lt; B
-</td>
-<td>
-A &lt; B
-</td>
-<td>
-Concordante
-</td>
-</tr>
-<tr>
-<th scope="row">
-B–C
-</th>
-<td>
-B &lt; C
-</td>
-<td>
-B &gt; C
-</td>
-<td>
-Discordante
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</details>
-</div>
-<div class="ec08-steps-nav">
-<button type="button" id="ec08-k-back" class="ec08-btn" disabled>
-← Anterior
-</button>
-<button type="button" id="ec08-k-next" class="ec08-btn ec08-primary">
-Clasificar este par →
-</button>
-</div>
-<div id="ec08-k-explore-backdrop" class="ec08-drawer-backdrop" hidden>
-
-</div>
-<aside id="ec08-k-explore-drawer" class="ec08-explore-drawer" role="dialog" aria-modal="false" aria-labelledby="ec08-k-drawer-heading" aria-describedby="ec08-k-drawer-intro" hidden>
-<div class="ec08-drawer-top">
-<h4 id="ec08-k-drawer-heading" class="anchored">
-Explorar otras relaciones
-</h4>
-<button type="button" id="ec08-k-drawer-close" class="ec08-btn ec08-drawer-close" aria-label="Cerrar panel de exploración">
-×
-</button>
-</div>
-<p class="ec08-drawer-intro" id="ec08-k-drawer-intro">
-Cambia el estatus de estas cinco personas y observa qué pares cambian de clasificación.
-</p>
-<div class="ec08-drawer-prediction">
-<label for="ec08-k-drawer-guess">Respecto del original, ¿qué crees que ocurrirá con Kendall?</label><select id="ec08-k-drawer-guess"><option value>Elige una predicción (si quieres)</option><option value="aumentan">Kendall aumentará</option><option value="signo">Cambiará el signo de la asociación</option><option value="disminuyen">Kendall disminuirá</option><option value="iguales">No cambiará</option></select>
-</div>
-<div class="ec08-drawer-options" role="group" aria-label="Elige una relación para comparar">
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="original" aria-pressed="true">
-<strong>Relación original</strong><small>Positiva con algunas inversiones del orden</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="swap" aria-pressed="false">
-<strong>Mejor correspondencia</strong><small>Intercambiar las categorías de estatus de B y C</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="reverse" aria-pressed="false">
-<strong>Relación negativa perfecta</strong><small>Invertir las categorías de estatus</small>
-</button>
-<button type="button" class="ec08-scenario-option" data-ec08-k-scenario="tie" aria-pressed="false">
-<strong>Relación con empates</strong><small>Asignar estatus subjetivo 3 a B y C</small>
-</button>
-</div>
-<div class="ec08-drawer-compare">
-<h5 class="anchored">
-¿Qué cambió respecto del original?
-</h5>
-<table>
-<thead>
-<tr>
-<th scope="col">
-Coeficiente
-</th>
-<th scope="col">
-Original
-</th>
-<th scope="col">
-Actual
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th scope="row">
-Kendall
-</th>
-<td id="ec08-k-drawer-k-base">
-0,600
-</td>
-<td id="ec08-k-drawer-k-value" class="ec08-drawer-value">
-0,600
-</td>
-</tr>
-</tbody>
-</table>
-<div id="ec08-k-tie-comparison" hidden>
-<p class="ec08-subtle" id="ec08-k-tie-before">
-</p>
-<p class="ec08-subtle" id="ec08-k-tie-after">
-</p>
-</div>
-<p id="ec08-k-drawer-reason" class="ec08-drawer-reason" role="status" aria-live="polite">
-Hay 8 pares concordantes y 2 discordantes: predominan los que coinciden en el orden.
-</p>
-<p class="ec08-drawer-prediction-feedback" id="ec08-k-drawer-feedback" aria-live="polite">
-</p>
-</div>
-<div class="ec08-drawer-bottom">
-<button type="button" class="ec08-btn ec08-drawer-reset" id="ec08-k-drawer-reset">
-↺ Volver a los datos originales
-</button>
-</div>
-</aside>
-<noscript>
-<p>
-Sin JavaScript, consulta el recuento del ejemplo original en los desplegables posteriores.
-</p>
-</noscript>
-</section>
-<div class="callout callout-style-default callout-important callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>¿Cómo interpretamos el resultado de Kendall?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>En el escenario original, <span class="math inline">\(\tau_b=0{,}60\)</span> indica una <strong>asociación ordinal positiva</strong>. De diez pares posibles, ocho son concordantes y dos discordantes: habitualmente, quien tiene mayor nivel educacional también ocupa una categoría mayor de estatus subjetivo.</p>
-<blockquote class="blockquote">
-<p><strong>Importante:</strong> 0,60 no significa 60% de pares concordantes. Aquí son <strong>8 de 10</strong>. El coeficiente tampoco demuestra causalidad ni debe compararse directamente con el valor de Spearman.</p>
-</blockquote>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled" title="¿Qué hace Kendall tau-b con los empates?">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>¿Qué hace Kendall tau-b con los empates?
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Kendall tau-b compara todos los pares de personas y los clasifica como concordantes, discordantes o empatados. Si dos personas tienen el mismo valor en una variable, ese par se considera un empate: no suma como concordante ni como discordante. Sin embargo, tau-b tiene en cuenta esos empates al ajustar el denominador de su fórmula. Así, el coeficiente refleja la asociación entre ambas variables considerando que algunos pares no pueden ordenarse completamente.</p>
-</div>
-</div>
-</section>
-<section id="cómo-elegimos-el-coeficiente" class="level3 unnumbered">
-<h3 class="unnumbered anchored" data-anchor-id="cómo-elegimos-el-coeficiente">¿Cómo elegimos el coeficiente?</h3>
-<p><strong>Spearman y Kendall</strong> permiten estudiar asociaciones entre variables ordenadas, pero utilizan procedimientos diferentes:</p>
-<ul>
-<li><p><strong>Spearman:</strong> lo elegimos cuando queremos saber si las personas que ocupan posiciones más altas en una variable también tienden a ocupar posiciones más altas (o más bajas) en otra. Para ello, <strong>compara las posiciones asignadas a las observaciones en dos rankings</strong>.</p></li>
-<li><p><strong>Kendall tau-b:</strong> lo elegimos cuando nos interesa comparar personas de dos en dos y observar si sus posiciones coinciden (<strong>concordancia</strong>), se invierten (<strong>discordancia</strong>) o presentan <strong>empates</strong>. Es especialmente útil con variables ordinales de pocas categorías, donde pueden existir muchos empates.</p></li>
-</ul>
-<p><strong>¿Podemos utilizar ambos?</strong> Sí. Los dos son adecuados para estudiar asociaciones ordinales. La elección depende de qué queremos analizar y de las características de los datos. Los empates <strong>no obligan</strong> a usar Kendall, pues Spearman también puede trabajar con posiciones empatadas (asignando la posición promedio a las observaciones en empate).</p>
-<p>En nuestros cinco casos, <strong>Spearman = 0,80</strong> y <strong>Kendall = 0,60</strong>. Los resultados son distintos porque cada coeficiente resume el orden de manera diferente. No debemos comparar directamente sus valores para concluir que uno muestra una asociación más débil que el otro.</p>
-<section id="cuándo-conviene-cada-coeficiente" class="level4 unnumbered">
-<h4 class="unnumbered anchored" data-anchor-id="cuándo-conviene-cada-coeficiente">¿Cuándo conviene cada coeficiente?</h4>
-<p>Reconocer la escala es el primer paso. Después debemos considerar <strong>qué relación queremos estudiar</strong>.</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Coeficiente</th>
-<th style="text-align: left;">¿Cuándo conviene utilizarlo?</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;"><strong>Pearson</strong></td>
-<td style="text-align: left;">Para estudiar una <strong>relación lineal</strong> entre variables cuantitativas.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;"><strong>Spearman</strong></td>
-<td style="text-align: left;">Para estudiar si las <strong>posiciones en dos rankings</strong> tienden a aumentar o disminuir juntas.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><strong>Kendall tau-b</strong></td>
-<td style="text-align: left;">Para estudiar la <strong>concordancia entre pares</strong>, considerando también los empates.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Recuerda:</strong> la escala de medición orienta la elección, pero <strong>no determina por sí sola</strong> el coeficiente.</p>
-</section>
-</section>
-</section>
-</div>
-</section>
-<section id="sec-juego-coeficientes" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="sec-juego-coeficientes"><span class="header-section-number">1.4</span> ¿Qué correlación utilizarías?</h2>
-<div class="ec08">
-<p>En cada situación, <strong>clasifica X e Y</strong> (nominal, ordinal, intervalo o razón) y <strong>elige un coeficiente</strong>. La explicación indicará si existen otras respuestas válidas.</p>
-<div id="ec08-game" class="ec08-game" aria-label="Juego de selección de coeficientes">
-<div id="ec08-game-play">
-<div id="ec08-game-progress" class="ec08-game-progress" aria-live="polite">
-Situación 1 de 6
-</div>
-<h3 id="ec08-game-title" class="anchored">
-Reconoce las variables
-</h3>
-<p id="ec08-game-context">
-</p>
-<p class="ec08-game-question" id="ec08-game-question">
-</p>
-<div class="ec08-game-vars">
-<div class="ec08-game-var">
-<strong id="ec08-game-x-name">Variable X</strong><small id="ec08-game-x-description"></small><label for="ec08-game-x-level">Nivel de medición de X</label><select id="ec08-game-x-level"><option value>Selecciona una opción</option><option value="nominal">Nominal</option><option value="ordinal">Ordinal</option><option value="intervalo">Intervalo</option><option value="razon">Razón</option></select>
-</div>
-<div class="ec08-game-var">
-<strong id="ec08-game-y-name">Variable Y</strong><small id="ec08-game-y-description"></small><label for="ec08-game-y-level">Nivel de medición de Y</label><select id="ec08-game-y-level"><option value>Selecciona una opción</option><option value="nominal">Nominal</option><option value="ordinal">Ordinal</option><option value="intervalo">Intervalo</option><option value="razon">Razón</option></select>
-</div>
-</div>
-<div class="ec08-game-coef">
-<label for="ec08-game-coef-choice">¿Qué coeficiente o procedimiento elegirías para esta pregunta?</label><select id="ec08-game-coef-choice"><option value>Selecciona una opción</option><option value="pearson">Pearson</option><option value="spearman">Spearman</option><option value="kendall">Kendall tau-b</option><option value="ninguno">Ninguno de estos tres</option></select>
-</div>
-<div class="ec08-game-actions">
-<button type="button" id="ec08-game-check" class="ec08-game-main">
-Comprobar respuesta
-</button>
-<button type="button" id="ec08-game-prev">
-← Anterior
-</button>
-<button type="button" id="ec08-game-next" disabled>
-Siguiente situación →
-</button>
-<button type="button" id="ec08-game-reset">
-↺ Reiniciar
-</button>
-</div>
-<div id="ec08-game-feedback" class="ec08-game-feedback" role="status" aria-live="polite" aria-atomic="true" hidden>
-
-</div>
-</div>
-<div id="ec08-game-finish" class="ec08-game-finish" hidden>
-<h3 class="anchored">
-Recorrido completado
-</h3>
-<p>
-Para elegir una técnica, revisa <strong>las variables y la pregunta</strong>. Pearson estudia linealidad; Spearman, posiciones en rankings; Kendall, pares. Para comparar categorías sin orden, comienza con una tabla.
-</p>
-<p>
-<strong>Intervalo:</strong> temperatura en °C; las diferencias son comparables, pero cero no es ausencia de temperatura.
-</p>
-<div class="ec08-game-actions">
-<button type="button" id="ec08-game-repeat" class="ec08-game-main">
-Volver a practicar
-</button>
-</div>
-</div>
-<noscript>
-<p>
-Para realizar el juego interactivo es necesario activar JavaScript. Puedes estudiar las situaciones de las tres bases disponibles en el práctico anterior y justificar tu elección por escrito.
-</p>
-</noscript>
-</div>
-<p><strong>Sin nota.</strong> Seguiremos con una aplicación a CEP 2026.</p>
-</div>
-</section>
-<section id="sec-cep-correlacion" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="sec-cep-correlacion"><span class="header-section-number">1.5</span> Correlación con datos reales: CEP 2026</h2>
+<p>En este practico, aplicaremos lo aprendido con datos de <strong>CEP 2026</strong> y continuaremos con tablas de contingencia y un desafío con <strong>LAPOP 2023</strong>.</p>
+<section id="sec-cep-correlacion" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="sec-cep-correlacion"><span class="header-section-number">0.1</span> Correlación con datos reales: CEP 2026</h2>
 <div class="ec08">
 <p>Hasta ahora exploramos cómo funcionan Spearman y Kendall y cómo elegir un coeficiente según las características de las variables. <strong>Ahora llevaremos ese aprendizaje a R</strong>, utilizando datos reales para calcular e interpretar una correlación.</p>
 <p>Trabajaremos con la <strong>Encuesta CEP 2026</strong>:</p>
 <blockquote class="blockquote">
 <p><strong>¿Existe asociación entre el interés político y la confianza en los partidos políticos?</strong></p>
 </blockquote>
-<section id="carguemos-cep" class="level3" data-number="1.5.1">
-<h3 data-number="1.5.1" class="anchored" data-anchor-id="carguemos-cep"><span class="header-section-number">1.5.1</span> Carguemos CEP</h3>
+<section id="carguemos-cep" class="level3" data-number="0.1.1">
+<h3 data-number="0.1.1" class="anchored" data-anchor-id="carguemos-cep"><span class="header-section-number">0.1.1</span> Carguemos CEP</h3>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos el paquete dplyr</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
@@ -5470,8 +4696,8 @@ Para realizar el juego interactivo es necesario activar JavaScript. Puedes estud
 <p><code>interes_pol</code> (1–5) y <code>conf_partidos</code> (1–4) son <strong>ordinales</strong>: sus números indican orden, no distancias iguales.</p>
 </blockquote>
 </section>
-<section id="elijamos-y-calculemos" class="level3" data-number="1.5.2">
-<h3 data-number="1.5.2" class="anchored" data-anchor-id="elijamos-y-calculemos"><span class="header-section-number">1.5.2</span> Elijamos y calculemos</h3>
+<section id="elijamos-y-calculemos" class="level3" data-number="0.1.2">
+<h3 data-number="0.1.2" class="anchored" data-anchor-id="elijamos-y-calculemos"><span class="header-section-number">0.1.2</span> Elijamos y calculemos</h3>
 <p><strong>Antes de ver el resultado:</strong> ¿elegirías Pearson, Spearman o Kendall? ¿Por qué?</p>
 <p>Dado que ambas variables son <strong>ordinales</strong> y queremos estudiar si las personas con mayor interés político también tienden a presentar mayor confianza en los partidos, utilizaremos <strong>Spearman</strong>, que permite analizar la asociación entre sus posiciones en ambos rankings.</p>
 <p><span class="math display">\[
@@ -5547,11 +4773,10 @@ Revisar la interpretación
 </section>
 </div>
 </section>
-</section>
-<section id="sec-parte-tablas" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Tablas de contingencia y asociación</h1>
-<section id="sec-categorias" class="level2" data-number="2.1">
-<h2 data-number="2.1" class="anchored" data-anchor-id="sec-categorias"><span class="header-section-number">2.1</span> ¿Qué es una tabla de contingencia?</h2>
+<section id="sec-parte-tablas" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Tablas de contingencia y asociación</h1>
+<section id="sec-categorias" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="sec-categorias"><span class="header-section-number">1.1</span> ¿Qué es una tabla de contingencia?</h2>
 <div class="ec08">
 <p>Cambiemos la pregunta, manteniendo CEP 2026:</p>
 <blockquote class="blockquote">
@@ -5559,8 +4784,8 @@ Revisar la interpretación
 </blockquote>
 <p>Una <strong>tabla de contingencia</strong> cuenta cuántas personas pertenecen a cada combinación de categorías.</p>
 </div>
-<section id="sec-tabla" class="level3" data-number="2.1.1">
-<h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-tabla"><span class="header-section-number">2.1.1</span> Construyamos una tabla con CEP</h3>
+<section id="sec-tabla" class="level3" data-number="1.1.1">
+<h3 data-number="1.1.1" class="anchored" data-anchor-id="sec-tabla"><span class="header-section-number">1.1.1</span> Construyamos una tabla con CEP</h3>
 <div class="ec08">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sjPlot)</span>
@@ -5857,8 +5082,8 @@ Mujeres
 </div>
 </section>
 </section>
-<section id="sec-proporciones" class="level2" data-number="2.2">
-<h2 data-number="2.2" class="anchored" data-anchor-id="sec-proporciones"><span class="header-section-number">2.2</span> ¿100% de quiénes?</h2>
+<section id="sec-proporciones" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="sec-proporciones"><span class="header-section-number">1.2</span> ¿100% de quiénes?</h2>
 <div class="ec08">
 <p>Una <strong>frecuencia</strong> indica cuántas personas dieron una respuesta. Un <strong>porcentaje</strong> indica qué parte de un grupo representan esas personas. Para calcularlo, primero preguntamos: <strong>¿de qué grupo estamos hablando?</strong> Ese grupo es el <strong>denominador</strong> y representa el <strong>100 %</strong>.</p>
 <p>Tomemos siempre la misma celda: <strong>277 hombres que respondieron «Nada de confianza»</strong>.</p>
@@ -5982,8 +5207,8 @@ Mujeres
 </blockquote>
 </div>
 </section>
-<section id="sec-asociacion" class="level2" data-number="2.3">
-<h2 data-number="2.3" class="anchored" data-anchor-id="sec-asociacion"><span class="header-section-number">2.3</span> ¿Cómo identificamos una asociación?</h2>
+<section id="sec-asociacion" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="sec-asociacion"><span class="header-section-number">1.3</span> ¿Cómo identificamos una asociación?</h2>
 <div class="ec08">
 <p><strong>¿La confianza en los partidos políticos se distribuye igual entre hombres y mujeres?</strong> Para responder, comparamos los <strong>porcentajes dentro de cada grupo</strong> de la tabla anterior.</p>
 <p>Por ejemplo, comparemos las respuestas <strong>«Nada»</strong> y <strong>«Bastante»</strong>:</p>
@@ -6019,8 +5244,8 @@ Mujeres
 </blockquote>
 </div>
 </section>
-<section id="sec-independencia" class="level2" data-number="2.4">
-<h2 data-number="2.4" class="anchored" data-anchor-id="sec-independencia"><span class="header-section-number">2.4</span> ¿Qué significa independencia?</h2>
+<section id="sec-independencia" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="sec-independencia"><span class="header-section-number">1.4</span> ¿Qué significa independencia?</h2>
 <div class="ec08">
 <p>Dos variables son <strong>independientes</strong> cuando conocer el grupo de una persona <strong>no cambia los porcentajes</strong> de sus respuestas.</p>
 <p>Observa este <strong>ejemplo ficticio</strong>. Los grupos tienen tamaños distintos y cada celda muestra la cantidad de personas y su porcentaje por fila:</p>
@@ -6070,8 +5295,8 @@ H_A:\text{las variables están asociadas en la población}
 </div>
 </section>
 </section>
-<section id="sec-comprobacion" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Aplicación autónoma: LAPOP 2023</h1>
+<section id="sec-comprobacion" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Aplicación autónoma: LAPOP 2023</h1>
 <div class="ec08">
 <p><strong>Ahora te toca investigar.</strong> Con datos de <strong>LAPOP 2023 para Chile</strong>, elige una pregunta que te interese, construye una tabla de contingencia y decide qué porcentajes permiten responderla.</p>
 <p><strong>Cómo trabajar:</strong> completa <code>___</code> en los códigos, ejecútalos en R y responde con tus propios resultados. Puedes abrir una pista cuando la necesites; al final encontrarás una pauta y <strong>un ejemplo resuelto</strong>, no una respuesta única para todas las opciones.</p>
@@ -6116,9 +5341,9 @@ H_A:\text{las variables están asociadas en la población}
 <p><strong>¿Otra pregunta?</strong> Puedes proponer un cruce distinto con estas variables u otras incluidas en la base. Por ejemplo, también están <code>educ</code> (0–6), <code>conf_ffaa</code> (1–7) y <code>apoyo_dem</code> (1–7). Comprueba sus categorías antes de utilizarlas.</p>
 <p><strong>Decide:</strong> ¿qué pregunta elegiste?, ¿qué variable identifica los grupos? y ¿qué respuestas quieres comparar?</p>
 <p><strong>Paso 2 · Prepara los datos</strong></p>
-<p>Primero carga la base. La dirección ya está escrita:</p>
+<p>Primero carga la base:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargamos LAPOP 2023</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>cursos<span class="sc">-</span>metodos<span class="sc">-</span>facso<span class="sc">/</span>datos<span class="sc">-</span>ejemplos<span class="sc">/</span>raw<span class="sc">/</span>main<span class="sc">/</span>subset_lapop2023.rdata</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/subset_lapop2023.rdata&quot;</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Después completa <strong>los nombres y códigos</strong> de tu opción. <code>[[...]]</code> sirve para acceder a una columna usando el nombre que guardaste.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos las variables y sus códigos válidos</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;___&quot;</span></span>
@@ -6186,12 +5411,24 @@ Pista · ¿Qué podemos concluir?
 </summary>
 <p>Compara <strong>porcentajes</strong>, no solo frecuencias; resta los porcentajes para obtener <strong>puntos porcentuales</strong>. Describe los registros analizados: no afirmes causalidad ni significación estadística.</p>
 </details>
+<p><strong>Para seguir explorando · Presenta tu tabla con sjPlot (opcional)</strong></p>
+<p>Ya construiste tu tabla, calculaste los porcentajes e interpretaste los resultados. Ahora puedes utilizar <code>sjPlot</code> para presentar las frecuencias y porcentajes en una tabla más fácil de leer. Comprueba que sus resultados coincidan con los que calculaste anteriormente (si no tienes el paquete instalado, puedes instalarlo una sola vez con <code>install.packages(&quot;sjPlot&quot;)</code>).</p>
+<p>En esta presentación ubicamos los grupos en las filas, por lo que utilizamos porcentajes por fila (<code>show.row.prc = TRUE</code>). Si construiste tu primera tabla con los grupos en las columnas, los porcentajes correspondientes deben coincidir aunque cambie la orientación de la tabla:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Presentamos nuestra tabla con sjPlot</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_xtab</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  mis_datos[[variable_grupo]],</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  mis_datos[[variable_respuesta]],</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.obs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.row.prc =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.summary =</span> <span class="cn">FALSE</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Comprueba:</strong> ¿las frecuencias y los porcentajes coinciden con los resultados que calculaste anteriormente?</p>
 <p><strong>Revisemos nuestro análisis</strong></p>
 <details class="formulas-inf">
 <summary>
 Ver pauta y ejemplo resuelto
 </summary>
-<p><strong>Comprueba tu procedimiento:</strong> la pregunta se responde con las variables elegidas; conservaste códigos válidos; sabes qué representa cada celda; tus porcentajes usan el <strong>100 % correcto</strong>; comparaste la misma respuesta en grupos distintos; la conclusión es descriptiva y no causal.</p>
+<p><strong>Comprueba tu procedimiento:</strong> la pregunta se responde con las variables elegidas; conservaste códigos válidos; sabes qué representa cada celda; tus porcentajes usan el <strong>100 % correcto</strong>; comparaste la misma respuesta en grupos distintos; la conclusión es descriptiva y no causal. Si utilizaste sjPlot, revisa que las frecuencias y los porcentajes correspondan a los resultados obtenidos con table() y prop.table().</p>
 <p><strong>Ejemplo resuelto · Opción A: género y satisfacción democrática.</strong> Si elegiste otra opción, tus resultados serán diferentes.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -6239,33 +5476,42 @@ Ver pauta y ejemplo resuelto
 <p>La tabla es <strong>2 × 4</strong> y contiene <strong>411 casos válidos</strong>. La celda «Mujeres × nivel 1» contiene <strong>26 personas</strong>.</p>
 <p>En el nivel 1, respondieron <strong>12,4 % de las mujeres</strong> y <strong>10,9 % de los hombres</strong>: una diferencia de <strong>1,5 puntos porcentuales</strong>. Esto describe los registros analizados; no demuestra causalidad ni asociación significativa en la población.</p>
 <p><strong>Código de ejemplo para comprobarlo</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos la opción A: género y satisfacción democrática</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;mujer&quot;</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;satisf_dem&quot;</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile y conservamos respuestas válidas</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>]</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construimos la tabla y mostramos los totales</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(mis_datos[[variable_grupo]],</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>                  mis_datos[[variable_respuesta]])</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(mi_tabla)</span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Como los grupos están en filas, usamos porcentajes por fila</span></span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Elegimos la opción A: género y satisfacción democrática</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>variable_grupo <span class="ot">&lt;-</span> <span class="st">&quot;mujer&quot;</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>variable_respuesta <span class="ot">&lt;-</span> <span class="st">&quot;satisf_dem&quot;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>validos_grupo <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">1</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>validos_respuesta <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos Chile y conservamos respuestas válidas</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>chile <span class="ot">&lt;-</span> <span class="fu">subset</span>(datos_lapop, pais_name <span class="sc">==</span> <span class="st">&quot;Chile&quot;</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>mis_datos <span class="ot">&lt;-</span> chile[</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  chile[[variable_grupo]] <span class="sc">%in%</span> validos_grupo <span class="sc">&amp;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  chile[[variable_respuesta]] <span class="sc">%in%</span> validos_respuesta,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(variable_grupo, variable_respuesta)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Construimos la tabla y mostramos los totales</span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>mi_tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(mis_datos[[variable_grupo]],</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>                  mis_datos[[variable_respuesta]])</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="fu">addmargins</span>(mi_tabla)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Como los grupos están en filas, usamos porcentajes por fila</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>mis_porcentajes <span class="ot">&lt;-</span> <span class="fu">prop.table</span>(mi_tabla, <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mis_porcentajes, <span class="dv">1</span>)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Opcional: presentación con sjPlot</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_xtab</span>(</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  mis_datos[[variable_grupo]],</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  mis_datos[[variable_respuesta]],</span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.obs =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.row.prc =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="at">show.summary =</span> <span class="cn">FALSE</span></span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 <p><em>Importante:</em> las cifras no incluyen ponderadores ni ajustes por el diseño muestral. Describen los registros analizados, no estimaciones oficiales representativas.</p>
 </div>
-<section id="sec-cierre" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="sec-cierre"><span class="header-section-number">3.1</span> Síntesis</h2>
+<section id="sec-cierre" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-cierre"><span class="header-section-number">2.1</span> Síntesis</h2>
 <div class="ec08">
 <p>En este práctico aprendimos a <strong>identificar, analizar e interpretar relaciones entre variables</strong>:</p>
 <ul>
