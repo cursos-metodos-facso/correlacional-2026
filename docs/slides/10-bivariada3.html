@@ -1,237 +1,310 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<link href="../images/logo.png" rel="icon" type="image/png">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>bivariada3 – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-15634bcf2e68342d4ad2dfa704d543f6.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.9.38">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6357a59cc198ef7ef3c751a17518a47f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 
-  <title>Estadística Correlacional – bivariada3</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
-  <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-3ef9c4146380ba388b3aa79dcf52e29f.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
-  <style>
-  .reveal .cell-output-display table td,
-  .reveal .cell-output-display table td[data-quarto-table-cell-role="th"] {
-    text-align: center !important;
   }
-  .reveal .cell-output-display table td {
-    padding-top: 0.1cm !important;
-    padding-bottom: 0.1cm !important;
-  }
-  .reveal .cell-output-display table td:first-child {
-    text-align: left !important;
-  }
-  </style>
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <meta property="og:title" content="Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
-<body class="quarto-light">
-  <div class="reveal">
-    <div class="slides">
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a>
+  <ul class="collapse">
+  <li><a href="#correlación-de-spearman" id="toc-correlación-de-spearman" class="nav-link" data-scroll-target="#correlación-de-spearman">Correlación de Spearman</a></li>
+  <li><a href="#cálculo-spearman" id="toc-cálculo-spearman" class="nav-link" data-scroll-target="#cálculo-spearman">Cálculo Spearman</a></li>
+  <li><a href="#ejemplo-variable-educación" id="toc-ejemplo-variable-educación" class="nav-link" data-scroll-target="#ejemplo-variable-educación">Ejemplo: variable Educación</a></li>
+  <li><a href="#ranking-y-correlación" id="toc-ranking-y-correlación" class="nav-link" data-scroll-target="#ranking-y-correlación">Ranking y correlación</a></li>
+  <li><a href="#cálculo-directo-en-r" id="toc-cálculo-directo-en-r" class="nav-link" data-scroll-target="#cálculo-directo-en-r">Cálculo directo en R</a></li>
+  <li><a href="#el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables" id="toc-el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables" class="nav-link" data-scroll-target="#el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables"><span style="color: white;">El coeficiente de correlación de Spearman no es más que una correlación de Pearson del ranking de las variables</span></a></li>
+  <li><a href="#correlación-tau-de-kendall" id="toc-correlación-tau-de-kendall" class="nav-link" data-scroll-target="#correlación-tau-de-kendall">Correlación Tau de Kendall</a></li>
+  <li><a href="#tau-de-kendall-ejemplo-paso-a-paso-10-pares" id="toc-tau-de-kendall-ejemplo-paso-a-paso-10-pares" class="nav-link" data-scroll-target="#tau-de-kendall-ejemplo-paso-a-paso-10-pares">Tau de Kendall — ejemplo paso a paso (10 pares)</a></li>
+  <li><a href="#enumeración-de-pares-y-clasificación" id="toc-enumeración-de-pares-y-clasificación" class="nav-link" data-scroll-target="#enumeración-de-pares-y-clasificación">Enumeración de pares y clasificación</a></li>
+  <li><a href="#conteo" id="toc-conteo" class="nav-link" data-scroll-target="#conteo">Conteo</a></li>
+  <li><a href="#cálculo-de-tau" id="toc-cálculo-de-tau" class="nav-link" data-scroll-target="#cálculo-de-tau">Cálculo de <span class="math inline">\(\tau\)</span></a></li>
+  <li><a href="#recomendaciones" id="toc-recomendaciones" class="nav-link" data-scroll-target="#recomendaciones">Recomendaciones</a></li>
+  </ul></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a>
+  <ul class="collapse">
+  <li><a href="#matriz-de-correlación" id="toc-matriz-de-correlación" class="nav-link" data-scroll-target="#matriz-de-correlación">Matriz de correlación</a></li>
+  <li><a href="#matriz-de-correlación-en-r" id="toc-matriz-de-correlación-en-r" class="nav-link" data-scroll-target="#matriz-de-correlación-en-r">Matriz de correlación en R</a></li>
+  <li><a href="#matriz-de-correlaciónes" id="toc-matriz-de-correlaciónes" class="nav-link" data-scroll-target="#matriz-de-correlaciónes">Matriz de correlación(es)</a></li>
+  <li><a href="#tabla-con-sjplot" id="toc-tabla-con-sjplot" class="nav-link" data-scroll-target="#tabla-con-sjplot">Tabla con <strong>sjPlot</strong></a></li>
+  <li><a href="#matriz-con-librería-corrplot" id="toc-matriz-con-librería-corrplot" class="nav-link" data-scroll-target="#matriz-con-librería-corrplot">Matriz con librería <code>corrplot</code></a></li>
+  <li><a href="#matriz-con-corrplot-números" id="toc-matriz-con-corrplot-números" class="nav-link" data-scroll-target="#matriz-con-corrplot-números">Matriz con <code>corrplot</code>: números</a></li>
+  <li><a href="#corrplot-triángulo-inferior" id="toc-corrplot-triángulo-inferior" class="nav-link" data-scroll-target="#corrplot-triángulo-inferior"><code>corrplot</code>: triángulo inferior</a></li>
+  <li><a href="#corrplot.mixed" id="toc-corrplot.mixed" class="nav-link" data-scroll-target="#corrplot.mixed"><code>corrplot.mixed</code></a></li>
+  <li><a href="#corrplot-coeficientes-sobre-colores" id="toc-corrplot-coeficientes-sobre-colores" class="nav-link" data-scroll-target="#corrplot-coeficientes-sobre-colores"><code>corrplot</code>: coeficientes sobre colores</a></li>
+  <li><a href="#corrplot-método-square" id="toc-corrplot-método-square" class="nav-link" data-scroll-target="#corrplot-método-square"><code>corrplot</code>: método square</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a>
+  <ul class="collapse">
+  <li><a href="#consideraciones-sobre-casos-perdidos" id="toc-consideraciones-sobre-casos-perdidos" class="nav-link" data-scroll-target="#consideraciones-sobre-casos-perdidos">Consideraciones sobre casos perdidos</a></li>
+  <li><a href="#ejemplo" id="toc-ejemplo" class="nav-link" data-scroll-target="#ejemplo">Ejemplo</a></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a></li>
+  <li><a href="#eliminación-de-casos-perdidos-por-lista-o-listwise" id="toc-eliminación-de-casos-perdidos-por-lista-o-listwise" class="nav-link" data-scroll-target="#eliminación-de-casos-perdidos-por-lista-o-listwise">Eliminación de casos perdidos por lista (o listwise)</a></li>
+  <li><a href="#eliminación-de-casos-perdidos-por-pares-o-pairwise" id="toc-eliminación-de-casos-perdidos-por-pares-o-pairwise" class="nav-link" data-scroll-target="#eliminación-de-casos-perdidos-por-pares-o-pairwise">Eliminación de casos perdidos por pares (o pairwise)</a></li>
+  <li><a href="#opción-pairwise-en-correlación-en-r" id="toc-opción-pairwise-en-correlación-en-r" class="nav-link" data-scroll-target="#opción-pairwise-en-correlación-en-r">Opción pairwise en correlación en R</a></li>
+  <li><a href="#número-de-casos-pairwise" id="toc-número-de-casos-pairwise" class="nav-link" data-scroll-target="#número-de-casos-pairwise">Número de casos pairwise</a></li>
+  </ul></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a>
+  <ul class="collapse">
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  <li><a href="#preguntas-y-error-de-medición" id="toc-preguntas-y-error-de-medición" class="nav-link" data-scroll-target="#preguntas-y-error-de-medición">Preguntas y error de medición</a></li>
+  <li><a href="#baterías-de-indicadores-múltiples" id="toc-baterías-de-indicadores-múltiples" class="nav-link" data-scroll-target="#baterías-de-indicadores-múltiples">Baterías de indicadores múltiples</a></li>
+  <li><a href="#análisis-de-indicadores-en-baterías" id="toc-análisis-de-indicadores-en-baterías" class="nav-link" data-scroll-target="#análisis-de-indicadores-en-baterías">Análisis de indicadores en baterías</a></li>
+  <li><a href="#análisis-de-indicadores-en-baterías-1" id="toc-análisis-de-indicadores-en-baterías-1" class="nav-link" data-scroll-target="#análisis-de-indicadores-en-baterías-1">Análisis de indicadores en baterías</a></li>
+  <li><a href="#análisis-de-indicadores-en-baterías-2" id="toc-análisis-de-indicadores-en-baterías-2" class="nav-link" data-scroll-target="#análisis-de-indicadores-en-baterías-2">Análisis de indicadores en baterías</a></li>
+  <li><a href="#miden-lo-mismo" id="toc-miden-lo-mismo" class="nav-link" data-scroll-target="#miden-lo-mismo">¿Miden lo mismo?</a></li>
+  <li><a href="#preguntas-y-error-de-medición-1" id="toc-preguntas-y-error-de-medición-1" class="nav-link" data-scroll-target="#preguntas-y-error-de-medición-1">Preguntas y error de medición</a></li>
+  <li><a href="#medición-y-error" id="toc-medición-y-error" class="nav-link" data-scroll-target="#medición-y-error">Medición y error</a></li>
+  <li><a href="#section-7" id="toc-section-7" class="nav-link" data-scroll-target="#section-7"></a></li>
+  <li><a href="#matriz-de-correlaciones-1" id="toc-matriz-de-correlaciones-1" class="nav-link" data-scroll-target="#matriz-de-correlaciones-1">Matriz de correlaciones (1)</a></li>
+  <li><a href="#ej.-matriz-de-correlaciones-2" id="toc-ej.-matriz-de-correlaciones-2" class="nav-link" data-scroll-target="#ej.-matriz-de-correlaciones-2">Ej. Matriz de correlaciones (2)</a></li>
+  <li><a href="#ej.-matriz-de-correlaciones-3" id="toc-ej.-matriz-de-correlaciones-3" class="nav-link" data-scroll-target="#ej.-matriz-de-correlaciones-3">Ej. Matriz de correlaciones (3)</a></li>
+  <li><a href="#entonces" id="toc-entonces" class="nav-link" data-scroll-target="#entonces">Entonces:</a></li>
+  <li><a href="#datos-ejemplo" id="toc-datos-ejemplo" class="nav-link" data-scroll-target="#datos-ejemplo">Datos ejemplo</a></li>
+  <li><a href="#section-8" id="toc-section-8" class="nav-link" data-scroll-target="#section-8"></a></li>
+  <li><a href="#matriz-de-correlaciones" id="toc-matriz-de-correlaciones" class="nav-link" data-scroll-target="#matriz-de-correlaciones">Matriz de correlaciones</a></li>
+  <li><a href="#matriz-de-correlaciones-2" id="toc-matriz-de-correlaciones-2" class="nav-link" data-scroll-target="#matriz-de-correlaciones-2">Matriz de correlaciones</a></li>
+  <li><a href="#matriz-de-correlaciones-3" id="toc-matriz-de-correlaciones-3" class="nav-link" data-scroll-target="#matriz-de-correlaciones-3">Matriz de correlaciones</a></li>
+  <li><a href="#matriz-de-correlaciones---gráfico" id="toc-matriz-de-correlaciones---gráfico" class="nav-link" data-scroll-target="#matriz-de-correlaciones---gráfico">Matriz de correlaciones - gráfico</a></li>
+  <li><a href="#matriz-de-correlaciones---gráfico-ajustado" id="toc-matriz-de-correlaciones---gráfico-ajustado" class="nav-link" data-scroll-target="#matriz-de-correlaciones---gráfico-ajustado">Matriz de correlaciones - gráfico ajustado</a></li>
+  </ul></li>
+  <li><a href="#section-9" id="toc-section-9" class="nav-link" data-scroll-target="#section-9"></a>
+  <ul class="collapse">
+  <li><a href="#alpha-de-cronbach" id="toc-alpha-de-cronbach" class="nav-link" data-scroll-target="#alpha-de-cronbach">Alpha de Cronbach</a></li>
+  <li><a href="#alpha-de-cronbach-en-r" id="toc-alpha-de-cronbach-en-r" class="nav-link" data-scroll-target="#alpha-de-cronbach-en-r">Alpha de Cronbach en R</a></li>
+  <li><a href="#alpha-de-cronbach-interpretación" id="toc-alpha-de-cronbach-interpretación" class="nav-link" data-scroll-target="#alpha-de-cronbach-interpretación">Alpha de Cronbach: interpretación</a></li>
+  <li><a href="#opciones" id="toc-opciones" class="nav-link" data-scroll-target="#opciones">Opciones</a></li>
+  <li><a href="#índice-promedio" id="toc-índice-promedio" class="nav-link" data-scroll-target="#índice-promedio">Índice promedio</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
+  </ul></li>
+  <li><a href="#section-10" id="toc-section-10" class="nav-link" data-scroll-target="#section-10"></a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="10-bivariada3.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<section>
-<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
+
+
+<section id="section" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
 <p><br></p>
-</section>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -242,41 +315,41 @@
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 <p><br> <span style="color: white; font-size: 1.3em;"><strong>Sesión 10</strong>:</span></p>
 <p><span style="color: #dfc117;">Correlación en ordinales, matrices e índices</span></p>
+</section>
 </div>
-</div></section>
-<section>
-<section id="section-1" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</div>
+</section>
+<section id="section-1" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p><span style="color: #dfc117; font-weight: bold;">1. Correlación con variables ordinales</span></p>
 <p>2. Matrices de correlación</p>
 <p>3. Casos perdidos en matrices</p>
 <p>4. Baterías, matrices y consistencia</p>
 <p>5. Construcción de índices</p>
 </div>
-</section>
-<section id="correlación-de-spearman" class="slide level2" style="font-size: 0.85em;">
-<h2>Correlación de Spearman</h2>
+<section id="correlación-de-spearman" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="correlación-de-spearman">Correlación de Spearman</h2>
 <ul>
-<li class="fragment"><p>se utiliza para variables ordinales y/o cuando se violan supuestos de distribución normal</p></li>
-<li class="fragment"><p>es equivalente a la correlación de Pearson del ranking de las observaciones analizadas</p></li>
-<li class="fragment"><p>es alta cuando las observaciones tienen un ranking similar</p></li>
+<li><p>se utiliza para variables ordinales y/o cuando se violan supuestos de distribución normal</p></li>
+<li><p>es equivalente a la correlación de Pearson del ranking de las observaciones analizadas</p></li>
+<li><p>es alta cuando las observaciones tienen un ranking similar</p></li>
 </ul>
 </section>
-<section id="cálculo-spearman" class="slide level2" style="font-size: 0.85em;">
-<h2>Cálculo Spearman</h2>
+<section id="cálculo-spearman" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="cálculo-spearman">Cálculo Spearman</h2>
 <ul>
-<li class="fragment"><p>se le asigna un número de ranking a cada valor</p></li>
-<li class="fragment"><p>el valor más bajo obtiene el mayor ranking, y el más alto el menor</p></li>
-<li class="fragment"><p>en caso de valores repetidos se produce un “empate”, y entonces el ranking se promedia.</p></li>
+<li><p>se le asigna un número de ranking a cada valor</p></li>
+<li><p>el valor más bajo obtiene el mayor ranking, y el más alto el menor</p></li>
+<li><p>en caso de valores repetidos se produce un “empate”, y entonces el ranking se promedia.</p></li>
 </ul>
 </section>
-<section id="ejemplo-variable-educación" class="slide level2" style="font-size: 0.85em;">
-<h2>Ejemplo: variable Educación</h2>
+<section id="ejemplo-variable-educación" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="ejemplo-variable-educación">Ejemplo: variable Educación</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>data<span class="sc">$</span>educ</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>educ</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 3 4 4 5 7 8 8</code></pre>
 </div>
@@ -286,19 +359,20 @@
 </div><div class="column" style="width:65%;">
 <p>Pero, hay un par de empates</p>
 <ul>
-<li class="fragment"><p>el valor 4 está repetido y corresponden a los ranking 6 y 5, por lo tanto a ambos se les asigna el promedio de estos rankings: 5,5</p></li>
-<li class="fragment"><p>lo mismo sucede con el valor 8 en los rankings 2 y 1, por lo tanto a ambos se les asigna el valor 1,5</p></li>
+<li><p>el valor 4 está repetido y corresponden a los ranking 6 y 5, por lo tanto a ambos se les asigna el promedio de estos rankings: 5,5</p></li>
+<li><p>lo mismo sucede con el valor 8 en los rankings 2 y 1, por lo tanto a ambos se les asigna el valor 1,5</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="ranking-y-correlación" class="slide level2" style="font-size: 0.85em;">
-<h2>Ranking y correlación</h2>
+<section id="ranking-y-correlación" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="ranking-y-correlación">Ranking y correlación</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a>data_spr <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb3-2"><a></a>  <span class="fu">select</span>(educ, ing) <span class="sc">%&gt;%</span></span>
-<span id="cb3-3"><a></a>  <span class="fu">mutate</span>(<span class="at">educ_rank =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">7</span>,<span class="fl">5.5</span>,<span class="fl">5.5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>),</span>
-<span id="cb3-4"><a></a>         <span class="at">ing_rank  =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="fl">6.5</span>,<span class="fl">6.5</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
-<span id="cb3-5"><a></a>data_spr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data_spr <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(educ, ing) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_rank =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="dv">7</span>,<span class="fl">5.5</span>,<span class="fl">5.5</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="fl">1.5</span>,<span class="fl">1.5</span>),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">ing_rank  =</span> <span class="fu">c</span>(<span class="dv">8</span>,<span class="fl">6.5</span>,<span class="fl">6.5</span>,<span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data_spr</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  educ ing educ_rank ing_rank
 1    2   1       8.0      8.0
@@ -310,16 +384,16 @@
 7    8   9       1.5      2.0
 8    8  11       1.5      1.0</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">cor</span>(data_spr<span class="sc">$</span>educ_rank, data_spr<span class="sc">$</span>ing_rank)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(data_spr<span class="sc">$</span>educ_rank, data_spr<span class="sc">$</span>ing_rank)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9394112</code></pre>
 </div>
 </div>
 </section>
-<section id="cálculo-directo-en-r" class="slide level2" style="font-size: 0.85em;">
-<h2>Cálculo directo en R</h2>
+<section id="cálculo-directo-en-r" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="cálculo-directo-en-r">Cálculo directo en R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing, <span class="st">"two.sided"</span>, <span class="st">"spearman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing, <span class="st">"two.sided"</span>, <span class="st">"spearman"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Spearman's rank correlation rho
@@ -333,23 +407,23 @@ sample estimates:
 </div>
 </div>
 </section>
-<section id="el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables" class="slide level2" data-background-color="#9B2626" style="font-size: 0.85em;">
-<h2><span style="color: white;">El coeficiente de correlación de Spearman no es más que una correlación de Pearson del ranking de las variables</span></h2>
+<section id="el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables" class="level2" data-background-color="#9B2626" style="font-size: 0.85em;">
+<h2 data-background-color="#9B2626" style="font-size: 0.85em;" class="anchored" data-anchor-id="el-coeficiente-de-correlación-de-spearman-no-es-más-que-una-correlación-de-pearson-del-ranking-de-las-variables"><span style="color: white;">El coeficiente de correlación de Spearman no es más que una correlación de Pearson del ranking de las variables</span></h2>
 </section>
-<section id="correlación-tau-de-kendall" class="slide level2" style="font-size: 0.85em;">
-<h2>Correlación Tau de Kendall</h2>
+<section id="correlación-tau-de-kendall" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="correlación-tau-de-kendall">Correlación Tau de Kendall</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>Recomendado cuando hay un set de datos pequeños y/o cuando hay mucha repetición de observaciones en el mismo ranking</p></li>
-<li class="fragment"><p>Se basa en una comparación de pares de observaciones concordantes y discordantes</p></li>
+<li><p>Recomendado cuando hay un set de datos pequeños y/o cuando hay mucha repetición de observaciones en el mismo ranking</p></li>
+<li><p>Se basa en una comparación de pares de observaciones concordantes y discordantes</p></li>
 </ul>
 </div><div class="column fragment" style="width:50%;">
 <p>En <code>R</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing,</span>
-<span id="cb9-2"><a></a>         <span class="st">"two.sided"</span>,</span>
-<span id="cb9-3"><a></a>         <span class="st">"kendall"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(data<span class="sc">$</span>educ, data<span class="sc">$</span>ing,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>         <span class="st">"two.sided"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>         <span class="st">"kendall"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kendall's rank correlation tau
@@ -362,12 +436,13 @@ sample estimates:
 0.8680791 </code></pre>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="tau-de-kendall-ejemplo-paso-a-paso-10-pares" class="slide level2" style="font-size: 0.85em;">
-<h2>Tau de Kendall — ejemplo paso a paso (10 pares)</h2>
+<section id="tau-de-kendall-ejemplo-paso-a-paso-10-pares" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="tau-de-kendall-ejemplo-paso-a-paso-10-pares">Tau de Kendall — ejemplo paso a paso (10 pares)</h2>
 <p><strong>Datos (5 casos ⇒ 10 pares de comparaciones)</strong></p>
-<table class="caption-top">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th style="text-align: center;">Caso</th>
@@ -405,13 +480,15 @@ sample estimates:
 </table>
 <p><span class="math inline">\(Pares=\frac{n(n-1)}{2}=\frac{5*4}{2}=10\)</span></p>
 </section>
-<section id="enumeración-de-pares-y-clasificación" class="slide level2" style="font-size: 0.7em;">
-<h2>Enumeración de pares y clasificación</h2>
+<section id="enumeración-de-pares-y-clasificación" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="enumeración-de-pares-y-clasificación">Enumeración de pares y clasificación</h2>
+<div class="nonincremental">
 <ul>
 <li>pares concordantes: van en la misma dirección</li>
 <li>pares discordantes: van en la dirección contraria</li>
 </ul>
-<table class="caption-top">
+</div>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 4%">
 <col style="width: 12%">
@@ -550,16 +627,16 @@ sample estimates:
 </tbody>
 </table>
 </section>
-<section id="conteo" class="slide level2" style="font-size: 0.85em;">
-<h2>Conteo</h2>
+<section id="conteo" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="conteo">Conteo</h2>
 <ul>
-<li class="fragment">Concordantes <span class="math inline">\(C = 6\)</span> → 2,3,5,6,7,8</li>
-<li class="fragment">Discordantes <span class="math inline">\(D = 4\)</span> → 1,4,9,10</li>
-<li class="fragment">Empates <span class="math inline">\(T_x = 0\)</span>, <span class="math inline">\(T_y = 0\)</span></li>
+<li>Concordantes <span class="math inline">\(C = 6\)</span> → 2,3,5,6,7,8</li>
+<li>Discordantes <span class="math inline">\(D = 4\)</span> → 1,4,9,10</li>
+<li>Empates <span class="math inline">\(T_x = 0\)</span>, <span class="math inline">\(T_y = 0\)</span></li>
 </ul>
 </section>
-<section id="cálculo-de-tau" class="slide level2" style="font-size: 0.7em;">
-<h2>Cálculo de <span class="math inline">\(\tau\)</span></h2>
+<section id="cálculo-de-tau" class="level2" style="font-size: 0.7em;">
+<h2 style="font-size: 0.7em;" class="anchored" data-anchor-id="cálculo-de-tau">Cálculo de <span class="math inline">\(\tau\)</span></h2>
 <p>Número total de pares: <span class="math inline">\(C + D + \text{(empates)} = 6 + 4 + 0 = 10\)</span>.</p>
 <p><strong>Tau-a (sin empates):</strong></p>
 <p><span class="math display">\[
@@ -571,59 +648,58 @@ sample estimates:
 \]</span></p>
 <p><strong>Interpretación:</strong> <span class="math inline">\(\tau = 0.20\)</span> indica una asociación positiva <strong>débil</strong>: hay más pares que mantienen el orden entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> que pares que lo invierten.</p>
 </section>
-<section id="recomendaciones" class="slide level2" data-background-color="#0C3547" style="font-size: 0.85em;">
-<h2>Recomendaciones</h2>
+<section id="recomendaciones" class="level2" data-background-color="#0C3547" style="font-size: 0.85em;">
+<h2 data-background-color="#0C3547" style="font-size: 0.85em;" class="anchored" data-anchor-id="recomendaciones">Recomendaciones</h2>
 <div style="color: white;">
 <ul>
-<li class="fragment"><p>Pearson es el coeficiente de correlación por defecto</p></li>
-<li class="fragment"><p>En caso de datos en escala de medición ordinal se puede aplicar Spearman (aunque Pearson es también aceptado en este contexto).</p></li>
-<li class="fragment"><p>Kendall se reporta en casos muy específicos donde hay un set de datos pequeños y repetición de observaciones en el mismo ranking (“empates”)</p></li>
+<li><p>Pearson es el coeficiente de correlación por defecto</p></li>
+<li><p>En caso de datos en escala de medición ordinal se puede aplicar Spearman (aunque Pearson es también aceptado en este contexto).</p></li>
+<li><p>Kendall se reporta en casos muy específicos donde hay un set de datos pequeños y repetición de observaciones en el mismo ranking (“empates”)</p></li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="section-2" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</section>
+</section>
+<section id="section-2" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>1. Correlación con variables ordinales</p>
 <p><span style="color: #dfc117; font-weight: bold;">2. Matrices de correlación</span></p>
 <p>3. Casos perdidos en matrices</p>
 <p>4. Baterías, matrices y consistencia</p>
 <p>5. Construcción de índices</p>
 </div>
-</section>
-<section id="matriz-de-correlación" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlación</h2>
+<section id="matriz-de-correlación" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlación">Matriz de correlación</h2>
 <ul>
-<li class="fragment"><p>una matriz de correlación se conforma cuando se representa simultáneamente más de un par de asociaciones bivariadas</p></li>
-<li class="fragment"><p>por ejemplo, si agregamos la variable edad a nuestra base de datos de educ e ingreso:</p></li>
+<li><p>una matriz de correlación se conforma cuando se representa simultáneamente más de un par de asociaciones bivariadas</p></li>
+<li><p>por ejemplo, si agregamos la variable edad a nuestra base de datos de educ e ingreso:</p></li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">27</span>, <span class="dv">15</span>, <span class="dv">40</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">38</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">27</span>, <span class="dv">15</span>, <span class="dv">40</span>, <span class="dv">22</span>, <span class="dv">25</span>, <span class="dv">38</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="fragment">
 <ul>
-<li class="fragment">Tenemos <strong>3 variables</strong>, y por lo tanto los siguientes pares de correlaciones posibles: ingreso-educación, ingreso-edad, y educación-edad</li>
+<li>Tenemos <strong>3 variables</strong>, y por lo tanto los siguientes pares de correlaciones posibles: ingreso-educación, ingreso-edad, y educación-edad</li>
 </ul>
 </div>
 </section>
-<section id="matriz-de-correlación-en-r" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlación en R</h2>
+<section id="matriz-de-correlación-en-r" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlación-en-r">Matriz de correlación en R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a>cor_mat <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb12-2"><a></a>  <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
-<span id="cb12-3"><a></a>  <span class="fu">cor</span>(.)</span>
-<span id="cb12-4"><a></a></span>
-<span id="cb12-5"><a></a>cor_mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>cor_mat <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(.)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>cor_mat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           educ        ing       edad
 educ  1.0000000  0.9512367 -0.4704649
 ing   0.9512367  1.0000000 -0.4058455
 edad -0.4704649 -0.4058455  1.0000000</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="fu">round</span>(cor_mat, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cor_mat, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       educ    ing   edad
 educ  1.000  0.951 -0.470
@@ -632,28 +708,28 @@ edad -0.470 -0.406  1.000</code></pre>
 </div>
 </div>
 </section>
-<section id="matriz-de-correlaciónes" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlación(es)</h2>
+<section id="matriz-de-correlaciónes" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlaciónes">Matriz de correlación(es)</h2>
 <ul>
-<li class="fragment"><p>tabla de doble entrada donde las variables se presentan tanto en las filas como en las columnas</p></li>
-<li class="fragment"><p>el coeficiente de correlación correspondiente al par de variables aparece en la intersección de las columnas</p></li>
-<li class="fragment"><p>existe información redundante</p>
+<li><p>tabla de doble entrada donde las variables se presentan tanto en las filas como en las columnas</p></li>
+<li><p>el coeficiente de correlación correspondiente al par de variables aparece en la intersección de las columnas</p></li>
+<li><p>existe información redundante</p>
 <ul>
-<li class="fragment">las correlaciones se repiten, dado que las variables se intersectan dos veces en la tabla</li>
-<li class="fragment">la diagonal tiene solo unos (1), ya que es la correlación de la variable consigo misma</li>
+<li>las correlaciones se repiten, dado que las variables se intersectan dos veces en la tabla</li>
+<li>la diagonal tiene solo unos (1), ya que es la correlación de la variable consigo misma</li>
 </ul></li>
 </ul>
 </section>
-<section id="tabla-con-sjplot" class="slide level2" style="font-size: 0.8em;">
-<h2>Tabla con <strong>sjPlot</strong></h2>
+<section id="tabla-con-sjplot" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="tabla-con-sjplot">Tabla con <strong>sjPlot</strong></h2>
 <p>Función: tab_corr</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cor_mat, </span>
-<span id="cb16-2"><a></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
-<span id="cb16-3"><a></a>  <span class="at">title =</span> <span class="st">"Tabla de correlaciones del ejemplo"</span></span>
-<span id="cb16-4"><a></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cor_mat, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Tabla de correlaciones del ejemplo"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top" style="border-collapse:collapse; border:none;">
+<table class="caption-top table table-sm table-striped small">
 <caption>Tabla de correlaciones del ejemplo</caption>
 <tbody>
 <tr class="odd">
@@ -688,186 +764,191 @@ edad -0.470 -0.406  1.000</code></pre>
 </div>
 </div>
 </section>
-<section id="matriz-con-librería-corrplot" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz con librería <code>corrplot</code></h2>
+<section id="matriz-con-librería-corrplot" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-con-librería-corrplot">Matriz con librería <code>corrplot</code></h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">library</span>(corrplot)</span>
-<span id="cb17-2"><a></a><span class="fu">corrplot</span>(cor_mat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrplot)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-10-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="matriz-con-corrplot-números" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz con <code>corrplot</code>: números</h2>
+<section id="matriz-con-corrplot-números" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-con-corrplot-números">Matriz con <code>corrplot</code>: números</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb18-2"><a></a>  <span class="at">method =</span> <span class="st">'number'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">'number'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-12-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="corrplot-triángulo-inferior" class="slide level2" style="font-size: 0.85em;">
-<h2><code>corrplot</code>: triángulo inferior</h2>
+<section id="corrplot-triángulo-inferior" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="corrplot-triángulo-inferior"><code>corrplot</code>: triángulo inferior</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb19-2"><a></a>  <span class="at">method =</span> <span class="st">'number'</span>,</span>
-<span id="cb19-3"><a></a>  <span class="at">type =</span> <span class="st">'lower'</span>,</span>
-<span id="cb19-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb19-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb19-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">'number'</span>,</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">'lower'</span>,</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-14-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="corrplot.mixed" class="slide level2" style="font-size: 0.85em;">
-<h2><code>corrplot.mixed</code></h2>
+<section id="corrplot.mixed" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="corrplot.mixed"><code>corrplot.mixed</code></h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">corrplot.mixed</span>(cor_mat,</span>
-<span id="cb20-2"><a></a>  <span class="at">lower =</span> <span class="st">"number"</span>,</span>
-<span id="cb20-3"><a></a>  <span class="at">upper =</span> <span class="st">"circle"</span>,</span>
-<span id="cb20-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb20-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb20-6"><a></a>  <span class="at">diag =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot.mixed</span>(cor_mat,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">lower =</span> <span class="st">"number"</span>,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">upper =</span> <span class="st">"circle"</span>,</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="st">"n"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-16-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="corrplot-coeficientes-sobre-colores" class="slide level2" style="font-size: 0.85em;">
-<h2><code>corrplot</code>: coeficientes sobre colores</h2>
+<section id="corrplot-coeficientes-sobre-colores" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="corrplot-coeficientes-sobre-colores"><code>corrplot</code>: coeficientes sobre colores</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb21-2"><a></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
-<span id="cb21-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
-<span id="cb21-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb21-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb21-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-18-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="corrplot-método-square" class="slide level2" style="font-size: 0.85em;">
-<h2><code>corrplot</code>: método square</h2>
+<section id="corrplot-método-square" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="corrplot-método-square"><code>corrplot</code>: método square</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">corrplot</span>(cor_mat,</span>
-<span id="cb22-2"><a></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
-<span id="cb22-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
-<span id="cb22-4"><a></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb22-5"><a></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
-<span id="cb22-6"><a></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb22-7"><a></a>  <span class="at">method =</span> <span class="st">'square'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cor_mat,</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"lower"</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">addCoef.col =</span> <span class="st">'white'</span>,</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">number.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.cex =</span> <span class="dv">3</span>,</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">diag =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">'square'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-20-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
-</section></section>
-<section>
-<section id="section-3" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</div>
+</div>
+</section>
+</section>
+<section id="section-3" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>1. Correlación con variables ordinales</p>
 <p>2. Matrices de correlación</p>
 <p><span style="color: #dfc117; font-weight: bold;">3. Casos perdidos en matrices</span></p>
 <p>4. Baterías, matrices y consistencia</p>
 <p>5. Construcción de índices</p>
 </div>
-</section>
-<section id="consideraciones-sobre-casos-perdidos" class="slide level2" style="font-size: 0.85em;">
-<h2>Consideraciones sobre casos perdidos</h2>
+<section id="consideraciones-sobre-casos-perdidos" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="consideraciones-sobre-casos-perdidos">Consideraciones sobre casos perdidos</h2>
 <ul>
-<li class="fragment"><p>Cuando hay casos perdidos en las variables, ¿cuál es el número de casos de la matriz de correlaciones?</p></li>
-<li class="fragment"><p>Las correlaciones bivariadas se calculan con información completa, por lo tanto si hay un dato perdido en una de las variables se elimina el caso completo</p></li>
-<li class="fragment"><p>Algunas funciones lo hacen de manera automática, en otras hay que especificarlo previamente</p></li>
+<li><p>Cuando hay casos perdidos en las variables, ¿cuál es el número de casos de la matriz de correlaciones?</p></li>
+<li><p>Las correlaciones bivariadas se calculan con información completa, por lo tanto si hay un dato perdido en una de las variables se elimina el caso completo</p></li>
+<li><p>Algunas funciones lo hacen de manera automática, en otras hay que especificarlo previamente</p></li>
 </ul>
 </section>
-<section id="ejemplo" class="slide level2" style="font-size: 0.85em;">
-<h2>Ejemplo</h2>
+<section id="ejemplo" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="ejemplo">Ejemplo</h2>
 <p>Agreguemos un caso perdido (NA en R) a una de nuestras variables</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50 65 27 15 40 22 25 38</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">replace</span>(data<span class="sc">$</span>edad, data<span class="sc">$</span>edad<span class="sc">==</span><span class="dv">15</span>, <span class="cn">NA</span>)</span>
-<span id="cb25-2"><a></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>edad <span class="ot">&lt;-</span> <span class="fu">replace</span>(data<span class="sc">$</span>edad, data<span class="sc">$</span>edad<span class="sc">==</span><span class="dv">15</span>, <span class="cn">NA</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>edad</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 50 65 27 NA 40 22 25 38</code></pre>
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2" style="font-size: 0.85em;">
-<h2></h2>
+<section id="section-4" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="section-4"></h2>
 <ul>
-<li class="fragment">Cuando hay casos perdidos, no es posible calcular correlación</li>
+<li>Cuando hay casos perdidos, no es posible calcular correlación</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a></a>cormat_NA <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(.)</span>
-<span id="cb27-2"><a></a><span class="fu">round</span>(cormat_NA,<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>cormat_NA <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> <span class="fu">cor</span>(.)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cormat_NA,<span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      educ   ing edad
 educ 1.000 0.951   NA
@@ -877,13 +958,13 @@ edad    NA    NA    1</code></pre>
 </div>
 </div>
 <ul>
-<li class="fragment">Se elimina el caso perdido (fila completa) con la opción <code>use = "complete.obs"</code> (listwise deletion)</li>
+<li>Se elimina el caso perdido (fila completa) con la opción <code>use = "complete.obs"</code> (listwise deletion)</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a></a>cormat_listwise <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
-<span id="cb29-2"><a></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb29-3"><a></a><span class="fu">round</span>(cormat_listwise, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>cormat_listwise <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(cormat_listwise, <span class="dv">3</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>       educ    ing   edad
 educ  1.000  0.962 -0.669
@@ -893,15 +974,15 @@ edad -0.669 -0.494  1.000</code></pre>
 </div>
 </div>
 </section>
-<section id="eliminación-de-casos-perdidos-por-lista-o-listwise" class="slide level2" style="font-size: 0.85em;">
-<h2>Eliminación de casos perdidos por lista (o listwise)</h2>
+<section id="eliminación-de-casos-perdidos-por-lista-o-listwise" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="eliminación-de-casos-perdidos-por-lista-o-listwise">Eliminación de casos perdidos por lista (o listwise)</h2>
 <ul>
-<li class="fragment"><p>las correlaciones bivariadas requieren eliminación de casos perdidos tipo listwise, es decir, si hay un dato perdido en una variable se pierde el caso completo</p></li>
-<li class="fragment"><p>Para conocer el número de casos con que se calculó la matriz:</p></li>
+<li><p>las correlaciones bivariadas requieren eliminación de casos perdidos tipo listwise, es decir, si hay un dato perdido en una variable se pierde el caso completo</p></li>
+<li><p>Para conocer el número de casos con que se calculó la matriz:</p></li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(data))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 7</code></pre>
 </div>
@@ -911,20 +992,20 @@ edad -0.669 -0.494  1.000</code></pre>
 <p>Por lo tanto, en el cálculo se perdió el caso o fila completa de la base (de 8 casos) que tenía el caso perdido.</p>
 </div>
 </section>
-<section id="eliminación-de-casos-perdidos-por-pares-o-pairwise" class="slide level2" style="font-size: 0.85em;">
-<h2>Eliminación de casos perdidos por pares (o pairwise)</h2>
+<section id="eliminación-de-casos-perdidos-por-pares-o-pairwise" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="eliminación-de-casos-perdidos-por-pares-o-pairwise">Eliminación de casos perdidos por pares (o pairwise)</h2>
 <ul>
-<li class="fragment"><p>en el caso de las matrices de correlaciones es posible tomar la opción <strong>pairwise</strong> para casos perdidos</p></li>
-<li class="fragment"><p>pairwise quiere decir que se eliminan los casos perdidos solo cuando afectan al cálculo de un <strong>par específico</strong>.</p></li>
-<li class="fragment"><p>en nuestro ejemplo, si consideramos listwise todas las correlaciones tienen 7 casos, pero con pairwise la correlación entre educación e ingreso mantendría 8 casos.</p></li>
-<li class="fragment"><p>por lo tanto, <strong>pairwise permite mayor rescate de información y mayor N en el cálculo de matrices de correlaciones</strong></p></li>
+<li><p>en el caso de las matrices de correlaciones es posible tomar la opción <strong>pairwise</strong> para casos perdidos</p></li>
+<li><p>pairwise quiere decir que se eliminan los casos perdidos solo cuando afectan al cálculo de un <strong>par específico</strong>.</p></li>
+<li><p>en nuestro ejemplo, si consideramos listwise todas las correlaciones tienen 7 casos, pero con pairwise la correlación entre educación e ingreso mantendría 8 casos.</p></li>
+<li><p>por lo tanto, <strong>pairwise permite mayor rescate de información y mayor N en el cálculo de matrices de correlaciones</strong></p></li>
 </ul>
 </section>
-<section id="opción-pairwise-en-correlación-en-r" class="slide level2" style="font-size: 0.85em;">
-<h2>Opción pairwise en correlación en R</h2>
+<section id="opción-pairwise-en-correlación-en-r" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="opción-pairwise-en-correlación-en-r">Opción pairwise en correlación en R</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
-<span id="cb33-2"><a></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"pairwise"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cor</span>(., <span class="at">use =</span> <span class="st">"pairwise"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>           educ        ing       edad
 educ  1.0000000  0.9512367 -0.6693607
@@ -934,10 +1015,10 @@ edad -0.6693607 -0.4941732  1.0000000</code></pre>
 </div>
 <p>En este caso vemos una leve variación en el coeficiente comprometido (educ-ing) comparando listwise con pairwise</p>
 </section>
-<section id="número-de-casos-pairwise" class="slide level2" style="font-size: 0.85em;">
-<h2>Número de casos pairwise</h2>
+<section id="número-de-casos-pairwise" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="número-de-casos-pairwise">Número de casos pairwise</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">pairwiseCount</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">select</span>(educ, ing, edad) <span class="sc">%&gt;%</span> psych<span class="sc">::</span><span class="fu">pairwiseCount</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>     educ ing edad
 educ    8   8    7
@@ -946,166 +1027,188 @@ edad    7   7    7</code></pre>
 </div>
 </div>
 <p>Se indica que en las correlaciones con edad se utilizaron 7 casos, mientras en la correlación entre ingreso y educación se utilizan 8 casos con el método pairwise</p>
-</section></section>
-<section>
-<section id="section-5" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</section>
+</section>
+<section id="section-5" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>1. Correlación con variables ordinales</p>
 <p>2. Matrices de correlación</p>
 <p>3. Casos perdidos en matrices</p>
 <p><span style="color: #dfc117; font-weight: bold;">4. Baterías, matrices y consistencia</span></p>
 <p>5. Construcción de índices</p>
 </div>
+<section id="section-6" class="level2 nonincremental" style="font-size: 0.85em;">
+<h2 class="nonincremental anchored" style="font-size: 0.85em;" data-anchor-id="section-6"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/bateria-atrib-pob.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
 </section>
-<section id="section-6" class="slide level2 nonincremental" style="font-size: 0.85em;">
-<h2></h2>
-
-<img data-src="img/bateria-atrib-pob.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="preguntas-y-error-de-medición" class="slide level2" style="font-size: 0.85em;">
-<h2>Preguntas y error de medición</h2>
+<section id="preguntas-y-error-de-medición" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="preguntas-y-error-de-medición">Preguntas y error de medición</h2>
 <div class="content-box-gray">
 <ul>
-<li class="fragment"><p>Para medir hechos observables simples usualmente se utiliza <strong>una pregunta</strong> (ej: edad)</p></li>
-<li class="fragment"><p>Fenómenos complejos se miden en general con más de una pregunta, con el objetivo de dar mejor cuenta del atributo (i.e.&nbsp;minimizar error de medición)</p></li>
+<li><p>Para medir hechos observables simples usualmente se utiliza <strong>una pregunta</strong> (ej: edad)</p></li>
+<li><p>Fenómenos complejos se miden en general con más de una pregunta, con el objetivo de dar mejor cuenta del atributo (i.e.&nbsp;minimizar error de medición)</p></li>
 </ul>
 </div>
 </section>
-<section id="baterías-de-indicadores-múltiples" class="slide level2" style="font-size: 0.85em;">
-<h2>Baterías de indicadores múltiples</h2>
+<section id="baterías-de-indicadores-múltiples" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="baterías-de-indicadores-múltiples">Baterías de indicadores múltiples</h2>
 <ul>
-<li class="fragment"><p>en general las encuestas suelen incluir varias preguntas respecto de un mismo tema → <strong>baterías de indicadores múltiples</strong></p></li>
-<li class="fragment"><p>cubren distintos aspectos de un mismo fenómeno complejo que no se agota en solo un indicador → minimiza <strong>error de medición</strong></p></li>
-<li class="fragment"><p><strong>problema</strong>: ¿cómo se analizan indicadores que están relacionados? ¿cómo se muestran los resultados?</p></li>
+<li><p>en general las encuestas suelen incluir varias preguntas respecto de un mismo tema → <strong>baterías de indicadores múltiples</strong></p></li>
+<li><p>cubren distintos aspectos de un mismo fenómeno complejo que no se agota en solo un indicador → minimiza <strong>error de medición</strong></p></li>
+<li><p><strong>problema</strong>: ¿cómo se analizan indicadores que están relacionados? ¿cómo se muestran los resultados?</p></li>
 </ul>
 </section>
-<section id="análisis-de-indicadores-en-baterías" class="slide level2 scrollable" style="font-size: 0.85em;">
-<h2>Análisis de indicadores en baterías</h2>
+<section id="análisis-de-indicadores-en-baterías" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="análisis-de-indicadores-en-baterías">Análisis de indicadores en baterías</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
 <ol type="1">
-<li class="fragment"><strong>Univariado</strong>: se sugiere presentar análisis descriptivos que contengan todos los indicadores para poder comparar frecuencias</li>
+<li><strong>Univariado</strong>: se sugiere presentar análisis descriptivos que contengan todos los indicadores para poder comparar frecuencias</li>
 </ol>
 </div><div class="column fragment" style="width:65%;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/likert-plot.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/likert-plot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 <div style="text-align: center; font-size: 0.7em;">
 <p>(likert plot, <code>sjPlot</code>)</p>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="análisis-de-indicadores-en-baterías-1" class="slide level2" style="font-size: 0.85em;">
-<h2>Análisis de indicadores en baterías</h2>
+<section id="análisis-de-indicadores-en-baterías-1" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="análisis-de-indicadores-en-baterías-1">Análisis de indicadores en baterías</h2>
 <div class="columns">
 <div class="column" style="width:35%;">
 <p>2. <strong>Bivariado</strong>: tablas/gráficos de correlaciones</p>
 <p>(<code>corrplot</code>)</p>
 </div><div class="column fragment" style="width:65%;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/corrplot.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+<figure class="figure">
+<p><img src="img/corrplot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
 </figure>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="análisis-de-indicadores-en-baterías-2" class="slide level2" style="font-size: 0.85em;">
-<h2>Análisis de indicadores en baterías</h2>
+<section id="análisis-de-indicadores-en-baterías-2" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="análisis-de-indicadores-en-baterías-2">Análisis de indicadores en baterías</h2>
 <ul>
-<li class="fragment"><p>Se podría asumir un concepto o <strong>dimensión subyacente</strong> a la batería de items</p></li>
-<li class="fragment"><p>Para facilitar el avance en el análisis (por ejemplo, relacionar ese concepto subyacente con otras variables), muchas veces se reduce la batería a algún <strong>tipo de índice (sumativo/promedio)</strong></p></li>
-<li class="fragment"><p>¿Podemos asegurar que los items están realmente <strong>midiendo lo mismo</strong>?</p></li>
+<li><p>Se podría asumir un concepto o <strong>dimensión subyacente</strong> a la batería de items</p></li>
+<li><p>Para facilitar el avance en el análisis (por ejemplo, relacionar ese concepto subyacente con otras variables), muchas veces se reduce la batería a algún <strong>tipo de índice (sumativo/promedio)</strong></p></li>
+<li><p>¿Podemos asegurar que los items están realmente <strong>midiendo lo mismo</strong>?</p></li>
 </ul>
 </section>
-<section id="miden-lo-mismo" class="slide level2 nonincremental" style="font-size: 0.85em;">
-<h2>¿Miden lo mismo?</h2>
-
-<img data-src="img/bateria-atrib-pob.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="preguntas-y-error-de-medición-1" class="slide level2" style="font-size: 0.85em;">
-<h2>Preguntas y error de medición</h2>
+<section id="miden-lo-mismo" class="level2 nonincremental" style="font-size: 0.85em;">
+<h2 class="nonincremental anchored" style="font-size: 0.85em;" data-anchor-id="miden-lo-mismo">¿Miden lo mismo?</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/bateria-atrib-pob.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</section>
+<section id="preguntas-y-error-de-medición-1" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="preguntas-y-error-de-medición-1">Preguntas y error de medición</h2>
 <div class="content-box-red">
 <ul>
-<li class="fragment"><p>En este marco se asume que el <strong>indicador es distinto del atributo</strong>, y que la medición del atributo o variable latente conlleva error</p></li>
-<li class="fragment"><p>Cuando el atributo se mide con más de una pregunta, se puede intentar estimar la <strong>variable latente</strong> mediante índices o técnicas de <strong>análisis factorial</strong></p></li>
+<li><p>En este marco se asume que el <strong>indicador es distinto del atributo</strong>, y que la medición del atributo o variable latente conlleva error</p></li>
+<li><p>Cuando el atributo se mide con más de una pregunta, se puede intentar estimar la <strong>variable latente</strong> mediante índices o técnicas de <strong>análisis factorial</strong></p></li>
 </ul>
 </div>
 </section>
-<section id="medición-y-error" class="slide level2" style="font-size: 0.85em;">
-<h2>Medición y error</h2>
+<section id="medición-y-error" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="medición-y-error">Medición y error</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/peras-manzanas.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+<figure class="figure">
+<p><img src="img/peras-manzanas.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
 <ul>
-<li class="fragment"><p>antes de agrupar indicadores en un índice hay que evaluar si los indicadores se encuentran relacionados</p>
+<li><p>antes de agrupar indicadores en un índice hay que evaluar si los indicadores se encuentran relacionados</p>
 <ul>
-<li class="fragment">→ si miden constructos similares</li>
-<li class="fragment">→ si la medición es <strong>confiable</strong></li>
+<li>→ si miden constructos similares</li>
+<li>→ si la medición es <strong>confiable</strong></li>
 </ul></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="section-7" class="slide level2" data-background-color="#0C3547" style="font-size: 0.85em;">
-<h2></h2>
-<div class="content-box-red" style="font-size: 1.4em;">
+<section id="section-7" class="level2" data-background-color="#0C3547" style="font-size: 0.85em;">
+<h2 data-background-color="#0C3547" style="font-size: 0.85em;" class="anchored" data-anchor-id="section-7"></h2>
+<div class="content-box-red nonincremental" style="font-size: 1.4em;">
 <p><strong>¿Cómo estimar el nivel de relación entre indicadores que miden un mismo constructo?</strong></p>
 </div>
 <div class="fragment" style="color: white; text-align: center; font-size: 1.2em;">
 <p><strong>Distintas maneras, pero todas se basan en la técnica de la correlación</strong></p>
 </div>
 </section>
-<section id="matriz-de-correlaciones-1" class="slide level2 nonincremental" style="font-size: 0.85em;">
-<h2>Matriz de correlaciones (1)</h2>
-
-<img data-src="img/cormat1.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="text-align: center;">
+<section id="matriz-de-correlaciones-1" class="level2 nonincremental" style="font-size: 0.85em;">
+<h2 class="nonincremental anchored" style="font-size: 0.85em;" data-anchor-id="matriz-de-correlaciones-1">Matriz de correlaciones (1)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/cormat1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<div style="text-align: center;">
 <p>Matriz hipotética de indicadores que miden un mismo constructo</p>
 </div>
 </section>
-<section id="ej.-matriz-de-correlaciones-2" class="slide level2 nonincremental" style="font-size: 0.85em;">
-<h2>Ej. Matriz de correlaciones (2)</h2>
-
-<img data-src="img/cormat2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="text-align: center;">
+<section id="ej.-matriz-de-correlaciones-2" class="level2 nonincremental" style="font-size: 0.85em;">
+<h2 class="nonincremental anchored" style="font-size: 0.85em;" data-anchor-id="ej.-matriz-de-correlaciones-2">Ej. Matriz de correlaciones (2)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/cormat2.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<div style="text-align: center;">
 <p>Matriz hipotética de indicadores que miden constructos independientes</p>
 </div>
 </section>
-<section id="ej.-matriz-de-correlaciones-3" class="slide level2 nonincremental" style="font-size: 0.85em;">
-<h2>Ej. Matriz de correlaciones (3)</h2>
-
-<img data-src="img/cormat3.png" class="quarto-figure quarto-figure-center r-stretch" style="width:60.0%"><div style="text-align: center;">
+<section id="ej.-matriz-de-correlaciones-3" class="level2 nonincremental" style="font-size: 0.85em;">
+<h2 class="nonincremental anchored" style="font-size: 0.85em;" data-anchor-id="ej.-matriz-de-correlaciones-3">Ej. Matriz de correlaciones (3)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/cormat3.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<div style="text-align: center;">
 <p>Matriz hipotética de variables que miden dos constructos independientes</p>
 </div>
 </section>
-<section id="entonces" class="slide level2 scrollable" data-background-color="#0C3547" style="font-size: 1.2em;">
-<h2>Entonces:</h2>
+<section id="entonces" class="level2" data-background-color="#0C3547" style="font-size: 1.2em;">
+<h2 data-background-color="#0C3547" style="font-size: 1.2em;" class="anchored" data-anchor-id="entonces">Entonces:</h2>
 <div style="color: white;">
 <ol type="1">
-<li class="fragment"><p>Analizar la <strong>matriz de correlaciones</strong> antes de generar cualquier técnica de reducción de información (ej: crear índice)</p></li>
-<li class="fragment"><p>Evaluar la posibilidad de generar algún tipo de <strong>índice</strong> que resuma la información</p></li>
+<li><p>Analizar la <strong>matriz de correlaciones</strong> antes de generar cualquier técnica de reducción de información (ej: crear índice)</p></li>
+<li><p>Evaluar la posibilidad de generar algún tipo de <strong>índice</strong> que resuma la información</p></li>
 </ol>
 </div>
 </section>
-<section id="datos-ejemplo" class="slide level2" style="font-size: 0.85em;">
-<h2>Datos ejemplo</h2>
+<section id="datos-ejemplo" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="datos-ejemplo">Datos ejemplo</h2>
 <ul>
-<li class="fragment">batería atribuciones de pobreza, encuesta “Desigualdad, Justicia y Participación Política” - FONDECYT Iniciación 11121203 (2013-2015) <a href="https://jc-castillo.com/project/fondecyt-iniciacion/">Social justice and citizenship participation</a></li>
+<li>batería atribuciones de pobreza, encuesta “Desigualdad, Justicia y Participación Política” - FONDECYT Iniciación 11121203 (2013-2015) <a href="https://jc-castillo.com/project/fondecyt-iniciacion/">Social justice and citizenship participation</a></li>
 </ul>
 <div class="fragment">
 <div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="img/bateria-atrib-pob.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/bateria-atrib-pob.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div>
 </section>
-<section id="section-8" class="slide level2" style="font-size: 0.6em;">
-<h2></h2>
-<table class="caption-top">
+<section id="section-8" class="level2" style="font-size: 0.6em;">
+<h2 style="font-size: 0.6em;" class="anchored" data-anchor-id="section-8"></h2>
+<table class="caption-top table">
 <colgroup>
 <col style="width: 3%">
 <col style="width: 9%">
@@ -1182,11 +1285,11 @@ edad    7   7    7</code></pre>
 </tbody>
 </table>
 </section>
-<section id="matriz-de-correlaciones" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlaciones</h2>
+<section id="matriz-de-correlaciones" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlaciones">Matriz de correlaciones</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_atrib)</span>
-<span id="cb37-2"><a></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(data_atrib)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        falthab malasue faltesf sisecon siseduc
 falthab       1      NA      NA      NA      NA
@@ -1198,12 +1301,12 @@ siseduc      NA      NA      NA      NA       1</code></pre>
 </div>
 <p>Esta función no resulta ya que requiere que no existan casos perdidos</p>
 </section>
-<section id="matriz-de-correlaciones-2" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlaciones</h2>
+<section id="matriz-de-correlaciones-2" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlaciones-2">Matriz de correlaciones</h2>
 <p>Entonces:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">na.omit</span>(data_atrib))</span>
-<span id="cb39-2"><a></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cormat <span class="ot">&lt;-</span> <span class="fu">cor</span>(<span class="fu">na.omit</span>(data_atrib))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>cormat</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>             falthab    malasue     faltesf     sisecon      siseduc
 falthab  1.000000000 0.31793357  0.36246039 -0.02787884 -0.005893529
@@ -1214,18 +1317,18 @@ siseduc -0.005893529 0.01386504 -0.02011454  0.59362564  1.000000000</code></pre
 </div>
 </div>
 </section>
-<section id="matriz-de-correlaciones-3" class="slide level2" style="font-size: 0.6em;">
-<h2>Matriz de correlaciones</h2>
+<section id="matriz-de-correlaciones-3" class="level2" style="font-size: 0.6em;">
+<h2 style="font-size: 0.6em;" class="anchored" data-anchor-id="matriz-de-correlaciones-3">Matriz de correlaciones</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(data_atrib,</span>
-<span id="cb41-2"><a></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
-<span id="cb41-3"><a></a>  <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
-<span id="cb41-4"><a></a>  <span class="at">var.labels =</span> <span class="fu">c</span>(<span class="st">"Falta de habilidad"</span>, <span class="st">"Mala suerte"</span>, <span class="st">"Falta de esfuerzo"</span>,</span>
-<span id="cb41-5"><a></a>                 <span class="st">"Sistema económico"</span>, <span class="st">"Sistema educativo"</span>),</span>
-<span id="cb41-6"><a></a>  <span class="at">wrap.labels =</span> <span class="dv">15</span>,</span>
-<span id="cb41-7"><a></a>  <span class="at">title =</span> <span class="st">"Matriz de correlaciones de la batería de atribuciones de pobreza"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(data_atrib,</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">var.labels =</span> <span class="fu">c</span>(<span class="st">"Falta de habilidad"</span>, <span class="st">"Mala suerte"</span>, <span class="st">"Falta de esfuerzo"</span>,</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"Sistema económico"</span>, <span class="st">"Sistema educativo"</span>),</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">wrap.labels =</span> <span class="dv">15</span>,</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">title =</span> <span class="st">"Matriz de correlaciones de la batería de atribuciones de pobreza"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top" style="border-collapse:collapse; border:none;">
+<table class="caption-top table table-sm table-striped small">
 <caption>Matriz de correlaciones de la batería de atribuciones de pobreza</caption>
 <colgroup>
 <col style="width: 16%">
@@ -1300,130 +1403,132 @@ educativo</td>
 </div>
 </div>
 </section>
-<section id="matriz-de-correlaciones---gráfico" class="slide level2" style="font-size: 0.85em;">
-<h2>Matriz de correlaciones - gráfico</h2>
+<section id="matriz-de-correlaciones---gráfico" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="matriz-de-correlaciones---gráfico">Matriz de correlaciones - gráfico</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a></a><span class="fu">corrplot</span>(cormat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">corrplot</span>(cormat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:70%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-33-1.png" width="480" height="480"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-33-1.png" width="480" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="matriz-de-correlaciones---gráfico-ajustado" class="slide level2" style="font-size: 0.8em;">
-<h2>Matriz de correlaciones - gráfico ajustado</h2>
+<section id="matriz-de-correlaciones---gráfico-ajustado" class="level2" style="font-size: 0.8em;">
+<h2 style="font-size: 0.8em;" class="anchored" data-anchor-id="matriz-de-correlaciones---gráfico-ajustado">Matriz de correlaciones - gráfico ajustado</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cormat,</span>
-<span id="cb43-2"><a></a>  <span class="at">method =</span> <span class="st">"color"</span>,</span>
-<span id="cb43-3"><a></a>  <span class="at">addCoef.col =</span> <span class="st">"#000390"</span>,</span>
-<span id="cb43-4"><a></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
-<span id="cb43-5"><a></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
-<span id="cb43-6"><a></a>  <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"#0068DC"</span>))(<span class="dv">8</span>),</span>
-<span id="cb43-7"><a></a>  <span class="at">bg =</span> <span class="st">"white"</span>,</span>
-<span id="cb43-8"><a></a>  <span class="at">na.label =</span> <span class="st">"-"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>corrplot<span class="sc">::</span><span class="fu">corrplot</span>(cormat,</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"color"</span>,</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">addCoef.col =</span> <span class="st">"#000390"</span>,</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="st">"upper"</span>,</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">tl.col =</span> <span class="st">"black"</span>,</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">col =</span> <span class="fu">colorRampPalette</span>(<span class="fu">c</span>(<span class="st">"white"</span>,<span class="st">"#0068DC"</span>))(<span class="dv">8</span>),</span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">bg =</span> <span class="st">"white"</span>,</span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">na.label =</span> <span class="st">"-"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div><div class="column" style="width:55%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="10-bivariada3_files/figure-revealjs/unnamed-chunk-35-1.png" width="480" height="480"></p>
+<figure class="figure">
+<p><img src="10-bivariada3_files/figure-revealjs/unnamed-chunk-35-1.png" width="480" height="480" class="figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
-</section></section>
-<section>
-<section id="section-9" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</div>
+</div>
+</section>
+</section>
+<section id="section-9" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>1. Correlación con variables ordinales</p>
 <p>2. Matrices de correlación</p>
 <p>3. Casos perdidos en matrices</p>
 <p>4. Baterías, matrices y consistencia</p>
 <p><span style="color: #dfc117; font-weight: bold;">5. Construcción de índices</span></p>
 </div>
-</section>
-<section id="alpha-de-cronbach" class="slide level2" style="font-size: 0.85em;">
-<h2>Alpha de Cronbach</h2>
+<section id="alpha-de-cronbach" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="alpha-de-cronbach">Alpha de Cronbach</h2>
 <ul>
-<li class="fragment"><p>índice de consistencia interna de una batería</p></li>
-<li class="fragment"><p>en general, interpretable como la correlación [absoluta] promedio entre distintas variables que componen una batería de medición</p></li>
-<li class="fragment"><p>varía entre <strong>0 y 1</strong>; valores más cercanos a 1 indican mayor consistencia</p></li>
-<li class="fragment"><p>en general valores sobre 0.6 se consideran aceptables</p></li>
+<li><p>índice de consistencia interna de una batería</p></li>
+<li><p>en general, interpretable como la correlación [absoluta] promedio entre distintas variables que componen una batería de medición</p></li>
+<li><p>varía entre <strong>0 y 1</strong>; valores más cercanos a 1 indican mayor consistencia</p></li>
+<li><p>en general valores sobre 0.6 se consideran aceptables</p></li>
 </ul>
 </section>
-<section id="alpha-de-cronbach-en-r" class="slide level2" style="font-size: 0.85em;">
-<h2>Alpha de Cronbach en R</h2>
+<section id="alpha-de-cronbach-en-r" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="alpha-de-cronbach-en-r">Alpha de Cronbach en R</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <ul>
-<li class="fragment"><p>función <code>alpha</code> de la librería <code>psych</code></p></li>
-<li class="fragment"><p>se genera un objeto (lo llamaremos alpha). Contiene bastante información, por ahora nos enfocaremos solo en el valor de alpha (<code>raw_alpha</code>)</p></li>
+<li><p>función <code>alpha</code> de la librería <code>psych</code></p></li>
+<li><p>se genera un objeto (lo llamaremos alpha). Contiene bastante información, por ahora nos enfocaremos solo en el valor de alpha (<code>raw_alpha</code>)</p></li>
 </ul>
 </div><div class="column fragment" style="width: 55%; font-size: 0.85em;">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "falthab" "malasue" "faltesf" "sisecon" "siseduc"</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a></a>alpha <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> psych<span class="sc">::</span><span class="fu">alpha</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Some items ( falthab malasue faltesf ) were negatively correlated with the first principal component and 
 probably should be reversed.  
 To do this, run the function again with the 'check.keys=TRUE' option</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a></a>alpha<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>alpha<span class="sc">$</span>total<span class="sc">$</span>raw_alpha</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4363206</code></pre>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="alpha-de-cronbach-interpretación" class="slide level2" style="font-size: 0.85em;">
-<h2>Alpha de Cronbach: interpretación</h2>
+<section id="alpha-de-cronbach-interpretación" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="alpha-de-cronbach-interpretación">Alpha de Cronbach: interpretación</h2>
 <ul>
-<li class="fragment"><p>puntaje 0.43, por lo tanto bajo los valores aceptables de consistencia interna</p></li>
-<li class="fragment"><p>esto ya se podía anticipar desde la matriz de correlaciones, que aparentemente mostraba dos dimensiones subyacentes a la batería</p></li>
-<li class="fragment"><p>además, se genera un mensaje de advertencia sobre posibles items codificados a la inversa (dada la correlación entre items de dimensiones distintas)</p></li>
+<li><p>puntaje 0.43, por lo tanto bajo los valores aceptables de consistencia interna</p></li>
+<li><p>esto ya se podía anticipar desde la matriz de correlaciones, que aparentemente mostraba dos dimensiones subyacentes a la batería</p></li>
+<li><p>además, se genera un mensaje de advertencia sobre posibles items codificados a la inversa (dada la correlación entre items de dimensiones distintas)</p></li>
 </ul>
 </section>
-<section id="opciones" class="slide level2" style="font-size: 0.85em;">
-<h2>Opciones</h2>
+<section id="opciones" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="opciones">Opciones</h2>
 <ul>
-<li class="fragment"><p>construcción de índices basados en la información de la matriz de correlaciones</p></li>
-<li class="fragment"><p>análisis factorial:</p>
+<li><p>construcción de índices basados en la información de la matriz de correlaciones</p></li>
+<li><p>análisis factorial:</p>
 <ul>
-<li class="fragment">permite identificar dimensiones subyacentes a la batería de indicadores</li>
-<li class="fragment">permite generar índices factoriales (scores) que representan cada dimensión</li>
-<li class="fragment">(tema para otro curso)</li>
+<li>permite identificar dimensiones subyacentes a la batería de indicadores</li>
+<li>permite generar índices factoriales (scores) que representan cada dimensión</li>
+<li>(tema para otro curso)</li>
 </ul></li>
 </ul>
 </section>
-<section id="índice-promedio" class="slide level2" style="font-size: 0.85em;">
-<h2>Índice promedio</h2>
+<section id="índice-promedio" class="level2" style="font-size: 0.85em;">
+<h2 style="font-size: 0.85em;" class="anchored" data-anchor-id="índice-promedio">Índice promedio</h2>
 <ul>
-<li class="fragment">vamos a generar 2 índices a partir de esta batería: uno para atribución interna (falthab, faltesf, malasue) y otro para externa (sisecon, siseduc)</li>
+<li>vamos a generar 2 índices a partir de esta batería: uno para atribución interna (falthab, faltesf, malasue) y otro para externa (sisecon, siseduc)</li>
 </ul>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"interna_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(falthab, faltesf, malasue), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb50-2"><a></a></span>
-<span id="cb50-3"><a></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"externa_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(sisecon, siseduc), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
-<span id="cb50-4"><a></a></span>
-<span id="cb50-5"><a></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"interna_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(falthab, faltesf, malasue), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>data_atrib <span class="ot">&lt;-</span> <span class="fu">cbind</span>(data_atrib, <span class="st">"externa_prom"</span> <span class="ot">=</span> <span class="fu">rowMeans</span>(data_atrib <span class="sc">%&gt;%</span> <span class="fu">select</span>(sisecon, siseduc), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(data_atrib)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "falthab"      "malasue"      "faltesf"      "sisecon"      "siseduc"     
 [6] "interna_prom" "externa_prom"</code></pre>
@@ -1431,34 +1536,34 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 </div>
 </div>
 </section>
-<section id="resumen" class="slide level2" data-background-color="#0C3547" style="font-size: 0.85em;">
-<h2>Resumen</h2>
+<section id="resumen" class="level2" data-background-color="#0C3547" style="font-size: 0.85em;">
+<h2 data-background-color="#0C3547" style="font-size: 0.85em;" class="anchored" data-anchor-id="resumen">Resumen</h2>
 <div style="color: white;">
 <ul>
-<li class="fragment"><p><strong><span style="color: #dfc117;">Correlación de Spearman</span></strong>: apropiada para variables ordinales, equivale a la correlación de Pearson del ranking de las variables</p></li>
-<li class="fragment"><p><strong><span style="color: #dfc117;">Matriz de correlaciones</span></strong>: forma tradicional de reporte de asociaciones de las variables de una investigación, importante considerar tratamiento de datos perdidos (listwise o pairwise)</p></li>
-<li class="fragment"><p><strong><span style="color: #dfc117;">Índices y consistencia interna</span></strong> en matrices</p></li>
+<li><p><strong><span style="color: #dfc117;">Correlación de Spearman</span></strong>: apropiada para variables ordinales, equivale a la correlación de Pearson del ranking de las variables</p></li>
+<li><p><strong><span style="color: #dfc117;">Matriz de correlaciones</span></strong>: forma tradicional de reporte de asociaciones de las variables de una investigación, importante considerar tratamiento de datos perdidos (listwise o pairwise)</p></li>
+<li><p><strong><span style="color: #dfc117;">Índices y consistencia interna</span></strong> en matrices</p></li>
 </ul>
 </div>
-</section></section>
-<section>
-<section id="section-10" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
-<p><br></p>
 </section>
+</section>
+<section id="section-10" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional-1" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -1467,470 +1572,842 @@ To do this, run the function again with the 'check.keys=TRUE' option</code></pre
 <span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
 <span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</section>
 </div>
 </div>
+
 
 </section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
-<div class="footer footer-default">
 
-</div>
-</div></div>
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+  <i class="bi bi-chevron-left"></i>
+</button>
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <script>
+  /* ========================================================
+     ELEMENTOS
+     ======================================================== */
 
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
- 
-        // Display controls in the bottom right corner
-        controls: false,
+  const pathname = window.location.pathname;
 
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+  const esPracticos =
+    /\/assignment(?:\/|$)/.test(pathname);
 
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
+  /*
+   * Detecta específicamente:
+   *
+   * /assignment
+   * /assignment/
+   * /assignment/index.html
+   */
+  const esPaginaPrincipalPracticos =
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
 
-        // Display a presentation progress bar
-        progress: true,
+  const boton =
+    document.getElementById("practicos-sidebar-toggle");
 
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
+  const zona =
+    document.getElementById("practicos-sidebar-hover-zone");
 
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
+  const sidebar =
+    document.getElementById("quarto-sidebar");
 
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
 
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
+  if (!esPracticos || !sidebar || !boton || !zona) {
 
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
+    if (boton) {
+      boton.style.display = "none";
+    }
 
-        // Push each slide change to the browser history
-        history: true,
+    if (zona) {
+      zona.style.display = "none";
+    }
 
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
+    return;
+  }
 
-        // Enable the slide overview mode
-        overview: true,
 
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
+  const body = document.body;
 
-        // Vertical centering of slides
-        center: false,
+  let abiertoTemporalmente = false;
+  let temporizadorCierre = null;
 
-        // Enables touch navigation on devices with touch input
-        touch: true,
 
-        // Loop the presentation
-        loop: false,
+  /* ========================================================
+     POSICIÓN DE LA PESTAÑITA
+     ======================================================== */
 
-        // Change the presentation direction to be RTL
-        rtl: false,
+  function actualizarPosicion() {
 
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
 
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
+    if (cerrado) {
 
-        // Turns fragments on and off globally
-        fragments: true,
+      /*
+       * Menú cerrado:
+       * la pestañita queda en el borde izquierdo.
+       */
+      boton.style.left = "0px";
 
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
+    } else {
 
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
+      /*
+       * Usamos offsetWidth para que la posición
+       * no dependa de la animación del sidebar.
+       */
+      const anchoSidebar = sidebar.offsetWidth;
 
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
+      boton.style.left =
+        (anchoSidebar - 2) + "px";
+    }
+  }
 
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
 
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+  /* ========================================================
+     ACTUALIZAR ICONO
+     ======================================================== */
 
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
+  function mostrarIconoAbierto() {
 
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-left"></i>';
 
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
+    boton.setAttribute(
+      "aria-label",
+      "Ocultar menú de prácticos"
+    );
 
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
+    boton.title =
+      "Ocultar menú";
+  }
 
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
 
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
+  function mostrarIconoCerrado() {
 
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-right"></i>';
 
-        // The display mode that will be used to show slides
-        display: 'block',
+    boton.setAttribute(
+      "aria-label",
+      "Mostrar menú de prácticos"
+    );
 
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
+    boton.title =
+      "Mostrar menú";
+  }
 
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
 
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
+  /* ========================================================
+     MOSTRAR SIDEBAR
+     ======================================================== */
 
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+  function mostrarSidebar(temporal = false) {
 
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'slow',
+    clearTimeout(temporizadorCierre);
 
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+    body.classList.remove(
+      "practicos-sidebar-cerrado"
+    );
 
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
+    mostrarIconoAbierto();
 
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
+    abiertoTemporalmente = temporal;
 
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
 
-        height: 700,
 
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+  /* ========================================================
+     OCULTAR SIDEBAR
+     ======================================================== */
 
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
+  function ocultarSidebar(guardar = false) {
 
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+    clearTimeout(temporizadorCierre);
 
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+    body.classList.add(
+      "practicos-sidebar-cerrado"
+    );
+
+    mostrarIconoCerrado();
+
+    abiertoTemporalmente = false;
+
+    if (guardar) {
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "cerrado"
+      );
+    }
+
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
+
+
+  /* ========================================================
+     CLICK EN LA PESTAÑITA
+     ======================================================== */
+
+  boton.addEventListener("click", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    /*
+     * Si está cerrado:
+     * un clic lo abre permanentemente.
+     */
+    if (cerrado) {
+
+      mostrarSidebar(false);
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "abierto"
+      );
+
+    } else {
+
+      /*
+       * Si está visible, un solo clic lo cierra,
+       * independientemente de si se abrió por
+       * hover o normalmente.
+       */
+      ocultarSidebar(true);
+    }
+
+  });
+
+
+  /* ========================================================
+     HOVER EN EL BORDE IZQUIERDO
+     ======================================================== */
+
+  zona.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    if (cerrado) {
+
+      /*
+       * Mostrar temporalmente sin modificar
+       * la preferencia guardada.
+       */
+      mostrarSidebar(true);
+    }
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     SALIR DEL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseleave", function () {
+
+    /*
+     * Solo cerrar automáticamente si se abrió
+     * mediante hover.
+     */
+    if (!abiertoTemporalmente) {
+      return;
+    }
+
+    temporizadorCierre =
+      setTimeout(function () {
+
+        ocultarSidebar(false);
+
+      }, 500);
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL BOTÓN
+     ======================================================== */
+
+  boton.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     ESTADO INICIAL
+     ======================================================== */
+
+  /*
+   * PORTADA DE PRÁCTICOS
+   *
+   * Siempre comienza desplegada cada vez
+   * que se entra o recarga la página.
+   *
+   * Aun así, después de cargarla el usuario
+   * puede plegarla normalmente.
+   */
+  if (esPaginaPrincipalPracticos) {
+
+    mostrarSidebar(false);
+
+  } else {
+
+    /*
+     * En los prácticos individuales sí respetamos
+     * el estado que dejó anteriormente el usuario.
+     */
+    const estadoGuardado =
+      localStorage.getItem(
+        "practicos-sidebar"
+      );
+
+    if (estadoGuardado === "cerrado") {
+
+      ocultarSidebar(false);
+
+    } else {
+
+      mostrarSidebar(false);
+    }
+  }
+
+
+  /* ========================================================
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+     ======================================================== */
+
+  window.addEventListener(
+    "resize",
+    actualizarPosicion
+  );
+
+
+  /* ========================================================
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+     ======================================================== */
+
+  sidebar.addEventListener(
+    "transitionend",
+    actualizarPosicion
+  );
+
+
+  /*
+   * También esperamos el cambio de la
+   * grilla de Quarto.
+   */
+  const contenido =
+    document.getElementById("quarto-content");
+
+  if (contenido) {
+
+    contenido.addEventListener(
+      "transitionend",
+      actualizarPosicion
+    );
+  }
+
+
+  /* ========================================================
+     AJUSTE FINAL DESPUÉS DE CARGAR
+     ======================================================== */
+
+  requestAnimationFrame(function () {
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+  });
+
+});
+</script>
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
       });
-    </script>
-    
+    }
 
-    <script>
+  })();
+</script>
 
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
         }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-
-    
-
-      })();
-
-    </script>
-
-    
-
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
 
 </body></html>
