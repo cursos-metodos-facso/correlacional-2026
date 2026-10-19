@@ -9514,7 +9514,7 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#objetivo-de-la-sesión" id="toc-objetivo-de-la-sesión" class="nav-link active" data-scroll-target="#objetivo-de-la-sesión">Objetivo de la sesión</a></li>
   <li><a href="#repaso-de-tablas-de-contingencia" id="toc-repaso-de-tablas-de-contingencia" class="nav-link" data-scroll-target="#repaso-de-tablas-de-contingencia"><span class="header-section-number">1</span> Repaso de tablas de contingencia</a></li>
-  <li><a href="#chi-cuadrado-x2" id="toc-chi-cuadrado-x2" class="nav-link" data-scroll-target="#chi-cuadrado-x2"><span class="header-section-number">2</span> Chi cuadrado (<span class="math inline">\(X^2\)</span>)</a></li>
+  <li><a href="#chi-cuadrado-chi²" id="toc-chi-cuadrado-chi²" class="nav-link" data-scroll-target="#chi-cuadrado-chi²"><span class="header-section-number">2</span> Chi cuadrado (<span class="math inline">\(\chi²\)</span>)</a></li>
   <li><a href="#ejercicio-intermedio" id="toc-ejercicio-intermedio" class="nav-link" data-scroll-target="#ejercicio-intermedio"><span class="header-section-number">3</span> Ejercicio intermedio</a></li>
   <li><a href="#correlación-para-variables-categóricas" id="toc-correlación-para-variables-categóricas" class="nav-link" data-scroll-target="#correlación-para-variables-categóricas"><span class="header-section-number">4</span> Correlación para variables categóricas</a>
   <ul class="collapse">
@@ -9522,13 +9522,8 @@ window.Quarto = {
   <li><a href="#correlación-tetracórica" id="toc-correlación-tetracórica" class="nav-link" data-scroll-target="#correlación-tetracórica"><span class="header-section-number">4.2</span> Correlación tetracórica</a></li>
   <li><a href="#correlación-policórica" id="toc-correlación-policórica" class="nav-link" data-scroll-target="#correlación-policórica"><span class="header-section-number">4.3</span> Correlación Policórica</a></li>
   </ul></li>
-  <li><a href="#tamaño-de-efecto-con-phi-y-v-de-cramer" id="toc-tamaño-de-efecto-con-phi-y-v-de-cramer" class="nav-link" data-scroll-target="#tamaño-de-efecto-con-phi-y-v-de-cramer"><span class="header-section-number">5</span> Tamaño de efecto con Phi y V de Cramer</a>
-  <ul class="collapse">
-  <li><a href="#estadístico-phi-φ" id="toc-estadístico-phi-φ" class="nav-link" data-scroll-target="#estadístico-phi-φ"><span class="header-section-number">5.1</span> Estadístico Phi (Φ)</a></li>
-  <li><a href="#v-de-cramer" id="toc-v-de-cramer" class="nav-link" data-scroll-target="#v-de-cramer"><span class="header-section-number">5.2</span> V de Cramer</a></li>
-  </ul></li>
-  <li><a href="#ejercicio-autónomo" id="toc-ejercicio-autónomo" class="nav-link" data-scroll-target="#ejercicio-autónomo"><span class="header-section-number">6</span> Ejercicio autónomo</a></li>
-  <li><a href="#síntesis" id="toc-síntesis" class="nav-link" data-scroll-target="#síntesis"><span class="header-section-number">7</span> Síntesis</a></li>
+  <li><a href="#ejercicio-autónomo" id="toc-ejercicio-autónomo" class="nav-link" data-scroll-target="#ejercicio-autónomo"><span class="header-section-number">5</span> Ejercicio autónomo</a></li>
+  <li><a href="#síntesis" id="toc-síntesis" class="nav-link" data-scroll-target="#síntesis"><span class="header-section-number">6</span> Síntesis</a></li>
   </ul>
 </nav>
     </div>
@@ -9670,13 +9665,13 @@ margin-bottom: 1rem;
 </div>
 <section id="objetivo-de-la-sesión" class="level1 unnumbered">
 <h1 class="unnumbered">Objetivo de la sesión</h1>
-<p>Esta sesión tiene como objetivo principal estimar e interpretar la prueba de Chi cuadrado en R. Para cumplir con ello, el práctico se guiará por los siguientes puntos:</p>
+<p>Esta sesión tiene como objetivo principal estimar e interpretar la prueba de Chi cuadrado (<span class="math inline">\(\chi²\)</span>) en R. Para cumplir con ello, el práctico se guiará por los siguientes puntos:</p>
 <ul>
 <li><ol type="1">
 <li>Repaso de tablas de contingencia</li>
 </ol></li>
 <li><ol start="2" type="1">
-<li>Aplicación e interpretación de Chi cuadrado</li>
+<li>Aplicación e interpretación de Chi cuadrado (<span class="math inline">\(\chi²\)</span>)</li>
 </ol></li>
 <li><ol start="3" type="1">
 <li>Asociación entre variables categóricas</li>
@@ -9685,38 +9680,94 @@ margin-bottom: 1rem;
 <li>Tamaño de efecto para correlaciones entre categóricas</li>
 </ol></li>
 </ul>
+<p>A continuación, cargamos las librerías que ocuparemos en la sesión</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    dplyr, <span class="co"># Manipulacion datos</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    sjPlot, <span class="co"># Graficos y tablas</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    sjmisc, <span class="co"># Descriptivos</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    kableExtra, <span class="co"># Tablas</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    psych, <span class="co"># Estadísticos</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    broom,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    rempsyc,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    sjstats,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    gginference</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    psych, <span class="co"># Estadísticos</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    broom,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    rempsyc</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="repaso-de-tablas-de-contingencia" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Repaso de tablas de contingencia</h1>
 <p>Carguemos los datos</p>
+<p>En este práctico trabajaremos con las siguientes variables:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026.rdata&quot;</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData&quot;</span>))</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2026</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>cep_proc <span class="ot">&lt;-</span> datos_cep <span class="sc">%&gt;%</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, educ, mujer, interes_pol, just_marcha) <span class="sc">%&gt;%</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_dico =</span> <span class="fu">case_when</span>( <span class="co"># creamos una variable dicotómica de educación</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    educ <span class="sc">&lt;</span> <span class="dv">7</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    educ <span class="sc">&gt;=</span> <span class="dv">7</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>      <span class="sc">~</span> <span class="cn">NA_real_</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interes_pol =</span> <span class="dv">6</span> <span class="sc">-</span> interes_pol) <span class="sc">%&gt;%</span> <span class="co"># invertimos las categorías (1-5 -&gt; 5-1)</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">sexo =</span> mujer)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>cep_proc <span class="ot">&lt;-</span> datos_cep <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, educ, mujer, interes_pol, just_marcha) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_dico =</span> <span class="fu">case_when</span>( <span class="co"># creamos una variable dicotómica de educación</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    educ <span class="sc">&lt;</span> <span class="dv">8</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    educ <span class="sc">&gt;=</span> <span class="dv">8</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>      <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_dico =</span> sjlabelled<span class="sc">::</span><span class="fu">set_labels</span>(educ_dico,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Sin educación Superior&quot;</span> <span class="ot">=</span> <span class="dv">0</span>, <span class="co"># etiquetas por</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                                                       <span class="st">&quot;Con educación superior&quot;</span> <span class="ot">=</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span> <span class="co"># categoría</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">educ_dico =</span> sjlabelled<span class="sc">::</span><span class="fu">set_label</span>(educ_dico, <span class="at">label =</span> <span class="st">&quot;Educación dicotomizada&quot;</span>)) <span class="sc">%&gt;%</span> <span class="co"># label de la variable</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad_dico =</span> <span class="fu">case_when</span>( <span class="co"># creamos una variable dicotómica de edad</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    edad <span class="sc">&lt;</span> <span class="dv">30</span>  <span class="sc">~</span> <span class="dv">0</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    edad <span class="sc">&gt;=</span> <span class="dv">30</span> <span class="sc">~</span> <span class="dv">1</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span>       <span class="sc">~</span> <span class="cn">NA_real_</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>  )) <span class="sc">%&gt;%</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad_dico =</span> sjlabelled<span class="sc">::</span><span class="fu">set_labels</span>(edad_dico,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Menos de 30 años&quot;</span> <span class="ot">=</span> <span class="dv">0</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                                                       <span class="st">&quot;30 años o más&quot;</span> <span class="ot">=</span> <span class="dv">1</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad_dico =</span> sjlabelled<span class="sc">::</span><span class="fu">set_label</span>(edad_dico, <span class="at">label =</span> <span class="st">&quot;Edad dicotomizada&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">sexo =</span> mujer)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Lo que mide</th>
+<th>Nivel de medición</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>edad</code></td>
+<td>Edad del encuestado</td>
+<td>Continua</td>
+</tr>
+<tr class="even">
+<td><code>edad_dico</code></td>
+<td>Edad dicotomizada</td>
+<td>Categórica</td>
+</tr>
+<tr class="odd">
+<td><code>educ</code></td>
+<td>Nivel educacional</td>
+<td>Ordinal</td>
+</tr>
+<tr class="even">
+<td><code>educ_dico</code></td>
+<td>Nivel educacional dicotomizado</td>
+<td>Categórica</td>
+</tr>
+<tr class="odd">
+<td><code>sexo</code></td>
+<td>Sexo del encuestado</td>
+<td>Categórica</td>
+</tr>
+<tr class="even">
+<td><code>interes_pol</code></td>
+<td>Interés político</td>
+<td>Ordinal</td>
+</tr>
+<tr class="odd">
+<td><code>just_marcha</code></td>
+<td>Justificación de marchas</td>
+<td>Ordinal</td>
+</tr>
+</tbody>
+</table>
+<p>Todas las variables se ordenan de tal manera que, a mayor la categoría de respuesta, mayor el grado del atributo.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -9731,24 +9782,33 @@ Nota
 </div>
 </div>
 <p>Recordemos que gracias a las tablas de contingencia podemos obtener en las celdas las frecuencias conjuntas entre dos variables, es decir, cuántos casos de una determinada categoría de la variable Y ocurren conjuntamente con una determinada categoría de la variable X.</p>
-<p>Ahora veamos cómo se relacionan sexo con la justificación de marchas</p>
+<p>Planteemos la siguiente pregunta de investigación: <em>¿Cómo se relaciona el sexo con la justificación de las marchas en la protesta?</em></p>
+<p>Para responder esto, construyamos una tabla de contingencia</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">sjt.xtab</span>(<span class="at">var.row =</span> cep_proc<span class="sc">$</span>just_marcha, <span class="at">var.col =</span> cep_proc<span class="sc">$</span>sexo,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">show.summary =</span> F, <span class="at">emph.total =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
 <tbody>
 <tr class="odd">
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">just_marcha</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">sexo</th>
+<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Justificación de<br>
+participar en una<br>
+marcha</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Sexo</th>
 <th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid; background-color: #f8f8f8;">Total</th>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">0</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">1</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Hombre</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Mujer</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Nunca se justifica</td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">144</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">321</span></td>
 <td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">465</span></td>
@@ -9772,7 +9832,7 @@ Nota
 <td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">139</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">5</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Siempre se justifica</td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">130</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">208</span></td>
 <td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">338</span></td>
@@ -9809,16 +9869,18 @@ Nota
 </colgroup>
 <tbody>
 <tr class="odd">
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">just_marcha</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">sexo</th>
+<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Justificación de<br>
+participar en una<br>
+marcha</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Sexo</th>
 <th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid; background-color: #f8f8f8;">Total</th>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">0</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">1</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Hombre</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Mujer</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">1</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Nunca se justifica</td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">144</span><br>
 <span style="color:#333399;">31 %</span><br>
 <span style="color:#339933;">26.9 %</span></td>
@@ -9866,7 +9928,7 @@ Nota
 <span style="color:#339933;">9.5 %</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">5</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Siempre se justifica</td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">130</span><br>
 <span style="color:#333399;">38.5 %</span><br>
 <span style="color:#339933;">24.3 %</span></td>
@@ -9913,7 +9975,7 @@ Importante
 <p>El porcentaje que representa cada categoría es una <strong>manera distinta de expresar la frecuencia</strong>, no es información nueva</p>
 </div>
 </div>
-<p>Veamos otro ejemplo con las variables educación dicotómica e interés político</p>
+<p>Veamos otro ejemplo con la siguiente pregunta de investigación: <em>¿Cómo se asocian el nivel educacional con el interés en política?</em></p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">sjt.xtab</span>(<span class="at">var.row =</span> cep_proc<span class="sc">$</span>interes_pol,</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var.col =</span> cep_proc<span class="sc">$</span>educ_dico,</span>
@@ -9932,81 +9994,85 @@ Importante
 </colgroup>
 <tbody>
 <tr class="odd">
-<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">interes_pol</th>
-<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">educ_dico</th>
+<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Interés en la<br>
+política</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Educación<br>
+dicotomizada</th>
 <th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid; background-color: #f8f8f8;">Total</th>
 </tr>
 <tr class="even">
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">0</td>
-<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">1</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Sin educación<br>
+Superior</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Con educación<br>
+superior</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">1</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">52</span><br>
-<span style="color:#333399;">46 %</span><br>
-<span style="color:#339933;">4.8 %</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">61</span><br>
-<span style="color:#333399;">54 %</span><br>
-<span style="color:#339933;">16.6 %</span></td>
-<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">113</span><br>
-<span style="color:#333399;">100 %</span><br>
-<span style="color:#339933;">7.7 %</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">2</td>
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Nada interesado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">627</span><br>
+<span style="color:#333399;">92.6 %</span><br>
+<span style="color:#339933;">51.9 %</span></td>
 <td style="text-align: center; padding: 0.2cm;"><span style="color:black;">50</span><br>
-<span style="color:#333399;">43.5 %</span><br>
-<span style="color:#339933;">4.6 %</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">65</span><br>
-<span style="color:#333399;">56.5 %</span><br>
-<span style="color:#339933;">17.7 %</span></td>
-<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">115</span><br>
-<span style="color:#333399;">100 %</span><br>
-<span style="color:#339933;">7.9 %</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">3</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">227</span><br>
-<span style="color:#333399;">69.8 %</span><br>
-<span style="color:#339933;">20.8 %</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">98</span><br>
-<span style="color:#333399;">30.2 %</span><br>
-<span style="color:#339933;">26.6 %</span></td>
-<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">325</span><br>
-<span style="color:#333399;">100 %</span><br>
-<span style="color:#339933;">22.3 %</span></td>
-</tr>
-<tr class="even">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">4</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">166</span><br>
-<span style="color:#333399;">72.5 %</span><br>
-<span style="color:#339933;">15.2 %</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">63</span><br>
-<span style="color:#333399;">27.5 %</span><br>
-<span style="color:#339933;">17.1 %</span></td>
-<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">229</span><br>
-<span style="color:#333399;">100 %</span><br>
-<span style="color:#339933;">15.7 %</span></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">5</td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">596</span><br>
-<span style="color:#333399;">88 %</span><br>
-<span style="color:#339933;">54.6 %</span></td>
-<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">81</span><br>
-<span style="color:#333399;">12 %</span><br>
-<span style="color:#339933;">22 %</span></td>
+<span style="color:#333399;">7.4 %</span><br>
+<span style="color:#339933;">20 %</span></td>
 <td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">677</span><br>
 <span style="color:#333399;">100 %</span><br>
 <span style="color:#339933;">46.4 %</span></td>
 </tr>
 <tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">No muy interesado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">192</span><br>
+<span style="color:#333399;">83.8 %</span><br>
+<span style="color:#339933;">15.9 %</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">37</span><br>
+<span style="color:#333399;">16.2 %</span><br>
+<span style="color:#339933;">14.8 %</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">229</span><br>
+<span style="color:#333399;">100 %</span><br>
+<span style="color:#339933;">15.7 %</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Algo interesado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">258</span><br>
+<span style="color:#333399;">79.4 %</span><br>
+<span style="color:#339933;">21.3 %</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">67</span><br>
+<span style="color:#333399;">20.6 %</span><br>
+<span style="color:#339933;">26.8 %</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">325</span><br>
+<span style="color:#333399;">100 %</span><br>
+<span style="color:#339933;">22.3 %</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Bastante interesado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">68</span><br>
+<span style="color:#333399;">59.1 %</span><br>
+<span style="color:#339933;">5.6 %</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">47</span><br>
+<span style="color:#333399;">40.9 %</span><br>
+<span style="color:#339933;">18.8 %</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">115</span><br>
+<span style="color:#333399;">100 %</span><br>
+<span style="color:#339933;">7.9 %</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Muy interesado</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">64</span><br>
+<span style="color:#333399;">56.6 %</span><br>
+<span style="color:#339933;">5.3 %</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">49</span><br>
+<span style="color:#333399;">43.4 %</span><br>
+<span style="color:#339933;">19.6 %</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">113</span><br>
+<span style="color:#333399;">100 %</span><br>
+<span style="color:#339933;">7.7 %</span></td>
+</tr>
+<tr class="even">
 <td style="text-align: left; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">1091</span><br>
-<span style="color:#333399;">74.8 %</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">1209</span><br>
+<span style="color:#333399;">82.9 %</span><br>
 <span style="color:#339933;">100 %</span></td>
-<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">368</span><br>
-<span style="color:#333399;">25.2 %</span><br>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">250</span><br>
+<span style="color:#333399;">17.1 %</span><br>
 <span style="color:#339933;">100 %</span></td>
 <td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">1459</span><br>
 <span style="color:#333399;">100 %</span><br>
@@ -10018,15 +10084,15 @@ Importante
 </div>
 <p>Analicemos desde lo más general a lo más específico:</p>
 <ul>
-<li><p>Las personas sin educación superior representan el 75% de los casos, triplicando la cantidad de individuos con educación superior</p></li>
-<li><p>A nivel descriptivo, existe una concentración en el interés político, donde el 46% de las personas declara estar muy interesado en política</p></li>
-<li><p>Al enfocarnos en la categoría 1 (nada interesado), se ve que las personas con mayor nivel educacional declaran en mayor medida no estar interesados en política. Para esto nos fijamos en los % en color verde, ya que estos refieren al porcentaje dentro de su propio grupo y a la frecuencia de la categoría de respuesta</p></li>
+<li><p>Las personas sin educación superior representan el 83% de los casos, cuadriplicando la cantidad de individuos con educación superior</p></li>
+<li><p>A nivel descriptivo, existe una concentración en el interés político, donde el 46% de las personas declara estar nada interesado en política</p></li>
+<li><p>Podemos observar que el grupo mayoritario de personas con educación superior se concentra en la categoría “Algo interesado”</p></li>
 </ul>
 </section>
-<section id="chi-cuadrado-x2" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Chi cuadrado (<span class="math inline">\(X^2\)</span>)</h1>
+<section id="chi-cuadrado-chi²" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Chi cuadrado (<span class="math inline">\(\chi²\)</span>)</h1>
 <p>Las tablas de contingencia nos permiten observar la distribución de casos en <strong>la intersección de las categorías de respuesta</strong> de dos variables, ¿Pero cómo sabemos si existe una asociación significativa entre ellas?</p>
-<p>Para determinar si existe una asociación significativa entre <strong>dos variables categóricas</strong> se utiliza la prueba de Chi-cudrado (<span class="math inline">\(X^2\)</span>). Esta se basa en un test de diferencia, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables (<span class="math inline">\(H_0\)</span>), que representa la hipótesis nula.</p>
+<p>Para determinar si existe una asociación significativa entre <strong>dos variables categóricas</strong> se utiliza la prueba de Chi-cudrado (<span class="math inline">\(\chi²\)</span>). Esta se basa en un test de diferencia, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables (<span class="math inline">\(H_0\)</span>), que representa la hipótesis nula.</p>
 <p>La lógica detrás es que <strong>si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipóteis nula</strong>.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -10040,69 +10106,107 @@ Importante
 <div class="callout-body-container callout-body">
 <p>Contrastamos la <em>hipótesis nula</em> de que las variables son independientes entre ellas: <span class="math display">\[  H_{0}: \pi_{fc} =  \pi_{f}\pi_{c} \]</span></p>
 <p>En relación a una <em>hipótesis alternativa</em> que plantea que las variables están relacionadas: <span class="math display">\[  H_{A}:  \pi_{fc} \neq  \pi_{f}\pi_{c} \]</span></p>
+<p>Donde:</p>
+<ul>
+<li><p><span class="math inline">\(\pi_{fc}\)</span> es la probabilidad de que un caso caiga en una celda específica</p></li>
+<li><p><span class="math inline">\(\pi_{f}\pi_{c}\)</span> la probabilidad de que en esa celda las variables no guarden relación</p></li>
+</ul>
 </div>
 </div>
 <p>Veamos un ejemplo manual con nuestros datos: evaluemos si la relación entre sexo y nivel educacional (dicotomizado) es estadísticamente significativa</p>
 <p>La idea central de Chi cuadrado es comparar dos tablas: la que <strong>observamos</strong> en nuestros datos y la que <strong>esperaríamos</strong> si sexo y educación fueran independientes (<span class="math inline">\(H_0\)</span>). Mientras más se parezcan, menos evidencia de asociación; mientras más se alejen, más evidencia. Para hacer esta comparación seguimos cinco pasos.</p>
 <p><strong>Paso 1: valores observados.</strong> Generamos una tabla con ambas variables, la cual contiene los valores observados en la intersección de las categorías de respuesta de sexo y nivel educacional</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>observadas <span class="ot">&lt;-</span> <span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>observadas</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   
-      0   1
-  0 384 151
-  1 711 218</code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>observadas <span class="ot">&lt;-</span> <span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico) <span class="co"># objeto que almacena la tabla de contingencia</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>total_filas <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observadas) <span class="co"># suma de cada fila (total por sexo)</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>total_cols  <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observadas) <span class="co"># suma de cada columna (total por nivel educacional)</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observadas)               <span class="co"># total de casos</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-</div>
-<p><strong>Paso 2: totales marginales y tamaño de la muestra.</strong> Los totales marginales son las sumas de cada fila y de cada columna de la tabla, es decir, cuántas personas hay en cada sexo y cuántas en cada nivel educacional. Los necesitamos para construir la tabla esperada.</p>
+<p>Estos objetos los utilizaremos para el ejemplo más adelante. Por ahora, visualicemos las frecuencias a partir de una tabla con <code>sjPlot</code></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>total_filas <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(observadas) <span class="co"># suma de cada fila (total por sexo)</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>total_cols  <span class="ot">&lt;-</span> <span class="fu">colSums</span>(observadas) <span class="co"># suma de cada columna (total por nivel educacional)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(observadas)               <span class="co"># total de casos</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>total_filas</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>  0   1 
-535 929 </code></pre>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">sjt.xtab</span>(<span class="at">var.row =</span> cep_proc<span class="sc">$</span>educ_dico, <span class="at">var.col =</span> cep_proc<span class="sc">$</span>sexo,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">show.summary =</span> F, <span class="at">emph.total =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; border-bottom: 1px solid;">Educación<br>
+dicotomizada</th>
+<th colspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal;">Sexo</th>
+<th rowspan="2" data-quarto-table-cell-role="th" style="text-align: center; border-top: double; font-style: italic; font-weight: normal; font-weight: bolder; font-style: italic; border-bottom: 1px solid; background-color: #f8f8f8;">Total</th>
+</tr>
+<tr class="even">
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Hombre</td>
+<td style="text-align: center; border-bottom: 1px solid; padding: 0.2cm;">Mujer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Sin educación<br>
+Superior</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">438</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">775</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">1213</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left; padding: 0.2cm; vertical-align: middle;">Con educación<br>
+superior</td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">97</span></td>
+<td style="text-align: center; padding: 0.2cm;"><span style="color:black;">154</span></td>
+<td style="text-align: center; padding: 0.2cm; background-color: #f8f8f8;"><span style="color:black;">251</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8; font-weight: bolder; font-style: italic; vertical-align: middle;">Total</td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">535</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">929</span></td>
+<td style="text-align: center; padding: 0.2cm; border-bottom: double; background-color: #f8f8f8;"><span style="color:black;">1464</span></td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>total_cols</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   0    1 
-1095  369 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 1464</code></pre>
-</div>
-</div>
-<p><strong>Paso 3: frecuencias esperadas.</strong> Si las variables fueran independientes, la proporción de personas con educación superior debería ser la misma en hombres y en mujeres, y coincidir con la proporción en toda la muestra. Por lo tanto, la frecuencia esperada de cada celda se calcula como:</p>
+<p><strong>Paso 2: frecuencias esperadas.</strong> Si las variables fueran independientes, la proporción de personas con educación superior debería ser la misma en hombres y en mujeres, y coincidir con la proporción en toda la muestra. Por lo tanto, la frecuencia esperada de cada celda se calcula como:</p>
 <p><span class="math display">\[
 E = \frac{\text{total de la fila} \times \text{total de la columna}}{n}
 \]</span></p>
-<p>La función <code>outer()</code> multiplica cada total de fila por cada total de columna, de modo que en una sola línea obtenemos el numerador de todas las celdas. Luego dividimos por <span class="math inline">\(n\)</span>.</p>
+<p>Apliquemos la fórmula de manera manual para el cálculo de una celda:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>esperadas <span class="ot">&lt;-</span> <span class="fu">outer</span>(total_filas, total_cols) <span class="sc">/</span> n</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>esperadas</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">535</span><span class="sc">*</span><span class="dv">251</span>) <span class="sc">/</span> <span class="dv">1464</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>         0        1
-0 400.1537 134.8463
-1 694.8463 234.1537</code></pre>
+<pre><code>[1] 91.72473</code></pre>
+</div>
+</div>
+<p>Podemos notar que tenemos 92 casos esperados frente a los 97 observados</p>
+<p>Este cálculo se puede realizar en R mediante la función <code>outer()</code>, la cual multiplica cada total de fila por cada total de columna, de modo que en una sola línea obtenemos el numerador de todas las celdas. Luego dividimos por <span class="math inline">\(n\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>esperadas <span class="ot">&lt;-</span> <span class="fu">outer</span>(total_filas, total_cols) <span class="sc">/</span> n</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>esperadas</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>         0         1
+0 443.2753  91.72473
+1 769.7247 159.27527</code></pre>
 </div>
 </div>
 <p>Estas son las frecuencias que veríamos en cada celda <strong>si no hubiera asociación</strong>. Compárelas con la tabla de frecuencias observadas: mientras mayores sean las diferencias, más lejos estamos de la independencia.</p>
-<p><strong>Paso 4: estadístico Chi cuadrado.</strong> Para cada celda calculamos la diferencia entre lo observado (<span class="math inline">\(O\)</span>) y lo esperado (<span class="math inline">\(E\)</span>). Esa diferencia se eleva al cuadrado, para que las diferencias positivas y negativas no se cancelen, y se divide por <span class="math inline">\(E\)</span>, para ponderar la diferencia según el tamaño esperado de la celda (una diferencia de 10 casos pesa más en una celda donde esperábamos 20 que en una donde esperábamos 500). Finalmente, sumamos el aporte de todas las celdas:</p>
+<p><strong>Paso 3: estadístico Chi cuadrado.</strong> Para cada celda calculamos la diferencia entre lo observado (<span class="math inline">\(O\)</span>) y lo esperado (<span class="math inline">\(E\)</span>). Esa diferencia se eleva al cuadrado, para que las diferencias positivas y negativas no se cancelen, y se divide por <span class="math inline">\(E\)</span>, para ponderar la diferencia según <strong>el tamaño esperado de la celda</strong> (una diferencia de 10 casos pesa más en una celda donde esperábamos 20 que en una donde esperábamos 500). Finalmente, sumamos el aporte de todas las celdas:</p>
 <p><span class="math display">\[
 \chi^2 = \sum \frac{(O - E)^2}{E}
 \]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>chi_manual <span class="ot">&lt;-</span> <span class="fu">sum</span>((observadas <span class="sc">-</span> esperadas)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperadas)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>chi_manual</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>chi_manual <span class="ot">&lt;-</span> <span class="fu">sum</span>((observadas <span class="sc">-</span> esperadas)<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> esperadas)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>chi_manual</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 4.07715</code></pre>
+<pre><code>[1] 0.5770443</code></pre>
 </div>
 </div>
-<p>R realiza estas operaciones celda por celda de forma automática, porque <code>observadas</code> y <code>esperadas</code> son tablas del mismo tamaño. Si las variables fueran perfectamente independientes, <span class="math inline">\(\chi^2\)</span> sería 0. Mientras mayor sea su valor, mayor es la discrepancia entre lo observado y lo esperado.</p>
+<p>En este caso, si las variables fueran perfectamente independientes, es decir, no se relacionan entre sí, <span class="math inline">\(\chi^2\)</span> sería 0. Entonces, mientras mayor sea su valor, mayor es la discrepancia entre lo observado y lo esperado.</p>
 <p><strong>Paso 5: grados de libertad y valor p.</strong> Un valor de <span class="math inline">\(\chi^2\)</span> por sí solo no nos dice si la discrepancia es grande o pequeña, así que lo comparamos con la distribución Chi cuadrado, que depende de los grados de libertad (<span class="math inline">\(gl\)</span>):</p>
 <p><span class="math display">\[
 gl = (\text{filas} - 1) \times (\text{columnas} - 1)
@@ -10118,40 +10222,34 @@ Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Agregando el argumento <code>lower.tail = FALSE</code> pedimos lo contrario, es decir, la probabilidad de obtener un valor <strong>igual o mayor</strong> si <span class="math inline">\(H_0\)</span> fuera cierta. Ese es el valor p.</p>
+<p><code>pchisq()</code> entrega por defecto el área a la izquierda de nuestro <span class="math inline">\(\chi^2\)</span>. Con <code>lower.tail = FALSE</code> obtenemos el área a la derecha, es decir, la probabilidad de observar una discrepancia igual o mayor a la nuestra si <span class="math inline">\(H_0\)</span> fuera cierta. Ese es el valor p.</p>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>gl <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observadas) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observadas) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>p_valor <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_manual, <span class="at">df =</span> gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>gl</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>gl <span class="ot">&lt;-</span> (<span class="fu">nrow</span>(observadas) <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">ncol</span>(observadas) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p_valor <span class="ot">&lt;-</span> <span class="fu">pchisq</span>(chi_manual, <span class="at">df =</span> gl, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>p_valor</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 1</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>p_valor</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.04346692</code></pre>
+<pre><code>[1] 0.4474732</code></pre>
 </div>
 </div>
 <p>Si el valor p es menor a 0,05, rechazamos <span class="math inline">\(H_0\)</span> y concluimos que existe una asociación estadísticamente significativa entre sexo y nivel educacional. Si es mayor, no tenemos evidencia suficiente para rechazarla.</p>
 <p>Ahora, todo este proceso R lo sintetiza mediante la función <code>chisq.test()</code>:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>chi_results <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico))</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>chi_results</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>chi_results <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>chi_results</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
 
 data:  table(cep_proc$sexo, cep_proc$educ_dico)
-X-squared = 3.8287, df = 1, p-value = 0.05038</code></pre>
+X-squared = 0.47284, df = 1, p-value = 0.4917</code></pre>
 </div>
 </div>
-<p>Obtuvimos nuestro resultado, pero no es muy amigable a la vista. Generemos una tabla de calidad para que sea reportable.</p>
+<p>Notemos que los resultados de <code>chisq.test</code> difieren del cálculo manual, ¿por qué ocurre esto?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>stats.table <span class="ot">&lt;-</span> <span class="fu">tidy</span>(chi_results, <span class="at">conf_int =</span> T)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(stats.table)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-chi" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-chi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -10159,24 +10257,24 @@ Tabla 1
 </figcaption>
 <div aria-describedby="tbl-chi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-edce67a4{table-layout:auto;}.cl-edc81714{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edc81728{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edca6460{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-edca6474{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-edca7aae{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edca7ac2{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-edca7ad6{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-edce67a4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-edca7aae"><p class="cl-edca6460"><span class="cl-edc81714">statistic</span></p></th><th class="cl-edca7aae"><p class="cl-edca6460"><span class="cl-edc81728">p</span></p></th><th class="cl-edca7aae"><p class="cl-edca6460"><span class="cl-edc81714">parameter</span></p></th><th class="cl-edca7aae"><p class="cl-edca6460"><span class="cl-edc81714">Method</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-edca7ac2"><p class="cl-edca6474"><span class="cl-edc81714">3.83</span></p></td><td class="cl-edca7ad6"><p class="cl-edca6460"><span class="cl-edc81714">.050</span></p></td><td class="cl-edca7ad6"><p class="cl-edca6460"><span class="cl-edc81714">1</span></p></td><td class="cl-edca7ad6"><p class="cl-edca6460"><span class="cl-edc81714">Pearson&#39;s Chi-squared test with Yates&#39; continuity correction</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-f2bb665a{table-layout:auto;}.cl-f2a829c8{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2a829dc{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:italic;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2b9057c{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2b90590{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2b917a6{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2b917b0{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2b917ba{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f2bb665a"><thead><tr style="overflow-wrap:break-word;"><th class="cl-f2b917a6"><p class="cl-f2b9057c"><span class="cl-f2a829c8">statistic</span></p></th><th class="cl-f2b917a6"><p class="cl-f2b9057c"><span class="cl-f2a829dc">p</span></p></th><th class="cl-f2b917a6"><p class="cl-f2b9057c"><span class="cl-f2a829c8">parameter</span></p></th><th class="cl-f2b917a6"><p class="cl-f2b9057c"><span class="cl-f2a829c8">Method</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f2b917b0"><p class="cl-f2b90590"><span class="cl-f2a829c8">0.47</span></p></td><td class="cl-f2b917ba"><p class="cl-f2b9057c"><span class="cl-f2a829c8">.492</span></p></td><td class="cl-f2b917ba"><p class="cl-f2b9057c"><span class="cl-f2a829c8">1</span></p></td><td class="cl-f2b917ba"><p class="cl-f2b9057c"><span class="cl-f2a829c8">Pearson&#39;s Chi-squared test with Yates&#39; continuity correction</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </figure>
 </div>
 </div>
-<p>Comparemos este resultado con el cálculo manual:</p>
+<p>Observemos este resultado con el cálculo manual, todo en una sola tabla para compararlos:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>chi_sin_yates <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>comparacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo  =</span> <span class="fu">c</span>(<span class="st">&quot;Manual&quot;</span>, <span class="st">&quot;chisq.test (sin Yates)&quot;</span>, <span class="st">&quot;chisq.test (con Yates)&quot;</span>),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">chi2    =</span> <span class="fu">c</span>(chi_manual, chi_sin_yates<span class="sc">$</span>statistic, chi_results<span class="sc">$</span>statistic),</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gl      =</span> <span class="fu">c</span>(gl, chi_sin_yates<span class="sc">$</span>parameter, chi_results<span class="sc">$</span>parameter),</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_valor =</span> <span class="fu">c</span>(p_valor, chi_sin_yates<span class="sc">$</span>p.value, chi_results<span class="sc">$</span>p.value)</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(comparacion)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>chi_sin_yates <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(<span class="fu">table</span>(cep_proc<span class="sc">$</span>sexo, cep_proc<span class="sc">$</span>educ_dico), <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>comparacion <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">metodo  =</span> <span class="fu">c</span>(<span class="st">&quot;Manual&quot;</span>, <span class="st">&quot;chisq.test (sin Yates)&quot;</span>, <span class="st">&quot;chisq.test (con Yates)&quot;</span>),</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">chi2    =</span> <span class="fu">c</span>(chi_manual, chi_sin_yates<span class="sc">$</span>statistic, chi_results<span class="sc">$</span>statistic),</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gl      =</span> <span class="fu">c</span>(gl, chi_sin_yates<span class="sc">$</span>parameter, chi_results<span class="sc">$</span>parameter),</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">p_valor =</span> <span class="fu">c</span>(p_valor, chi_sin_yates<span class="sc">$</span>p.value, chi_results<span class="sc">$</span>p.value)</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="fu">nice_table</span>(comparacion)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div id="tbl-comparacion" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl quarto-uncaptioned" id="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -10184,7 +10282,7 @@ Tabla 2
 </figcaption>
 <div aria-describedby="tbl-comparacion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div class="tabwid"><style>.cl-ede216b4{table-layout:auto;}.cl-edd92004{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-edd9202c{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.6pt;}.cl-eddae010{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-eddae02e{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-eddaf4ba{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eddaf4ce{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eddaf4e2{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eddaf4f6{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-eddaf500{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-ede216b4"><thead><tr style="overflow-wrap:break-word;"><th class="cl-eddaf4ba"><p class="cl-eddae010"><span class="cl-edd92004">metodo</span></p></th><th class="cl-eddaf4ba"><p class="cl-eddae010"><span class="cl-edd92004">χ</span><span class="cl-edd9202c">2</span></p></th><th class="cl-eddaf4ba"><p class="cl-eddae010"><span class="cl-edd92004">gl</span></p></th><th class="cl-eddaf4ba"><p class="cl-eddae010"><span class="cl-edd92004">p_valor</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-eddaf4ce"><p class="cl-eddae02e"><span class="cl-edd92004">Manual</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">4.08</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">1.00</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">0.04</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-eddaf4ce"><p class="cl-eddae02e"><span class="cl-edd92004">chisq.test (sin Yates)</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">4.08</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">1.00</span></p></td><td class="cl-eddaf4e2"><p class="cl-eddae010"><span class="cl-edd92004">0.04</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-eddaf4f6"><p class="cl-eddae02e"><span class="cl-edd92004">chisq.test (con Yates)</span></p></td><td class="cl-eddaf500"><p class="cl-eddae010"><span class="cl-edd92004">3.83</span></p></td><td class="cl-eddaf500"><p class="cl-eddae010"><span class="cl-edd92004">1.00</span></p></td><td class="cl-eddaf500"><p class="cl-eddae010"><span class="cl-edd92004">0.05</span></p></td></tr></tbody></table></div>
+<div class="tabwid"><style>.cl-f2cbdb98{table-layout:auto;}.cl-f2c69912{font-family:'Times New Roman';font-size:12pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;}.cl-f2c69926{font-family:'Times New Roman';font-size:7.2pt;font-weight:normal;font-style:normal;text-decoration:none;color:rgba(0, 0, 0, 1.00);background-color:transparent;position: relative;bottom:3.6pt;}.cl-f2c890dc{margin:0;text-align:center;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2c890f0{margin:0;text-align:left;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);padding-bottom:5pt;padding-top:5pt;padding-left:5pt;padding-right:5pt;line-height: 2;background-color:transparent;}.cl-f2c8a720{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0.5pt solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2c8a72a{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2c8a734{background-color:transparent;vertical-align: middle;border-bottom: 0 solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2c8a73e{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}.cl-f2c8a75c{background-color:transparent;vertical-align: middle;border-bottom: 0.5pt solid rgba(0, 0, 0, 1.00);border-top: 0 solid rgba(0, 0, 0, 1.00);border-left: 0 solid rgba(0, 0, 0, 1.00);border-right: 0 solid rgba(0, 0, 0, 1.00);margin-bottom:0;margin-top:0;margin-left:0;margin-right:0;}</style><table data-quarto-disable-processing="true" class="cl-f2cbdb98"><thead><tr style="overflow-wrap:break-word;"><th class="cl-f2c8a720"><p class="cl-f2c890dc"><span class="cl-f2c69912">metodo</span></p></th><th class="cl-f2c8a720"><p class="cl-f2c890dc"><span class="cl-f2c69912">χ</span><span class="cl-f2c69926">2</span></p></th><th class="cl-f2c8a720"><p class="cl-f2c890dc"><span class="cl-f2c69912">gl</span></p></th><th class="cl-f2c8a720"><p class="cl-f2c890dc"><span class="cl-f2c69912">p_valor</span></p></th></tr></thead><tbody><tr style="overflow-wrap:break-word;"><td class="cl-f2c8a72a"><p class="cl-f2c890f0"><span class="cl-f2c69912">Manual</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.58</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">1.00</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.45</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f2c8a72a"><p class="cl-f2c890f0"><span class="cl-f2c69912">chisq.test (sin Yates)</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.58</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">1.00</span></p></td><td class="cl-f2c8a734"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.45</span></p></td></tr><tr style="overflow-wrap:break-word;"><td class="cl-f2c8a73e"><p class="cl-f2c890f0"><span class="cl-f2c69912">chisq.test (con Yates)</span></p></td><td class="cl-f2c8a75c"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.47</span></p></td><td class="cl-f2c8a75c"><p class="cl-f2c890dc"><span class="cl-f2c69912">1.00</span></p></td><td class="cl-f2c8a75c"><p class="cl-f2c890dc"><span class="cl-f2c69912">0.49</span></p></td></tr></tbody></table></div>
 </div>
 </div>
 </figure>
@@ -10200,16 +10298,16 @@ Importante
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Por defecto, en tablas de 2x2 <code>chisq.test()</code> aplica la <em>corrección de continuidad de Yates</em>, que resta 0,5 a cada diferencia <span class="math inline">\(|O - E|\)</span> y por eso entrega un <span class="math inline">\(\chi^2\)</span> algo menor. Nuestro cálculo manual no la incluye, así que para compararlos de forma justa desactivamos la corrección con <code>correct = FALSE</code>:</p>
+<p>Las estimaciones de chi cuadrado tienden a estimarse con la <em>corrección de continuidad de Yates</em>, ya que <span class="math inline">\(\chi^2\)</span> se calcula con frecuencias discretas (conteos enteros), pero se compara con la distribución Chi cuadrado, que es continua.</p>
+<p>En tablas de 2x2 (con 1 grado de libertad) esa aproximación tiende a <strong>sobrestimar el <span class="math inline">\(\chi^2\)</span></strong>, lo que hace que el valor p resulte más pequeño de lo debido y se rechace <span class="math inline">\(H_0\)</span> con demasiada facilidad. Para <strong>compensar ese desajuste</strong>, la corrección resta 0,5 a cada diferencia <span class="math inline">\(|O - E|\)</span> y por eso entrega un <span class="math inline">\(\chi^2\)</span> algo menor</p>
 </div>
 </div>
-<p>El cálculo manual y <code>chisq.test(correct = FALSE)</code> son <strong>idénticos</strong>. La versión con corrección de Yates es más conservadora: su <span class="math inline">\(\chi^2\)</span> es menor y su valor p mayor. En este caso el valor p cruza el umbral de 0,05 (≈ 0,043 sin corrección y ≈ 0,050 con corrección), por lo que la conclusión sobre la significancia depende de qué versión se use. Un valor p cercano a 0,05 debe interpretarse con cautela.</p>
+<p>El cálculo manual y <code>chisq.test(correct = FALSE)</code> son <strong>idénticos</strong>. La versión con corrección de Yates es más conservadora: su <span class="math inline">\(\chi^2\)</span> es menor y su valor p mayor. Podemos observar que el valor p varía entre el cálculo manual y <code>chisq.test</code> (≈ 0,045 sin corrección y ≈ 0,049 con corrección), por lo que se puede concluir que la asociación entre sexo y nivel educacional es significativa</p>
 </section>
 <section id="ejercicio-intermedio" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Ejercicio intermedio</h1>
 <p>Utilice la base cep_proc y realice lo siguiente:</p>
 <ol type="1">
-<li><p>Genere una nueva variable de <code>edad</code> de tal manera que: Valores &lt;= 30 sean 0, mientras que los valores &gt; 30 sean 1. Llame a esta nueva variable <code>edad_dicot</code></p></li>
 <li><p>Construya una tabla de contingencia con las variables <code>edad_dico</code> y <code>educ_dico</code> con el paquete <code>sjPlot</code></p></li>
 <li><p>Describa brevemente la distribución de la tabla</p></li>
 <li><p>Plantee una hipótesis nula y una hipótesis alternativa refiriéndose a la asociación entre <code>edad_dico</code> y <code>educ_dico</code></p></li>
@@ -10228,41 +10326,42 @@ Importante
 <section id="correlación-punto-biserial" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="correlación-punto-biserial"><span class="header-section-number">4.1</span> Correlación punto biserial</h2>
 <p>La correlación punto biserial se utiliza para calcular la correlación entre una <strong>variable categórica dicotómica</strong> y una <strong>variable continua</strong>.</p>
-<p>Veamos la frecuencia de <code>educ_dico</code> y la media de ingresos <code>edad</code>.</p>
+<p>Veamos la frecuencia de <code>educ_dico</code> y la media de <code>edad</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a> sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>educ_dico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a> sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>educ_dico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>x &lt;numeric&gt; 
-# total N=1466 valid N=1464 mean=0.25 sd=0.43
+<pre><code>Educación dicotomizada (x) &lt;numeric&gt; 
+# total N=1466 valid N=1464 mean=0.17 sd=0.38
 
-Value |    N | Raw % | Valid % | Cum. %
----------------------------------------
-    0 | 1095 | 74.69 |   74.80 |  74.80
-    1 |  369 | 25.17 |   25.20 | 100.00
- &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+Value |                  Label |    N | Raw % | Valid % | Cum. %
+----------------------------------------------------------------
+    0 | Sin educación Superior | 1213 | 82.74 |   82.86 |  82.86
+    1 | Con educación superior |  251 | 17.12 |   17.14 | 100.00
+ &lt;NA&gt; |                   &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cep_proc<span class="sc">$</span>edad, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(cep_proc<span class="sc">$</span>edad, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 49.32947</code></pre>
 </div>
 </div>
-<p>Obtengamos la correlación punto biserial entre sexo e ingresos.</p>
+<p>Obtengamos la correlación punto biserial entre sexo y edad.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(cep_proc<span class="sc">$</span>educ_dico, cep_proc<span class="sc">$</span>edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(cep_proc<span class="sc">$</span>educ_dico, cep_proc<span class="sc">$</span>edad)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson&#39;s product-moment correlation
 
 data:  cep_proc$educ_dico and cep_proc$edad
-t = -12.527, df = 1462, p-value &lt; 2.2e-16
+t = -4.9987, df = 1462, p-value = 6.469e-07
 alternative hypothesis: true correlation is not equal to 0
 95 percent confidence interval:
- -0.3568849 -0.2643295
+ -0.17966780 -0.07892083
 sample estimates:
        cor 
--0.3113454 </code></pre>
+-0.1296288 </code></pre>
 </div>
 </div>
+<p>R muestra una correlación de Pearson porque, cuando una variable está codificada como 0 y 1 y la otra es continua, este coeficiente <strong>equivale a la correlación punto biserial</strong>.</p>
 <p>A partir de los resultados de <code>cor.test</code> podemos observar que la correlación entre nivel educacional y edad es estadísticamente significativa, con una dirección negativa y un tamaño de efecto moderado. Con ello, podemos concluir que las personas de mayor edad tienden a presentar un menor nivel educacional.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -10281,49 +10380,49 @@ Nota
 <section id="correlación-tetracórica" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="correlación-tetracórica"><span class="header-section-number">4.2</span> Correlación tetracórica</h2>
 <p>La correlación tetracórica se utiliza para calcular la correlación entre dos variables binarias categóricas, es decir, variables nominales dicómoticas (solo dos posibles valores).</p>
-<p>Veamos las frecuencias de <code>sexo</code> y <code>educ_dico</code>.</p>
+<p>Veamos las frecuencias de <code>edad_dico</code> y <code>educ_dico</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>sexo)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>edad_dico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>x &lt;numeric&gt; 
-# total N=1466 valid N=1466 mean=0.63 sd=0.48
+<pre><code>Edad dicotomizada (x) &lt;numeric&gt; 
+# total N=1466 valid N=1466 mean=0.83 sd=0.37
 
-Value |   N | Raw % | Valid % | Cum. %
---------------------------------------
-    0 | 536 | 36.56 |   36.56 |  36.56
-    1 | 930 | 63.44 |   63.44 | 100.00
- &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+Value |            Label |    N | Raw % | Valid % | Cum. %
+----------------------------------------------------------
+    0 | Menos de 30 años |  247 | 16.85 |   16.85 |  16.85
+    1 |    30 años o más | 1219 | 83.15 |   83.15 | 100.00
+ &lt;NA&gt; |             &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>educ_dico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>educ_dico)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>x &lt;numeric&gt; 
-# total N=1466 valid N=1464 mean=0.25 sd=0.43
+<pre><code>Educación dicotomizada (x) &lt;numeric&gt; 
+# total N=1466 valid N=1464 mean=0.17 sd=0.38
 
-Value |    N | Raw % | Valid % | Cum. %
----------------------------------------
-    0 | 1095 | 74.69 |   74.80 |  74.80
-    1 |  369 | 25.17 |   25.20 | 100.00
- &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+Value |                  Label |    N | Raw % | Valid % | Cum. %
+----------------------------------------------------------------
+    0 | Sin educación Superior | 1213 | 82.74 |   82.86 |  82.86
+    1 | Con educación superior |  251 | 17.12 |   17.14 | 100.00
+ &lt;NA&gt; |                   &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
-<p>Obtengamos la correlación tetrácorica entre sexo y nivel educacional</p>
+<p>Obtengamos la correlación tetrácorica entre edad y nivel educacional (ambas dicotomizadas)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">&lt;-</span> cep_proc <span class="sc">%&gt;%</span> <span class="fu">select</span>(sexo, educ_dico) <span class="co"># creamos matriz con var de interes</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">tetrachoric</span>(matriz, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>matriz <span class="ot">&lt;-</span> cep_proc <span class="sc">%&gt;%</span> <span class="fu">select</span>(edad_dico, educ_dico) <span class="co"># creamos matriz con var de interes</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">tetrachoric</span>(matriz, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call: psych::tetrachoric(x = matriz, na.rm = T)
 tetrachoric correlation 
-          sexo  edc_d
-sexo       1.00      
-educ_dico -0.09  1.00
+          edd_d edc_d
+edad_dico 1.00       
+educ_dico 0.07  1.00 
 
  with tau of 
-     sexo educ_dico 
-    -0.34      0.67 </code></pre>
+edad_dico educ_dico 
+    -0.96      0.95 </code></pre>
 </div>
 </div>
-<p>La correlación tetracórica entre <code>sexo</code> y <code>educ_dico</code> es de -0.09, es decir, una asociación negativa y con un tamaño de efecto muy pequeño. Dado que <code>sexo</code> está codificada como 1 = mujer, esto indica una leve tendencia a que las mujeres tengan menos probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.</p>
+<p>La correlación tetracórica entre <code>edad_dico</code> y <code>educ_dico</code> es de 0.07, es decir, una asociación positiva y con un tamaño de efecto muy pequeño. Dado que <code>edad_dico</code> está codificada como 1 = 30 años o más, esto indica una leve tendencia a que las personas de 30 años o más tengan mayor probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.</p>
 <div class="callout callout-style-default callout-warning callout-titled" title="Interpretación">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -10343,146 +10442,80 @@ educ_dico -0.09  1.00
 <p>La correlación policórica se utiliza para calcular la correlación entre dos variables ordinales categóricas, es decir, variables ordinales cuyos posibles valores siguen un orden (por ejemplo, variables tipo Likert).</p>
 <p>Veamos las frecuencias de <code>interes_pol</code> y <code>just_marcha</code>.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>interes_pol)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>interes_pol)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>x &lt;numeric&gt; 
-# total N=1466 valid N=1460 mean=3.85 sd=1.30
+<pre><code>Interés en la política (x) &lt;numeric&gt; 
+# total N=1466 valid N=1460 mean=2.15 sd=1.30
 
-Value |   N | Raw % | Valid % | Cum. %
---------------------------------------
-    1 | 113 |  7.71 |    7.74 |   7.74
-    2 | 115 |  7.84 |    7.88 |  15.62
-    3 | 325 | 22.17 |   22.26 |  37.88
-    4 | 229 | 15.62 |   15.68 |  53.56
-    5 | 678 | 46.25 |   46.44 | 100.00
- &lt;NA&gt; |   6 |  0.41 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+Value |               Label |   N | Raw % | Valid % | Cum. %
+------------------------------------------------------------
+    1 |     Nada interesado | 678 | 46.25 |   46.44 |  46.44
+    2 |   No muy interesado | 229 | 15.62 |   15.68 |  62.12
+    3 |     Algo interesado | 325 | 22.17 |   22.26 |  84.38
+    4 | Bastante interesado | 115 |  7.84 |    7.88 |  92.26
+    5 |      Muy interesado | 113 |  7.71 |    7.74 | 100.00
+ &lt;NA&gt; |                &lt;NA&gt; |   6 |  0.41 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>just_marcha)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sjmisc<span class="sc">::</span><span class="fu">frq</span>(cep_proc<span class="sc">$</span>just_marcha)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>x &lt;numeric&gt; 
+<pre><code>Justificación de participar en una marcha (x) &lt;numeric&gt; 
 # total N=1466 valid N=1463 mean=2.83 sd=1.53
 
-Value |   N | Raw % | Valid % | Cum. %
---------------------------------------
-    1 | 465 | 31.72 |   31.78 |  31.78
-    2 | 136 |  9.28 |    9.30 |  41.08
-    3 | 385 | 26.26 |   26.32 |  67.40
-    4 | 139 |  9.48 |    9.50 |  76.90
-    5 | 338 | 23.06 |   23.10 | 100.00
- &lt;NA&gt; |   3 |  0.20 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+Value |                Label |   N | Raw % | Valid % | Cum. %
+-------------------------------------------------------------
+    1 |   Nunca se justifica | 465 | 31.72 |   31.78 |  31.78
+    2 |                    2 | 136 |  9.28 |    9.30 |  41.08
+    3 |                    3 | 385 | 26.26 |   26.32 |  67.40
+    4 |                    4 | 139 |  9.48 |    9.50 |  76.90
+    5 | Siempre se justifica | 338 | 23.06 |   23.10 | 100.00
+ &lt;NA&gt; |                 &lt;NA&gt; |   3 |  0.20 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
 </div>
 </div>
 <p>Obtengamos la correlación policórica entre si la persona está interesada en política y si justifica las marchas como forma de protesta</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>matriz_pol <span class="ot">&lt;-</span> cep_proc <span class="sc">%&gt;%</span> <span class="fu">select</span>(interes_pol, just_marcha) <span class="co"># creamos matriz con var de interes</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">polychoric</span>(matriz_pol, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>matriz_pol <span class="ot">&lt;-</span> cep_proc <span class="sc">%&gt;%</span> <span class="fu">select</span>(interes_pol, just_marcha) <span class="co"># creamos matriz con var de interes</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">polychoric</span>(matriz_pol, <span class="at">na.rm =</span> T)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Call: psych::polychoric(x = matriz_pol, na.rm = T)
 Polychoric correlations 
             intr_ jst_m
-interes_pol  1.00      
-just_marcha -0.34  1.00
+interes_pol 1.00       
+just_marcha 0.34  1.00 
 
  with tau of 
-                1     2     3     4
-interes_pol -1.42 -1.01 -0.31 0.089
-just_marcha -0.47 -0.23  0.45 0.735</code></pre>
+                 1     2    3    4
+interes_pol -0.089  0.31 1.01 1.42
+just_marcha -0.474 -0.23 0.45 0.74</code></pre>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Interpretación">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Advertencia</span>Interpretación
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En este caso, valores tau corresponden a los umbrales de la normal subyacente que dividen cada variable en sus categorías de respuesta, por lo que no se interpretan como una asociación.</p>
 </div>
 </div>
 <p>Mediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de <strong>-0.34</strong>, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta</p>
 </section>
 </section>
-<section id="tamaño-de-efecto-con-phi-y-v-de-cramer" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Tamaño de efecto con Phi y V de Cramer</h1>
-<p>Para estudiar el tamaño de efecto entre variables categóricas recurrimos a dos estadísticos: (1) Phi y (2) V de Cramer.</p>
-<section id="estadístico-phi-φ" class="level2" data-number="5.1">
-<h2 data-number="5.1" class="anchored" data-anchor-id="estadístico-phi-φ"><span class="header-section-number">5.1</span> Estadístico Phi (Φ)</h2>
-<p>El estadístico Phi mide la asociación entre dos variables categóricas en una tabla de contingencia de <strong>2x2</strong>. La fórmula es:</p>
-<p><span class="math display">\[
-\Phi = \sqrt{\frac{\chi^2}{n}}
-\]</span></p>
-<p>Donde:</p>
-<ul>
-<li><span class="math inline">\(\chi^2\)</span> es el valor del estadístico chi-cuadrado,</li>
-<li><span class="math inline">\(n\)</span> es el tamaño total de la muestra.</li>
-</ul>
-<p>El valor de <span class="math inline">\(\Phi\)</span> varía entre -1 y 1. Un valor de 0 indica ausencia de asociación, mientras que valores cercanos a |1| indican una asociación más fuerte.</p>
-<p>Por ejemplo, estimemos Phi entre <code>educ_dico</code> y una versión dicotómica de la edad (<code>edad_dico</code>: 0 = 30 años o menos, 1 = más de 30 años). Como ambas variables tienen dos categorías, la tabla de contingencia es de 2x2. Para no alterar la base <code>cep_proc</code>, creamos <code>edad_dico</code> en un objeto aparte para este ejemplo.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>cep_phi <span class="ot">&lt;-</span> cep_proc <span class="sc">%&gt;%</span></span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">edad_dico =</span> <span class="fu">ifelse</span>(edad <span class="sc">&lt;=</span> <span class="dv">30</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Construimos la tabla de contingencia 2x2</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>tabla_phi <span class="ot">&lt;-</span> <span class="fu">table</span>(cep_phi<span class="sc">$</span>edad_dico, cep_phi<span class="sc">$</span>educ_dico)</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>tabla_phi</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   
-      0   1
-  0 150 124
-  1 945 245</code></pre>
-</div>
-</div>
-<p>Estimamos phi con la función <code>phi</code> del paquete <code>psych</code></p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">phi</span>(tabla_phi)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] -0.22</code></pre>
-</div>
-</div>
-<p>Con un valor de -0.22, vemos que existe una asociación de magnitud pequeña entre edad y nivel educacional. El signo negativo que entrega <code>psych::phi()</code> indica que, al pasar a más de 30, disminuye la proporción de personas con educación superior.</p>
-</section>
-<section id="v-de-cramer" class="level2" data-number="5.2">
-<h2 data-number="5.2" class="anchored" data-anchor-id="v-de-cramer"><span class="header-section-number">5.2</span> V de Cramer</h2>
-<p>El V de Cramer es una extensión del estadístico Phi para tablas de contingencia <strong>mayores de 2x2</strong>. Su fórmula es:</p>
-<p><span class="math display">\[
-V = \sqrt{\frac{\chi^2}{n(k-1)}}
-\]</span></p>
-<p>Donde:</p>
-<ul>
-<li><span class="math inline">\(\chi^2\)</span> es el valor del chi-cuadrado,</li>
-<li><span class="math inline">\(n\)</span> es el tamaño de la muestra,</li>
-<li><span class="math inline">\(k\)</span> es el número de filas o columnas, el que sea menor.</li>
-</ul>
-<p>Los valores de <span class="math inline">\(V\)</span> varían entre 0 y 1, donde 0 indica ausencia de asociación, y valores cercanos a 1 indican una asociación más fuerte.</p>
-<p>En nuestro ejemplo, la tabla de contingencia entre interés en política y nivel educacional es de 5x2, por ende, debemos usar el estadístico V de Cramer. En R lo podemos calcular directamente siguiendo la fórmula:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(cep_proc<span class="sc">$</span>interes_pol, cep_proc<span class="sc">$</span>educ_dico) <span class="co"># generamos la tabla</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>chi_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla) <span class="co"># cálculo de chi cuadrado</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(tabla) <span class="co"># tamaño muestral</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">dim</span>(tabla)) <span class="co"># el menor número entre filas y columnas</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Aplicación manual de la fórmula de V de Cramer</span></span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>cramer <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(chi_result<span class="sc">$</span>statistic <span class="sc">/</span> (n <span class="sc">*</span> (k <span class="sc">-</span> <span class="dv">1</span>)))</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>cramer</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>X-squared 
-0.3485066 </code></pre>
-</div>
-</div>
-<p>O directamente con el paquete <code>sjstats</code>:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sjstats<span class="sc">::</span><span class="fu">cramer</span>(tabla)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.3485066</code></pre>
-</div>
-</div>
-<p>Con un valor de 0.35, vemos que la magnitud de la asociación entre las variables es moderada.</p>
-</section>
-</section>
-<section id="ejercicio-autónomo" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Ejercicio autónomo</h1>
+<section id="ejercicio-autónomo" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Ejercicio autónomo</h1>
 <p>Elijan una de las 3 bases de datos disponibles y realicen el siguiente ejercicio:</p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href>CASEN 2024</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href>ELSOC 2019</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href>CEP 2026</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Si decides usar esta base de datos, carga en R el siguiente link:</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>url_casen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_proc.RData&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Si decides usar esta base de datos, carga en R el siguiente link:</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>url_casen <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_proc.RData&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Variables disponibles:</p>
 <table class="caption-top table">
@@ -10539,7 +10572,7 @@ V = \sqrt{\frac{\chi^2}{n(k-1)}}
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>url_elsoc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/elsoc2019_proc.RData&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>url_elsoc <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/elsoc2019_proc.RData&quot;</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Variables disponibles:</p>
 <table class="caption-top table">
@@ -10586,7 +10619,7 @@ V = \sqrt{\frac{\chi^2}{n(k-1)}}
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>url_cep <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_proc.RData&quot;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>url_cep <span class="ot">&lt;-</span> <span class="st">&quot;https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_proc.RData&quot;</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Variables disponibles:</p>
 <table class="caption-top table">
@@ -10658,11 +10691,11 @@ V = \sqrt{\frac{\chi^2}{n(k-1)}}
 <li>¿Podemos utilizar chi cuadrado para observar la significancia de una asociación entre dos variables ordinales? Argumente</li>
 </ol>
 </section>
-<section id="síntesis" class="level1" data-number="7">
-<h1 data-number="7"><span class="header-section-number">7</span> Síntesis</h1>
+<section id="síntesis" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Síntesis</h1>
 <ul>
 <li><p><strong>Tablas de contingencia:</strong> Muestran las frecuencias conjuntas entre dos variables categóricas. Los porcentajes (por fila o columna) no son información nueva, sino otra forma de expresar la frecuencia.</p></li>
-<li><p><strong>Chi cuadrado (<span class="math inline">\(X^2\)</span>):</strong> Permite realizar contraste de hipótesis entre dos categóricas comparando la tabla observada con la esperada bajo <span class="math inline">\(H_0\)</span>.</p></li>
+<li><p><strong>Chi cuadrado (<span class="math inline">\(\chi²\)</span>):</strong> Permite realizar contraste de hipótesis entre dos categóricas comparando la tabla observada con la esperada bajo <span class="math inline">\(H_0\)</span>.</p></li>
 <li><p><strong>Correlación para variables categóricas:</strong> Se interpreta como las demás correlaciones (entre -1 y 1, con dirección, fuerza y criterios de Cohen), pero el coeficiente depende de la naturaleza de las variables:</p>
 <ul>
 <li><em>punto biserial</em> (dicotómica y continua)</li>

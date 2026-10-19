@@ -185,28 +185,26 @@ details.formulas-inf[open] summary {
 
 # Objetivo de la sesión {.unnumbered}
 
-Esta sesión tiene como objetivo principal estimar e interpretar la prueba de Chi cuadrado en R. Para cumplir con ello, el práctico se guiará por los siguientes puntos:
+Esta sesión tiene como objetivo principal estimar e interpretar la prueba de Chi cuadrado ($\chi²$) en R. Para cumplir con ello, el práctico se guiará por los siguientes puntos:
 
 - 1) Repaso de tablas de contingencia
 
-- 2) Aplicación e interpretación de Chi cuadrado
+- 2) Aplicación e interpretación de Chi cuadrado ($\chi²$)
 
 - 3) Asociación entre variables categóricas
 
 - 4) Tamaño de efecto para correlaciones entre categóricas
 
+A continuación, cargamos las librerías que ocuparemos en la sesión
 
 ```{r}
 pacman::p_load(
     dplyr, # Manipulacion datos
     sjPlot, # Graficos y tablas
     sjmisc, # Descriptivos
-    kableExtra, # Tablas
     psych, # Estadísticos
     broom,
-    rempsyc,
-    sjstats,
-    gginference
+    rempsyc
 )
 ```
 
@@ -214,24 +212,45 @@ pacman::p_load(
 
 Carguemos los datos
 
-
+En este práctico trabajaremos con las siguientes variables:
 
 ```{r}
-load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026.rdata"))
-
-set.seed(2026)
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData"))
 
 cep_proc <- datos_cep %>%
   select(edad, educ, mujer, interes_pol, just_marcha) %>%
   mutate(educ_dico = case_when( # creamos una variable dicotómica de educación
-    educ < 7  ~ 0,
-    educ >= 7 ~ 1,
+    educ < 8  ~ 0,
+    educ >= 8 ~ 1,
     TRUE      ~ NA_real_
   )) %>%
-  mutate(interes_pol = 6 - interes_pol) %>% # invertimos las categorías (1-5 -> 5-1)
+  mutate(educ_dico = sjlabelled::set_labels(educ_dico,
+                                            labels = c("Sin educación Superior" = 0, # etiquetas por
+                                                       "Con educación superior" = 1))) %>% # categoría
+  mutate(educ_dico = sjlabelled::set_label(educ_dico, label = "Educación dicotomizada")) %>% # label de la variable
+  mutate(edad_dico = case_when( # creamos una variable dicotómica de edad
+    edad < 30  ~ 0,
+    edad >= 30 ~ 1,
+    TRUE       ~ NA_real_
+  )) %>%
+  mutate(edad_dico = sjlabelled::set_labels(edad_dico,
+                                            labels = c("Menos de 30 años" = 0,
+                                                       "30 años o más" = 1))) %>%
+  mutate(edad_dico = sjlabelled::set_label(edad_dico, label = "Edad dicotomizada")) %>%
   rename(sexo = mujer)
-
 ```
+
+| Variable      | Lo que mide                | Nivel de medición |
+|---------------|----------------------------|-------------------|
+| `edad`        | Edad del encuestado        | Continua          |
+| `edad_dico`   | Edad dicotomizada          | Categórica        |
+| `educ`        | Nivel educacional          | Ordinal           |
+| `educ_dico`   | Nivel educacional dicotomizado | Categórica    |
+| `sexo`        | Sexo del encuestado        | Categórica        |
+| `interes_pol` | Interés político           | Ordinal           |
+| `just_marcha` | Justificación de marchas   | Ordinal           |
+
+Todas las variables se ordenan de tal manera que, a mayor la categoría de respuesta, mayor el grado del atributo.
 
 ::: {.callout-note}
 
@@ -241,7 +260,9 @@ La nueva variable de educación fue dicotomizada de tal manera que los valores 0
 
 Recordemos que gracias a las tablas de contingencia podemos obtener en las celdas las frecuencias conjuntas entre dos variables, es decir, cuántos casos de una determinada categoría de la variable Y ocurren conjuntamente con una determinada categoría de la variable X.
 
-Ahora veamos cómo se relacionan sexo con la justificación de marchas
+Planteemos la siguiente pregunta de investigación: *¿Cómo se relaciona el sexo con la justificación de las marchas en la protesta?*
+
+Para responder esto, construyamos una tabla de contingencia
 
 ```{r}
 sjPlot::sjt.xtab(var.row = cep_proc$just_marcha, var.col = cep_proc$sexo,
@@ -278,7 +299,7 @@ El porcentaje que representa cada categoría es una **manera distinta de expresa
 
 :::
 
-Veamos otro ejemplo con las variables educación dicotómica e interés político
+Veamos otro ejemplo con la siguiente pregunta de investigación: *¿Cómo se asocian el nivel educacional con el interés en política?*
 
 ```{r}
 sjPlot::sjt.xtab(var.row = cep_proc$interes_pol,
@@ -292,19 +313,19 @@ sjPlot::sjt.xtab(var.row = cep_proc$interes_pol,
 
 Analicemos desde lo más general a lo más específico:
 
-- Las personas sin educación superior representan el 75% de los casos, triplicando la cantidad de individuos con educación superior
+- Las personas sin educación superior representan el 83% de los casos, cuadriplicando la cantidad de individuos con educación superior
 
-- A nivel descriptivo, existe una concentración en el interés político, donde el 46% de las personas declara estar muy interesado en política
+- A nivel descriptivo, existe una concentración en el interés político, donde el 46% de las personas declara estar nada interesado en política
 
-- Al enfocarnos en la categoría 1 (nada interesado), se ve que las personas con mayor nivel educacional declaran en mayor medida no estar interesados en política. Para esto nos fijamos en los % en color verde, ya que estos refieren al porcentaje dentro de su propio grupo y a la frecuencia de la categoría de respuesta
+- Podemos observar que el grupo mayoritario de personas con educación superior se concentra en la categoría "Algo interesado"
 
 
 
-# Chi cuadrado ($X^2$)
+# Chi cuadrado ($\chi²$)
 
 Las tablas de contingencia nos permiten observar la distribución de casos en **la intersección de las categorías de respuesta** de dos variables, ¿Pero cómo sabemos si existe una asociación significativa entre ellas?
 
-Para determinar si existe una asociación significativa entre **dos variables categóricas** se utiliza la prueba de Chi-cudrado ($X^2$). Esta se basa en un test de diferencia, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables ($H_0$), que representa la hipótesis nula. 
+Para determinar si existe una asociación significativa entre **dos variables categóricas** se utiliza la prueba de Chi-cudrado ($\chi²$). Esta se basa en un test de diferencia, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables ($H_0$), que representa la hipótesis nula. 
 
 La lógica detrás es que **si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipóteis nula**.
 
@@ -316,6 +337,13 @@ $$  H_{0}: \pi_{fc} =  \pi_{f}\pi_{c} $$
 
 En relación a una _hipótesis alternativa_ que plantea que las variables están relacionadas:
 $$  H_{A}:  \pi_{fc} \neq  \pi_{f}\pi_{c} $$
+
+Donde: 
+
+- $\pi_{fc}$ es la probabilidad de que un caso caiga en una celda específica
+
+- $\pi_{f}\pi_{c}$ la probabilidad de que en esa celda las variables no guarden relación
+ 
 :::
 
 Veamos un ejemplo manual con nuestros datos: evaluemos si la relación entre sexo y nivel educacional (dicotomizado) es estadísticamente significativa
@@ -324,31 +352,38 @@ La idea central de Chi cuadrado es comparar dos tablas: la que **observamos** en
 
 
 **Paso 1: valores observados.** Generamos una tabla con ambas variables, la cual contiene los valores observados en la intersección de las categorías de respuesta de sexo y nivel educacional
-```{r}
-observadas <- table(cep_proc$sexo, cep_proc$educ_dico)
-observadas
-```
-
-
-**Paso 2: totales marginales y tamaño de la muestra.** Los totales marginales son las sumas de cada fila y de cada columna de la tabla, es decir, cuántas personas hay en cada sexo y cuántas en cada nivel educacional. Los necesitamos para construir la tabla esperada.
 
 ```{r}
+observadas <- table(cep_proc$sexo, cep_proc$educ_dico) # objeto que almacena la tabla de contingencia
+
 total_filas <- rowSums(observadas) # suma de cada fila (total por sexo)
-total_cols  <- colSums(observadas) # suma de cada columna (total por nivel educacional)
-n <- sum(observadas)               # total de casos
 
-total_filas
-total_cols
-n
+total_cols  <- colSums(observadas) # suma de cada columna (total por nivel educacional)
+
+n <- sum(observadas)               # total de casos
 ```
 
-**Paso 3: frecuencias esperadas.** Si las variables fueran independientes, la proporción de personas con educación superior debería ser la misma en hombres y en mujeres, y coincidir con la proporción en toda la muestra. Por lo tanto, la frecuencia esperada de cada celda se calcula como:
+Estos objetos los utilizaremos para el ejemplo más adelante. Por ahora, visualicemos las frecuencias a partir de una tabla con `sjPlot`
+```{r}
+sjPlot::sjt.xtab(var.row = cep_proc$educ_dico, var.col = cep_proc$sexo,
+                 show.summary = F, emph.total = T)
+```
+
+**Paso 2: frecuencias esperadas.** Si las variables fueran independientes, la proporción de personas con educación superior debería ser la misma en hombres y en mujeres, y coincidir con la proporción en toda la muestra. Por lo tanto, la frecuencia esperada de cada celda se calcula como:
 
 $$
 E = \frac{\text{total de la fila} \times \text{total de la columna}}{n}
 $$
 
-La función `outer()` multiplica cada total de fila por cada total de columna, de modo que en una sola línea obtenemos el numerador de todas las celdas. Luego dividimos por $n$.
+Apliquemos la fórmula de manera manual para el cálculo de una celda:
+
+```{r}
+(535*251) / 1464
+```
+
+Podemos notar que tenemos 92 casos esperados frente a los 97 observados
+
+Este cálculo se puede realizar en R mediante la función `outer()`, la cual multiplica cada total de fila por cada total de columna, de modo que en una sola línea obtenemos el numerador de todas las celdas. Luego dividimos por $n$
 
 ```{r}
 esperadas <- outer(total_filas, total_cols) / n
@@ -357,7 +392,7 @@ esperadas
 
 Estas son las frecuencias que veríamos en cada celda **si no hubiera asociación**. Compárelas con la tabla de frecuencias observadas: mientras mayores sean las diferencias, más lejos estamos de la independencia.
 
-**Paso 4: estadístico Chi cuadrado.** Para cada celda calculamos la diferencia entre lo observado ($O$) y lo esperado ($E$). Esa diferencia se eleva al cuadrado, para que las diferencias positivas y negativas no se cancelen, y se divide por $E$, para ponderar la diferencia según el tamaño esperado de la celda (una diferencia de 10 casos pesa más en una celda donde esperábamos 20 que en una donde esperábamos 500). Finalmente, sumamos el aporte de todas las celdas:
+**Paso 3: estadístico Chi cuadrado.** Para cada celda calculamos la diferencia entre lo observado ($O$) y lo esperado ($E$). Esa diferencia se eleva al cuadrado, para que las diferencias positivas y negativas no se cancelen, y se divide por $E$, para ponderar la diferencia según **el tamaño esperado de la celda** (una diferencia de 10 casos pesa más en una celda donde esperábamos 20 que en una donde esperábamos 500). Finalmente, sumamos el aporte de todas las celdas:
 
 $$
 \chi^2 = \sum \frac{(O - E)^2}{E}
@@ -368,7 +403,7 @@ chi_manual <- sum((observadas - esperadas)^2 / esperadas)
 chi_manual
 ```
 
-R realiza estas operaciones celda por celda de forma automática, porque `observadas` y `esperadas` son tablas del mismo tamaño. Si las variables fueran perfectamente independientes, $\chi^2$ sería 0. Mientras mayor sea su valor, mayor es la discrepancia entre lo observado y lo esperado.
+En este caso, si las variables fueran perfectamente independientes, es decir, no se relacionan entre sí, $\chi^2$ sería 0. Entonces, mientras mayor sea su valor, mayor es la discrepancia entre lo observado y lo esperado.
 
 **Paso 5: grados de libertad y valor p.** Un valor de $\chi^2$ por sí solo no nos dice si la discrepancia es grande o pequeña, así que lo comparamos con la distribución Chi cuadrado, que depende de los grados de libertad ($gl$):
 
@@ -380,7 +415,7 @@ Con una tabla de 2x2, $gl = (2-1) \times (2-1) = 1$. La función `pchisq()` entr
 
 ::: {.callout-important}
 
-Agregando el argumento `lower.tail = FALSE` pedimos lo contrario, es decir, la probabilidad de obtener un valor **igual o mayor** si $H_0$ fuera cierta. Ese es el valor p.
+`pchisq()` entrega por defecto el área a la izquierda de nuestro $\chi^2$. Con `lower.tail = FALSE` obtenemos el área a la derecha, es decir, la probabilidad de observar una discrepancia igual o mayor a la nuestra si $H_0$ fuera cierta. Ese es el valor p.
 
 :::
 
@@ -389,7 +424,6 @@ Agregando el argumento `lower.tail = FALSE` pedimos lo contrario, es decir, la p
 gl <- (nrow(observadas) - 1) * (ncol(observadas) - 1)
 p_valor <- pchisq(chi_manual, df = gl, lower.tail = FALSE)
 
-gl
 p_valor
 ```
 
@@ -403,11 +437,11 @@ chi_results <- chisq.test(table(cep_proc$sexo, cep_proc$educ_dico))
 chi_results
 ```
 
-Obtuvimos nuestro resultado, pero no es muy amigable a la vista. Generemos una tabla de calidad para que sea reportable.
+ Notemos que los resultados de `chisq.test` difieren del cálculo manual, ¿por qué ocurre esto?
 
 ```{r}
 #| label: tbl-chi
-#| echo: true
+#| echo: false
 #| warning: false
 
 stats.table <- tidy(chi_results, conf_int = T)
@@ -415,7 +449,7 @@ nice_table(stats.table)
 ```
 
 
-Comparemos este resultado con el cálculo manual:
+Observemos este resultado con el cálculo manual, todo en una sola tabla para compararlos:
 
 ```{r}
 #| label: tbl-comparacion
@@ -434,26 +468,25 @@ nice_table(comparacion)
 
 ::: {.callout-important}
 
- Por defecto, en tablas de 2x2 `chisq.test()` aplica la *corrección de continuidad de Yates*, que resta 0,5 a cada diferencia $|O - E|$ y por eso entrega un $\chi^2$ algo menor. Nuestro cálculo manual no la incluye, así que para compararlos de forma justa desactivamos la corrección con `correct = FALSE`:
+Las estimaciones de chi cuadrado tienden a estimarse con la *corrección de continuidad de Yates*, ya que $\chi^2$ se calcula con frecuencias discretas (conteos enteros), pero se compara con la distribución Chi cuadrado, que es continua. 
+
+En tablas de 2x2 (con 1 grado de libertad) esa aproximación tiende a **sobrestimar el $\chi^2$**, lo que hace que el valor p resulte más pequeño de lo debido y se rechace $H_0$ con demasiada facilidad. Para **compensar ese desajuste**, la corrección resta 0,5 a cada diferencia $|O - E|$ y por eso entrega un $\chi^2$ algo menor
 
 :::
 
-El cálculo manual y `chisq.test(correct = FALSE)` son **idénticos**. La versión con corrección de Yates es más conservadora: su $\chi^2$ es menor y su valor p mayor. En este caso el valor p cruza el umbral de 0,05 (≈ 0,043 sin corrección y ≈ 0,050 con corrección), por lo que la conclusión sobre la significancia depende de qué versión se use. Un valor p cercano a 0,05 debe interpretarse con cautela.
-
+El cálculo manual y `chisq.test(correct = FALSE)` son **idénticos**. La versión con corrección de Yates es más conservadora: su $\chi^2$ es menor y su valor p mayor. Podemos observar que el valor p varía entre el cálculo manual y `chisq.test` (≈ 0,045 sin corrección y ≈ 0,049 con corrección), por lo que se puede concluir que la asociación entre sexo y nivel educacional es significativa
 
 # Ejercicio intermedio
 
 Utilice la base cep_proc y realice lo siguiente:
 
-1) Genere una nueva variable de `edad` de tal manera que: Valores <= 30 sean 0, mientras que los valores > 30 sean 1. Llame a esta nueva variable `edad_dicot`
+1) Construya una tabla de contingencia con las variables `edad_dico` y `educ_dico` con el paquete `sjPlot`
 
-2) Construya una tabla de contingencia con las variables `edad_dico` y `educ_dico` con el paquete `sjPlot`
+2) Describa brevemente la distribución de la tabla
 
-3) Describa brevemente la distribución de la tabla
+3) Plantee una hipótesis nula y una hipótesis alternativa refiriéndose a la asociación entre `edad_dico` y `educ_dico`
 
-4) Plantee una hipótesis nula y una hipótesis alternativa refiriéndose a la asociación entre `edad_dico` y `educ_dico`
-
-5) Aplique una prueba de chi cuadrado aplicando `chiq.test` e interprete los resultados, ¿la asociación es significativa?
+4) Aplique una prueba de chi cuadrado aplicando `chiq.test` e interprete los resultados, ¿la asociación es significativa?
 
 
 # Correlación para variables categóricas
@@ -470,7 +503,7 @@ Al igual que los otros coeficientes de correlación ya aprendidos, las correlaci
 
 La correlación punto biserial se utiliza para calcular la correlación entre una **variable categórica dicotómica** y una **variable continua**.
 
-Veamos la frecuencia de `educ_dico` y la media de ingresos `edad`.
+Veamos la frecuencia de `educ_dico` y la media de `edad`.
 
 ```{r}
  sjmisc::frq(cep_proc$educ_dico)
@@ -478,11 +511,13 @@ Veamos la frecuencia de `educ_dico` y la media de ingresos `edad`.
 mean(cep_proc$edad, na.rm = T)
 ```
 
-Obtengamos la correlación punto biserial entre sexo e ingresos.
+Obtengamos la correlación punto biserial entre sexo y edad.
 
 ```{r}
 cor.test(cep_proc$educ_dico, cep_proc$edad)
 ```
+
+R muestra una correlación de Pearson porque, cuando una variable está codificada como 0 y 1 y la otra es continua, este coeficiente **equivale a la correlación punto biserial**.
 
 A partir de los resultados de `cor.test` podemos observar que la correlación entre nivel educacional y edad es estadísticamente significativa, con una dirección negativa y un tamaño de efecto moderado. Con ello, podemos concluir que las personas de mayor edad tienden a presentar un menor nivel educacional.
 
@@ -497,23 +532,23 @@ Si bien el resultado puede parecer contraintuitivo, una **conjetura** para encon
 
 La correlación tetracórica se utiliza para calcular la correlación entre dos variables binarias categóricas, es decir, variables nominales dicómoticas (solo dos posibles valores).
 
-Veamos las frecuencias de `sexo` y `educ_dico`.
+Veamos las frecuencias de `edad_dico` y `educ_dico`.
 
 ```{r}
-sjmisc::frq(cep_proc$sexo)
+sjmisc::frq(cep_proc$edad_dico)
 
 sjmisc::frq(cep_proc$educ_dico)
 ```
 
-Obtengamos la correlación tetrácorica entre sexo y nivel educacional
+Obtengamos la correlación tetrácorica entre edad y nivel educacional (ambas dicotomizadas)
 
 ```{r}
-matriz <- cep_proc %>% select(sexo, educ_dico) # creamos matriz con var de interes
+matriz <- cep_proc %>% select(edad_dico, educ_dico) # creamos matriz con var de interes
 
 psych::tetrachoric(matriz, na.rm = T)
 ```
 
-La correlación tetracórica entre `sexo` y `educ_dico` es de -0.09, es decir, una asociación negativa y con un tamaño de efecto muy pequeño. Dado que `sexo` está codificada como 1 = mujer, esto indica una leve tendencia a que las mujeres tengan menos probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.
+La correlación tetracórica entre `edad_dico` y `educ_dico` es de 0.07, es decir, una asociación positiva y con un tamaño de efecto muy pequeño. Dado que `edad_dico` está codificada como 1 = 30 años o más, esto indica una leve tendencia a que las personas de 30 años o más tengan mayor probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.
 
 ::: {.callout-warning title="Interpretación"}
 
@@ -542,93 +577,15 @@ matriz_pol <- cep_proc %>% select(interes_pol, just_marcha) # creamos matriz con
 psych::polychoric(matriz_pol, na.rm = T)
 ```
 
+::: {.callout-warning title="Interpretación"}
+
+En este caso, valores tau corresponden a los umbrales de la normal subyacente que dividen cada variable en sus categorías de respuesta, por lo que no se interpretan como una asociación.
+
+:::
+
+
 Mediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de **-0.34**, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta
 
-
-
-# Tamaño de efecto con Phi y V de Cramer
-
-Para estudiar el tamaño de efecto entre variables categóricas recurrimos a dos estadísticos: (1) Phi y (2) V de Cramer.
-
-## Estadístico Phi (Φ)
-
-El estadístico Phi mide la asociación entre dos variables categóricas en una tabla de contingencia de **2x2**. La fórmula es:
-
-$$
-\Phi = \sqrt{\frac{\chi^2}{n}}
-$$
-
-Donde:
-
-- $\chi^2$ es el valor del estadístico chi-cuadrado,
-- $n$ es el tamaño total de la muestra.
-
-El valor de $\Phi$ varía entre -1 y 1. Un valor de 0 indica ausencia de asociación, mientras que valores cercanos a |1| indican una asociación más fuerte.
-
-
-Por ejemplo, estimemos Phi entre `educ_dico` y una versión dicotómica de la edad (`edad_dico`: 0 = 30 años o menos, 1 = más de 30 años). Como ambas variables tienen dos categorías, la tabla de contingencia es de 2x2. Para no alterar la base `cep_proc`, creamos `edad_dico` en un objeto aparte para este ejemplo.
-
-```{r}
-
-cep_phi <- cep_proc %>%
-  mutate(edad_dico = ifelse(edad <= 30, 0, 1))
-```
-
-Construimos la tabla de contingencia 2x2
-```{r}
-
-
-tabla_phi <- table(cep_phi$edad_dico, cep_phi$educ_dico)
-tabla_phi
-```
-
-Estimamos phi con la función `phi` del paquete `psych`
-```{r}
-psych::phi(tabla_phi)
-```
-
-Con un valor de -0.22, vemos que existe una asociación de magnitud pequeña entre edad y nivel educacional. El signo negativo que entrega `psych::phi()` indica que, al pasar a más de 30, disminuye la proporción de personas con educación superior.
-
-
-## V de Cramer
-
-El V de Cramer es una extensión del estadístico Phi para tablas de contingencia **mayores de 2x2**. Su fórmula es:
-
-$$
-V = \sqrt{\frac{\chi^2}{n(k-1)}}
-$$
-
-Donde:
-
--  $\chi^2$ es el valor del chi-cuadrado,
--  $n$ es el tamaño de la muestra,
--  $k$ es el número de filas o columnas, el que sea menor.
-
-Los valores de $V$ varían entre 0 y 1, donde 0 indica ausencia de asociación, y valores cercanos a 1 indican una asociación más fuerte.
-
-En nuestro ejemplo, la tabla de contingencia entre interés en política y nivel educacional es de 5x2, por ende, debemos usar el estadístico V de Cramer. En R lo podemos calcular directamente siguiendo la fórmula:
-
-```{r}
-
-tabla <- table(cep_proc$interes_pol, cep_proc$educ_dico) # generamos la tabla
-chi_result <- chisq.test(tabla) # cálculo de chi cuadrado
-n <- sum(tabla) # tamaño muestral
-k <- min(dim(tabla)) # el menor número entre filas y columnas
-```
-
-```{r}
-# Aplicación manual de la fórmula de V de Cramer
-cramer <- sqrt(chi_result$statistic / (n * (k - 1)))
-cramer
-```
-
-O directamente con el paquete `sjstats`:
-
-```{r}
-sjstats::cramer(tabla)
-```
-
-Con un valor de 0.35, vemos que la magnitud de la asociación entre las variables es moderada.
 
 # Ejercicio autónomo
 
@@ -715,7 +672,7 @@ Una vez terminados los siguientes puntos, responda:
 
 - **Tablas de contingencia:** Muestran las frecuencias conjuntas entre dos variables categóricas. Los porcentajes (por fila o columna) no son información nueva, sino otra forma de expresar la frecuencia.
 
-- **Chi cuadrado ($X^2$):** Permite realizar contraste de hipótesis entre dos categóricas comparando la tabla observada con la esperada bajo $H_0$.
+- **Chi cuadrado ($\chi²$):** Permite realizar contraste de hipótesis entre dos categóricas comparando la tabla observada con la esperada bajo $H_0$.
 
 - **Correlación para variables categóricas:** Se interpreta como las demás correlaciones (entre -1 y 1, con dirección, fuerza y criterios de Cohen), pero el coeficiente depende de la naturaleza de las variables: 
 

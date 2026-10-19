@@ -3928,21 +3928,21 @@
     "href": "assignment/09-practico.html#correlación-punto-biserial",
     "title": "Chi cuadrado y asociación entre categóricas",
     "section": "4.1 Correlación punto biserial",
-    "text": "4.1 Correlación punto biserial\nLa correlación punto biserial se utiliza para calcular la correlación entre una variable categórica dicotómica y una variable continua.\nVeamos la frecuencia de educ_dico y la media de ingresos edad.\n\n sjmisc::frq(cep_proc$educ_dico)\n\nx &lt;numeric&gt; \n# total N=1466 valid N=1464 mean=0.25 sd=0.43\n\nValue |    N | Raw % | Valid % | Cum. %\n---------------------------------------\n    0 | 1095 | 74.69 |   74.80 |  74.80\n    1 |  369 | 25.17 |   25.20 | 100.00\n &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;\n\nmean(cep_proc$edad, na.rm = T)\n\n[1] 49.32947\n\n\nObtengamos la correlación punto biserial entre sexo e ingresos.\n\ncor.test(cep_proc$educ_dico, cep_proc$edad)\n\n\n    Pearson's product-moment correlation\n\ndata:  cep_proc$educ_dico and cep_proc$edad\nt = -12.527, df = 1462, p-value &lt; 2.2e-16\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.3568849 -0.2643295\nsample estimates:\n       cor \n-0.3113454 \n\n\nA partir de los resultados de cor.test podemos observar que la correlación entre nivel educacional y edad es estadísticamente significativa, con una dirección negativa y un tamaño de efecto moderado. Con ello, podemos concluir que las personas de mayor edad tienden a presentar un menor nivel educacional.\n\n\n\n\n\n\nNota\n\n\n\nSi bien el resultado puede parecer contraintuitivo, una conjetura para encontrar explicación a esto es que las personas con mayor edad crecieron en contextos donde aún no se alcanzaba la expansión educativa que existe actualmente, lo que se traduce en niveles educacionales más bajos en comparación a las nuevas generaciones"
+    "text": "4.1 Correlación punto biserial\nLa correlación punto biserial se utiliza para calcular la correlación entre una variable categórica dicotómica y una variable continua.\nVeamos la frecuencia de educ_dico y la media de edad.\n\n sjmisc::frq(cep_proc$educ_dico)\n\nEducación dicotomizada (x) &lt;numeric&gt; \n# total N=1466 valid N=1464 mean=0.17 sd=0.38\n\nValue |                  Label |    N | Raw % | Valid % | Cum. %\n----------------------------------------------------------------\n    0 | Sin educación Superior | 1213 | 82.74 |   82.86 |  82.86\n    1 | Con educación superior |  251 | 17.12 |   17.14 | 100.00\n &lt;NA&gt; |                   &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;\n\nmean(cep_proc$edad, na.rm = T)\n\n[1] 49.32947\n\n\nObtengamos la correlación punto biserial entre sexo y edad.\n\ncor.test(cep_proc$educ_dico, cep_proc$edad)\n\n\n    Pearson's product-moment correlation\n\ndata:  cep_proc$educ_dico and cep_proc$edad\nt = -4.9987, df = 1462, p-value = 6.469e-07\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.17966780 -0.07892083\nsample estimates:\n       cor \n-0.1296288 \n\n\nR muestra una correlación de Pearson porque, cuando una variable está codificada como 0 y 1 y la otra es continua, este coeficiente equivale a la correlación punto biserial.\nA partir de los resultados de cor.test podemos observar que la correlación entre nivel educacional y edad es estadísticamente significativa, con una dirección negativa y un tamaño de efecto moderado. Con ello, podemos concluir que las personas de mayor edad tienden a presentar un menor nivel educacional.\n\n\n\n\n\n\nNota\n\n\n\nSi bien el resultado puede parecer contraintuitivo, una conjetura para encontrar explicación a esto es que las personas con mayor edad crecieron en contextos donde aún no se alcanzaba la expansión educativa que existe actualmente, lo que se traduce en niveles educacionales más bajos en comparación a las nuevas generaciones"
   },
   {
     "objectID": "assignment/09-practico.html#correlación-tetracórica",
     "href": "assignment/09-practico.html#correlación-tetracórica",
     "title": "Chi cuadrado y asociación entre categóricas",
     "section": "4.2 Correlación tetracórica",
-    "text": "4.2 Correlación tetracórica\nLa correlación tetracórica se utiliza para calcular la correlación entre dos variables binarias categóricas, es decir, variables nominales dicómoticas (solo dos posibles valores).\nVeamos las frecuencias de sexo y educ_dico.\n\nsjmisc::frq(cep_proc$sexo)\n\nx &lt;numeric&gt; \n# total N=1466 valid N=1466 mean=0.63 sd=0.48\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    0 | 536 | 36.56 |   36.56 |  36.56\n    1 | 930 | 63.44 |   63.44 | 100.00\n &lt;NA&gt; |   0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\nsjmisc::frq(cep_proc$educ_dico)\n\nx &lt;numeric&gt; \n# total N=1466 valid N=1464 mean=0.25 sd=0.43\n\nValue |    N | Raw % | Valid % | Cum. %\n---------------------------------------\n    0 | 1095 | 74.69 |   74.80 |  74.80\n    1 |  369 | 25.17 |   25.20 | 100.00\n &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nObtengamos la correlación tetrácorica entre sexo y nivel educacional\n\nmatriz &lt;- cep_proc %&gt;% select(sexo, educ_dico) # creamos matriz con var de interes\n\npsych::tetrachoric(matriz, na.rm = T)\n\nCall: psych::tetrachoric(x = matriz, na.rm = T)\ntetrachoric correlation \n          sexo  edc_d\nsexo       1.00      \neduc_dico -0.09  1.00\n\n with tau of \n     sexo educ_dico \n    -0.34      0.67 \n\n\nLa correlación tetracórica entre sexo y educ_dico es de -0.09, es decir, una asociación negativa y con un tamaño de efecto muy pequeño. Dado que sexo está codificada como 1 = mujer, esto indica una leve tendencia a que las mujeres tengan menos probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.\n\n\n\n\n\n\nAdvertenciaInterpretación\n\n\n\nLos valores tau (-0.34 y 0.67) corresponden a los umbrales de la normal subyacente que dividen cada variable en sus dos categorías, y no se interpretan como una asociación."
+    "text": "4.2 Correlación tetracórica\nLa correlación tetracórica se utiliza para calcular la correlación entre dos variables binarias categóricas, es decir, variables nominales dicómoticas (solo dos posibles valores).\nVeamos las frecuencias de edad_dico y educ_dico.\n\nsjmisc::frq(cep_proc$edad_dico)\n\nEdad dicotomizada (x) &lt;numeric&gt; \n# total N=1466 valid N=1466 mean=0.83 sd=0.37\n\nValue |            Label |    N | Raw % | Valid % | Cum. %\n----------------------------------------------------------\n    0 | Menos de 30 años |  247 | 16.85 |   16.85 |  16.85\n    1 |    30 años o más | 1219 | 83.15 |   83.15 | 100.00\n &lt;NA&gt; |             &lt;NA&gt; |    0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;\n\nsjmisc::frq(cep_proc$educ_dico)\n\nEducación dicotomizada (x) &lt;numeric&gt; \n# total N=1466 valid N=1464 mean=0.17 sd=0.38\n\nValue |                  Label |    N | Raw % | Valid % | Cum. %\n----------------------------------------------------------------\n    0 | Sin educación Superior | 1213 | 82.74 |   82.86 |  82.86\n    1 | Con educación superior |  251 | 17.12 |   17.14 | 100.00\n &lt;NA&gt; |                   &lt;NA&gt; |    2 |  0.14 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nObtengamos la correlación tetrácorica entre edad y nivel educacional (ambas dicotomizadas)\n\nmatriz &lt;- cep_proc %&gt;% select(edad_dico, educ_dico) # creamos matriz con var de interes\n\npsych::tetrachoric(matriz, na.rm = T)\n\nCall: psych::tetrachoric(x = matriz, na.rm = T)\ntetrachoric correlation \n          edd_d edc_d\nedad_dico 1.00       \neduc_dico 0.07  1.00 \n\n with tau of \nedad_dico educ_dico \n    -0.96      0.95 \n\n\nLa correlación tetracórica entre edad_dico y educ_dico es de 0.07, es decir, una asociación positiva y con un tamaño de efecto muy pequeño. Dado que edad_dico está codificada como 1 = 30 años o más, esto indica una leve tendencia a que las personas de 30 años o más tengan mayor probabilidad de contar con educación superior, pero la magnitud es tan pequeña que prácticamente no hay relación entre ambas variables.\n\n\n\n\n\n\nAdvertenciaInterpretación\n\n\n\nLos valores tau (-0.34 y 0.67) corresponden a los umbrales de la normal subyacente que dividen cada variable en sus dos categorías, y no se interpretan como una asociación."
   },
   {
     "objectID": "assignment/09-practico.html#correlación-policórica",
     "href": "assignment/09-practico.html#correlación-policórica",
     "title": "Chi cuadrado y asociación entre categóricas",
     "section": "4.3 Correlación Policórica",
-    "text": "4.3 Correlación Policórica\nLa correlación policórica se utiliza para calcular la correlación entre dos variables ordinales categóricas, es decir, variables ordinales cuyos posibles valores siguen un orden (por ejemplo, variables tipo Likert).\nVeamos las frecuencias de interes_pol y just_marcha.\n\nsjmisc::frq(cep_proc$interes_pol)\n\nx &lt;numeric&gt; \n# total N=1466 valid N=1460 mean=3.85 sd=1.30\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 113 |  7.71 |    7.74 |   7.74\n    2 | 115 |  7.84 |    7.88 |  15.62\n    3 | 325 | 22.17 |   22.26 |  37.88\n    4 | 229 | 15.62 |   15.68 |  53.56\n    5 | 678 | 46.25 |   46.44 | 100.00\n &lt;NA&gt; |   6 |  0.41 |    &lt;NA&gt; |   &lt;NA&gt;\n\nsjmisc::frq(cep_proc$just_marcha)\n\nx &lt;numeric&gt; \n# total N=1466 valid N=1463 mean=2.83 sd=1.53\n\nValue |   N | Raw % | Valid % | Cum. %\n--------------------------------------\n    1 | 465 | 31.72 |   31.78 |  31.78\n    2 | 136 |  9.28 |    9.30 |  41.08\n    3 | 385 | 26.26 |   26.32 |  67.40\n    4 | 139 |  9.48 |    9.50 |  76.90\n    5 | 338 | 23.06 |   23.10 | 100.00\n &lt;NA&gt; |   3 |  0.20 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nObtengamos la correlación policórica entre si la persona está interesada en política y si justifica las marchas como forma de protesta\n\nmatriz_pol &lt;- cep_proc %&gt;% select(interes_pol, just_marcha) # creamos matriz con var de interes\n\npsych::polychoric(matriz_pol, na.rm = T)\n\nCall: psych::polychoric(x = matriz_pol, na.rm = T)\nPolychoric correlations \n            intr_ jst_m\ninteres_pol  1.00      \njust_marcha -0.34  1.00\n\n with tau of \n                1     2     3     4\ninteres_pol -1.42 -1.01 -0.31 0.089\njust_marcha -0.47 -0.23  0.45 0.735\n\n\nMediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de -0.34, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta"
+    "text": "4.3 Correlación Policórica\nLa correlación policórica se utiliza para calcular la correlación entre dos variables ordinales categóricas, es decir, variables ordinales cuyos posibles valores siguen un orden (por ejemplo, variables tipo Likert).\nVeamos las frecuencias de interes_pol y just_marcha.\n\nsjmisc::frq(cep_proc$interes_pol)\n\nInterés en la política (x) &lt;numeric&gt; \n# total N=1466 valid N=1460 mean=2.15 sd=1.30\n\nValue |               Label |   N | Raw % | Valid % | Cum. %\n------------------------------------------------------------\n    1 |     Nada interesado | 678 | 46.25 |   46.44 |  46.44\n    2 |   No muy interesado | 229 | 15.62 |   15.68 |  62.12\n    3 |     Algo interesado | 325 | 22.17 |   22.26 |  84.38\n    4 | Bastante interesado | 115 |  7.84 |    7.88 |  92.26\n    5 |      Muy interesado | 113 |  7.71 |    7.74 | 100.00\n &lt;NA&gt; |                &lt;NA&gt; |   6 |  0.41 |    &lt;NA&gt; |   &lt;NA&gt;\n\nsjmisc::frq(cep_proc$just_marcha)\n\nJustificación de participar en una marcha (x) &lt;numeric&gt; \n# total N=1466 valid N=1463 mean=2.83 sd=1.53\n\nValue |                Label |   N | Raw % | Valid % | Cum. %\n-------------------------------------------------------------\n    1 |   Nunca se justifica | 465 | 31.72 |   31.78 |  31.78\n    2 |                    2 | 136 |  9.28 |    9.30 |  41.08\n    3 |                    3 | 385 | 26.26 |   26.32 |  67.40\n    4 |                    4 | 139 |  9.48 |    9.50 |  76.90\n    5 | Siempre se justifica | 338 | 23.06 |   23.10 | 100.00\n &lt;NA&gt; |                 &lt;NA&gt; |   3 |  0.20 |    &lt;NA&gt; |   &lt;NA&gt;\n\n\nObtengamos la correlación policórica entre si la persona está interesada en política y si justifica las marchas como forma de protesta\n\nmatriz_pol &lt;- cep_proc %&gt;% select(interes_pol, just_marcha) # creamos matriz con var de interes\n\npsych::polychoric(matriz_pol, na.rm = T)\n\nCall: psych::polychoric(x = matriz_pol, na.rm = T)\nPolychoric correlations \n            intr_ jst_m\ninteres_pol 1.00       \njust_marcha 0.34  1.00 \n\n with tau of \n                 1     2    3    4\ninteres_pol -0.089  0.31 1.01 1.42\njust_marcha -0.474 -0.23 0.45 0.74\n\n\n\n\n\n\n\n\nAdvertenciaInterpretación\n\n\n\nEn este caso, valores tau corresponden a los umbrales de la normal subyacente que dividen cada variable en sus categorías de respuesta, por lo que no se interpretan como una asociación.\n\n\nMediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de -0.34, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta"
   },
   {
     "objectID": "slides/11-bivariada4.html#preguntas-clase-pasada",
@@ -3954,337 +3954,344 @@
   {
     "objectID": "slides/11-bivariada4.html#correlación-y-categóricas",
     "href": "slides/11-bivariada4.html#correlación-y-categóricas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Correlación y categóricas",
     "text": "Correlación y categóricas\n\nsentido original de correlación (Pearson): variables intervalares/razón, también se extiende a ordinal (Spearman)\ndadas las ventajas de este coeficiente, se puede extender su uso a variables con nivel de medición nominal con algunas consideraciones\nveamos un ejemplo:"
   },
   {
     "objectID": "slides/11-bivariada4.html#ejemplo",
     "href": "slides/11-bivariada4.html#ejemplo",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplo",
     "text": "Ejemplo\nTenemos las siguientes variables:\n\nx &lt;- c(0, 1, 1, 0, 0, 0, 1, 0, 1, 1, 0)\ny &lt;- c(12, 14, 17, 17, 11, 22, 23, 11, 19, 8, 12)\n\n\nDonde x sería una variable nominal dicotómica con valores 1 y 0, mientras que y es una variable continua (intervalar)\nEste tipo de correlación se denomina punto biserial"
   },
   {
     "objectID": "slides/11-bivariada4.html#cálculo-del-coeficiente-de-correlación",
     "href": "slides/11-bivariada4.html#cálculo-del-coeficiente-de-correlación",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Cálculo del coeficiente de correlación",
     "text": "Cálculo del coeficiente de correlación\n\n\n\nSe utiliza la función cor.test() para calcular la correlación punto biserial entre las dos variables\n\ncor.test(x, y)\n\n\n\n\n\n\n    Pearson's product-moment correlation\n\ndata:  x and y\nt = 0.67064, df = 9, p-value = 0.5193\nalternative hypothesis: true correlation is not equal to 0\n95 percent confidence interval:\n -0.4391885  0.7233704\nsample estimates:\n      cor \n0.2181635 \n\n\n\n(Se puede también usar cor, pero cor.test entrega más información)"
   },
   {
     "objectID": "slides/11-bivariada4.html#del-output-de-r-tenemos-que",
     "href": "slides/11-bivariada4.html#del-output-de-r-tenemos-que",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Del output de R tenemos que:",
     "text": "Del output de R tenemos que:\n\nla correlación punto biserial es 0.218, indicando una relación positiva moderada entre ambas variables\nel valor p correspondiente es 0.5193, que no permite rechazar la hipótesis nula con un 95% de confianza ya que el valor p no es menor a 0.05\ncomo complemento se entrega el intervalo de confianza [-0.4391885 0.7233704], que como vemos contiene el 0, y por lo tanto con un 95% de confianza no podemos decir que la correlación es distinta de 0"
   },
   {
     "objectID": "slides/11-bivariada4.html#qué-es-esta-correlación",
     "href": "slides/11-bivariada4.html#qué-es-esta-correlación",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "¿Qué es esta correlación?",
     "text": "¿Qué es esta correlación?\n\nno es más que una correlación de Pearson entre una variable nominal y una intervalar\npara diferenciarla de Pearson tradicional se le denomina correlación punto biserial\nhay que tener precauciones con su interpretación"
   },
   {
     "objectID": "slides/11-bivariada4.html#interpretación",
     "href": "slides/11-bivariada4.html#interpretación",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Interpretación",
     "text": "Interpretación\n\npensemos que x=0 es hombre, x=1 es mujer, y que y=nivel educativo, ¿cómo se interpreta la correlación?\n\ninferencia: que existe (o no) una asociación entre ambas variables (según si es estadísticamente distinta de cero)\ntamaño: que esta asociación es débil, mediana o fuerte\nsentido: difícil de interpretar, ej: mientras “más mujer”, mayor educación (?)\n\n\n\nPor lo tanto, esta correlación puede tener limitaciones en la interpretación de su sentido, sirve principalmente para inferencia y tamaño."
   },
   {
     "objectID": "slides/11-bivariada4.html#qué-test-cálculo-podría-ser-más-apropiado-para-la-relación-entre-una-variable-intervalar-y-una-dicotómica",
     "href": "slides/11-bivariada4.html#qué-test-cálculo-podría-ser-más-apropiado-para-la-relación-entre-una-variable-intervalar-y-una-dicotómica",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "¿Qué test / cálculo podría ser más apropiado para la relación entre una variable intervalar y una dicotómica?",
     "text": "¿Qué test / cálculo podría ser más apropiado para la relación entre una variable intervalar y una dicotómica?"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-2",
     "href": "slides/11-bivariada4.html#section-2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "t.test(y ~ x, var.equal = TRUE)\n\n\n    Two Sample t-test\n\ndata:  y by x\nt = -0.67064, df = 9, p-value = 0.5193\nalternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0\n95 percent confidence interval:\n -8.891987  4.825320\nsample estimates:\nmean in group 0 mean in group 1 \n       14.16667        16.20000"
   },
   {
     "objectID": "slides/11-bivariada4.html#por-lo-tanto-correlación-punto-biserial",
     "href": "slides/11-bivariada4.html#por-lo-tanto-correlación-punto-biserial",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Por lo tanto, correlación punto-biserial",
     "text": "Por lo tanto, correlación punto-biserial\n\nes equivalente a un test de diferencia de medias en términos de inferencia\nen términos de valor es igual que una correlación de Pearson: varía entre -1 y 1\nel apellido de (punto) biserial se utiliza solo para dar cuenta que el nivel de medición de una de las variables es nominal, y se requieren consideraciones especiales en su interpretación\ntambién se puede denominar biserial a una correlación entre una variable intervalar/razón y una ordinal"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-3",
     "href": "slides/11-bivariada4.html#section-3",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "El sentido general de realizar correlaciones de Pearson con variables categóricas es el supuesto que la categórica representa distintos niveles de una variable latente continua\n\nEj: 0=baja educación, 1=alta educación"
   },
   {
     "objectID": "slides/11-bivariada4.html#caso-especial-correlación-tetracórica",
     "href": "slides/11-bivariada4.html#caso-especial-correlación-tetracórica",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Caso especial: correlación tetracórica",
     "text": "Caso especial: correlación tetracórica\n\nEs una correlación entre dos variables dicotómicas (=categórica de dos niveles)\nSe calcula en base a las frecuencias de cada combinación de valores (00,01,10,11).\nSupone que ambas variables son continuas y normalmente distribuidas antes de la categorización."
   },
   {
     "objectID": "slides/11-bivariada4.html#tipos-de-correlación-según-nivel-de-medición",
     "href": "slides/11-bivariada4.html#tipos-de-correlación-según-nivel-de-medición",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tipos de correlación según nivel de medición",
     "text": "Tipos de correlación según nivel de medición\n\n\n\n\n\n\n\n\n\n\n\n\nNominal Dicotómica\nNominal Politómica\nOrdinal\nIntervalar/Razón\n\n\n\n\nNominal Dicotómica\nTetracórica\n\nBiserial\nPunto Biserial\n\n\nNominal Politómica\n\n\n\n\n\n\nOrdinal\nBiserial\n\nSpearman, Kendall\nPearson/biserial, Policórica\n\n\nIntervalar/Razón\nPunto Biserial\n\nPearson/biserial, Policórica\nPearson"
   },
   {
     "objectID": "slides/11-bivariada4.html#escalas-de-medición-de-variables",
     "href": "slides/11-bivariada4.html#escalas-de-medición-de-variables",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Escalas de medición de variables",
     "text": "Escalas de medición de variables\n\nNOIR: Nominal, Ordinal, Intervalar, Razón\n\n\n\n\n\n\n\n\n\n\n\nTipo\nCaracterísticas\nPropiedad de números\nEjemplo\n\n\n\n\nNominal\nUso de números en lugar de palabras\nIdentidad\nNacionalidad\n\n\nOrdinal\nNúmeros se usan para ordenar series\n+ ranking\nNivel educacional\n\n\nIntervalar\nIntervalos iguales entre números\n+ igualdad\nTemperatura\n\n\nRazón\nCero real\n+ aditividad\nDistancia\n\n\n\n\n\n\nNominal: Números empleados como etiquetas (ej. sexo, raza)\nOrdinales: Distintas categorías pueden ser ordenadas en serie. Posición, no distancia. (ej. cargos en una empresa)\nIntervalares: Escalas de unidades iguales. Diferencia entre dos números consecutivos refleja diferencia empírica. (ej. Horas del día)\nRazón: caracterizados por la presencia de un cero absoluto. (ej. frecuencias de eventos)"
   },
   {
     "objectID": "slides/11-bivariada4.html#tipos-de-datos-en-relación-a-escalas-de-medición",
     "href": "slides/11-bivariada4.html#tipos-de-datos-en-relación-a-escalas-de-medición",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tipos de datos en relación a escalas de medición",
     "text": "Tipos de datos en relación a escalas de medición\n\nDatos categóricos:\n\npueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango\n\nDatos continuos:\n\nMedidos en escalas intervalares o de razón\nPueden ser transformados a datos categóricos"
   },
   {
     "objectID": "slides/11-bivariada4.html#tablas-de-contingencia-o-tablas-cruzadas",
     "href": "slides/11-bivariada4.html#tablas-de-contingencia-o-tablas-cruzadas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tablas de contingencia o tablas cruzadas",
-    "text": "Tablas de contingencia o tablas cruzadas\n\n\n\nSon tablas que presentan la distribución conjunta de dos o más variables\nEj. Moore cap 9: recaídas en consumo de cocaína luego de tratar adicción con distintos tratamientos\n\n\n\n\n\n\n\n\n\n\nver temas de frecuencias absolutas, porcentuales y totales por filas o por columnas"
+    "text": "Tablas de contingencia o tablas cruzadas\n\n\n\nSon tablas que presentan la distribución conjunta de dos o más variables\nEj. Moore cap 9: recaídas en consumo de cocaína luego de tratar adicción con distintos tratamientos\n\n\n\n\n\n\n\n\n\n\n\nver temas de frecuencias absolutas, porcentuales y totales por filas o por columnas"
   },
   {
     "objectID": "slides/11-bivariada4.html#tablas-de-contingencia-y-asociación",
     "href": "slides/11-bivariada4.html#tablas-de-contingencia-y-asociación",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tablas de contingencia y asociación",
     "text": "Tablas de contingencia y asociación\n\n\n\n\n¿Cómo establecer una medida de asociación de los datos en una tabla de contingencia?\n\n\n\n¿Cómo saber si esa asociación es estadísticamente significativa?"
   },
   {
     "objectID": "slides/11-bivariada4.html#ejemplo-1",
     "href": "slides/11-bivariada4.html#ejemplo-1",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Ejemplo",
     "text": "Ejemplo\nPensemos en la siguiente pregunta de investigación:\n¿Existe una asociación entre la percepción de ser discriminado y el nivel educacional?\n\\(H_a\\): el nivel educacional se asocia a la percepción de ser discriminado\n\\(H_0\\): no hay asociación entre nivel educacional y percepción de ser discriminado"
   },
   {
     "objectID": "slides/11-bivariada4.html#vamos-a-los-datos-casen-2022",
     "href": "slides/11-bivariada4.html#vamos-a-los-datos-casen-2022",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Vamos a los datos: CASEN 2022",
     "text": "Vamos a los datos: CASEN 2022\nEn CASEN existe una batería sobre percepción de discriminación:"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-5",
     "href": "slides/11-bivariada4.html#section-5",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "Generar subset CASEN con educación y percepción de discriminación\n\npacman::p_load(haven, sjmisc, dplyr)\ncasen2022_chi &lt;- read_dta(\"/home/juank/Downloads/Base de datos Casen 2022 STATA.dta\")\nsummary(casen2022$r9)\nsjmisc::find_var(data = casen2022_chi,\"discriminado\")\nsjmisc::find_var(data = casen2022_chi,\"nivel educacional\")\ncasen2022_chi &lt;- casen2022_chi %&gt;%\n  select(r9a:r9t, e6a)  # seleccionar variables\ncasen2022_chi &lt;- casen2022_chi %&gt;%\n  rename(\"educacion\"=e6a) #renombrar\nsave(casen2022_chi,\n     file = \"slides/data/casen2022_chi.Rdata\") #guardar objeto\nrm(list = c('casen2022_chi')) # quitar del environment por tamaño/memoria"
   },
   {
     "objectID": "slides/11-bivariada4.html#recodificar-discriminación",
     "href": "slides/11-bivariada4.html#recodificar-discriminación",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Recodificar discriminación",
     "text": "Recodificar discriminación\n\npacman::p_load(sjmisc)\nload(\"data/casen2022_chi.Rdata\")\n\n\nfrq(casen2022_chi$r9t)\n\nr9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; \n# total N=202231 valid N=202231 mean=0.83 sd=0.37\n\nValue | Label |      N | Raw % | Valid % | Cum. %\n-------------------------------------------------\n    0 |    No |  33472 | 16.55 |   16.55 |  16.55\n    1 |    Sí | 168759 | 83.45 |   83.45 | 100.00\n &lt;NA&gt; |  &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-6",
     "href": "slides/11-bivariada4.html#section-6",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "En la lista CASEN al final hay un ítem de “no ha sido discriminado” (r9t), que usaremos para nuestro análisis; la renombramos “discrim”\nQuienes responden sí son quienes no se han sentido discriminados, por lo tanto mejor cambiar las etiquetas para evitar confusiones\n\n\n\ncasen2022_chi$discrim &lt;- sjlabelled::set_labels(casen2022_chi$r9t,\n            labels=c( \"discriminad@\"=0,\n                      \"no discriminad@\"=1))"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-7",
     "href": "slides/11-bivariada4.html#section-7",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "frq(casen2022_chi$discrim)\n\nr9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; \n# total N=202231 valid N=202231 mean=0.83 sd=0.37\n\nValue |           Label |      N | Raw % | Valid % | Cum. %\n-----------------------------------------------------------\n    0 |    discriminad@ |  33472 | 16.55 |   16.55 |  16.55\n    1 | no discriminad@ | 168759 | 83.45 |   83.45 | 100.00\n &lt;NA&gt; |            &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;"
   },
   {
     "objectID": "slides/11-bivariada4.html#variable-educación-universitaria",
     "href": "slides/11-bivariada4.html#variable-educación-universitaria",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Variable educación universitaria",
     "text": "Variable educación universitaria\nAhora con la variable educación, recodificar universitario=1\n\ncasen2022_chi$educ_sup &lt;- rec(casen2022_chi$educacion, rec = \"1:12=0;13:15=1\",\n                              val.labels = c(\"Menos que universitaria\", \"Universitaria o más\"))\nfrq(casen2022_chi$educ_sup)\n\ne6a. ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió? (x) &lt;numeric&gt; \n# total N=202231 valid N=202231 mean=0.16 sd=0.37\n\nValue |                   Label |      N | Raw % | Valid % | Cum. %\n-------------------------------------------------------------------\n    0 | Menos que universitaria | 168994 | 83.56 |   83.56 |  83.56\n    1 |     Universitaria o más |  33237 | 16.44 |   16.44 | 100.00\n &lt;NA&gt; |                    &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;"
   },
   {
     "objectID": "slides/11-bivariada4.html#tabla-de-frecuencias-cruzadas",
     "href": "slides/11-bivariada4.html#tabla-de-frecuencias-cruzadas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Tabla de frecuencias cruzadas",
     "text": "Tabla de frecuencias cruzadas\n\n\n\npacman::p_load(sjPlot)\ncasen2022_chi %&gt;%\n  sjtab(educ_sup,\n        discrim)\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n26996\n141998\n168994 \n\n \n \nUniversitaria o más\n6476\n26761\n33237 \n\n \n \nTotal\n33472\n168759\n202231 \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000"
   },
   {
     "objectID": "slides/11-bivariada4.html#porcentajes-por-columna",
     "href": "slides/11-bivariada4.html#porcentajes-por-columna",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Porcentajes por columna",
     "text": "Porcentajes por columna\nPara mayor claridad generamos porcentajes por columnas de la tabla (discriminación)\n\n\n\ncasen2022_chi %&gt;%\n  sjtab(educ_sup,\n        discrim,\n  show.col.prc = TRUE)\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n2699680.7 %\n14199884.1 %\n16899483.6 % \n\n \n \nUniversitaria o más\n647619.3 %\n2676115.9 %\n3323716.4 % \n\n \n \nTotal\n33472100 %\n168759100 %\n202231100 % \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000"
   },
   {
     "objectID": "slides/11-bivariada4.html#porcentajes-por-fila",
     "href": "slides/11-bivariada4.html#porcentajes-por-fila",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Porcentajes por fila",
     "text": "Porcentajes por fila\nY acá por filas (educación)\n\n\n\ncasen2022_chi %&gt;%\n  sjtab(educ_sup,\n        discrim,\n  show.row.prc = TRUE)\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n2699616 %\n14199884 %\n168994100 % \n\n \n \nUniversitaria o más\n647619.5 %\n2676180.5 %\n33237100 % \n\n \n \nTotal\n3347216.6 %\n16875983.4 %\n202231100 % \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000"
   },
   {
     "objectID": "slides/11-bivariada4.html#porcentajes-por-fila-y-columna",
     "href": "slides/11-bivariada4.html#porcentajes-por-fila-y-columna",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Porcentajes por fila y columna",
     "text": "Porcentajes por fila y columna\n\n\n\ncasen2022_chi %&gt;%\n  sjtab(educ_sup,\n        discrim,\n  show.row.prc = TRUE,\n  show.col.prc = TRUE)\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n2699616 %80.7 %\n14199884 %84.1 %\n168994100 %83.6 % \n\n \n \nUniversitaria o más\n647619.5 %19.3 %\n2676180.5 %15.9 %\n33237100 %16.4 % \n\n \n \nTotal\n3347216.6 %100 %\n16875983.4 %100 %\n202231100 %100 % \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-8",
     "href": "slides/11-bivariada4.html#section-8",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n2699616 %80.7 %\n14199884 %84.1 %\n168994100 %83.6 % \n\n \n \nUniversitaria o más\n647619.5 %19.3 %\n2676180.5 %15.9 %\n33237100 %16.4 % \n\n \n \nTotal\n3347216.6 %100 %\n16875983.4 %100 %\n202231100 %100 % \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000 \n\n \n\n\n\n\n\n\n¿Cómo saber si existe asociación o no entre estas variables?"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-9",
     "href": "slides/11-bivariada4.html#section-9",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "Para simplificar, pensemos en una muestra más pequeña de 100 casos y además balanceada.\n\n\n\n\ndiscriminad@\nno discriminad@\nTotal\n\n\n\n\nMenos que universitaria\n\n\n50\n\n\nUniversitaria o más\n\n\n50\n\n\nTotal\n50\n50\n100\n\n\n\n\n¿Cómo se deberían distribuir los casos en las celdas para constatar que hay (o no) diferencias?"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-10",
     "href": "slides/11-bivariada4.html#section-10",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "discriminad@\nno discriminad@\nTotal\n\n\n\n\nMenos que universitaria\n50\n0\n50\n\n\nUniversitaria o más\n0\n50\n50\n\n\nTotal\n50\n50\n100\n\n\n\n\nEsta tabla estaría expresando lo esperado por nuestra hipótesis (alternativa): existen diferencias al cruzar estas variables, y por lo tanto hay asociación entre educación y percepción de discriminación"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-11",
     "href": "slides/11-bivariada4.html#section-11",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "Este es el otro extremo: todas las celdas tienen la misma cantidad de casos\n\n\n\n\ndiscriminad@\nno discriminad@\nTotal\n\n\n\n\nMenos que universitaria\n25\n25\n50\n\n\nUniversitaria o más\n25\n25\n50\n\n\nTotal\n50\n50\n100\n\n\n\n\nEsta tabla expresa la hipótesis nula \\(H_0\\): no existe asociación entre variables"
   },
   {
     "objectID": "slides/11-bivariada4.html#prueba-de-chi2",
     "href": "slides/11-bivariada4.html#prueba-de-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Prueba de \\(\\chi^2\\)",
     "text": "Prueba de \\(\\chi^2\\)\n\nLa prueba de \\(\\chi^2\\) (chi cuadrado) se utiliza para inferencia sobre asociación de variables categóricas en una tabla de contingencia\n\\(\\chi^2\\) se basa en un test de diferencia, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables, que representa la hipótesis nula \\(H_0\\)\nLa lógica detrás es que si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipótesis nula"
   },
   {
     "objectID": "slides/11-bivariada4.html#pasos-en-el-cálculo-de-chi2",
     "href": "slides/11-bivariada4.html#pasos-en-el-cálculo-de-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Pasos en el cálculo de \\(\\chi^2\\)",
     "text": "Pasos en el cálculo de \\(\\chi^2\\)\n\nGeneración de tabla de contingencia observada en base a nuestros datos\nGeneración de tabla de contingencia esperada al azar en base a nuestros datos\nEstablecer la diferencia entre lo observado y lo esperado al azar\nEstablecer si esta diferencia es estadísticamente significativa"
   },
   {
     "objectID": "slides/11-bivariada4.html#frecuencia-esperada-al-azar-en-una-tabla-de-contingencia",
     "href": "slides/11-bivariada4.html#frecuencia-esperada-al-azar-en-una-tabla-de-contingencia",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Frecuencia esperada al azar en una tabla de contingencia",
     "text": "Frecuencia esperada al azar en una tabla de contingencia\n\n\n\n\n\ndiscriminad@\nno discriminad@\nTotal\n\n\n\n\nMenos que universitaria\na\nb\n(a+b)\n\n\nUniversitaria o más\nc\nd\n(c+d)\n\n\nTotal\n(a+c)\n(b+d)\nN"
   },
   {
     "objectID": "slides/11-bivariada4.html#frecuencia-esperada-celda-a",
     "href": "slides/11-bivariada4.html#frecuencia-esperada-celda-a",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Frecuencia esperada: celda a",
     "text": "Frecuencia esperada: celda a\nNos enfocamos en la celda a, su frecuencia esperada es:\n\\[f_{e_{a}}=\\frac{(a+b)(a+c)}{N}\\]\n\nEn base a los datos de nuestro ejemplo de 100 casos:\n\\[f_{e_{a}}=\\frac{(50)(50)}{100}= \\frac{2500}{100}=25\\]\n\n\nPor lo tanto, la frecuencia esperada al azar (\\(H_0\\)) para la celda a=25"
   },
   {
     "objectID": "slides/11-bivariada4.html#sentido-general-de-la-prueba-de-chi2",
     "href": "slides/11-bivariada4.html#sentido-general-de-la-prueba-de-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Sentido general de la prueba de \\(\\chi^2\\)",
     "text": "Sentido general de la prueba de \\(\\chi^2\\)\n\nLa lógica de la prueba de Chi 2 es la comparación de las frecuencias observadas \\((f_o)\\) en nuestra tabla y de las frecuencias esperadas \\((f_e)\\) por azar\nSi nuestra tabla \\((f_o)\\) se diferencia significativamente del azar \\((f_e)\\), entonces podemos rechazar la hipótesis nula y tenemos evidencia de asociación entre variables"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-13",
     "href": "slides/11-bivariada4.html#section-13",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "\\[f_{e_{a}}=\\frac{(a+b)(a+c)}{N}\\] \\[f_{e_{b}}=\\frac{(a+b)(b+d)}{N}\\] \\[f_{e_{c}}=\\frac{(a+c)(c+d)}{N}\\] \\[f_{e_{d}}=\\frac{(b+d)(c+d)}{N}\\]\n\n\n\n\n\n\ndiscriminad@\nno discriminad@\nTotal\n\n\n\n\nMenos que universitaria\na\nb\n(a+b)\n\n\nUniversitaria o más\nc\nd\n(c+d)\n\n\nTotal\n(a+c)\n(b+d)\nN\n\n\n\n\n\n\\[\\chi^2=\\sum\\frac{(f_o-f_e)^2}{f_e}\\]\nEl valor de Chi2 será mayor en la medida que lo observado sea distinto de lo esperado al azar"
   },
   {
     "objectID": "slides/11-bivariada4.html#frecuencias-esperadas-ejemplo-casen",
     "href": "slides/11-bivariada4.html#frecuencias-esperadas-ejemplo-casen",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Frecuencias esperadas: ejemplo CASEN",
     "text": "Frecuencias esperadas: ejemplo CASEN\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n26996\n141998\n168994 \n\n \n \nUniversitaria o más\n6476\n26761\n33237 \n\n \n \nTotal\n33472\n168759\n202231 \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000 \n\n \n\n\n\n\n\\[f_{e_{a}}=\\frac{168994*33472}{202231}=27970.8\\] \\[f_{e_{b}}=\\frac{168994*168759}{202231}=141023.2\\] \\[f_{e_{c}}=\\frac{33472*33237}{202231}=5501.2\\] \\[f_{e_{d}}=\\frac{168759*33237}{202231}=27735.8\\]"
   },
   {
     "objectID": "slides/11-bivariada4.html#frecuencias-esperadas-en-r",
     "href": "slides/11-bivariada4.html#frecuencias-esperadas-en-r",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Frecuencias esperadas en R",
     "text": "Frecuencias esperadas en R\nEn R también es posible obtener las frecuencias esperadas por celda con la función CrossTable de la librería gmodels\n\ngmodels::CrossTable(casen2022_chi$educ_sup,\n                    casen2022_chi$discrim,\n                    expected=TRUE,\n                    prop.r = FALSE,\n                    prop.c=FALSE,\n                    prop.chisq = FALSE,\n                    prop.t = FALSE)"
   },
   {
     "objectID": "slides/11-bivariada4.html#section-14",
     "href": "slides/11-bivariada4.html#section-14",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "",
     "text": "Cell Contents\n|-------------------------|\n|                       N |\n|              Expected N |\n|-------------------------|\n\n \nTotal Observations in Table:  202231 \n\n \n                       | casen2022_chi$discrim \ncasen2022_chi$educ_sup |         0 |         1 | Row Total | \n-----------------------|-----------|-----------|-----------|\n                     0 |     26996 |    141998 |    168994 | \n                       | 27970.821 | 141023.179 |           | \n-----------------------|-----------|-----------|-----------|\n                     1 |      6476 |     26761 |     33237 | \n                       |  5501.179 | 27735.821 |           | \n-----------------------|-----------|-----------|-----------|\n          Column Total |     33472 |    168759 |    202231 | \n-----------------------|-----------|-----------|-----------|\n\n \nStatistics for All Table Factors\n\n\nPearson's Chi-squared test \n------------------------------------------------------------\nChi^2 =  247.7146     d.f. =  1     p =  8.178928e-56 \n\nPearson's Chi-squared test with Yates' continuity correction \n------------------------------------------------------------\nChi^2 =  247.4605     d.f. =  1     p =  9.291443e-56"
   },
   {
     "objectID": "slides/11-bivariada4.html#cálculo-de-chi2",
     "href": "slides/11-bivariada4.html#cálculo-de-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Cálculo de \\(\\chi^2\\)",
     "text": "Cálculo de \\(\\chi^2\\)\n\\[\n\\begin{aligned}\n\\chi^2&=\\sum\\frac{(f_o-f_e)^2}{f_e} \\\\ \\\\\n&=\\frac{(26996-27970.8)^2}{27970.8}+\\frac{(141998-141023.2)^2}{141023.2}+\\frac{(6476-5501.2)^2}{5501.2}+ \\frac{(26761-27735.8)^2}{27735.8} \\\\ \\\\\n&=\\frac{(974.8)^2}{27970.8}+\\frac{(974.8)^2}{141023.2}+\\frac{(-974.8)^2}{5501.2}+ \\frac{(-974.8)^2}{27735.8} \\\\ \\\\\n&=\\frac{950235.04}{27970.8}+\\frac{950235.04}{141023.2}+\\frac{950235.04}{5501.2}+ \\frac{950235.04}{27735.8} \\\\ \\\\\n&=33.97+6.74+172.7+34.3\n\\end{aligned}\n\\]\n\n\\[\\chi^2=247.46\\]"
   },
   {
     "objectID": "slides/11-bivariada4.html#inferencia-y-chi2",
     "href": "slides/11-bivariada4.html#inferencia-y-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Inferencia y \\(\\chi^2\\)",
     "text": "Inferencia y \\(\\chi^2\\)\n\nTal como en los pasos de la inferencia para pruebas anteriores (como \\(Z\\) y \\(t\\)), para realizar la prueba de hipótesis comparamos el valor observado de \\(\\chi^2\\) con un valor crítico, que proviene de la distribución \\(\\chi^2\\)\nademás de especificar la probabilidad de error \\(\\alpha\\), se requiere especificar los grados de libertad"
   },
   {
     "objectID": "slides/11-bivariada4.html#grados-de-libertad-en-chi2",
     "href": "slides/11-bivariada4.html#grados-de-libertad-en-chi2",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Grados de libertad en \\(\\chi^2\\)",
     "text": "Grados de libertad en \\(\\chi^2\\)\n\nComo en la distribución \\(t\\), \\(\\chi^2\\) también se ajusta por los grados de libertad, que se obtienen multiplicando el número de niveles/categorías -1 de cada variable\nEn nuestro ejemplo de tabla de 2x2 (dos categorías de cada variable), los grados de libertad equivalen a:\n\n\n\\[gl=(2-1)*(2-1)=1*1=1\\]"
   },
   {
     "objectID": "slides/11-bivariada4.html#comparación-valor-crítico-y-valor-estimado",
     "href": "slides/11-bivariada4.html#comparación-valor-crítico-y-valor-estimado",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Comparación valor crítico y valor estimado",
     "text": "Comparación valor crítico y valor estimado\n\n\\(\\chi^2\\) estimado: 247.46\n\\(\\chi^2\\) crítico para un \\(\\alpha=0.05\\) y 1 grado de libertad: 3.84\nEn el ejemplo: valor estimado \\(\\chi^2\\) &gt; valor crítico \\(\\chi^2\\)\nPor lo tanto se rechaza \\(H_0\\), podemos decir que hay evidencia de asociación entre percepción de discriminación y nivel educacional con un 95% de confianza"
   },
   {
     "objectID": "slides/11-bivariada4.html#chi2-directamente-en-r",
     "href": "slides/11-bivariada4.html#chi2-directamente-en-r",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "\\(\\chi^2\\) directamente en R",
     "text": "\\(\\chi^2\\) directamente en R\nLa función es chisq.test()\n\nchisq.test(table(casen2022_chi$educ_sup,\n                 casen2022_chi$discrim))\n\n\n    Pearson's Chi-squared test with Yates' continuity correction\n\ndata:  table(casen2022_chi$educ_sup, casen2022_chi$discrim)\nX-squared = 247.46, df = 1, p-value &lt; 2.2e-16"
   },
   {
     "objectID": "slides/11-bivariada4.html#chi2-en-tablas-de-contingencia",
     "href": "slides/11-bivariada4.html#chi2-en-tablas-de-contingencia",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "\\(\\chi^2\\) en tablas de contingencia",
     "text": "\\(\\chi^2\\) en tablas de contingencia\n\n\nDe todas maneras, aparece directamente en varios outputs de tablas de contingencia en R, como la generada antes con sjtab, de librería sjPlot:\n\ncasen2022_chi %&gt;%\n  sjtab(educ_sup,\n        discrim,\n  show.row.prc = TRUE)\n\n\n\n\n\n\n \n e6a. ¿Cuál es elnivel educacional alque asiste o el másalto al cualasistió?\n r9t. Últ. 12 meses:No ha sido tratadoinjustamente odiscriminado\n Total\n \n \n\n discriminad@\n no discriminad@\n \n \n \nMenos queuniversitaria\n2699616 %\n14199884 %\n168994100 % \n\n \n \nUniversitaria o más\n647619.5 %\n2676180.5 %\n33237100 % \n\n \n \nTotal\n3347216.6 %\n16875983.4 %\n202231100 % \n\nχ2=247.461 · df=1 · &phi=0.035 · p=0.000"
   },
   {
     "objectID": "slides/11-bivariada4.html#resumen-5-pasos-inferencia-para-tablas-cruzadas",
     "href": "slides/11-bivariada4.html#resumen-5-pasos-inferencia-para-tablas-cruzadas",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Resumen: 5 pasos inferencia para tablas cruzadas",
     "text": "Resumen: 5 pasos inferencia para tablas cruzadas\n\n\nEstablecer las hipótesis\nCalcular frecuencias esperadas\nEstimar estadístico de prueba \\(\\chi^2\\)\nEstablecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza y grados de libertad)\nContraste e interpretación"
   },
   {
     "objectID": "slides/11-bivariada4.html#resumen-general-asociación-bivariada-y-niveles-de-medición",
     "href": "slides/11-bivariada4.html#resumen-general-asociación-bivariada-y-niveles-de-medición",
-    "title": "Estadística Correlacional",
+    "title": "",
     "section": "Resumen general: asociación bivariada y niveles de medición",
     "text": "Resumen general: asociación bivariada y niveles de medición\n\n\n\n\n\n\n\n\n\n\n\nIntervalar\nOrdinal\nNominal\n\n\n\n\nIntervalar\nPearson\n\n\n\n\nOrdinal\nPearson/Spearman\nSpearman\n\n\n\nNominal\nPunto-biserial\nSpearman/Punto-biserial/Chi 2\nChi 2"
+  },
+  {
+    "objectID": "slides/11-bivariada4.html",
+    "href": "slides/11-bivariada4.html",
+    "title": "",
+    "section": "",
+    "text": "Inferencia, asociación, y reporte\nJuan Carlos Castillo\nSociología FACSO - UChile\n2do Sem 2026\ncorrelacional.metodos-facso.org\n Sesión 11:\nAsociación con variables categóricas 1"
   }
 ]
