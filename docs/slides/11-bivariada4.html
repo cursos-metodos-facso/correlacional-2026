@@ -1,0 +1,1900 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
+
+  <title>Estadística Correlacional – bivariada4</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      { color: #003b4f; background-color: #f1f3f5; }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #003b4f; } /* Normal */
+    code span.al { color: #ad0000; } /* Alert */
+    code span.an { color: #5e5e5e; } /* Annotation */
+    code span.at { color: #657422; } /* Attribute */
+    code span.bn { color: #ad0000; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #20794d; } /* Char */
+    code span.cn { color: #8f5902; } /* Constant */
+    code span.co { color: #5e5e5e; } /* Comment */
+    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+    code span.dt { color: #ad0000; } /* DataType */
+    code span.dv { color: #ad0000; } /* DecVal */
+    code span.er { color: #ad0000; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #ad0000; } /* Float */
+    code span.fu { color: #4758ab; } /* Function */
+    code span.im { color: #00769e; } /* Import */
+    code span.in { color: #5e5e5e; } /* Information */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
+    code span.op { color: #5e5e5e; } /* Operator */
+    code span.ot { color: #003b4f; } /* Other */
+    code span.pp { color: #ad0000; } /* Preprocessor */
+    code span.sc { color: #5e5e5e; } /* SpecialChar */
+    code span.ss { color: #20794d; } /* SpecialString */
+    code span.st { color: #20794d; } /* String */
+    code span.va { color: #111111; } /* Variable */
+    code span.vs { color: #20794d; } /* VerbatimString */
+    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-db38453fddc50d20cddc072c985e9613.css">
+  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <style>
+  .reveal .cell-output-display table td,
+  .reveal .cell-output-display table td[data-quarto-table-cell-role="th"] {
+    text-align: center !important;
+  }
+  .reveal .cell-output-display table td {
+    padding-top: 0.1cm !important;
+    padding-bottom: 0.1cm !important;
+  }
+  .reveal .cell-output-display table td:first-child {
+    text-align: left !important;
+  }
+  </style>
+<meta property="og:title" content="Estadística Correlacional">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+
+<section>
+<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
+<h1></h1>
+<p><br></p>
+</section>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
+<p><br></p>
+<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<div style="border-top: 1px solid white; margin: 0.3em 0;">
+
+</div>
+<p><span style="font-size: 1.5em; color: #dfc117;">Inferencia, asociación, y reporte</span></p>
+<p><span style="font-size: 1em; color: white;">Juan Carlos Castillo</span><br>
+<span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
+<span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
+<p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+<p><br> <span style="color: white; font-size: 1.3em;"><strong>Sesión 11</strong>:</span></p>
+<p><span style="color: #dfc117;">Asociación con variables categóricas 1</span></p>
+</div>
+</div></section>
+<section id="preguntas-clase-pasada" class="title-slide slide level1 center" data-background-color="#9B2626">
+<h1><span style="color: white;">¿Preguntas clase pasada?</span></h1>
+
+</section>
+
+<section>
+<section id="section-1" class="title-slide slide level1 center" data-background-color="#0C3547">
+<h1></h1>
+<div style="color: white; text-align: right; font-size: 1.3em;">
+<p><span style="color: #dfc117; font-weight: bold;">1. Correlación y variables categóricas</span></p>
+<p>2. Asociación en tablas de contingencia</p>
+<p>3. Chi cuadrado (<span class="math inline">\(\chi^2\)</span>)</p>
+</div>
+</section>
+<section id="correlación-y-categóricas" class="slide level2" style="font-size: 0.85em;">
+<h2>Correlación y categóricas</h2>
+<ul>
+<li class="fragment"><p>sentido original de correlación (Pearson): variables intervalares/razón, también se extiende a ordinal (Spearman)</p></li>
+<li class="fragment"><p>dadas las ventajas de este coeficiente, se puede extender su uso a variables con nivel de medición nominal <strong><em>con algunas consideraciones</em></strong></p></li>
+<li class="fragment"><p>veamos un ejemplo:</p></li>
+</ul>
+</section>
+<section id="ejemplo" class="slide level2" style="font-size: 0.85em;">
+<h2>Ejemplo</h2>
+<p>Tenemos las siguientes variables:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb1-2"><a></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">17</span>, <span class="dv">17</span>, <span class="dv">11</span>, <span class="dv">22</span>, <span class="dv">23</span>, <span class="dv">11</span>, <span class="dv">19</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li class="fragment"><p>Donde x sería una variable nominal dicotómica con valores 1 y 0, mientras que y es una variable continua (intervalar)</p></li>
+<li class="fragment"><p>Este tipo de correlación se denomina <strong>punto biserial</strong></p></li>
+</ul>
+</section>
+<section id="cálculo-del-coeficiente-de-correlación" class="slide level2" style="font-size: 0.85em;">
+<h2>Cálculo del coeficiente de correlación</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="content-box-red">
+<p>Se utiliza la función <code>cor.test()</code> para calcular la correlación punto biserial entre las dos variables</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">cor.test</span>(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div><div class="column fragment" style="width:60%;">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  x and y
+t = 0.67064, df = 9, p-value = 0.5193
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.4391885  0.7233704
+sample estimates:
+      cor 
+0.2181635 </code></pre>
+</div>
+</div>
+<div style="text-align: right; font-size: 0.8em;">
+<p>(Se puede también usar <code>cor</code>, pero <code>cor.test</code> entrega más información)</p>
+</div>
+</div></div>
+</section>
+<section id="del-output-de-r-tenemos-que" class="slide level2" style="font-size: 0.85em;">
+<h2>Del output de R tenemos que:</h2>
+<ul>
+<li class="fragment"><p>la correlación punto biserial es <strong>0.218</strong>, indicando una relación positiva moderada entre ambas variables</p></li>
+<li class="fragment"><p>el valor <strong>p</strong> correspondiente es <strong>0.5193</strong>, que no permite rechazar la hipótesis nula con un 95% de confianza ya que el valor p no es menor a 0.05</p></li>
+<li class="fragment"><p>como complemento se entrega el intervalo de confianza <strong>[-0.4391885 0.7233704]</strong>, que como vemos contiene el <strong>0</strong>, y por lo tanto con un 95% de confianza no podemos decir que la correlación es distinta de 0</p></li>
+</ul>
+</section>
+<section id="qué-es-esta-correlación" class="slide level2" style="font-size: 0.85em;">
+<h2>¿Qué es esta correlación?</h2>
+<ul>
+<li class="fragment"><p>no es más que una correlación de Pearson entre una variable nominal y una intervalar</p></li>
+<li class="fragment"><p>para diferenciarla de Pearson tradicional se le denomina correlación <strong>punto biserial</strong></p></li>
+<li class="fragment"><p>hay que tener precauciones con su interpretación</p></li>
+</ul>
+</section>
+<section id="interpretación" class="slide level2" style="font-size: 0.85em;">
+<h2>Interpretación</h2>
+<ul>
+<li class="fragment"><p>pensemos que x=0 es hombre, x=1 es mujer, y que y=nivel educativo, ¿cómo se interpreta la correlación?</p>
+<ul>
+<li class="fragment"><strong>inferencia</strong>: que existe (o no) una asociación entre ambas variables (según si es estadísticamente distinta de cero)</li>
+<li class="fragment"><strong>tamaño</strong>: que esta asociación es débil, mediana o fuerte</li>
+<li class="fragment"><strong>sentido</strong>: difícil de interpretar, ej: mientras “más mujer”, mayor educación (?)</li>
+</ul></li>
+</ul>
+<div class="content-box-red fragment">
+<p>Por lo tanto, esta correlación puede tener limitaciones en la interpretación de su <strong>sentido</strong>, sirve principalmente para inferencia y tamaño.</p>
+</div>
+</section>
+<section id="qué-test-cálculo-podría-ser-más-apropiado-para-la-relación-entre-una-variable-intervalar-y-una-dicotómica" class="slide level2" data-background-color="#9B2626">
+<h2><span style="color: white;">¿Qué test / cálculo podría ser más apropiado para la relación entre una variable intervalar y una dicotómica?</span></h2>
+</section>
+<section id="section-2" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">t.test</span>(y <span class="sc">~</span> x, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Two Sample t-test
+
+data:  y by x
+t = -0.67064, df = 9, p-value = 0.5193
+alternative hypothesis: true difference in means between group 0 and group 1 is not equal to 0
+95 percent confidence interval:
+ -8.891987  4.825320
+sample estimates:
+mean in group 0 mean in group 1 
+       14.16667        16.20000 </code></pre>
+</div>
+</div>
+</section>
+<section id="por-lo-tanto-correlación-punto-biserial" class="slide level2" style="font-size: 0.85em;">
+<h2>Por lo tanto, correlación punto-biserial</h2>
+<ul>
+<li class="fragment"><p>es equivalente a un test de diferencia de medias en términos de inferencia</p></li>
+<li class="fragment"><p>en términos de valor es igual que una correlación de Pearson: varía entre -1 y 1</p></li>
+<li class="fragment"><p>el apellido de (punto) <strong>biserial</strong> se utiliza solo para dar cuenta que el nivel de medición de una de las variables es nominal, y se requieren consideraciones especiales en su interpretación</p></li>
+<li class="fragment"><p>también se puede denominar biserial a una correlación entre una variable intervalar/razón y una ordinal</p></li>
+</ul>
+</section>
+<section id="section-3" class="slide level2" data-background-color="#0C3547">
+<h2></h2>
+<div style="color: white; text-align: center; font-size: 1.2em;">
+<p>El sentido general de realizar correlaciones de Pearson con variables categóricas es el supuesto que la categórica representa distintos niveles de una <strong>variable latente continua</strong></p>
+<p><br></p>
+<p><span style="color: #dfc117;">Ej: 0=baja educación, 1=alta educación</span></p>
+</div>
+</section>
+<section id="caso-especial-correlación-tetracórica" class="slide level2" style="font-size: 0.85em;">
+<h2>Caso especial: correlación tetracórica</h2>
+<ul>
+<li class="fragment"><p>Es una correlación entre dos variables dicotómicas (=categórica de dos niveles)</p></li>
+<li class="fragment"><p>Se calcula en base a las frecuencias de cada combinación de valores (00,01,10,11).</p></li>
+<li class="fragment"><p>Supone que ambas variables son continuas y normalmente distribuidas antes de la categorización.</p></li>
+</ul>
+</section>
+<section id="tipos-de-correlación-según-nivel-de-medición" class="slide level2" style="font-size: 0.6em;">
+<h2>Tipos de correlación según nivel de medición</h2>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 22%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Nominal Dicotómica</strong></th>
+<th><strong>Nominal Politómica</strong></th>
+<th><strong>Ordinal</strong></th>
+<th><strong>Intervalar/Razón</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Nominal Dicotómica</strong></td>
+<td>Tetracórica</td>
+<td></td>
+<td>Biserial</td>
+<td>Punto Biserial</td>
+</tr>
+<tr class="even">
+<td><strong>Nominal Politómica</strong></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Ordinal</strong></td>
+<td>Biserial</td>
+<td></td>
+<td>Spearman, Kendall</td>
+<td>Pearson/biserial, Policórica</td>
+</tr>
+<tr class="even">
+<td><strong>Intervalar/Razón</strong></td>
+<td>Punto Biserial</td>
+<td></td>
+<td>Pearson/biserial, Policórica</td>
+<td>Pearson</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="section-4" class="title-slide slide level1 center" data-background-color="#0C3547">
+<h1></h1>
+<div style="color: white; text-align: right; font-size: 1.3em;">
+<p>1. Correlación y variables categóricas</p>
+<p><span style="color: #dfc117; font-weight: bold;">2. Asociación en tablas de contingencia</span></p>
+<p>3. Chi cuadrado (<span class="math inline">\(\chi^2\)</span>)</p>
+</div>
+</section>
+<section id="escalas-de-medición-de-variables" class="slide level2" style="font-size: 0.85em;">
+<h2>Escalas de medición de variables</h2>
+<ul>
+<li class="fragment">NOIR: Nominal, Ordinal, Intervalar, Razón</li>
+</ul>
+<div class="fragment" style="font-size: 0.85em;">
+<table class="caption-top">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 40%">
+<col style="width: 23%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Características</th>
+<th>Propiedad de números</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Nominal</em></td>
+<td>Uso de números en lugar de palabras</td>
+<td>Identidad</td>
+<td>Nacionalidad</td>
+</tr>
+<tr class="even">
+<td><em>Ordinal</em></td>
+<td>Números se usan para ordenar series</td>
+<td>+ ranking</td>
+<td>Nivel educacional</td>
+</tr>
+<tr class="odd">
+<td><em>Intervalar</em></td>
+<td>Intervalos iguales entre números</td>
+<td>+ igualdad</td>
+<td>Temperatura</td>
+</tr>
+<tr class="even">
+<td><em>Razón</em></td>
+<td>Cero real</td>
+<td>+ aditividad</td>
+<td>Distancia</td>
+</tr>
+</tbody>
+</table>
+</div>
+<aside class="notes">
+<ul>
+<li>Nominal: Números empleados como etiquetas (ej. sexo, raza)</li>
+<li>Ordinales: Distintas categorías pueden ser ordenadas en serie. Posición, no distancia. (ej. cargos en una empresa)</li>
+<li>Intervalares: Escalas de unidades iguales. Diferencia entre dos números consecutivos refleja diferencia empírica. (ej. Horas del día)</li>
+<li>Razón: caracterizados por la presencia de un cero absoluto. (ej. frecuencias de eventos)</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tipos-de-datos-en-relación-a-escalas-de-medición" class="slide level2" style="font-size: 0.85em;">
+<h2>Tipos de datos en relación a escalas de medición</h2>
+<ul>
+<li class="fragment"><p><strong>Datos categóricos</strong>:</p>
+<ul>
+<li class="fragment">pueden ser medidos sólo mediante escalas nominales, u ordinales en caso de orden de rango</li>
+</ul></li>
+<li class="fragment"><p><strong>Datos continuos</strong>:</p>
+<ul>
+<li class="fragment">Medidos en escalas intervalares o de razón</li>
+<li class="fragment">Pueden ser transformados a datos categóricos</li>
+</ul></li>
+</ul>
+</section>
+<section id="tablas-de-contingencia-o-tablas-cruzadas" class="slide level2" style="font-size: 0.85em;">
+<h2>Tablas de contingencia o tablas cruzadas</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li class="fragment"><p>Son tablas que presentan la distribución conjunta de dos o más variables</p></li>
+<li class="fragment"><p>Ej. Moore cap 9: recaídas en consumo de cocaína luego de tratar adicción con distintos tratamientos</p></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="img/contingencia_moore.png" class="quarto-figure quarto-figure-center" style="width:100.0%"></p>
+</figure>
+</div>
+</div></div>
+<aside class="notes">
+<ul>
+<li>ver temas de frecuencias absolutas, porcentuales y totales por filas o por columnas</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="tablas-de-contingencia-y-asociación" class="slide level2 nonincremental" style="font-size: 0.85em;">
+<h2>Tablas de contingencia y asociación</h2>
+<p><br></p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="content-box-red" style="text-align: center; font-size: 1.3em;">
+<p>¿Cómo establecer una medida de <strong>asociación</strong> de los datos en una tabla de contingencia?</p>
+</div>
+</div><div class="column fragment" style="width:50%;">
+<div class="content-box-gray" style="text-align: center; font-size: 1.3em;">
+<p>¿Cómo saber si esa asociación es <strong>estadísticamente</strong> significativa?</p>
+</div>
+</div></div>
+</section>
+<section id="ejemplo-1" class="slide level2 nonincremental" style="font-size: 0.85em;">
+<h2>Ejemplo</h2>
+<p>Pensemos en la siguiente pregunta de investigación:</p>
+<p><strong>¿Existe una asociación entre la percepción de ser discriminado y el nivel educacional?</strong></p>
+<p><span class="math inline">\(H_a\)</span>: el nivel educacional se asocia a la percepción de ser discriminado</p>
+<p><span class="math inline">\(H_0\)</span>: no hay asociación entre nivel educacional y percepción de ser discriminado</p>
+</section>
+<section id="vamos-a-los-datos-casen-2022" class="slide level2" style="font-size: 0.85em;">
+<h2>Vamos a los datos: CASEN 2022</h2>
+<p>En CASEN existe una batería sobre percepción de discriminación:</p>
+<div style="overflow: scroll; max-height: 500px;">
+<p><img data-src="img/per-dis.png" width="2000"></p>
+</div>
+</section>
+<section id="section-5" class="slide level2" style="font-size: 0.8em;">
+<h2></h2>
+<p>Generar subset CASEN con educación y percepción de discriminación</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(haven, sjmisc, dplyr)</span>
+<span id="cb6-2"><a></a>casen2022_chi <span class="ot">&lt;-</span> <span class="fu">read_dta</span>(<span class="st">"/home/juank/Downloads/Base de datos Casen 2022 STATA.dta"</span>)</span>
+<span id="cb6-3"><a></a><span class="fu">summary</span>(casen2022<span class="sc">$</span>r9)</span>
+<span id="cb6-4"><a></a>sjmisc<span class="sc">::</span><span class="fu">find_var</span>(<span class="at">data =</span> casen2022_chi,<span class="st">"discriminado"</span>)</span>
+<span id="cb6-5"><a></a>sjmisc<span class="sc">::</span><span class="fu">find_var</span>(<span class="at">data =</span> casen2022_chi,<span class="st">"nivel educacional"</span>)</span>
+<span id="cb6-6"><a></a>casen2022_chi <span class="ot">&lt;-</span> casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a></a>  <span class="fu">select</span>(r9a<span class="sc">:</span>r9t, e6a)  <span class="co"># seleccionar variables</span></span>
+<span id="cb6-8"><a></a>casen2022_chi <span class="ot">&lt;-</span> casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb6-9"><a></a>  <span class="fu">rename</span>(<span class="st">"educacion"</span><span class="ot">=</span>e6a) <span class="co">#renombrar</span></span>
+<span id="cb6-10"><a></a><span class="fu">save</span>(casen2022_chi,</span>
+<span id="cb6-11"><a></a>     <span class="at">file =</span> <span class="st">"slides/data/casen2022_chi.Rdata"</span>) <span class="co">#guardar objeto</span></span>
+<span id="cb6-12"><a></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">c</span>(<span class="st">'casen2022_chi'</span>)) <span class="co"># quitar del environment por tamaño/memoria</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="recodificar-discriminación" class="slide level2" style="font-size: 0.8em;">
+<h2>Recodificar discriminación</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjmisc)</span>
+<span id="cb7-2"><a></a><span class="fu">load</span>(<span class="st">"data/casen2022_chi.Rdata"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">frq</span>(casen2022_chi<span class="sc">$</span>r9t)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.83 sd=0.37
+
+Value | Label |      N | Raw % | Valid % | Cum. %
+-------------------------------------------------
+    0 |    No |  33472 | 16.55 |   16.55 |  16.55
+    1 |    Sí | 168759 | 83.45 |   83.45 | 100.00
+ &lt;NA&gt; |  &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="section-6" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<ul>
+<li class="fragment"><p>En la lista CASEN al final hay un ítem de “no ha sido discriminado” (<strong>r9t</strong>), que usaremos para nuestro análisis; la renombramos “discrim”</p></li>
+<li class="fragment"><p>Quienes responden sí son quienes no se han sentido discriminados, por lo tanto mejor cambiar las etiquetas para evitar confusiones</p></li>
+</ul>
+<div class="fragment">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a>casen2022_chi<span class="sc">$</span>discrim <span class="ot">&lt;-</span> sjlabelled<span class="sc">::</span><span class="fu">set_labels</span>(casen2022_chi<span class="sc">$</span>r9t,</span>
+<span id="cb10-2"><a></a>            <span class="at">labels=</span><span class="fu">c</span>( <span class="st">"discriminad@"</span><span class="ot">=</span><span class="dv">0</span>,</span>
+<span id="cb10-3"><a></a>                      <span class="st">"no discriminad@"</span><span class="ot">=</span><span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2" style="font-size: 0.8em;">
+<h2></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="fu">frq</span>(casen2022_chi<span class="sc">$</span>discrim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>r9t. Últ. 12 meses: No ha sido tratado injustamente o discriminado (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.83 sd=0.37
+
+Value |           Label |      N | Raw % | Valid % | Cum. %
+-----------------------------------------------------------
+    0 |    discriminad@ |  33472 | 16.55 |   16.55 |  16.55
+    1 | no discriminad@ | 168759 | 83.45 |   83.45 | 100.00
+ &lt;NA&gt; |            &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="variable-educación-universitaria" class="slide level2" style="font-size: 0.8em;">
+<h2>Variable educación universitaria</h2>
+<p>Ahora con la variable educación, recodificar universitario=1</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a>casen2022_chi<span class="sc">$</span>educ_sup <span class="ot">&lt;-</span> <span class="fu">rec</span>(casen2022_chi<span class="sc">$</span>educacion, <span class="at">rec =</span> <span class="st">"1:12=0;13:15=1"</span>,</span>
+<span id="cb13-2"><a></a>                              <span class="at">val.labels =</span> <span class="fu">c</span>(<span class="st">"Menos que universitaria"</span>, <span class="st">"Universitaria o más"</span>))</span>
+<span id="cb13-3"><a></a><span class="fu">frq</span>(casen2022_chi<span class="sc">$</span>educ_sup)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>e6a. ¿Cuál es el nivel educacional al que asiste o el más alto al cual asistió? (x) &lt;numeric&gt; 
+# total N=202231 valid N=202231 mean=0.16 sd=0.37
+
+Value |                   Label |      N | Raw % | Valid % | Cum. %
+-------------------------------------------------------------------
+    0 | Menos que universitaria | 168994 | 83.56 |   83.56 |  83.56
+    1 |     Universitaria o más |  33237 | 16.44 |   16.44 | 100.00
+ &lt;NA&gt; |                    &lt;NA&gt; |      0 |  0.00 |    &lt;NA&gt; |   &lt;NA&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="tabla-de-frecuencias-cruzadas" class="slide level2" style="font-size: 0.8em;">
+<h2>Tabla de frecuencias cruzadas</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjPlot)</span>
+<span id="cb15-2"><a></a>casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a></a>  <span class="fu">sjtab</span>(educ_sup,</span>
+<span id="cb15-4"><a></a>        discrim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width: 60%; font-size: 0.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="porcentajes-por-columna" class="slide level2" style="font-size: 0.8em;">
+<h2>Porcentajes por columna</h2>
+<p>Para mayor claridad generamos porcentajes por columnas de la tabla (discriminación)</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a>casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a></a>  <span class="fu">sjtab</span>(educ_sup,</span>
+<span id="cb16-3"><a></a>        discrim,</span>
+<span id="cb16-4"><a></a>  <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width: 60%; font-size: 0.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span><br><span style="color:#339933;">80.7&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span><br><span style="color:#339933;">84.1&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span><br><span style="color:#339933;">83.6&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span><br><span style="color:#339933;">19.3&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span><br><span style="color:#339933;">15.9&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span><br><span style="color:#339933;">16.4&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span><br><span style="color:#339933;">100&nbsp;%</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="porcentajes-por-fila" class="slide level2" style="font-size: 0.8em;">
+<h2>Porcentajes por fila</h2>
+<p>Y acá por filas (educación)</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a>casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb17-2"><a></a>  <span class="fu">sjtab</span>(educ_sup,</span>
+<span id="cb17-3"><a></a>        discrim,</span>
+<span id="cb17-4"><a></a>  <span class="at">show.row.prc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width: 60%; font-size: 0.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span><br><span style="color:#333399;">16&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span><br><span style="color:#333399;">84&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span><br><span style="color:#333399;">19.5&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span><br><span style="color:#333399;">80.5&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span><br><span style="color:#333399;">16.6&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span><br><span style="color:#333399;">83.4&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="porcentajes-por-fila-y-columna" class="slide level2" style="font-size: 0.8em;">
+<h2>Porcentajes por fila y columna</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a>casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a></a>  <span class="fu">sjtab</span>(educ_sup,</span>
+<span id="cb18-3"><a></a>        discrim,</span>
+<span id="cb18-4"><a></a>  <span class="at">show.row.prc =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb18-5"><a></a>  <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width: 60%; font-size: 0.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span><br><span style="color:#333399;">16&nbsp;%</span><br><span style="color:#339933;">80.7&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span><br><span style="color:#333399;">84&nbsp;%</span><br><span style="color:#339933;">84.1&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">83.6&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span><br><span style="color:#333399;">19.5&nbsp;%</span><br><span style="color:#339933;">19.3&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span><br><span style="color:#333399;">80.5&nbsp;%</span><br><span style="color:#339933;">15.9&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">16.4&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span><br><span style="color:#333399;">16.6&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span><br><span style="color:#333399;">83.4&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="section-8" class="slide level2" style="font-size: 0.8em;">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width: 60%; font-size: 0.6em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span><br><span style="color:#333399;">16&nbsp;%</span><br><span style="color:#339933;">80.7&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span><br><span style="color:#333399;">84&nbsp;%</span><br><span style="color:#339933;">84.1&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">83.6&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span><br><span style="color:#333399;">19.5&nbsp;%</span><br><span style="color:#339933;">19.3&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span><br><span style="color:#333399;">80.5&nbsp;%</span><br><span style="color:#339933;">15.9&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">16.4&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span><br><span style="color:#333399;">16.6&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span><br><span style="color:#333399;">83.4&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span><br><span style="color:#333399;">100&nbsp;%</span><br><span style="color:#339933;">100&nbsp;%</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<p><br></p>
+<div class="content-box-red" style="text-align: center; font-size: 1.3em;">
+<p>¿Cómo saber si existe asociación o no entre estas variables?</p>
+</div>
+</div></div>
+</section>
+<section id="section-9" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<p>Para simplificar, pensemos en una muestra más pequeña de 100 casos y además balanceada.</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">discriminad@</th>
+<th style="text-align: center;">no discriminad@</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos que universitaria</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td>Universitaria o más</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">100</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment" style="text-align: center; font-size: 1.2em; color: #e50f0f;">
+<p><em>¿Cómo se deberían distribuir los casos en las celdas para constatar que hay (o no) diferencias?</em></p>
+</div>
+</section>
+<section id="section-10" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">discriminad@</th>
+<th style="text-align: center;">no discriminad@</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos que universitaria</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td>Universitaria o más</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">100</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Esta tabla estaría expresando lo esperado por nuestra <strong>hipótesis (alternativa)</strong>: existen diferencias al cruzar estas variables, y por lo tanto hay asociación entre educación y percepción de discriminación</p>
+</div>
+</section>
+<section id="section-11" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<p>Este es el otro extremo: todas las celdas tienen la misma cantidad de casos</p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">discriminad@</th>
+<th style="text-align: center;">no discriminad@</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos que universitaria</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="even">
+<td>Universitaria o más</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">25</td>
+<td style="text-align: center;">50</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">100</td>
+</tr>
+</tbody>
+</table>
+<div class="fragment">
+<p>Esta tabla expresa la <strong>hipótesis nula</strong> <span class="math inline">\(H_0\)</span>: no existe asociación entre variables</p>
+</div>
+</section></section>
+<section>
+<section id="section-12" class="title-slide slide level1 center" data-background-color="#0C3547">
+<h1></h1>
+<div style="color: white; text-align: right; font-size: 1.3em;">
+<p>1. Correlación y variables categóricas</p>
+<p>2. Asociación en tablas de contingencia</p>
+<p><span style="color: #dfc117; font-weight: bold;">3. Chi cuadrado (<span class="math inline">\(\chi^2\)</span>)</span></p>
+</div>
+</section>
+<section id="prueba-de-chi2" class="slide level2" style="font-size: 0.85em;">
+<h2>Prueba de <span class="math inline">\(\chi^2\)</span></h2>
+<ul>
+<li class="fragment"><p>La prueba de <span class="math inline">\(\chi^2\)</span> (chi cuadrado) se utiliza para inferencia sobre asociación de variables categóricas en una tabla de contingencia</p></li>
+<li class="fragment"><p><span class="math inline">\(\chi^2\)</span> se basa en un <strong>test de diferencia</strong>, donde se compara nuestra tabla de contingencia y una tabla donde no existe asociación entre variables, que representa la hipótesis nula <span class="math inline">\(H_0\)</span></p></li>
+<li class="fragment"><p>La lógica detrás es que si nuestra tabla es significativamente distinta de una tabla sin asociación, entonces podemos rechazar la hipótesis nula</p></li>
+</ul>
+</section>
+<section id="pasos-en-el-cálculo-de-chi2" class="slide level2" style="font-size: 0.85em;">
+<h2>Pasos en el cálculo de <span class="math inline">\(\chi^2\)</span></h2>
+<ul>
+<li class="fragment"><p>Generación de tabla de contingencia <strong>observada</strong> en base a nuestros datos</p></li>
+<li class="fragment"><p>Generación de tabla de contingencia <strong>esperada</strong> al azar en base a nuestros datos</p></li>
+<li class="fragment"><p>Establecer la diferencia entre lo observado y lo esperado al azar</p></li>
+<li class="fragment"><p>Establecer si esta diferencia es estadísticamente significativa</p></li>
+</ul>
+</section>
+<section id="frecuencia-esperada-al-azar-en-una-tabla-de-contingencia" class="slide level2" style="font-size: 0.85em;">
+<h2>Frecuencia esperada al azar en una tabla de contingencia</h2>
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">discriminad@</th>
+<th style="text-align: center;">no discriminad@</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos que universitaria</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+<td style="text-align: center;">(a+b)</td>
+</tr>
+<tr class="even">
+<td>Universitaria o más</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: center;">(c+d)</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td style="text-align: center;">(a+c)</td>
+<td style="text-align: center;">(b+d)</td>
+<td style="text-align: center;">N</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="frecuencia-esperada-celda-a" class="slide level2" style="font-size: 0.85em;">
+<h2>Frecuencia esperada: celda <strong>a</strong></h2>
+<p>Nos enfocamos en la celda <strong>a</strong>, su frecuencia esperada es:</p>
+<p><span class="math display">\[f_{e_{a}}=\frac{(a+b)(a+c)}{N}\]</span></p>
+<div class="fragment">
+<p>En base a los datos de nuestro ejemplo de 100 casos:</p>
+<p><span class="math display">\[f_{e_{a}}=\frac{(50)(50)}{100}= \frac{2500}{100}=25\]</span></p>
+</div>
+<div class="fragment">
+<p>Por lo tanto, la frecuencia esperada <strong>al azar</strong> (<span class="math inline">\(H_0\)</span>) para la celda <strong>a</strong>=25</p>
+</div>
+</section>
+<section id="sentido-general-de-la-prueba-de-chi2" class="slide level2" style="font-size: 0.85em;">
+<h2>Sentido general de la prueba de <span class="math inline">\(\chi^2\)</span></h2>
+<ul>
+<li class="fragment"><p>La lógica de la prueba de Chi 2 es la comparación de las frecuencias observadas <span class="math inline">\((f_o)\)</span> en nuestra tabla y de las frecuencias esperadas <span class="math inline">\((f_e)\)</span> por azar</p></li>
+<li class="fragment"><p>Si nuestra tabla <span class="math inline">\((f_o)\)</span> se diferencia <strong>significativamente</strong> del azar <span class="math inline">\((f_e)\)</span>, entonces podemos rechazar la hipótesis nula y tenemos evidencia de asociación entre variables</p></li>
+</ul>
+</section>
+<section id="section-13" class="slide level2" style="font-size: 0.85em;">
+<h2></h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<p><span class="math display">\[f_{e_{a}}=\frac{(a+b)(a+c)}{N}\]</span> <span class="math display">\[f_{e_{b}}=\frac{(a+b)(b+d)}{N}\]</span> <span class="math display">\[f_{e_{c}}=\frac{(a+c)(c+d)}{N}\]</span> <span class="math display">\[f_{e_{d}}=\frac{(b+d)(c+d)}{N}\]</span></p>
+</div><div class="column" style="width:65%;">
+<div style="font-size: 0.8em;">
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;">discriminad@</th>
+<th style="text-align: center;">no discriminad@</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos que universitaria</td>
+<td style="text-align: center;">a</td>
+<td style="text-align: center;">b</td>
+<td style="text-align: center;">(a+b)</td>
+</tr>
+<tr class="even">
+<td>Universitaria o más</td>
+<td style="text-align: center;">c</td>
+<td style="text-align: center;">d</td>
+<td style="text-align: center;">(c+d)</td>
+</tr>
+<tr class="odd">
+<td>Total</td>
+<td style="text-align: center;">(a+c)</td>
+<td style="text-align: center;">(b+d)</td>
+<td style="text-align: center;">N</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\chi^2=\sum\frac{(f_o-f_e)^2}{f_e}\]</span></p>
+<p>El valor de Chi2 será mayor en la medida que lo observado sea distinto de lo esperado al azar</p>
+</div>
+</div></div>
+</section>
+<section id="frecuencias-esperadas-ejemplo-casen" class="slide level2" style="font-size: 0.7em;">
+<h2>Frecuencias esperadas: ejemplo CASEN</h2>
+<div class="columns">
+<div class="column" style="width: 55%; font-size: 0.7em;">
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div><div class="column fragment" style="font-size: 0.7em;">
+<p><span class="math display">\[f_{e_{a}}=\frac{168994*33472}{202231}=27970.8\]</span> <span class="math display">\[f_{e_{b}}=\frac{168994*168759}{202231}=141023.2\]</span> <span class="math display">\[f_{e_{c}}=\frac{33472*33237}{202231}=5501.2\]</span> <span class="math display">\[f_{e_{d}}=\frac{168759*33237}{202231}=27735.8\]</span></p>
+</div></div>
+</section>
+<section id="frecuencias-esperadas-en-r" class="slide level2" style="font-size: 0.85em;">
+<h2>Frecuencias esperadas en R</h2>
+<p>En R también es posible obtener las frecuencias esperadas por celda con la función <code>CrossTable</code> de la librería <code>gmodels</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a>gmodels<span class="sc">::</span><span class="fu">CrossTable</span>(casen2022_chi<span class="sc">$</span>educ_sup,</span>
+<span id="cb19-2"><a></a>                    casen2022_chi<span class="sc">$</span>discrim,</span>
+<span id="cb19-3"><a></a>                    <span class="at">expected=</span><span class="cn">TRUE</span>,</span>
+<span id="cb19-4"><a></a>                    <span class="at">prop.r =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-5"><a></a>                    <span class="at">prop.c=</span><span class="cn">FALSE</span>,</span>
+<span id="cb19-6"><a></a>                    <span class="at">prop.chisq =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb19-7"><a></a>                    <span class="at">prop.t =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="section-14" class="slide level2" style="font-size: 0.7em;">
+<h2></h2>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>
+ 
+   Cell Contents
+|-------------------------|
+|                       N |
+|              Expected N |
+|-------------------------|
+
+ 
+Total Observations in Table:  202231 
+
+ 
+                       | casen2022_chi$discrim 
+casen2022_chi$educ_sup |         0 |         1 | Row Total | 
+-----------------------|-----------|-----------|-----------|
+                     0 |     26996 |    141998 |    168994 | 
+                       | 27970.821 | 141023.179 |           | 
+-----------------------|-----------|-----------|-----------|
+                     1 |      6476 |     26761 |     33237 | 
+                       |  5501.179 | 27735.821 |           | 
+-----------------------|-----------|-----------|-----------|
+          Column Total |     33472 |    168759 |    202231 | 
+-----------------------|-----------|-----------|-----------|
+
+ 
+Statistics for All Table Factors
+
+
+Pearson's Chi-squared test 
+------------------------------------------------------------
+Chi^2 =  247.7146     d.f. =  1     p =  8.178928e-56 
+
+Pearson's Chi-squared test with Yates' continuity correction 
+------------------------------------------------------------
+Chi^2 =  247.4605     d.f. =  1     p =  9.291443e-56 
+
+ </code></pre>
+</div>
+</div>
+</section>
+<section id="cálculo-de-chi2" class="slide level2" style="font-size: 0.65em;">
+<h2>Cálculo de <span class="math inline">\(\chi^2\)</span></h2>
+<p><span class="math display">\[
+\begin{aligned}
+\chi^2&amp;=\sum\frac{(f_o-f_e)^2}{f_e} \\ \\
+&amp;=\frac{(26996-27970.8)^2}{27970.8}+\frac{(141998-141023.2)^2}{141023.2}+\frac{(6476-5501.2)^2}{5501.2}+ \frac{(26761-27735.8)^2}{27735.8} \\ \\
+&amp;=\frac{(974.8)^2}{27970.8}+\frac{(974.8)^2}{141023.2}+\frac{(-974.8)^2}{5501.2}+ \frac{(-974.8)^2}{27735.8} \\ \\
+&amp;=\frac{950235.04}{27970.8}+\frac{950235.04}{141023.2}+\frac{950235.04}{5501.2}+ \frac{950235.04}{27735.8} \\ \\
+&amp;=33.97+6.74+172.7+34.3
+\end{aligned}
+\]</span></p>
+<div class="fragment" style="font-size: 1.5em;">
+<p><span class="math display">\[\chi^2=247.46\]</span></p>
+</div>
+</section>
+<section id="inferencia-y-chi2" class="slide level2" style="font-size: 0.85em;">
+<h2>Inferencia y <span class="math inline">\(\chi^2\)</span></h2>
+<ul>
+<li class="fragment"><p>Tal como en los pasos de la inferencia para pruebas anteriores (como <span class="math inline">\(Z\)</span> y <span class="math inline">\(t\)</span>), para realizar la prueba de hipótesis comparamos el valor observado de <span class="math inline">\(\chi^2\)</span> con un valor crítico, que proviene de la distribución <span class="math inline">\(\chi^2\)</span></p></li>
+<li class="fragment"><p>además de especificar la probabilidad de error <span class="math inline">\(\alpha\)</span>, se requiere especificar los <strong>grados de libertad</strong></p></li>
+</ul>
+</section>
+<section id="grados-de-libertad-en-chi2" class="slide level2" style="font-size: 0.85em;">
+<h2>Grados de libertad en <span class="math inline">\(\chi^2\)</span></h2>
+<ul>
+<li class="fragment"><p>Como en la distribución <span class="math inline">\(t\)</span>, <span class="math inline">\(\chi^2\)</span> también se ajusta por los grados de libertad, que se obtienen multiplicando el número de niveles/categorías -1 de cada variable</p></li>
+<li class="fragment"><p>En nuestro ejemplo de tabla de 2x2 (dos categorías de cada variable), los grados de libertad equivalen a:</p></li>
+</ul>
+<div class="fragment">
+<p><span class="math display">\[gl=(2-1)*(2-1)=1*1=1\]</span></p>
+</div>
+</section>
+<section id="section-15" class="slide level2 nonincremental">
+<h2></h2>
+
+<img data-src="img/chi_dist2.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
+<section id="comparación-valor-crítico-y-valor-estimado" class="slide level2" style="font-size: 0.85em;">
+<h2>Comparación valor crítico y valor estimado</h2>
+<ul>
+<li class="fragment"><p><span class="math inline">\(\chi^2\)</span> estimado: <strong>247.46</strong></p></li>
+<li class="fragment"><p><span class="math inline">\(\chi^2\)</span> crítico para un <span class="math inline">\(\alpha=0.05\)</span> y 1 grado de libertad: <strong>3.84</strong></p></li>
+<li class="fragment"><p>En el ejemplo: <strong>valor estimado <span class="math inline">\(\chi^2\)</span> &gt; valor crítico <span class="math inline">\(\chi^2\)</span></strong></p></li>
+<li class="fragment"><p>Por lo tanto <strong>se rechaza <span class="math inline">\(H_0\)</span></strong>, podemos decir que hay evidencia de asociación entre percepción de discriminación y nivel educacional con un 95% de confianza</p></li>
+</ul>
+</section>
+<section id="chi2-directamente-en-r" class="slide level2" style="font-size: 0.85em;">
+<h2><span class="math inline">\(\chi^2\)</span> directamente en R</h2>
+<p>La función es <code>chisq.test()</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(casen2022_chi<span class="sc">$</span>educ_sup,</span>
+<span id="cb21-2"><a></a>                 casen2022_chi<span class="sc">$</span>discrim))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  table(casen2022_chi$educ_sup, casen2022_chi$discrim)
+X-squared = 247.46, df = 1, p-value &lt; 2.2e-16</code></pre>
+</div>
+</div>
+</section>
+<section id="chi2-en-tablas-de-contingencia" class="slide level2" style="font-size: 0.65em;">
+<h2><span class="math inline">\(\chi^2\)</span> en tablas de contingencia</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<p>De todas maneras, aparece directamente en varios outputs de tablas de contingencia en R, como la generada antes con <code>sjtab</code>, de librería <code>sjPlot</code>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a></a>casen2022_chi <span class="sc">%&gt;%</span></span>
+<span id="cb23-2"><a></a>  <span class="fu">sjtab</span>(educ_sup,</span>
+<span id="cb23-3"><a></a>        discrim,</span>
+<span id="cb23-4"><a></a>  <span class="at">show.row.prc =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div><div class="column" style="width: 60%; font-size: 0.8em;">
+<p><br></p>
+<div class="cell">
+<div class="cell-output-display">
+<table style="border-collapse:collapse; border:none;">
+ <tbody><tr>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; border-bottom:1px solid;" rowspan="2">e6a. ¿Cuál es el<br>nivel educacional al<br>que asiste o el más<br>alto al cual<br>asistió?</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal;" colspan="2">r9t. Últ. 12 meses:<br>No ha sido tratado<br>injustamente o<br>discriminado</th>
+ <th style="border-top:double; text-align:center; font-style:italic; font-weight:normal; font-weight:bolder; font-style:italic; border-bottom:1px solid; " rowspan="2">Total</th>
+ </tr>
+ 
+<tr>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">discriminad@</td>
+ <td style="border-bottom:1px solid; text-align:center; padding:0.2cm;">no discriminad@</td>
+ </tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Menos que<br>universitaria</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26996</span><br><span style="color:#333399;">16&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">141998</span><br><span style="color:#333399;">84&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">168994</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  text-align:left; vertical-align:middle;">Universitaria o más</td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">6476</span><br><span style="color:#333399;">19.5&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center; "><span style="color:black;">26761</span><br><span style="color:#333399;">80.5&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;  "><span style="color:black;">33237</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+ 
+<tr> 
+<td style="padding:0.2cm;  border-bottom:double; font-weight:bolder; font-style:italic; text-align:left; vertical-align:middle;">Total</td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">33472</span><br><span style="color:#333399;">16.6&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">168759</span><br><span style="color:#333399;">83.4&nbsp;%</span></td>
+<td style="padding:0.2cm; text-align:center;   border-bottom:double;"><span style="color:black;">202231</span><br><span style="color:#333399;">100&nbsp;%</span></td> 
+</tr>
+<tr><td style="text-align:right; font-size:0.9em; font-style:italic; padding:0.2cm;" colspan="4">χ<sup>2</sup>=247.461 · df=1 · &amp;phi=0.035 · p=0.000</td> 
+</tr>
+ 
+</tbody></table>
+</div>
+</div>
+</div></div>
+</section>
+<section id="resumen-5-pasos-inferencia-para-tablas-cruzadas" class="slide level2 scrollable" data-background-color="#0C3547" style="font-size: 0.85em;">
+<h2>Resumen: 5 pasos inferencia para tablas cruzadas</h2>
+<div style="color: white;">
+<ol type="1">
+<li class="fragment"><p>Establecer las hipótesis</p></li>
+<li class="fragment"><p>Calcular frecuencias esperadas</p></li>
+<li class="fragment"><p>Estimar estadístico de prueba <span class="math inline">\(\chi^2\)</span></p></li>
+<li class="fragment"><p>Establecer valor crítico de la prueba (de acuerdo a un cierto nivel de confianza y grados de libertad)</p></li>
+<li class="fragment"><p>Contraste e interpretación</p></li>
+</ol>
+</div>
+</section>
+<section id="resumen-general-asociación-bivariada-y-niveles-de-medición" class="slide level2 nonincremental" style="font-size: 0.75em;">
+<h2>Resumen general: asociación bivariada y niveles de medición</h2>
+<p><br></p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 24%">
+<col style="width: 41%">
+<col style="width: 12%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Intervalar</th>
+<th>Ordinal</th>
+<th>Nominal</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Intervalar</strong></td>
+<td>Pearson</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Ordinal</strong></td>
+<td>Pearson/Spearman</td>
+<td>Spearman</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Nominal</strong></td>
+<td>Punto-biserial</td>
+<td>Spearman/Punto-biserial/Chi 2</td>
+<td>Chi 2</td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="section-16" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
+<h1></h1>
+<p><br></p>
+</section>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><br></p>
+<div class="quarto-figure quarto-figure-right">
+<figure>
+<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:2%;">
+
+</div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
+<p><br></p>
+<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<div style="border-top: 1px solid white; margin: 0.3em 0;">
+
+</div>
+<p><span style="font-size: 1.5em; color: #dfc117;">Inferencia, asociación, y reporte</span></p>
+<p><span style="font-size: 1em; color: white;">Juan Carlos Castillo</span><br>
+<span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
+<span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
+<p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="../site_libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
+  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: true,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'slow',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1050,
+
+        height: 700,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
+            }
+            return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>
