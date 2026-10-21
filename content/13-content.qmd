@@ -1,15 +1,168 @@
 ---
-title: "Documentos dinámicos"
-date: "2024-11-11"
+title: "Ejercicio bivariada"
+date: "2026-10-26"
 lang: es
+format:
+  html:
+    toc: true
+    toc-location: right
+    toc-depth: 2
+    number-sections: true
+    code-copy: true
+    code-fold: false
+    highlight-style: github
+    embed-resources: true
+    page-layout: article
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
 execute:
-  freeze: auto 
+  freeze: auto
+  cache: false
+  warning: false
+  message: false
 ---
 
-# Documento de presentación
 
-<iframe src=/slides/13-documentos-dinamicos.html height="550" width=100% allowfullscreen="true">
-</iframe> 
+<style>
+/* Código escrito dentro del texto */
+:not(pre) > code {
+  color: #00695c !important;
+  background-color: #eef7f6 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
 
+/* Lectura de párrafos */
+main.content p,
+.callout-body p {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
 
+/* Figuras */
+#quarto-content main.content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+}
 
+/* Índice */
+body.ec08-panel-abierto #quarto-margin-sidebar,
+body.ec08-panel-abierto #TOC {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#TOC .nav-link {
+  font-size: 0.95rem !important;
+  line-height: 1.15;
+  padding-top: 0.12rem;
+  padding-bottom: 0.12rem;
+}
+
+/* Código visible */
+div.sourceCode,
+pre.sourceCode {
+  background-color: #F7F8FA !important;
+  border: 1px solid #D9DEE7;
+  border-radius: 6px;
+}
+
+pre.sourceCode code {
+  background-color: transparent !important;
+}
+
+/* Resultados producidos por R */
+#quarto-content .cell-output.cell-output-stdout {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+#quarto-content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-left: 4px solid #B8C2D1 !important;
+  border-radius: 6px !important;
+  padding: 0.8em 1em !important;
+}
+
+#quarto-content .cell-output pre code {
+  color: #17233a !important;
+  background-color: transparent !important;
+}
+
+/* Botón de recurso complementario */
+.recurso-wrap {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.35rem 0;
+}
+
+.recurso-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: #ffffff;
+  color: #d44848 !important;
+  border: 2px solid #d44848;
+  padding: 0.55rem 0.9rem;
+  border-radius: 7px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.recurso-btn:hover {
+  background: #d44848;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
+
+.recursos-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+/* Bloque desplegable */
+details.formulas-inf {
+  background-color: #f3f7fb;
+  border: 1px solid #d7e3ef;
+  border-left: 4px solid #2c7fb8;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0 1.5rem 0;
+}
+
+details.formulas-inf summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: #4b5563;
+}
+
+details.formulas-inf[open] summary {
+  margin-bottom: 1rem;
+}
+</style>
+
+{{< include 13-correlacion.qmd >}} 
+
+{{< include 13-matrices.qmd >}} 
+
+{{< include 13-chi-cuadrado.qmd >}} 
