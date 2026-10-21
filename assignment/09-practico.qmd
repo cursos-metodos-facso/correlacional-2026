@@ -453,6 +453,7 @@ Observemos este resultado con el cálculo manual, todo en una sola tabla para co
 
 ```{r}
 #| label: tbl-comparacion
+#| echo: false
 
 chi_sin_yates <- chisq.test(table(cep_proc$sexo, cep_proc$educ_dico), correct = FALSE)
 
