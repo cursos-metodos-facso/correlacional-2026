@@ -193,8 +193,6 @@ Esta sesión tiene como objetivo principal estimar e interpretar la prueba de Ch
 
 - 3) Asociación entre variables categóricas
 
-- 4) Tamaño de efecto para correlaciones entre categóricas
-
 A continuación, cargamos las librerías que ocuparemos en la sesión
 
 ```{r}
@@ -585,7 +583,7 @@ En este caso, valores tau corresponden a los umbrales de la normal subyacente qu
 :::
 
 
-Mediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de **-0.34**, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta
+Mediante la estimación de la correlación policórica, observamos que la asociación entre el interés en política y la justificación de marchas es de **0.34**, siendo una asociación negativa de magnitud moderada. En términos sustantivos, esto quiere decir que a medida que una persona está más interesada en política, tiende a justificar en menor medida las marchas como forma de protesta
 
 
 # Ejercicio autónomo
@@ -662,11 +660,9 @@ Ahora, puede seguir con las mismas dos variables o puede cambiarlas por otras di
 
 4) Dependiendo de la naturaleza de las variables, seleccione qué método de correlación utilizar (debe ser punto biserial, policórica o tetracórica). Realice su selección y justifique el método
 
-5) Estime el tamaño de efecto mediante Phi o V de Cramer. Justifique la elección del estadístico y realice la estimación
-
 Una vez terminados los siguientes puntos, responda:
 
-6) ¿Podemos utilizar chi cuadrado para observar la significancia de una asociación entre dos variables ordinales? Argumente
+5) ¿Podemos utilizar chi cuadrado para observar la significancia de una asociación entre dos variables ordinales? Argumente
 
 
 # Síntesis
@@ -681,5 +677,5 @@ Una vez terminados los siguientes puntos, responda:
   - *tetracórica* (dos dicotómicas)
   - *policórica* (dos ordinales)
 
-- **Tamaño de efecto con Phi y V de Cramer:** *Phi* se usa en tablas 2x2 y *V de Cramer* en tablas mayores (varía entre 0 y 1). Ambos permiten interpretar la magnitud de la asociación.
+
 
