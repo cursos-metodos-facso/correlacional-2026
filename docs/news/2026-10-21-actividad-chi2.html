@@ -1,0 +1,1734 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Actividad χ²: reporte y código en R – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-8752da18ddcfb2a2bc3e5f871d45a11c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Actividad χ²: reporte y código en R – Estadística Correlacional">
+<meta property="og:description" content="Encuentra los errores en un reporte de χ² y corrige un script de R para reproducir sus resultados.">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/news/images/chi2.svg">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido</h2>
+   
+  <ul>
+  <li><a href="#reporte-de-chi2" id="toc-reporte-de-chi2" class="nav-link active" data-scroll-target="#reporte-de-chi2">Reporte de <span class="math inline">\(\chi^2\)</span></a>
+  <ul class="collapse">
+  <li><a href="#para-tener-en-cuenta" id="toc-para-tener-en-cuenta" class="nav-link" data-scroll-target="#para-tener-en-cuenta">Para tener en cuenta</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-adicional-reproduzca-los-resultados-en-r" id="toc-ejercicio-adicional-reproduzca-los-resultados-en-r" class="nav-link" data-scroll-target="#ejercicio-adicional-reproduzca-los-resultados-en-r">Ejercicio adicional: reproduzca los resultados en R</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<div class="back-nav"><a href="../news/">← News</a></div>
+
+<header id="title-block-header" class="news quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Actividad χ²: reporte y código en R</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">info</div>
+    <div class="quarto-category">recursos</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Encuentra los errores en un reporte de χ² y corrige un script de R para reproducir sus resultados.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Posted</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">miércoles octubre 21, 2026 at 12:00 AM</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="reporte-de-chi2" class="level1">
+<h1>Reporte de <span class="math inline">\(\chi^2\)</span></h1>
+<p>Un estudiante quería saber si existe una asociación estadísticamente significativa en la población entre sexo y situación laboral. Para ello, construyó la siguiente tabla de contingencia. Cada celda muestra la frecuencia <strong>observada</strong>, la frecuencia <strong>esperada</strong> (entre paréntesis) y el <strong>porcentaje por fila</strong>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sexo</th>
+<th style="text-align: center;">No ocupado</th>
+<th style="text-align: center;">Ocupado</th>
+<th style="text-align: center;">Total</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Hombre</td>
+<td style="text-align: center;"><strong>70</strong><br>(79,2)<br>38,9 %</td>
+<td style="text-align: center;"><strong>110</strong><br>(100,8)<br>61,1 %</td>
+<td style="text-align: center;"><strong>180</strong><br><br>100,0 %</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mujer</td>
+<td style="text-align: center;"><strong>106</strong><br>(96,8)<br>48,2 %</td>
+<td style="text-align: center;"><strong>114</strong><br>(123,2)<br>51,8 %</td>
+<td style="text-align: center;"><strong>220</strong><br><br>100,0 %</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Total</strong></td>
+<td style="text-align: center;"><strong>176</strong><br><br>44,0 %</td>
+<td style="text-align: center;"><strong>224</strong><br><br>56,0 %</td>
+<td style="text-align: center;"><strong>400</strong><br><br>100,0 %</td>
+</tr>
+</tbody>
+</table>
+<p>Luego, realizó la prueba de <span class="math inline">\(\chi^2\)</span> con <code>chisq.test</code></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  tabla
+X-squared = 3.1029, df = 1, p-value = 0.07815</code></pre>
+</div>
+</div>
+<p>A partir de estos resultados, redactó el siguiente reporte:</p>
+<blockquote class="blockquote">
+<p>Para evaluar si el sexo se asocia con la situación laboral se aplicó una prueba de χ² a una muestra de 400 personas. El 61,1 % de los hombres está ocupado, frente al 51,8 % de las mujeres. El estadístico obtenido fue χ² = 3,10, con 2 grados de libertad. Como el valor crítico para α = 0,05 es 1,96 y el χ² obtenido es mayor, se rechaza la hipótesis nula de independencia.</p>
+</blockquote>
+<p><strong>¿Qué errores encuentras en el reporte? ¿Cómo los corregirías?</strong></p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pauta de corrección
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Pasa el cursor sobre las partes marcadas en rojo, o haz clic en ellas, para ver cuál es el error.</p>
+<style>
+.err { position: relative; color: #c0392b; text-decoration: underline wavy #c0392b;
+       text-underline-offset: 3px; cursor: help; outline: none; }
+.err .err-tip { display: none; position: absolute; top: 100%; left: 0; z-index: 10;
+       margin-top: .4rem; width: max-content; max-width: min(24rem, 85vw);
+       padding: .6rem .8rem; border-radius: 6px; background: #fff; color: #212529;
+       border: 1px solid #c0392b; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+       font-style: normal; font-size: .9rem; line-height: 1.4; text-decoration: none; }
+.err:hover .err-tip, .err:focus .err-tip, .err:focus-within .err-tip { display: block; }
+</style>
+<script>
+// Evita que la explicación se salga por el borde derecho de la pantalla
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".err").forEach(el => {
+    const ajustar = () => {
+      const tip = el.querySelector(".err-tip");
+      tip.style.left = "0px";
+      const sobra = tip.getBoundingClientRect().right - (window.innerWidth - 16);
+      if (sobra > 0) tip.style.left = -sobra + "px";
+    };
+    el.addEventListener("mouseenter", ajustar);
+    el.addEventListener("focus", ajustar);
+  });
+});
+</script>
+<p>Para evaluar si el sexo se asocia con la situación laboral se aplicó una prueba de χ² a una muestra de 400 personas. El 61,1 % de los hombres está ocupado, frente al 51,8 % de las mujeres. El estadístico obtenido fue χ² = 3,10, <span class="err" tabindex="0">con 2 grados de libertad<span class="err-tip">En una tabla 2 × 2 los grados de libertad son (2 − 1) × (2 − 1) = <strong>1</strong>, como indica también el output (<code>df = 1</code>).</span></span>. Como <span class="err" tabindex="0">el valor crítico para α = 0,05 es 1,96<span class="err-tip">1,96 es el valor crítico de la distribución z, no de χ². Para χ² con 1 grado de libertad y α = 0,05, el valor crítico es <strong>3,84</strong>.</span></span> y <span class="err" tabindex="0">el χ² obtenido es mayor, se rechaza la hipótesis nula<span class="err-tip">Con el valor crítico correcto, la conclusión se invierte: χ² = 3,10 es <strong>menor</strong> que 3,84, por lo que <strong>no se rechaza</strong> H₀. Además, p = 0,078 es mayor que 0,05: ambos criterios siempre deben llevar a la misma decisión.</span></span> de independencia.</p>
+<p><strong>Una redacción correcta podría ser:</strong></p>
+<p>Se aplicó una prueba de χ² para evaluar la asociación entre sexo y situación laboral en una muestra de 400 personas. El 61,1 % de los hombres está ocupado, frente al 51,8 % de las mujeres. El estadístico obtenido (χ² = 3,10, gl = 1, p = 0,078) no supera el valor crítico de 3,84, por lo que no se rechaza la hipótesis nula de independencia. Es decir, no hay evidencia suficiente para afirmar que el sexo y la situación laboral estén asociados en la población, con un 95 % de confianza.</p>
+</div>
+</div>
+</div>
+<section id="para-tener-en-cuenta" class="level2">
+<h2 class="anchored" data-anchor-id="para-tener-en-cuenta">Para tener en cuenta</h2>
+<p>Aunque la diferencia no es significativa, a nivel descriptivo se observa que los hombres tienen 9,3 puntos porcentuales más de ocupación que las mujeres. Tomando esto en consideración:</p>
+<ol type="1">
+<li>¿Qué pasaría si la muestra fuera más grande?</li>
+<li>¿Existe alguna forma de medir la fuerza de la asociación entre las dos variables?</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Respuesta
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. ¿Qué pasaría si la muestra fuera más grande?</strong></p>
+<p>Probablemente la asociación resultaría significativa. Para comprobarlo, podemos multiplicar todas las frecuencias de la tabla por 2. Así se duplica la muestra, pero los porcentajes por fila no cambian:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tabla_doble <span class="ot">&lt;-</span> tabla <span class="sc">*</span> <span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>tabla_doble</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        ocupado
+sexo     No ocupado Ocupado
+  Hombre        140     220
+  Mujer         212     228</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Los porcentajes por fila son los mismos que en la tabla original</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">prop.table</span>(tabla_doble, <span class="at">margin =</span> <span class="dv">1</span>) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        ocupado
+sexo     No ocupado Ocupado
+  Hombre       38.9    61.1
+  Mujer        48.2    51.8</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla_doble)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test with Yates' continuity correction
+
+data:  tabla_doble
+X-squared = 6.5675, df = 1, p-value = 0.01039</code></pre>
+</div>
+</div>
+<p>Con n = 800 se obtiene χ² = 6,57 y p = 0,010. Ahora sí se rechazaría H₀, aunque la diferencia de 9,3 puntos porcentuales entre hombres y mujeres es la misma.</p>
+<p>Es decir, la significación estadística depende del tamaño de la muestra. Con una muestra muy grande, incluso una asociación débil resulta significativa; con una muestra pequeña, una asociación algo más fuerte puede no serlo.</p>
+<p><strong>2. ¿Existe alguna forma de medir la fuerza de la asociación?</strong></p>
+<p>Sí. Como el χ² y el valor p dependen del tamaño de la muestra, no sirven para describir qué tan fuerte es la asociación. Para eso se usan medidas de tamaño de efecto que no dependen de n, como el <strong>coeficiente φ</strong> (para tablas 2 × 2) y la <strong>V de Cramer</strong> (para tablas de cualquier tamaño). Ambas van de 0 (sin asociación) a 1 (asociación perfecta). En este caso, <span class="math inline">\(\varphi\)</span> = 0,1, por lo que se considera una asociación débil.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ejercicio-adicional-reproduzca-los-resultados-en-r" class="level1">
+<h1>Ejercicio adicional: reproduzca los resultados en R</h1>
+<p>Otro estudiante se hizo la misma pregunta y entregó un script con el siguiente código:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Cargar paquetes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjplot, gmodels, dplyr)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Tabla de contingencia con porcentajes por fila</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Encuesta <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sjtab</span>(sexo ocupado, <span class="at">show.col.prc =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Frecuencias esperadas</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">CrossTable</span>(encuesta<span class="sc">$</span>sexo, encuesta<span class="sc">$</span>ocupado,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">expected =</span> true)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Prueba de chi cuadrado</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(encuesta<span class="sc">$</span>ocupado)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Sin embargo, este código contiene varios errores.</p>
+<p>¿Puedes encontrar los errores?</p>
+<p><strong>Su objetivo es lograr que el código funcione en R y reproduzca exactamente los resultados del reporte.</strong></p>
+<p><strong>Instrucciones:</strong></p>
+<ol type="1">
+<li>En un script, cree la siguiente base de datos</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 0. Creamos un dataset con datos ficticios para fines del ejercicio</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># sexo: Hombre / Mujer</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ocupado: 0 = No ocupado, 1 = Ocupado, -88 = No sabe / No responde</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>encuesta <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">sexo =</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>),</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">70</span> <span class="sc">+</span> <span class="dv">110</span> <span class="sc">+</span> <span class="dv">6</span>, <span class="dv">106</span> <span class="sc">+</span> <span class="dv">114</span> <span class="sc">+</span> <span class="dv">9</span>)),</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"Hombre"</span>, <span class="st">"Mujer"</span>)),</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">ocupado =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">88</span>), <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">110</span>, <span class="dv">6</span>)),</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>              <span class="fu">rep</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">88</span>), <span class="at">times =</span> <span class="fu">c</span>(<span class="dv">106</span>, <span class="dv">114</span>, <span class="dv">9</span>)))</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<ol start="2" type="1">
+<li><p>Luego copie el código del estudiante e intente ejecutarlo. Corrija el código hasta que corra hasta el final sin errores.</p></li>
+<li><p>Verifique los resultados</p></li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Verifique los resultados
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Sabrá que logró reproducir el código cuando obtenga los siguientes resultados:</p>
+<ul>
+<li>Una tabla de contingencia de <strong>2 × 2</strong>, con las mismas frecuencias que muestra el reporte.</li>
+<li>Un <strong>61,1 %</strong> de hombres ocupados y un <strong>51,8 %</strong> de mujeres ocupadas.</li>
+<li>Una prueba de χ² con <strong>X-squared = 3.1029</strong>, <strong>df = 1</strong> y <strong>p-value = 0.07815</strong>.</li>
+</ul>
+<p>Si alguno de estos resultados no coincide, todavía queda algún error por corregir.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pauta de corrección
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Tipo</th>
+<th>Corrección</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sjplot</code></td>
+<td>Detiene el código: R distingue entre mayúsculas y minúsculas, por lo que no encuentra el paquete y luego no reconoce la función <code>sjtab()</code>.</td>
+<td><code>sjPlot</code></td>
+</tr>
+<tr class="even">
+<td><code>Encuesta</code></td>
+<td>Detiene el código: «objeto no encontrado».</td>
+<td><code>encuesta</code></td>
+</tr>
+<tr class="odd">
+<td>Falta una coma entre las variables</td>
+<td>Detiene el código: «unexpected symbol».</td>
+<td><code>sjtab(sexo, ocupado, show.row.prc = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td><code>show.col.prc=TRUE</code></td>
+<td><strong>No detiene el código en R</strong>, sino que calcula los porcentajes de las columnas en lugar de las filas</td>
+<td><code>sjtab(sexo, ocupado, show.row.prc = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td><code>expected = true</code></td>
+<td>Detiene el código: R busca un objeto llamado <code>true</code>.</td>
+<td><code>expected = TRUE</code>, en mayúsculas</td>
+</tr>
+<tr class="even">
+<td><code>chisq.test()</code> con una sola variable</td>
+<td>Detiene el código: «all entries of ‘x’ must be nonnegative and finite». La prueba necesita una tabla de contingencia con las dos variables, no una sola variable.</td>
+<td><code>chisq.test(table(encuesta$sexo, encuesta$ocupado))</code></td>
+</tr>
+<tr class="odd">
+<td>El código −88 («no sabe / no responde») se trata como una categoría válida</td>
+<td><strong>No detiene el código en R</strong>, pero genera una tabla de 2 × 3, y el χ² se calcula con una categoría que no es válida.</td>
+<td>Recodificar −88 como <code>NA</code> antes del análisis.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Código corregido:</strong></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Cargar paquetes</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sjPlot, gmodels, dplyr)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Recodificar "No sabe / No responde" como valor perdido</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>encuesta<span class="sc">$</span>ocupado[encuesta<span class="sc">$</span>ocupado <span class="sc">==</span> <span class="sc">-</span><span class="dv">88</span>] <span class="ot">&lt;-</span> <span class="cn">NA</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Tabla de contingencia con porcentajes por fila</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>encuesta <span class="sc">%&gt;%</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sjtab</span>(sexo, ocupado, <span class="at">show.row.prc=</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. Frecuencias esperadas</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>gmodels<span class="sc">::</span><span class="fu">CrossTable</span>(encuesta<span class="sc">$</span>sexo, encuesta<span class="sc">$</span>ocupado,</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">expected =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 5. Prueba de chi cuadrado</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(<span class="fu">table</span>(encuesta<span class="sc">$</span>sexo, encuesta<span class="sc">$</span>ocupado))</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co"># O bien,</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear el objeto previamente</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(encuesta<span class="sc">$</span>sexo, encuesta<span class="sc">$</span>ocupado) </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Luego aplicar el test sobre el objeto</span></span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabla) </span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
+
+
+
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
+  <i class="bi bi-chevron-left"></i>
+
+</button>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+
+  /* ========================================================
+
+     ELEMENTOS
+
+     ======================================================== */
+
+
+
+  const pathname = window.location.pathname;
+
+
+
+  const esPracticos =
+
+    /\/assignment(?:\/|$)/.test(pathname);
+
+
+
+  /*
+
+   * Detecta específicamente:
+
+   *
+
+   * /assignment
+
+   * /assignment/
+
+   * /assignment/index.html
+
+   */
+
+  const esPaginaPrincipalPracticos =
+
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
+
+
+
+
+
+  const boton =
+
+    document.getElementById("practicos-sidebar-toggle");
+
+
+
+  const zona =
+
+    document.getElementById("practicos-sidebar-hover-zone");
+
+
+
+  const sidebar =
+
+    document.getElementById("quarto-sidebar");
+
+
+
+
+
+  if (!esPracticos || !sidebar || !boton || !zona) {
+
+
+
+    if (boton) {
+
+      boton.style.display = "none";
+
+    }
+
+
+
+    if (zona) {
+
+      zona.style.display = "none";
+
+    }
+
+
+
+    return;
+
+  }
+
+
+
+
+
+  const body = document.body;
+
+
+
+  let abiertoTemporalmente = false;
+
+  let temporizadorCierre = null;
+
+
+
+
+
+  /* ========================================================
+
+     POSICIÓN DE LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  function actualizarPosicion() {
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Menú cerrado:
+
+       * la pestañita queda en el borde izquierdo.
+
+       */
+
+      boton.style.left = "0px";
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Usamos offsetWidth para que la posición
+
+       * no dependa de la animación del sidebar.
+
+       */
+
+      const anchoSidebar = sidebar.offsetWidth;
+
+
+
+      boton.style.left =
+
+        (anchoSidebar - 2) + "px";
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     ACTUALIZAR ICONO
+
+     ======================================================== */
+
+
+
+  function mostrarIconoAbierto() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-left"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Ocultar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Ocultar menú";
+
+  }
+
+
+
+
+
+  function mostrarIconoCerrado() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-right"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Mostrar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Mostrar menú";
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     MOSTRAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function mostrarSidebar(temporal = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.remove(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoAbierto();
+
+
+
+    abiertoTemporalmente = temporal;
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     OCULTAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function ocultarSidebar(guardar = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.add(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoCerrado();
+
+
+
+    abiertoTemporalmente = false;
+
+
+
+    if (guardar) {
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "cerrado"
+
+      );
+
+    }
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     CLICK EN LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("click", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    /*
+
+     * Si está cerrado:
+
+     * un clic lo abre permanentemente.
+
+     */
+
+    if (cerrado) {
+
+
+
+      mostrarSidebar(false);
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "abierto"
+
+      );
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Si está visible, un solo clic lo cierra,
+
+       * independientemente de si se abrió por
+
+       * hover o normalmente.
+
+       */
+
+      ocultarSidebar(true);
+
+    }
+
+
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     HOVER EN EL BORDE IZQUIERDO
+
+     ======================================================== */
+
+
+
+  zona.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Mostrar temporalmente sin modificar
+
+       * la preferencia guardada.
+
+       */
+
+      mostrarSidebar(true);
+
+    }
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     SALIR DEL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseleave", function () {
+
+
+
+    /*
+
+     * Solo cerrar automáticamente si se abrió
+
+     * mediante hover.
+
+     */
+
+    if (!abiertoTemporalmente) {
+
+      return;
+
+    }
+
+
+
+    temporizadorCierre =
+
+      setTimeout(function () {
+
+
+
+        ocultarSidebar(false);
+
+
+
+      }, 500);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL BOTÓN
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     ESTADO INICIAL
+
+     ======================================================== */
+
+
+
+  /*
+
+   * PORTADA DE PRÁCTICOS
+
+   *
+
+   * Siempre comienza desplegada cada vez
+
+   * que se entra o recarga la página.
+
+   *
+
+   * Aun así, después de cargarla el usuario
+
+   * puede plegarla normalmente.
+
+   */
+
+  if (esPaginaPrincipalPracticos) {
+
+
+
+    mostrarSidebar(false);
+
+
+
+  } else {
+
+
+
+    /*
+
+     * En los prácticos individuales sí respetamos
+
+     * el estado que dejó anteriormente el usuario.
+
+     */
+
+    const estadoGuardado =
+
+      localStorage.getItem(
+
+        "practicos-sidebar"
+
+      );
+
+
+
+    if (estadoGuardado === "cerrado") {
+
+
+
+      ocultarSidebar(false);
+
+
+
+    } else {
+
+
+
+      mostrarSidebar(false);
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
+     ======================================================== */
+
+
+
+  window.addEventListener(
+
+    "resize",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener(
+
+    "transitionend",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /*
+
+   * También esperamos el cambio de la
+
+   * grilla de Quarto.
+
+   */
+
+  const contenido =
+
+    document.getElementById("quarto-content");
+
+
+
+  if (contenido) {
+
+
+
+    contenido.addEventListener(
+
+      "transitionend",
+
+      actualizarPosicion
+
+    );
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     AJUSTE FINAL DESPUÉS DE CARGAR
+
+     ======================================================== */
+
+
+
+  requestAnimationFrame(function () {
+
+
+
+    requestAnimationFrame(function () {
+
+
+
+      actualizarPosicion();
+
+
+
+    });
+
+  });
+
+
+
+});
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,289 @@
+---
+title: "Actividad χ²: reporte y código en R"
+date: "2026-10-21"
+lang: es
+categories: [info, recursos]
+image: /news/images/chi2.svg
+description: "Encuentra los errores en un reporte de χ² y corrige un script de R para reproducir sus resultados."
+format:
+  html:
+    toc: true
+    toc-title: "Contenido"
+    toc-location: right
+    code-copy: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+```{r}
+#| label: setup
+
+# Formato de números en español: punto para miles y coma para decimales
+fmt <- function(x, d = 1) {
+  formatC(as.numeric(x), format = "f", digits = d,
+          big.mark = ".", decimal.mark = ",")
+}
+
+# Datos ficticios con fines didácticos: sexo y situación laboral (n = 400)
+# Diseñados para que el chi cuadrado quede entre 1,96 (z) y 3,84 (chi cuadrado, 1 gl)
+tabla <- matrix(
+  c( 70, 110,
+    106, 114),
+  nrow = 2, byrow = TRUE,
+  dimnames = list(sexo    = c("Hombre", "Mujer"),
+                  ocupado = c("No ocupado", "Ocupado"))
+)
+
+prueba     <- chisq.test(tabla)                  # con corrección de Yates (opción por defecto)
+prueba_sin <- chisq.test(tabla, correct = FALSE) # sin corrección, para calcular phi
+n          <- sum(tabla)
+pct_fila   <- prop.table(tabla, 1) * 100
+dif_pp     <- pct_fila["Hombre", "Ocupado"] - pct_fila["Mujer", "Ocupado"]
+gl         <- (nrow(tabla) - 1) * (ncol(tabla) - 1)
+critico    <- qchisq(0.95, df = gl)
+phi        <- sqrt(prueba_sin$statistic / n)
+```
+
+# Reporte de $\chi^2$
+
+Un estudiante quería saber si existe una asociación estadísticamente significativa en la población entre sexo y situación laboral. Para ello, construyó la siguiente tabla de contingencia. Cada celda muestra la frecuencia **observada**, la frecuencia **esperada** (entre paréntesis) y el **porcentaje por fila**.
+
+```{r}
+#| label: tabla-observada
+#| output: asis
+
+esperadas <- prueba$expected
+tot_col   <- colSums(tabla)
+
+celda <- function(i, j) {
+  paste0("**", tabla[i, j], "**<br>(", fmt(esperadas[i, j]), ")<br>",
+         fmt(pct_fila[i, j]), " %")
+}
+
+filas <- sapply(rownames(tabla), function(i) {
+  paste0("| ", i, " | ", celda(i, 1), " | ", celda(i, 2),
+         " | **", sum(tabla[i, ]), "**<br><br>100,0 % |")
+})
+
+fila_total <- paste0(
+  "| **Total** | **", tot_col[1], "**<br><br>", fmt(tot_col[1] / n * 100), " %",
+  " | **", tot_col[2], "**<br><br>", fmt(tot_col[2] / n * 100), " %",
+  " | **", n, "**<br><br>100,0 % |"
+)
+
+cat(c("| Sexo | No ocupado | Ocupado | Total |",
+      "|:---|:---:|:---:|:---:|",
+      filas,
+      fila_total), sep = "\n")
+```
+
+Luego, realizó la prueba de $\chi^2$ con `chisq.test`
+
+```{r}
+#| label: prueba
+#| echo: true
+chisq.test(tabla)
+```
+
+A partir de estos resultados, redactó el siguiente reporte:
+
+> Para evaluar si el sexo se asocia con la situación laboral se aplicó una prueba de χ² a una muestra de `r n` personas.  El `r fmt(pct_fila["Hombre", "Ocupado"])` % de los hombres está ocupado, frente al `r fmt(pct_fila["Mujer", "Ocupado"])` % de las mujeres. El estadístico obtenido fue χ² = `r fmt(prueba$statistic, 2)`, con 2 grados de libertad.  Como el valor crítico para α = 0,05 es 1,96 y el χ² obtenido es mayor, se rechaza la hipótesis nula de independencia. 
+
+
+**¿Qué errores encuentras en el reporte? ¿Cómo los corregirías?**
+
+::: {.callout-tip collapse="true"}
+## Pauta de corrección
+
+Pasa el cursor sobre las partes marcadas en rojo, o haz clic en ellas, para ver cuál es el error.
+
+```{=html}
+<style>
+.err { position: relative; color: #c0392b; text-decoration: underline wavy #c0392b;
+       text-underline-offset: 3px; cursor: help; outline: none; }
+.err .err-tip { display: none; position: absolute; top: 100%; left: 0; z-index: 10;
+       margin-top: .4rem; width: max-content; max-width: min(24rem, 85vw);
+       padding: .6rem .8rem; border-radius: 6px; background: #fff; color: #212529;
+       border: 1px solid #c0392b; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+       font-style: normal; font-size: .9rem; line-height: 1.4; text-decoration: none; }
+.err:hover .err-tip, .err:focus .err-tip, .err:focus-within .err-tip { display: block; }
+</style>
+<script>
+// Evita que la explicación se salga por el borde derecho de la pantalla
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".err").forEach(el => {
+    const ajustar = () => {
+      const tip = el.querySelector(".err-tip");
+      tip.style.left = "0px";
+      const sobra = tip.getBoundingClientRect().right - (window.innerWidth - 16);
+      if (sobra > 0) tip.style.left = -sobra + "px";
+    };
+    el.addEventListener("mouseenter", ajustar);
+    el.addEventListener("focus", ajustar);
+  });
+});
+</script>
+```
+
+Para evaluar si el sexo se asocia con la situación laboral se aplicó una prueba de χ² a una muestra de `r n` personas.  El `r fmt(pct_fila["Hombre", "Ocupado"])` % de los hombres está ocupado, frente al `r fmt(pct_fila["Mujer", "Ocupado"])` % de las mujeres. El estadístico obtenido fue χ² = `r fmt(prueba$statistic, 2)`, [con 2 grados de libertad[En una tabla 2 × 2 los grados de libertad son (2 − 1) × (2 − 1) = **`r gl`**, como indica también el output (`df = 1`).]{.err-tip}]{.err tabindex="0"}.  Como [el valor crítico para α = 0,05 es 1,96[1,96 es el valor crítico de la distribución z, no de χ². Para χ² con `r gl` grado de libertad y α = 0,05, el valor crítico es **`r fmt(critico, 2)`**.]{.err-tip}]{.err tabindex="0"} y [el χ² obtenido es mayor, se rechaza la hipótesis nula[Con el valor crítico correcto, la conclusión se invierte: χ² = `r fmt(prueba$statistic, 2)` es **menor** que `r fmt(critico, 2)`, por lo que **no se rechaza** H₀. Además, p = `r fmt(prueba$p.value, 3)` es mayor que 0,05: ambos criterios siempre deben llevar a la misma decisión.]{.err-tip}]{.err tabindex="0"} de independencia.
+
+**Una redacción correcta podría ser:**
+
+Se aplicó una prueba de χ² para evaluar la asociación entre sexo y situación laboral en una muestra de `r n` personas. El `r fmt(pct_fila["Hombre", "Ocupado"])` % de los hombres está ocupado, frente al `r fmt(pct_fila["Mujer", "Ocupado"])` % de las mujeres. El estadístico obtenido (χ² = `r fmt(prueba$statistic, 2)`, gl = `r gl`, p = `r fmt(prueba$p.value, 3)`) no supera el valor crítico de `r fmt(critico, 2)`, por lo que no se rechaza la hipótesis nula de independencia. Es decir, no hay evidencia suficiente para afirmar que el sexo y la situación laboral estén asociados en la población, con un 95 % de confianza.
+:::
+
+## Para tener en cuenta
+
+Aunque la diferencia no es significativa, a nivel descriptivo se observa que los hombres tienen `r fmt(dif_pp)` puntos porcentuales más de ocupación que las mujeres. Tomando esto en consideración:
+
+1. ¿Qué pasaría si la muestra fuera más grande?
+2. ¿Existe alguna forma de medir la fuerza de la asociación entre las dos variables?
+
+
+::: {.callout-tip collapse="true"}
+## Respuesta
+
+**1. ¿Qué pasaría si la muestra fuera más grande?**
+
+Probablemente la asociación resultaría significativa. Para comprobarlo, podemos multiplicar todas las frecuencias de la tabla por 2. Así se duplica la muestra, pero los porcentajes por fila no cambian:
+
+```{r}
+#| label: muestra-doble
+#| echo: true
+
+tabla_doble <- tabla * 2
+tabla_doble
+
+# Los porcentajes por fila son los mismos que en la tabla original
+round(prop.table(tabla_doble, margin = 1) * 100, 1)
+
+chisq.test(tabla_doble)
+```
+
+Con n = `r fmt(2 * n, 0)` se obtiene χ² = `r fmt(chisq.test(tabla_doble)$statistic, 2)` y p = `r fmt(chisq.test(tabla_doble)$p.value, 3)`. Ahora sí se rechazaría H₀, aunque la diferencia de `r fmt(dif_pp)` puntos porcentuales entre hombres y mujeres es la misma.
+
+Es decir, la significación estadística depende del tamaño de la muestra. Con una muestra muy grande, incluso una asociación débil resulta significativa; con una muestra pequeña, una asociación algo más fuerte puede no serlo.
+
+**2. ¿Existe alguna forma de medir la fuerza de la asociación?**
+
+Sí. Como el χ² y el valor p dependen del tamaño de la muestra, no sirven para describir qué tan fuerte es la asociación. Para eso se usan medidas de tamaño de efecto que no dependen de n, como el **coeficiente φ** (para tablas 2 × 2) y la **V de Cramer** (para tablas de cualquier tamaño). Ambas van de 0 (sin asociación) a 1 (asociación perfecta). En este caso, $\varphi$ = `r fmt(phi)`, por lo que se considera una asociación débil. 
+
+:::
+
+# Ejercicio adicional: reproduzca los resultados en R
+
+Otro estudiante se hizo la misma pregunta y entregó un script con el siguiente código: 
+
+```{r}
+#| label: codigo-con-errores
+#| echo: true
+#| eval: false
+
+# 1. Cargar paquetes
+pacman::p_load(sjplot, gmodels, dplyr)
+
+# 2. Tabla de contingencia con porcentajes por fila
+Encuesta %>%
+  sjtab(sexo ocupado, show.col.prc = TRUE)
+
+# 3. Frecuencias esperadas
+gmodels::CrossTable(encuesta$sexo, encuesta$ocupado,
+                    expected = true)
+
+# 4. Prueba de chi cuadrado
+chisq.test(encuesta$ocupado)
+```
+
+Sin embargo, este código contiene varios errores.
+
+¿Puedes encontrar los errores?
+
+**Su objetivo es lograr que el código funcione en R y reproduzca exactamente los resultados del reporte.**
+
+**Instrucciones:**
+
+1. En un script, cree la siguiente base de datos
+
+```{r}
+#| label: datos-encuesta
+#| echo: true
+# 0. Creamos un dataset con datos ficticios para fines del ejercicio
+# sexo: Hombre / Mujer
+# ocupado: 0 = No ocupado, 1 = Ocupado, -88 = No sabe / No responde
+encuesta <- data.frame(
+  sexo = factor(rep(c("Hombre", "Mujer"),
+                    times = c(70 + 110 + 6, 106 + 114 + 9)),
+                levels = c("Hombre", "Mujer")),
+  ocupado = c(rep(c(0, 1, -88), times = c(70, 110, 6)),
+              rep(c(0, 1, -88), times = c(106, 114, 9)))
+)
+```
+
+2. Luego copie el código del estudiante e intente ejecutarlo. Corrija el código hasta que corra hasta el final sin errores. 
+
+3. Verifique los resultados
+
+
+:::{.callout-tip}
+## Verifique los resultados
+
+Sabrá que logró reproducir el código cuando obtenga los siguientes resultados:
+
+- Una tabla de contingencia de **2 × 2**, con las mismas frecuencias que muestra el reporte.
+- Un **`r fmt(pct_fila["Hombre", "Ocupado"])` %** de hombres ocupados y un **`r fmt(pct_fila["Mujer", "Ocupado"])` %** de mujeres ocupadas.
+- Una prueba de χ² con **X-squared = `r format(prueba$statistic, digits = 5)`**, **df = `r prueba$parameter`** y **p-value = `r format.pval(prueba$p.value, digits = 4)`**.
+
+Si alguno de estos resultados no coincide, todavía queda algún error por corregir.
+:::
+
+
+::: {.callout-tip collapse="true"}
+## Pauta de corrección
+
+
+| Error | Tipo | Corrección |
+|---|---|---|
+| `sjplot` | Detiene el código: R distingue entre mayúsculas y minúsculas, por lo que no encuentra el paquete y luego no reconoce la función `sjtab()`. | `sjPlot` |
+| `Encuesta` | Detiene el código: «objeto no encontrado». | `encuesta` |
+| Falta una coma entre las variables | Detiene el código: «unexpected symbol». | `sjtab(sexo, ocupado, show.row.prc = TRUE)` |
+|`show.col.prc=TRUE`| **No detiene el código en R**, sino que calcula los porcentajes de las columnas en lugar de las filas | `sjtab(sexo, ocupado, show.row.prc = TRUE)` |
+| `expected = true` | Detiene el código: R busca un objeto llamado `true`. | `expected = TRUE`, en mayúsculas |
+| `chisq.test()` con una sola variable | Detiene el código: «all entries of 'x' must be nonnegative and finite». La prueba necesita una tabla de contingencia con las dos variables, no una sola variable. | `chisq.test(table(encuesta$sexo, encuesta$ocupado))` |
+|El código −88 («no sabe / no responde») se trata como una categoría válida | **No detiene el código en R**, pero genera una tabla de 2 × 3, y el χ² se calcula con una categoría que no es válida. | Recodificar −88 como `NA` antes del análisis. |
+
+**Código corregido:**
+
+```{r}
+#| label: codigo-corregido
+#| echo: true
+#| eval: false
+
+# 1. Cargar paquetes
+pacman::p_load(sjPlot, gmodels, dplyr)
+
+# 2. Recodificar "No sabe / No responde" como valor perdido
+encuesta$ocupado[encuesta$ocupado == -88] <- NA
+
+# 3. Tabla de contingencia con porcentajes por fila
+encuesta %>%
+  sjtab(sexo, ocupado, show.row.prc= TRUE)
+
+# 4. Frecuencias esperadas
+gmodels::CrossTable(encuesta$sexo, encuesta$ocupado,
+                    expected = TRUE)
+
+# 5. Prueba de chi cuadrado
+chisq.test(table(encuesta$sexo, encuesta$ocupado))
+
+# O bien,
+
+# Crear el objeto previamente
+tabla <- table(encuesta$sexo, encuesta$ocupado) 
+# Luego aplicar el test sobre el objeto
+chisq.test(tabla) 
+
+```
+
+:::
