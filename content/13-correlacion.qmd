@@ -1,0 +1,396 @@
+## 1. Correlaciones
+
+```{=html}
+<style>
+/* Todo el CSS se limita a los componentes cor- para evitar colisiones con Quarto y con otros ejercicios. */
+.cor-part { border-top: 1px solid var(--bs-border-color, #cbd1da); padding-top: 1.1rem; margin: 1.4rem 0 2rem; }
+.cor-part > h3 { font-size: 1.12rem; margin: 0 0 .45rem; }
+.cor-part > p { margin-bottom: .9rem; }
+.cor-answer-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+.cor-answer-layout.cor-expanded { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cor-answer-panel, .cor-model-panel { min-width: 0; max-width: 100%; padding: clamp(.8rem, 2vw, 1rem); border: 1px solid var(--bs-border-color, #ccd1d8); border-radius: .6rem; background: var(--bs-body-bg, #fff); }
+.cor-model-panel { background: var(--bs-tertiary-bg, #f5f7f9); }
+.cor-model-panel[hidden] { display: none !important; }
+.cor-model-panel > h4 { font-size: 1rem; margin: 0 0 .65rem; }
+.cor-model-panel :is(pre, .sourceCode, .cell-output) { max-width: 100%; min-width: 0; overflow-x: auto; }
+.cor-model-panel pre code { white-space: pre; }
+.cor-model-panel img { max-width: 100%; height: auto; }
+.cor-model-panel blockquote { margin: .5rem 0 .8rem; padding: .6rem .8rem; border-left: 3px solid var(--bs-primary, #1f608c); background: var(--bs-body-bg, #fff); }
+.cor-model-panel blockquote p:last-child { margin-bottom: 0; }
+.cor-model-panel > :last-child { margin-bottom: 0; }
+.cor-answer-panel label { display: block; font-weight: 600; font-size: .94rem; margin: .75rem 0 .35rem; }
+.cor-answer-panel label:first-child { margin-top: 0; }
+.cor-answer-panel textarea, .cor-field input {
+  display: block; box-sizing: border-box; width: 100%; max-width: 100%;
+  padding: .58rem .7rem; font: inherit; font-size: .95rem;
+  border: 1px solid var(--bs-border-color, #a6aebc); border-radius: .45rem;
+  background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
+}
+.cor-answer-panel textarea { min-height: 8rem; resize: vertical; }
+.cor-answer-panel .cor-code-input { min-height: 12rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.cor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0 0 .95rem; }
+.cor-field { min-width: 0; }
+.cor-field input[aria-invalid="true"] { border-color: #be4b44; }
+.cor-field-feedback { font-size: .86rem; min-height: 1.3em; margin: .35rem 0 0; }
+.cor-ok { color: var(--bs-success-text-emphasis, #0d7444); }
+.cor-incorrect { color: var(--bs-danger-text-emphasis, #ac332f); }
+.cor-choice { border: 0; padding: 0; margin: .75rem 0 1rem; }
+.cor-choice legend { font-weight: 600; font-size: .96rem; margin-bottom: .55rem; }
+.cor-answer-panel .cor-choice label { display: inline-flex; align-items: center; gap: .35rem; margin: 0 1.1rem .4rem 0; font-weight: 400; cursor: pointer; }
+.cor-choice input { width: 1rem; height: 1rem; }
+.cor-answer-panel textarea:focus-visible, .cor-field input:focus-visible,
+.cor-choice input:focus-visible, .cor-action:focus-visible { outline: 3px solid var(--bs-primary, #1879b5); outline-offset: 3px; }
+.cor-checker { border: 1px solid var(--bs-border-color, #ccd1d8); background: var(--bs-body-bg, #fff); border-radius: .8rem; padding: clamp(1rem, 2.5vw, 1.5rem); margin: 1.2rem 0 1.6rem; }
+.cor-check-caption { color: var(--bs-secondary-color, #596777); font-size: .9rem; }
+.cor-action { border: 0; border-radius: .45rem; padding: .65rem 1rem; background: var(--bs-primary, #1f608c); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.cor-action:hover { filter: brightness(.92); }
+.cor-summary-feedback { padding: .75rem .9rem; border-left: 3px solid var(--bs-primary, #1f608c); margin-top: .8rem; background: var(--bs-tertiary-bg, #f5f7f9); border-radius: 0 .35rem .35rem 0; }
+.cor-summary-feedback[hidden] { display: none; }
+@media (max-width: 760px) {
+  .cor-answer-layout.cor-expanded, .cor-fields { grid-template-columns: minmax(0, 1fr); }
+  .cor-answer-panel .cor-choice label { display: flex; }
+  .cor-action { width: 100%; }
+}
+</style>
+```
+
+A usted le piden escribir un informe que evalúe la relación entre la confianza en Carabineros y el nivel educacional de las personas. Para ello, le piden analizar la muestra chilena de la Encuesta LAPOP 2023, que contiene las siguientes variables:
+
+| Variable | Qué representa | Escala |
+|---|---|---|
+| `pais_name` | País | Texto |
+| `conf_ffaa` | Confianza en las Fuerzas Armadas | 1 = nada … 7 = mucho |
+| `conf_policia` | Confianza en la policía (en Chile, Carabineros) | 1 = nada … 7 = mucho |
+| `apoyo_dem` | "La democracia puede tener problemas, pero es mejor que cualquier otra forma de gobierno" | 1 = muy en desacuerdo … 7 = muy de acuerdo |
+| `satisf_dem` | Satisfacción con el funcionamiento de la democracia en el país | 1 = muy insatisfecho … 4 = muy satisfecho |
+| `educ` | Nivel educacional | 0 = ninguna … 6 = superior completa |
+| `riqueza` | Quintil de riqueza del hogar (índice de bienes del hogar) | 1 = quintil más bajo … 5 = quintil más alto |
+| `mujer` | Género | 0 = hombre, 1 = mujer |
+
+**Resuélvelo en R antes de comprobar tus respuestas.** El verificador te ayudará a identificar posibles errores; no otorga una nota.
+
+**Cargue y procese la base en R:**
+
+```{r}
+#| label: cargar-lapop-correlacion
+url_lapop <- "https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/subset_lapop2023.rdata"
+
+load(url(url_lapop))
+
+lapop_chile <- datos_lapop |>
+    dplyr::filter(pais_name=="Chile")
+```
+
+**¿Cómo trabajar?** Resuelve cada apartado en R y escribe tus respuestas bajo la pregunta correspondiente. Al terminar, selecciona **«Comprobar mis respuestas»** para revisar tus resultados y compararlos con los modelos.
+
+```{r}
+#| label: calculos-internos-correlacion
+#| include: false
+datos_par <- lapop_chile[complete.cases(lapop_chile$conf_policia, lapop_chile$educ), ]
+n_cor <- nrow(datos_par)
+prueba_rho <- suppressWarnings(cor.test(lapop_chile$conf_policia, lapop_chile$educ, method = "spearman"))
+prueba_r <- cor.test(lapop_chile$conf_policia, lapop_chile$educ, method = "pearson")
+rho_cor <- unname(prueba_rho$estimate)
+p_cor <- prueba_rho$p.value
+r_cor <- unname(prueba_r$estimate)
+fmt_num <- function(x, digits = 2) format(round(x, digits), nsmall = digits, decimal.mark = ",", trim = TRUE)
+p_impreso_cor <- if (p_cor < .001) "p < .001" else paste0("p = ", format(round(p_cor, 3), nsmall = 3))
+umbral_cor <- if (p_cor < .001) .001 else if (p_cor < .01) .01 else .05
+confianza_cor <- c(`0.001` = "99,9", `0.01` = "99", `0.05` = "95")[as.character(umbral_cor)]
+sentido_cor <- if (rho_cor < 0) "negativo" else "positivo"
+magnitud_cor <- if (abs(rho_cor) < .10) "nula" else if (abs(rho_cor) < .30) "pequeña" else if (abs(rho_cor) < .50) "moderada" else "grande"
+medias_educ <- tapply(datos_par$conf_policia, datos_par$educ, mean)
+```
+
+```{r}
+#| label: publicar-referencias-correlacion
+#| results: asis
+#| echo: false
+cat(sprintf(
+  '<script id="cor-reference-data" type="application/json">{"rho":%.15g,"r":%.15g,"p":%.15g,"n":%d,"alpha":0.05,"metodo":"spearman","sentido":"%s","magnitud":"%s"}</script>\n',
+  rho_cor, r_cor, p_cor, n_cor, sentido_cor, magnitud_cor
+))
+```
+
+::: {.cor-part}
+### 1.1. Diagrama de dispersión
+
+Genere un diagrama de dispersión (nube de puntos/scatterplot/jitterplot) entre la confianza en Carabineros y el nivel educacional, y descríbalo.
+
+:::: {.cor-answer-layout}
+::: {.cor-answer-panel}
+```{=html}
+<label for="cor-plot-code">Mi código R</label>
+<textarea id="cor-plot-code" class="cor-code-input" spellcheck="false" placeholder="# Pega el código que usaste para el gráfico"></textarea>
+<label for="cor-plot-description">Mi descripción del gráfico</label>
+<textarea id="cor-plot-description" placeholder="Describe lo que observas en la nube de puntos"></textarea>
+```
+:::
+
+::: {#modelo-cor-plot .cor-model-panel hidden="hidden"}
+#### Gráfico y descripción modelo
+
+```{r}
+#| label: solucion-grafico-correlacion
+#| fig-width: 6
+#| fig-height: 4.2
+library(ggplot2)
+
+ggplot(lapop_chile, aes(x = educ, y = conf_policia)) +
+  geom_jitter(width = 0.2, height = 0.2, alpha = 0.4) +
+  geom_smooth(method = "lm", se = FALSE, color = "#d44848") +
+  labs(x = "Nivel educacional",
+       y = "Confianza en Carabineros",
+       title = "Confianza en Carabineros según nivel educacional",
+       caption = "Fuente: LAPOP 2023, muestra chilena") +
+  theme_minimal()
+```
+
+> Como ambas variables tienen pocas categorías, se usa *jitter* para que los puntos no queden superpuestos. Los casos se reparten por casi toda la grilla, sin un patrón marcado, y se concentran en los niveles educacionales 4 y 6. La línea de tendencia muestra una pendiente levemente **negativa**: quienes tienen mayor nivel educacional tienden a declarar algo menos de confianza en Carabineros (la confianza promedio va de `r fmt_num(medias_educ[["1"]])` en el nivel 1 a `r fmt_num(medias_educ[["6"]])` en el nivel 6). La dispersión es alta, por lo que se anticipa una asociación débil.
+
+*Tu código puede ser distinto y también estar correcto si produce un gráfico equivalente.*
+:::
+::::
+:::
+
+::: {.cor-part}
+### 1.2. Estimación del coeficiente
+
+Estime la correlación entre la confianza en Carabineros y el nivel educacional. Justifique la elección del coeficiente utilizado.
+
+:::: {.cor-answer-layout}
+::: {.cor-answer-panel}
+```{=html}
+<fieldset class="cor-choice">
+  <legend>¿Qué coeficiente corresponde utilizar?</legend>
+  <label><input type="radio" name="cor-metodo" value="pearson"> Pearson</label>
+  <label><input type="radio" name="cor-metodo" value="spearman"> Spearman</label>
+  <label><input type="radio" name="cor-metodo" value="biserial"> Punto biserial</label>
+  <p id="cor-metodo-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<div class="cor-fields">
+  <div class="cor-field"><label for="cor-rho">Coeficiente de correlación</label><input id="cor-rho" inputmode="decimal" autocomplete="off" aria-describedby="cor-rho-msg" placeholder="Ej.: 0,25"><p id="cor-rho-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+  <div class="cor-field"><label for="cor-n">Casos válidos (n)</label><input id="cor-n" inputmode="numeric" autocomplete="off" aria-describedby="cor-n-msg" placeholder="Introduce n"><p id="cor-n-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+</div>
+<label for="cor-code">Mi código R</label>
+<textarea id="cor-code" class="cor-code-input" spellcheck="false" placeholder="# Pega el código que usaste para estimar la correlación"></textarea>
+<label for="cor-justification">Mi justificación</label>
+<textarea id="cor-justification" placeholder="Explica por qué elegiste ese coeficiente"></textarea>
+```
+:::
+
+::: {#modelo-cor-estimate .cor-model-panel hidden="hidden"}
+#### Código y justificación modelo
+
+```{r}
+#| label: solucion-estimacion-correlacion
+#| warning: false
+# Correlación de Spearman
+cor.test(lapop_chile$conf_policia, lapop_chile$educ,
+         method = "spearman")
+
+# Casos válidos para el par
+sum(complete.cases(lapop_chile$conf_policia, lapop_chile$educ))
+```
+
+> Se utiliza el coeficiente de **Spearman**, porque ambas variables son **ordinales**: la confianza va de 1 a 7 y el nivel educacional de 0 a 6. Pearson exige variables al menos de intervalo, lo que no se cumple aquí. Spearman trabaja con los rangos de los casos, por lo que es adecuado para variables ordinales. El resultado es ρ = `r fmt_num(rho_cor, 3)`, con n = `r n_cor` casos válidos.
+
+*R advierte que no puede calcular un valor p exacto porque hay empates. Es esperable con variables ordinales y no invalida el resultado.*
+:::
+::::
+:::
+
+::: {.cor-part}
+### 1.3. Interpretación
+
+Interprete el resultado del coeficiente, considerando la visualización, la magnitud y el sentido del efecto, y la inferencia estadística ($\alpha=.05$).
+
+:::: {.cor-answer-layout}
+::: {.cor-answer-panel}
+```{=html}
+<div class="cor-fields">
+  <div class="cor-field"><label for="cor-p">Valor p</label><input id="cor-p" inputmode="text" autocomplete="off" aria-describedby="cor-p-msg" placeholder="Ej.: 0,024 o p &lt; .01"><p id="cor-p-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+</div>
+<fieldset class="cor-choice">
+  <legend>Sentido de la asociación</legend>
+  <label><input type="radio" name="cor-sentido" value="positivo"> Positivo</label>
+  <label><input type="radio" name="cor-sentido" value="negativo"> Negativo</label>
+  <p id="cor-sentido-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<fieldset class="cor-choice">
+  <legend>Magnitud del efecto</legend>
+  <label><input type="radio" name="cor-magnitud" value="nula"> Nula</label>
+  <label><input type="radio" name="cor-magnitud" value="pequeña"> Pequeña</label>
+  <label><input type="radio" name="cor-magnitud" value="moderada"> Moderada</label>
+  <label><input type="radio" name="cor-magnitud" value="grande"> Grande</label>
+  <p id="cor-magnitud-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<fieldset class="cor-choice">
+  <legend>Con α = .05, ¿cuál es tu decisión respecto de H₀?</legend>
+  <label><input type="radio" name="cor-decision" value="rechazar"> Rechazar H₀</label>
+  <label><input type="radio" name="cor-decision" value="no-rechazar"> No rechazar H₀</label>
+  <p id="cor-decision-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="cor-interpretation">Mi interpretación</label>
+<textarea id="cor-interpretation" placeholder="Escribe tu conclusión sobre visualización, magnitud, sentido e inferencia"></textarea>
+```
+:::
+
+::: {#modelo-cor-interpretation .cor-model-panel hidden="hidden"}
+#### Resultados e interpretación modelo
+
+**n = `r n_cor` · ρ = `r fmt_num(rho_cor, 3)` · `r p_impreso_cor`**
+
+> La correlación entre la confianza en Carabineros y el nivel educacional es **`r sentido_cor`**, de magnitud **`r magnitud_cor`** (ρ = `r fmt_num(rho_cor, 3)`) y estadísticamente significativa (`r p_impreso_cor`). Con un `r confianza_cor` % de confianza, existe evidencia para rechazar la hipótesis nula de que no hay asociación entre ambas variables. Esto coincide con el diagrama de dispersión, que muestra una leve pendiente negativa con mucha dispersión. Sustantivamente, las personas con mayor nivel educacional tienden a declarar menor confianza en Carabineros, aunque la relación es débil: el nivel educacional se asocia solo con una pequeña parte de las diferencias en confianza. Estos resultados describen una asociación, no una relación causal.
+
+**Para comparar:** revisa si tu respuesta distingue la significación estadística de la magnitud, interpreta el sentido en términos de las variables y evita establecer causalidad.
+:::
+::::
+:::
+
+```{=html}
+<section class="cor-checker" aria-label="Comprobación de los resultados del ejercicio de correlación">
+  <p class="cor-check-caption">Cuando termines, comprueba los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, el gráfico y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+  <button type="button" id="cor-check-button" class="cor-action">Comprobar mis respuestas</button>
+  <div id="cor-overall" class="cor-summary-feedback" role="status" aria-live="polite" hidden></div>
+</section>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puedes resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+```
+
+```{=html}
+<script>
+(function () {
+  'use strict';
+  function start() {
+    const button = document.getElementById('cor-check-button');
+    const dataNode = document.getElementById('cor-reference-data');
+    const overall = document.getElementById('cor-overall');
+    if (!button || !overall) return;
+    if (!dataNode) {
+      overall.hidden = false;
+      overall.textContent = 'No se cargaron los resultados de referencia. Informa al equipo docente.';
+      return;
+    }
+    let ref;
+    try { ref = JSON.parse(dataNode.textContent); }
+    catch (_) {
+      overall.hidden = false;
+      overall.textContent = 'Los resultados de referencia no están disponibles.';
+      return;
+    }
+    const numericFields = [
+      { key: 'rho', id: 'cor-rho', msg: 'cor-rho-msg', hint: 'Revisa el método de cor.test().' },
+      { key: 'n', id: 'cor-n', msg: 'cor-n-msg', hint: 'Cuenta solo los casos con datos válidos en ambas variables.' },
+      { key: 'p', id: 'cor-p', msg: 'cor-p-msg', hint: 'Consulta el valor p en el resultado de cor.test() con el coeficiente que elegiste.' }
+    ];
+    const choiceFields = [
+      { name: 'cor-metodo', msg: 'cor-metodo-msg', expected: ref.metodo,
+        ok: '✓ Correcto: ambas variables son ordinales.', hint: 'Revisa el nivel de medición de ambas variables.' },
+      { name: 'cor-sentido', msg: 'cor-sentido-msg', expected: ref.sentido,
+        ok: '✓ Correcto.', hint: 'Fíjate en el signo del coeficiente.' },
+      { name: 'cor-magnitud', msg: 'cor-magnitud-msg', expected: ref.magnitud,
+        ok: '✓ Correcto según los criterios de Cohen.', hint: 'Compara el valor absoluto del coeficiente con los criterios de Cohen (.10, .30, .50).' },
+      { name: 'cor-decision', msg: 'cor-decision-msg', expected: ref.p < ref.alpha ? 'rechazar' : 'no-rechazar',
+        ok: '✓ Decisión correcta: comparaste p con α = .05.', hint: 'Compara el valor p con α = .05 y revisa tu decisión.' }
+    ];
+    const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
+    const feedbackByName = new Map(choiceFields.map(f => [f.name, f.msg]));
+    function parseLocaleNumber(value) {
+      const s = String(value).trim();
+      if (!s) return { kind: 'empty' };
+      if (!/^[+\-−]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?$/.test(s)) return { kind: 'invalid' };
+      const n = Number(s.replace('−', '-').replace(',', '.'));
+      return Number.isFinite(n) ? { kind: 'number', value: n } : { kind: 'invalid' };
+    }
+    function pCorrect(text, expected) {
+      const clean = String(text).trim().replace(/^p\s*(?:=|:)?\s*/i, '').replace(/\s/g, '');
+      if (!clean) return { kind: 'empty', ok: false };
+      const interval = clean.match(/^(?:<=|<|≤)(.+)$/);
+      if (interval) {
+        const parsed = parseLocaleNumber(interval[1]);
+        if (parsed.kind !== 'number' || parsed.value <= 0) return { kind: 'invalid', ok: false };
+        // Se admite el umbral convencional más exigente que cumple p (.001, .01 o .05) o uno más preciso.
+        const umbral = [0.001, 0.01, 0.05].find(u => expected < u) || 1;
+        return { kind: 'number', ok: expected < parsed.value && parsed.value <= umbral + 1e-10 };
+      }
+      const parsed = parseLocaleNumber(clean);
+      if (parsed.kind !== 'number') return { kind: parsed.kind, ok: false };
+      if (parsed.value <= 0 || parsed.value > 1) return { kind: 'invalid', ok: false };
+      const tolerance = expected < 0.001 ? Math.max(expected * 0.05, 1e-18) : 0.000501;
+      return { kind: 'number', ok: Math.abs(parsed.value - expected) <= tolerance };
+    }
+    function approx(key, submitted, expected) {
+      if (key === 'n') return Number.isInteger(submitted) && submitted === expected;
+      return Math.abs(submitted - expected) <= 0.005001;
+    }
+    function report(id, message, ok, input) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.textContent = message;
+      node.className = 'cor-field-feedback ' + (ok ? 'cor-ok' : 'cor-incorrect');
+      if (input) input.setAttribute('aria-invalid', String(!ok));
+    }
+    function clear(id) {
+      const node = document.getElementById(id);
+      node.textContent = '';
+      node.className = 'cor-field-feedback';
+    }
+    function markStale(event) {
+      const target = event.target;
+      if (feedbackByInput.has(target.id)) {
+        target.removeAttribute('aria-invalid');
+        clear(feedbackByInput.get(target.id));
+      }
+      if (feedbackByName.has(target.name)) clear(feedbackByName.get(target.name));
+      if (!overall.hidden) overall.textContent = 'Modificaste una respuesta. Presiona «Comprobar mis respuestas» para actualizar la revisión.';
+    }
+    numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
+    choiceFields.forEach(f => document.querySelectorAll('input[name="' + f.name + '"]').forEach(el => el.addEventListener('change', markStale)));
+    button.addEventListener('click', function () {
+      let correct = 0;
+      const total = numericFields.length + choiceFields.length;
+      numericFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        const parsed = field.key === 'p' ? pCorrect(input.value, ref.p) : parseLocaleNumber(input.value);
+        if (parsed.kind === 'empty') {
+          report(field.msg, 'Ingresa un valor para comprobarlo.', false, input);
+        } else if (parsed.kind === 'invalid') {
+          report(field.msg, 'Escribe un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+        } else if (field.key === 'p' ? parsed.ok : approx(field.key, parsed.value, ref[field.key])) {
+          report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
+          correct++;
+        } else if (field.key === 'rho' && approx('rho', parsed.value, ref.r)) {
+          report(field.msg, 'Ese valor corresponde a Pearson. Revisa qué coeficiente es adecuado para estas variables.', false, input);
+        } else if (field.key === 'rho' && approx('rho', parsed.value, -ref.rho)) {
+          report(field.msg, 'La magnitud es correcta, pero revisa el signo.', false, input);
+        } else {
+          report(field.msg, 'Revisa este resultado. ' + field.hint, false, input);
+        }
+      });
+      choiceFields.forEach(field => {
+        const selected = document.querySelector('input[name="' + field.name + '"]:checked');
+        if (!selected) {
+          report(field.msg, 'Selecciona una opción para verificarla.', false);
+        } else if (selected.value === field.expected) {
+          report(field.msg, field.ok, true);
+          correct++;
+        } else {
+          report(field.msg, field.hint, false);
+        }
+      });
+      document.querySelectorAll('.cor-answer-layout').forEach(layout => {
+        layout.classList.add('cor-expanded');
+        const model = layout.querySelector('.cor-model-panel');
+        if (model) model.hidden = false;
+      });
+      overall.hidden = false;
+      overall.textContent = correct === total
+        ? '¡Muy bien! Los ' + total + ' resultados verificables coinciden con los valores esperados. Compara ahora tu código, gráfico e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revisa las pistas y vuelve a comprobar. Ya puedes comparar tus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+}());
+</script>
+```

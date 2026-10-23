@@ -102,9 +102,11 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
 </style>
 ```
 
+## 3. Chi-cuadrado
+
 La siguiente actividad simula una pregunta práctica de la segunda evaluación. **Resuélvela en R antes de comprobar tus respuestas.** El verificador te ayudará a identificar posibles errores; no otorga una nota.
 
-## 1. Prepara tus datos
+### Prepara tus datos
 
 Para este ejercicio utilizaremos una **versión preparada de la encuesta CEP 2026**, con dos variables: `sexo` (Hombre / Mujer) e `interes_politico` (Bajo / Al menos algo). Ambas están codificadas y listas para analizar.
 
@@ -192,7 +194,7 @@ patron_texto <- if (abs(p_mujeres - p_hombres) < 0.01) {
 observada_objetivo <- unname(tabla_esperada["Al menos algo", "Mujer"])
 ```
 
-## 2. Resuelve la pregunta
+### Resuelve la pregunta
 
 **Pregunta 3. ¿Existe una asociación entre el sexo y el interés en la política?**
 

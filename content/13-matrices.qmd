@@ -1,4 +1,4 @@
-## Matrices de correlación
+## 2. Matrices de correlación
 
 La segunda parte de esta sesión ejercitaremos el cómo estimar e interpretar una matriz de correlaciones. En este caso, trabajaremos con una versión preparada de la encuesta CASEN 2024.
 
@@ -95,12 +95,12 @@ function unlockSection(baseId, code) {
 
 ::::: {#matrices-content style="display:none;"}
 
-## Solución 
+### Solución
 
 
 ::: {.panel-tabset}
 
-## Con listwise
+#### Con listwise
 
 **1)**
 
@@ -131,7 +131,7 @@ Se utilizó `listwise` porque los casos perdidos se concentran casi por completo
 
 La correlación entre `sexo` y `horas_trabajo` corresponde a una de tipo **punto biserial**. Esta es el método de estimación pertinente en este caso, ya que `sexo` corresponde a una variable categórica dicotómica, mientras que `horas_trabajo` es una variable continua.
 
-## Con pairwise
+#### Con pairwise
 
 **1)**
 
