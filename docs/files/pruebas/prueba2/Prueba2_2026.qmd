@@ -1,0 +1,49 @@
+---
+title: "Prueba 2: Correlación y Chi²"
+lang: es
+---
+
+## Instrucciones generales
+
+- Esta prueba se contesta en este formulario de manera individual y presencial en la sala, ya sea con su computador personal o alguno de la sala de computación.
+- Tiene dos partes: una relacionada con correlaciones y otra con Chi².
+- Las preguntas se responden en este formulario, donde también se debe pegar el código correspondiente a cada pregunta. 
+- A modo de respaldo (po posibles fallas de UCursos), se sugiere responder las preguntas en un documento aparte (ej, en un word local), y luego cortar y pegar las respuestas en este mismo formulario. Guardar el documento como respaldo personal.
+- Se estima que cada pregunta no debería tomar más de 30 minutos, por lo que la prueba está pensada para poder ser contestada en alrededor de una hora. De todas maneras, se dispondrá de 90 minutos máximo para responder.
+- En caso de preguntas, se levanta la mano y alguien del equipo docente se acercará.
+- No se permite salir de la sala; en caso excepcional o emergencia se autorizará la salida en compañía de un/a ayudante.
+- Se permite usar recursos web, no plataformas de comunicación ni inteligencia artificial.
+
+## Enunciado
+
+Un centro de estudios aplicó una encuesta a 500 personas para analizar la relación entre orientación política y características sociodemográficas. La base contiene las siguientes variables:
+
+- `id`: identificador único de la encuesta.
+- `izq_der`: autoubicación en la escala izquierda-derecha, de 1 (izquierda) a 10 (derecha).
+- `edad`: edad en años.
+- `sexo`: sexo de la persona (0 = Hombre, 1 = Mujer).
+- `clase`: clase social subjetiva (1 = Baja, 2 = Media, 3 = Alta).
+
+La base de datos se encuentra disponible en el link escrito en la pizarra (existen dos bases, A y B: RUT terminado en número par responde con la base A y RUT impar con la base B).
+
+### Pregunta 1: ¿Cómo se relacionan la orientación política, la edad y el sexo?
+
+**1.1** Calcule el número de casos perdidos por variable. En base a ello, decida si utilizará eliminación por lista (*listwise*) o por pares (*pairwise*) para estimar la matriz de correlaciones, y justifique su decisión. **(1 pt)**
+
+**1.2** Calcule y reporte la matriz de correlaciones entre `izq_der`, `edad` y `sexo`.  **(2 pt)**
+
+**1.3** Genere un gráfico de dispersión (nube de puntos) entre `edad` y `izq_der`, y comente la relación observada. **(1 pt)**
+
+**1.4** Interprete cada uno de los coeficientes de la matriz considerando: a) el tipo de correlación estimada, b) la significación estadística y c) la magnitud del efecto. **(3 pts)**
+
+**Bonus** Reporte e interprete la varianza compartida entre edad y orientación política. **(0,5 pts)**
+
+### Pregunta 2: ¿Se asocia el sexo con la clase social?
+
+**2.1** Genere la tabla de contingencia entre `sexo` y `clase`. **(1 pt)**
+
+**2.2** Calcule y reporte la frecuencia esperada de la celda mujer / clase baja. Muestre cómo la obtuvo. **(1 pt)**
+
+**2.3** Reporte e interprete el Chi² en términos de inferencia estadística. **(2 pts)**
+
+**Bonus** ¿Qué coeficiente de correlación se podría aplicar en este caso y por qué? **(0,5 pts)**
