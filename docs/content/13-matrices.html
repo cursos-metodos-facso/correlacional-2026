@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,15 +68,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57aea3e77703211fcfdb7b4c4cf603e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -74,6 +108,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Estadística Correlacional">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/content/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -86,8 +121,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -137,8 +170,18 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#matrices-de-correlación" id="toc-matrices-de-correlación" class="nav-link active" data-scroll-target="#matrices-de-correlación">Matrices de correlación</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio">Ejercicio</a></li>
+  </ul></li>
+  <li><a href="#solución" id="toc-solución" class="nav-link" data-scroll-target="#solución">Solución</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -146,756 +189,669 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="matrices-de-correlación" class="level2">
+<h2 class="anchored" data-anchor-id="matrices-de-correlación">Matrices de correlación</h2>
+<p>La segunda parte de esta sesión ejercitaremos el cómo estimar e interpretar una matriz de correlaciones. En este caso, trabajaremos con una versión preparada de la encuesta CASEN 2024.</p>
+<p>Carga la base en R:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>La base de datos se contiene las siguientes variables:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Qué mide</th>
+<th>Escala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>escolaridad</code></td>
+<td>Años de escolaridad</td>
+<td>Continua</td>
+</tr>
+<tr class="even">
+<td><code>horas_trabajo</code></td>
+<td>Horas trabajadas habitualmente por semana (solo personas que trabajan)</td>
+<td>Continua</td>
+</tr>
+<tr class="odd">
+<td><code>sexo</code></td>
+<td>Sexo del respondente</td>
+<td>0 = hombre, 1 = mujer</td>
+</tr>
+<tr class="even">
+<td><code>barrio_peleas</code></td>
+<td>Frecuencia con que ha presenciado personas peleando o amenazándose en su barrio</td>
+<td>1 = Nunca … 4 = Siempre</td>
+</tr>
+<tr class="odd">
+<td><code>barrio_ruidos</code></td>
+<td>Frecuencia con que ha presenciado contaminación acústica o ruidos molestos en su barrio</td>
+<td>1 = Nunca … 4 = Siempre</td>
+</tr>
+</tbody>
+</table>
+<section id="ejercicio" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio">Ejercicio</h3>
+<p><strong>1)</strong> Estime la matriz de correlaciones entre las variables <code>escolaridad</code>, <code>horas_trabajo</code>, <code>sexo</code>, <code>barrio_peleas</code> y <code>barrio_ruidos</code></p>
+<p><strong>2)</strong> Reporte la correlación entre las siguientes variables, indicando si se encontró significancia estadística, el nivel de confianza con que se puede rechazar la hipótesis nula (en caso de que corresponda) y una interpretación sustantiva:</p>
+<ul>
+<li><p><code>barrio_peleas</code> y <code>barrio_ruidos</code></p></li>
+<li><p><code>sexo</code> y <code>horas_trabajo</code></p></li>
+<li><p><code>escolaridad</code> y <code>barrios_peleas</code></p></li>
+</ul>
+<p><strong>3)</strong> ¿Qué decisión tomó sobre los casos perdidos en el cálculo de la matriz? Justifique</p>
+<p><strong>4)</strong> ¿Cómo se denomina el tipo de correlación que se estima entre <code>sexo</code> y <code>horas_trabajo</code>?</p>
+<style>
+.unlock-box {
+  border: 1px dashed #999;
+  padding: 0.75em 1em;
+  border-radius: 6px;
+  background: #f7f7f7;
+  margin-bottom: 1em;
+}
+.unlock-box input {
+  padding: 0.3em 0.5em;
+  margin-right: 0.5em;
+}
+.unlock-msg {
+  display: none;
+  color: #b00020;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+}
+</style>
+<script>
+function unlockSection(baseId, code) {
+  var content = document.getElementById(baseId + '-content');
+  var input = document.getElementById(baseId + '-input');
+  var msg = document.getElementById(baseId + '-msg');
+  var box = document.getElementById(baseId + '-box');
+  if (input.value === code) {
+    content.style.display = 'block';
+    box.style.display = 'none';
+  } else {
+    msg.style.display = 'block';
+  }
+}
+</script>
+
+<div id="matrices-box" class="unlock-box">
+
+  <label for="matrices-input">
+    <strong>🔒 Solución bloqueada.</strong><br>
+    Ingresa la clave para ver la solución del ejercicio.
+  </label>
+
+  <input type="password" id="matrices-input" placeholder="Ingresa la clave">
+
+  <button onclick="unlockSection('matrices','matrices')">
+    Ver solución
+  </button>
+
+  <div id="matrices-msg" class="unlock-msg">
+    Clave incorrecta, inténtalo de nuevo.
+  </div>
+
+</div>
+</section>
+</section>
+<div id="matrices-content" style="display:none;">
+<section id="solución" class="level2">
+<h2 class="anchored" data-anchor-id="solución">Solución</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Con listwise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Con pairwise</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>1)</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_casen,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Matriz de correlaciones</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_peleas</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_ruidos</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">escolaridad</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">horas_trabajo</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.048<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">sexo</td>
+<td style="text-align: center; padding: 0.2cm;">0.137<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.205<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">barrio_peleas</td>
+<td style="text-align: center; padding: 0.2cm;">-0.067<span style="vertical-align:super;font-size:0.8em;">**</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.012<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">barrio_ruidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.057<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.002<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.041<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">0.456<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td colspan="6" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with listwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Para la construcción de la matriz utilizamos el método <code>spearman</code>, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos</p>
+</blockquote>
+<p><strong>2)</strong></p>
+<ul>
+<li><p>La correlación entre <code>barrio_peleas</code> y <code>barrio_ruido</code> es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida</p></li>
+<li><p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Entonces, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres</p></li>
+<li><p>La correlación entre <code>escolaridad</code> y <code>barrio_peleas</code> es negativa, con un efecto muy pequeño y estadísticamente significativa. Entonces, con un 99% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Considerando esto, a medida que las personas adquieren mayores niveles de escolaridad, tienden a presenciar menos peleas en su barrio</p></li>
+</ul>
+<p><strong>3)</strong></p>
+<p>Se utilizó <code>listwise</code> porque los casos perdidos se concentran casi por completo en <code>horas_trabajo</code> (1.361 de 3.000 casos, 45,4%), variable que solo se pregunta a quienes trabajan, por lo que son perdidos estructurales y no aleatorios. Las demás variables tienen prácticamente todos sus casos. Con <code>listwise</code> todos los coeficientes se estiman sobre los mismos 1.635 casos (54,5%), es decir, personas que trabajan, lo que <strong>hace comparables las correlaciones entre un mismo grupo</strong>.</p>
+<p><strong>4)</strong></p>
+<p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> corresponde a una de tipo <strong>punto biserial</strong>. Esta es el método de estimación pertinente en este caso, ya que <code>sexo</code> corresponde a una variable categórica dicotómica, mientras que <code>horas_trabajo</code> es una variable continua.</p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>1)</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_casen,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<caption>Matriz de correlaciones</caption>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_peleas</td>
+<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_ruidos</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">escolaridad</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">horas_trabajo</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.048<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">sexo</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.032<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.205<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">barrio_peleas</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.014<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">barrio_ruidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.079<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.002<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">0.038<span style="vertical-align:super;font-size:0.8em;">*</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.455<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td colspan="6" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with pairwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Para la construcción de la matriz utilizamos el método <code>spearman</code>, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos</p>
+</blockquote>
+<p><strong>2)</strong></p>
+<ul>
+<li><p>La correlación entre <code>barrio_peleas</code> y <code>barrio_ruido</code> es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida</p></li>
+<li><p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Con ello, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres</p></li>
+<li><p>La correlación entre <code>escolaridad</code> y <code>barrio_peleas</code> es negativa, con un efecto prácticamente nulo y no es estadísticamente significativa. Entonces, no existe evidencia suficiente para rechazar la hipótesis nula. Considerando esto, no se puede afirmar que el nivel de escolaridad se asocia con la frecuencia con que las personas presencian peleas en su barrio</p></li>
+</ul>
+<p><strong>3)</strong></p>
+<p>Se utilizó <code>pairwise</code> porque los casos perdidos se concentran en una sola variable, <code>horas_trabajo</code> (45,4%), mientras que el resto casi no tiene perdidos. Con <code>listwise</code> se descartaría a todas las personas sin datos en <code>horas_trabajo</code>, y las correlaciones que no la incluyen (por ejemplo, <code>barrio_peleas</code> y <code>barrio_ruidos</code>) perderían más de 1.300 casos que sí tienen información válida. Con <code>pairwise</code> cada coeficiente usa todos los casos disponibles para ese par, lo que <strong>conserva más información y da estimaciones más precisas</strong> para cada par de variables.</p>
+<p><strong>4)</strong></p>
+<p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> corresponde a una de tipo <strong>punto biserial</strong>. Esta es el método de estimación pertinente en este caso, ya que <code>sexo</code> corresponde a una variable categórica dicotómica, mientras que <code>horas_trabajo</code> es una variable continua.</p>
+</div>
+</div>
+</div>
+</section>
+</div>
 
 
 
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -948,14 +904,13 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

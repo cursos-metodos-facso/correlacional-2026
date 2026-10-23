@@ -8,7 +8,7 @@
 
 <meta name="description" content="Estadística Correlacional">
 
-<title>Evaluación 2 Estadística Correlacional – Estadística Correlacional</title>
+<title>Prueba 2: Correlación y Chi² – Estadística Correlacional</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -72,7 +72,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Evaluación 2 Estadística Correlacional – Estadística Correlacional">
+<meta property="og:title" content="Prueba 2: Correlación y Chi² – Estadística Correlacional">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/files/pruebas/prueba2/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
@@ -141,11 +141,11 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#instrucciones-generales" id="toc-instrucciones-generales" class="nav-link active" data-scroll-target="#instrucciones-generales">Instrucciones generales</a></li>
-  <li><a href="#ejercicio-a-resolver" id="toc-ejercicio-a-resolver" class="nav-link" data-scroll-target="#ejercicio-a-resolver">Ejercicio a resolver</a></li>
-  <li><a href="#pregunta-1-en-qué-medida-se-relacionan-los-ingresos-en-pesos-de-las-personas-con-sus-niveles-de-apoyo-a-la-democracia" id="toc-pregunta-1-en-qué-medida-se-relacionan-los-ingresos-en-pesos-de-las-personas-con-sus-niveles-de-apoyo-a-la-democracia" class="nav-link" data-scroll-target="#pregunta-1-en-qué-medida-se-relacionan-los-ingresos-en-pesos-de-las-personas-con-sus-niveles-de-apoyo-a-la-democracia">Pregunta 1: ¿En qué medida se relacionan los ingresos (en pesos) de las personas con sus niveles de apoyo a la democracia?</a></li>
-  <li><a href="#pregunta-2-cómo-se-relacionan-el-sexo-el-apoyo-a-la-democracia-y-los-ingresos" id="toc-pregunta-2-cómo-se-relacionan-el-sexo-el-apoyo-a-la-democracia-y-los-ingresos" class="nav-link" data-scroll-target="#pregunta-2-cómo-se-relacionan-el-sexo-el-apoyo-a-la-democracia-y-los-ingresos">Pregunta 2: ¿Cómo se relacionan el sexo, el apoyo a la democracia y los ingresos?</a></li>
-  <li><a href="#pregunta-3-cómo-se-relaciona-el-sexo-con-los-ingresos" id="toc-pregunta-3-cómo-se-relaciona-el-sexo-con-los-ingresos" class="nav-link" data-scroll-target="#pregunta-3-cómo-se-relaciona-el-sexo-con-los-ingresos">Pregunta 3: ¿Cómo se relaciona el sexo con los ingresos?</a></li>
-  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
+  <li><a href="#enunciado" id="toc-enunciado" class="nav-link" data-scroll-target="#enunciado">Enunciado</a>
+  <ul class="collapse">
+  <li><a href="#pregunta-1-cómo-se-relacionan-la-orientación-política-la-edad-y-el-sexo" id="toc-pregunta-1-cómo-se-relacionan-la-orientación-política-la-edad-y-el-sexo" class="nav-link" data-scroll-target="#pregunta-1-cómo-se-relacionan-la-orientación-política-la-edad-y-el-sexo">Pregunta 1: ¿Cómo se relacionan la orientación política, la edad y el sexo?</a></li>
+  <li><a href="#pregunta-2-se-asocia-el-sexo-con-la-clase-social" id="toc-pregunta-2-se-asocia-el-sexo-con-la-clase-social" class="nav-link" data-scroll-target="#pregunta-2-se-asocia-el-sexo-con-la-clase-social">Pregunta 2: ¿Se asocia el sexo con la clase social?</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -154,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Evaluación 2 Estadística Correlacional</h1>
+<h1 class="title">Prueba 2: Correlación y Chi²</h1>
 </div>
 
 
@@ -175,55 +175,43 @@ ul.task-list li input[type="checkbox"] {
 <h2 class="anchored" data-anchor-id="instrucciones-generales">Instrucciones generales</h2>
 <ul>
 <li>Esta prueba se contesta en este formulario de manera individual y presencial en la sala, ya sea con su computador personal o alguno de la sala de computación.</li>
-<li>Son tres preguntas, y cada una tiene dos partes:
-<ul>
-<li>La primera refiere a algún procedimiento de cálculo/análisis en R.</li>
-<li>La segunda parte de la pregunta corresponde a interpretación basada en contenidos de la Unidad 2 del curso.</li>
-</ul></li>
-<li>Se sugiere responder las preguntas de código en un archivo de código de R, y luego cortar y pegar las respuestas en este mismo formulario. Guardar el código como respaldo personal.</li>
-<li>En cuanto a las preguntas de interpretación, también se sugiere guardar sus respuestas en un documento aparte para tenerlo como respaldo.</li>
-<li>Se estima que cada pregunta no debería tomar más de 20 minutos, por lo que la prueba está pensada para poder ser contestada en alrededor de una hora. De todas maneras, se dispondrá de 90 minutos máximo para responder.</li>
+<li>Tiene dos partes: una relacionada con correlaciones y otra con Chi².</li>
+<li>Las preguntas se responden en este formulario, donde también se debe pegar el código correspondiente a cada pregunta.</li>
+<li>A modo de respaldo (po posibles fallas de UCursos), se sugiere responder las preguntas en un documento aparte (ej, en un word local), y luego cortar y pegar las respuestas en este mismo formulario. Guardar el documento como respaldo personal.</li>
+<li>Se estima que cada pregunta no debería tomar más de 30 minutos, por lo que la prueba está pensada para poder ser contestada en alrededor de una hora. De todas maneras, se dispondrá de 90 minutos máximo para responder.</li>
 <li>En caso de preguntas, se levanta la mano y alguien del equipo docente se acercará.</li>
 <li>No se permite salir de la sala; en caso excepcional o emergencia se autorizará la salida en compañía de un/a ayudante.</li>
 <li>Se permite usar recursos web, no plataformas de comunicación ni inteligencia artificial.</li>
-<li>Recuerde que la prueba se cerrará automáticamente a las 10:00 y no se podrá agregar información adicional.</li>
 </ul>
 </section>
-<section id="ejercicio-a-resolver" class="level2">
-<h2 class="anchored" data-anchor-id="ejercicio-a-resolver">Ejercicio a resolver</h2>
-<p>Usted es parte de un equipo de investigación en un centro de estudios que se encuentra analizando cómo ciertos factores sociales se asocian con actitudes políticas. El centro realizó una encuesta y cuenta con una base de datos con las siguientes variables:</p>
+<section id="enunciado" class="level2">
+<h2 class="anchored" data-anchor-id="enunciado">Enunciado</h2>
+<p>Un centro de estudios aplicó una encuesta a 500 personas para analizar la relación entre orientación política y características sociodemográficas. La base contiene las siguientes variables:</p>
 <ul>
 <li><code>id</code>: identificador único de la encuesta.</li>
-<li><code>apoyo_dem</code>: índice de apoyo a la democracia. Puntaje de 0 a 100; a mayor puntaje, mayores niveles de apoyo a la democracia.</li>
-<li><code>ingresos</code>: ingresos del entrevistado (en pesos).</li>
-<li><code>ingresos_rec</code>: ingresos recodificados en 3 categorías, donde 1 = Bajos ingresos, 2 = Medios ingresos y 3 = Altos ingresos.</li>
+<li><code>izq_der</code>: autoubicación en la escala izquierda-derecha, de 1 (izquierda) a 10 (derecha).</li>
+<li><code>edad</code>: edad en años.</li>
 <li><code>sexo</code>: sexo de la persona (0 = Hombre, 1 = Mujer).</li>
+<li><code>clase</code>: clase social subjetiva (1 = Baja, 2 = Media, 3 = Alta).</li>
 </ul>
-<p>La base de datos se encuentra disponible en el link escrito en la pizarra (existen bases de datos diferenciadas según el número de RUT de quien responde).</p>
+<p>La base de datos se encuentra disponible en el link escrito en la pizarra (existen dos bases, A y B: RUT terminado en número par responde con la base A y RUT impar con la base B).</p>
+<section id="pregunta-1-cómo-se-relacionan-la-orientación-política-la-edad-y-el-sexo" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-1-cómo-se-relacionan-la-orientación-política-la-edad-y-el-sexo">Pregunta 1: ¿Cómo se relacionan la orientación política, la edad y el sexo?</h3>
+<p><strong>1.1</strong> Calcule el número de casos perdidos por variable. En base a ello, decida si utilizará eliminación por lista (<em>listwise</em>) o por pares (<em>pairwise</em>) para estimar la matriz de correlaciones, y justifique su decisión. <strong>(1 pt)</strong></p>
+<p><strong>1.2</strong> Calcule y reporte la matriz de correlaciones entre <code>izq_der</code>, <code>edad</code> y <code>sexo</code>. <strong>(2 pt)</strong></p>
+<p><strong>1.3</strong> Genere un gráfico de dispersión (nube de puntos) entre <code>edad</code> y <code>izq_der</code>, y comente la relación observada. <strong>(1 pt)</strong></p>
+<p><strong>1.4</strong> Interprete cada uno de los coeficientes de la matriz considerando: a) el tipo de correlación estimada, b) la significación estadística y c) la magnitud del efecto. <strong>(3 pts)</strong></p>
+<p><strong>Bonus</strong> Reporte e interprete la varianza compartida entre edad y orientación política. <strong>(0,5 pts)</strong></p>
 </section>
-<section id="pregunta-1-en-qué-medida-se-relacionan-los-ingresos-en-pesos-de-las-personas-con-sus-niveles-de-apoyo-a-la-democracia" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-1-en-qué-medida-se-relacionan-los-ingresos-en-pesos-de-las-personas-con-sus-niveles-de-apoyo-a-la-democracia">Pregunta 1: ¿En qué medida se relacionan los ingresos (en pesos) de las personas con sus niveles de apoyo a la democracia?</h2>
-<p><strong>1.1</strong> Estime la correlación entre ambas variables utilizando R y genere un diagrama de dispersión (nube de puntos/scatterplot). Corte y pegue el código en el recuadro de abajo. <strong>(1 pt)</strong></p>
-<p><strong>1.2</strong> Justifique la elección del coeficiente de correlación seleccionado e interprete el resultado considerando visualización, inferencia estadística, magnitud y sentido del efecto. <strong>(3 pts)</strong></p>
-</section>
-<section id="pregunta-2-cómo-se-relacionan-el-sexo-el-apoyo-a-la-democracia-y-los-ingresos" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-2-cómo-se-relacionan-el-sexo-el-apoyo-a-la-democracia-y-los-ingresos">Pregunta 2: ¿Cómo se relacionan el sexo, el apoyo a la democracia y los ingresos?</h2>
-<p><strong>2.1</strong> Estime y reporte la matriz de correlaciones de las variables sexo, apoyo a la democracia e ingresos. Corte y pegue el código de R correspondiente. <strong>(1 pt)</strong></p>
-<p><strong>2.2a</strong> ¿Qué correlaciones de la matriz son estadísticamente significativas? ¿Con qué nivel de confianza se puede rechazar la hipótesis nula en estos casos? <strong>(1 pt)</strong></p>
-<p><strong>2.2b</strong> ¿Qué decisión tomó sobre los casos perdidos en el cálculo de la matriz? ¿Por qué? <strong>(1 pt)</strong></p>
-<p><strong>2.2c</strong> ¿Cómo se denomina el tipo de correlación que se calcula entre sexo e ingreso? <strong>(1 pt)</strong></p>
-</section>
-<section id="pregunta-3-cómo-se-relaciona-el-sexo-con-los-ingresos" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-3-cómo-se-relaciona-el-sexo-con-los-ingresos">Pregunta 3: ¿Cómo se relaciona el sexo con los ingresos?</h2>
-<p><strong>3.1</strong> Reporte la tabla de contingencia y el cálculo de Chi². Corte y pegue el código abajo. <strong>(1 pt)</strong></p>
-<p><strong>3.2</strong> Interprete el Chi² en términos de inferencia y magnitud del efecto. <strong>(2 pts)</strong></p>
-<p><strong>3.3</strong> Al Chi² también se le denomina “test de diferencia”. ¿Qué es lo que se compara para hacer esta diferencia? <strong>(1 pt)</strong></p>
-</section>
-<section id="cierre" class="level2">
-<h2 class="anchored" data-anchor-id="cierre">Cierre</h2>
-<p>Para finalizar, corra el comando <code>sessionInfo()</code> en R y pegue acá el resultado, para verificar la versión de R y de las librerías utilizadas.</p>
+<section id="pregunta-2-se-asocia-el-sexo-con-la-clase-social" class="level3">
+<h3 class="anchored" data-anchor-id="pregunta-2-se-asocia-el-sexo-con-la-clase-social">Pregunta 2: ¿Se asocia el sexo con la clase social?</h3>
+<p><strong>2.1</strong> Genere la tabla de contingencia entre <code>sexo</code> y <code>clase</code>. <strong>(1 pt)</strong></p>
+<p><strong>2.2</strong> Calcule y reporte la frecuencia esperada de la celda mujer / clase baja. Muestre cómo la obtuvo. <strong>(1 pt)</strong></p>
+<p><strong>2.3</strong> Reporte e interprete el Chi² en términos de inferencia estadística. <strong>(2 pts)</strong></p>
+<p><strong>Bonus</strong> ¿Qué coeficiente de correlación se podría aplicar en este caso y por qué? <strong>(0,5 pts)</strong></p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

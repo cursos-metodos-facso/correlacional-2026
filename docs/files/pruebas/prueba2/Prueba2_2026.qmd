@@ -30,9 +30,9 @@ La base de datos se encuentra disponible en el link escrito en la pizarra (exist
 
 **1.1** Calcule el número de casos perdidos por variable. En base a ello, decida si utilizará eliminación por lista (*listwise*) o por pares (*pairwise*) para estimar la matriz de correlaciones, y justifique su decisión. **(1 pt)**
 
-**1.2** Calcule y reporte la matriz de correlaciones entre `izq_der`, `edad` y `sexo`.  **(2 pt)**
+**1.2** Genere un gráfico de dispersión (nube de puntos) entre `edad` y `izq_der`, y comente la relación observada. **(1 pt)**
 
-**1.3** Genere un gráfico de dispersión (nube de puntos) entre `edad` y `izq_der`, y comente la relación observada. **(1 pt)**
+**1.3** Calcule y reporte la matriz de correlaciones entre `izq_der`, `edad` y `sexo`.  **(2 pt)**
 
 **1.4** Interprete cada uno de los coeficientes de la matriz considerando: a) el tipo de correlación estimada, b) la significación estadística y c) la magnitud del efecto. **(3 pts)**
 
@@ -41,9 +41,126 @@ La base de datos se encuentra disponible en el link escrito en la pizarra (exist
 ### Pregunta 2: ¿Se asocia el sexo con la clase social?
 
 **2.1** Genere la tabla de contingencia entre `sexo` y `clase`. **(1 pt)**
-
 **2.2** Calcule y reporte la frecuencia esperada de la celda mujer / clase baja. Muestre cómo la obtuvo. **(1 pt)**
-
-**2.3** Reporte e interprete el Chi² en términos de inferencia estadística. **(2 pts)**
+**2.3** Reporte e interprete el Chi² en términos de inferencia estadística y sustantivo considerando el contexto del problema. **(3 pts)**
 
 **Bonus** ¿Qué coeficiente de correlación se podría aplicar en este caso y por qué? **(0,5 pts)**
+
+## Pauta
+
+```{r}
+#| eval: false
+pacman::p_load(dplyr, sjPlot, psych)
+
+datos <- read.csv("base_A.csv")   # o base_B.csv
+```
+
+### Pregunta 1
+
+```{r}
+#| eval: false
+datos_cor <- datos |> select(izq_der, edad, sexo)
+```
+
+**1.1**
+
+```{r}
+#| eval: false
+colSums(is.na(datos_cor))       # perdidos por variable
+sum(complete.cases(datos_cor))  # N con listwise
+psych::pairwiseCount(datos_cor) # N por par con pairwise
+```
+
+- Perdidos: `izq_der` = 80, `edad` = 25, `sexo` = 6. Ambas bases tienen los mismos perdidos. Con *listwise* quedan 396 (A) / 395 (B) casos (se pierde ~21% de la muestra); con *pairwise* cada correlación usa entre 400 y 469 casos.
+- Ambas decisiones son válidas si se justifican:
+  - *Pairwise*: aprovecha más información por coeficiente (p.ej. edad–sexo se calcula con 469 casos en vez de ~395).
+  - *Listwise*: todos los coeficientes se calculan sobre los mismos casos, lo que los hace comparables entre sí.
+- Puntaje completo requiere reportar los perdidos por variable **y** justificar la decisión aludiendo a la pérdida de casos o a la comparabilidad.
+
+**1.2**
+
+```{r}
+#| eval: false
+sjPlot::tab_corr(datos_cor,
+                 na.deletion = "pairwise",  # o "listwise"
+                 triangle = "lower")
+# alternativa
+psych::corr.test(datos_cor, use = "pairwise")
+```
+
+**1.3** (valores *pairwise*; con *listwise* cambian en el segundo o tercer decimal y las conclusiones son las mismas)
+
+| Par | Base A: r (p) | Base B: r (p) | Interpretación esperada |
+|-----|---------------|---------------|-------------------------|
+| edad – izq_der | 0,39 (< 0,001) | 0,40 (< 0,001) | Pearson. Positiva, significativa al 99,9%, magnitud moderada (Cohen: 0,3–0,5). A mayor edad, mayor ubicación hacia la derecha. |
+| sexo – izq_der | -0,15 (0,002) | -0,14 (0,004) | Punto biserial (dicotómica–continua). Significativa al 99%, magnitud pequeña. Como 1 = Mujer, las mujeres se ubican levemente más a la izquierda. |
+| sexo – edad | -0,04 (0,36) | 0,01 (0,81) | Punto biserial. No significativa: no se rechaza H0, no hay evidencia de asociación entre sexo y edad. |
+
+- a) tipo (1 pt): Pearson para edad–izq_der; punto biserial para los pares con sexo. Aceptar mención de que `izq_der` es ordinal de 10 puntos y que se trata como continua (o que Spearman sería una alternativa).
+- b) significación (1 pt): valor p o nivel de confianza para cada par, incluyendo la no significación de sexo–edad.
+- c) magnitud (1 pt): criterios de Cohen (0,1 pequeña, 0,3 moderada, 0,5 grande).
+
+**Bonus**: r² = 0,39² ≈ 0,15 (A) / 0,40² = 0,16 (B). La edad y la orientación política comparten aproximadamente un 15–16% de su varianza; el resto de la variación en `izq_der` se relaciona con otros factores.
+
+### Pregunta 2
+
+**2.1**
+
+```{r}
+#| eval: false
+sjPlot::sjt.xtab(var.row = datos$sexo, var.col = datos$clase,
+                 show.summary = F, emph.total = T)
+# alternativa
+tabla <- table(datos$sexo, datos$clase)
+addmargins(tabla)
+```
+
+Base A (N = 482):
+
+| | Baja | Media | Alta | Total |
+|---|---|---|---|---|
+| Hombre | 54 | 109 | 47 | 210 |
+| Mujer | 110 | 136 | 26 | 272 |
+| Total | 164 | 245 | 73 | 482 |
+
+Base B (N = 482):
+
+| | Baja | Media | Alta | Total |
+|---|---|---|---|---|
+| Hombre | 72 | 119 | 53 | 244 |
+| Mujer | 103 | 106 | 29 | 238 |
+| Total | 175 | 225 | 82 | 482 |
+
+**2.2**
+
+$$E = \frac{\text{total fila} \times \text{total columna}}{N}$$
+
+- Base A: E = 272 × 164 / 482 = **92,55** (observado: 110)
+- Base B: E = 238 × 175 / 482 = **86,41** (observado: 103)
+
+```{r}
+#| eval: false
+chisq.test(tabla)$expected
+```
+
+Puntaje completo requiere el valor y la fórmula o el procedimiento. Aceptar como plus que se compare con la frecuencia observada: en ambas bases hay más mujeres de clase baja de lo esperado bajo independencia.
+
+**2.3**
+
+```{r}
+#| eval: false
+chi <- chisq.test(tabla)
+chi
+sqrt(chi$statistic / sum(tabla)) # Phi (= V de Cramer en tabla 2x3)
+```
+
+| | χ² | gl | p | Phi |
+|---|---|---|---|---|
+| Base A | 20,50 | 2 | < 0,001 | 0,21 |
+| Base B | 13,19 | 2 | 0,001 | 0,17 |
+
+- Inferencia (1 pt): se rechaza H0 de independencia con 99% de confianza (en A también al 99,9%). Existe asociación estadísticamente significativa entre sexo y clase social.
+- Magnitud (1 pt): Phi ≈ 0,2, asociación pequeña. Sustantivamente, las mujeres se ubican con mayor frecuencia en clase baja y con menor frecuencia en clase alta que los hombres.
+- En tablas mayores a 2x2 `chisq.test` no aplica corrección de Yates, por lo que el resultado coincide con el cálculo manual.
+
+**Bonus**: correlación **policórica** (`psych::polychoric(tabla)`), porque `clase` es una variable ordinal categórica y `sexo` es dicotómica; ninguna es continua, así que no corresponde Pearson ni punto biserial. Se obtiene ρ ≈ -0,28 (A) / -0,23 (B): ser mujer se asocia con menor clase social. Aceptar también Spearman/Kendall si se justifica por el carácter ordinal de `clase`. Tetracórica no corresponde porque `clase` tiene tres categorías.
