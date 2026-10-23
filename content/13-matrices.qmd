@@ -1,0 +1,166 @@
+## Matrices de correlación
+
+La segunda parte de esta sesión ejercitaremos el cómo estimar e interpretar una matriz de correlaciones. En este caso, trabajaremos con una versión preparada de la encuesta CASEN 2024.
+
+Carga la base en R:
+
+
+```{r}
+
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"))
+```
+
+La base de datos se contiene las siguientes variables:
+
+| Variable | Qué mide | Escala |
+|---|---|---|
+| `escolaridad` | Años de escolaridad | Continua |
+| `horas_trabajo` | Horas trabajadas habitualmente por semana (solo personas que trabajan) | Continua |
+| `sexo` | Sexo del respondente | 0 = hombre, 1 = mujer |
+| `barrio_peleas` | Frecuencia con que ha presenciado personas peleando o amenazándose en su barrio | 1 = Nunca ... 4 = Siempre |
+| `barrio_ruidos` | Frecuencia con que ha presenciado contaminación acústica o ruidos molestos en su barrio | 1 = Nunca ... 4 = Siempre |
+
+### Ejercicio
+
+**1)** Estime la matriz de correlaciones entre las variables `escolaridad`, `horas_trabajo`, `sexo`, `barrio_peleas` y `barrio_ruidos`
+
+**2)** Reporte la correlación entre las siguientes variables, indicando si se encontró significancia estadística, el nivel de confianza con que se puede rechazar la hipótesis nula (en caso de que corresponda) y una interpretación sustantiva:
+
+- `barrio_peleas` y `barrio_ruidos`
+
+- `sexo` y `horas_trabajo`
+
+- `escolaridad` y `barrios_peleas`
+
+**3)** ¿Qué decisión tomó sobre los casos perdidos en el cálculo de la matriz? Justifique 
+
+
+**4)** ¿Cómo se denomina el tipo de correlación que se estima entre `sexo` y `horas_trabajo`?
+
+
+```{=html}
+<style>
+.unlock-box {
+  border: 1px dashed #999;
+  padding: 0.75em 1em;
+  border-radius: 6px;
+  background: #f7f7f7;
+  margin-bottom: 1em;
+}
+.unlock-box input {
+  padding: 0.3em 0.5em;
+  margin-right: 0.5em;
+}
+.unlock-msg {
+  display: none;
+  color: #b00020;
+  margin-top: 0.5em;
+  font-size: 0.9em;
+}
+</style>
+<script>
+function unlockSection(baseId, code) {
+  var content = document.getElementById(baseId + '-content');
+  var input = document.getElementById(baseId + '-input');
+  var msg = document.getElementById(baseId + '-msg');
+  var box = document.getElementById(baseId + '-box');
+  if (input.value === code) {
+    content.style.display = 'block';
+    box.style.display = 'none';
+  } else {
+    msg.style.display = 'block';
+  }
+}
+</script>
+
+<div id="matrices-box" class="unlock-box">
+
+  <label for="matrices-input">
+    <strong>🔒 Solución bloqueada.</strong><br>
+    Ingresa la clave para ver la solución del ejercicio.
+  </label>
+
+  <input type="password" id="matrices-input" placeholder="Ingresa la clave">
+
+  <button onclick="unlockSection('matrices','matrices')">
+    Ver solución
+  </button>
+
+  <div id="matrices-msg" class="unlock-msg">
+    Clave incorrecta, inténtalo de nuevo.
+  </div>
+
+</div>
+```
+
+::::: {#matrices-content style="display:none;"}
+
+## Solución 
+
+
+::: {.panel-tabset}
+
+## Con listwise
+
+**1)**
+
+```{r}
+sjPlot::tab_corr(datos_casen,
+                 corr.method = "spearman",
+                 na.deletion = "listwise",
+                 triangle = "lower",        # Mostramos solo la mitad inferior
+                 title = "Matriz de correlaciones")
+```
+
+> Para la construcción de la matriz utilizamos el método `spearman`, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos
+
+**2)**
+
+- La correlación entre `barrio_peleas` y `barrio_ruido` es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida
+
+- La correlación entre `sexo` y `horas_trabajo` es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Entonces, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres
+
+- La correlación entre `escolaridad` y `barrio_peleas` es negativa, con un efecto muy pequeño y estadísticamente significativa. Entonces, con un 99% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Considerando esto, a medida que las personas adquieren mayores niveles de escolaridad, tienden a presenciar menos peleas en su barrio
+
+**3)**
+
+Se utilizó `listwise` porque los casos perdidos se concentran casi por completo en `horas_trabajo` (1.361 de 3.000 casos, 45,4%), variable que solo se pregunta a quienes trabajan, por lo que son perdidos estructurales y no aleatorios. Las demás variables tienen prácticamente todos sus casos. Con `listwise` todos los coeficientes se estiman sobre los mismos 1.635 casos (54,5%), es decir, personas que trabajan, lo que **hace comparables las correlaciones entre un mismo grupo**.
+
+
+**4)**
+
+La correlación entre `sexo` y `horas_trabajo` corresponde a una de tipo **punto biserial**. Esta es el método de estimación pertinente en este caso, ya que `sexo` corresponde a una variable categórica dicotómica, mientras que `horas_trabajo` es una variable continua.
+
+## Con pairwise
+
+**1)**
+
+```{r}
+sjPlot::tab_corr(datos_casen,
+                 corr.method = "spearman",
+                 na.deletion = "pairwise",
+                 triangle = "lower",        # Mostramos solo la mitad inferior
+                 title = "Matriz de correlaciones")
+```
+
+> Para la construcción de la matriz utilizamos el método `spearman`, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos
+
+**2)**
+
+- La correlación entre `barrio_peleas` y `barrio_ruido` es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida
+
+- La correlación entre `sexo` y `horas_trabajo` es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Con ello, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres
+
+- La correlación entre `escolaridad` y `barrio_peleas` es negativa, con un efecto prácticamente nulo y no es estadísticamente significativa. Entonces, no existe evidencia suficiente para rechazar la hipótesis nula. Considerando esto, no se puede afirmar que el nivel de escolaridad se asocia con la frecuencia con que las personas presencian peleas en su barrio
+
+**3)**
+
+Se utilizó `pairwise` porque los casos perdidos se concentran en una sola variable, `horas_trabajo` (45,4%), mientras que el resto casi no tiene perdidos. Con `listwise` se descartaría a todas las personas sin datos en `horas_trabajo`, y las correlaciones que no la incluyen (por ejemplo, `barrio_peleas` y `barrio_ruidos`) perderían más de 1.300 casos que sí tienen información válida. Con `pairwise` cada coeficiente usa todos los casos disponibles para ese par, lo que **conserva más información y da estimaciones más precisas** para cada par de variables.
+
+**4)**
+
+La correlación entre `sexo` y `horas_trabajo` corresponde a una de tipo **punto biserial**. Esta es el método de estimación pertinente en este caso, ya que `sexo` corresponde a una variable categórica dicotómica, mientras que `horas_trabajo` es una variable continua.
+
+:::
+
+:::::
