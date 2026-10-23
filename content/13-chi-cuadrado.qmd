@@ -1,0 +1,488 @@
+---
+title: "Simulación de prueba: Chi-cuadrado"
+subtitle: "Preparación Evaluación 2 · Estadística Correlacional"
+date: "2026-10-26"
+lang: es
+resources:
+  - bases/cep_2026_chi_sim.rds
+format:
+  html:
+    toc: false
+    number-sections: false
+    code-copy: true
+    code-fold: false
+    highlight-style: github
+    embed-resources: true
+    page-layout: article
+    grid:
+      body-width: 1100px
+      margin-width: 280px
+      gutter-width: 1.5rem
+    anchor-sections: false
+execute:
+  echo: true
+  freeze: false
+  cache: false
+  warning: false
+  message: false
+---
+
+```{=html}
+<style>
+/* Todo el CSS se limita a los componentes chi2- para evitar colisiones con Quarto. */
+.chi2-intro { max-width: 74ch; }
+.chi2-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.1rem 0 1.5rem; }
+.chi2-chip { display: inline-flex; align-items: center; padding: .3rem .7rem; border: 1px solid var(--bs-border-color, #c9d0d9); border-radius: 999px; font-size: .86rem; color: var(--bs-secondary-color, #596777); }
+.chi2-question { border-left: 3px solid var(--bs-primary, #1f608c); background: var(--bs-tertiary-bg, #f5f7f9); border-radius: 0 .6rem .6rem 0; padding: 1rem 1.15rem; margin: 1rem 0; }
+.chi2-question p:last-child { margin-bottom: 0; }
+.chi2-checker { border: 1px solid var(--bs-border-color, #ccd1d8); background: var(--bs-body-bg, #fff); border-radius: .8rem; padding: clamp(1rem, 2.5vw, 1.5rem); margin: 1.3rem 0; }
+.chi2-muted { color: var(--bs-secondary-color, #596777); font-size: .93rem; }
+.chi2-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.15rem 0; }
+.chi2-field { min-width: 0; }
+.chi2-field label { display: block; font-weight: 600; font-size: .95rem; margin-bottom: .3rem; }
+.chi2-field input, .chi2-checker textarea { width: 100%; max-width: 100%; box-sizing: border-box; background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e); border: 1px solid var(--bs-border-color, #a6aebc); border-radius: .45rem; padding: .58rem .7rem; font: inherit; }
+.chi2-checker textarea { min-height: 7rem; resize: vertical; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: .86rem; }
+.chi2-field input:focus-visible, .chi2-checker textarea:focus-visible, .chi2-checker button:focus-visible, .chi2-checker summary:focus-visible, .chi2-choice input:focus-visible { outline: 3px solid var(--bs-primary, #1879b5); outline-offset: 3px; }
+.chi2-field input[aria-invalid="true"] { border-color: #be4b44; }
+.chi2-field .chi2-field-feedback { font-size: .86rem; min-height: 1.3em; margin: .35rem 0 0; }
+.chi2-ok { color: var(--bs-success-text-emphasis, #0d7444); }
+.chi2-incorrect { color: var(--bs-danger-text-emphasis, #ac332f); }
+.chi2-choice { border: 0; padding: 0; margin: .4rem 0 1.2rem; }
+.chi2-choice legend { font-weight: 600; font-size: .96rem; margin-bottom: .55rem; }
+.chi2-choice label { display: inline-flex; align-items: center; gap: .35rem; margin-right: 1.1rem; margin-bottom: .4rem; cursor: pointer; }
+.chi2-choice input { width: 1rem; height: 1rem; }
+.chi2-action { border: 0; border-radius: .45rem; padding: .65rem 1rem; background: var(--bs-primary, #1f608c); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.chi2-action:hover { filter: brightness(.92); }
+.chi2-summary-feedback { padding: .75rem .9rem; border-left: 3px solid var(--bs-primary, #1f608c); margin-top: 1rem; background: var(--bs-tertiary-bg, #f5f7f9); border-radius: 0 .35rem .35rem 0; }
+.chi2-summary-feedback[hidden] { display: none; }
+.chi2-solution-note { font-size: .9rem; color: var(--bs-secondary-color, #596777); }
+/* Interfaz de respuestas integrada debajo de cada pregunta. */
+pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
+.chi2-part { border-top: 1px solid var(--bs-border-color, #cbd1da); padding-top: 1.1rem; margin: 1.4rem 0 2rem; }
+.chi2-part > h3 { font-size: 1.12rem; margin: 0 0 .45rem; }
+.chi2-part > p { margin-bottom: .9rem; }
+.chi2-answer-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+.chi2-answer-layout.chi2-expanded { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.chi2-answer-panel, .chi2-model-panel { min-width: 0; max-width: 100%; padding: clamp(.8rem, 2vw, 1rem); border: 1px solid var(--bs-border-color, #ccd1d8); border-radius: .6rem; background: var(--bs-body-bg, #fff); }
+.chi2-model-panel { background: var(--bs-tertiary-bg, #f5f7f9); }
+.chi2-model-panel[hidden] { display: none !important; }
+.chi2-model-panel > h4 { font-size: 1rem; margin: 0 0 .65rem; }
+.chi2-answer-panel label { display: block; font-weight: 600; font-size: .94rem; margin: .75rem 0 .35rem; }
+.chi2-answer-panel label:first-child { margin-top: 0; }
+.chi2-answer-panel textarea {
+  display: block; box-sizing: border-box; width: 100%; max-width: 100%; min-height: 8rem;
+  padding: .7rem .8rem; font: inherit; font-size: .95rem; resize: vertical;
+  border: 1px solid var(--bs-border-color, #a6aebc); border-radius: .45rem;
+  background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
+}
+.chi2-answer-panel .chi2-code-input { min-height: 18rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.chi2-answer-panel .chi2-table-input { min-height: 10rem; font: .86rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.chi2-answer-panel .chi2-interpret-input { min-height: 9rem; }
+.chi2-answer-panel .chi2-explain-input { min-height: 7rem; }
+.chi2-answer-panel textarea:focus-visible, .chi2-field input:focus-visible,
+.chi2-choice input:focus-visible, .chi2-action:focus-visible { outline: 3px solid var(--bs-primary, #1879b5); outline-offset: 3px; }
+.chi2-answer-panel .chi2-fields { margin: 0 0 .95rem; }
+.chi2-answer-panel .chi2-field input { width: 100%; }
+.chi2-answer-panel .chi2-choice { margin: .75rem 0 1rem; }
+.chi2-model-panel :is(pre, .sourceCode, .cell-output) { max-width: 100%; min-width: 0; overflow-x: auto; }
+.chi2-model-panel pre code { white-space: pre; }
+.chi2-model-panel table { display: block; max-width: 100%; overflow-x: auto; }
+.chi2-model-panel blockquote { margin: .5rem 0 .8rem; padding: .6rem .8rem; border-left: 3px solid var(--bs-primary, #1f608c); background: var(--bs-body-bg, #fff); }
+.chi2-model-panel blockquote p:last-child { margin-bottom: 0; }
+.chi2-model-panel > :last-child { margin-bottom: 0; }
+.chi2-checker { margin: 1.2rem 0 1.6rem; }
+.chi2-checker .chi2-summary-feedback { margin-top: .8rem; }
+.chi2-check-caption { color: var(--bs-secondary-color, #596777); font-size: .9rem; }
+@media (max-width: 760px) {
+  .chi2-answer-layout.chi2-expanded { grid-template-columns: minmax(0, 1fr); }
+  .chi2-fields { grid-template-columns: minmax(0, 1fr); }
+  .chi2-choice label { display: flex; }
+  .chi2-action { width: 100%; }
+}
+</style>
+```
+
+La siguiente actividad simula una pregunta práctica de la segunda evaluación. **Resuélvela en R antes de comprobar tus respuestas.** El verificador te ayudará a identificar posibles errores; no otorga una nota.
+
+## 1. Prepara tus datos
+
+Para este ejercicio utilizaremos una **versión preparada de la encuesta CEP 2026**, con dos variables: `sexo` (Hombre / Mujer) e `interes_politico` (Bajo / Al menos algo). Ambas están codificadas y listas para analizar.
+
+**Carga la base en R:**
+
+```{r}
+#| label: cargar-cep-simulacion-estudiantes
+#| eval: false
+# Cargar los datos
+cep_sim <- readRDS(url(
+  "https://correlacional.metodos-facso.org/content/bases/cep_2026_chi_sim.rds"
+))
+
+# Revisar las variables
+names(cep_sim)
+head(cep_sim)
+```
+
+Comprueba que la base se cargó correctamente. Trabajaremos con el objeto `cep_sim`.
+
+**¿Cómo trabajar?** Resuelve cada apartado en R y escribe tus respuestas bajo la pregunta correspondiente. Al terminar, selecciona **«Comprobar mis respuestas»** para revisar tus resultados y compararlos con los modelos.
+
+En esta simulación utilizaremos `chisq.test(..., correct = FALSE)` (Chi-cuadrado de Pearson sin corrección de Yates).
+
+```{r}
+#| label: preparar-datos-chi2
+#| include: false
+#| cache: false
+# Ruta relativa a este QMD, situado en content/.
+# El directorio de ejecución de Quarto debe ser el del archivo (valor predeterminado).
+ruta_base <- "bases/cep_2026_chi_sim.rds"
+if (!file.exists(ruta_base)) {
+  stop(
+    "No se encontró la base preparada en: ", ruta_base, ". ",
+    "Coloca cep_2026_chi_sim.rds en content/bases/ y renderiza ",
+    "este QMD con execute-dir: file."
+  )
+}
+cep_sim <- readRDS(ruta_base)
+stopifnot(
+  is.data.frame(cep_sim),
+  identical(names(cep_sim), c("sexo", "interes_politico")),
+  is.factor(cep_sim$sexo),
+  is.factor(cep_sim$interes_politico),
+  identical(levels(cep_sim$sexo), c("Hombre", "Mujer")),
+  identical(levels(cep_sim$interes_politico), c("Bajo", "Al menos algo")),
+  !anyNA(cep_sim)
+)
+```
+
+```{r}
+#| label: calculos-internos-chi2
+#| include: false
+tabla_esperada <- table(cep_sim$interes_politico, cep_sim$sexo)
+stopifnot(all(dim(tabla_esperada) == c(2L, 2L)))
+stopifnot(all(tabla_esperada > 0))
+prueba_esperada <- chisq.test(tabla_esperada, correct = FALSE)
+stopifnot(all(is.finite(prueba_esperada$expected)))
+stopifnot(all(prueba_esperada$expected >= 5))
+N_esperado <- sum(tabla_esperada)
+chi2_esperado <- unname(prueba_esperada$statistic)
+gl_esperado <- unname(prueba_esperada$parameter)
+p_esperado <- prueba_esperada$p.value
+phi_esperado <- sqrt(chi2_esperado / N_esperado)
+fe_esperada <- unname(prueba_esperada$expected["Al menos algo", "Mujer"])
+prop_grupos <- 100 * prop.table(tabla_esperada, margin = 2)["Al menos algo", ]
+fmt_num <- function(x, digits = 2) format(round(x, digits), nsmall = digits, decimal.mark = ",", trim = TRUE)
+p_impreso <- if (p_esperado < .001) "p < .001" else paste0("p = ", format(round(p_esperado, 3), nsmall = 3))
+decision_texto <- if (p_esperado < .05) "se rechaza H₀" else "no se rechaza H₀"
+magnitud_phi <- if (phi_esperado < .30) "pequeña" else if (phi_esperado < .50) "moderada" else "grande"
+texto_inferencia <- if (p_esperado < .05) {
+  "existe evidencia estadísticamente significativa de asociación entre las variables"
+} else {
+  "no se dispone de evidencia estadística suficiente para afirmar que existe asociación entre las variables"
+}
+p_mujeres <- unname(prop_grupos["Mujer"])
+p_hombres <- unname(prop_grupos["Hombre"])
+patron_texto <- if (abs(p_mujeres - p_hombres) < 0.01) {
+  "Los porcentajes de hombres y mujeres con al menos algo de interés político son prácticamente iguales"
+} else if (p_mujeres > p_hombres) {
+  "En la muestra, la proporción con al menos algo de interés político es mayor entre mujeres que entre hombres"
+} else {
+  "En la muestra, la proporción con al menos algo de interés político es mayor entre hombres que entre mujeres"
+}
+observada_objetivo <- unname(tabla_esperada["Al menos algo", "Mujer"])
+```
+
+## 2. Resuelve la pregunta
+
+**Pregunta 3. ¿Existe una asociación entre el sexo y el interés en la política?**
+
+Resuelve los tres apartados en R y escribe tus respuestas debajo de cada uno. Al final podrás **comprobar los resultados en un solo paso** y comparar tus respuestas con los modelos.
+
+```{r}
+#| label: publicar-referencias-chi2
+#| results: asis
+#| echo: false
+cat(sprintf(
+  '<script id="chi2-reference-data" type="application/json">{"chi2":%.15g,"gl":%d,"phi":%.15g,"fe":%.15g,"p":%.15g,"alpha":0.05}</script>\n',
+  chi2_esperado, as.integer(gl_esperado), phi_esperado, fe_esperada, p_esperado
+))
+```
+
+::: {.chi2-part}
+### 3.1. Aplicación en R · 1 punto
+
+Reporte una tabla de contingencia con frecuencias y porcentajes, y aplique la prueba de Chi-cuadrado. Copie y pegue el código utilizado.
+
+:::: {.chi2-answer-layout}
+::: {.chi2-answer-panel}
+```{=html}
+<label for="chi2-code">Mi código R</label>
+<textarea id="chi2-code" class="chi2-code-input" spellcheck="false" placeholder="# Pega el código que ejecutaste en R"></textarea>
+<label for="chi2-table">Mi tabla de contingencia</label>
+<textarea id="chi2-table" class="chi2-table-input" spellcheck="false" placeholder="Pega las frecuencias y los porcentajes obtenidos en R"></textarea>
+```
+:::
+
+::: {#chi2-model-code .chi2-model-panel hidden="hidden"}
+#### Código R modelo
+
+```r
+# Tabla con frecuencias observadas
+tabla <- table(cep_sim$interes_politico, cep_sim$sexo)
+tabla
+
+# Porcentajes dentro de cada sexo
+round(prop.table(tabla, margin = 2) * 100, 1)
+
+# Chi-cuadrado de Pearson sin corrección de Yates
+prueba <- chisq.test(tabla, correct = FALSE)
+prueba
+
+# Magnitud de la asociación (Phi)
+phi <- sqrt(as.numeric(prueba$statistic) / sum(tabla))
+phi
+
+# Frecuencia esperada de mujeres con al menos algo de interés
+esperada <- prueba$expected["Al menos algo", "Mujer"]
+esperada
+
+# Comprobación mediante los totales marginales
+(sum(tabla["Al menos algo", ]) * sum(tabla[, "Mujer"])) / sum(tabla)
+```
+
+**Tabla de frecuencias observadas**
+
+```{r}
+#| label: solucion-tabla-chi2
+#| echo: false
+#| results: asis
+knitr::kable(as.matrix(addmargins(tabla_esperada)), format = "pipe",
+             col.names = c("Hombre", "Mujer", "Total"))
+```
+
+**Porcentajes dentro de cada sexo**
+
+```{r}
+#| label: solucion-porcentajes-chi2
+#| echo: false
+#| results: asis
+knitr::kable(as.matrix(round(100 * prop.table(tabla_esperada, 2), 1)),
+             format = "pipe", col.names = c("Hombre (%)", "Mujer (%)"))
+```
+
+*Tu código puede ser distinto y también estar correcto si produce los mismos resultados.*
+:::
+::::
+:::
+
+::: {.chi2-part}
+### 3.2. Interpretación estadística · 2 puntos
+
+Interprete los resultados en términos de significación estadística ($\alpha=.05$), magnitud de la asociación (Phi) y diferencias observadas entre los grupos.
+
+:::: {.chi2-answer-layout}
+::: {.chi2-answer-panel}
+```{=html}
+<div class="chi2-fields">
+  <div class="chi2-field"><label for="chi2-value">Estadístico χ²</label><input id="chi2-value" inputmode="decimal" autocomplete="off" aria-describedby="chi2-value-msg" placeholder="Introduce χ²"><p id="chi2-value-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+  <div class="chi2-field"><label for="chi2-df">Grados de libertad</label><input id="chi2-df" inputmode="numeric" autocomplete="off" aria-describedby="chi2-df-msg" placeholder="Introduce gl"><p id="chi2-df-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+  <div class="chi2-field"><label for="chi2-p">Valor p</label><input id="chi2-p" inputmode="text" autocomplete="off" aria-describedby="chi2-p-msg" placeholder="Ej.: 0,024 o p &lt; .001"><p id="chi2-p-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+  <div class="chi2-field"><label for="chi2-phi">Coeficiente Phi</label><input id="chi2-phi" inputmode="decimal" autocomplete="off" aria-describedby="chi2-phi-msg" placeholder="Introduce Phi"><p id="chi2-phi-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+</div>
+<fieldset class="chi2-choice">
+  <legend>Con α = .05, ¿cuál es tu decisión respecto de H₀?</legend>
+  <label><input type="radio" name="decision" value="rechazar"> Rechazar H₀</label>
+  <label><input type="radio" name="decision" value="no-rechazar"> No rechazar H₀</label>
+  <p id="chi2-decision-msg" class="chi2-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="chi2-interpretation">Mi interpretación</label>
+<textarea id="chi2-interpretation" class="chi2-interpret-input" placeholder="Escribe tu conclusión sobre significación, Phi y diferencias entre grupos"></textarea>
+```
+:::
+
+::: {#chi2-model-interpretation .chi2-model-panel hidden="hidden"}
+#### Resultados e interpretación modelo
+
+**N = `r N_esperado` · χ²(`r gl_esperado`) = `r fmt_num(chi2_esperado)` · `r p_impreso` · Phi = `r fmt_num(phi_esperado, 3)`**
+
+> Se examinó la asociación entre el sexo y el interés en la política mediante una prueba Chi-cuadrado de independencia. Los resultados fueron χ²(`r gl_esperado`, N = `r N_esperado`) = `r fmt_num(chi2_esperado)`, `r p_impreso`. Con un nivel de significación de α = .05, `r decision_texto`. Por tanto, `r texto_inferencia`. El coeficiente Phi fue `r fmt_num(phi_esperado, 3)`, lo que indica una asociación de magnitud `r magnitud_phi` (criterio orientativo). Descriptivamente, el `r fmt_num(p_hombres, 1)` % de los hombres y el `r fmt_num(p_mujeres, 1)` % de las mujeres declararon al menos algo de interés político. `r patron_texto`. Estos resultados describen una asociación, no una relación causal.
+
+**Para comparar:** revisa si tu respuesta distingue la significación estadística de la magnitud, utiliza los porcentajes dentro de cada sexo y evita establecer causalidad.
+:::
+::::
+:::
+
+::: {.chi2-part}
+### 3.3. Frecuencia esperada · 1 punto
+
+Calcule la frecuencia esperada de mujeres que manifiestan al menos algo de interés político, bajo la hipótesis de independencia. Explique brevemente qué representa este valor.
+
+:::: {.chi2-answer-layout}
+::: {.chi2-answer-panel}
+```{=html}
+<div class="chi2-field">
+  <label for="chi2-fe">Frecuencia esperada</label>
+  <input id="chi2-fe" inputmode="decimal" autocomplete="off" aria-describedby="chi2-fe-msg" placeholder="Introduce la frecuencia esperada">
+  <p id="chi2-fe-msg" class="chi2-field-feedback" aria-live="polite"></p>
+</div>
+<label for="chi2-fe-explanation">Mi explicación</label>
+<textarea id="chi2-fe-explanation" class="chi2-explain-input" placeholder="Explica qué representa esta frecuencia bajo H₀"></textarea>
+```
+:::
+
+::: {#chi2-model-expected .chi2-model-panel hidden="hidden"}
+#### Cálculo y explicación modelo
+
+> La frecuencia esperada de mujeres con al menos algo de interés político es **`r fmt_num(fe_esperada)`**. Se obtiene multiplicando el total de personas con al menos algo de interés (`r sum(tabla_esperada["Al menos algo", ])`) por el total de mujeres (`r sum(tabla_esperada[, "Mujer"])`) y dividiendo por el total de casos válidos (`r N_esperado`). Este valor representa cuántas mujeres esperaríamos encontrar en esa categoría **si sexo e interés político fueran independientes**. No es la frecuencia observada, que corresponde a `r observada_objetivo` casos.
+
+$$
+E_{ij}=\frac{(\text{total de la fila})(\text{total de la columna})}{N}
+$$
+
+**Aplicado a estos datos:** (`r sum(tabla_esperada["Al menos algo", ])` × `r sum(tabla_esperada[, "Mujer"])`) / `r N_esperado` = **`r fmt_num(fe_esperada)`**.
+:::
+::::
+:::
+
+**Total: 4 puntos.**
+
+```{=html}
+<section class="chi2-checker" aria-label="Comprobación de los resultados de las tres preguntas">
+  <p class="chi2-check-caption">Cuando termines, comprueba los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, la tabla y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+  <button type="button" id="chi2-check-button" class="chi2-action">Comprobar mis respuestas</button>
+  <div id="chi2-overall" class="chi2-summary-feedback" role="status" aria-live="polite" hidden></div>
+</section>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puedes resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+```
+
+```{=html}
+<script>
+(function () {
+  'use strict';
+  function start() {
+    const button = document.getElementById('chi2-check-button');
+    const dataNode = document.getElementById('chi2-reference-data');
+    const overall = document.getElementById('chi2-overall');
+    if (!button || !overall) return;
+    if (!dataNode) {
+      overall.hidden = false;
+      overall.textContent = 'No se cargaron los resultados de referencia. Informa al equipo docente.';
+      return;
+    }
+    let ref;
+    try { ref = JSON.parse(dataNode.textContent); }
+    catch (_) {
+      overall.hidden = false;
+      overall.textContent = 'Los resultados de referencia no están disponibles.';
+      return;
+    }
+    const numericFields = [
+      { key: 'chi2', id: 'chi2-value', msg: 'chi2-value-msg', hint: 'Revisa que uses los mismos casos válidos y chisq.test(..., correct = FALSE).' },
+      { key: 'gl', id: 'chi2-df', msg: 'chi2-df-msg', hint: 'Recuerda: (filas - 1) × (columnas - 1).' },
+      { key: 'p', id: 'chi2-p', msg: 'chi2-p-msg', hint: 'Consulta el valor p en el resultado de chisq.test().' },
+      { key: 'phi', id: 'chi2-phi', msg: 'chi2-phi-msg', hint: 'Calcula Phi a partir del Chi-cuadrado de Pearson sin Yates y del número de casos válidos.' },
+      { key: 'fe', id: 'chi2-fe', msg: 'chi2-fe-msg', hint: 'Revisa el total de mujeres, el total con al menos algo de interés y N.' }
+    ];
+    const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
+    function parseLocaleNumber(value) {
+      const s = String(value).trim();
+      if (!s) return { kind: 'empty' };
+      if (!/^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?$/.test(s)) return { kind: 'invalid' };
+      const n = Number(s.replace(',', '.'));
+      return Number.isFinite(n) ? { kind: 'number', value: n } : { kind: 'invalid' };
+    }
+    function pCorrect(text, expected) {
+      const clean = String(text).trim().replace(/^p\s*(?:=|:)?\s*/i, '').replace(/\s/g, '');
+      if (!clean) return { kind: 'empty', ok: false };
+      const interval = clean.match(/^(?:<=|<|≤)(.+)$/);
+      if (interval) {
+        const parsed = parseLocaleNumber(interval[1]);
+        if (parsed.kind !== 'number' || parsed.value <= 0) return { kind: 'invalid', ok: false };
+        // Se admite p < .001 (si es cierto) y límites más precisos como p < 2.2e-16.
+        const ok = expected < parsed.value && parsed.value <= 0.0010000001;
+        return { kind: 'number', ok };
+      }
+      const parsed = parseLocaleNumber(clean);
+      if (parsed.kind !== 'number') return { kind: parsed.kind, ok: false };
+      // p = 0 no es un valor exacto válido para reportar un p muy pequeño.
+      if (parsed.value <= 0 || parsed.value > 1) return { kind: 'invalid', ok: false };
+      const tolerance = expected < 0.001
+        ? Math.max(expected * 0.05, 1e-18)
+        : 0.000501;
+      return { kind: 'number', ok: Math.abs(parsed.value - expected) <= tolerance };
+    }
+    function approx(key, submitted, expected) {
+      if (key === 'gl') return Number.isInteger(submitted) && submitted === expected;
+      if (key === 'phi') return Math.abs(submitted - expected) <= 0.005001;
+      if (key === 'fe') return Math.abs(submitted - expected) <= 0.051;
+      return Math.abs(submitted - expected) <= Math.max(0.0051, Math.abs(expected) * 0.002);
+    }
+    function report(id, message, ok, input) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.textContent = message;
+      node.className = 'chi2-field-feedback ' + (ok ? 'chi2-ok' : 'chi2-incorrect');
+      if (input) input.setAttribute('aria-invalid', String(!ok));
+    }
+    function markStale(event) {
+      const id = event.target && event.target.id;
+      if (feedbackByInput.has(id)) {
+        const input = event.target;
+        input.removeAttribute('aria-invalid');
+        const node = document.getElementById(feedbackByInput.get(id));
+        node.textContent = '';
+        node.className = 'chi2-field-feedback';
+      }
+      if (event.target && event.target.name === 'decision') {
+        const node = document.getElementById('chi2-decision-msg');
+        node.textContent = '';
+        node.className = 'chi2-field-feedback';
+      }
+      if (!overall.hidden) overall.textContent = 'Modificaste una respuesta. Presiona «Comprobar mis respuestas» para actualizar la revisión.';
+    }
+    numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
+    document.querySelectorAll('input[name="decision"]').forEach(el => el.addEventListener('change', markStale));
+    button.addEventListener('click', function () {
+      let correct = 0;
+      const total = numericFields.length + 1;
+      numericFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        const parsed = field.key === 'p' ? pCorrect(input.value, ref.p) : parseLocaleNumber(input.value);
+        if (parsed.kind === 'empty') {
+          report(field.msg, 'Ingresa un valor para comprobarlo.', false, input);
+        } else if (parsed.kind === 'invalid') {
+          report(field.msg, 'Escribe un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+        } else if (field.key === 'p' ? parsed.ok : approx(field.key, parsed.value, ref[field.key])) {
+          report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
+          correct++;
+        } else {
+          report(field.msg, 'Revisa este resultado. ' + field.hint, false, input);
+        }
+      });
+      const selected = document.querySelector('input[name="decision"]:checked');
+      const expectedDecision = ref.p < ref.alpha ? 'rechazar' : 'no-rechazar';
+      if (!selected) {
+        report('chi2-decision-msg', 'Selecciona una decisión para verificarla.', false);
+      } else if (selected.value === expectedDecision) {
+        report('chi2-decision-msg', '✓ Decisión correcta: comparaste p con α = .05.', true);
+        correct++;
+      } else {
+        report('chi2-decision-msg', 'Compara el valor p con α = .05 y revisa tu decisión.', false);
+      }
+      document.querySelectorAll('.chi2-answer-layout').forEach(layout => {
+        layout.classList.add('chi2-expanded');
+        const model = layout.querySelector('.chi2-model-panel');
+        if (model) model.hidden = false;
+      });
+      overall.hidden = false;
+      overall.textContent = correct === total
+        ? '¡Muy bien! Los seis resultados verificables coinciden con los valores esperados. Compara ahora tu código, tabla e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revisa las pistas y vuelve a comprobar. Ya puedes comparar tus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+}());
+</script>
+```
+
