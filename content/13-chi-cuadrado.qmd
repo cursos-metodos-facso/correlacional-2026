@@ -47,7 +47,6 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
   background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
 }
 .chi2-answer-panel .chi2-code-input { min-height: 18rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.chi2-answer-panel .chi2-table-input { min-height: 10rem; font: .86rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
 .chi2-answer-panel .chi2-interpret-input { min-height: 9rem; }
 .chi2-answer-panel .chi2-explain-input { min-height: 7rem; }
 .chi2-answer-panel textarea:focus-visible, .chi2-field input:focus-visible,
@@ -216,8 +215,6 @@ Reporte una tabla de contingencia con frecuencias y porcentajes por columna (den
 ```{=html}
 <label for="chi2-code">Mi código R</label>
 <textarea id="chi2-code" class="chi2-code-input" spellcheck="false" placeholder="# Pegue el código que ejecutó en R"></textarea>
-<label for="chi2-table">Mi tabla de contingencia</label>
-<textarea id="chi2-table" class="chi2-table-input" spellcheck="false" placeholder="Pegue las frecuencias y los porcentajes dentro de cada sexo obtenidos en R"></textarea>
 ```
 :::
 
