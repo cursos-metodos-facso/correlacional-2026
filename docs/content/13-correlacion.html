@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -33,15 +68,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57aea3e77703211fcfdb7b4c4cf603e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -72,8 +106,38 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <meta property="og:title" content="Estadística Correlacional">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/content/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -86,8 +150,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -137,8 +199,19 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#correlaciones" id="toc-correlaciones" class="nav-link active" data-scroll-target="#correlaciones">1. Correlaciones</a>
+  <ul class="collapse">
+  <li><a href="#diagrama-de-dispersión" id="toc-diagrama-de-dispersión" class="nav-link" data-scroll-target="#diagrama-de-dispersión">1.1. Diagrama de dispersión</a></li>
+  <li><a href="#estimación-del-coeficiente" id="toc-estimación-del-coeficiente" class="nav-link" data-scroll-target="#estimación-del-coeficiente">1.2. Estimación del coeficiente</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">1.3. Interpretación</a></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
@@ -146,756 +219,794 @@ ul.task-list li input[type="checkbox"] {
 
 
 
+<section id="correlaciones" class="level2">
+<h2 class="anchored" data-anchor-id="correlaciones">1. Correlaciones</h2>
+<style>
+/* Todo el CSS se limita a los componentes cor- para evitar colisiones con Quarto y con otros ejercicios. */
+.cor-part { border-top: 1px solid var(--bs-border-color, #cbd1da); padding-top: 1.1rem; margin: 1.4rem 0 2rem; }
+.cor-part > h3 { font-size: 1.12rem; margin: 0 0 .45rem; }
+.cor-part > p { margin-bottom: .9rem; }
+.cor-answer-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+.cor-answer-layout.cor-expanded { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.cor-answer-panel, .cor-model-panel { min-width: 0; max-width: 100%; padding: clamp(.8rem, 2vw, 1rem); border: 1px solid var(--bs-border-color, #ccd1d8); border-radius: .6rem; background: var(--bs-body-bg, #fff); }
+.cor-model-panel { background: var(--bs-tertiary-bg, #f5f7f9); }
+.cor-model-panel[hidden] { display: none !important; }
+.cor-model-panel > h4 { font-size: 1rem; margin: 0 0 .65rem; }
+.cor-model-panel :is(pre, .sourceCode, .cell-output) { max-width: 100%; min-width: 0; overflow-x: auto; }
+.cor-model-panel pre code { white-space: pre; }
+.cor-model-panel img { max-width: 100%; height: auto; }
+.cor-model-panel blockquote { margin: .5rem 0 .8rem; padding: .6rem .8rem; border-left: 3px solid var(--bs-primary, #1f608c); background: var(--bs-body-bg, #fff); }
+.cor-model-panel blockquote p:last-child { margin-bottom: 0; }
+.cor-model-panel > :last-child { margin-bottom: 0; }
+.cor-answer-panel label { display: block; font-weight: 600; font-size: .94rem; margin: .75rem 0 .35rem; }
+.cor-answer-panel label:first-child { margin-top: 0; }
+.cor-answer-panel textarea, .cor-field input {
+  display: block; box-sizing: border-box; width: 100%; max-width: 100%;
+  padding: .58rem .7rem; font: inherit; font-size: .95rem;
+  border: 1px solid var(--bs-border-color, #a6aebc); border-radius: .45rem;
+  background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
+}
+.cor-answer-panel textarea { min-height: 8rem; resize: vertical; }
+.cor-answer-panel .cor-code-input { min-height: 12rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.cor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0 0 .95rem; }
+.cor-answer-panel textarea + .cor-fields { margin-top: 1rem; }
+.cor-field { min-width: 0; }
+.cor-field input[aria-invalid="true"] { border-color: #be4b44; }
+.cor-field-feedback { font-size: .86rem; min-height: 1.3em; margin: .35rem 0 0; }
+.cor-ok { color: var(--bs-success-text-emphasis, #0d7444); }
+.cor-incorrect { color: var(--bs-danger-text-emphasis, #ac332f); }
+.cor-choice { border: 0; padding: 0; margin: .75rem 0 1rem; }
+.cor-choice legend { font-weight: 600; font-size: .96rem; margin-bottom: .55rem; }
+.cor-answer-panel .cor-choice label { display: inline-flex; align-items: center; gap: .35rem; margin: 0 1.1rem .4rem 0; font-weight: 400; cursor: pointer; }
+.cor-choice input { width: 1rem; height: 1rem; }
+.cor-answer-panel textarea:focus-visible, .cor-field input:focus-visible,
+.cor-choice input:focus-visible, .cor-action:focus-visible { outline: 3px solid var(--bs-primary, #1879b5); outline-offset: 3px; }
+.cor-checker { border: 1px solid var(--bs-border-color, #ccd1d8); background: var(--bs-body-bg, #fff); border-radius: .8rem; padding: clamp(1rem, 2.5vw, 1.5rem); margin: 1.2rem 0 1.6rem; }
+.cor-check-caption { color: var(--bs-secondary-color, #596777); font-size: .9rem; }
+.cor-action { border: 0; border-radius: .45rem; padding: .65rem 1rem; background: var(--bs-primary, #1f608c); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.cor-action:hover { filter: brightness(.92); }
+.cor-summary-feedback { padding: .75rem .9rem; border-left: 3px solid var(--bs-primary, #1f608c); margin-top: .8rem; background: var(--bs-tertiary-bg, #f5f7f9); border-radius: 0 .35rem .35rem 0; }
+.cor-summary-feedback[hidden] { display: none; }
+@media (max-width: 760px) {
+  .cor-answer-layout.cor-expanded, .cor-fields { grid-template-columns: minmax(0, 1fr); }
+  .cor-answer-panel .cor-choice label { display: flex; }
+  .cor-action { width: 100%; }
+}
+</style>
+<p>A usted le piden escribir un informe que evalúe la relación entre la confianza en Carabineros y el nivel educacional de las personas. Para ello, le piden analizar la muestra chilena de la Encuesta LAPOP 2023, que contiene las siguientes variables:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Qué representa</th>
+<th>Escala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>pais_name</code></td>
+<td>País</td>
+<td>Texto</td>
+</tr>
+<tr class="even">
+<td><code>conf_ffaa</code></td>
+<td>Confianza en las Fuerzas Armadas</td>
+<td>1 = nada … 7 = mucho</td>
+</tr>
+<tr class="odd">
+<td><code>conf_policia</code></td>
+<td>Confianza en la policía (en Chile, Carabineros)</td>
+<td>1 = nada … 7 = mucho</td>
+</tr>
+<tr class="even">
+<td><code>apoyo_dem</code></td>
+<td>“La democracia puede tener problemas, pero es mejor que cualquier otra forma de gobierno”</td>
+<td>1 = muy en desacuerdo … 7 = muy de acuerdo</td>
+</tr>
+<tr class="odd">
+<td><code>satisf_dem</code></td>
+<td>Satisfacción con el funcionamiento de la democracia en el país</td>
+<td>1 = muy insatisfecho … 4 = muy satisfecho</td>
+</tr>
+<tr class="even">
+<td><code>educ</code></td>
+<td>Nivel educacional</td>
+<td>0 = ninguna … 6 = superior completa</td>
+</tr>
+<tr class="odd">
+<td><code>riqueza</code></td>
+<td>Quintil de riqueza del hogar (índice de bienes del hogar)</td>
+<td>1 = quintil más bajo … 5 = quintil más alto</td>
+</tr>
+<tr class="even">
+<td><code>mujer</code></td>
+<td>Género</td>
+<td>0 = hombre, 1 = mujer</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Cargue y procese la base en R:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>url_lapop <span class="ot">&lt;-</span> <span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/subset_lapop2023.rdata"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(url_lapop))</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>lapop_chile <span class="ot">&lt;-</span> datos_lapop <span class="sc">|&gt;</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">filter</span>(pais_name<span class="sc">==</span><span class="st">"Chile"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>¿Cómo trabajar?</strong> Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione <strong>«Comprobar mis respuestas»</strong> para revisar sus resultados y compararlos con los modelos.</p>
+<script id="cor-reference-data" type="application/json">{"rho":-0.137557718856913,"r":-0.123103211120161,"p":0.00409059617284837,"n":434,"alpha":0.05,"metodo":"spearman","sentido":"negativo","magnitud":"pequeña"}</script>
+<section id="diagrama-de-dispersión" class="level3 cor-part">
+<h3 class="anchored" data-anchor-id="diagrama-de-dispersión">1.1. Diagrama de dispersión</h3>
+<p>Genere un diagrama de dispersión (nube de puntos/scatterplot/jitterplot) entre la confianza en Carabineros y el nivel educacional, y descríbalo.</p>
+<div class="cor-answer-layout">
+<div class="cor-answer-panel">
+<label for="cor-plot-code">Mi código R</label>
+<textarea id="cor-plot-code" class="cor-code-input" spellcheck="false" placeholder="# Pegue el código que usó para el gráfico"></textarea>
+<label for="cor-plot-description">Mi descripción del gráfico</label>
+<textarea id="cor-plot-description" placeholder="Describa lo que observa en la nube de puntos"></textarea>
+</div>
+<div id="modelo-cor-plot" class="cor-model-panel" hidden="hidden">
+<section id="gráfico-y-descripción-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="gráfico-y-descripción-modelo">Gráfico y descripción modelo</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(lapop_chile, <span class="fu">aes</span>(<span class="at">x =</span> educ, <span class="at">y =</span> conf_policia)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">width =</span> <span class="fl">0.2</span>, <span class="at">height =</span> <span class="fl">0.2</span>, <span class="at">alpha =</span> <span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"#d44848"</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Nivel educacional"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Confianza en Carabineros"</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Confianza en Carabineros según nivel educacional"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Fuente: LAPOP 2023, muestra chilena"</span>) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`geom_smooth()` using formula = 'y ~ x'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing non-finite outside the scale range
+(`stat_smooth()`).</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_point()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="13-correlacion_files/figure-html/solucion-grafico-correlacion-1.png" class="img-fluid figure-img" width="576"></p>
+</figure>
+</div>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Como ambas variables tienen pocas categorías, se usa <em>jitter</em> para que los puntos no queden superpuestos. Los casos se reparten por casi toda la grilla, sin un patrón marcado, y se concentran en los niveles educacionales 4 y 6. La línea de tendencia muestra una pendiente levemente <strong>negativa</strong>: quienes tienen mayor nivel educacional tienden a declarar algo menos de confianza en Carabineros (la confianza promedio va de 4,90 en el nivel 1 a 4,42 en el nivel 6). La dispersión es alta, por lo que se anticipa una asociación débil.</p>
+</blockquote>
+<p><em>Su código puede ser distinto y también estar correcto si produce un gráfico equivalente.</em></p>
+</section>
+</div>
+</div>
+</section>
+<section id="estimación-del-coeficiente" class="level3 cor-part">
+<h3 class="anchored" data-anchor-id="estimación-del-coeficiente">1.2. Estimación del coeficiente</h3>
+<p>Estime la correlación entre la confianza en Carabineros y el nivel educacional. Justifique la elección del coeficiente utilizado.</p>
+<div class="cor-answer-layout">
+<div class="cor-answer-panel">
+<fieldset class="cor-choice">
+  <legend>¿Qué coeficiente corresponde utilizar?</legend>
+  <label><input type="radio" name="cor-metodo" value="pearson"> Pearson</label>
+  <label><input type="radio" name="cor-metodo" value="spearman"> Spearman</label>
+  <label><input type="radio" name="cor-metodo" value="biserial"> Punto biserial</label>
+  <p id="cor-metodo-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="cor-justification">Mi justificación</label>
+<textarea id="cor-justification" placeholder="Explique por qué eligió ese coeficiente"></textarea>
+<div class="cor-fields">
+  <div class="cor-field"><label for="cor-rho">Coeficiente de correlación</label><input id="cor-rho" inputmode="decimal" autocomplete="off" aria-describedby="cor-rho-msg" placeholder="Ej.: 0,25"><p id="cor-rho-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+  <div class="cor-field"><label for="cor-n">Casos válidos (n)</label><input id="cor-n" inputmode="numeric" autocomplete="off" aria-describedby="cor-n-msg" placeholder="Introduzca n"><p id="cor-n-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+</div>
+<label for="cor-code">Mi código R</label>
+<textarea id="cor-code" class="cor-code-input" spellcheck="false" placeholder="# Pegue el código que usó para estimar la correlación"></textarea>
+</div>
+<div id="modelo-cor-estimate" class="cor-model-panel" hidden="hidden">
+<section id="código-y-justificación-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="código-y-justificación-modelo">Código y justificación modelo</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correlación de Spearman</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(lapop_chile<span class="sc">$</span>conf_policia, lapop_chile<span class="sc">$</span>educ,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"spearman"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Spearman's rank correlation rho
+
+data:  lapop_chile$conf_policia and lapop_chile$educ
+S = 15498479, p-value = 0.004091
+alternative hypothesis: true rho is not equal to 0
+sample estimates:
+       rho 
+-0.1375577 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Casos válidos para el par</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(lapop_chile<span class="sc">$</span>conf_policia, lapop_chile<span class="sc">$</span>educ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 434</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Se utiliza el coeficiente de <strong>Spearman</strong>, porque ambas variables son <strong>ordinales</strong>: la confianza va de 1 a 7 y el nivel educacional de 0 a 6. Pearson exige variables al menos de intervalo, lo que no se cumple aquí. Spearman trabaja con los rangos de los casos, por lo que es adecuado para variables ordinales. El resultado es ρ = -0,138, con n = 434 casos válidos.</p>
+</blockquote>
+<p><em>R advierte que no puede calcular un valor p exacto porque hay empates. Es esperable con variables ordinales y no invalida el resultado.</em></p>
+</section>
+</div>
+</div>
+</section>
+<section id="interpretación" class="level3 cor-part">
+<h3 class="anchored" data-anchor-id="interpretación">1.3. Interpretación</h3>
+<p>Interprete el resultado del coeficiente, considerando la visualización, la magnitud y el sentido del efecto, y la inferencia estadística (<span class="math inline">\(\alpha=.05\)</span>).</p>
+<div class="cor-answer-layout">
+<div class="cor-answer-panel">
+<div class="cor-fields">
+  <div class="cor-field"><label for="cor-p">Valor p</label><input id="cor-p" inputmode="text" autocomplete="off" aria-describedby="cor-p-msg" placeholder="Ej.: 0,024 o p < .01"><p id="cor-p-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+</div>
+<fieldset class="cor-choice">
+  <legend>Sentido de la asociación</legend>
+  <label><input type="radio" name="cor-sentido" value="positivo"> Positivo</label>
+  <label><input type="radio" name="cor-sentido" value="negativo"> Negativo</label>
+  <p id="cor-sentido-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<fieldset class="cor-choice">
+  <legend>Magnitud del efecto</legend>
+  <label><input type="radio" name="cor-magnitud" value="nula"> Nula</label>
+  <label><input type="radio" name="cor-magnitud" value="pequeña"> Pequeña</label>
+  <label><input type="radio" name="cor-magnitud" value="moderada"> Moderada</label>
+  <label><input type="radio" name="cor-magnitud" value="grande"> Grande</label>
+  <p id="cor-magnitud-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<fieldset class="cor-choice">
+  <legend>Con α = .05, ¿cuál es su decisión respecto de H₀?</legend>
+  <label><input type="radio" name="cor-decision" value="rechazar"> Rechazar H₀</label>
+  <label><input type="radio" name="cor-decision" value="no-rechazar"> No rechazar H₀</label>
+  <p id="cor-decision-msg" class="cor-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="cor-interpretation">Mi interpretación</label>
+<textarea id="cor-interpretation" placeholder="Escriba su conclusión sobre visualización, magnitud, sentido e inferencia"></textarea>
+</div>
+<div id="modelo-cor-interpretation" class="cor-model-panel" hidden="hidden">
+<section id="resultados-e-interpretación-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="resultados-e-interpretación-modelo">Resultados e interpretación modelo</h4>
+<p><strong>n = 434 · ρ = -0,138 · p = 0.004</strong></p>
+<blockquote class="blockquote">
+<p>La correlación entre la confianza en Carabineros y el nivel educacional es <strong>negativo</strong>, de magnitud <strong>pequeña</strong> (ρ = -0,138) y estadísticamente significativa (p = 0.004). Con un 99 % de confianza, existe evidencia para rechazar la hipótesis nula de que no hay asociación entre ambas variables. Esto coincide con el diagrama de dispersión, que muestra una leve pendiente negativa con mucha dispersión. Sustantivamente, las personas con mayor nivel educacional tienden a declarar menor confianza en Carabineros, aunque la relación es débil: el nivel educacional se asocia solo con una pequeña parte de las diferencias en confianza. Estos resultados describen una asociación, no una relación causal.</p>
+</blockquote>
+<p><strong>Para comparar:</strong> revise si su respuesta distingue la significación estadística de la magnitud, interpreta el sentido en términos de las variables y evita establecer causalidad.</p>
+</section>
+</div>
+</div>
+</section>
+<section class="cor-checker" aria-label="Comprobación de los resultados del ejercicio de correlación">
+  <p class="cor-check-caption">Cuando termine, compruebe los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, el gráfico y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+  <button type="button" id="cor-check-button" class="cor-action">Comprobar mis respuestas</button>
+  <div id="cor-overall" class="cor-summary-feedback" role="status" aria-live="polite" hidden=""></div>
+</section>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puede resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+<script>
+(function () {
+  'use strict';
+  function start() {
+    const button = document.getElementById('cor-check-button');
+    const dataNode = document.getElementById('cor-reference-data');
+    const overall = document.getElementById('cor-overall');
+    if (!button || !overall) return;
+    if (!dataNode) {
+      overall.hidden = false;
+      overall.textContent = 'No se cargaron los resultados de referencia. Informe al equipo docente.';
+      return;
+    }
+    let ref;
+    try { ref = JSON.parse(dataNode.textContent); }
+    catch (_) {
+      overall.hidden = false;
+      overall.textContent = 'Los resultados de referencia no están disponibles.';
+      return;
+    }
+    const numericFields = [
+      { key: 'rho', id: 'cor-rho', msg: 'cor-rho-msg', hint: 'Revise el método de cor.test().' },
+      { key: 'n', id: 'cor-n', msg: 'cor-n-msg', hint: 'Cuente solo los casos con datos válidos en ambas variables.' },
+      { key: 'p', id: 'cor-p', msg: 'cor-p-msg', hint: 'Consulte el valor p en el resultado de cor.test() con el coeficiente que eligió.' }
+    ];
+    const choiceFields = [
+      { name: 'cor-metodo', msg: 'cor-metodo-msg', expected: ref.metodo,
+        ok: '✓ Correcto: ambas variables son ordinales.', hint: 'Revise el nivel de medición de ambas variables.' },
+      { name: 'cor-sentido', msg: 'cor-sentido-msg', expected: ref.sentido,
+        ok: '✓ Correcto.', hint: 'Fíjese en el signo del coeficiente.' },
+      { name: 'cor-magnitud', msg: 'cor-magnitud-msg', expected: ref.magnitud,
+        ok: '✓ Correcto según los criterios de Cohen.', hint: 'Compare el valor absoluto del coeficiente con los criterios de Cohen (.10, .30, .50).' },
+      { name: 'cor-decision', msg: 'cor-decision-msg', expected: ref.p < ref.alpha ? 'rechazar' : 'no-rechazar',
+        ok: '✓ Decisión correcta: comparó p con α = .05.', hint: 'Compare el valor p con α = .05 y revise su decisión.' }
+    ];
+    const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
+    const feedbackByName = new Map(choiceFields.map(f => [f.name, f.msg]));
+    function parseLocaleNumber(value) {
+      const s = String(value).trim();
+      if (!s) return { kind: 'empty' };
+      if (!/^[+\-−]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?$/.test(s)) return { kind: 'invalid' };
+      const n = Number(s.replace('−', '-').replace(',', '.'));
+      return Number.isFinite(n) ? { kind: 'number', value: n } : { kind: 'invalid' };
+    }
+    function pCorrect(text, expected) {
+      const clean = String(text).trim().replace(/^p\s*(?:=|:)?\s*/i, '').replace(/\s/g, '');
+      if (!clean) return { kind: 'empty', ok: false };
+      const interval = clean.match(/^(?:<=|<|≤)(.+)$/);
+      if (interval) {
+        const parsed = parseLocaleNumber(interval[1]);
+        if (parsed.kind !== 'number' || parsed.value <= 0) return { kind: 'invalid', ok: false };
+        // Se admite el umbral convencional más exigente que cumple p (.001, .01 o .05) o uno más preciso.
+        const umbral = [0.001, 0.01, 0.05].find(u => expected < u) || 1;
+        return { kind: 'number', ok: expected < parsed.value && parsed.value <= umbral + 1e-10 };
+      }
+      const parsed = parseLocaleNumber(clean);
+      if (parsed.kind !== 'number') return { kind: parsed.kind, ok: false };
+      if (parsed.value <= 0 || parsed.value > 1) return { kind: 'invalid', ok: false };
+      const tolerance = expected < 0.001 ? Math.max(expected * 0.05, 1e-18) : 0.000501;
+      return { kind: 'number', ok: Math.abs(parsed.value - expected) <= tolerance };
+    }
+    function approx(key, submitted, expected) {
+      if (key === 'n') return Number.isInteger(submitted) && submitted === expected;
+      return Math.abs(submitted - expected) <= 0.005001;
+    }
+    function report(id, message, ok, input) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.textContent = message;
+      node.className = 'cor-field-feedback ' + (ok ? 'cor-ok' : 'cor-incorrect');
+      if (input) input.setAttribute('aria-invalid', String(!ok));
+    }
+    function clear(id) {
+      const node = document.getElementById(id);
+      node.textContent = '';
+      node.className = 'cor-field-feedback';
+    }
+    function markStale(event) {
+      const target = event.target;
+      if (feedbackByInput.has(target.id)) {
+        target.removeAttribute('aria-invalid');
+        clear(feedbackByInput.get(target.id));
+      }
+      if (feedbackByName.has(target.name)) clear(feedbackByName.get(target.name));
+      if (!overall.hidden) overall.textContent = 'Modificó una respuesta. Presione «Comprobar mis respuestas» para actualizar la revisión.';
+    }
+    numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
+    choiceFields.forEach(f => document.querySelectorAll('input[name="' + f.name + '"]').forEach(el => el.addEventListener('change', markStale)));
+    button.addEventListener('click', function () {
+      let correct = 0;
+      const total = numericFields.length + choiceFields.length;
+      numericFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        const parsed = field.key === 'p' ? pCorrect(input.value, ref.p) : parseLocaleNumber(input.value);
+        if (parsed.kind === 'empty') {
+          report(field.msg, 'Ingrese un valor para comprobarlo.', false, input);
+        } else if (parsed.kind === 'invalid') {
+          report(field.msg, 'Escriba un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+        } else if (field.key === 'p' ? parsed.ok : approx(field.key, parsed.value, ref[field.key])) {
+          report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
+          correct++;
+        } else if (field.key === 'rho' && approx('rho', parsed.value, ref.r)) {
+          report(field.msg, 'Ese valor corresponde a Pearson. Revise qué coeficiente es adecuado para estas variables.', false, input);
+        } else if (field.key === 'rho' && approx('rho', parsed.value, -ref.rho)) {
+          report(field.msg, 'La magnitud es correcta, pero revise el signo.', false, input);
+        } else {
+          report(field.msg, 'Revise este resultado. ' + field.hint, false, input);
+        }
+      });
+      choiceFields.forEach(field => {
+        const selected = document.querySelector('input[name="' + field.name + '"]:checked');
+        if (!selected) {
+          report(field.msg, 'Seleccione una opción para verificarla.', false);
+        } else if (selected.value === field.expected) {
+          report(field.msg, field.ok, true);
+          correct++;
+        } else {
+          report(field.msg, field.hint, false);
+        }
+      });
+      document.querySelectorAll('.cor-answer-layout').forEach(layout => {
+        layout.classList.add('cor-expanded');
+        const model = layout.querySelector('.cor-model-panel');
+        if (model) model.hidden = false;
+      });
+      overall.hidden = false;
+      overall.textContent = correct === total
+        ? '¡Muy bien! Los ' + total + ' resultados verificables coinciden con los valores esperados. Compare ahora su código, gráfico e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revise las pistas y vuelva a comprobar. Ya puede comparar sus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+}());
+</script>
 
 
+</section>
 
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -948,14 +1059,13 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

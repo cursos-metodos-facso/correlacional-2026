@@ -29,6 +29,7 @@
 .cor-answer-panel textarea { min-height: 8rem; resize: vertical; }
 .cor-answer-panel .cor-code-input { min-height: 12rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
 .cor-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0 0 .95rem; }
+.cor-answer-panel textarea + .cor-fields { margin-top: 1rem; }
 .cor-field { min-width: 0; }
 .cor-field input[aria-invalid="true"] { border-color: #be4b44; }
 .cor-field-feedback { font-size: .86rem; min-height: 1.3em; margin: .35rem 0 0; }
@@ -67,8 +68,6 @@ A usted le piden escribir un informe que evalúe la relación entre la confianza
 | `riqueza` | Quintil de riqueza del hogar (índice de bienes del hogar) | 1 = quintil más bajo … 5 = quintil más alto |
 | `mujer` | Género | 0 = hombre, 1 = mujer |
 
-**Resuélvelo en R antes de comprobar tus respuestas.** El verificador te ayudará a identificar posibles errores; no otorga una nota.
-
 **Cargue y procese la base en R:**
 
 ```{r}
@@ -81,12 +80,13 @@ lapop_chile <- datos_lapop |>
     dplyr::filter(pais_name=="Chile")
 ```
 
-**¿Cómo trabajar?** Resuelve cada apartado en R y escribe tus respuestas bajo la pregunta correspondiente. Al terminar, selecciona **«Comprobar mis respuestas»** para revisar tus resultados y compararlos con los modelos.
+**¿Cómo trabajar?** Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione **«Comprobar mis respuestas»** para revisar sus resultados y compararlos con los modelos.
 
 ```{r}
 #| label: calculos-internos-correlacion
 #| include: false
-datos_par <- lapop_chile[complete.cases(lapop_chile$conf_policia, lapop_chile$educ), ]
+datos_par <- lapop_chile |>
+  dplyr::filter(!is.na(conf_policia), !is.na(educ))
 n_cor <- nrow(datos_par)
 prueba_rho <- suppressWarnings(cor.test(lapop_chile$conf_policia, lapop_chile$educ, method = "spearman"))
 prueba_r <- cor.test(lapop_chile$conf_policia, lapop_chile$educ, method = "pearson")
@@ -121,9 +121,9 @@ Genere un diagrama de dispersión (nube de puntos/scatterplot/jitterplot) entre 
 ::: {.cor-answer-panel}
 ```{=html}
 <label for="cor-plot-code">Mi código R</label>
-<textarea id="cor-plot-code" class="cor-code-input" spellcheck="false" placeholder="# Pega el código que usaste para el gráfico"></textarea>
+<textarea id="cor-plot-code" class="cor-code-input" spellcheck="false" placeholder="# Pegue el código que usó para el gráfico"></textarea>
 <label for="cor-plot-description">Mi descripción del gráfico</label>
-<textarea id="cor-plot-description" placeholder="Describe lo que observas en la nube de puntos"></textarea>
+<textarea id="cor-plot-description" placeholder="Describa lo que observa en la nube de puntos"></textarea>
 ```
 :::
 
@@ -148,7 +148,7 @@ ggplot(lapop_chile, aes(x = educ, y = conf_policia)) +
 
 > Como ambas variables tienen pocas categorías, se usa *jitter* para que los puntos no queden superpuestos. Los casos se reparten por casi toda la grilla, sin un patrón marcado, y se concentran en los niveles educacionales 4 y 6. La línea de tendencia muestra una pendiente levemente **negativa**: quienes tienen mayor nivel educacional tienden a declarar algo menos de confianza en Carabineros (la confianza promedio va de `r fmt_num(medias_educ[["1"]])` en el nivel 1 a `r fmt_num(medias_educ[["6"]])` en el nivel 6). La dispersión es alta, por lo que se anticipa una asociación débil.
 
-*Tu código puede ser distinto y también estar correcto si produce un gráfico equivalente.*
+*Su código puede ser distinto y también estar correcto si produce un gráfico equivalente.*
 :::
 ::::
 :::
@@ -168,14 +168,14 @@ Estime la correlación entre la confianza en Carabineros y el nivel educacional.
   <label><input type="radio" name="cor-metodo" value="biserial"> Punto biserial</label>
   <p id="cor-metodo-msg" class="cor-field-feedback" aria-live="polite"></p>
 </fieldset>
+<label for="cor-justification">Mi justificación</label>
+<textarea id="cor-justification" placeholder="Explique por qué eligió ese coeficiente"></textarea>
 <div class="cor-fields">
   <div class="cor-field"><label for="cor-rho">Coeficiente de correlación</label><input id="cor-rho" inputmode="decimal" autocomplete="off" aria-describedby="cor-rho-msg" placeholder="Ej.: 0,25"><p id="cor-rho-msg" class="cor-field-feedback" aria-live="polite"></p></div>
-  <div class="cor-field"><label for="cor-n">Casos válidos (n)</label><input id="cor-n" inputmode="numeric" autocomplete="off" aria-describedby="cor-n-msg" placeholder="Introduce n"><p id="cor-n-msg" class="cor-field-feedback" aria-live="polite"></p></div>
+  <div class="cor-field"><label for="cor-n">Casos válidos (n)</label><input id="cor-n" inputmode="numeric" autocomplete="off" aria-describedby="cor-n-msg" placeholder="Introduzca n"><p id="cor-n-msg" class="cor-field-feedback" aria-live="polite"></p></div>
 </div>
 <label for="cor-code">Mi código R</label>
-<textarea id="cor-code" class="cor-code-input" spellcheck="false" placeholder="# Pega el código que usaste para estimar la correlación"></textarea>
-<label for="cor-justification">Mi justificación</label>
-<textarea id="cor-justification" placeholder="Explica por qué elegiste ese coeficiente"></textarea>
+<textarea id="cor-code" class="cor-code-input" spellcheck="false" placeholder="# Pegue el código que usó para estimar la correlación"></textarea>
 ```
 :::
 
@@ -190,7 +190,9 @@ cor.test(lapop_chile$conf_policia, lapop_chile$educ,
          method = "spearman")
 
 # Casos válidos para el par
-sum(complete.cases(lapop_chile$conf_policia, lapop_chile$educ))
+lapop_chile |>
+  dplyr::filter(!is.na(conf_policia), !is.na(educ)) |>
+  nrow()
 ```
 
 > Se utiliza el coeficiente de **Spearman**, porque ambas variables son **ordinales**: la confianza va de 1 a 7 y el nivel educacional de 0 a 6. Pearson exige variables al menos de intervalo, lo que no se cumple aquí. Spearman trabaja con los rangos de los casos, por lo que es adecuado para variables ordinales. El resultado es ρ = `r fmt_num(rho_cor, 3)`, con n = `r n_cor` casos válidos.
@@ -226,13 +228,13 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
   <p id="cor-magnitud-msg" class="cor-field-feedback" aria-live="polite"></p>
 </fieldset>
 <fieldset class="cor-choice">
-  <legend>Con α = .05, ¿cuál es tu decisión respecto de H₀?</legend>
+  <legend>Con α = .05, ¿cuál es su decisión respecto de H₀?</legend>
   <label><input type="radio" name="cor-decision" value="rechazar"> Rechazar H₀</label>
   <label><input type="radio" name="cor-decision" value="no-rechazar"> No rechazar H₀</label>
   <p id="cor-decision-msg" class="cor-field-feedback" aria-live="polite"></p>
 </fieldset>
 <label for="cor-interpretation">Mi interpretación</label>
-<textarea id="cor-interpretation" placeholder="Escribe tu conclusión sobre visualización, magnitud, sentido e inferencia"></textarea>
+<textarea id="cor-interpretation" placeholder="Escriba su conclusión sobre visualización, magnitud, sentido e inferencia"></textarea>
 ```
 :::
 
@@ -243,18 +245,18 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
 
 > La correlación entre la confianza en Carabineros y el nivel educacional es **`r sentido_cor`**, de magnitud **`r magnitud_cor`** (ρ = `r fmt_num(rho_cor, 3)`) y estadísticamente significativa (`r p_impreso_cor`). Con un `r confianza_cor` % de confianza, existe evidencia para rechazar la hipótesis nula de que no hay asociación entre ambas variables. Esto coincide con el diagrama de dispersión, que muestra una leve pendiente negativa con mucha dispersión. Sustantivamente, las personas con mayor nivel educacional tienden a declarar menor confianza en Carabineros, aunque la relación es débil: el nivel educacional se asocia solo con una pequeña parte de las diferencias en confianza. Estos resultados describen una asociación, no una relación causal.
 
-**Para comparar:** revisa si tu respuesta distingue la significación estadística de la magnitud, interpreta el sentido en términos de las variables y evita establecer causalidad.
+**Para comparar:** revise si su respuesta distingue la significación estadística de la magnitud, interpreta el sentido en términos de las variables y evita establecer causalidad.
 :::
 ::::
 :::
 
 ```{=html}
 <section class="cor-checker" aria-label="Comprobación de los resultados del ejercicio de correlación">
-  <p class="cor-check-caption">Cuando termines, comprueba los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, el gráfico y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+  <p class="cor-check-caption">Cuando termine, compruebe los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, el gráfico y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
   <button type="button" id="cor-check-button" class="cor-action">Comprobar mis respuestas</button>
   <div id="cor-overall" class="cor-summary-feedback" role="status" aria-live="polite" hidden></div>
 </section>
-<noscript><p>La comprobación interactiva requiere JavaScript. Puedes resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puede resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
 ```
 
 ```{=html}
@@ -268,7 +270,7 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
     if (!button || !overall) return;
     if (!dataNode) {
       overall.hidden = false;
-      overall.textContent = 'No se cargaron los resultados de referencia. Informa al equipo docente.';
+      overall.textContent = 'No se cargaron los resultados de referencia. Informe al equipo docente.';
       return;
     }
     let ref;
@@ -279,19 +281,19 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
       return;
     }
     const numericFields = [
-      { key: 'rho', id: 'cor-rho', msg: 'cor-rho-msg', hint: 'Revisa el método de cor.test().' },
-      { key: 'n', id: 'cor-n', msg: 'cor-n-msg', hint: 'Cuenta solo los casos con datos válidos en ambas variables.' },
-      { key: 'p', id: 'cor-p', msg: 'cor-p-msg', hint: 'Consulta el valor p en el resultado de cor.test() con el coeficiente que elegiste.' }
+      { key: 'rho', id: 'cor-rho', msg: 'cor-rho-msg', hint: 'Revise el método de cor.test().' },
+      { key: 'n', id: 'cor-n', msg: 'cor-n-msg', hint: 'Cuente solo los casos con datos válidos en ambas variables.' },
+      { key: 'p', id: 'cor-p', msg: 'cor-p-msg', hint: 'Consulte el valor p en el resultado de cor.test() con el coeficiente que eligió.' }
     ];
     const choiceFields = [
       { name: 'cor-metodo', msg: 'cor-metodo-msg', expected: ref.metodo,
-        ok: '✓ Correcto: ambas variables son ordinales.', hint: 'Revisa el nivel de medición de ambas variables.' },
+        ok: '✓ Correcto: ambas variables son ordinales.', hint: 'Revise el nivel de medición de ambas variables.' },
       { name: 'cor-sentido', msg: 'cor-sentido-msg', expected: ref.sentido,
-        ok: '✓ Correcto.', hint: 'Fíjate en el signo del coeficiente.' },
+        ok: '✓ Correcto.', hint: 'Fíjese en el signo del coeficiente.' },
       { name: 'cor-magnitud', msg: 'cor-magnitud-msg', expected: ref.magnitud,
-        ok: '✓ Correcto según los criterios de Cohen.', hint: 'Compara el valor absoluto del coeficiente con los criterios de Cohen (.10, .30, .50).' },
+        ok: '✓ Correcto según los criterios de Cohen.', hint: 'Compare el valor absoluto del coeficiente con los criterios de Cohen (.10, .30, .50).' },
       { name: 'cor-decision', msg: 'cor-decision-msg', expected: ref.p < ref.alpha ? 'rechazar' : 'no-rechazar',
-        ok: '✓ Decisión correcta: comparaste p con α = .05.', hint: 'Compara el valor p con α = .05 y revisa tu decisión.' }
+        ok: '✓ Decisión correcta: comparó p con α = .05.', hint: 'Compare el valor p con α = .05 y revise su decisión.' }
     ];
     const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
     const feedbackByName = new Map(choiceFields.map(f => [f.name, f.msg]));
@@ -342,7 +344,7 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
         clear(feedbackByInput.get(target.id));
       }
       if (feedbackByName.has(target.name)) clear(feedbackByName.get(target.name));
-      if (!overall.hidden) overall.textContent = 'Modificaste una respuesta. Presiona «Comprobar mis respuestas» para actualizar la revisión.';
+      if (!overall.hidden) overall.textContent = 'Modificó una respuesta. Presione «Comprobar mis respuestas» para actualizar la revisión.';
     }
     numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
     choiceFields.forEach(f => document.querySelectorAll('input[name="' + f.name + '"]').forEach(el => el.addEventListener('change', markStale)));
@@ -353,24 +355,24 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
         const input = document.getElementById(field.id);
         const parsed = field.key === 'p' ? pCorrect(input.value, ref.p) : parseLocaleNumber(input.value);
         if (parsed.kind === 'empty') {
-          report(field.msg, 'Ingresa un valor para comprobarlo.', false, input);
+          report(field.msg, 'Ingrese un valor para comprobarlo.', false, input);
         } else if (parsed.kind === 'invalid') {
-          report(field.msg, 'Escribe un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+          report(field.msg, 'Escriba un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
         } else if (field.key === 'p' ? parsed.ok : approx(field.key, parsed.value, ref[field.key])) {
           report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
           correct++;
         } else if (field.key === 'rho' && approx('rho', parsed.value, ref.r)) {
-          report(field.msg, 'Ese valor corresponde a Pearson. Revisa qué coeficiente es adecuado para estas variables.', false, input);
+          report(field.msg, 'Ese valor corresponde a Pearson. Revise qué coeficiente es adecuado para estas variables.', false, input);
         } else if (field.key === 'rho' && approx('rho', parsed.value, -ref.rho)) {
-          report(field.msg, 'La magnitud es correcta, pero revisa el signo.', false, input);
+          report(field.msg, 'La magnitud es correcta, pero revise el signo.', false, input);
         } else {
-          report(field.msg, 'Revisa este resultado. ' + field.hint, false, input);
+          report(field.msg, 'Revise este resultado. ' + field.hint, false, input);
         }
       });
       choiceFields.forEach(field => {
         const selected = document.querySelector('input[name="' + field.name + '"]:checked');
         if (!selected) {
-          report(field.msg, 'Selecciona una opción para verificarla.', false);
+          report(field.msg, 'Seleccione una opción para verificarla.', false);
         } else if (selected.value === field.expected) {
           report(field.msg, field.ok, true);
           correct++;
@@ -385,8 +387,8 @@ Interprete el resultado del coeficiente, considerando la visualización, la magn
       });
       overall.hidden = false;
       overall.textContent = correct === total
-        ? '¡Muy bien! Los ' + total + ' resultados verificables coinciden con los valores esperados. Compara ahora tu código, gráfico e interpretaciones con los modelos junto a cada pregunta.'
-        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revisa las pistas y vuelve a comprobar. Ya puedes comparar tus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+        ? '¡Muy bien! Los ' + total + ' resultados verificables coinciden con los valores esperados. Compare ahora su código, gráfico e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revise las pistas y vuelva a comprobar. Ya puede comparar sus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);

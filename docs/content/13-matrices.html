@@ -175,11 +175,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#matrices-de-correlación" id="toc-matrices-de-correlación" class="nav-link active" data-scroll-target="#matrices-de-correlación">Matrices de correlación</a>
+  <li><a href="#matrices-de-correlación" id="toc-matrices-de-correlación" class="nav-link active" data-scroll-target="#matrices-de-correlación">2. Matrices de correlación</a>
   <ul class="collapse">
-  <li><a href="#ejercicio" id="toc-ejercicio" class="nav-link" data-scroll-target="#ejercicio">Ejercicio</a></li>
+  <li><a href="#casos-perdidos" id="toc-casos-perdidos" class="nav-link" data-scroll-target="#casos-perdidos">2.1. Casos perdidos</a></li>
+  <li><a href="#estimación-de-la-matriz" id="toc-estimación-de-la-matriz" class="nav-link" data-scroll-target="#estimación-de-la-matriz">2.2. Estimación de la matriz</a></li>
+  <li><a href="#interpretación" id="toc-interpretación" class="nav-link" data-scroll-target="#interpretación">2.3. Interpretación</a></li>
+  <li><a href="#varianza-compartida" id="toc-varianza-compartida" class="nav-link" data-scroll-target="#varianza-compartida">2.4. Varianza compartida</a></li>
   </ul></li>
-  <li><a href="#solución" id="toc-solución" class="nav-link" data-scroll-target="#solución">Solución</a></li>
   </ul>
 </nav>
     </div>
@@ -190,13 +192,60 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <section id="matrices-de-correlación" class="level2">
-<h2 class="anchored" data-anchor-id="matrices-de-correlación">Matrices de correlación</h2>
-<p>La segunda parte de esta sesión ejercitaremos el cómo estimar e interpretar una matriz de correlaciones. En este caso, trabajaremos con una versión preparada de la encuesta CASEN 2024.</p>
-<p>Carga la base en R:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>La base de datos se contiene las siguientes variables:</p>
+<h2 class="anchored" data-anchor-id="matrices-de-correlación">2. Matrices de correlación</h2>
+<style>
+/* Todo el CSS se limita a los componentes mat- para evitar colisiones con Quarto y con otros ejercicios. */
+.mat-part { border-top: 1px solid var(--bs-border-color, #cbd1da); padding-top: 1.1rem; margin: 1.4rem 0 2rem; }
+.mat-part > h3 { font-size: 1.12rem; margin: 0 0 .45rem; }
+.mat-part > p { margin-bottom: .9rem; }
+.mat-answer-layout { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1rem; align-items: start; }
+.mat-answer-layout.mat-expanded { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.mat-answer-panel, .mat-model-panel { min-width: 0; max-width: 100%; padding: clamp(.8rem, 2vw, 1rem); border: 1px solid var(--bs-border-color, #ccd1d8); border-radius: .6rem; background: var(--bs-body-bg, #fff); }
+.mat-model-panel { background: var(--bs-tertiary-bg, #f5f7f9); }
+.mat-model-panel[hidden] { display: none !important; }
+.mat-model-panel > h4 { font-size: 1rem; margin: 0 0 .65rem; }
+.mat-model-panel :is(pre, .sourceCode, .cell-output) { max-width: 100%; min-width: 0; overflow-x: auto; }
+.mat-model-panel pre code { white-space: pre; }
+.mat-model-panel img { max-width: 100%; height: auto; }
+.mat-model-panel blockquote { margin: .5rem 0 .8rem; padding: .6rem .8rem; border-left: 3px solid var(--bs-primary, #1f608c); background: var(--bs-body-bg, #fff); }
+.mat-model-panel blockquote p:last-child { margin-bottom: 0; }
+.mat-model-panel > :last-child { margin-bottom: 0; }
+.mat-answer-panel label { display: block; font-weight: 600; font-size: .94rem; margin: .75rem 0 .35rem; }
+.mat-answer-panel label:first-child { margin-top: 0; }
+.mat-answer-panel textarea, .mat-field input {
+  display: block; box-sizing: border-box; width: 100%; max-width: 100%;
+  padding: .58rem .7rem; font: inherit; font-size: .95rem;
+  border: 1px solid var(--bs-border-color, #a6aebc); border-radius: .45rem;
+  background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
+}
+.mat-answer-panel textarea { min-height: 8rem; resize: vertical; }
+.mat-answer-panel .mat-code-input { min-height: 12rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
+.mat-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 0 0 .95rem; }
+.mat-answer-panel textarea + .mat-fields { margin-top: 1rem; }
+.mat-field { min-width: 0; }
+.mat-field input[aria-invalid="true"] { border-color: #be4b44; }
+.mat-field-feedback { font-size: .86rem; min-height: 1.3em; margin: .35rem 0 0; }
+.mat-ok { color: var(--bs-success-text-emphasis, #0d7444); }
+.mat-incorrect { color: var(--bs-danger-text-emphasis, #ac332f); }
+.mat-choice { border: 0; padding: 0; margin: .75rem 0 1rem; }
+.mat-choice legend { font-weight: 600; font-size: .96rem; margin-bottom: .55rem; }
+.mat-answer-panel .mat-choice label { display: inline-flex; align-items: center; gap: .35rem; margin: 0 1.1rem .4rem 0; font-weight: 400; cursor: pointer; }
+.mat-choice input { width: 1rem; height: 1rem; }
+.mat-answer-panel textarea:focus-visible, .mat-field input:focus-visible,
+.mat-choice input:focus-visible, .mat-action:focus-visible { outline: 3px solid var(--bs-primary, #1879b5); outline-offset: 3px; }
+.mat-checker { border: 1px solid var(--bs-border-color, #ccd1d8); background: var(--bs-body-bg, #fff); border-radius: .8rem; padding: clamp(1rem, 2.5vw, 1.5rem); margin: 1.2rem 0 1.6rem; }
+.mat-check-caption { color: var(--bs-secondary-color, #596777); font-size: .9rem; }
+.mat-action { border: 0; border-radius: .45rem; padding: .65rem 1rem; background: var(--bs-primary, #1f608c); color: #fff; font: inherit; font-weight: 600; cursor: pointer; }
+.mat-action:hover { filter: brightness(.92); }
+.mat-summary-feedback { padding: .75rem .9rem; border-left: 3px solid var(--bs-primary, #1f608c); margin-top: .8rem; background: var(--bs-tertiary-bg, #f5f7f9); border-radius: 0 .35rem .35rem 0; }
+.mat-summary-feedback[hidden] { display: none; }
+@media (max-width: 760px) {
+  .mat-answer-layout.mat-expanded, .mat-fields { grid-template-columns: minmax(0, 1fr); }
+  .mat-answer-panel .mat-choice label { display: flex; }
+  .mat-action { width: 100%; }
+}
+</style>
+<p>En la segunda parte de esta sesión ejercitaremos cómo estimar e interpretar una matriz de correlaciones. En este caso, trabajaremos con una versión preparada de la encuesta CASEN 2024, que contiene las siguientes variables:</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 33%">
@@ -238,85 +287,95 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </tbody>
 </table>
-<section id="ejercicio" class="level3">
-<h3 class="anchored" data-anchor-id="ejercicio">Ejercicio</h3>
-<p><strong>1)</strong> Estime la matriz de correlaciones entre las variables <code>escolaridad</code>, <code>horas_trabajo</code>, <code>sexo</code>, <code>barrio_peleas</code> y <code>barrio_ruidos</code></p>
-<p><strong>2)</strong> Reporte la correlación entre las siguientes variables, indicando si se encontró significancia estadística, el nivel de confianza con que se puede rechazar la hipótesis nula (en caso de que corresponda) y una interpretación sustantiva:</p>
+<p><strong>Resuélvalo en R antes de comprobar sus respuestas.</strong> El verificador le ayudará a identificar posibles errores; no otorga una nota.</p>
+<p><strong>Cargue la base en R:</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><strong>¿Cómo trabajar?</strong> Trabaje con tres variables: <code>escolaridad</code>, <code>horas_trabajo</code> y <code>sexo</code>. Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione <strong>«Comprobar mis respuestas»</strong> para revisar sus resultados y compararlos con los modelos.</p>
+<script id="mat-reference-data" type="application/json">{"na_esc":7,"na_horas":1361,"na_sexo":0,"n_lw":1635,"r_eh":0.0799898879772383,"r_sh":-0.189810492432129,"r_se_lw":0.129076240258068,"r_se_pw":0.0287160344598596,"p_se_lw":1.63079559556834e-07,"p_se_pw":0.11625849086636,"r2_eh":0.00639838217861113,"alpha":0.05}</script>
+<section id="casos-perdidos" class="level3 mat-part">
+<h3 class="anchored" data-anchor-id="casos-perdidos">2.1. Casos perdidos</h3>
+<p>Calcule el número de casos perdidos por variable y compare el N disponible con eliminación por lista (<em>listwise</em>) y por pares (<em>pairwise</em>). ¿Qué decisión tomará sobre los casos perdidos para estimar la matriz? Justifique.</p>
+<div class="mat-answer-layout">
+<div class="mat-answer-panel">
+<div class="mat-fields">
+  <div class="mat-field"><label for="mat-na-esc">Casos perdidos en escolaridad</label><input id="mat-na-esc" inputmode="numeric" autocomplete="off" aria-describedby="mat-na-esc-msg" placeholder="Introduzca el número"><p id="mat-na-esc-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+  <div class="mat-field"><label for="mat-na-horas">Casos perdidos en horas_trabajo</label><input id="mat-na-horas" inputmode="numeric" autocomplete="off" aria-describedby="mat-na-horas-msg" placeholder="Introduzca el número"><p id="mat-na-horas-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+  <div class="mat-field"><label for="mat-na-sexo">Casos perdidos en sexo</label><input id="mat-na-sexo" inputmode="numeric" autocomplete="off" aria-describedby="mat-na-sexo-msg" placeholder="Introduzca el número"><p id="mat-na-sexo-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+  <div class="mat-field"><label for="mat-n-lw">N con listwise</label><input id="mat-n-lw" inputmode="numeric" autocomplete="off" aria-describedby="mat-n-lw-msg" placeholder="Introduzca N"><p id="mat-n-lw-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+</div>
+<fieldset class="mat-choice">
+  <legend>¿Cómo tratará los casos perdidos?</legend>
+  <label><input type="radio" name="mat-decision" value="listwise"> Listwise</label>
+  <label><input type="radio" name="mat-decision" value="pairwise"> Pairwise</label>
+  <p id="mat-decision-msg" class="mat-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="mat-justification">Mi justificación</label>
+<textarea id="mat-justification" placeholder="Explique por qué eligió ese tratamiento de los casos perdidos"></textarea>
+<label for="mat-na-code">Mi código R</label>
+<textarea id="mat-na-code" class="mat-code-input" spellcheck="false" placeholder="# Pegue el código que usó para revisar los casos perdidos"></textarea>
+</div>
+<div id="mat-model-na" class="mat-model-panel" hidden="hidden">
+<section id="código-y-justificación-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="código-y-justificación-modelo">Código y justificación modelo</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datos_mat <span class="ot">&lt;-</span> datos_casen[, <span class="fu">c</span>(<span class="st">"escolaridad"</span>, <span class="st">"horas_trabajo"</span>, <span class="st">"sexo"</span>)]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(datos_mat))       <span class="co"># perdidos por variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  escolaridad horas_trabajo          sexo 
+            7          1361             0 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(datos_mat))  <span class="co"># N con listwise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1635</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairwiseCount</span>(datos_mat) <span class="co"># N por par con pairwise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              escolaridad horas_trabajo sexo
+escolaridad          2993          1635 2993
+horas_trabajo        1635          1639 1639
+sexo                 2993          1639 3000</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>Los casos perdidos se concentran en <code>horas_trabajo</code> (1.361 de 3.000 casos), variable que solo se pregunta a quienes trabajan, por lo que son perdidos estructurales y no aleatorios. <code>escolaridad</code> tiene 7 perdidos y <code>sexo</code> 0. Con <em>listwise</em> todos los coeficientes se estiman con los mismos 1.635 casos; con <em>pairwise</em> los pares que incluyen <code>horas_trabajo</code> usan alrededor de 1.635 casos, pero <code>escolaridad</code>–<code>sexo</code> usa 2.993.</p>
+<p>Ambas decisiones son válidas si se justifican:</p>
 <ul>
-<li><p><code>barrio_peleas</code> y <code>barrio_ruidos</code></p></li>
-<li><p><code>sexo</code> y <code>horas_trabajo</code></p></li>
-<li><p><code>escolaridad</code> y <code>barrios_peleas</code></p></li>
+<li><em>Listwise</em>: todas las correlaciones se calculan sobre el mismo grupo (personas que trabajan), lo que las hace comparables entre sí.</li>
+<li><em>Pairwise</em>: cada coeficiente usa todos los casos disponibles para ese par, lo que conserva más información.</li>
 </ul>
-<p><strong>3)</strong> ¿Qué decisión tomó sobre los casos perdidos en el cálculo de la matriz? Justifique</p>
-<p><strong>4)</strong> ¿Cómo se denomina el tipo de correlación que se estima entre <code>sexo</code> y <code>horas_trabajo</code>?</p>
-<style>
-.unlock-box {
-  border: 1px dashed #999;
-  padding: 0.75em 1em;
-  border-radius: 6px;
-  background: #f7f7f7;
-  margin-bottom: 1em;
-}
-.unlock-box input {
-  padding: 0.3em 0.5em;
-  margin-right: 0.5em;
-}
-.unlock-msg {
-  display: none;
-  color: #b00020;
-  margin-top: 0.5em;
-  font-size: 0.9em;
-}
-</style>
-<script>
-function unlockSection(baseId, code) {
-  var content = document.getElementById(baseId + '-content');
-  var input = document.getElementById(baseId + '-input');
-  var msg = document.getElementById(baseId + '-msg');
-  var box = document.getElementById(baseId + '-box');
-  if (input.value === code) {
-    content.style.display = 'block';
-    box.style.display = 'none';
-  } else {
-    msg.style.display = 'block';
-  }
-}
-</script>
-
-<div id="matrices-box" class="unlock-box">
-
-  <label for="matrices-input">
-    <strong>🔒 Solución bloqueada.</strong><br>
-    Ingresa la clave para ver la solución del ejercicio.
-  </label>
-
-  <input type="password" id="matrices-input" placeholder="Ingresa la clave">
-
-  <button onclick="unlockSection('matrices','matrices')">
-    Ver solución
-  </button>
-
-  <div id="matrices-msg" class="unlock-msg">
-    Clave incorrecta, inténtalo de nuevo.
-  </div>
-
+</blockquote>
+</section>
+</div>
 </div>
 </section>
-</section>
-<div id="matrices-content" style="display:none;">
-<section id="solución" class="level2">
-<h2 class="anchored" data-anchor-id="solución">Solución</h2>
+<section id="estimación-de-la-matriz" class="level3 mat-part">
+<h3 class="anchored" data-anchor-id="estimación-de-la-matriz">2.2. Estimación de la matriz</h3>
+<p>Estime la matriz de correlaciones entre <code>escolaridad</code>, <code>horas_trabajo</code> y <code>sexo</code>, utilizando el tratamiento de casos perdidos que eligió en 2.1.</p>
+<div class="mat-answer-layout">
+<div class="mat-answer-panel">
+<label for="mat-code">Mi código R</label>
+<textarea id="mat-code" class="mat-code-input" spellcheck="false" placeholder="# Pegue el código que usó para estimar la matriz"></textarea>
+<label for="mat-matrix">Mi matriz de correlaciones</label>
+<textarea id="mat-matrix" class="mat-code-input" spellcheck="false" placeholder="Pegue la matriz obtenida en R"></textarea>
+</div>
+<div id="mat-model-matrix" class="mat-model-panel" hidden="hidden">
+<section id="código-y-matriz-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="código-y-matriz-modelo">Código y matriz modelo</h4>
+<blockquote class="blockquote">
+<p>Se utiliza Pearson, ya que <code>escolaridad</code> y <code>horas_trabajo</code> son continuas y <code>sexo</code> es dicotómica (Pearson con una variable 0/1 equivale a la correlación punto biserial).</p>
+</blockquote>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Con listwise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Con pairwise</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><strong>1)</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_casen,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Matriz de correlaciones</caption>
@@ -326,78 +385,39 @@ function unlockSection(baseId, code) {
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_peleas</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_ruidos</td>
 </tr>
 <tr class="even">
 <td style="font-style: italic">escolaridad</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="font-style: italic">horas_trabajo</td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.048<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.080<span style="vertical-align:super;font-size:0.8em;">**</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="font-style: italic">sexo</td>
-<td style="text-align: center; padding: 0.2cm;">0.137<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.205<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.129<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.191<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="odd">
-<td style="font-style: italic">barrio_peleas</td>
-<td style="text-align: center; padding: 0.2cm;">-0.067<span style="vertical-align:super;font-size:0.8em;">**</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.012<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-</tr>
-<tr class="even">
-<td style="font-style: italic">barrio_ruidos</td>
-<td style="text-align: center; padding: 0.2cm;">0.057<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.002<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.041<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">0.456<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-</tr>
-<tr class="odd">
-<td colspan="6" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with listwise-deletion.</td>
+<td colspan="4" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with listwise-deletion.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<blockquote class="blockquote">
-<p>Para la construcción de la matriz utilizamos el método <code>spearman</code>, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos</p>
-</blockquote>
-<p><strong>2)</strong></p>
-<ul>
-<li><p>La correlación entre <code>barrio_peleas</code> y <code>barrio_ruido</code> es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida</p></li>
-<li><p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Entonces, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres</p></li>
-<li><p>La correlación entre <code>escolaridad</code> y <code>barrio_peleas</code> es negativa, con un efecto muy pequeño y estadísticamente significativa. Entonces, con un 99% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Considerando esto, a medida que las personas adquieren mayores niveles de escolaridad, tienden a presenciar menos peleas en su barrio</p></li>
-</ul>
-<p><strong>3)</strong></p>
-<p>Se utilizó <code>listwise</code> porque los casos perdidos se concentran casi por completo en <code>horas_trabajo</code> (1.361 de 3.000 casos, 45,4%), variable que solo se pregunta a quienes trabajan, por lo que son perdidos estructurales y no aleatorios. Las demás variables tienen prácticamente todos sus casos. Con <code>listwise</code> todos los coeficientes se estiman sobre los mismos 1.635 casos (54,5%), es decir, personas que trabajan, lo que <strong>hace comparables las correlaciones entre un mismo grupo</strong>.</p>
-<p><strong>4)</strong></p>
-<p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> corresponde a una de tipo <strong>punto biserial</strong>. Esta es el método de estimación pertinente en este caso, ya que <code>sexo</code> corresponde a una variable categórica dicotómica, mientras que <code>horas_trabajo</code> es una variable continua.</p>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><strong>1)</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_casen,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
 <caption>Matriz de correlaciones</caption>
@@ -407,76 +427,278 @@ function unlockSection(baseId, code) {
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
 <td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_peleas</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">barrio_ruidos</td>
 </tr>
 <tr class="even">
 <td style="font-style: italic">escolaridad</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="odd">
 <td style="font-style: italic">horas_trabajo</td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.048<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">0.080<span style="vertical-align:super;font-size:0.8em;">**</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="even">
 <td style="font-style: italic">sexo</td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.032<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">-0.205<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.029<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">-0.190<span style="vertical-align:super;font-size:0.8em;">***</span></td>
 <td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
 </tr>
 <tr class="odd">
-<td style="font-style: italic">barrio_peleas</td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.015<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">0.014<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-</tr>
-<tr class="even">
-<td style="font-style: italic">barrio_ruidos</td>
-<td style="text-align: center; padding: 0.2cm;">0.079<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm; color: #999999;">-0.002<span style="vertical-align:super;font-size:0.8em;"></span></td>
-<td style="text-align: center; padding: 0.2cm;">0.038<span style="vertical-align:super;font-size:0.8em;">*</span></td>
-<td style="text-align: center; padding: 0.2cm;">0.455<span style="vertical-align:super;font-size:0.8em;">***</span></td>
-<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
-</tr>
-<tr class="odd">
-<td colspan="6" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with pairwise-deletion.</td>
+<td colspan="4" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used pearson-method with pairwise-deletion.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-<blockquote class="blockquote">
-<p>Para la construcción de la matriz utilizamos el método <code>spearman</code>, ya que Pearson exige variables al menos de intervalo, y las dos ordinales no lo cumplen. Por su parte, Spearman trabaja con rangos, así que sirve para ordinales y también para continuas. Además tolera mejor la asimetría y los valores atípicos</p>
-</blockquote>
-<p><strong>2)</strong></p>
-<ul>
-<li><p>La correlación entre <code>barrio_peleas</code> y <code>barrio_ruido</code> es positiva, con un efecto moderado y estadísticamente significativa. Entonces, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. De esta manera, quienes tienden a presenciar más peleas en su barrio, también escuchan ruidos molestos en mayor medida</p></li>
-<li><p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> es negativa, con un efecto pequeño y estadísticamente significativa. Así, con un 99,9% de confianza, existe evidencia a favor de rechazar la hipótesis nula. Con ello, se puede decir que las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres</p></li>
-<li><p>La correlación entre <code>escolaridad</code> y <code>barrio_peleas</code> es negativa, con un efecto prácticamente nulo y no es estadísticamente significativa. Entonces, no existe evidencia suficiente para rechazar la hipótesis nula. Considerando esto, no se puede afirmar que el nivel de escolaridad se asocia con la frecuencia con que las personas presencian peleas en su barrio</p></li>
-</ul>
-<p><strong>3)</strong></p>
-<p>Se utilizó <code>pairwise</code> porque los casos perdidos se concentran en una sola variable, <code>horas_trabajo</code> (45,4%), mientras que el resto casi no tiene perdidos. Con <code>listwise</code> se descartaría a todas las personas sin datos en <code>horas_trabajo</code>, y las correlaciones que no la incluyen (por ejemplo, <code>barrio_peleas</code> y <code>barrio_ruidos</code>) perderían más de 1.300 casos que sí tienen información válida. Con <code>pairwise</code> cada coeficiente usa todos los casos disponibles para ese par, lo que <strong>conserva más información y da estimaciones más precisas</strong> para cada par de variables.</p>
-<p><strong>4)</strong></p>
-<p>La correlación entre <code>sexo</code> y <code>horas_trabajo</code> corresponde a una de tipo <strong>punto biserial</strong>. Esta es el método de estimación pertinente en este caso, ya que <code>sexo</code> corresponde a una variable categórica dicotómica, mientras que <code>horas_trabajo</code> es una variable continua.</p>
 </div>
+</div>
+</div>
+<p><em>Su código puede ser distinto y también estar correcto si produce los mismos resultados.</em></p>
+</section>
 </div>
 </div>
 </section>
+<section id="interpretación" class="level3 mat-part">
+<h3 class="anchored" data-anchor-id="interpretación">2.3. Interpretación</h3>
+<p>Reporte e interprete cada una de las correlaciones de la matriz, indicando para cada par: a) el tipo de correlación, b) la dirección, c) la magnitud del efecto, d) el valor p y la significación estadística, y e) una interpretación sustantiva.</p>
+<div class="mat-answer-layout">
+<div class="mat-answer-panel">
+<div class="mat-fields">
+  <div class="mat-field"><label for="mat-r-eh">r escolaridad – horas_trabajo</label><input id="mat-r-eh" inputmode="decimal" autocomplete="off" aria-describedby="mat-r-eh-msg" placeholder="Ej.: 0,25"><p id="mat-r-eh-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+  <div class="mat-field"><label for="mat-r-sh">r sexo – horas_trabajo</label><input id="mat-r-sh" inputmode="decimal" autocomplete="off" aria-describedby="mat-r-sh-msg" placeholder="Ej.: 0,25"><p id="mat-r-sh-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+  <div class="mat-field"><label for="mat-r-se">r sexo – escolaridad</label><input id="mat-r-se" inputmode="decimal" autocomplete="off" aria-describedby="mat-r-se-msg" placeholder="Ej.: 0,25"><p id="mat-r-se-msg" class="mat-field-feedback" aria-live="polite"></p></div>
 </div>
+<fieldset class="mat-choice">
+  <legend>¿Qué tipo de correlación se estima entre sexo y horas_trabajo?</legend>
+  <label><input type="radio" name="mat-tipo" value="pearson"> Pearson (dos continuas)</label>
+  <label><input type="radio" name="mat-tipo" value="spearman"> Spearman</label>
+  <label><input type="radio" name="mat-tipo" value="biserial"> Punto biserial</label>
+  <p id="mat-tipo-msg" class="mat-field-feedback" aria-live="polite"></p>
+</fieldset>
+<fieldset class="mat-choice">
+  <legend>Con α = .05, la correlación entre sexo y escolaridad es:</legend>
+  <label><input type="radio" name="mat-sig" value="significativa"> Estadísticamente significativa</label>
+  <label><input type="radio" name="mat-sig" value="no-significativa"> No significativa</label>
+  <p id="mat-sig-msg" class="mat-field-feedback" aria-live="polite"></p>
+</fieldset>
+<label for="mat-interpretation">Mi interpretación</label>
+<textarea id="mat-interpretation" placeholder="Interprete cada par: tipo, dirección, magnitud, valor p e interpretación sustantiva"></textarea>
+</div>
+<div id="mat-model-interpretation" class="mat-model-panel" hidden="hidden">
+<section id="interpretación-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="interpretación-modelo">Interpretación modelo</h4>
+<ul>
+<li><p><code>escolaridad</code> – <code>horas_trabajo</code>: correlación de <strong>Pearson</strong> (ambas continuas), positiva (r = 0,08), de magnitud muy pequeña y estadísticamente significativa (p = 0,001), por lo que se rechaza la hipótesis nula con un 99% de confianza. Quienes tienen más años de escolaridad tienden a trabajar levemente más horas, aunque la asociación es prácticamente nula. El resultado es igual con <em>listwise</em> y <em>pairwise</em>.</p></li>
+<li><p><code>sexo</code> – <code>horas_trabajo</code>: correlación <strong>punto biserial</strong> (dicotómica y continua), negativa (r = -0,19), de magnitud pequeña y estadísticamente significativa (p &lt; 0,001), por lo que se rechaza la hipótesis nula con un 99,9% de confianza. Las mujeres (categoría 1) tienden a trabajar menos horas semanales que los hombres. El resultado es igual con <em>listwise</em> y <em>pairwise</em>.</p></li>
+<li><p><code>sexo</code> – <code>escolaridad</code>: correlación <strong>punto biserial</strong>. El resultado <strong>depende del tratamiento de los casos perdidos</strong>:</p>
+<ul>
+<li><em>Listwise</em>: positiva (r = 0,13), de magnitud pequeña y estadísticamente significativa (p &lt; 0,001). Entre las personas que trabajan, las mujeres tienden a tener levemente más años de escolaridad que los hombres.</li>
+<li><em>Pairwise</em>: prácticamente nula (r = 0,03) y no estadísticamente significativa (p = 0,116), por lo que no se rechaza la hipótesis nula: en la muestra completa no se puede afirmar que hombres y mujeres difieran en años de escolaridad.</li>
+</ul></li>
+</ul>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Listwise y pairwise pueden llevar a conclusiones distintas
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La decisión sobre los casos perdidos no es solo técnica: puede cambiar la <strong>magnitud</strong> y la <strong>significación</strong> de las correlaciones. Con <em>listwise</em> las correlaciones se estiman solo con quienes trabajan (los casos válidos en <code>horas_trabajo</code>), mientras que con <em>pairwise</em> cada par usa toda la información disponible. Por eso es importante reportar y justificar siempre la decisión tomada.</p>
+</div>
+</div>
+<p><strong>Para comparar:</strong> revise si su respuesta indica el tipo de correlación de cada par, distingue la significación estadística de la magnitud, interpreta el sentido en términos de las variables y evita establecer causalidad.</p>
+</section>
+</div>
+</div>
+</section>
+<section id="varianza-compartida" class="level3 mat-part">
+<h3 class="anchored" data-anchor-id="varianza-compartida">2.4. Varianza compartida</h3>
+<p>Calcule e interprete la varianza compartida (r²) entre <code>escolaridad</code> y <code>horas_trabajo</code>.</p>
+<div class="mat-answer-layout">
+<div class="mat-answer-panel">
+<div class="mat-fields">
+  <div class="mat-field"><label for="mat-r2">r² escolaridad – horas_trabajo</label><input id="mat-r2" inputmode="decimal" autocomplete="off" aria-describedby="mat-r2-msg" placeholder="Exprese r² como proporción"><p id="mat-r2-msg" class="mat-field-feedback" aria-live="polite"></p></div>
+</div>
+<label for="mat-r2-interpretation">Mi interpretación</label>
+<textarea id="mat-r2-interpretation" placeholder="Explique qué significa este valor"></textarea>
+</div>
+<div id="mat-model-r2" class="mat-model-panel" hidden="hidden">
+<section id="cálculo-e-interpretación-modelo" class="level4">
+<h4 class="anchored" data-anchor-id="cálculo-e-interpretación-modelo">Cálculo e interpretación modelo</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_mat<span class="sc">$</span>escolaridad, datos_mat<span class="sc">$</span>horas_trabajo, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>r<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.006398382</code></pre>
+</div>
+</div>
+<blockquote class="blockquote">
+<p>r² = 0,08² ≈ 0,0064. La escolaridad y las horas trabajadas comparten aproximadamente un 0,6 % de su varianza; es decir, el 99,4 % de la variación en horas trabajadas se relaciona con otros factores. Aunque la correlación es estadísticamente significativa, su relevancia sustantiva es mínima.</p>
+</blockquote>
+</section>
+</div>
+</div>
+</section>
+<section class="mat-checker" aria-label="Comprobación de los resultados del ejercicio de matrices">
+  <p class="mat-check-caption">Cuando termine, compruebe los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, la matriz y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+  <button type="button" id="mat-check-button" class="mat-action">Comprobar mis respuestas</button>
+  <div id="mat-overall" class="mat-summary-feedback" role="status" aria-live="polite" hidden=""></div>
+</section>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puede resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+<script>
+(function () {
+  'use strict';
+  function start() {
+    const button = document.getElementById('mat-check-button');
+    const dataNode = document.getElementById('mat-reference-data');
+    const overall = document.getElementById('mat-overall');
+    if (!button || !overall) return;
+    if (!dataNode) {
+      overall.hidden = false;
+      overall.textContent = 'No se cargaron los resultados de referencia. Informe al equipo docente.';
+      return;
+    }
+    let ref;
+    try { ref = JSON.parse(dataNode.textContent); }
+    catch (_) {
+      overall.hidden = false;
+      overall.textContent = 'Los resultados de referencia no están disponibles.';
+      return;
+    }
+    function decision() {
+      const selected = document.querySelector('input[name="mat-decision"]:checked');
+      return selected ? selected.value : null;
+    }
+    // r y significación de sexo–escolaridad dependen del tratamiento de casos perdidos elegido en 2.1.
+    function expectedSE() { return decision() === 'pairwise' ? ref.r_se_pw : ref.r_se_lw; }
+    function otherSE() { return decision() === 'pairwise' ? ref.r_se_lw : ref.r_se_pw; }
+    function expectedSig() {
+      const p = decision() === 'pairwise' ? ref.p_se_pw : ref.p_se_lw;
+      return p < ref.alpha ? 'significativa' : 'no-significativa';
+    }
+    const numericFields = [
+      { key: 'na_esc', id: 'mat-na-esc', msg: 'mat-na-esc-msg', integer: true, hint: 'Use colSums(is.na()) sobre las tres variables.' },
+      { key: 'na_horas', id: 'mat-na-horas', msg: 'mat-na-horas-msg', integer: true, hint: 'Use colSums(is.na()) sobre las tres variables.' },
+      { key: 'na_sexo', id: 'mat-na-sexo', msg: 'mat-na-sexo-msg', integer: true, hint: 'Use colSums(is.na()) sobre las tres variables.' },
+      { key: 'n_lw', id: 'mat-n-lw', msg: 'mat-n-lw-msg', integer: true, hint: 'Cuente los casos con datos válidos en las tres variables (complete.cases()).' },
+      { key: 'r_eh', id: 'mat-r-eh', msg: 'mat-r-eh-msg', hint: 'Revise la matriz de correlaciones.' },
+      { key: 'r_sh', id: 'mat-r-sh', msg: 'mat-r-sh-msg', hint: 'Revise la matriz de correlaciones y el signo del coeficiente.' },
+      { key: 'r_se', id: 'mat-r-se', msg: 'mat-r-se-msg', hint: 'Revise la matriz de correlaciones.', needsDecision: true },
+      { key: 'r2_eh', id: 'mat-r2', msg: 'mat-r2-msg', tolerance: 0.0006, hint: 'Eleve al cuadrado la correlación entre escolaridad y horas_trabajo.' }
+    ];
+    const choiceFields = [
+      { name: 'mat-tipo', msg: 'mat-tipo-msg', expected: () => 'biserial',
+        ok: '✓ Correcto: sexo es dicotómica y horas_trabajo es continua.', hint: 'Revise el nivel de medición de ambas variables.' },
+      { name: 'mat-sig', msg: 'mat-sig-msg', expected: expectedSig, needsDecision: true,
+        ok: '✓ Correcto según el valor p.', hint: 'Compare el valor p de esta correlación con α = .05.' }
+    ];
+    const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
+    const feedbackByName = new Map(choiceFields.map(f => [f.name, f.msg]));
+    function parseLocaleNumber(value) {
+      const s = String(value).trim();
+      if (!s) return { kind: 'empty' };
+      if (!/^[+\-−]?(?:\d+(?:[.,]\d*)?|[.,]\d+)(?:[eE][+-]?\d+)?$/.test(s)) return { kind: 'invalid' };
+      const n = Number(s.replace('−', '-').replace(',', '.'));
+      return Number.isFinite(n) ? { kind: 'number', value: n } : { kind: 'invalid' };
+    }
+    function expectedValue(field) { return field.key === 'r_se' ? expectedSE() : ref[field.key]; }
+    function approx(field, submitted, expected) {
+      if (field.integer) return Number.isInteger(submitted) && submitted === expected;
+      return Math.abs(submitted - expected) <= (field.tolerance || 0.005001);
+    }
+    function report(id, message, ok, input) {
+      const node = document.getElementById(id);
+      if (!node) return;
+      node.textContent = message;
+      node.className = 'mat-field-feedback ' + (ok ? 'mat-ok' : 'mat-incorrect');
+      if (input) input.setAttribute('aria-invalid', String(!ok));
+    }
+    function note(id, message) {
+      const node = document.getElementById(id);
+      node.textContent = message;
+      node.className = 'mat-field-feedback';
+    }
+    function clear(id) { note(id, ''); }
+    function markStale(event) {
+      const target = event.target;
+      if (feedbackByInput.has(target.id)) {
+        target.removeAttribute('aria-invalid');
+        clear(feedbackByInput.get(target.id));
+      }
+      if (feedbackByName.has(target.name)) clear(feedbackByName.get(target.name));
+      if (target.name === 'mat-decision') clear('mat-decision-msg');
+      if (!overall.hidden) overall.textContent = 'Modificó una respuesta. Presione «Comprobar mis respuestas» para actualizar la revisión.';
+    }
+    numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
+    choiceFields.concat([{ name: 'mat-decision' }]).forEach(f => document.querySelectorAll('input[name="' + f.name + '"]').forEach(el => el.addEventListener('change', markStale)));
+    button.addEventListener('click', function () {
+      let correct = 0;
+      const total = numericFields.length + choiceFields.length;
+      const chosen = decision();
+      if (chosen) {
+        note('mat-decision-msg', 'Ambas opciones son válidas si se justifican. Los resultados de 2.3 se comparan con los de ' + chosen + '.');
+      } else {
+        report('mat-decision-msg', 'Seleccione cómo tratará los casos perdidos; algunos resultados de 2.3 dependen de esta decisión.', false);
+      }
+      numericFields.forEach(field => {
+        const input = document.getElementById(field.id);
+        const parsed = parseLocaleNumber(input.value);
+        if (parsed.kind === 'empty') {
+          report(field.msg, 'Ingrese un valor para comprobarlo.', false, input);
+        } else if (parsed.kind === 'invalid') {
+          report(field.msg, 'Escriba un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+        } else if (field.needsDecision && !chosen) {
+          report(field.msg, 'Seleccione primero en 2.1 cómo tratará los casos perdidos.', false, input);
+        } else if (approx(field, parsed.value, expectedValue(field))) {
+          report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
+          correct++;
+        } else if (field.key === 'r_se' && approx(field, parsed.value, otherSE())) {
+          report(field.msg, 'Ese valor corresponde al otro tratamiento de casos perdidos. Use el mismo que eligió en 2.1.', false, input);
+        } else if (field.key === 'r2_eh' && approx({ tolerance: 0.06 }, parsed.value, 100 * ref.r2_eh)) {
+          report(field.msg, 'Parece un porcentaje. Exprese r² como proporción (entre 0 y 1).', false, input);
+        } else if (!field.integer && field.key !== 'r2_eh' && approx(field, parsed.value, -expectedValue(field))) {
+          report(field.msg, 'La magnitud es correcta, pero revise el signo.', false, input);
+        } else {
+          report(field.msg, 'Revise este resultado. ' + field.hint, false, input);
+        }
+      });
+      choiceFields.forEach(field => {
+        const selected = document.querySelector('input[name="' + field.name + '"]:checked');
+        if (!selected) {
+          report(field.msg, 'Seleccione una opción para verificarla.', false);
+        } else if (field.needsDecision && !chosen) {
+          report(field.msg, 'Seleccione primero en 2.1 cómo tratará los casos perdidos.', false);
+        } else if (selected.value === field.expected()) {
+          report(field.msg, field.ok, true);
+          correct++;
+        } else {
+          report(field.msg, field.hint, false);
+        }
+      });
+      document.querySelectorAll('.mat-answer-layout').forEach(layout => {
+        layout.classList.add('mat-expanded');
+        const model = layout.querySelector('.mat-model-panel');
+        if (model) model.hidden = false;
+      });
+      overall.hidden = false;
+      overall.textContent = correct === total
+        ? '¡Muy bien! Los ' + total + ' resultados verificables coinciden con los valores esperados. Compare ahora su código, matriz e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revise las pistas y vuelva a comprobar. Ya puede comparar sus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+}());
+</script>
 
 
+</section>
 
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>

@@ -75,13 +75,11 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
 
 ## 3. Chi-cuadrado
 
-La siguiente actividad simula una pregunta práctica de la segunda evaluación. **Resuélvela en R antes de comprobar tus respuestas.** El verificador te ayudará a identificar posibles errores; no otorga una nota.
-
-### Prepara tus datos
+### Preparación de los datos
 
 Para este ejercicio utilizaremos una **versión preparada de la encuesta CEP 2026**, con dos variables: `sexo` (Hombre / Mujer) e `interes_politico` (Bajo / Al menos algo). Ambas están codificadas y listas para analizar.
 
-**Carga la base en R:**
+**Cargue la base en R:**
 
 ```{r}
 #| label: cargar-cep-simulacion-estudiantes
@@ -96,9 +94,9 @@ names(cep_sim)
 head(cep_sim)
 ```
 
-Comprueba que la base se cargó correctamente. Trabajaremos con el objeto `cep_sim`.
+Compruebe que la base se cargó correctamente. Trabajaremos con el objeto `cep_sim`.
 
-**¿Cómo trabajar?** Resuelve cada apartado en R y escribe tus respuestas bajo la pregunta correspondiente. Al terminar, selecciona **«Comprobar mis respuestas»** para revisar tus resultados y compararlos con los modelos.
+**¿Cómo trabajar?** Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione **«Comprobar mis respuestas»** para revisar sus resultados y compararlos con los modelos.
 
 En esta simulación utilizaremos `chisq.test(..., correct = FALSE)` (Chi-cuadrado de Pearson sin corrección de Yates).
 
@@ -165,34 +163,61 @@ patron_texto <- if (abs(p_mujeres - p_hombres) < 0.01) {
 observada_objetivo <- unname(tabla_esperada["Al menos algo", "Mujer"])
 ```
 
-### Resuelve la pregunta
+### Pregunta
 
 **Pregunta 3. ¿Existe una asociación entre el sexo y el interés en la política?**
 
-Resuelve los tres apartados en R y escribe tus respuestas debajo de cada uno. Al final podrás **comprobar los resultados en un solo paso** y comparar tus respuestas con los modelos.
+Resuelva los cuatro apartados en R y escriba sus respuestas debajo de cada uno. Al final podrá **comprobar los resultados en un solo paso** y comparar sus respuestas con los modelos.
 
 ```{r}
 #| label: publicar-referencias-chi2
 #| results: asis
 #| echo: false
 cat(sprintf(
-  '<script id="chi2-reference-data" type="application/json">{"chi2":%.15g,"gl":%d,"phi":%.15g,"fe":%.15g,"p":%.15g,"alpha":0.05}</script>\n',
-  chi2_esperado, as.integer(gl_esperado), phi_esperado, fe_esperada, p_esperado
+  '<script id="chi2-reference-data" type="application/json">{"chi2":%.15g,"gl":%d,"fe":%.15g,"p":%.15g,"alpha":0.05}</script>\n',
+  chi2_esperado, as.integer(gl_esperado), fe_esperada, p_esperado
 ))
 ```
 
 ::: {.chi2-part}
-### 3.1. Aplicación en R · 1 punto
+### 3.1. Hipótesis
 
-Reporte una tabla de contingencia con frecuencias y porcentajes, y aplique la prueba de Chi-cuadrado. Copie y pegue el código utilizado.
+Antes de aplicar Chi-cuadrado, formule la hipótesis nula (H₀) y la hipótesis alternativa (H₁) del contraste.
+
+:::: {.chi2-answer-layout}
+::: {.chi2-answer-panel}
+```{=html}
+<label for="chi2-h0">Hipótesis nula (H₀)</label>
+<textarea id="chi2-h0" class="chi2-explain-input" placeholder="Formule H₀"></textarea>
+<label for="chi2-h1">Hipótesis alternativa (H₁)</label>
+<textarea id="chi2-h1" class="chi2-explain-input" placeholder="Formule H₁"></textarea>
+```
+:::
+
+::: {#chi2-model-hypotheses .chi2-model-panel hidden="hidden"}
+#### Hipótesis modelo
+
+> **H₀:** el sexo y el interés en la política son **independientes**; la proporción de personas con al menos algo de interés político es la misma en hombres y en mujeres.
+>
+> **H₁:** el sexo y el interés en la política **no son independientes** (están asociados); la proporción con al menos algo de interés difiere entre hombres y mujeres.
+
+Las frecuencias esperadas se calculan suponiendo que H₀ es verdadera. Chi-cuadrado mide cuánto se alejan las frecuencias observadas de esas frecuencias esperadas: mientras mayor la distancia, más evidencia en contra de H₀.
+:::
+::::
+:::
+
+::: {.chi2-part}
+### 3.2. Aplicación en R
+
+Reporte una tabla de contingencia con frecuencias y porcentajes por columna (dentro de cada sexo), de modo que permitan comparar a hombres y mujeres, y aplique la prueba de Chi-cuadrado. Copie y pegue el código utilizado.
 
 :::: {.chi2-answer-layout}
 ::: {.chi2-answer-panel}
 ```{=html}
 <label for="chi2-code">Mi código R</label>
-<textarea id="chi2-code" class="chi2-code-input" spellcheck="false" placeholder="# Pega el código que ejecutaste en R"></textarea>
+<textarea id="chi2-code" class="chi2-code-input" spellcheck="false" placeholder="# Pegue el código que ejecutó en R"></textarea>
 <label for="chi2-table">Mi tabla de contingencia</label>
-<textarea id="chi2-table" class="chi2-table-input" spellcheck="false" placeholder="Pega las frecuencias y los porcentajes obtenidos en R"></textarea>
+<textarea id="chi2-table" class="chi2-table-input" spellcheck="false" placeholder="Pegue las frecuencias y los porcentajes dentro de cada sexo obtenidos en R"></textarea>
 ```
 :::
 
@@ -210,10 +235,6 @@ round(prop.table(tabla, margin = 2) * 100, 1)
 # Chi-cuadrado de Pearson sin corrección de Yates
 prueba <- chisq.test(tabla, correct = FALSE)
 prueba
-
-# Magnitud de la asociación (Phi)
-phi <- sqrt(as.numeric(prueba$statistic) / sum(tabla))
-phi
 
 # Frecuencia esperada de mujeres con al menos algo de interés
 esperada <- prueba$expected["Al menos algo", "Mujer"]
@@ -243,63 +264,62 @@ knitr::kable(as.matrix(round(100 * prop.table(tabla_esperada, 2), 1)),
              format = "pipe", col.names = c("Hombre (%)", "Mujer (%)"))
 ```
 
-*Tu código puede ser distinto y también estar correcto si produce los mismos resultados.*
+*Su código puede ser distinto y también estar correcto si produce los mismos resultados.*
 :::
 ::::
 :::
 
 ::: {.chi2-part}
-### 3.2. Interpretación estadística · 2 puntos
+### 3.3. Interpretación estadística
 
-Interprete los resultados en términos de significación estadística ($\alpha=.05$), magnitud de la asociación (Phi) y diferencias observadas entre los grupos.
+Interprete los resultados en términos de significación estadística ($\alpha=.05$) y diferencias observadas entre los grupos.
 
 :::: {.chi2-answer-layout}
 ::: {.chi2-answer-panel}
 ```{=html}
 <div class="chi2-fields">
-  <div class="chi2-field"><label for="chi2-value">Estadístico χ²</label><input id="chi2-value" inputmode="decimal" autocomplete="off" aria-describedby="chi2-value-msg" placeholder="Introduce χ²"><p id="chi2-value-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
-  <div class="chi2-field"><label for="chi2-df">Grados de libertad</label><input id="chi2-df" inputmode="numeric" autocomplete="off" aria-describedby="chi2-df-msg" placeholder="Introduce gl"><p id="chi2-df-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+  <div class="chi2-field"><label for="chi2-value">Estadístico χ²</label><input id="chi2-value" inputmode="decimal" autocomplete="off" aria-describedby="chi2-value-msg" placeholder="Introduzca χ²"><p id="chi2-value-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
+  <div class="chi2-field"><label for="chi2-df">Grados de libertad</label><input id="chi2-df" inputmode="numeric" autocomplete="off" aria-describedby="chi2-df-msg" placeholder="Introduzca gl"><p id="chi2-df-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
   <div class="chi2-field"><label for="chi2-p">Valor p</label><input id="chi2-p" inputmode="text" autocomplete="off" aria-describedby="chi2-p-msg" placeholder="Ej.: 0,024 o p &lt; .001"><p id="chi2-p-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
-  <div class="chi2-field"><label for="chi2-phi">Coeficiente Phi</label><input id="chi2-phi" inputmode="decimal" autocomplete="off" aria-describedby="chi2-phi-msg" placeholder="Introduce Phi"><p id="chi2-phi-msg" class="chi2-field-feedback" aria-live="polite"></p></div>
 </div>
 <fieldset class="chi2-choice">
-  <legend>Con α = .05, ¿cuál es tu decisión respecto de H₀?</legend>
+  <legend>Con α = .05, ¿cuál es su decisión respecto de H₀?</legend>
   <label><input type="radio" name="decision" value="rechazar"> Rechazar H₀</label>
   <label><input type="radio" name="decision" value="no-rechazar"> No rechazar H₀</label>
   <p id="chi2-decision-msg" class="chi2-field-feedback" aria-live="polite"></p>
 </fieldset>
 <label for="chi2-interpretation">Mi interpretación</label>
-<textarea id="chi2-interpretation" class="chi2-interpret-input" placeholder="Escribe tu conclusión sobre significación, Phi y diferencias entre grupos"></textarea>
+<textarea id="chi2-interpretation" class="chi2-interpret-input" placeholder="Escriba su conclusión sobre significación y diferencias entre grupos"></textarea>
 ```
 :::
 
 ::: {#chi2-model-interpretation .chi2-model-panel hidden="hidden"}
 #### Resultados e interpretación modelo
 
-**N = `r N_esperado` · χ²(`r gl_esperado`) = `r fmt_num(chi2_esperado)` · `r p_impreso` · Phi = `r fmt_num(phi_esperado, 3)`**
+**N = `r N_esperado` · χ²(`r gl_esperado`) = `r fmt_num(chi2_esperado)` · `r p_impreso`**
 
-> Se examinó la asociación entre el sexo y el interés en la política mediante una prueba Chi-cuadrado de independencia. Los resultados fueron χ²(`r gl_esperado`, N = `r N_esperado`) = `r fmt_num(chi2_esperado)`, `r p_impreso`. Con un nivel de significación de α = .05, `r decision_texto`. Por tanto, `r texto_inferencia`. El coeficiente Phi fue `r fmt_num(phi_esperado, 3)`, lo que indica una asociación de magnitud `r magnitud_phi` (criterio orientativo). Descriptivamente, el `r fmt_num(p_hombres, 1)` % de los hombres y el `r fmt_num(p_mujeres, 1)` % de las mujeres declararon al menos algo de interés político. `r patron_texto`. Estos resultados describen una asociación, no una relación causal.
+> Se examinó la asociación entre el sexo y el interés en la política mediante una prueba Chi-cuadrado de independencia. Los resultados fueron χ²(`r gl_esperado`, N = `r N_esperado`) = `r fmt_num(chi2_esperado)`, `r p_impreso`. Con un nivel de significación de α = .05, `r decision_texto`. Por tanto, `r texto_inferencia`. Descriptivamente, el `r fmt_num(p_hombres, 1)` % de los hombres y el `r fmt_num(p_mujeres, 1)` % de las mujeres declararon al menos algo de interés político. `r patron_texto`. Estos resultados describen una asociación, no una relación causal.
 
-**Para comparar:** revisa si tu respuesta distingue la significación estadística de la magnitud, utiliza los porcentajes dentro de cada sexo y evita establecer causalidad.
+**Para comparar:** revise si su respuesta reporta χ², gl y valor p, toma una decisión respecto de H₀, utiliza los porcentajes dentro de cada sexo y evita establecer causalidad.
 :::
 ::::
 :::
 
 ::: {.chi2-part}
-### 3.3. Frecuencia esperada · 1 punto
+### 3.4. Frecuencia esperada
 
-Calcule la frecuencia esperada de mujeres que manifiestan al menos algo de interés político, bajo la hipótesis de independencia. Explique brevemente qué representa este valor.
+Calcule la frecuencia esperada de mujeres que manifiestan al menos algo de interés político, bajo la hipótesis de independencia. Muestre el procedimiento de cálculo, indicando los totales marginales (fila y columna) y el N válido utilizados. Explique brevemente qué representa este valor.
 
 :::: {.chi2-answer-layout}
 ::: {.chi2-answer-panel}
 ```{=html}
 <div class="chi2-field">
   <label for="chi2-fe">Frecuencia esperada</label>
-  <input id="chi2-fe" inputmode="decimal" autocomplete="off" aria-describedby="chi2-fe-msg" placeholder="Introduce la frecuencia esperada">
+  <input id="chi2-fe" inputmode="decimal" autocomplete="off" aria-describedby="chi2-fe-msg" placeholder="Introduzca la frecuencia esperada">
   <p id="chi2-fe-msg" class="chi2-field-feedback" aria-live="polite"></p>
 </div>
-<label for="chi2-fe-explanation">Mi explicación</label>
-<textarea id="chi2-fe-explanation" class="chi2-explain-input" placeholder="Explica qué representa esta frecuencia bajo H₀"></textarea>
+<label for="chi2-fe-explanation">Mi procedimiento y explicación</label>
+<textarea id="chi2-fe-explanation" class="chi2-explain-input" placeholder="Ej.: (total fila × total columna) / N = … y explique qué representa esta frecuencia bajo H₀"></textarea>
 ```
 :::
 
@@ -317,16 +337,55 @@ $$
 ::::
 :::
 
-**Total: 4 puntos.**
-
 ```{=html}
-<section class="chi2-checker" aria-label="Comprobación de los resultados de las tres preguntas">
-  <p class="chi2-check-caption">Cuando termines, comprueba los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, la tabla y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
+<section class="chi2-checker" aria-label="Comprobación de los resultados de la pregunta 3">
+  <p class="chi2-check-caption">Cuando termine, compruebe los resultados de R. Se aceptan coma o punto decimal y redondeos razonables, sin separadores de miles. El código, la tabla y las interpretaciones escritas se comparan con modelos, pero no se califican automáticamente.</p>
   <button type="button" id="chi2-check-button" class="chi2-action">Comprobar mis respuestas</button>
   <div id="chi2-overall" class="chi2-summary-feedback" role="status" aria-live="polite" hidden></div>
 </section>
-<noscript><p>La comprobación interactiva requiere JavaScript. Puedes resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
+<noscript><p>La comprobación interactiva requiere JavaScript. Puede resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
 ```
+
+::: {.callout-note collapse="true"}
+## Para saber más: magnitud de la asociación (Phi y V de Cramer)
+
+*Este contenido es parte del curso, pero no se evalúa en la prueba.*
+
+Chi-cuadrado permite decidir si existe evidencia de asociación entre dos variables (inferencia), pero no indica qué tan fuerte es esa asociación: el valor de χ² crece con el tamaño de la muestra, por lo que con un N grande incluso diferencias pequeñas resultan significativas. Para evaluar la **magnitud** de la asociación se utilizan coeficientes que estandarizan χ² según N y que varían entre 0 (independencia) y 1 (asociación perfecta).
+
+**Phi (φ)** se utiliza en tablas 2 × 2:
+
+$$
+\phi = \sqrt{\frac{\chi^2}{N}}
+$$
+
+**V de Cramer** generaliza Phi a tablas de cualquier tamaño (por ejemplo, 2 × 3 o 3 × 4):
+
+$$
+V = \sqrt{\frac{\chi^2}{N\,(k-1)}}
+$$
+
+donde $k$ es el menor valor entre el número de filas y de columnas. En una tabla 2 × 2, $k - 1 = 1$, por lo que V de Cramer coincide numéricamente con Phi.
+
+Como criterio orientativo, valores cercanos a 0,1 indican una asociación pequeña, cercanos a 0,3 una asociación moderada y desde 0,5 una asociación grande.
+
+**Aplicación en el ejemplo.** Con la tabla de sexo e interés político (2 × 2), ambos coeficientes se calculan a partir del χ² sin corrección de Yates:
+
+```r
+prueba <- chisq.test(tabla, correct = FALSE)
+chi2 <- as.numeric(prueba$statistic)
+N <- sum(tabla)
+
+# Phi
+sqrt(chi2 / N)
+
+# V de Cramer
+k <- min(dim(tabla))
+sqrt(chi2 / (N * (k - 1)))
+```
+
+En este caso, φ = V = √(`r fmt_num(chi2_esperado)` / `r N_esperado`) = **`r fmt_num(phi_esperado, 3)`**, lo que indica una asociación de magnitud `r magnitud_phi`. Es decir, aunque la prueba Chi-cuadrado permite evaluar si la asociación es estadísticamente significativa, el coeficiente informa sobre su intensidad.
+:::
 
 ```{=html}
 <script>
@@ -339,7 +398,7 @@ $$
     if (!button || !overall) return;
     if (!dataNode) {
       overall.hidden = false;
-      overall.textContent = 'No se cargaron los resultados de referencia. Informa al equipo docente.';
+      overall.textContent = 'No se cargaron los resultados de referencia. Informe al equipo docente.';
       return;
     }
     let ref;
@@ -350,11 +409,10 @@ $$
       return;
     }
     const numericFields = [
-      { key: 'chi2', id: 'chi2-value', msg: 'chi2-value-msg', hint: 'Revisa que uses los mismos casos válidos y chisq.test(..., correct = FALSE).' },
-      { key: 'gl', id: 'chi2-df', msg: 'chi2-df-msg', hint: 'Recuerda: (filas - 1) × (columnas - 1).' },
-      { key: 'p', id: 'chi2-p', msg: 'chi2-p-msg', hint: 'Consulta el valor p en el resultado de chisq.test().' },
-      { key: 'phi', id: 'chi2-phi', msg: 'chi2-phi-msg', hint: 'Calcula Phi a partir del Chi-cuadrado de Pearson sin Yates y del número de casos válidos.' },
-      { key: 'fe', id: 'chi2-fe', msg: 'chi2-fe-msg', hint: 'Revisa el total de mujeres, el total con al menos algo de interés y N.' }
+      { key: 'chi2', id: 'chi2-value', msg: 'chi2-value-msg', hint: 'Revise que use los mismos casos válidos y chisq.test(..., correct = FALSE).' },
+      { key: 'gl', id: 'chi2-df', msg: 'chi2-df-msg', hint: 'Recuerde: (filas - 1) × (columnas - 1).' },
+      { key: 'p', id: 'chi2-p', msg: 'chi2-p-msg', hint: 'Consulte el valor p en el resultado de chisq.test().' },
+      { key: 'fe', id: 'chi2-fe', msg: 'chi2-fe-msg', hint: 'Revise el total de mujeres, el total con al menos algo de interés y N.' }
     ];
     const feedbackByInput = new Map(numericFields.map(f => [f.id, f.msg]));
     function parseLocaleNumber(value) {
@@ -386,7 +444,6 @@ $$
     }
     function approx(key, submitted, expected) {
       if (key === 'gl') return Number.isInteger(submitted) && submitted === expected;
-      if (key === 'phi') return Math.abs(submitted - expected) <= 0.005001;
       if (key === 'fe') return Math.abs(submitted - expected) <= 0.051;
       return Math.abs(submitted - expected) <= Math.max(0.0051, Math.abs(expected) * 0.002);
     }
@@ -411,7 +468,7 @@ $$
         node.textContent = '';
         node.className = 'chi2-field-feedback';
       }
-      if (!overall.hidden) overall.textContent = 'Modificaste una respuesta. Presiona «Comprobar mis respuestas» para actualizar la revisión.';
+      if (!overall.hidden) overall.textContent = 'Modificó una respuesta. Presione «Comprobar mis respuestas» para actualizar la revisión.';
     }
     numericFields.forEach(f => document.getElementById(f.id).addEventListener('input', markStale));
     document.querySelectorAll('input[name="decision"]').forEach(el => el.addEventListener('change', markStale));
@@ -422,25 +479,25 @@ $$
         const input = document.getElementById(field.id);
         const parsed = field.key === 'p' ? pCorrect(input.value, ref.p) : parseLocaleNumber(input.value);
         if (parsed.kind === 'empty') {
-          report(field.msg, 'Ingresa un valor para comprobarlo.', false, input);
+          report(field.msg, 'Ingrese un valor para comprobarlo.', false, input);
         } else if (parsed.kind === 'invalid') {
-          report(field.msg, 'Escribe un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
+          report(field.msg, 'Escriba un resultado válido (coma o punto decimal, sin separadores de miles).', false, input);
         } else if (field.key === 'p' ? parsed.ok : approx(field.key, parsed.value, ref[field.key])) {
           report(field.msg, '✓ Coincide con el resultado esperado.', true, input);
           correct++;
         } else {
-          report(field.msg, 'Revisa este resultado. ' + field.hint, false, input);
+          report(field.msg, 'Revise este resultado. ' + field.hint, false, input);
         }
       });
       const selected = document.querySelector('input[name="decision"]:checked');
       const expectedDecision = ref.p < ref.alpha ? 'rechazar' : 'no-rechazar';
       if (!selected) {
-        report('chi2-decision-msg', 'Selecciona una decisión para verificarla.', false);
+        report('chi2-decision-msg', 'Seleccione una decisión para verificarla.', false);
       } else if (selected.value === expectedDecision) {
-        report('chi2-decision-msg', '✓ Decisión correcta: comparaste p con α = .05.', true);
+        report('chi2-decision-msg', '✓ Decisión correcta: comparó p con α = .05.', true);
         correct++;
       } else {
-        report('chi2-decision-msg', 'Compara el valor p con α = .05 y revisa tu decisión.', false);
+        report('chi2-decision-msg', 'Compare el valor p con α = .05 y revise su decisión.', false);
       }
       document.querySelectorAll('.chi2-answer-layout').forEach(layout => {
         layout.classList.add('chi2-expanded');
@@ -449,8 +506,8 @@ $$
       });
       overall.hidden = false;
       overall.textContent = correct === total
-        ? '¡Muy bien! Los seis resultados verificables coinciden con los valores esperados. Compara ahora tu código, tabla e interpretaciones con los modelos junto a cada pregunta.'
-        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revisa las pistas y vuelve a comprobar. Ya puedes comparar tus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
+        ? '¡Muy bien! Los cinco resultados verificables coinciden con los valores esperados. Compare ahora su código, tabla e interpretaciones con los modelos junto a cada pregunta.'
+        : 'Coinciden ' + correct + ' de ' + total + ' resultados verificables. Revise las pistas y vuelva a comprobar. Ya puede comparar sus respuestas con los modelos junto a cada pregunta. No se asigna una nota.';
     });
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
