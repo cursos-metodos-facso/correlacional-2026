@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>chi-cuadrado – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,10 +75,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-628f9a5d31c3ee493bf57b721354c864.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -107,7 +110,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -120,7 +123,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -269,7 +272,6 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
   background: var(--bs-body-bg, #fff); color: var(--bs-body-color, #17212e);
 }
 .chi2-answer-panel .chi2-code-input { min-height: 18rem; font: .85rem/1.55 ui-monospace, SFMono-Regular, Consolas, monospace; }
-.chi2-answer-panel .chi2-table-input { min-height: 10rem; font: .86rem/1.5 ui-monospace, SFMono-Regular, Consolas, monospace; }
 .chi2-answer-panel .chi2-interpret-input { min-height: 9rem; }
 .chi2-answer-panel .chi2-explain-input { min-height: 7rem; }
 .chi2-answer-panel textarea:focus-visible, .chi2-field input:focus-visible,
@@ -300,14 +302,14 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
 <p>Para este ejercicio utilizaremos una <strong>versión preparada de la encuesta CEP 2026</strong>, con dos variables: <code>sexo</code> (Hombre / Mujer) e <code>interes_politico</code> (Bajo / Al menos algo). Ambas están codificadas y listas para analizar.</p>
 <p><strong>Cargue la base en R:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar los datos</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar los datos</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>cep_sim <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">url</span>(</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://correlacional.metodos-facso.org/content/bases/cep_2026_chi_sim.rds"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>))</span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Revisar las variables</span></span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cep_sim)</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cep_sim)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cep_sim)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Compruebe que la base se cargó correctamente. Trabajaremos con el objeto <code>cep_sim</code>.</p>
 <p><strong>¿Cómo trabajar?</strong> Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione <strong>«Comprobar mis respuestas»</strong> para revisar sus resultados y compararlos con los modelos.</p>
@@ -348,13 +350,11 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
 <div class="chi2-answer-panel">
 <label for="chi2-code">Mi código R</label>
 <textarea id="chi2-code" class="chi2-code-input" spellcheck="false" placeholder="# Pegue el código que ejecutó en R"></textarea>
-<label for="chi2-table">Mi tabla de contingencia</label>
-<textarea id="chi2-table" class="chi2-table-input" spellcheck="false" placeholder="Pegue las frecuencias y los porcentajes dentro de cada sexo obtenidos en R"></textarea>
 </div>
 <div id="chi2-model-code" class="chi2-model-panel" hidden="hidden">
 <section id="código-r-modelo" class="level4">
 <h4 class="anchored" data-anchor-id="código-r-modelo">Código R modelo</h4>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla con frecuencias observadas</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tabla con frecuencias observadas</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>tabla <span class="ot">&lt;-</span> <span class="fu">table</span>(cep_sim<span class="sc">$</span>interes_politico, cep_sim<span class="sc">$</span>sexo)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>tabla</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -370,7 +370,7 @@ pre.sourceCode, div.sourceCode { max-width: 100%; overflow-x: auto; }
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>esperada</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Comprobación mediante los totales marginales</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>(tabla[<span class="st">"Al menos algo"</span>, ]) <span class="sc">*</span> <span class="fu">sum</span>(tabla[, <span class="st">"Mujer"</span>])) <span class="sc">/</span> <span class="fu">sum</span>(tabla)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>(<span class="fu">sum</span>(tabla[<span class="st">"Al menos algo"</span>, ]) <span class="sc">*</span> <span class="fu">sum</span>(tabla[, <span class="st">"Mujer"</span>])) <span class="sc">/</span> <span class="fu">sum</span>(tabla)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p><strong>Tabla de frecuencias observadas</strong></p>
 <table class="caption-top table">
 <thead>
@@ -494,12 +494,12 @@ E_{ij}=\frac{(\text{total de la fila})(\text{total de la columna})}{N}
 </section>
 <noscript><p>La comprobación interactiva requiere JavaScript. Puede resolver las preguntas en R, pero las comparaciones no se desplegarán automáticamente si JavaScript está desactivado.</p></noscript>
 <div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Para saber más: magnitud de la asociación (Phi y V de Cramer)
+<span class="screen-reader-only">Note</span>Para saber más: magnitud de la asociación (Phi y V de Cramer)
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -518,7 +518,7 @@ V = \sqrt{\frac{\chi^2}{N\,(k-1)}}
 <p>donde <span class="math inline">\(k\)</span> es el menor valor entre el número de filas y de columnas. En una tabla 2 × 2, <span class="math inline">\(k - 1 = 1\)</span>, por lo que V de Cramer coincide numéricamente con Phi.</p>
 <p>Como criterio orientativo, valores cercanos a 0,1 indican una asociación pequeña, cercanos a 0,3 una asociación moderada y desde 0,5 una asociación grande.</p>
 <p><strong>Aplicación en el ejemplo.</strong> Con la tabla de sexo e interés político (2 × 2), ambos coeficientes se calculan a partir del χ² sin corrección de Yates:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prueba <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prueba <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(tabla, <span class="at">correct =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>chi2 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(prueba<span class="sc">$</span>statistic)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">sum</span>(tabla)</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
@@ -527,7 +527,7 @@ V = \sqrt{\frac{\chi^2}{N\,(k-1)}}
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># V de Cramer</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="fu">min</span>(<span class="fu">dim</span>(tabla))</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(chi2 <span class="sc">/</span> (N <span class="sc">*</span> (k <span class="sc">-</span> <span class="dv">1</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(chi2 <span class="sc">/</span> (N <span class="sc">*</span> (k <span class="sc">-</span> <span class="dv">1</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En este caso, φ = V = √(12,95 / 1460) = <strong>0,094</strong>, lo que indica una asociación de magnitud pequeña. Es decir, aunque la prueba Chi-cuadrado permite evaluar si la asociación es estadísticamente significativa, el coeficiente informa sobre su intensidad.</p>
 </div>
 </div>
@@ -665,377 +665,750 @@ V = \sqrt{\frac{\chi^2}{N\,(k-1)}}
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
+
+
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
   <i class="bi bi-chevron-left"></i>
+
 </button>
 
+
+
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
+
+
   /* ========================================================
+
      ELEMENTOS
+
      ======================================================== */
+
+
 
   const pathname = window.location.pathname;
 
+
+
   const esPracticos =
+
     /\/assignment(?:\/|$)/.test(pathname);
 
+
+
   /*
+
    * Detecta específicamente:
+
    *
+
    * /assignment
+
    * /assignment/
+
    * /assignment/index.html
+
    */
+
   const esPaginaPrincipalPracticos =
+
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
+
+
+
   const boton =
+
     document.getElementById("practicos-sidebar-toggle");
 
+
+
   const zona =
+
     document.getElementById("practicos-sidebar-hover-zone");
 
+
+
   const sidebar =
+
     document.getElementById("quarto-sidebar");
+
+
+
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
+
+
     if (boton) {
+
       boton.style.display = "none";
+
     }
+
+
 
     if (zona) {
+
       zona.style.display = "none";
+
     }
 
+
+
     return;
+
   }
+
+
+
 
 
   const body = document.body;
 
+
+
   let abiertoTemporalmente = false;
+
   let temporizadorCierre = null;
 
 
+
+
+
   /* ========================================================
+
      POSICIÓN DE LA PESTAÑITA
+
      ======================================================== */
+
+
 
   function actualizarPosicion() {
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Menú cerrado:
+
        * la pestañita queda en el borde izquierdo.
+
        */
+
       boton.style.left = "0px";
+
+
 
     } else {
 
+
+
       /*
+
        * Usamos offsetWidth para que la posición
+
        * no dependa de la animación del sidebar.
+
        */
+
       const anchoSidebar = sidebar.offsetWidth;
 
+
+
       boton.style.left =
+
         (anchoSidebar - 2) + "px";
+
     }
+
   }
+
+
+
 
 
   /* ========================================================
+
      ACTUALIZAR ICONO
+
      ======================================================== */
+
+
 
   function mostrarIconoAbierto() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-left"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Ocultar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Ocultar menú";
+
   }
+
+
+
 
 
   function mostrarIconoCerrado() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-right"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Mostrar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Mostrar menú";
+
   }
 
 
+
+
+
   /* ========================================================
+
      MOSTRAR SIDEBAR
+
      ======================================================== */
+
+
 
   function mostrarSidebar(temporal = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.remove(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoAbierto();
 
+
+
     abiertoTemporalmente = temporal;
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      OCULTAR SIDEBAR
+
      ======================================================== */
+
+
 
   function ocultarSidebar(guardar = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.add(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoCerrado();
 
+
+
     abiertoTemporalmente = false;
+
+
 
     if (guardar) {
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "cerrado"
+
       );
+
     }
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      CLICK EN LA PESTAÑITA
+
      ======================================================== */
+
+
 
   boton.addEventListener("click", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
 
+
+
     /*
+
      * Si está cerrado:
+
      * un clic lo abre permanentemente.
+
      */
+
     if (cerrado) {
+
+
 
       mostrarSidebar(false);
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "abierto"
+
       );
+
+
 
     } else {
 
+
+
       /*
+
        * Si está visible, un solo clic lo cierra,
+
        * independientemente de si se abrió por
+
        * hover o normalmente.
+
        */
+
       ocultarSidebar(true);
+
     }
+
+
 
   });
 
 
+
+
+
   /* ========================================================
+
      HOVER EN EL BORDE IZQUIERDO
+
      ======================================================== */
+
+
 
   zona.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Mostrar temporalmente sin modificar
+
        * la preferencia guardada.
+
        */
+
       mostrarSidebar(true);
+
     }
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      SALIR DEL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseleave", function () {
 
+
+
     /*
+
      * Solo cerrar automáticamente si se abrió
+
      * mediante hover.
+
      */
+
     if (!abiertoTemporalmente) {
+
       return;
+
     }
 
+
+
     temporizadorCierre =
+
       setTimeout(function () {
+
+
 
         ocultarSidebar(false);
 
+
+
       }, 500);
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL BOTÓN
+
      ======================================================== */
+
+
 
   boton.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      ESTADO INICIAL
+
      ======================================================== */
 
+
+
   /*
+
    * PORTADA DE PRÁCTICOS
+
    *
+
    * Siempre comienza desplegada cada vez
+
    * que se entra o recarga la página.
+
    *
+
    * Aun así, después de cargarla el usuario
+
    * puede plegarla normalmente.
+
    */
+
   if (esPaginaPrincipalPracticos) {
+
+
 
     mostrarSidebar(false);
 
+
+
   } else {
 
+
+
     /*
+
      * En los prácticos individuales sí respetamos
+
      * el estado que dejó anteriormente el usuario.
+
      */
+
     const estadoGuardado =
+
       localStorage.getItem(
+
         "practicos-sidebar"
+
       );
+
+
 
     if (estadoGuardado === "cerrado") {
 
+
+
       ocultarSidebar(false);
+
+
 
     } else {
 
+
+
       mostrarSidebar(false);
+
     }
+
   }
 
 
+
+
+
   /* ========================================================
+
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
      ======================================================== */
+
+
 
   window.addEventListener(
+
     "resize",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /* ========================================================
+
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
      ======================================================== */
 
+
+
   sidebar.addEventListener(
+
     "transitionend",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /*
+
    * También esperamos el cambio de la
+
    * grilla de Quarto.
+
    */
+
   const contenido =
+
     document.getElementById("quarto-content");
+
+
 
   if (contenido) {
 
+
+
     contenido.addEventListener(
+
       "transitionend",
+
       actualizarPosicion
+
     );
+
   }
 
 
+
+
+
   /* ========================================================
+
      AJUSTE FINAL DESPUÉS DE CARGAR
+
      ======================================================== */
+
+
 
   requestAnimationFrame(function () {
 
+
+
     requestAnimationFrame(function () {
+
+
 
       actualizarPosicion();
 
+
+
     });
+
   });
 
+
+
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1088,13 +1461,14 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

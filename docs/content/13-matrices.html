@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>matrices – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,10 +75,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-628f9a5d31c3ee493bf57b721354c864.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -290,7 +293,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Resuélvalo en R antes de comprobar sus respuestas.</strong> El verificador le ayudará a identificar posibles errores; no otorga una nota.</p>
 <p><strong>Cargue la base en R:</strong></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_2024_prep.RData"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><strong>¿Cómo trabajar?</strong> Trabaje con tres variables: <code>escolaridad</code>, <code>horas_trabajo</code> y <code>sexo</code>. Resuelva cada apartado en R y escriba sus respuestas bajo la pregunta correspondiente. Al terminar, seleccione <strong>«Comprobar mis respuestas»</strong> para revisar sus resultados y compararlos con los modelos.</p>
 <script id="mat-reference-data" type="application/json">{"na_esc":7,"na_horas":1361,"na_sexo":0,"n_lw":1635,"r_eh":0.0799898879772383,"r_sh":-0.189810492432129,"r_se_lw":0.129076240258068,"r_se_pw":0.0287160344598596,"p_se_lw":1.63079559556834e-07,"p_se_pw":0.11625849086636,"r2_eh":0.00639838217861113,"alpha":0.05}</script>
@@ -320,18 +323,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="código-y-justificación-modelo" class="level4">
 <h4 class="anchored" data-anchor-id="código-y-justificación-modelo">Código y justificación modelo</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datos_mat <span class="ot">&lt;-</span> datos_casen[, <span class="fu">c</span>(<span class="st">"escolaridad"</span>, <span class="st">"horas_trabajo"</span>, <span class="st">"sexo"</span>)]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(datos_mat))       <span class="co"># perdidos por variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>datos_mat <span class="ot">&lt;-</span> datos_casen <span class="sc">|&gt;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(escolaridad, horas_trabajo, sexo)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(datos_mat))       <span class="co"># perdidos por variable</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  escolaridad horas_trabajo          sexo 
             7          1361             0 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(datos_mat))  <span class="co"># N con listwise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(datos_mat))  <span class="co"># N con listwise</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1635</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairwiseCount</span>(datos_mat) <span class="co"># N por par con pairwise</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairwiseCount</span>(datos_mat) <span class="co"># N por par con pairwise</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              escolaridad horas_trabajo sexo
 escolaridad          2993          1635 2993
@@ -358,8 +362,6 @@ sexo                 2993          1639 3000</code></pre>
 <div class="mat-answer-panel">
 <label for="mat-code">Mi código R</label>
 <textarea id="mat-code" class="mat-code-input" spellcheck="false" placeholder="# Pegue el código que usó para estimar la matriz"></textarea>
-<label for="mat-matrix">Mi matriz de correlaciones</label>
-<textarea id="mat-matrix" class="mat-code-input" spellcheck="false" placeholder="Pegue la matriz obtenida en R"></textarea>
 </div>
 <div id="mat-model-matrix" class="mat-model-panel" hidden="hidden">
 <section id="código-y-matriz-modelo" class="level4">
@@ -368,23 +370,23 @@ sexo                 2993          1639 3000</code></pre>
 <p>Se utiliza Pearson, ya que <code>escolaridad</code> y <code>horas_trabajo</code> son continuas y <code>sexo</code> es dicotómica (Pearson con una variable 0/1 equivale a la correlación punto biserial).</p>
 </blockquote>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Con listwise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Con pairwise</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Con listwise</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Con pairwise</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Matriz de correlaciones</caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">escolaridad</td>
@@ -414,19 +416,19 @@ sexo                 2993          1639 3000</code></pre>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(datos_mat,</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,        <span class="co"># Mostramos solo la mitad inferior</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Matriz de correlaciones"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Matriz de correlaciones</caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">escolaridad</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">horas_trabajo</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">sexo</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">escolaridad</td>
@@ -505,7 +507,7 @@ sexo                 2993          1639 3000</code></pre>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Listwise y pairwise pueden llevar a conclusiones distintas
+<span class="screen-reader-only">Important</span>Listwise y pairwise pueden llevar a conclusiones distintas
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -532,8 +534,8 @@ Listwise y pairwise pueden llevar a conclusiones distintas
 <section id="cálculo-e-interpretación-modelo" class="level4">
 <h4 class="anchored" data-anchor-id="cálculo-e-interpretación-modelo">Cálculo e interpretación modelo</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_mat<span class="sc">$</span>escolaridad, datos_mat<span class="sc">$</span>horas_trabajo, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>r<span class="sc">^</span><span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_mat<span class="sc">$</span>escolaridad, datos_mat<span class="sc">$</span>horas_trabajo, <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>r<span class="sc">^</span><span class="dv">2</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.006398382</code></pre>
 </div>
@@ -703,377 +705,750 @@ Listwise y pairwise pueden llevar a conclusiones distintas
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
+
+
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
   <i class="bi bi-chevron-left"></i>
+
 </button>
 
+
+
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
+
+
   /* ========================================================
+
      ELEMENTOS
+
      ======================================================== */
+
+
 
   const pathname = window.location.pathname;
 
+
+
   const esPracticos =
+
     /\/assignment(?:\/|$)/.test(pathname);
 
+
+
   /*
+
    * Detecta específicamente:
+
    *
+
    * /assignment
+
    * /assignment/
+
    * /assignment/index.html
+
    */
+
   const esPaginaPrincipalPracticos =
+
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
+
+
+
   const boton =
+
     document.getElementById("practicos-sidebar-toggle");
 
+
+
   const zona =
+
     document.getElementById("practicos-sidebar-hover-zone");
 
+
+
   const sidebar =
+
     document.getElementById("quarto-sidebar");
+
+
+
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
+
+
     if (boton) {
+
       boton.style.display = "none";
+
     }
+
+
 
     if (zona) {
+
       zona.style.display = "none";
+
     }
 
+
+
     return;
+
   }
+
+
+
 
 
   const body = document.body;
 
+
+
   let abiertoTemporalmente = false;
+
   let temporizadorCierre = null;
 
 
+
+
+
   /* ========================================================
+
      POSICIÓN DE LA PESTAÑITA
+
      ======================================================== */
+
+
 
   function actualizarPosicion() {
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Menú cerrado:
+
        * la pestañita queda en el borde izquierdo.
+
        */
+
       boton.style.left = "0px";
+
+
 
     } else {
 
+
+
       /*
+
        * Usamos offsetWidth para que la posición
+
        * no dependa de la animación del sidebar.
+
        */
+
       const anchoSidebar = sidebar.offsetWidth;
 
+
+
       boton.style.left =
+
         (anchoSidebar - 2) + "px";
+
     }
+
   }
+
+
+
 
 
   /* ========================================================
+
      ACTUALIZAR ICONO
+
      ======================================================== */
+
+
 
   function mostrarIconoAbierto() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-left"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Ocultar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Ocultar menú";
+
   }
+
+
+
 
 
   function mostrarIconoCerrado() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-right"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Mostrar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Mostrar menú";
+
   }
 
 
+
+
+
   /* ========================================================
+
      MOSTRAR SIDEBAR
+
      ======================================================== */
+
+
 
   function mostrarSidebar(temporal = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.remove(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoAbierto();
 
+
+
     abiertoTemporalmente = temporal;
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      OCULTAR SIDEBAR
+
      ======================================================== */
+
+
 
   function ocultarSidebar(guardar = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.add(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoCerrado();
 
+
+
     abiertoTemporalmente = false;
+
+
 
     if (guardar) {
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "cerrado"
+
       );
+
     }
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      CLICK EN LA PESTAÑITA
+
      ======================================================== */
+
+
 
   boton.addEventListener("click", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
 
+
+
     /*
+
      * Si está cerrado:
+
      * un clic lo abre permanentemente.
+
      */
+
     if (cerrado) {
+
+
 
       mostrarSidebar(false);
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "abierto"
+
       );
+
+
 
     } else {
 
+
+
       /*
+
        * Si está visible, un solo clic lo cierra,
+
        * independientemente de si se abrió por
+
        * hover o normalmente.
+
        */
+
       ocultarSidebar(true);
+
     }
+
+
 
   });
 
 
+
+
+
   /* ========================================================
+
      HOVER EN EL BORDE IZQUIERDO
+
      ======================================================== */
+
+
 
   zona.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Mostrar temporalmente sin modificar
+
        * la preferencia guardada.
+
        */
+
       mostrarSidebar(true);
+
     }
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      SALIR DEL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseleave", function () {
 
+
+
     /*
+
      * Solo cerrar automáticamente si se abrió
+
      * mediante hover.
+
      */
+
     if (!abiertoTemporalmente) {
+
       return;
+
     }
 
+
+
     temporizadorCierre =
+
       setTimeout(function () {
+
+
 
         ocultarSidebar(false);
 
+
+
       }, 500);
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL BOTÓN
+
      ======================================================== */
+
+
 
   boton.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      ESTADO INICIAL
+
      ======================================================== */
 
+
+
   /*
+
    * PORTADA DE PRÁCTICOS
+
    *
+
    * Siempre comienza desplegada cada vez
+
    * que se entra o recarga la página.
+
    *
+
    * Aun así, después de cargarla el usuario
+
    * puede plegarla normalmente.
+
    */
+
   if (esPaginaPrincipalPracticos) {
+
+
 
     mostrarSidebar(false);
 
+
+
   } else {
 
+
+
     /*
+
      * En los prácticos individuales sí respetamos
+
      * el estado que dejó anteriormente el usuario.
+
      */
+
     const estadoGuardado =
+
       localStorage.getItem(
+
         "practicos-sidebar"
+
       );
+
+
 
     if (estadoGuardado === "cerrado") {
 
+
+
       ocultarSidebar(false);
+
+
 
     } else {
 
+
+
       mostrarSidebar(false);
+
     }
+
   }
 
 
+
+
+
   /* ========================================================
+
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
      ======================================================== */
+
+
 
   window.addEventListener(
+
     "resize",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /* ========================================================
+
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
      ======================================================== */
 
+
+
   sidebar.addEventListener(
+
     "transitionend",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /*
+
    * También esperamos el cambio de la
+
    * grilla de Quarto.
+
    */
+
   const contenido =
+
     document.getElementById("quarto-content");
+
+
 
   if (contenido) {
 
+
+
     contenido.addEventListener(
+
       "transitionend",
+
       actualizarPosicion
+
     );
+
   }
 
 
+
+
+
   /* ========================================================
+
      AJUSTE FINAL DESPUÉS DE CARGAR
+
      ======================================================== */
+
+
 
   requestAnimationFrame(function () {
 
+
+
     requestAnimationFrame(function () {
+
+
 
       actualizarPosicion();
 
+
+
     });
+
   });
 
+
+
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1126,13 +1501,14 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy

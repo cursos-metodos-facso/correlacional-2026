@@ -1,0 +1,2456 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Repaso Unidad 1: pruebas t de una y dos colas – Estadística Correlacional</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-cb48db2c413f68497f7e060defb58192.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Repaso Unidad 1: pruebas t de una y dos colas – Estadística Correlacional">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/content/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#inicio" id="toc-inicio" class="nav-link active" data-scroll-target="#inicio">Antes de comenzar · ¿Para qué hacemos inferencia?</a></li>
+  <li><a href="#bloque-bilateral" id="toc-bloque-bilateral" class="nav-link" data-scroll-target="#bloque-bilateral">Parte 1 · Prueba bilateral</a>
+  <ul class="collapse">
+  <li><a href="#ej1" id="toc-ej1" class="nav-link" data-scroll-target="#ej1">Ejercicio 1 · Aprendamos una prueba bilateral</a>
+  <ul class="collapse">
+  <li><a href="#de-la-pregunta-a-las-hipótesis" id="toc-de-la-pregunta-a-las-hipótesis" class="nav-link" data-scroll-target="#de-la-pregunta-a-las-hipótesis">1. De la pregunta a las hipótesis</a></li>
+  <li><a href="#qué-tan-diferentes-son-los-promedios-observados" id="toc-qué-tan-diferentes-son-los-promedios-observados" class="nav-link" data-scroll-target="#qué-tan-diferentes-son-los-promedios-observados">2. ¿Qué tan diferentes son los promedios observados?</a></li>
+  <li><a href="#cómo-sabemos-si-t-es-suficientemente-extremo" id="toc-cómo-sabemos-si-t-es-suficientemente-extremo" class="nav-link" data-scroll-target="#cómo-sabemos-si-t-es-suficientemente-extremo">3. ¿Cómo sabemos si t es suficientemente extremo?</a></li>
+  <li><a href="#qué-diferencia-poblacional-es-compatible-con-los-datos" id="toc-qué-diferencia-poblacional-es-compatible-con-los-datos" class="nav-link" data-scroll-target="#qué-diferencia-poblacional-es-compatible-con-los-datos">4. ¿Qué diferencia poblacional es compatible con los datos?</a></li>
+  <li><a href="#qué-concluimos-sobre-la-pertenencia-universitaria" id="toc-qué-concluimos-sobre-la-pertenencia-universitaria" class="nav-link" data-scroll-target="#qué-concluimos-sobre-la-pertenencia-universitaria">5. ¿Qué concluimos sobre la pertenencia universitaria?</a></li>
+  </ul></li>
+  <li><a href="#ej2" id="toc-ej2" class="nav-link" data-scroll-target="#ej2">Ejercicio 2 · Practiquemos una prueba bilateral</a></li>
+  </ul></li>
+  <li><a href="#transicion" id="toc-transicion" class="nav-link" data-scroll-target="#transicion">Transición · De buscar diferencias a preguntar por una dirección</a></li>
+  <li><a href="#bloque-unilateral" id="toc-bloque-unilateral" class="nav-link" data-scroll-target="#bloque-unilateral">Parte 2 · Prueba unilateral</a>
+  <ul class="collapse">
+  <li><a href="#ej3" id="toc-ej3" class="nav-link" data-scroll-target="#ej3">Ejercicio 3 · Aprendamos una prueba unilateral</a>
+  <ul class="collapse">
+  <li><a href="#la-pregunta-nos-indica-una-dirección" id="toc-la-pregunta-nos-indica-una-dirección" class="nav-link" data-scroll-target="#la-pregunta-nos-indica-una-dirección">1. La pregunta nos indica una dirección</a></li>
+  <li><a href="#el-cálculo-de-t-es-el-mismo" id="toc-el-cálculo-de-t-es-el-mismo" class="nav-link" data-scroll-target="#el-cálculo-de-t-es-el-mismo">2. El cálculo de t es el mismo</a></li>
+  <li><a href="#con-una-cola-solo-miramos-un-extremo" id="toc-con-una-cola-solo-miramos-un-extremo" class="nav-link" data-scroll-target="#con-una-cola-solo-miramos-un-extremo">3. Con una cola, solo miramos un extremo</a></li>
+  <li><a href="#concluir-con-los-resultados" id="toc-concluir-con-los-resultados" class="nav-link" data-scroll-target="#concluir-con-los-resultados">4. Concluir con los resultados</a></li>
+  <li><a href="#antes-de-practicar-y-si-la-pregunta-dijera-menor" id="toc-antes-de-practicar-y-si-la-pregunta-dijera-menor" class="nav-link" data-scroll-target="#antes-de-practicar-y-si-la-pregunta-dijera-menor">Antes de practicar · ¿Y si la pregunta dijera «menor»?</a></li>
+  </ul></li>
+  <li><a href="#ej4" id="toc-ej4" class="nav-link" data-scroll-target="#ej4">Ejercicio 4 · Practiquemos una prueba unilateral</a></li>
+  </ul></li>
+  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre · ¿Cuándo usamos cada contraste?</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Repaso Unidad 1: pruebas t de una y dos colas</h1></header>
+
+<header id="title-block-header">
+
+
+<div class="date-block bg-content text-white p-2">
+  <p class="date">Sesión del miércoles, 4 de noviembre de 2026</p>
+</div>
+</header>
+
+
+<style>
+/* Sistema visual local: solo distingue funciones pedagógicas. */
+.rv-question {
+  margin: .9rem 0 .65rem;
+  padding: .7rem .95rem;
+  border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .065));
+  border-radius: 0 .35rem .35rem 0;
+}
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .65rem 0 .35rem;
+}
+.rv-group {
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .045));
+}
+.rv-group p { margin: 0; }
+.rv-group p + p { margin-top: .25rem; }
+.rv-group p:first-child { font-size: .9rem; }
+.rv-order {
+  margin: .15rem 0 1.15rem;
+  padding: .2rem .15rem;
+  color: var(--bs-body-color, inherit);
+  font-size: .92rem;
+}
+.rv-order > :first-child, .rv-order > :last-child { margin: 0; }
+.rv-activity, .rv-practice {
+  margin: .75rem 0 .55rem;
+  border-left: 2px solid var(--bs-secondary-color, #83939a);
+  padding: .25rem 0 .25rem .85rem;
+}
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-practice p + p { padding-top: .25rem; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+/* Igualamos el tamaño del texto dentro de los bloques al texto general de la página. */
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li,
+#quarto-content main.content .callout .callout-body ul,
+#quarto-content main.content .callout .callout-body ol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rv-answer.callout p:has(> strong:first-child) { margin-top: .65rem; }
+.rv-answer.callout p:first-child { margin-top: .1rem; }
+.rv-answer.callout p:last-child { margin-bottom: .25rem; }
+.rv-answer.callout .math.display { margin: .6rem 0 .8rem; }
+.cell-output-display img, .quarto-figure img { max-width: 100%; height: auto; }
+/* Párrafos justificados, sin afectar títulos, tablas ni el índice lateral.
+   Se limita el ajuste al cuerpo de esta página. */
+@media (min-width: 768px) {
+  #quarto-content main.content p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  /* Etiquetas cortas y comparaciones de grupos: más legibles alineadas a la izquierda. */
+  #quarto-content main.content .rv-group p,
+  #quarto-content main.content .rv-order p,
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+/* En móvil evitamos huecos entre palabras en columnas estrechas. */
+@media (max-width: 767.98px) {
+  #quarto-content main.content p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-groups { grid-template-columns: 1fr; gap: .4rem; }
+  .rv-question { padding: .65rem .7rem; }
+  .rv-group { padding: .55rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+  .math.display, .math-display { overflow-x: auto; max-width: 100%; }
+}
+</style>
+<section id="inicio" class="level1">
+<h1>Antes de comenzar · ¿Para qué hacemos inferencia?</h1>
+<p>Imagina que encuestamos a dos grupos de estudiantes y encontramos que sus promedios son diferentes. <strong>Sabemos que hay una diferencia entre las personas encuestadas. Pero ¿podemos concluir que sus poblaciones también tienen promedios diferentes?</strong></p>
+<p>No necesariamente. Si repitiéramos el estudio con otras personas, podríamos encontrar una diferencia algo distinta. La <strong>inferencia estadística</strong> nos ayuda a evaluar esa incertidumbre antes de sacar conclusiones sobre una población.</p>
+<p>Llamamos <strong>muestra</strong> a las personas que observamos y <strong>población</strong> al conjunto sobre el que queremos concluir. El <strong>promedio muestral</strong> se calcula con los datos recogidos y se representa por <span class="math inline">\(\bar{x}\)</span>; el <strong>promedio poblacional</strong>, generalmente desconocido, es un <em>parámetro</em> y se representa por <span class="math inline">\(\mu\)</span>.</p>
+</section>
+<section id="bloque-bilateral" class="level1">
+<h1>Parte 1 · Prueba bilateral</h1>
+<p>Una prueba <strong>bilateral</strong> responde si los promedios poblacionales son distintos, sin anticipar cuál es mayor.</p>
+<section id="ej1" class="level2">
+<h2 class="anchored" data-anchor-id="ej1">Ejercicio 1 · Aprendamos una prueba bilateral</h2>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿Difieren los promedios de sentido de pertenencia universitaria entre estudiantes que participan y no participan en grupos de estudio?</p>
+</div>
+<p>Se encuestó a <strong>100 estudiantes</strong>, 50 por grupo. La pertenencia se mide en una escala de <strong>0 a 100</strong>.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Grupo 1</strong></p>
+<p>Participan en grupos de estudio.</p>
+</div>
+<div class="rv-group">
+<p><strong>Grupo 2</strong></p>
+<p>No participan en grupos de estudio.</p>
+</div>
+</div>
+<div class="rv-order">
+<p><strong>Orden de la resta:</strong> grupo 1 − grupo 2. Usaremos siempre este orden para interpretar el signo.</p>
+</div>
+<section id="de-la-pregunta-a-las-hipótesis" class="level3">
+<h3 class="anchored" data-anchor-id="de-la-pregunta-a-las-hipótesis">1. De la pregunta a las hipótesis</h3>
+<p>Queremos investigar si <strong>los promedios poblacionales</strong> de pertenencia universitaria son diferentes. Para evaluar esa pregunta partimos de una afirmación de referencia: <strong>que no existe diferencia entre esos promedios</strong>. Esa es la <strong>hipótesis nula (<span class="math inline">\(H_0\)</span>)</strong>. La <strong>hipótesis alternativa (<span class="math inline">\(H_A\)</span>)</strong> plantea que sí existe una diferencia.</p>
+<p>Si los promedios poblacionales fueran iguales, <strong>su resta daría cero</strong>. Esto no significa que las personas tengan puntaje cero: significa que <em>los dos promedios serían iguales</em>.</p>
+<p>El símbolo <span class="math inline">\(\mu\)</span> representa un promedio poblacional: <span class="math inline">\(\mu_1\)</span> es el del grupo 1 y <span class="math inline">\(\mu_2\)</span>, el del grupo 2. La pregunta busca <strong>cualquier diferencia</strong>, no una dirección específica.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> escribe <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> utilizando <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span>.</p>
+<p><strong>Comprueba 1 · Hipótesis:</strong> ¿qué significa el cero de la diferencia planteada por <span class="math inline">\(H_0\)</span>? ¿Significa que nadie tiene pertenencia universitaria?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Hipótesis">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Hipótesis
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Identificamos qué busca la pregunta.</strong> No pregunta cuál promedio es mayor; pregunta si son <em>diferentes</em> en las poblaciones.</p>
+<p><strong>2. Partimos de una referencia.</strong> La hipótesis nula (<span class="math inline">\(H_0\)</span>) plantea promedios poblacionales iguales. Al restarlos, esa igualdad equivale a una diferencia de <strong>cero</strong>.</p>
+<p><strong>3. Expresamos la alternativa.</strong> La hipótesis alternativa (<span class="math inline">\(H_A\)</span>) contempla una diferencia en cualquiera de las dos direcciones:</p>
+<p><span class="math display">\[
+H_0:\mu_1-\mu_2=0 \qquad H_A:\mu_1-\mu_2\neq0
+\]</span></p>
+<p><strong>Qué significa el cero.</strong> No representa un puntaje de pertenencia individual. Representa que <strong>los dos promedios poblacionales serían iguales</strong>.</p>
+<p><strong>Error frecuente:</strong> no escribimos hipótesis sobre <span class="math inline">\(\bar{x}_1\)</span> y <span class="math inline">\(\bar{x}_2\)</span>: esas son medias <em>muestrales</em>, mientras que las hipótesis tratan sobre <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Antes de observar las medias</strong>, acordamos utilizar el <strong>5%</strong> como nivel de significación (<span class="math inline">\(\alpha=0{,}05\)</span>). Es una regla de decisión que explicaremos cuando lleguemos al contraste; después la compararemos brevemente con el 1%.</p>
+</section>
+<section id="qué-tan-diferentes-son-los-promedios-observados" class="level3">
+<h3 class="anchored" data-anchor-id="qué-tan-diferentes-son-los-promedios-observados">2. ¿Qué tan diferentes son los promedios observados?</h3>
+<p>Ahora sí podemos mirar la muestra. Estas son las cantidades que utilizaremos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Información</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Promedio del grupo 1 (<span class="math inline">\(\bar{x}_1\)</span>)</td>
+<td style="text-align: right;">68</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Promedio del grupo 2 (<span class="math inline">\(\bar{x}_2\)</span>)</td>
+<td style="text-align: right;">56</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Error estándar de la diferencia (SE)</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tamaños y grados de libertad</td>
+<td style="text-align: right;"><span class="math inline">\(n_1=n_2=50\)</span>, <span class="math inline">\(gl=98\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Compararemos dos grupos independientes mediante una <strong>prueba t</strong>, suponiendo varianzas poblacionales iguales. El SE ya está calculado. Los <strong>98 grados de libertad</strong> (<span class="math inline">\(gl\)</span>) se usan más adelante para seleccionar los límites críticos; no es necesario calcularlos aquí.</p>
+<p><strong>Primero, una resta que ya conocemos.</strong> Para saber cuántos puntos separan los promedios observados, hacemos <strong>promedio del grupo 1 − promedio del grupo 2</strong>. En símbolos: <span class="math inline">\(\bar{x}_1-\bar{x}_2\)</span>. La barra sobre la letra indica que hablamos de un promedio de la <em>muestra</em>.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> calcula esa resta. ¿Qué promedio muestral es mayor y por cuántos puntos?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Diferencia de medias">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Diferencia de medias
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. ¿Qué buscamos?</strong> Cuántos puntos separan los promedios observados de los dos grupos.</p>
+<p><strong>2. ¿Qué datos utilizamos?</strong> Grupo 1: <strong>68</strong> puntos; grupo 2: <strong>56</strong> puntos. La pregunta fijó el orden <strong>grupo 1 − grupo 2</strong>.</p>
+<p><strong>3. Calculamos la resta.</strong></p>
+<p><span class="math display">\[
+\bar{x}_1-\bar{x}_2=68-56=12
+\]</span></p>
+<p><strong>4. Interpretamos.</strong> En <em>esta muestra</em>, quienes participan en grupos de estudio presentan, en promedio, <strong>12 puntos más</strong> de pertenencia. La diferencia estimada es <span class="math inline">\(\hat\Delta=12\)</span>.</p>
+<p><strong>Lo que todavía no sabemos:</strong> ese valor no demuestra por sí solo una diferencia poblacional ni que participar en grupos de estudio sea la causa. Por eso, el siguiente paso es considerar su error estándar.</p>
+</div>
+</div>
+</div>
+<p><strong>¿Por qué necesitamos el error estándar?</strong> La diferencia que calculaste proviene de una muestra. Si estudiáramos a otras personas, podríamos obtener otra diferencia. El <strong>error estándar de la diferencia (SE)</strong> mide la variabilidad esperable de esa estimación entre muestras, bajo los supuestos de la prueba.</p>
+<p>Aquí el <strong>SE ya está calculado: 5 puntos</strong>. Un SE más pequeño indica una estimación más precisa, si lo demás se mantiene igual. <strong>No es la desviación estándar (SD)</strong> que describe la dispersión de los puntajes individuales.</p>
+<div class="rv-activity">
+<p><strong>Comprueba 2 · Incertidumbre:</strong> dos estudios encuentran la misma diferencia observada, pero uno tiene <span class="math inline">\(SE=4\)</span> y el otro <span class="math inline">\(SE=6\)</span>. ¿Cuál estima la diferencia con mayor precisión y por qué?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Precisión y SE">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Precisión y SE
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Comparamos la incertidumbre:</strong> el estudio con <span class="math inline">\(SE=4\)</span> presenta menor variabilidad muestral estimada de la diferencia que el estudio con <span class="math inline">\(SE=6\)</span>.</p>
+<p><strong>2. Interpretamos:</strong> manteniendo lo demás constante, la estimación del estudio con <strong>SE = 4</strong> es <strong>más precisa</strong>. En ambos casos la diferencia muestral observada es la misma; lo que cambia es su incertidumbre.</p>
+<p><strong>Error frecuente:</strong> un SE más grande <strong>no</strong> significa que las personas tengan necesariamente puntajes individuales más dispersos; el SE describe la incertidumbre de la estimación.</p>
+</div>
+</div>
+</div>
+<p><strong>¿Para qué calculamos t?</strong> Ya sabemos cuánto difieren los promedios observados. Ahora queremos averiguar <strong>qué tan lejos está esa diferencia del cero planteado por <span class="math inline">\(H_0\)</span></strong>, teniendo en cuenta la incertidumbre.</p>
+<p>Por eso dividimos: <strong>t = (diferencia observada − diferencia planteada por <span class="math inline">\(H_0\)</span>) ÷ error estándar de la diferencia</strong>. Como en este caso <span class="math inline">\(H_0\)</span> plantea una diferencia de cero, podemos escribir:</p>
+<p><span class="math display">\[
+t=\frac{\bar{x}_1-\bar{x}_2}{SE}
+\]</span></p>
+<p><strong>Arriba:</strong> la diferencia observada entre promedios muestrales. <strong>Abajo:</strong> el error estándar <em>de esa diferencia</em>. El resultado expresa una distancia respecto de cero, medida en <strong>errores estándar</strong>, no en puntos de la escala ni en número de estudiantes.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> utiliza la resta que calculaste y el SE de la tabla para obtener <span class="math inline">\(t\)</span>. Después piensa: ¿por qué dividimos por el SE en vez de quedarnos solo con la resta?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Estadístico t">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Estadístico t
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. ¿Qué queremos saber?</strong> Cuántos errores estándar separan nuestra diferencia observada del cero que propone <span class="math inline">\(H_0\)</span>.</p>
+<p><strong>2. Recuperamos los datos.</strong> La diferencia de medias muestrales fue <strong>12 puntos</strong>; el SE de esa diferencia es <strong>5 puntos</strong> y <span class="math inline">\(H_0\)</span> plantea <strong>0 puntos</strong>.</p>
+<p><strong>3. Dividimos la diferencia respecto de cero por el SE.</strong></p>
+<p><span class="math display">\[
+t=\frac{12-0}{5}=\frac{12}{5}=2{,}4
+\]</span></p>
+<p><strong>4. Interpretamos.</strong> El estadístico indica que la diferencia observada está <strong>2,4 errores estándar por encima de cero</strong>. El resultado no se expresa en puntos de pertenencia ni en cantidad de estudiantes. La figura divide los 12 puntos de diferencia en tramos equivalentes a unidades de SE.</p>
+<div role="img" aria-label="La diferencia de 12 puntos se divide en dos tramos de 5 puntos, equivalentes a dos errores estándar, y un tramo de 2 puntos, equivalente a 0,4 errores estándar. En total, t vale 2,4.">
+<svg width="480" height="135" viewbox="0 0 480 135" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%;margin:.25rem auto .5rem;" aria-hidden="true" focusable="false">
+<text x="18" y="20" font-size="14" fill="currentColor" font-weight="600">12 puntos expresados en unidades de SE = 5</text> <line x1="50" y1="69" x2="302" y2="69" stroke="currentColor" stroke-opacity=".2" stroke-width="6" stroke-linecap="round"></line> <line x1="50" y1="69" x2="155" y2="69" stroke="#486f7b" stroke-width="6" stroke-linecap="round"></line> <line x1="155" y1="69" x2="260" y2="69" stroke="#486f7b" stroke-width="6" stroke-linecap="round"></line> <line x1="260" y1="69" x2="302" y2="69" stroke="#486f7b" stroke-width="6" stroke-dasharray="4 3" stroke-linecap="round"></line> <g fill="currentColor" font-size="12" text-anchor="middle"> <text x="102" y="51">1 SE</text><text x="208" y="51">1 SE</text><text x="282" y="51">0,4 SE</text> <text x="50" y="91">0</text><text x="155" y="91">5</text><text x="260" y="91">10</text><text x="302" y="91">12</text> </g> <g stroke="currentColor" stroke-width="1" stroke-opacity=".55"><line x1="50" y1="61" x2="50" y2="78"></line><line x1="155" y1="61" x2="155" y2="78"></line><line x1="260" y1="61" x2="260" y2="78"></line><line x1="302" y1="61" x2="302" y2="78"></line></g> <text x="365" y="70" font-size="20" font-weight="600" fill="currentColor">t = 2,4</text> <text x="50" y="122" font-size="12" fill="currentColor" opacity=".75">La escala marca puntos de diferencia, no puntajes individuales.</text>
+</svg>
+</div>
+<p><strong>5. ¿Qué sigue?</strong> Aunque sepamos que <span class="math inline">\(t=2{,}4\)</span>, aún debemos compararlo con una <strong>frontera crítica</strong> para tomar una decisión estadística.</p>
+</div>
+</div>
+</div>
+<div class="rv-activity">
+<p><strong>Interpreta el t que obtuviste:</strong> <strong>a)</strong> ¿qué indica su signo sobre los promedios muestrales? <strong>b)</strong> ¿cuántos errores estándar separan la diferencia observada del cero de <span class="math inline">\(H_0\)</span>?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Signo y magnitud">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Signo y magnitud
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a) Signo positivo.</strong> Con la resta grupo 1 − grupo 2, el signo <span class="math inline">\(+\)</span> indica que, <em>en la muestra</em>, el promedio del grupo 1 es mayor.</p>
+<p><strong>b) Magnitud.</strong> El valor <span class="math inline">\(2{,}4\)</span> indica una distancia de <strong>2,4 errores estándar</strong> entre la diferencia observada y el cero de <span class="math inline">\(H_0\)</span>.</p>
+<p><strong>Recuerda:</strong> el signo nos dice <strong>hacia dónde</strong> apunta la diferencia; la magnitud, <strong>cuánta distancia hay</strong> respecto de cero en unidades de SE. Ninguno de estos elementos, por sí solo, constituye la decisión de rechazar <span class="math inline">\(H_0\)</span>.</p>
+</div>
+</div>
+</div>
+<p><strong>Una misma diferencia, distinta incertidumbre</strong></p>
+<p>La comparación anterior sobre precisión tiene una consecuencia para el contraste. <strong>Con la misma diferencia observada de 12 puntos</strong>, un <span class="math inline">\(SE=4\)</span> produciría <span class="math inline">\(t=3\)</span>, mientras que un <span class="math inline">\(SE=6\)</span> produciría <span class="math inline">\(t=2\)</span>. <strong>La diferencia no cambió: cambió la incertidumbre con la que la comparamos.</strong></p>
+<p>La figura muestra distribuciones muestrales <strong>ilustrativas bajo igualdad</strong>, no la dispersión de puntajes individuales. <strong>Mira cuál curva es más ancha:</strong> representa mayor incertidumbre de la estimación, no necesariamente mayor dispersión de respuestas individuales.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-se-bloque-bilateral" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-se-bloque-bilateral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14-repaso-inferencia_files/figure-html/fig-se-bloque-bilateral-1.png" class="img-fluid figure-img" width="748">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-se-bloque-bilateral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Curvas ilustrativas de distribuciones muestrales bajo H₀: la misma diferencia observada y distintos errores estándar. La prueba formal del ejemplo utiliza t.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Consultar · Fórmula general de t">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Consultar · Fórmula general de t
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Cuándo se usa esta versión.</strong> Si la hipótesis nula propusiera una diferencia <span class="math inline">\(\Delta_0\)</span> distinta de cero, habría que comparar la diferencia muestral con esa referencia:</p>
+<p><span class="math display">\[
+t=\frac{\hat\Delta-\Delta_0}{SE_{\hat\Delta}}
+\]</span></p>
+<p><span class="math inline">\(\hat\Delta\)</span> es la diferencia que observamos; <span class="math inline">\(\Delta_0\)</span>, la diferencia propuesta por la nula; <span class="math inline">\(SE_{\hat\Delta}\)</span>, el error estándar de esa estimación. <strong>En los cuatro ejercicios la referencia es cero</strong>, de modo que la expresión se simplifica. No necesitamos aplicar una fórmula nueva en esta sesión.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cómo-sabemos-si-t-es-suficientemente-extremo" class="level3">
+<h3 class="anchored" data-anchor-id="cómo-sabemos-si-t-es-suficientemente-extremo">3. ¿Cómo sabemos si t es suficientemente extremo?</h3>
+<p><strong>Imaginemos que <span class="math inline">\(H_0\)</span> es verdadera:</strong> en la población, los promedios son iguales. Incluso así, por variación muestral, podríamos observar una diferencia distinta de cero. <strong>Por eso no rechazamos <span class="math inline">\(H_0\)</span> ante cualquier diferencia:</strong> necesitamos saber si nuestro <span class="math inline">\(t\)</span> es suficientemente extremo en comparación con lo que esperaríamos bajo esa igualdad.</p>
+<p>Un <strong>valor crítico</strong> es un límite definido mediante la distribución t, los grados de libertad y el nivel de significación elegido <em>antes</em> de mirar los resultados. Nuestro criterio principal es <strong><span class="math inline">\(\alpha=0{,}05\)</span></strong>: si <span class="math inline">\(H_0\)</span> fuese verdadera, una regla así rechazaría erróneamente aproximadamente en el 5% de los muestreos, bajo los supuestos de la prueba (<em>error tipo I</em>).</p>
+<p>Como la pregunta es <strong>bilateral</strong> (busca diferencias positivas <em>o</em> negativas), hay <strong>dos regiones de rechazo</strong>. Con <span class="math inline">\(gl=98\)</span>, sus límites al 5% son <strong>−1,98 y +1,98</strong>. Rechazamos <span class="math inline">\(H_0\)</span> si <span class="math inline">\(t\)</span> queda <em>por debajo de −1,98</em> o <em>por encima de +1,98</em>; si queda entre esos límites, <strong>no la rechazamos</strong>.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> compara el <span class="math inline">\(t\)</span> que calculaste con los dos límites. ¿Rechazas <span class="math inline">\(H_0\)</span> al 5%? ¿Por qué no basta con que <span class="math inline">\(t\)</span> sea distinto de cero?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Decisión al 5%">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Decisión al 5%
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. ¿Qué tipo de prueba tenemos?</strong> Es <strong>bilateral</strong>, porque <span class="math inline">\(H_A\)</span> busca diferencias en cualquier dirección.</p>
+<p><strong>2. ¿Qué regla fijamos?</strong> Con <span class="math inline">\(\alpha=0{,}05\)</span> y <span class="math inline">\(gl=98\)</span>, los límites críticos son <strong>−1,98</strong> y <strong>+1,98</strong>. Rechazamos <span class="math inline">\(H_0\)</span> cuando <span class="math inline">\(t\)</span> cruza alguno de los extremos.</p>
+<p><strong>3. ¿Qué resultado observamos?</strong> Calculamos <span class="math inline">\(t=2{,}4\)</span>.</p>
+<p><strong>4. Comparamos la línea observada con el límite positivo.</strong></p>
+<p><span class="math display">\[
+2{,}4&gt;1{,}98
+\]</span></p>
+<p><strong>5. Tomamos la decisión.</strong> Como el resultado está en la región de rechazo, <strong>rechazamos <span class="math inline">\(H_0\)</span> al 5%</strong>.</p>
+<p><strong>6. Interpretamos.</strong> Bajo los supuestos del contraste, existe evidencia estadística de que los promedios <strong>poblacionales</strong> de pertenencia difieren. No demuestra que los grupos de estudio provoquen esa diferencia.</p>
+<p><strong>Error frecuente:</strong> no basta que <span class="math inline">\(t\)</span> sea distinto de cero; necesitamos compararlo con los límites establecidos para la prueba.</p>
+</div>
+</div>
+</div>
+<p><strong>¿Y si usamos el 1%?</strong> Los límites de esta misma prueba bilateral se alejan hasta <strong>−2,63 y +2,63</strong>. ¿El <span class="math inline">\(t\)</span> que obtuviste cruza alguno? Es el mismo cálculo; solo cambia la exigencia de la regla.</p>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Decisión al 1%">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Decisión al 1%
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. ¿Qué cambió?</strong> Seguimos usando la <em>misma prueba bilateral</em> y el mismo <span class="math inline">\(t=2{,}4\)</span>. Solo pasamos a un criterio más exigente, <span class="math inline">\(\alpha=0{,}01\)</span>.</p>
+<p><strong>2. Nuevos límites.</strong> La región de rechazo comienza por debajo de <strong>−2,63</strong> o por encima de <strong>+2,63</strong>.</p>
+<p><strong>3. Comparación.</strong> El resultado observado <strong>no llega</strong> al límite positivo:</p>
+<p><span class="math display">\[
+2{,}4&lt;2{,}63
+\]</span></p>
+<p>Tampoco está por debajo del límite negativo.</p>
+<p><strong>4. Decisión.</strong> <strong>No rechazamos <span class="math inline">\(H_0\)</span> al 1%</strong>. Eso no significa que los promedios poblacionales sean iguales; significa que la evidencia no alcanza este criterio más exigente.</p>
+</div>
+</div>
+</div>
+<p><strong>Cómo leer la figura:</strong> busca primero el <strong>cero</strong>, luego las dos fronteras críticas (−1,98 y +1,98) y finalmente la línea de <strong><span class="math inline">\(t\)</span> observado</strong>. Pregúntate si esta última cayó dentro de una región sombreada de rechazo.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-bilateral-bloques" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-bilateral-bloques-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14-repaso-inferencia_files/figure-html/fig-bilateral-bloques-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-bilateral-bloques-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Prueba bilateral (98 gl): dos regiones de rechazo que totalizan α = 0,05; t observado = 2,4.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="qué-diferencia-poblacional-es-compatible-con-los-datos" class="level3">
+<h3 class="anchored" data-anchor-id="qué-diferencia-poblacional-es-compatible-con-los-datos">4. ¿Qué diferencia poblacional es compatible con los datos?</h3>
+<p>La diferencia observada es nuestra <strong>estimación basada en la muestra</strong>. Como podría variar si estudiáramos a otras personas, podemos acompañarla de un <strong>intervalo de confianza</strong> en vez de informar solo un número.</p>
+<p>El <strong>margen de error</strong> es una distancia que extendemos hacia abajo y hacia arriba desde la estimación. Para construir el IC95%, calculamos primero <strong>margen = valor crítico × SE</strong>. Luego restamos el margen para obtener el <strong>límite inferior</strong> y lo sumamos para obtener el <strong>límite superior</strong>.</p>
+<p><span class="math display">\[
+IC=\text{estimación}\ \pm\ \text{margen de error}
+\]</span></p>
+<p><strong>¿Por qué importa el cero?</strong> Una diferencia poblacional de cero significa igualdad de promedios. Después de calcular el intervalo, revisaremos si ese valor está entre los límites.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> utiliza la diferencia que calculaste, <span class="math inline">\(SE=5\)</span> y el crítico <span class="math inline">\(1{,}98\)</span>. Obtén primero el margen y luego ambos límites. ¿El intervalo incluye cero?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Intervalo de confianza del 95%">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Intervalo de confianza del 95%
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Recuperamos la estimación.</strong> La resta de los promedios muestrales fue <strong>12 puntos</strong>. Este será el centro del intervalo.</p>
+<p><strong>2. Identificamos los datos para el margen.</strong> Para el IC95% con <span class="math inline">\(gl=98\)</span>, usamos el crítico redondeado <strong>1,98</strong> y <span class="math inline">\(SE=5\)</span>.</p>
+<p><strong>3. Calculamos el margen de error.</strong></p>
+<p><span class="math display">\[
+ME=1{,}98\times5=9{,}90
+\]</span></p>
+<p>Ese margen es una distancia que colocamos <strong>a ambos lados</strong> de la estimación de 12 puntos.</p>
+<p><strong>4. Obtenemos el límite inferior.</strong></p>
+<p><span class="math display">\[
+LI=12-9{,}90=2{,}10
+\]</span></p>
+<p><strong>5. Obtenemos el límite superior.</strong></p>
+<p><span class="math display">\[
+LS=12+9{,}90=21{,}90
+\]</span></p>
+<p><strong>6. Escribimos el intervalo.</strong></p>
+<p><span class="math display">\[
+IC_{95\%}=[2{,}10;\ 21{,}90]
+\]</span></p>
+<p><strong>7. Interpretamos.</strong> Los datos son compatibles, en el sentido del procedimiento de IC, con una diferencia poblacional de aproximadamente <strong>2,10 a 21,90 puntos</strong>. Como el intervalo <strong>no contiene cero</strong>, coincide con el rechazo bilateral de igualdad al 5% para esta prueba.</p>
+<p><strong>Error frecuente:</strong> estos límites se refieren a una <em>diferencia de promedios poblacionales</em>, no al rango de puntajes de las personas. El 95% describe la cobertura del <strong>procedimiento</strong> en muestreos repetidos, no una probabilidad posterior sobre un parámetro fijo.</p>
+</div>
+</div>
+</div>
+<p><strong>¿Qué significa el 95%?</strong> Si repitiéramos el muestreo muchas veces y construyéramos estos intervalos con el mismo método, aproximadamente el 95% cubriría la verdadera diferencia poblacional, bajo los supuestos. No es la probabilidad de que el parámetro fijo esté dentro de este intervalo una vez calculado.</p>
+<p><strong>¿Qué cambia si pedimos un 99% de confianza?</strong></p>
+<p>Después de construir el IC95%, podemos comparar cómo cambia el margen al utilizar un nivel de confianza mayor. <strong>Los límites se alejan más de la estimación</strong>, porque el valor crítico es mayor.</p>
+<p>Con el valor crítico redondeado al 1% (<span class="math inline">\(2{,}63\)</span>), el margen es <span class="math inline">\(2{,}63\times5=13{,}15\)</span>. Por eso:</p>
+<p><span class="math display">\[
+IC_{99\%}=[12-13{,}15;\ 12+13{,}15]=[-1{,}15;\ 25{,}15]
+\]</span></p>
+<p>El IC99% es más amplio e incluye cero; resulta coherente con no rechazar <span class="math inline">\(H_0\)</span> al 1%. En general, <span class="math inline">\(IC=\hat\Delta\pm(t_{\mathrm{crítico}}\times SE_{\hat\Delta})\)</span>.</p>
+<p><strong>Cómo leer la figura:</strong> la línea vertical señala la <em>diferencia cero</em>; los puntos marcan la diferencia estimada y los segmentos muestran la amplitud de cada intervalo. <strong>Compara sus anchos y observa cuáles contienen cero.</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ic-bloque-bilateral" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ic-bloque-bilateral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14-repaso-inferencia_files/figure-html/fig-ic-bloque-bilateral-1.png" class="img-fluid figure-img" width="748">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ic-bloque-bilateral-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Comparación de IC95% e IC99% con críticos redondeados: solo el IC99% incluye cero.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="qué-concluimos-sobre-la-pertenencia-universitaria" class="level3">
+<h3 class="anchored" data-anchor-id="qué-concluimos-sobre-la-pertenencia-universitaria">5. ¿Qué concluimos sobre la pertenencia universitaria?</h3>
+<p>Ya tenemos una <strong>diferencia observada</strong> y una <strong>decisión estadística</strong>. La conclusión debe mencionar ambas, sin confundir asociación y causalidad.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> escribe dos frases: una sobre la diferencia muestral y otra sobre la evidencia al 5% respecto de los promedios poblacionales.</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver ejemplo · Conclusión">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver ejemplo · Conclusión
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Primero, describimos la muestra.</strong> Quienes participan en grupos de estudio tuvieron un promedio muestral de pertenencia <strong>12 puntos mayor</strong> que quienes no participan.</p>
+<p><strong>Después, expresamos la evidencia inferencial.</strong> Al 5%, como <span class="math inline">\(t=2{,}4\)</span> supera el crítico bilateral de <span class="math inline">\(1{,}98\)</span>, <strong>rechazamos la igualdad de promedios poblacionales</strong>, bajo los supuestos del contraste.</p>
+<p><strong>Finalmente, reconocemos el límite.</strong> La comparación observacional no permite concluir que participar en grupos de estudio <em>cause</em> un mayor sentido de pertenencia. La generalización también depende de cómo se obtuvo la muestra.</p>
+<p><strong>Una posible redacción final:</strong> «En la muestra, los estudiantes con grupo de estudio presentan un promedio de pertenencia 12 puntos superior. La prueba bilateral ofrece evidencia al 5% de una diferencia poblacional, bajo sus supuestos, sin demostrar una relación causal».</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Consultar · Valor p y tamaño de la muestra">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Consultar · Valor p y tamaño de la muestra
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Valor p.</strong> Si <span class="math inline">\(H_0\)</span> fuera verdadera, el valor p es la probabilidad de observar un estadístico al menos tan extremo como el obtenido, según la prueba. En el caso bilateral guiado, <span class="math inline">\(p\approx0{,}018\)</span>: es menor que 0,05 y mayor que 0,01, en concordancia con las dos decisiones.</p>
+<p><strong>Error frecuente:</strong> <span class="math inline">\(p\)</span> <strong>no</strong> es la probabilidad de que <span class="math inline">\(H_0\)</span> sea verdadera.</p>
+<p><strong>Tamaño de muestra.</strong> Para estimar una sola media, <span class="math inline">\(SE_{\bar{x}}=s/\sqrt{n}\)</span>. Si la dispersión <span class="math inline">\(s\)</span> se mantiene y cuadruplicamos <span class="math inline">\(n\)</span>, su error estándar se reduce a la mitad. En una diferencia de medias, el SE incorpora la incertidumbre de <strong>ambos</strong> promedios y depende del diseño y los supuestos.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ej2" class="level2">
+<h2 class="anchored" data-anchor-id="ej2">Ejercicio 2 · Practiquemos una prueba bilateral</h2>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿Existen diferencias en la concentración autopercibida al estudiar entre estudiantes con notificaciones del celular activadas y quienes las silencian?</p>
+</div>
+<p>Se encuestó a <strong>100 estudiantes</strong>, 50 por grupo. La concentración se mide de <strong>0 a 100</strong>; valores altos indican mayor concentración declarada. Suponemos grupos independientes y varianzas iguales.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Grupo 1</strong></p>
+<p>Tienen las notificaciones del celular activadas.</p>
+</div>
+<div class="rv-group">
+<p><strong>Grupo 2</strong></p>
+<p>Mantienen las notificaciones silenciadas.</p>
+</div>
+</div>
+<div class="rv-order">
+<p><strong>Orden de la resta:</strong> grupo 1 − grupo 2.</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Datos disponibles</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Promedio muestral del grupo 1 (<span class="math inline">\(\bar{x}_1\)</span>)</td>
+<td style="text-align: right;">54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Promedio muestral del grupo 2 (<span class="math inline">\(\bar{x}_2\)</span>)</td>
+<td style="text-align: right;">64</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SE de la diferencia</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tamaños y grados de libertad</td>
+<td style="text-align: right;"><span class="math inline">\(n_1=n_2=50\)</span>; <span class="math inline">\(gl=98\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Críticos bilaterales (5% y 1%)</td>
+<td style="text-align: right;"><span class="math inline">\(\pm1{,}98\)</span> y <span class="math inline">\(\pm2{,}63\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="rv-practice">
+<p><strong>Etapa 1 · Comprender y formular.</strong> Identifica la variable y los dos grupos. Escribe <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span> con medias <strong>poblacionales</strong> y explica si buscamos cualquier diferencia o una dirección.</p>
+<p><strong>Etapa 2 · Calcular.</strong> Resta los promedios en el orden indicado; después divide la diferencia por el SE para obtener <span class="math inline">\(t\)</span>. Interpreta su signo en la muestra.</p>
+<p><strong>Etapa 3 · Decidir e interpretar.</strong> Compara <span class="math inline">\(t\)</span> con los límites críticos, primero al 5% y luego al 1%. Construye el IC95% (margen, límite inferior y superior) y determina si contiene cero. Termina con una conclusión poblacional y una limitación causal.</p>
+</div>
+<p><strong>Fórmulas disponibles:</strong> <span class="math inline">\(t=(\hat\Delta-0)/SE_{\hat\Delta}\)</span> e <span class="math inline">\(IC=\hat\Delta\pm(t_{\mathrm{crítico}}\times SE_{\hat\Delta})\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista opcional · Si te cuesta formular las hipótesis">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista opcional · Si te cuesta formular las hipótesis
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Las hipótesis hablan de los <strong>promedios de las poblaciones</strong>, no solo de las personas encuestadas. Relee la pregunta: ¿busca que los grupos sean <em>diferentes</em>, sin especificar cuál es mayor, o plantea una dirección concreta? Traduce esa idea a la resta entre los promedios poblacionales.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista opcional · Si te cuesta decidir">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista opcional · Si te cuesta decidir
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El <strong>t observado</strong> se obtiene de los datos; el <strong>valor crítico</strong> es la frontera de la regla elegida. Primero identifica si tu prueba tiene uno o dos extremos y después compara los valores para cada nivel. Para el intervalo, calcula el margen y recién entonces resta y suma a la estimación.</p>
+</div>
+</div>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta completa · Práctica bilateral">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta completa · Práctica bilateral
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Leemos la pregunta e identificamos los grupos.</strong> Comparamos la <strong>concentración autopercibida</strong> de estudiantes con notificaciones <em>activadas</em> (grupo 1) y <em>silenciadas</em> (grupo 2). El orden es siempre <strong>grupo 1 − grupo 2</strong>. Como preguntamos si existen diferencias en cualquier dirección, la prueba es <strong>bilateral</strong>.</p>
+<p><strong>2. Formulamos las hipótesis poblacionales.</strong> Si los promedios poblacionales fueran iguales, su resta sería cero; la alternativa busca una diferencia distinta de cero:</p>
+<p><span class="math display">\[
+H_0:\mu_1-\mu_2=0\qquad H_A:\mu_1-\mu_2\neq0
+\]</span></p>
+<p><strong>3. Calculamos la diferencia muestral.</strong> Usamos las medias de la tabla: 54 para el grupo 1 y 64 para el grupo 2.</p>
+<p><span class="math display">\[
+\hat\Delta=54-64=-10
+\]</span></p>
+<p>El signo negativo indica que el grupo con notificaciones activadas tuvo, en la muestra, un promedio <strong>10 puntos menor</strong>. No cambiamos el orden de la resta para obtener un valor positivo.</p>
+<p><strong>4. Calculamos <span class="math inline">\(t\)</span>.</strong> El SE de la diferencia es <strong>4</strong>. Lo utilizamos para expresar la diferencia respecto de cero en unidades de error estándar:</p>
+<p><span class="math display">\[
+t=\frac{-10-0}{4}=-2{,}5
+\]</span></p>
+<p>Por lo tanto, la diferencia observada está <strong>2,5 errores estándar por debajo de cero</strong>.</p>
+<p><strong>5. Decidimos al 5%.</strong> Los críticos bilaterales son <strong>−1,98 y +1,98</strong>. Como el <span class="math inline">\(t\)</span> observado cruza el límite negativo:</p>
+<p><span class="math display">\[
+-2{,}5&lt;-1{,}98
+\]</span></p>
+<p><strong>Rechazamos <span class="math inline">\(H_0\)</span> al 5%</strong>.</p>
+<p><strong>6. Decidimos al 1%.</strong> Los críticos son <strong>−2,63 y +2,63</strong>. Como <span class="math inline">\(-2{,}5\)</span> no llega a la frontera negativa de <span class="math inline">\(-2{,}63\)</span>, <strong>no rechazamos <span class="math inline">\(H_0\)</span> al 1%</strong>. La falta de rechazo no equivale a demostrar igualdad.</p>
+<p><strong>7. Construimos el IC95%.</strong> Centro: diferencia muestral <strong>−10</strong>. Margen: crítico <strong>1,98</strong> multiplicado por SE <strong>4</strong>.</p>
+<p><span class="math display">\[
+ME=1{,}98\times4=7{,}92
+\]</span></p>
+<p>Restamos y sumamos el margen:</p>
+<p><span class="math display">\[
+LI=-10-7{,}92=-17{,}92
+\]</span></p>
+<p><span class="math display">\[
+LS=-10+7{,}92=-2{,}08
+\]</span></p>
+<p><span class="math display">\[
+IC_{95\%}=[-17{,}92;\ -2{,}08]
+\]</span></p>
+<p><strong>8. Interpretamos el intervalo.</strong> Ambos extremos son negativos; por tanto, <strong>cero queda fuera</strong> del IC95%. Esto coincide con rechazar la igualdad de promedios al 5% en un contraste bilateral correspondiente.</p>
+<p><strong>9. Redactamos la conclusión.</strong> En la muestra, el grupo con notificaciones activadas obtuvo una concentración autopercibida <strong>10 puntos menor</strong>. Bajo los supuestos de la prueba, existe evidencia al 5% de una diferencia entre los promedios poblacionales. <strong>No podemos afirmar que las notificaciones sean la causa</strong>: la comparación no controla por sí sola otras diferencias entre estudiantes.</p>
+<p><strong>Para revisar tu procedimiento:</strong> si obtuviste <span class="math inline">\(+10\)</span> o <span class="math inline">\(+2{,}5\)</span>, verifica que hayas respetado <strong>grupo 1 − grupo 2</strong>. Si rechazaste al 1%, revisa que el crítico correcto de ese nivel es <strong>−2,63</strong>, no −1,98.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="transicion" class="level1">
+<h1>Transición · De buscar diferencias a preguntar por una dirección</h1>
+<p>En una prueba bilateral preguntábamos si los promedios poblacionales eran <strong>diferentes</strong>, sin anticipar cuál era mayor. Ahora podemos hacer una pregunta más específica <strong>antes de observar los datos</strong>: ¿es <em>mayor</em> el promedio del primer grupo? Entonces buscamos evidencia en una sola dirección.</p>
+<p>Con el orden <strong>grupo 1 − grupo 2</strong>, «mayor» se traduce en diferencia <strong>positiva</strong> (derecha) y «menor», en diferencia <strong>negativa</strong> (izquierda). Cambian <span class="math inline">\(H_A\)</span> y la región de rechazo; <strong>la operación para calcular t sigue siendo la misma</strong>. Elegir una cola después de mirar las medias sería incorrecto.</p>
+</section>
+<section id="bloque-unilateral" class="level1">
+<h1>Parte 2 · Prueba unilateral</h1>
+<section id="ej3" class="level2">
+<h2 class="anchored" data-anchor-id="ej3">Ejercicio 3 · Aprendamos una prueba unilateral</h2>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿El promedio de confianza para enfrentar evaluaciones es mayor entre estudiantes con tutorías académicas que entre estudiantes sin tutorías?</p>
+</div>
+<p>Se estudian <strong>100 estudiantes</strong>, 50 por grupo. La confianza académica se mide de <strong>0 a 100</strong>; un puntaje alto indica mayor confianza declarada.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Grupo 1</strong></p>
+<p>Participan en tutorías académicas.</p>
+</div>
+<div class="rv-group">
+<p><strong>Grupo 2</strong></p>
+<p>No participan en tutorías académicas.</p>
+</div>
+</div>
+<div class="rv-order">
+<p><strong>Orden de la resta:</strong> grupo 1 − grupo 2.</p>
+</div>
+<section id="la-pregunta-nos-indica-una-dirección" class="level3">
+<h3 class="anchored" data-anchor-id="la-pregunta-nos-indica-una-dirección">1. La pregunta nos indica una dirección</h3>
+<p>La pregunta busca saber si el promedio <strong>poblacional</strong> del grupo 1 es <strong>mayor</strong>. Si restamos grupo 1 − grupo 2, ese planteamiento corresponde a una diferencia positiva: buscamos evidencia <strong>a la derecha</strong>.</p>
+<p><strong>¿Y qué pasa con <span class="math inline">\(H_0\)</span>?</strong> En una bilateral la nula era igualdad. Ahora, como la alternativa propone «mayor», la nula incluye <strong>igualdad o un promedio menor</strong>. No se limita a una igualdad estricta.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> escribe <span class="math inline">\(H_A\)</span> y <span class="math inline">\(H_0\)</span> usando <span class="math inline">\(\mu_1\)</span> y <span class="math inline">\(\mu_2\)</span>. ¿Por qué la región de rechazo se encuentra a la derecha?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Hipótesis con dirección">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Hipótesis con dirección
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Leemos la dirección de la pregunta.</strong> Queremos saber si el promedio poblacional de confianza del <strong>grupo 1</strong> es <em>mayor</em> que el del grupo 2.</p>
+<p><strong>2. Traducimos «mayor».</strong> Con la resta grupo 1 − grupo 2, la alternativa busca una diferencia <em>positiva</em>:</p>
+<p><span class="math display">\[
+H_A:\mu_1-\mu_2&gt;0
+\]</span></p>
+<p><strong>3. Formulamos la nula.</strong> Incluye los casos donde el primer promedio es igual o menor:</p>
+<p><span class="math display">\[
+H_0:\mu_1-\mu_2\leq0
+\]</span></p>
+<p><strong>4. Interpretamos la dirección.</strong> Buscaremos evidencia en la <strong>cola derecha</strong>. La dirección deriva de la pregunta formulada antes de ver los datos, no del signo que obtengamos después.</p>
+<p><strong>Error frecuente:</strong> la hipótesis nula de una prueba unilateral no tiene que restringirse a la igualdad; incluye la dirección contraria a la alternativa.</p>
+</div>
+</div>
+</div>
+<p>Como antes, fijamos <span class="math inline">\(\alpha=0{,}05\)</span> <strong>antes de observar las medias</strong>. También compararemos con el 1%.</p>
+</section>
+<section id="el-cálculo-de-t-es-el-mismo" class="level3">
+<h3 class="anchored" data-anchor-id="el-cálculo-de-t-es-el-mismo">2. El cálculo de t es el mismo</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Datos disponibles</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Promedio muestral del grupo 1 (<span class="math inline">\(\bar{x}_1\)</span>)</td>
+<td style="text-align: right;">67</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Promedio muestral del grupo 2 (<span class="math inline">\(\bar{x}_2\)</span>)</td>
+<td style="text-align: right;">60</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SE de la diferencia</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tamaños y grados de libertad</td>
+<td style="text-align: right;"><span class="math inline">\(n_1=n_2=50\)</span>; <span class="math inline">\(gl=98\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Suponemos dos muestras independientes y varianzas iguales.</p>
+<p>Ya sabemos hacer estas operaciones: <strong>primero restamos las medias y después dividimos la diferencia por el SE</strong>. El cálculo usa el límite de igualdad (<span class="math inline">\(\mu_1-\mu_2=0\)</span>) de la hipótesis nula.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> calcula la diferencia y luego t. ¿El signo del resultado va en la dirección propuesta por la pregunta?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Cálculo unilateral">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Cálculo unilateral
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Identificamos los datos.</strong> Media muestral del grupo con tutorías: <strong>67</strong>; media del grupo sin tutorías: <strong>60</strong>; error estándar de la diferencia: <strong>4</strong>.</p>
+<p><strong>2. Calculamos la diferencia en el orden acordado.</strong></p>
+<p><span class="math display">\[
+\hat\Delta=67-60=7
+\]</span></p>
+<p>En la muestra, el grupo con tutorías tiene un promedio de confianza <strong>7 puntos mayor</strong>.</p>
+<p><strong>3. Calculamos <span class="math inline">\(t\)</span>.</strong> Restamos el cero de referencia y dividimos por el SE:</p>
+<p><span class="math display">\[
+t=\frac{7-0}{4}=1{,}75
+\]</span></p>
+<p><strong>4. Interpretamos.</strong> La diferencia está <strong>1,75 errores estándar por encima de cero</strong>. Su signo positivo coincide con la dirección propuesta por <span class="math inline">\(H_A\)</span>, pero aún debemos comparar con el crítico para decidir si la evidencia es suficiente.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="con-una-cola-solo-miramos-un-extremo" class="level3">
+<h3 class="anchored" data-anchor-id="con-una-cola-solo-miramos-un-extremo">3. Con una cola, solo miramos un extremo</h3>
+<p>Para una prueba unilateral <strong>derecha</strong>, rechazamos <span class="math inline">\(H_0\)</span> si t supera el límite <strong>positivo</strong>. Al 5% y con 98 grados de libertad, el crítico es <strong>+1,66</strong>. <strong>No utilizamos el valor absoluto</strong>: un t muy negativo no respondería esta pregunta dirigida hacia la derecha.</p>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> compara tu t con +1,66. ¿Rechazas <span class="math inline">\(H_0\)</span> al 5%? Justifica tu respuesta.</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver solución · Decisión unilateral al 5%">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver solución · Decisión unilateral al 5%
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Tipo de prueba.</strong> Es <strong>unilateral derecha</strong>, porque <span class="math inline">\(H_A\)</span> plantea que el primer promedio poblacional es mayor.</p>
+<p><strong>2. Criterio elegido.</strong> Al 5%, con 98 grados de libertad, el valor crítico es <strong>+1,66</strong>. Solo rechazamos si <span class="math inline">\(t\)</span> queda <strong>a la derecha</strong> de ese límite.</p>
+<p><strong>3. Resultado observado.</strong> El cálculo anterior dio <span class="math inline">\(t=1{,}75\)</span>.</p>
+<p><strong>4. Comparamos.</strong></p>
+<p><span class="math display">\[
+1{,}75&gt;1{,}66
+\]</span></p>
+<p><strong>5. Decisión e interpretación.</strong> <strong>Rechazamos <span class="math inline">\(H_0\)</span> al 5%</strong>. Bajo los supuestos, tenemos evidencia estadística de que el promedio poblacional de confianza es mayor en el grupo con tutorías. La decisión no demuestra que las tutorías <em>causen</em> esa diferencia.</p>
+<p><strong>Error frecuente:</strong> en una unilateral no debemos utilizar <span class="math inline">\(|t|\)</span> e ignorar el sentido de la hipótesis alternativa.</p>
+</div>
+</div>
+</div>
+<p><strong>Ahora prueba con el 1%:</strong> el límite se desplaza a <strong>+2,37</strong>. ¿El mismo t lo supera?</p>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Decisión unilateral al 1%">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Decisión unilateral al 1%
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Mantenemos la pregunta.</strong> Sigue siendo una prueba <strong>unilateral derecha</strong>, con <span class="math inline">\(t=1{,}75\)</span>.</p>
+<p><strong>2. Elevamos la exigencia.</strong> Al 1%, el crítico pasa de <strong>+1,66</strong> a <strong>+2,37</strong>.</p>
+<p><strong>3. Comparamos.</strong></p>
+<p><span class="math display">\[
+1{,}75&lt;2{,}37
+\]</span></p>
+<p><strong>4. Concluimos.</strong> El estadístico no alcanza la región de rechazo: <strong>no rechazamos <span class="math inline">\(H_0\)</span> al 1%</strong>. No significa haber demostrado que los promedios sean iguales; la evidencia no alcanza ese nivel más exigente.</p>
+</div>
+</div>
+</div>
+<p><strong>Lee la figura en este orden:</strong> ubica el cero, reconoce el límite crítico <strong>+1,66</strong>, identifica la línea del <strong>t observado</strong> y observa si quedó a la derecha de esa frontera. No hace falta interpretar la altura de la curva (densidad) para tomar la decisión.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-unilateral-bloques" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-unilateral-bloques-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14-repaso-inferencia_files/figure-html/fig-unilateral-bloques-1.png" class="img-fluid figure-img" width="768">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-unilateral-bloques-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Prueba unilateral derecha (98 gl): una región de rechazo con α = 0,05; t observado = 1,75.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="concluir-con-los-resultados" class="level3">
+<h3 class="anchored" data-anchor-id="concluir-con-los-resultados">4. Concluir con los resultados</h3>
+<div class="rv-activity">
+<p><strong>Intenta:</strong> escribe una conclusión breve sobre la confianza académica al 5%. ¿Qué puedes afirmar sobre los promedios poblacionales? ¿Qué no puedes atribuir a las tutorías?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver ejemplo · Conclusión unilateral">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver ejemplo · Conclusión unilateral
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Primero, el resultado muestral.</strong> En la muestra, quienes participaron en tutorías presentaron <strong>7 puntos más</strong> de confianza en promedio.</p>
+<p><strong>Segundo, la decisión inferencial.</strong> Como <span class="math inline">\(t=1{,}75\)</span> supera el crítico derecho de <strong>+1,66</strong>, al 5% hay evidencia de un <strong>promedio poblacional mayor</strong> en el grupo con tutorías, bajo los supuestos de la prueba.</p>
+<p><strong>Tercero, el alcance.</strong> La comparación no demuestra que participar en tutorías <em>provoque</em> una mayor confianza; podrían existir otras diferencias entre quienes participan y quienes no.</p>
+<p><strong>Redacción posible:</strong> «El grupo con tutorías muestra un promedio muestral de confianza 7 puntos superior. La prueba unilateral derecha ofrece evidencia al 5% de una diferencia poblacional en la dirección planteada, sin establecer causalidad».</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Consultar · Límite de confianza unilateral">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Consultar · Límite de confianza unilateral
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Qué cambia.</strong> Un límite unilateral ofrece información en una sola dirección, acorde con una pregunta direccional, en lugar de proporcionar dos extremos finitos como un intervalo bilateral.</p>
+<p><strong>Datos.</strong> Diferencia estimada: <strong>7</strong>; SE: <strong>4</strong>; crítico unilateral del 5% (redondeado): <strong>1,66</strong>.</p>
+<p><strong>Cálculo del límite inferior.</strong></p>
+<p><span class="math display">\[
+LI=7-(1{,}66\times4)=7-6{,}64=0{,}36
+\]</span></p>
+<p><strong>Resultado.</strong> El intervalo unilateral inferior al 95% es <span class="math inline">\([0{,}36;+\infty)\)</span>. Bajo los supuestos, su límite inferior queda por encima de cero. No se debe confundir con un intervalo bilateral de confianza del 95%.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="antes-de-practicar-y-si-la-pregunta-dijera-menor" class="level3">
+<h3 class="anchored" data-anchor-id="antes-de-practicar-y-si-la-pregunta-dijera-menor">Antes de practicar · ¿Y si la pregunta dijera «menor»?</h3>
+<p>En el ejemplo de tutorías preguntamos si el primer promedio era <strong>mayor</strong>: con el orden grupo 1 − grupo 2, eso corresponde a una diferencia positiva y a buscar evidencia <strong>a la derecha</strong>.</p>
+<p>También podemos investigar lo contrario. Si preguntamos si el primer promedio es <strong>menor</strong>, entonces, con el mismo orden, la diferencia que buscamos es negativa y la región de rechazo se sitúa <strong>a la izquierda</strong>.</p>
+<p>El esquema siguiente compara <strong>preguntas hipotéticas</strong>, sin utilizar los resultados del próximo ejercicio:</p>
+<div role="img" aria-label="Si la pregunta investiga si el primer promedio es menor, buscamos evidencia en la cola izquierda, de diferencias negativas. Si investiga si el primer promedio es mayor, buscamos evidencia en la cola derecha, de diferencias positivas.">
+<svg width="480" height="160" viewbox="0 0 480 160" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%;margin:.4rem auto .6rem;" aria-hidden="true" focusable="false">
+<text x="18" y="20" font-size="15" fill="currentColor" font-weight="600">Primer promedio menor: izquierda</text> <line x1="33" y1="52" x2="447" y2="52" stroke="currentColor" stroke-opacity=".32" stroke-width="2"></line> <line x1="235" y1="52" x2="65" y2="52" stroke="#486f7b" stroke-width="5" stroke-linecap="round"></line> <path d="M52 52 L69 43 L69 61 Z" fill="#486f7b"></path> <circle cx="240" cy="52" r="4" fill="currentColor"></circle><text x="236" y="42" font-size="12" fill="currentColor">0</text> <text x="18" y="88" font-size="15" fill="currentColor" font-weight="600">Primer promedio mayor: derecha</text> <line x1="33" y1="117" x2="447" y2="117" stroke="currentColor" stroke-opacity=".32" stroke-width="2"></line> <line x1="246" y1="117" x2="414" y2="117" stroke="#486f7b" stroke-width="5" stroke-linecap="round"></line> <path d="M429 117 L412 108 L412 126 Z" fill="#486f7b"></path> <circle cx="240" cy="117" r="4" fill="currentColor"></circle><text x="236" y="106" font-size="12" fill="currentColor">0</text> <text x="18" y="151" font-size="12" fill="currentColor" opacity=".78">En ambos casos restamos promedio 1 menos promedio 2.</text>
+</svg>
+</div>
+<p><strong>La regla no es memorizar izquierda o derecha:</strong> primero leemos qué afirma la <em>pregunta</em> y luego deducimos el signo que tendría la diferencia grupo 1 − grupo 2.</p>
+<div class="rv-activity">
+<p><strong>Comprueba 3 · Direccionalidad:</strong> en un estudio diferente, antes de mirar datos, preguntamos si el promedio poblacional del grupo 1 es <strong>menor</strong> que el del grupo 2. ¿Qué signo tendría la diferencia que buscamos y hacia qué extremo miraríamos?</p>
+</div>
+<p>Responde con tus palabras y verifica la lógica con el esquema anterior antes de comenzar la práctica.</p>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Direccionalidad">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Direccionalidad
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Traducimos la pregunta.</strong> «El primer promedio es <em>menor</em>» significa que <span class="math inline">\(\mu_1-\mu_2&lt;0\)</span>.</p>
+<p><strong>2. Elegimos la dirección.</strong> Buscamos evidencia <strong>hacia la izquierda</strong>, donde se encuentran los valores negativos de <span class="math inline">\(t\)</span> más extremos.</p>
+<p><strong>3. Recordamos el criterio.</strong> Esa dirección se define por la <strong>pregunta previa</strong>, no por los resultados numéricos del estudio.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ej4" class="level2">
+<h2 class="anchored" data-anchor-id="ej4">Ejercicio 4 · Practiquemos una prueba unilateral</h2>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿El promedio de horas semanales de estudio individual es menor entre estudiantes que trabajan durante el semestre que entre quienes no trabajan?</p>
+</div>
+<p>Se encuestó a <strong>100 estudiantes</strong>, 50 por grupo, y se registraron sus <strong>horas semanales de estudio individual</strong>. Suponemos grupos independientes y varianzas iguales.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Grupo 1</strong></p>
+<p>Trabajan durante el semestre.</p>
+</div>
+<div class="rv-group">
+<p><strong>Grupo 2</strong></p>
+<p>No trabajan durante el semestre.</p>
+</div>
+</div>
+<div class="rv-order">
+<p><strong>Orden de la resta:</strong> grupo 1 − grupo 2.</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Datos disponibles</th>
+<th style="text-align: right;">Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Promedio muestral del grupo 1 (horas)</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Promedio muestral del grupo 2 (horas)</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SE de la diferencia (horas)</td>
+<td style="text-align: right;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tamaños y grados de libertad</td>
+<td style="text-align: right;"><span class="math inline">\(n_1=n_2=50\)</span>; <span class="math inline">\(gl=98\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Críticos de una cola (magnitud)</td>
+<td style="text-align: right;">1,66 (5%) y 2,37 (1%)</td>
+</tr>
+</tbody>
+</table>
+<div class="rv-practice">
+<p><strong>Etapa 1 · Comprender la pregunta.</strong> Identifica la variable, los grupos y el orden de la resta. Deduce la dirección que plantea la pregunta <em>antes de mirar las medias</em>.</p>
+<p><strong>Etapa 2 · Formular hipótesis.</strong> Escribe <span class="math inline">\(H_A\)</span> y <span class="math inline">\(H_0\)</span> con medias poblacionales. Explica cómo la pregunta determina el sentido del contraste.</p>
+<p><strong>Etapa 3 · Calcular.</strong> Resta los promedios muestrales y utiliza el SE para calcular <span class="math inline">\(t\)</span>. Interpreta el signo obtenido.</p>
+<p><strong>Etapa 4 · Decidir.</strong> Coloca el signo correcto a los críticos que se ofrecen en magnitud. Compara <span class="math inline">\(t\)</span> primero al 5% y después al 1%, justificando ambas decisiones.</p>
+<p><strong>Etapa 5 · Concluir.</strong> Redacta una conclusión sobre los promedios poblacionales y explica por qué no demuestra causalidad.</p>
+</div>
+<p><strong>Fórmula disponible:</strong> <span class="math inline">\(t=(\hat\Delta-0)/SE_{\hat\Delta}\)</span>.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="¿Necesitas recordar el procedimiento?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>¿Necesitas recordar el procedimiento?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Si te cuesta elegir la dirección:</strong> completa mentalmente «el primer promedio poblacional es ___ que el segundo». Con el orden grupo 1 − grupo 2, ¿esa afirmación significaría una diferencia positiva o negativa? Elige el extremo a partir de esa idea <strong>antes de utilizar las medias de la tabla</strong>.</p>
+<p><strong>Si te cuesta decidir:</strong> compara tu <strong>t observado</strong> con el crítico de <em>esa</em> dirección. Los críticos se ofrecen en magnitud; te corresponde escribir el signo adecuado. No necesitas cambiar la fórmula de t.</p>
+</div>
+</div>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta completa · Práctica unilateral">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta completa · Práctica unilateral
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Reconocemos la pregunta y el orden.</strong> Queremos investigar si quienes <strong>trabajan durante el semestre</strong> (grupo 1) tienen un promedio poblacional <em>menor</em> de horas de estudio que quienes <strong>no trabajan</strong> (grupo 2). Restaremos <strong>grupo 1 − grupo 2</strong>.</p>
+<p><strong>2. Deducimos la dirección antes de mirar las medias.</strong> Si el primer promedio fuese menor, la resta de los promedios poblacionales sería <strong>negativa</strong>. Necesitamos una prueba <strong>unilateral izquierda</strong>.</p>
+<p><strong>3. Formulamos las hipótesis.</strong> La alternativa plantea una diferencia negativa; la nula incluye igualdad y la dirección contraria:</p>
+<p><span class="math display">\[
+H_A:\mu_1-\mu_2&lt;0\qquad H_0:\mu_1-\mu_2\geq0
+\]</span></p>
+<p><strong>4. Calculamos la diferencia observada.</strong> Usamos las medias muestrales de la tabla: <strong>11 horas</strong> en el grupo 1 y <strong>15 horas</strong> en el grupo 2.</p>
+<p><span class="math display">\[
+\hat\Delta=11-15=-4\ \text{horas}
+\]</span></p>
+<p>Esto significa que, <em>en la muestra</em>, quienes trabajan estudiaron en promedio <strong>4 horas semanales menos</strong>.</p>
+<p><strong>5. Calculamos <span class="math inline">\(t\)</span>.</strong> El error estándar de la diferencia es <strong>2 horas</strong>. Usamos el cero correspondiente al límite de igualdad de la nula:</p>
+<p><span class="math display">\[
+t=\frac{-4-0}{2}=-2
+\]</span></p>
+<p>El signo negativo muestra que la diferencia observada está <strong>2 errores estándar por debajo de cero</strong>, en la dirección de la alternativa.</p>
+<p><strong>6. Elegimos el crítico del 5%.</strong> Como la prueba es <strong>izquierda</strong>, utilizamos <strong>−1,66</strong>, no +1,66. Comparamos el t observado con el límite:</p>
+<p><span class="math display">\[
+-2&lt;-1{,}66
+\]</span></p>
+<p><strong>Rechazamos <span class="math inline">\(H_0\)</span> al 5%</strong>, porque el resultado se ubica más a la izquierda que la frontera crítica.</p>
+<p><strong>7. Comparamos con el 1%.</strong> El crítico izquierdo ahora es <strong>−2,37</strong>. Nuestro resultado es <strong>mayor</strong> que ese límite:</p>
+<p><span class="math display">\[
+-2&gt;-2{,}37
+\]</span></p>
+<p>Por lo tanto, <strong>no rechazamos <span class="math inline">\(H_0\)</span> al 1%</strong>: el criterio es más exigente.</p>
+<p><strong>8. Redactamos la conclusión.</strong> La muestra presenta un promedio de estudio individual <strong>4 horas semanales menor</strong> entre quienes trabajan. Bajo los supuestos, la prueba unilateral izquierda ofrece evidencia al 5% de un <strong>promedio poblacional menor</strong> en ese grupo. No demuestra que trabajar sea la causa, porque la comparación observacional no elimina otras explicaciones.</p>
+<p><strong>Para revisar tus errores:</strong> si utilizaste el crítico <strong>+1,66</strong>, vuelve a la pregunta «¿es menor?» y a la dirección de la alternativa. Si convertiste <span class="math inline">\(t=-2\)</span> en <span class="math inline">\(+2\)</span> por usar valor absoluto, recuerda que en pruebas de una cola <strong>importa el signo</strong>. Si interpretaste el no rechazo al 1% como igualdad, recuerda que solo significa evidencia insuficiente con ese criterio.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cierre" class="level1">
+<h1>Cierre · ¿Cuándo usamos cada contraste?</h1>
+<p>Cambiamos el <strong>tipo de pregunta</strong>, no la forma de calcular t. Solo ahora, después de practicar cada procedimiento, comparamos sus criterios:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Pregunta formulada antes de ver los datos</th>
+<th style="text-align: left;">Hipótesis alternativa</th>
+<th style="text-align: left;">Rechazo al 5%, 98 gl</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">¿Son diferentes?</td>
+<td style="text-align: left;"><span class="math inline">\(\mu_1-\mu_2\neq0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(t&lt;-1{,}98\)</span> o <span class="math inline">\(t&gt;1{,}98\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">¿Es mayor el primero?</td>
+<td style="text-align: left;"><span class="math inline">\(\mu_1-\mu_2&gt;0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(t&gt;1{,}66\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">¿Es menor el primero?</td>
+<td style="text-align: left;"><span class="math inline">\(\mu_1-\mu_2&lt;0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(t&lt;-1{,}66\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Idea clave:</strong> <strong>no rechazar <span class="math inline">\(H_0\)</span> no prueba que las medias sean iguales</strong>. Solo indica que no reunimos evidencia suficiente con ese criterio y estos datos.</p>
+<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Consultar · Errores tipo I y II">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Consultar · Errores tipo I y II
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Error tipo I.</strong> Rechazar una <span class="math inline">\(H_0\)</span> que en realidad es verdadera. El nivel <span class="math inline">\(\alpha=0{,}05\)</span> establece la tasa máxima nominal de este error bajo las condiciones de la prueba.</p>
+<p><strong>Error tipo II.</strong> No rechazar <span class="math inline">\(H_0\)</span> cuando una alternativa es verdadera.</p>
+<p><strong>Cómo recordarlo:</strong> rechazar por error y dejar de detectar una diferencia real son dos fallos distintos. Ni <span class="math inline">\(\alpha\)</span> ni el valor p representan una probabilidad posterior de que <span class="math inline">\(H_0\)</span> sea verdadera.</p>
+</div>
+</div>
+</div>
+<div class="rv-activity">
+<p><strong>Pregunta de salida:</strong> si antes de observar los datos preguntas si el promedio poblacional del grupo 1 es menor, ¿qué tipo de prueba corresponde? ¿Por qué no puedes decidir la dirección después de mirar las medias?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Pregunta de salida">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver respuesta · Pregunta de salida
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>1. Identificamos la pregunta.</strong> El primer promedio poblacional se plantea como <strong>menor</strong> que el segundo.</p>
+<p><strong>2. Traducimos al orden de resta.</strong> Con grupo 1 − grupo 2, una diferencia menor que cero corresponde a la alternativa <span class="math inline">\(\mu_1-\mu_2&lt;0\)</span>: se trata de una <strong>prueba unilateral izquierda</strong>.</p>
+<p><strong>3. Explicamos por qué se decide antes.</strong> Elegir la dirección <em>después</em> de observar los promedios permitiría escoger el criterio que más favorece al resultado observado y alteraría las propiedades de la prueba. La dirección debe derivarse de la pregunta de investigación previa a los datos.</p>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
+
+
+
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
+  <i class="bi bi-chevron-left"></i>
+
+</button>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+
+  /* ========================================================
+
+     ELEMENTOS
+
+     ======================================================== */
+
+
+
+  const pathname = window.location.pathname;
+
+
+
+  const esPracticos =
+
+    /\/assignment(?:\/|$)/.test(pathname);
+
+
+
+  /*
+
+   * Detecta específicamente:
+
+   *
+
+   * /assignment
+
+   * /assignment/
+
+   * /assignment/index.html
+
+   */
+
+  const esPaginaPrincipalPracticos =
+
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
+
+
+
+
+
+  const boton =
+
+    document.getElementById("practicos-sidebar-toggle");
+
+
+
+  const zona =
+
+    document.getElementById("practicos-sidebar-hover-zone");
+
+
+
+  const sidebar =
+
+    document.getElementById("quarto-sidebar");
+
+
+
+
+
+  if (!esPracticos || !sidebar || !boton || !zona) {
+
+
+
+    if (boton) {
+
+      boton.style.display = "none";
+
+    }
+
+
+
+    if (zona) {
+
+      zona.style.display = "none";
+
+    }
+
+
+
+    return;
+
+  }
+
+
+
+
+
+  const body = document.body;
+
+
+
+  let abiertoTemporalmente = false;
+
+  let temporizadorCierre = null;
+
+
+
+
+
+  /* ========================================================
+
+     POSICIÓN DE LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  function actualizarPosicion() {
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Menú cerrado:
+
+       * la pestañita queda en el borde izquierdo.
+
+       */
+
+      boton.style.left = "0px";
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Usamos offsetWidth para que la posición
+
+       * no dependa de la animación del sidebar.
+
+       */
+
+      const anchoSidebar = sidebar.offsetWidth;
+
+
+
+      boton.style.left =
+
+        (anchoSidebar - 2) + "px";
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     ACTUALIZAR ICONO
+
+     ======================================================== */
+
+
+
+  function mostrarIconoAbierto() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-left"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Ocultar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Ocultar menú";
+
+  }
+
+
+
+
+
+  function mostrarIconoCerrado() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-right"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Mostrar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Mostrar menú";
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     MOSTRAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function mostrarSidebar(temporal = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.remove(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoAbierto();
+
+
+
+    abiertoTemporalmente = temporal;
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     OCULTAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function ocultarSidebar(guardar = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.add(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoCerrado();
+
+
+
+    abiertoTemporalmente = false;
+
+
+
+    if (guardar) {
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "cerrado"
+
+      );
+
+    }
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     CLICK EN LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("click", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    /*
+
+     * Si está cerrado:
+
+     * un clic lo abre permanentemente.
+
+     */
+
+    if (cerrado) {
+
+
+
+      mostrarSidebar(false);
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "abierto"
+
+      );
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Si está visible, un solo clic lo cierra,
+
+       * independientemente de si se abrió por
+
+       * hover o normalmente.
+
+       */
+
+      ocultarSidebar(true);
+
+    }
+
+
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     HOVER EN EL BORDE IZQUIERDO
+
+     ======================================================== */
+
+
+
+  zona.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Mostrar temporalmente sin modificar
+
+       * la preferencia guardada.
+
+       */
+
+      mostrarSidebar(true);
+
+    }
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     SALIR DEL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseleave", function () {
+
+
+
+    /*
+
+     * Solo cerrar automáticamente si se abrió
+
+     * mediante hover.
+
+     */
+
+    if (!abiertoTemporalmente) {
+
+      return;
+
+    }
+
+
+
+    temporizadorCierre =
+
+      setTimeout(function () {
+
+
+
+        ocultarSidebar(false);
+
+
+
+      }, 500);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL BOTÓN
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     ESTADO INICIAL
+
+     ======================================================== */
+
+
+
+  /*
+
+   * PORTADA DE PRÁCTICOS
+
+   *
+
+   * Siempre comienza desplegada cada vez
+
+   * que se entra o recarga la página.
+
+   *
+
+   * Aun así, después de cargarla el usuario
+
+   * puede plegarla normalmente.
+
+   */
+
+  if (esPaginaPrincipalPracticos) {
+
+
+
+    mostrarSidebar(false);
+
+
+
+  } else {
+
+
+
+    /*
+
+     * En los prácticos individuales sí respetamos
+
+     * el estado que dejó anteriormente el usuario.
+
+     */
+
+    const estadoGuardado =
+
+      localStorage.getItem(
+
+        "practicos-sidebar"
+
+      );
+
+
+
+    if (estadoGuardado === "cerrado") {
+
+
+
+      ocultarSidebar(false);
+
+
+
+    } else {
+
+
+
+      mostrarSidebar(false);
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
+     ======================================================== */
+
+
+
+  window.addEventListener(
+
+    "resize",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener(
+
+    "transitionend",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /*
+
+   * También esperamos el cambio de la
+
+   * grilla de Quarto.
+
+   */
+
+  const contenido =
+
+    document.getElementById("quarto-content");
+
+
+
+  if (contenido) {
+
+
+
+    contenido.addEventListener(
+
+      "transitionend",
+
+      actualizarPosicion
+
+    );
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     AJUSTE FINAL DESPUÉS DE CARGAR
+
+     ======================================================== */
+
+
+
+  requestAnimationFrame(function () {
+
+
+
+    requestAnimationFrame(function () {
+
+
+
+      actualizarPosicion();
+
+
+
+    });
+
+  });
+
+
+
+});
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
