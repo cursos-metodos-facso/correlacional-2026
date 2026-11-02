@@ -8,7 +8,7 @@
 
 <meta name="description" content="Estadística Correlacional">
 
-<title>Introducción a la escritura en documentos dinámicos en Quarto – Estadística Correlacional</title>
+<title>Documentos Dinámicos Quarto en Positron – Estadística Correlacional</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +20,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -41,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-57aea3e77703211fcfdb7b4c4cf603e1.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00a7dfb16748208db56c055d58e770f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -71,9 +106,43 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Buscar"
   }
 }</script>
+<style>html{ scroll-behavior: smooth; }</style>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="Introducción a la escritura en documentos dinámicos en Quarto – Estadística Correlacional">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Documentos Dinámicos Quarto en Positron – Estadística Correlacional">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/content/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -138,16 +207,41 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
     <h2 id="toc-title">En esta página</h2>
    
   <ul>
-  <li><a href="#documento-de-presentación" id="toc-documento-de-presentación" class="nav-link active" data-scroll-target="#documento-de-presentación">Documento de presentación</a></li>
+  <li><a href="#inicio" id="toc-inicio" class="nav-link active" data-scroll-target="#inicio">Introducción</a></li>
+  <li><a href="#parte-a" id="toc-parte-a" class="nav-link" data-scroll-target="#parte-a">A · Escribir en texto plano</a>
+  <ul class="collapse">
+  <li><a href="#cortar-pegar" id="toc-cortar-pegar" class="nav-link" data-scroll-target="#cortar-pegar">El problema de cortar y pegar</a></li>
+  <li><a href="#texto-plano" id="toc-texto-plano" class="nav-link" data-scroll-target="#texto-plano">Texto plano y marcas de edición</a></li>
+  </ul></li>
+  <li><a href="#parte-b" id="toc-parte-b" class="nav-link" data-scroll-target="#parte-b">B · Quarto</a>
+  <ul class="collapse">
+  <li><a href="#documentos-dinamicos" id="toc-documentos-dinamicos" class="nav-link" data-scroll-target="#documentos-dinamicos">Documentos dinámicos</a></li>
+  <li><a href="#como-funciona" id="toc-como-funciona" class="nav-link" data-scroll-target="#como-funciona">¿Cómo funciona?</a></li>
+  <li><a href="#anatomia" id="toc-anatomia" class="nav-link" data-scroll-target="#anatomia">Anatomía de un archivo <code>.qmd</code></a></li>
+  </ul></li>
+  <li><a href="#parte-c" id="toc-parte-c" class="nav-link" data-scroll-target="#parte-c">C · Taller: un informe reproducible en Positron</a>
+  <ul class="collapse">
+  <li><a href="#ej1" id="toc-ej1" class="nav-link" data-scroll-target="#ej1">Preparar la carpeta y el documento</a></li>
+  <li><a href="#ej2" id="toc-ej2" class="nav-link" data-scroll-target="#ej2">Cargar los datos</a></li>
+  <li><a href="#ej3" id="toc-ej3" class="nav-link" data-scroll-target="#ej3">Opciones de los bloques de código</a></li>
+  <li><a href="#ej4" id="toc-ej4" class="nav-link" data-scroll-target="#ej4">Código en línea</a></li>
+  </ul></li>
+  <li><a href="#d-extensiones-qué-más-se-puede-hacer-con-quarto" id="toc-d-extensiones-qué-más-se-puede-hacer-con-quarto" class="nav-link" data-scroll-target="#d-extensiones-qué-más-se-puede-hacer-con-quarto">D · Extensiones: ¿Qué más se puede hacer con Quarto?</a>
+  <ul class="collapse">
+  <li><a href="#reportes-multiformato" id="toc-reportes-multiformato" class="nav-link" data-scroll-target="#reportes-multiformato">Reportes multiformato</a></li>
+  <li><a href="#referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" id="toc-referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" class="nav-link" data-scroll-target="#referencias-cruzadas-referencias-bibliográficas-y-ecuaciones">Referencias cruzadas, referencias bibliográficas y ecuaciones</a></li>
+  <li><a href="#más-allá-de-los-informes-y-reportes" id="toc-más-allá-de-los-informes-y-reportes" class="nav-link" data-scroll-target="#más-allá-de-los-informes-y-reportes">Más allá de los informes y reportes</a></li>
+  </ul></li>
+  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Introducción a la escritura en documentos dinámicos en Quarto</h1></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Documentos Dinámicos Quarto en Positron</h1></header>
 
 <header id="title-block-header">
 
@@ -158,10 +252,772 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="documento-de-presentación" class="level1">
-<h1>Documento de presentación</h1>
-<iframe src="../slides/14-Quarto.html" height="550" width="100%" allowfullscreen="true">
-</iframe>
+<style>
+/* Sistema visual local: solo distingue funciones pedagógicas. */
+.rv-question {
+  margin: .9rem 0 .65rem;
+  padding: .7rem .95rem;
+  border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .065));
+  border-radius: 0 .35rem .35rem 0;
+}
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .65rem 0 .35rem;
+}
+.rv-group {
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .045));
+}
+.rv-group p { margin: 0; }
+.rv-group p + p { margin-top: .25rem; }
+.rv-group p:first-child { font-size: .9rem; }
+.rv-order {
+  margin: .15rem 0 1.15rem;
+  padding: .2rem .15rem;
+  color: var(--bs-body-color, inherit);
+  font-size: .92rem;
+}
+.rv-order > :first-child, .rv-order > :last-child { margin: 0; }
+.rv-activity, .rv-practice {
+  margin: .75rem 0 .55rem;
+  border-left: 2px solid var(--bs-secondary-color, #83939a);
+  padding: .25rem 0 .25rem .85rem;
+}
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-practice p + p { padding-top: .25rem; }
+/* Material de apoyo durante el intento: soporte, nunca solución. */
+.rv-formulas {
+  margin: .7rem 0 .85rem;
+  padding: .6rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+}
+.rv-formulas > :first-child { margin-top: 0; }
+.rv-formulas > :last-child { margin-bottom: 0; }
+.rv-formulas p { margin: .4rem 0; }
+.rv-formulas strong { font-weight: 650; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+/* Igualamos el tamaño del texto dentro de los bloques al texto general de la página. */
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li,
+#quarto-content main.content .callout .callout-body ul,
+#quarto-content main.content .callout .callout-body ol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rv-answer.callout p:has(> strong:first-child) { margin-top: .65rem; }
+.rv-answer.callout p:first-child { margin-top: .1rem; }
+.rv-answer.callout p:last-child { margin-bottom: .25rem; }
+.cell-output-display img, .quarto-figure img { max-width: 100%; height: auto; }
+/* Párrafos justificados, sin afectar títulos, tablas ni el índice lateral.
+   Se limita el ajuste al cuerpo de esta página. */
+@media (min-width: 768px) {
+  #quarto-content main.content p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  /* Etiquetas cortas y comparaciones: más legibles alineadas a la izquierda. */
+  #quarto-content main.content .rv-group p,
+  #quarto-content main.content .rv-order p,
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .rv-formulas p,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+/* En móvil evitamos huecos entre palabras en columnas estrechas. */
+@media (max-width: 767.98px) {
+  #quarto-content main.content p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-groups { grid-template-columns: 1fr; gap: .4rem; }
+  .rv-question { padding: .65rem .7rem; }
+  .rv-group { padding: .55rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+}
+</style>
+<section id="inicio" class="level1">
+<h1>Introducción</h1>
+<p>Hasta ahora hemos analizado datos en R y comunicado los resultados por separado. En esta sesión aprenderemos a <strong>escribir el informe y el análisis en un mismo documento</strong>, de modo que cada gráfico y cada cifra se calculen al generarlo. La herramienta es <strong>Quarto</strong>, que viene incluido en Positron.</p>
+<p>Al finalizar la clase, generamos un <strong>informe reproducible</strong> que responda la siguiente pregunta:</p>
+<div class="rv-question">
+<p><strong>Pregunta de investigación del informe</strong></p>
+<p>¿Se asocia la escolaridad con el ingreso del trabajo en Chile?</p>
+</div>
+</section>
+<section id="parte-a" class="level1">
+<h1>A · Escribir en texto plano</h1>
+<section id="cortar-pegar" class="level2">
+<h2 class="anchored" data-anchor-id="cortar-pegar">El problema de cortar y pegar</h2>
+<p>El flujo habitual para escribir un informe con resultados estadísticos separa dos programas: el análisis se hace en un software estadístico (por ejemplo, R a través de Positron) y el texto en un procesador de texto (Word, Google Docs). Los resultados viajan de uno a otro <strong>copiando y pegando</strong>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/W_workflow.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Flujo de trabajo con procesador de texto tradicional.</figcaption>
+</figure>
+</div>
+<p>Este flujo tiene tres desventajas:</p>
+<ul>
+<li><strong>Barrera de pago o licencia</strong> para acceder a los contenidos y editarlos.</li>
+<li><strong>Difícil versionamiento:</strong> cuesta registrar quién hizo qué cambio, lo que complica la colaboración.</li>
+<li><strong>No es reproducible:</strong> el documento no contiene el código que produjo los resultados, así que nadie puede rastrear de dónde salió cada número.</li>
+</ul>
+<div class="rv-activity">
+<p><strong>Imaginemos el siguiente caso</strong>: Usted está haciendo un informe sobre la correlación entre escolaridad e ingreso del trabajo a partir de datos de CASEN y obtuvo <span class="math inline">\(r=0,43\)</span>. Copió ese número, el gráfico de nubes y una tabla en un informe escrito en Word. Sin embargo, con su equipo de trabajo luego deciden que es mejor analizar sólo a quienes trabajan <strong>30 horas o más a la semana</strong>. ¿Qué partes de informe tendría que rehacer a mano?</p>
+<ol type="1">
+<li>Cambia el n, el coeficiente, y su valor p.</li>
+<li>El gráfico</li>
+<li>La tabla</li>
+<li>Asimismo, debe corregir todas las menciones en el texto (En la sección de resultados, pero también en el resumen y en las conclusiones). <strong>Basta olvidar una para que el informe se contradiga a sí mismo</strong></li>
+<li>Además, el documento <strong>no guarda el código</strong>, por lo que ni el lector, ni su equipo ni usted mismo (en un tiempo más) podrán trazar de dónde salió cada número</li>
+</ol>
+<p><strong>Idea central: donde hay cortar y pegar, no hay reproducibilidad.</strong></p>
+</div>
+</section>
+<section id="texto-plano" class="level2">
+<h2 class="anchored" data-anchor-id="texto-plano">Texto plano y marcas de edición</h2>
+<p>La alternativa es la <strong>escritura en texto plano</strong>: se escribe en un editor de texto (en nuestro caso, Positron) un archivo que contiene solo caracteres, sin formato oculto. El formato se indica con <strong>marcas de edición</strong>, y un programa convierte después ese texto de entrada (<em>input</em>) en el documento final (<em>output</em>).</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Input: lo que se escribe</strong></p>
+<p><code>## Resultados</code> y <code>**asociación positiva**</code></p>
+</div>
+<div class="rv-group">
+<p><strong>Output: lo que lee el lector</strong></p>
+<p>Un título de sección y el texto <strong>asociación positiva</strong> en negrita.</p>
+</div>
+</div>
+<p>Esta forma de escribir es <strong>independiente de programas comerciales y plataformas</strong>, pone el foco en el <strong>contenido antes que en el formato</strong> y permite obtener <strong>distintos formatos finales</strong> desde un mismo archivo. Entre las principales alternativas se encuentran <strong>LaTeX</strong> y <strong>Markdown</strong>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 26%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">Control del formato</th>
+<th style="text-align: center;">Marcas de edición</th>
+<th style="text-align: center;">Formatos de salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>LaTeX</strong> (años 80)</td>
+<td style="text-align: center;">Alto</td>
+<td style="text-align: center;">Muchas y complejas</td>
+<td style="text-align: center;">Principalmente PDF</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Markdown</strong> (2004)</td>
+<td style="text-align: center;">Menor</td>
+<td style="text-align: center;">Pocas y simples</td>
+<td style="text-align: center;">HTML, PDF, Word y otros</td>
+</tr>
+</tbody>
+</table>
+<p>Usaremos <strong>Markdown</strong>, creado por John Gruber y Aaron Swartz con una filosofía simple: que el texto con marcas sea legible incluso sin convertirlo.</p>
+<div class="rv-formulas">
+<p><strong>Marcas de Markdown más usadas</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Se escribe</th>
+<th style="text-align: left;">Se obtiene</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>## Resultados</code></td>
+<td style="text-align: left;">Un título de sección (<code>#</code> título, <code>##</code> subtítulo…)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>**asociación positiva**</code></td>
+<td style="text-align: left;"><strong>asociación positiva</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>*Pearson*</code></td>
+<td style="text-align: left;"><em>Pearson</em></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>- primer punto</code></td>
+<td style="text-align: left;">Una lista con viñetas</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>[CASEN](https://...)</code></td>
+<td style="text-align: left;">Un enlace</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>![](img/grafico.png)</code></td>
+<td style="text-align: left;">Una imagen</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<section id="parte-b" class="level1">
+<h1>B · Quarto</h1>
+<section id="documentos-dinamicos" class="level2">
+<h2 class="anchored" data-anchor-id="documentos-dinamicos">Documentos dinámicos</h2>
+<p>Markdown resuelve la escritura, pero los resultados siguen viniendo de otro lado. Un <strong>documento dinámico</strong> integra en un mismo archivo de texto plano <strong>el texto y el código de análisis</strong>: al generar el documento, el código se ejecuta y sus resultados (gráficos, tablas, cifras) se insertan en el lugar correspondiente. Se elimina el cortar y pegar, y corregir un análisis es tan simple como volver a generar el documento.</p>
+<p><a href="https://quarto.org/"><strong>Quarto</strong></a> es un sistema de publicación científica y técnica <strong>de código abierto</strong> para producir documentos dinámicos:</p>
+<ul>
+<li>Es el sucesor de <strong>RMarkdown</strong>: misma lógica, más formatos y más lenguajes (R, Python, Julia).</li>
+<li>Se escribe en <strong>texto plano</strong>, en archivos con extensión <code>.qmd</code>.</li>
+<li>Un mismo archivo puede producir HTML, PDF, Word, presentaciones, sitios web y libros.</li>
+<li><strong>Viene incluido en Positron</strong>: no hay que instalar nada adicional.</li>
+</ul>
+</section>
+<section id="como-funciona" class="level2">
+<h2 class="anchored" data-anchor-id="como-funciona">¿Cómo funciona?</h2>
+<p>Al generar (o <em>renderizar</em>) un documento, Quarto encadena dos programas: <strong>knitr</strong> ejecuta el código R y escribe sus resultados en un archivo Markdown, y <strong>Pandoc</strong> convierte ese Markdown al formato de salida.</p>
+<div class="cell" data-fig-width="7" data-layout-align="center">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+  A[".qmd&lt;br&gt;texto + código"] --&gt; B["knitr&lt;br&gt;ejecuta el código R"]
+  B --&gt; C[".md&lt;br&gt;texto + resultados"]
+  C --&gt; D["Pandoc&lt;br&gt;convierte"]
+  D --&gt; E["HTML"]
+  D --&gt; F["PDF"]
+  D --&gt; G["Word"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Todo esto ocurre al presionar un solo botón en Positron: <strong>Preview</strong>, o su atajo, <code>Ctrl/Cmd + Shift + K</code>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="../slides/img/quarto-preview.png" class="img-fluid figure-img" style="width:70.0%"></p>
+<figcaption>Dónde ubicar Preview en Positron</figcaption>
+</figure>
+</div>
+</section>
+<section id="anatomia" class="level2">
+<h2 class="anchored" data-anchor-id="anatomia">Anatomía de un archivo <code>.qmd</code></h2>
+<p>Un archivo <code>.qmd</code> tiene tres tipos de contenido:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Escolaridad e ingresos en Chile"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nombre Apellido"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">lang:</span><span class="co"> es</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Este informe usa datos de la **CASEN 2024**.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Anatomía de un .qmd">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Anatomía de un .qmd
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<p><strong>1. Encabezado YAML.</strong> Va al inicio, entre dos líneas de tres guiones (<code>---</code>). Define el título, el autor y el formato de salida; cada campo lleva dos puntos.</p>
+<p><strong>2. Texto en Markdown.</strong> El título de sección y la frase con negrita: es lo que lee el lector.</p>
+<p><strong>3. Bloque de código (<em>chunk</em>).</strong> Se abre con tres comillas invertidas y <code>{r}</code>, y se cierra con tres comillas invertidas. Su contenido se ejecuta como código R al generar el documento.</p>
+<p>La línea <code>#| label: datos</code> es una <strong>opción del bloque</strong>: le da un nombre. Las opciones se escriben al inicio del bloque con <code>#|</code> y controlan, por ejemplo, si el lector ve el código o solo el resultado.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="parte-c" class="level1">
+<h1>C · Taller: un informe reproducible en Positron</h1>
+<p>Usaremos una submuestra aleatoria de la <strong>CASEN 2024</strong> con 3.000 personas de 18 años o más.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>escolaridad</code></td>
+<td style="text-align: left;">Años de escolaridad</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>ingreso_trabajo</code></td>
+<td style="text-align: left;">Ingreso mensual del trabajo ($)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>edad</code></td>
+<td style="text-align: left;">Edad en años</td>
+</tr>
+</tbody>
+</table>
+<section id="ej1" class="level2">
+<h2 class="anchored" data-anchor-id="ej1">Preparar la carpeta y el documento</h2>
+<p>En Positron, <strong>la carpeta es el proyecto</strong>: no se necesita un archivo <code>.Rproj</code>. Todo lo que el informe necesita (datos, documento y resultados) vive dentro de una misma carpeta, y el código se refiere a los archivos con <strong>rutas relativas</strong> a ella. Así, cualquier persona que reciba la carpeta puede generar el informe sin modificar nada.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Ruta absoluta</strong> (evitar)</p>
+<p><code>setwd("C:/Users/Ana/Escritorio/...")</code> solo funciona en un computador.</p>
+</div>
+<div class="rv-group">
+<p><strong>Ruta relativa</strong> (usar)</p>
+<p><code>input/data/casen_barrio2024.rdata</code> funciona en cualquier computador que tenga la carpeta.</p>
+</div>
+</div>
+<p>Todo lo necesario para generar un documento en Quarto se puede resumir en 3 pasos:</p>
+<ol type="1">
+<li><p><strong>Abrir la carpeta como proyecto:</strong> <em>File › Open Folder…</em></p></li>
+<li><p><strong>Crear el documento:</strong> <em>File › New File…</em> › <strong>Quarto Document</strong></p></li>
+<li><p><strong>Generar el documento:</strong> botón <strong>Preview</strong> o <code>Ctrl/Cmd + Shift + K</code></p></li>
+</ol>
+<p><strong>Ejercicio</strong></p>
+<ol type="A">
+<li><p>Crea una carpeta <code>mi-informe</code> con las subcarpetas <code>input/data</code> y <code>output</code>, y ábrela en Positron.</p></li>
+<li><p>Crea <code>informe.qmd</code> en la raíz de la carpeta y escribe un encabezado YAML con título, autor, formato HTML e idioma español.</p></li>
+<li><p>Escribe un subtítulo <code>## Introducción</code> y una frase en Markdown con una palabra en negrita. Genera el documento con <strong>Preview</strong>.</p></li>
+</ol>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 1">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 1
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A. Estructura de carpetas</strong> La carpeta del proyecto queda así:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi-informe/</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>├── informe.qmd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>├── input/</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>│   └── data/</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>│       └── casen_barrio2024.rdata # si la data estuviera almacenada en el computador</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>└── output/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>B. Documento y encabezado</strong> El encabezado va al inicio del archivo:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos en Chile"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Nombre Apellido"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> es</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>lang: es</code> traduce al español los textos automáticos, como «Figura» o «Tabla».</p>
+<p><strong>C. Vista previa</strong> Bajo el encabezado:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Este informe analiza la relación entre **escolaridad** e **ingresos**</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>con datos de la *CASEN 2024*.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Al presionar <strong>Preview</strong>, el documento aparece en el panel <strong>Viewer</strong> de Positron y <code>informe.html</code> queda guardado junto a <code>informe.qmd</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ej2" class="level2">
+<h2 class="anchored" data-anchor-id="ej2">Cargar los datos</h2>
+<p>Ahora agregamos el primer <strong>bloque de código</strong>. Todo lo que está dentro se ejecuta como código R al generar el documento; lo que está fuera es texto. Para insertar un <em>chunk</em> en el documento deben utilizar el atajo <code>Ctrl/Cmd + Shift + I</code>.</p>
+<p>El código dentro de un chunk funciona igual que en un script de R: pueden ejecutar una línea con Ctrl/Cmd + Enter o el chunk completo con Ctrl/Cmd + Shift + Enter. <strong>Esto no genera el documento final</strong>; solo permite comprobar que el código funciona. <strong>Si el código contiene un error, la renderización del documento se detendrá</strong>.</p>
+<p><strong>Ejercicio</strong></p>
+<ol type="A">
+<li>Inserte un <em>chunk</em> en su documento para cargar la base de datos y cargar el paquete <code>tidyverse</code>. La base de datos se encuentra en el siguiente link:</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata"</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="A">
+<li>Inserte un segundo <em>chunk</em>. Calcule el total de casos en la base. Además, calcule el total de casos válidos en <code>ingresos_trabajos</code> con el código de más abajo. Luego, reporte sus hallazgos.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(datos_casen)                          <span class="co"># total de personas</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_casen<span class="sc">$</span>ingreso_trabajo))   <span class="co"># personas con ingreso válido</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 2">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 2
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A. Cargar datos y librerías en un chunk</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)  <span class="co"># crea el objeto datos_casen</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>B. Analizar y reportar datos</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: casos</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(datos_casen)                          <span class="co"># total de personas</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_casen<span class="sc">$</span>ingreso_trabajo))   <span class="co"># personas con ingreso válido</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>La base tiene <strong>3.000 personas</strong>, de las cuales <strong>1.710</strong> (57%) reportan ingreso del trabajo: algo más de la mitad.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ej3" class="level2">
+<h2 class="anchored" data-anchor-id="ej3">Opciones de los bloques de código</h2>
+<p>En la mayoría de los informes, vamos a querer reportar <strong>solo los resultados</strong>. Sin embargo, en algunos documentos técnicos o pedagógicos (como este), nos interesa mostrar también el <strong>código que genera el documento</strong>. En Quarto, esta decisión se controla a través de las <strong>opciones de bloque</strong>. Estas se insertan en el encabezado del <em>chunk</em>, precedidas por un <code>#|</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ejemplo </span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Grafico 1"</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-graf-1</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Acá va el código...</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="rv-formulas">
+<p><strong>Opciones de los bloques de código</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Opción</th>
+<th style="text-align: left;">Qué hace</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>echo: false</code></td>
+<td style="text-align: left;">Muestra el resultado y oculta el código</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>eval: false</code></td>
+<td style="text-align: left;">Muestra el código sin ejecutarlo</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>include: false</code></td>
+<td style="text-align: left;">Ejecuta, pero no muestra ni código ni resultado</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>warning: false</code></td>
+<td style="text-align: left;">Oculta las advertencias</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>fig-cap: "..."</code></td>
+<td style="text-align: left;">Agrega una leyenda a la figura</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>label: fig-...</code></td>
+<td style="text-align: left;">Nombra el bloque y permite referirse a la figura</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Ejercicio</strong></p>
+<ol type="A">
+<li>En un nuevo <em>chunk</em>, inserte el siguiente código que crea una gráfico de dispersión entre <code>escolaridad</code> en el eje X e <code>ingreso_trabajo</code> en el eje Y, con una recta de regresión.</li>
+</ol>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_casen,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> escolaridad, <span class="at">y =</span> ingreso_trabajo)) <span class="sc">+</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<ol start="2" type="A">
+<li>Etiquete el código como <code>fig-dispersion</code>, agregue una leyenda y haga que el informe muestre el gráfico, pero no el código ni las advertencias.</li>
+</ol>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 3">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 3
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Crear el gráfico y usar opciones de bloque</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-dispersion</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Escolaridad e ingreso del trabajo"</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_casen,</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> escolaridad, <span class="at">y =</span> ingreso_trabajo)) <span class="sc">+</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>warning: false</code> evita mostrar el aviso de <code>ggplot()</code> sobre las filas con <code>NA</code>, que no le interesa al lector. El resultado se verá así (aquí, con el eje vertical acotado a $3.000.000 para facilitar la lectura):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-dispersion-taller" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dispersion-taller-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="14-quarto_files/figure-html/fig-dispersion-taller-1.png" class="img-fluid figure-img" width="748">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dispersion-taller-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Escolaridad e ingreso del trabajo, CASEN 2024 (submuestra). Personas con ingreso del trabajo; eje vertical acotado a $3.000.000.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al escribir <code>La @fig-dispersion muestra...</code>, el documento muestra «La Figura 1 muestra…» con un enlace a la figura; la etiqueta debe comenzar con <code>fig-</code> para que Quarto la numere.</p>
+</div>
+</div>
+</section>
+<section id="ej4" class="level2">
+<h2 class="anchored" data-anchor-id="ej4">Código en línea</h2>
+<p>Además del código en bloque, Quarto permite escribir <strong>código en línea</strong>. El <strong>código en línea</strong> se escribe dentro de una frase, entre comillas invertidas y comenzando con <code>r</code>. Al generar el documento, Quarto reemplaza el código por su resultado.</p>
+<div class="rv-groups">
+<div class="rv-group">
+<p><strong>Lo que se escribe</strong></p>
+<p><code>La correlación es `r round(r, 2)`.</code></p>
+</div>
+<div class="rv-group">
+<p><strong>Lo que lee el lector</strong></p>
+<p>La correlación es 0.43.</p>
+</div>
+</div>
+<div class="rv-formulas">
+<p><strong>Apoyo · Correlación en R</strong></p>
+<p><strong>Coeficiente de Pearson:</strong> <code>cor(x, y, use = "complete.obs")</code></p>
+<p><code>use = "complete.obs"</code> excluye los casos con <code>NA</code> en alguna de las dos variables. Sin esta opción, basta un valor perdido para que el resultado sea <code>NA</code>.</p>
+<p><strong>Redondear:</strong> <code>round(valor, 2)</code></p>
+</div>
+<p><strong>Ejercicio</strong></p>
+<ol type="A">
+<li><p>Agregue un <em>chunk</em> con la etiqueta <code>correlacion</code>. Calcule la correlación entre <code>escolaridad</code> e <code>ingreso_trabajo</code> y guárdela en un objeto <code>r</code>.</p></li>
+<li><p>Reporte e interprete el resultado utilizando código en línea</p></li>
+<li><p>Genere el documento y verifique que el coeficiente correcto aparece en el texto</p></li>
+<li><p>Reemplace <code>ingreso_trabajo</code> por <code>edad</code> en <code>cor()</code>, y vuelva a renderizar el documento. ¿Cambió el número del texto?</p></li>
+</ol>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 4">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 4
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A. Calcular R</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: correlacion</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_casen<span class="sc">$</span>escolaridad, datos_casen<span class="sc">$</span>ingreso_trabajo,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>B. Reportar e interpretar</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>La correlación entre escolaridad e ingreso del trabajo es <span class="in">`r round(r, 2)`</span>.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>y al generarlo se lee: la correlación entre escolaridad e ingreso del trabajo es <strong>0.43</strong>.</p>
+<p><strong>Interpretación modelo.</strong> «Existe una asociación <strong>positiva y moderada</strong> entre escolaridad e ingreso del trabajo (<span class="math inline">\(r=0,43\)</span>): las personas con más años de escolaridad tienden a tener mayores ingresos. Esta asociación <strong>no demuestra causalidad</strong> y considera solo a quienes trabajan».</p>
+<p><strong>C. Renderizar.</strong> Con <strong>Render on Save</strong> activado (barra del editor), el informe se actualiza cada vez que guardas el archivo.</p>
+<p>Observe que <strong>ninguna cifra de esta página se escribió a mano</strong>: el tamaño de la muestra, los casos válidos y cada <span class="math inline">\(r\)</span> se calculan cada vez que se genera.</p>
+<p><strong>D. Volver a renderizar</strong></p>
+<p>La frase con código en línea muestra el nuevo valor sin editar el texto. Ahora <span class="math inline">\(r=-0,45\)</span>, una asociación <strong>negativa y moderada</strong>: las personas de mayor edad tienden a tener menos años de escolaridad.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="d-extensiones-qué-más-se-puede-hacer-con-quarto" class="level1">
+<h1>D · Extensiones: ¿Qué más se puede hacer con Quarto?</h1>
+<section id="reportes-multiformato" class="level2">
+<h2 class="anchored" data-anchor-id="reportes-multiformato">Reportes multiformato</h2>
+<p>El mismo sistema que usamos para el informe sirve para muchos otros productos. <strong>Esta página y todas las clases del curso</strong> están escritas en archivos <code>.qmd</code>.</p>
+<p>Es más, es posible producir <strong>varios formatos desde un mismo archivo.</strong> Basta con declararlos en el encabezado; en Positron, <strong>Quarto: Render Document</strong> genera todos los formatos declarados:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos"</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span><span class="co">   # página web (la más rápida)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span><span class="co">    # vía LaTeX o Typst</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span><span class="co">   # Word, para quien lo pida</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" class="level2">
+<h2 class="anchored" data-anchor-id="referencias-cruzadas-referencias-bibliográficas-y-ecuaciones">Referencias cruzadas, referencias bibliográficas y ecuaciones</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Elemento</th>
+<th>¿Qué es?</th>
+<th>¿Cómo se usa?</th>
+<th>¿Por qué es útil?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Referencias cruzadas</strong></td>
+<td>Enlaces internos que remiten a figuras, tablas, ecuaciones o secciones del propio documento.</td>
+<td>Se asigna una etiqueta con un prefijo (<code>fig-</code>, <code>tbl-</code>, <code>eq-</code>, <code>sec-</code>), por ejemplo <code>#| label: fig-dispersion</code> dentro del <em>chunk</em>, y se cita en el texto con <code>@fig-dispersion</code>.</td>
+<td>Quarto numera automáticamente los elementos y actualiza las referencias si cambia el orden, evitando errores de numeración manual.</td>
+</tr>
+<tr class="even">
+<td><strong>Referencias bibliográficas</strong></td>
+<td>Citas a fuentes externas (artículos, libros, etc.) almacenadas en un archivo de bibliografía.</td>
+<td>Se declara el archivo en el encabezado YAML (<code>bibliography: referencias.bib</code>) y se cita con <code>[@clave]</code> o <code>@clave</code>. El estilo se define con <code>csl:</code>.</td>
+<td>Genera automáticamente las citas y la lista de referencias al final del documento, con un formato consistente (APA, Chicago, etc.).</td>
+</tr>
+<tr class="odd">
+<td><strong>Ecuaciones</strong></td>
+<td>Expresiones matemáticas escritas en sintaxis LaTeX.</td>
+<td>En línea con <code>$...$</code> y en bloque con <code>$$...$$</code>.</td>
+<td>Permite escribir notación matemática con calidad tipográfica y vincularla al texto mediante referencias cruzadas.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="más-allá-de-los-informes-y-reportes" class="level2">
+<h2 class="anchored" data-anchor-id="más-allá-de-los-informes-y-reportes">Más allá de los informes y reportes</h2>
+<p>Quarto además nos permite crear otro tipos de productivos, tales como presentaciones, dashboards, sitios webs y libros.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Producto</th>
+<th style="text-align: left;">Cómo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Presentaciones</td>
+<td style="text-align: left;"><code>format: revealjs</code> (también PowerPoint y Beamer)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Sitios web y libros</td>
+<td style="text-align: left;">Varios <code>.qmd</code> y un archivo <code>_quarto.yml</code>; por ejemplo, <a href="https://correlacional.metodos-facso.org">la página del curso</a> o <a href="https://r4ds.hadley.nz">R for Data Science</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Dashboards y aplicaciones</td>
+<td style="text-align: left;"><code>format: dashboard</code>; Shiny u Observable JS para filtros y controles, como <a href="https://ocs-coes.shinyapps.io/visualizador-la/">VISLATAM</a></td>
+</tr>
+</tbody>
+</table>
+<p>Se pueden encontrar ejemplos de todos estos usos en el <a href="https://quarto.org/docs/gallery/">sitio web oficial de Quarto</a></p>
+</section>
+</section>
+<section id="cierre" class="level1">
+<h1>Cierre</h1>
+<p>Un <strong>documento dinámico</strong> integra texto y código en un solo archivo de texto plano. El informe que construimos se genera completo a partir de los datos: si corregimos la base o cambiamos el filtro, basta con volver a generarlo para que el gráfico y cada cifra se actualicen.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Elemento</th>
+<th style="text-align: left;">Para qué sirve</th>
+<th style="text-align: left;">Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Encabezado YAML</td>
+<td style="text-align: left;">Título, autor y formato de salida</td>
+<td style="text-align: left;"><code>format: html</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Markdown</td>
+<td style="text-align: left;">Texto con formato para el lector</td>
+<td style="text-align: left;"><code>**negrita**</code>, <code>## Sección</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Bloque de código</td>
+<td style="text-align: left;">Código R que se ejecuta al generar</td>
+<td style="text-align: left;"><code>#| label: datos</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Opciones del bloque</td>
+<td style="text-align: left;">Qué ve el lector de cada bloque</td>
+<td style="text-align: left;"><code>#| echo: false</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Código en línea</td>
+<td style="text-align: left;">Cifras dentro del texto</td>
+<td style="text-align: left;"><code>`r round(r, 2)`</code></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Recursos">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Recursos
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div class="callout-body-container callout-body">
+<ul>
+<li><a href="https://quarto.org/docs/tools/positron/">Quarto en Positron</a></li>
+<li><a href="https://www.markdownguide.org/cheat-sheet/">Guía de Markdown</a></li>
+<li><a href="https://www.markdowntutorial.com/es/">Tutorial de Markdown en español</a></li>
+<li><a href="https://retorque.re/zotero-better-bibtex/">Better BibTeX para Zotero</a></li>
+<li><a href="https://quarto.org/docs/gallery/">Galería de ejemplos de Quarto</a></li>
+<li><a href="https://lisa-coes.com/">LISA: protocolos para investigación reproducible</a></li>
+</ul>
+</div>
+</div>
+</div>
 
 
 </section>
@@ -1332,4 +2188,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
 </body></html>
