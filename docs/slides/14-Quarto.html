@@ -1,256 +1,304 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-<link href="../images/logo.png" rel="icon" type="image/png">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>quarto – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/tabby.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.25">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+<link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+<script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="../site_libs/plotly-binding-4.11.0/plotly.js"></script>
+<script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
+<script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+<script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+<link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+<script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+<script src="../site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+<script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 
-  <title>Estadística Correlacional – quarto</title>
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/reveal.css">
-  <style>
-    code{white-space: pre-wrap;}
-    span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
-    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
       }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
-  </style>
-  <link rel="stylesheet" href="../site_libs/revealjs/dist/theme/quarto-374733f0aae0b45e86aa651d3641b1e8.css">
-  <link href="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="../site_libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
-  <style type="text/css">
-    .reveal div.sourceCode {
-      margin: 0;
-      overflow: auto;
-    }
-    .reveal div.hanging-indent {
-      margin-left: 1em;
-      text-indent: -1em;
-    }
-    .reveal .slide:not(.center) {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide.scrollable {
-      overflow-y: auto;
-    }
-    .reveal .footnotes {
-      height: 100%;
-      overflow-y: auto;
-    }
-    .reveal .slide .absolute {
-      position: absolute;
-      display: block;
-    }
-    .reveal .footnotes ol {
-      counter-reset: ol;
-      list-style-type: none; 
-      margin-left: 0;
-    }
-    .reveal .footnotes ol li:before {
-      counter-increment: ol;
-      content: counter(ol) ". "; 
-    }
-    .reveal .footnotes ol li > p:first-child {
-      display: inline-block;
-    }
-    .reveal .slide ul,
-    .reveal .slide ol {
-      margin-bottom: 0.5em;
-    }
-    .reveal .slide ul li,
-    .reveal .slide ol li {
-      margin-top: 0.4em;
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide ul[role="tablist"] li {
-      margin-bottom: 0;
-    }
-    .reveal .slide ul li > *:first-child,
-    .reveal .slide ol li > *:first-child {
-      margin-block-start: 0;
-    }
-    .reveal .slide ul li > *:last-child,
-    .reveal .slide ol li > *:last-child {
-      margin-block-end: 0;
-    }
-    .reveal .slide .columns:nth-child(3) {
-      margin-block-start: 0.8em;
-    }
-    .reveal blockquote {
-      box-shadow: none;
-    }
-    .reveal .tippy-content>* {
-      margin-top: 0.2em;
-      margin-bottom: 0.7em;
-    }
-    .reveal .tippy-content>*:last-child {
-      margin-bottom: 0.2em;
-    }
-    .reveal .slide > img.stretch.quarto-figure-center,
-    .reveal .slide > img.r-stretch.quarto-figure-center {
-      display: block;
-      margin-left: auto;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-left,
-    .reveal .slide > img.r-stretch.quarto-figure-left  {
-      display: block;
-      margin-left: 0;
-      margin-right: auto; 
-    }
-    .reveal .slide > img.stretch.quarto-figure-right,
-    .reveal .slide > img.r-stretch.quarto-figure-right  {
-      display: block;
-      margin-left: auto;
-      margin-right: 0; 
-    }
-  </style>
-  <script src="../site_libs/quarto-diagram/mermaid.min.js"></script>
-  <script src="../site_libs/quarto-diagram/mermaid-init.js"></script>
-  <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
-  <link href="../site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet">
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
-  <script src="../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-
-  <script src="../site_libs/plotly-binding-4.11.0/plotly.js"></script>
-
-  <script src="../site_libs/typedarray-0.1/typedarray.min.js"></script>
-
-  <script src="../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-
-  <link href="../site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
-
-  <script src="../site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
-
-  <link href="../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
-
-  <script src="../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
-
-  <link href="../site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
-
-  <script src="../site_libs/datatables-binding-0.34.0/datatables.js"></script>
-
-  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
-
-  <link href="../site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
-
-  <script src="../site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
-
-  <style>
-    /* tamaño de fuente único para las láminas de contenido (##) */
-    .reveal .slides section.level2 { font-size: 0.85em; }
-  </style>
 <meta property="og:title" content="Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/slides/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
 </head>
-<body class="quarto-light">
-  <div class="reveal">
-    <div class="slides">
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a></li>
+  <li><a href="#section-1" id="toc-section-1" class="nav-link" data-scroll-target="#section-1"></a></li>
+  <li><a href="#section-2" id="toc-section-2" class="nav-link" data-scroll-target="#section-2"></a>
+  <ul class="collapse">
+  <li><a href="#flujo-de-trabajo-con-procesador-de-texto-tradicional" id="toc-flujo-de-trabajo-con-procesador-de-texto-tradicional" class="nav-link" data-scroll-target="#flujo-de-trabajo-con-procesador-de-texto-tradicional">Flujo de trabajo con procesador de texto tradicional</a></li>
+  <li><a href="#abriendo-el-archivo-de-escritura-tradicional" id="toc-abriendo-el-archivo-de-escritura-tradicional" class="nav-link" data-scroll-target="#abriendo-el-archivo-de-escritura-tradicional">Abriendo el archivo de escritura tradicional</a></li>
+  <li><a href="#desventajas-del-procesador-tradicional" id="toc-desventajas-del-procesador-tradicional" class="nav-link" data-scroll-target="#desventajas-del-procesador-tradicional">Desventajas del procesador tradicional</a></li>
+  <li><a href="#un-caso-conocido-el-reporte-de-una-correlación" id="toc-un-caso-conocido-el-reporte-de-una-correlación" class="nav-link" data-scroll-target="#un-caso-conocido-el-reporte-de-una-correlación">Un caso conocido: el reporte de una correlación</a></li>
+  </ul></li>
+  <li><a href="#donde-hay-cortarpegar-no-hay-reproducibilidad" id="toc-donde-hay-cortarpegar-no-hay-reproducibilidad" class="nav-link" data-scroll-target="#donde-hay-cortarpegar-no-hay-reproducibilidad"><span style="color: white;">Donde hay cortar/pegar, no hay reproducibilidad</span></a>
+  <ul class="collapse">
+  <li><a href="#escritura-libre-y-abierta" id="toc-escritura-libre-y-abierta" class="nav-link" data-scroll-target="#escritura-libre-y-abierta">Escritura libre y abierta</a></li>
+  <li><a href="#escritura-simple-plana" id="toc-escritura-simple-plana" class="nav-link" data-scroll-target="#escritura-simple-plana">Escritura simple / plana</a></li>
+  <li><a href="#documentos-dinámicos" id="toc-documentos-dinámicos" class="nav-link" data-scroll-target="#documentos-dinámicos">Documentos dinámicos</a></li>
+  <li><a href="#principales-alternativas-escritura-simple" id="toc-principales-alternativas-escritura-simple" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple">Principales alternativas escritura simple</a></li>
+  <li><a href="#principales-alternativas-escritura-simple-1" id="toc-principales-alternativas-escritura-simple-1" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple-1">Principales alternativas escritura simple</a></li>
+  <li><a href="#principales-alternativas-escritura-simple-2" id="toc-principales-alternativas-escritura-simple-2" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple-2">Principales alternativas escritura simple</a></li>
+  <li><a href="#principales-alternativas-escritura-simple-3" id="toc-principales-alternativas-escritura-simple-3" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple-3">Principales alternativas escritura simple</a></li>
+  <li><a href="#principales-alternativas-escritura-simple-4" id="toc-principales-alternativas-escritura-simple-4" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple-4">Principales alternativas escritura simple</a></li>
+  <li><a href="#principales-alternativas-escritura-simple-5" id="toc-principales-alternativas-escritura-simple-5" class="nav-link" data-scroll-target="#principales-alternativas-escritura-simple-5">Principales alternativas escritura simple</a></li>
+  </ul></li>
+  <li><a href="#section-3" id="toc-section-3" class="nav-link" data-scroll-target="#section-3"></a>
+  <ul class="collapse">
+  <li><a href="#desafiando-el-modelo-cortar-pegar" id="toc-desafiando-el-modelo-cortar-pegar" class="nav-link" data-scroll-target="#desafiando-el-modelo-cortar-pegar">Desafiando el modelo cortar &amp; pegar</a></li>
+  <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
+  <li><a href="#cómo-funciona" id="toc-cómo-funciona" class="nav-link" data-scroll-target="#cómo-funciona">¿Cómo funciona?</a></li>
+  <li><a href="#anatomía-de-un-archivo-.qmd" id="toc-anatomía-de-un-archivo-.qmd" class="nav-link" data-scroll-target="#anatomía-de-un-archivo-.qmd">Anatomía de un archivo <code>.qmd</code></a></li>
+  <li><a href="#marcas-de-edición-en-markdown" id="toc-marcas-de-edición-en-markdown" class="nav-link" data-scroll-target="#marcas-de-edición-en-markdown">Marcas de edición en Markdown</a></li>
+  <li><a href="#opciones-de-los-bloques-de-código" id="toc-opciones-de-los-bloques-de-código" class="nav-link" data-scroll-target="#opciones-de-los-bloques-de-código">Opciones de los bloques de código</a></li>
+  </ul></li>
+  <li><a href="#section-4" id="toc-section-4" class="nav-link" data-scroll-target="#section-4"></a>
+  <ul class="collapse">
+  <li><a href="#nuestra-pregunta" id="toc-nuestra-pregunta" class="nav-link" data-scroll-target="#nuestra-pregunta">Nuestra pregunta</a></li>
+  <li><a href="#paso-0-la-carpeta-de-trabajo" id="toc-paso-0-la-carpeta-de-trabajo" class="nav-link" data-scroll-target="#paso-0-la-carpeta-de-trabajo">Paso 0: la carpeta de trabajo</a></li>
+  <li><a href="#paso-1-crear-el-documento" id="toc-paso-1-crear-el-documento" class="nav-link" data-scroll-target="#paso-1-crear-el-documento">Paso 1: crear el documento</a></li>
+  <li><a href="#paso-2-cargar-los-datos" id="toc-paso-2-cargar-los-datos" class="nav-link" data-scroll-target="#paso-2-cargar-los-datos">Paso 2: cargar los datos</a></li>
+  <li><a href="#paso-3-graficar-la-relación" id="toc-paso-3-graficar-la-relación" class="nav-link" data-scroll-target="#paso-3-graficar-la-relación">Paso 3: graficar la relación</a></li>
+  <li><a href="#paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano" id="toc-paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano" class="nav-link" data-scroll-target="#paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano">Paso 4: calcular r y reportarlo <strong>sin escribirlo a mano</strong></a></li>
+  <li><a href="#paso-5-generar-el-informe" id="toc-paso-5-generar-el-informe" class="nav-link" data-scroll-target="#paso-5-generar-el-informe">Paso 5: generar el informe</a></li>
+  </ul></li>
+  <li><a href="#section-5" id="toc-section-5" class="nav-link" data-scroll-target="#section-5"></a>
+  <ul class="collapse">
+  <li><a href="#un-mismo-.qmd-muchos-formatos" id="toc-un-mismo-.qmd-muchos-formatos" class="nav-link" data-scroll-target="#un-mismo-.qmd-muchos-formatos">Un mismo <code>.qmd</code>, muchos formatos</a></li>
+  <li><a href="#informes-y-artículos" id="toc-informes-y-artículos" class="nav-link" data-scroll-target="#informes-y-artículos">Informes y artículos</a></li>
+  <li><a href="#referencias-bibliográficas" id="toc-referencias-bibliográficas" class="nav-link" data-scroll-target="#referencias-bibliográficas">Referencias bibliográficas</a></li>
+  <li><a href="#presentaciones" id="toc-presentaciones" class="nav-link" data-scroll-target="#presentaciones">Presentaciones</a></li>
+  <li><a href="#sitios-web-y-libros" id="toc-sitios-web-y-libros" class="nav-link" data-scroll-target="#sitios-web-y-libros">Sitios web y libros</a></li>
+  <li><a href="#visualizaciones-interactivas" id="toc-visualizaciones-interactivas" class="nav-link" data-scroll-target="#visualizaciones-interactivas">Visualizaciones interactivas</a></li>
+  <li><a href="#dashboards-y-diagramas" id="toc-dashboards-y-diagramas" class="nav-link" data-scroll-target="#dashboards-y-diagramas">Dashboards y diagramas</a></li>
+  <li><a href="#resumen" id="toc-resumen" class="nav-link" data-scroll-target="#resumen">Resumen</a></li>
+  <li><a href="#recursos" id="toc-recursos" class="nav-link" data-scroll-target="#recursos">Recursos</a></li>
+  </ul></li>
+  <li><a href="#section-6" id="toc-section-6" class="nav-link" data-scroll-target="#section-6"></a></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="14-Quarto.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
 
 
-<section>
-<section id="section" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
+
+
+<section id="section" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
 <p><br></p>
-</section>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -261,22 +309,22 @@
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
 <p><br> <span style="color: white; font-size: 1.3em;"><strong>Sesión 14</strong>:</span></p>
 <p><span style="color: #dfc117;">Introducción a la escritura en documentos dinámicos en Quarto</span></p>
+</section>
 </div>
-</div></section>
-<section id="section-1" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</div>
+</section>
+<section id="section-1" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>A. Texto plano y Markdown</p>
 <p>B. Quarto</p>
 <p>C. Quarto en Positron</p>
 <p>D. ¿Qué se puede hacer en Quarto?</p>
 </div>
 </section>
-
-<section>
-<section id="section-2" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+<section id="section-2" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p><span style="color: #dfc117; font-weight: bold;">A. Texto plano y Markdown</span></p>
 <p>B. Quarto</p>
 <p>C. Quarto en Positron</p>
@@ -333,79 +381,81 @@ Fuente: [Baker (2016) 1,500 scientists lift the lid on reproducibility - Nature]
 - Repositorio con datos y código de análisis abierto
 
 - Control de versiones -->
+<section id="flujo-de-trabajo-con-procesador-de-texto-tradicional" class="level2">
+<h2 class="anchored" data-anchor-id="flujo-de-trabajo-con-procesador-de-texto-tradicional">Flujo de trabajo con procesador de texto tradicional</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="img/W_workflow.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
 </section>
-<section id="flujo-de-trabajo-con-procesador-de-texto-tradicional" class="slide level2">
-<h2>Flujo de trabajo con procesador de texto tradicional</h2>
-
-<img data-src="img/W_workflow.png" class="quarto-figure quarto-figure-center r-stretch" style="width:70.0%"></section>
-<section id="abriendo-el-archivo-de-escritura-tradicional" class="slide level2">
-<h2>Abriendo el archivo de escritura tradicional</h2>
-
-<img data-src="img/realWord.png" class="r-stretch"></section>
-<section id="desventajas-del-procesador-tradicional" class="slide level2">
-<h2>Desventajas del procesador tradicional</h2>
+<section id="abriendo-el-archivo-de-escritura-tradicional" class="level2">
+<h2 class="anchored" data-anchor-id="abriendo-el-archivo-de-escritura-tradicional">Abriendo el archivo de escritura tradicional</h2>
+<p><img src="img/realWord.png" class="img-fluid"></p>
+</section>
+<section id="desventajas-del-procesador-tradicional" class="level2">
+<h2 class="anchored" data-anchor-id="desventajas-del-procesador-tradicional">Desventajas del procesador tradicional</h2>
 <div class="columns">
 <div class="column" style="width:65%;">
 <ul>
-<li class="fragment"><p>Barrera de <strong>pago/licencia</strong> para acceder a los contenidos</p></li>
-<li class="fragment"><p>Difícil <strong>versionamiento</strong>: cuesta llevar registro de quién hizo qué cambio, lo que dificulta la reproducibilidad y la colaboración</p></li>
-<li class="fragment"><p>No permite un documento enteramente <strong>reproducible</strong> que combine el texto con el código de análisis</p></li>
+<li><p>Barrera de <strong>pago/licencia</strong> para acceder a los contenidos</p></li>
+<li><p>Difícil <strong>versionamiento</strong>: cuesta llevar registro de quién hizo qué cambio, lo que dificulta la reproducibilidad y la colaboración</p></li>
+<li><p>No permite un documento enteramente <strong>reproducible</strong> que combine el texto con el código de análisis</p></li>
 </ul>
 </div><div class="column" style="width:35%;">
 <p><br></p>
-<p><img data-src="img/word.jpg" style="width:100.0%"></p>
-</div></div>
+<p><img src="img/word.jpg" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
 </section>
-<section id="un-caso-conocido-el-reporte-de-una-correlación" class="slide level2">
-<h2>Un caso conocido: el reporte de una correlación</h2>
+<section id="un-caso-conocido-el-reporte-de-una-correlación" class="level2">
+<h2 class="anchored" data-anchor-id="un-caso-conocido-el-reporte-de-una-correlación">Un caso conocido: el reporte de una correlación</h2>
 <ul>
-<li class="fragment"><p>Calculamos en R la correlación entre escolaridad e ingresos: <strong>0.4335</strong></p></li>
-<li class="fragment"><p>Copiamos el número y el gráfico a un procesador de texto</p></li>
-<li class="fragment"><p>Detectamos un error en la base, o decidimos filtrar otros casos. Ahora el coeficiente es <strong>0.362</strong></p></li>
-<li class="fragment"><p>… y hay que <strong>rehacer a mano</strong> cada cifra, tabla y gráfico del informe</p></li>
-<li class="fragment"><p>¿Cómo sabe un lector, nuestro equipo o nosotros mismo de dónde salió cada número?</p></li>
+<li><p>Calculamos en R la correlación entre escolaridad e ingresos: <strong>0.4335</strong></p></li>
+<li><p>Copiamos el número y el gráfico a un procesador de texto</p></li>
+<li><p>Detectamos un error en la base, o decidimos filtrar otros casos. Ahora el coeficiente es <strong>0.362</strong></p></li>
+<li><p>… y hay que <strong>rehacer a mano</strong> cada cifra, tabla y gráfico del informe</p></li>
+<li><p>¿Cómo sabe un lector, nuestro equipo o nosotros mismo de dónde salió cada número?</p></li>
 </ul>
-</section></section>
-<section>
-<section id="donde-hay-cortarpegar-no-hay-reproducibilidad" class="title-slide slide level1 center" data-background-color="#9B2626">
-<h1><span style="color: white;">Donde hay cortar/pegar, no hay reproducibilidad</span></h1>
-
 </section>
-<section id="escritura-libre-y-abierta" class="slide level2">
-<h2>Escritura libre y abierta</h2>
+</section>
+<section id="donde-hay-cortarpegar-no-hay-reproducibilidad" class="level1" data-background-color="#9B2626">
+<h1 data-background-color="#9B2626"><span style="color: white;">Donde hay cortar/pegar, no hay reproducibilidad</span></h1>
+<section id="escritura-libre-y-abierta" class="level2">
+<h2 class="anchored" data-anchor-id="escritura-libre-y-abierta">Escritura libre y abierta</h2>
 <div class="content-box-red">
 <ul>
-<li class="fragment"><p>independiente de programa comercial</p></li>
-<li class="fragment"><p>independiente de plataformas específicas</p></li>
-<li class="fragment"><p>permite combinar texto y análisis en un mismo documento</p></li>
-<li class="fragment"><p>foco en los contenidos en lugar del formato</p></li>
-<li class="fragment"><p>permite distintas opciones de formato final</p></li>
+<li><p>independiente de programa comercial</p></li>
+<li><p>independiente de plataformas específicas</p></li>
+<li><p>permite combinar texto y análisis en un mismo documento</p></li>
+<li><p>foco en los contenidos en lugar del formato</p></li>
+<li><p>permite distintas opciones de formato final</p></li>
 </ul>
 </div>
 <!-- ## Inspiración
 
 ![](img/bowers&healey.png){fig-align="center"} -->
 </section>
-<section id="escritura-simple-plana" class="slide level2">
-<h2>Escritura simple / plana</h2>
+<section id="escritura-simple-plana" class="level2">
+<h2 class="anchored" data-anchor-id="escritura-simple-plana">Escritura simple / plana</h2>
 <div class="content-box-red">
 <ul>
-<li class="fragment"><p>entorno: <strong>editor de texto</strong> (en nuestro caso, Positron)</p></li>
-<li class="fragment"><p>separación entre texto de entrada (<em>input</em>) y texto de salida (<em>output</em>)</p></li>
-<li class="fragment"><p>foco en el input/contenido vs.&nbsp;output/formato</p></li>
-<li class="fragment"><p><strong>marcas de edición</strong>: vínculo entre el formato del input y del output</p></li>
-<li class="fragment"><p>sin cortar / pegar</p></li>
+<li><p>entorno: <strong>editor de texto</strong> (en nuestro caso, Positron)</p></li>
+<li><p>separación entre texto de entrada (<em>input</em>) y texto de salida (<em>output</em>)</p></li>
+<li><p>foco en el input/contenido vs.&nbsp;output/formato</p></li>
+<li><p><strong>marcas de edición</strong>: vínculo entre el formato del input y del output</p></li>
+<li><p>sin cortar / pegar</p></li>
 </ul>
 </div>
 </section>
-<section id="documentos-dinámicos" class="slide level2">
-<h2>Documentos dinámicos</h2>
+<section id="documentos-dinámicos" class="level2">
+<h2 class="anchored" data-anchor-id="documentos-dinámicos">Documentos dinámicos</h2>
 <ul>
-<li class="fragment"><p>La escritura en texto plano permite la ejecución de <strong>documentos dinámicos</strong></p></li>
-<li class="fragment"><p>Los documentos dinámicos integran <strong>distintas formas de código</strong> (de escritura y de análisis)</p></li>
-<li class="fragment"><p>Se evita la práctica no reproducible de <strong>cortar/pegar</strong></p></li>
-<li class="fragment"><p>Mayor <strong>eficiencia</strong> al momento de corregir y volver a ejecutar los análisis</p></li>
-<li class="fragment"><p>Ejemplos: knitr, RMarkdown y… <strong>Quarto</strong></p></li>
+<li><p>La escritura en texto plano permite la ejecución de <strong>documentos dinámicos</strong></p></li>
+<li><p>Los documentos dinámicos integran <strong>distintas formas de código</strong> (de escritura y de análisis)</p></li>
+<li><p>Se evita la práctica no reproducible de <strong>cortar/pegar</strong></p></li>
+<li><p>Mayor <strong>eficiencia</strong> al momento de corregir y volver a ejecutar los análisis</p></li>
+<li><p>Ejemplos: knitr, RMarkdown y… <strong>Quarto</strong></p></li>
 </ul>
 <!-- ## Marcas de edición
 
@@ -413,78 +463,103 @@ Vínculo entre escritura en texto simple (input) y output
 
 ![](img/marcas-edi.png) -->
 </section>
-<section id="principales-alternativas-escritura-simple" class="slide level2">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple" class="level2">
+<h2 class="anchored" data-anchor-id="principales-alternativas-escritura-simple">Principales alternativas escritura simple</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<h3 id="latex"><strong>LaTeX</strong></h3>
-<h3 id="markdown"><span style="color: gray;">Markdown</span></h3>
+<section id="latex" class="level3">
+<h3 class="anchored" data-anchor-id="latex"><strong>LaTeX</strong></h3>
+</section>
+<section id="markdown" class="level3">
+<h3 class="anchored" data-anchor-id="markdown"><span style="color: gray;">Markdown</span></h3>
+</section>
 </div><div class="column" style="width:70%;">
 <ul>
-<li class="fragment"><p>sistema de escritura simple de amplio uso en la academia</p></li>
-<li class="fragment"><p>alta calidad en salida a pdf</p></li>
-<li class="fragment"><p>creado a comienzos de los 80 (Donald Knuth, Leslie Lamport)</p></li>
+<li><p>sistema de escritura simple de amplio uso en la academia</p></li>
+<li><p>alta calidad en salida a pdf</p></li>
+<li><p>creado a comienzos de los 80 (Donald Knuth, Leslie Lamport)</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="principales-alternativas-escritura-simple-1" class="slide level2">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple-1" class="level2">
+<h2 class="anchored" data-anchor-id="principales-alternativas-escritura-simple-1">Principales alternativas escritura simple</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<h3 id="latex-1"><strong>LaTeX</strong></h3>
-<h3 id="markdown-1"><span style="color: gray;">Markdown</span></h3>
+<section id="latex-1" class="level3">
+<h3 class="anchored" data-anchor-id="latex-1"><strong>LaTeX</strong></h3>
+</section>
+<section id="markdown-1" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-1"><span style="color: gray;">Markdown</span></h3>
+</section>
 </div><div class="column" style="width:70%;">
-<p><img data-src="img/latex.jpg"></p>
-</div></div>
+<p><img src="img/latex.jpg" class="img-fluid"></p>
+</div>
+</div>
 </section>
-<section id="principales-alternativas-escritura-simple-2" class="slide level2">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple-2" class="level2">
+<h2 class="anchored" data-anchor-id="principales-alternativas-escritura-simple-2">Principales alternativas escritura simple</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<h3 id="latex-2"><span style="color: gray;">LaTeX</span></h3>
-<h3 id="markdown-2"><strong>Markdown</strong></h3>
+<section id="latex-2" class="level3">
+<h3 class="anchored" data-anchor-id="latex-2"><span style="color: gray;">LaTeX</span></h3>
+</section>
+<section id="markdown-2" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-2"><strong>Markdown</strong></h3>
+</section>
 </div><div class="column" style="width: 70%;">
 <ul>
-<li class="fragment"><p>creado por John Gruber y Aaron Swartz en 2004</p></li>
-<li class="fragment"><p>forma de escritura simple con pocas marcas de formato</p></li>
-<li class="fragment"><p>conversión a distintos formatos de salida (html, pdf)</p></li>
-<li class="fragment"><p>soporta encabezados, tablas, imágenes, tablas de contenidos, ecuaciones, links …</p></li>
-<li class="fragment"><p>filosofía: foco en contenido primero, el formato después</p></li>
+<li><p>creado por John Gruber y Aaron Swartz en 2004</p></li>
+<li><p>forma de escritura simple con pocas marcas de formato</p></li>
+<li><p>conversión a distintos formatos de salida (html, pdf)</p></li>
+<li><p>soporta encabezados, tablas, imágenes, tablas de contenidos, ecuaciones, links …</p></li>
+<li><p>filosofía: foco en contenido primero, el formato después</p></li>
 </ul>
-</div></div>
+</div>
+</div>
 </section>
-<section id="principales-alternativas-escritura-simple-3" class="slide level2">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple-3" class="level2">
+<h2 class="anchored" data-anchor-id="principales-alternativas-escritura-simple-3">Principales alternativas escritura simple</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<h3 id="latex-3"><span style="color: gray;">LaTeX</span></h3>
-<h3 id="markdown-3"><strong>Markdown</strong></h3>
+<section id="latex-3" class="level3">
+<h3 class="anchored" data-anchor-id="latex-3"><span style="color: gray;">LaTeX</span></h3>
+</section>
+<section id="markdown-3" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-3"><strong>Markdown</strong></h3>
+</section>
 </div><div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="https://jc-castillo.com/documents/talleres-cursos/markdown-mexico/slides/Markdown-mark.png" class="quarto-figure quarto-figure-right" style="width:70.0%"></p>
+<figure class="figure">
+<p><img src="https://jc-castillo.com/documents/talleres-cursos/markdown-mexico/slides/Markdown-mark.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:70.0%"></p>
 </figure>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="principales-alternativas-escritura-simple-4" class="slide level2">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple-4" class="level2">
+<h2 class="anchored" data-anchor-id="principales-alternativas-escritura-simple-4">Principales alternativas escritura simple</h2>
 <div class="columns">
 <div class="column" style="width:30%;">
-<h3 id="latex-4"><span style="color: gray;">LaTeX</span></h3>
-<h3 id="markdown-4"><strong>Markdown</strong></h3>
+<section id="latex-4" class="level3">
+<h3 class="anchored" data-anchor-id="latex-4"><span style="color: gray;">LaTeX</span></h3>
+</section>
+<section id="markdown-4" class="level3">
+<h3 class="anchored" data-anchor-id="markdown-4"><strong>Markdown</strong></h3>
+</section>
 </div><div class="column" style="width:70%;">
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/markdownpreview.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/markdownpreview.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="principales-alternativas-escritura-simple-5" class="slide level2 nonincremental">
-<h2>Principales alternativas escritura simple</h2>
+<section id="principales-alternativas-escritura-simple-5" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="principales-alternativas-escritura-simple-5">Principales alternativas escritura simple</h2>
 <p><br></p>
-<table class="caption-top" style="width:100%;">
+<table class="caption-top table">
 <colgroup>
 <col style="width: 16%">
 <col style="width: 28%">
@@ -535,11 +610,11 @@ Vínculo entre escritura en texto simple (input) y output
 - [Tutorial de markdown online](https://www.markdowntutorial.com/es/)
 
 - [Markdown cheatsheet](https://www.markdownguide.org/cheat-sheet/) -->
-</section></section>
-<section>
-<section id="section-3" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</section>
+</section>
+<section id="section-3" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>A. Texto plano y Markdown</p>
 <p><span style="color: #dfc117; font-weight: bold;">B. Quarto</span></p>
 <p>C. Quarto en Positron</p>
@@ -558,39 +633,39 @@ Vínculo entre escritura en texto simple (input) y output
 ![](img/copypaste.png){width="60%" fig-align="center"}
 :::
 ::::: -->
-</section>
-<section id="desafiando-el-modelo-cortar-pegar" class="slide level2">
-<h2>Desafiando el modelo cortar &amp; pegar</h2>
+<section id="desafiando-el-modelo-cortar-pegar" class="level2">
+<h2 class="anchored" data-anchor-id="desafiando-el-modelo-cortar-pegar">Desafiando el modelo cortar &amp; pegar</h2>
 <div class="content-box-red">
 <ul>
-<li class="fragment"><p><strong>Ideal de reproducibilidad</strong>: documento donde se combine texto y código que genera resultados presentados.</p></li>
-<li class="fragment"><p><strong>Limitación procesadores de texto</strong>: no permiten incorporar código &amp; resultados de manera eficiente</p></li>
-<li class="fragment"><p><strong>Limitación software de análisis</strong>: permiten incorporar texto solo en un formato plano, no publicable</p></li>
+<li><p><strong>Ideal de reproducibilidad</strong>: documento donde se combine texto y código que genera resultados presentados.</p></li>
+<li><p><strong>Limitación procesadores de texto</strong>: no permiten incorporar código &amp; resultados de manera eficiente</p></li>
+<li><p><strong>Limitación software de análisis</strong>: permiten incorporar texto solo en un formato plano, no publicable</p></li>
 </ul>
 </div>
 </section>
-<section id="quarto" class="slide level2">
-<h2>Quarto</h2>
+<section id="quarto" class="level2">
+<h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
 <div class="columns">
 <div class="column" style="width:70%;">
 <ul>
-<li class="fragment"><p>Sistema de publicación científica y técnica <strong>de código abierto</strong></p></li>
-<li class="fragment"><p>Sucesor de RMarkdown: misma lógica, más formatos y más lenguajes (R, Python, Julia)</p></li>
-<li class="fragment"><p>Se escribe en <strong>texto plano</strong>, en archivos <code>.qmd</code></p></li>
-<li class="fragment"><p>Un mismo archivo puede producir HTML, PDF, Word, presentaciones, sitios web y libros</p></li>
-<li class="fragment"><p><strong>Viene incluido en Positron</strong>: no hay que instalar nada adicional</p></li>
+<li><p>Sistema de publicación científica y técnica <strong>de código abierto</strong></p></li>
+<li><p>Sucesor de RMarkdown: misma lógica, más formatos y más lenguajes (R, Python, Julia)</p></li>
+<li><p>Se escribe en <strong>texto plano</strong>, en archivos <code>.qmd</code></p></li>
+<li><p>Un mismo archivo puede producir HTML, PDF, Word, presentaciones, sitios web y libros</p></li>
+<li><p><strong>Viene incluido en Positron</strong>: no hay que instalar nada adicional</p></li>
 </ul>
 </div><div class="column" style="width:30%;">
 <p><br></p>
-<p><img data-src="img/logo-quarto.png" style="width:100.0%"></p>
-</div></div>
+<p><img src="img/logo-quarto.png" class="img-fluid" style="width:100.0%"></p>
+</div>
+</div>
 </section>
-<section id="cómo-funciona" class="slide level2">
-<h2>¿Cómo funciona?</h2>
-<div class="cell" data-reveal="true" data-fig-width="10" data-layout-align="default">
+<section id="cómo-funciona" class="level2">
+<h2 class="anchored" data-anchor-id="cómo-funciona">¿Cómo funciona?</h2>
+<div class="cell" data-fig-width="10" data-layout-align="default">
 <div class="cell-output-display">
 <div>
-<p></p><figure class=""><p></p>
+<p></p><figure class="figure"><p></p>
 <div>
 <pre class="mermaid mermaid-js">flowchart LR
   A[".qmd&lt;br&gt;texto + código"] --&gt; B["knitr&lt;br&gt;ejecuta el código R"]
@@ -606,29 +681,31 @@ Vínculo entre escritura en texto simple (input) y output
 </div>
 </div>
 </div>
+<div class="nonincremental">
 <ul>
 <li>Todo esto ocurre al presionar un solo botón: <strong>Preview (Ctrl+Shift+K)</strong></li>
 </ul>
+</div>
 </section>
-<section id="anatomía-de-un-archivo-.qmd" class="slide level2 nonincremental">
-<h2>Anatomía de un archivo <code>.qmd</code></h2>
+<section id="anatomía-de-un-archivo-.qmd" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="anatomía-de-un-archivo-.qmd">Anatomía de un archivo <code>.qmd</code></h2>
 <div class="columns">
 <div class="column" style="width:58%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a></a><span class="co">---</span></span>
-<span id="cb1-2"><a></a><span class="an">title:</span><span class="co"> "Escolaridad e ingresos en Chile"</span></span>
-<span id="cb1-3"><a></a><span class="an">author:</span><span class="co"> "Nombre Apellido"</span></span>
-<span id="cb1-4"><a></a><span class="an">format:</span><span class="co"> html</span></span>
-<span id="cb1-5"><a></a><span class="an">lang:</span><span class="co"> es</span></span>
-<span id="cb1-6"><a></a><span class="co">---</span></span>
-<span id="cb1-7"><a></a></span>
-<span id="cb1-8"><a></a><span class="fu">## Introducción</span></span>
-<span id="cb1-9"><a></a></span>
-<span id="cb1-10"><a></a>Este informe usa datos de la **CASEN 2024**.</span>
-<span id="cb1-11"><a></a></span>
-<span id="cb1-12"><a></a><span class="in">```{r}</span></span>
-<span id="cb1-13"><a></a><span class="co">#| label: datos</span></span>
-<span id="cb1-14"><a></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
-<span id="cb1-15"><a></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Escolaridad e ingresos en Chile"</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nombre Apellido"</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="an">lang:</span><span class="co"> es</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>Este informe usa datos de la **CASEN 2024**.</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:42%;">
 <div class="content-box-red">
 <p><strong>1. Encabezado YAML</strong>: título, autor y formato de salida, entre dos líneas de tres guiones</p>
@@ -639,11 +716,12 @@ Vínculo entre escritura en texto simple (input) y output
 <div class="content-box-green">
 <p><strong>3. Bloques de código</strong> (<em>chunks</em>): código R que se ejecuta al generar el documento</p>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="marcas-de-edición-en-markdown" class="slide level2 nonincremental">
-<h2>Marcas de edición en Markdown</h2>
-<table class="caption-top">
+<section id="marcas-de-edición-en-markdown" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="marcas-de-edición-en-markdown">Marcas de edición en Markdown</h2>
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Se escribe</th>
@@ -678,10 +756,10 @@ Vínculo entre escritura en texto simple (input) y output
 </tbody>
 </table>
 </section>
-<section id="opciones-de-los-bloques-de-código" class="slide level2 nonincremental">
-<h2>Opciones de los bloques de código</h2>
+<section id="opciones-de-los-bloques-de-código" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="opciones-de-los-bloques-de-código">Opciones de los bloques de código</h2>
 <p>Se escriben al inicio del bloque, con <code>#|</code></p>
-<table class="caption-top">
+<table class="caption-top table">
 <thead>
 <tr class="header">
 <th>Opción</th>
@@ -749,7 +827,7 @@ Vínculo entre escritura en texto simple (input) y output
 `Aquí texto`
 
 ````
-```wvdjk
+```ritdm
 1 + 1
 ```
 ````
@@ -795,7 +873,7 @@ Se pueden insertar rápidamente de la siguiente manera:
 ## 1. Mostrar código y resultado (opción por defecto)
 
 ````
-```wvdjk
+```ritdm
 1 + 1
 ```
 ````
@@ -1144,117 +1222,123 @@ Más info:
 
 :::
 ::::: -->
-</section></section>
-<section>
-<section id="section-4" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</section>
+</section>
+<section id="section-4" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>A. Texto plano y Markdown</p>
 <p>B. Quarto</p>
 <p><span style="color: #dfc117; font-weight: bold;">C. Quarto en Positron</span></p>
 <p>D. ¿Qué se puede hacer en Quarto?</p>
 </div>
-</section>
-<section id="nuestra-pregunta" class="slide level2">
-<h2>Nuestra pregunta</h2>
+<section id="nuestra-pregunta" class="level2">
+<h2 class="anchored" data-anchor-id="nuestra-pregunta">Nuestra pregunta</h2>
 <div class="content-box-gray">
 <p><span style="font-size: 1.4em; font-weight: bold;">¿Se asocia la escolaridad con el ingreso del trabajo en Chile?</span></p>
 </div>
 <ul>
-<li class="fragment"><p><strong>Datos</strong>: CASEN 2024, submuestra aleatoria de 3.000 personas de 18 años o más (<a href="https://github.com/cursos-metodos-facso/datos-ejemplos">repositorio de datos del curso</a>)</p></li>
-<li class="fragment"><p><strong>Variables</strong>: <code>escolaridad</code> (años), <code>ingreso_trabajo</code> ($ mensuales), <code>edad</code> (años)</p></li>
-<li class="fragment"><p><strong>Ojo</strong>: solo quienes trabajan reportan ingreso del trabajo</p></li>
+<li><p><strong>Datos</strong>: CASEN 2024, submuestra aleatoria de 3.000 personas de 18 años o más (<a href="https://github.com/cursos-metodos-facso/datos-ejemplos">repositorio de datos del curso</a>)</p></li>
+<li><p><strong>Variables</strong>: <code>escolaridad</code> (años), <code>ingreso_trabajo</code> ($ mensuales), <code>edad</code> (años)</p></li>
+<li><p><strong>Ojo</strong>: solo quienes trabajan reportan ingreso del trabajo</p></li>
 </ul>
 </section>
-<section id="paso-0-la-carpeta-de-trabajo" class="slide level2">
-<h2>Paso 0: la carpeta de trabajo</h2>
+<section id="paso-0-la-carpeta-de-trabajo" class="level2">
+<h2 class="anchored" data-anchor-id="paso-0-la-carpeta-de-trabajo">Paso 0: la carpeta de trabajo</h2>
 <div class="columns">
 <div class="column" style="width:52%;">
 <ul>
-<li class="fragment"><p>En Positron, <strong>la carpeta es el proyecto</strong>: <em>File › Open Folder…</em></p></li>
-<li class="fragment"><p>Proyecto <strong>autocontenido</strong>: todo está dentro de la carpeta</p></li>
-<li class="fragment"><p>Se evita <code>setwd("C:/Users/...")</code> y <code>.Rproj</code></p></li>
-<li class="fragment"><p>Se usan <strong>rutas relativas</strong>: <code>input/data/...</code></p></li>
+<li><p>En Positron, <strong>la carpeta es el proyecto</strong>: <em>File › Open Folder…</em></p></li>
+<li><p>Proyecto <strong>autocontenido</strong>: todo está dentro de la carpeta</p></li>
+<li><p>Se evita <code>setwd("C:/Users/...")</code> y <code>.Rproj</code></p></li>
+<li><p>Se usan <strong>rutas relativas</strong>: <code>input/data/...</code></p></li>
 </ul>
 </div><div class="column fragment" style="width:48%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource txt number-lines code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a></a>mi-informe/</span>
-<span id="cb2-2"><a></a>├── informe.qmd</span>
-<span id="cb2-3"><a></a>├── input/</span>
-<span id="cb2-4"><a></a>│   └── data/</span>
-<span id="cb2-5"><a></a>│       └── casen_barrio2024.rdata</span>
-<span id="cb2-6"><a></a>└── output/</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi-informe/</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>├── informe.qmd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>├── input/</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>│   └── data/</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>│       └── casen_barrio2024.rdata</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>└── output/</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
-<section id="paso-1-crear-el-documento" class="slide level2">
-<h2>Paso 1: crear el documento</h2>
+<section id="paso-1-crear-el-documento" class="level2">
+<h2 class="anchored" data-anchor-id="paso-1-crear-el-documento">Paso 1: crear el documento</h2>
 <div class="columns">
 <div class="column" style="width:45%;">
 <ul>
-<li class="fragment"><p><em>File › New File…</em> y elegir <strong>Quarto Document</strong></p></li>
-<li class="fragment"><p>Escribir el encabezado YAML</p></li>
-<li class="fragment"><p>Presionar <strong>Preview</strong> (arriba a la derecha) o <code>Ctrl/Cmd + Shift + K</code></p></li>
+<li><p><em>File › New File…</em> y elegir <strong>Quarto Document</strong></p></li>
+<li><p>Escribir el encabezado YAML</p></li>
+<li><p>Presionar <strong>Preview</strong> (arriba a la derecha) o <code>Ctrl/Cmd + Shift + K</code></p></li>
 </ul>
 </div><div class="column fragment" style="width:55%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a></a><span class="pp">---</span></span>
-<span id="cb3-2"><a></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos en Chile"</span></span>
-<span id="cb3-3"><a></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Nombre Apellido"</span></span>
-<span id="cb3-4"><a></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
-<span id="cb3-5"><a></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> es</span></span>
-<span id="cb3-6"><a></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos en Chile"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Nombre Apellido"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> es</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section>
-<section id="paso-2-cargar-los-datos" class="slide level2">
-<h2>Paso 2: cargar los datos</h2>
+<section id="paso-2-cargar-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="paso-2-cargar-los-datos">Paso 2: cargar los datos</h2>
+<div class="nonincremental">
 <ul>
 <li>Insertar un bloque de código: <code>Ctrl/Cmd + Shift + I</code></li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb4-2"><a></a><span class="co">#| label: datos</span></span>
-<span id="cb4-3"><a></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb4-4"><a></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata"</span>))  </span>
-<span id="cb4-5"><a></a><span class="co"># crea el objeto datos_casen</span></span>
-<span id="cb4-6"><a></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata"</span>))  </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># crea el objeto datos_casen</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="nonincremental">
 <ul>
 <li><p>Ejecutar el bloque en la Consola: <code>Ctrl/Cmd + Shift + Enter</code> (o <strong>Run Cell</strong> sobre el bloque)</p></li>
 <li><p>Ejecutar solo una línea: <code>Ctrl/Cmd + Enter</code></p></li>
 </ul>
+</div>
 </section>
-<section id="paso-3-graficar-la-relación" class="slide level2 nonincremental">
-<h2>Paso 3: graficar la relación</h2>
+<section id="paso-3-graficar-la-relación" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="paso-3-graficar-la-relación">Paso 3: graficar la relación</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a></a><span class="co">#| label: fig-dispersion</span></span>
-<span id="cb5-3"><a></a><span class="co">#| fig-cap: "Escolaridad e ingreso del trabajo"</span></span>
-<span id="cb5-4"><a></a><span class="fu">ggplot</span>(datos_casen,</span>
-<span id="cb5-5"><a></a>       <span class="fu">aes</span>(<span class="at">x =</span> escolaridad,</span>
-<span id="cb5-6"><a></a>           <span class="at">y =</span> ingreso_trabajo)) <span class="sc">+</span></span>
-<span id="cb5-7"><a></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb5-8"><a></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb5-9"><a></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
-<span id="cb5-10"><a></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
-<span id="cb5-11"><a></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-dispersion</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Escolaridad e ingreso del trabajo"</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_casen,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> escolaridad,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">y =</span> ingreso_trabajo)) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column fragment" style="width:50%;">
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<figure>
-<p><img data-src="14-Quarto_files/figure-revealjs/unnamed-chunk-5-1.png" width="672"></p>
+<figure class="figure">
+<p><img src="14-Quarto_files/figure-revealjs/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</div></div>
+</div>
+</div>
 </section>
-<section id="paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano" class="slide level2 nonincremental">
-<h2>Paso 4: calcular r y reportarlo <strong>sin escribirlo a mano</strong></h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a></a><span class="in">```{r}</span></span>
-<span id="cb6-2"><a></a><span class="co">#| label: correlacion</span></span>
-<span id="cb6-3"><a></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_casen<span class="sc">$</span>escolaridad, datos_casen<span class="sc">$</span>ingreso_trabajo,</span>
-<span id="cb6-4"><a></a>         <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb6-5"><a></a><span class="in">```</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="paso-4-calcular-r-y-reportarlo-sin-escribirlo-a-mano">Paso 4: calcular r y reportarlo <strong>sin escribirlo a mano</strong></h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: correlacion</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_casen<span class="sc">$</span>escolaridad, datos_casen<span class="sc">$</span>ingreso_trabajo,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>En el texto del documento se escribe:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a></a>La correlación entre escolaridad e ingreso del trabajo es <span class="in">`r round(r, 2)`</span>.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>La correlación entre escolaridad e ingreso del trabajo es <span class="in">`r round(r, 2)`</span>.</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="fragment">
 <p>Y al generar el documento se lee:</p>
 <div class="content-box-green">
@@ -1262,13 +1346,13 @@ Más info:
 </div>
 </div>
 </section>
-<section id="paso-5-generar-el-informe" class="slide level2">
-<h2>Paso 5: generar el informe</h2>
+<section id="paso-5-generar-el-informe" class="level2">
+<h2 class="anchored" data-anchor-id="paso-5-generar-el-informe">Paso 5: generar el informe</h2>
 <ul>
-<li class="fragment"><p><strong>Preview</strong> o <code>Ctrl/Cmd + Shift + K</code>: el documento aparece en el panel <strong>Viewer</strong> de Positron</p></li>
-<li class="fragment"><p>El archivo <code>informe.html</code> queda grabado en la misma carpeta que <code>informe.qmd</code></p></li>
-<li class="fragment"><p>Con <strong>Render on Save</strong> activado (barra del editor), el informe se actualiza cada vez que se guarda</p></li>
-<li class="fragment"><p>Si cambian los datos, se vuelve a generar y <strong>todas las cifras se actualizan solas</strong></p></li>
+<li><p><strong>Preview</strong> o <code>Ctrl/Cmd + Shift + K</code>: el documento aparece en el panel <strong>Viewer</strong> de Positron</p></li>
+<li><p>El archivo <code>informe.html</code> queda grabado en la misma carpeta que <code>informe.qmd</code></p></li>
+<li><p>Con <strong>Render on Save</strong> activado (barra del editor), el informe se actualiza cada vez que se guarda</p></li>
+<li><p>Si cambian los datos, se vuelve a generar y <strong>todas las cifras se actualizan solas</strong></p></li>
 </ul>
 <!-- # [Desafío]{style="color: white;"} {data-background-color="#9B2626"}
 
@@ -1293,29 +1377,29 @@ Resultado esperado: r = -0.45. Las personas mayores tienen menos años de escola
 | `cannot open file`                    | La ruta relativa: ¿está la base en `input/data/`?            |
 | El encabezado no funciona             | Dos líneas `---` y dos puntos después de cada campo          |
 | r aparece como `NA`                   | Falta `use = "complete.obs"` en `cor()`                      | -->
-</section></section>
-<section>
-<section id="section-5" class="title-slide slide level1 center" data-background-color="#0C3547">
-<h1></h1>
-<div style="color: white; text-align: right; font-size: 1.3em;">
+</section>
+</section>
+<section id="section-5" class="level1" data-background-color="#0C3547">
+<h1 data-background-color="#0C3547"></h1>
+<div class="nonincremental" style="color: white; text-align: right; font-size: 1.3em;">
 <p>1. Escritura abierta y reproducibilidad</p>
 <p>2. ¿Qué es Quarto?</p>
 <p>3. Quarto en Positron</p>
 <p><span style="color: #dfc117; font-weight: bold;">4. ¿Qué se puede hacer en Quarto?</span></p>
 </div>
-</section>
-<section id="un-mismo-.qmd-muchos-formatos" class="slide level2">
-<h2>Un mismo <code>.qmd</code>, muchos formatos</h2>
+<section id="un-mismo-.qmd-muchos-formatos" class="level2">
+<h2 class="anchored" data-anchor-id="un-mismo-.qmd-muchos-formatos">Un mismo <code>.qmd</code>, muchos formatos</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource yaml number-lines code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a></a><span class="pp">---</span></span>
-<span id="cb8-2"><a></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos"</span></span>
-<span id="cb8-3"><a></a><span class="fu">format</span><span class="kw">:</span></span>
-<span id="cb8-4"><a></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb8-5"><a></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb8-6"><a></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span></span>
-<span id="cb8-7"><a></a><span class="pp">---</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos"</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column" style="width:50%;">
+<div class="nonincremental">
 <ul>
 <li><code>html</code>: página web (la más rápida)</li>
 <li><code>pdf</code>: vía LaTeX o <strong>Typst</strong></li>
@@ -1323,68 +1407,74 @@ Resultado esperado: r = -0.45. Las personas mayores tienen menos años de escola
 <li><code>revealjs</code>: presentación</li>
 <li><code>dashboard</code>: panel de indicadores</li>
 </ul>
-</div></div>
+</div>
+</div>
+</div>
 <div style="font-size: 0.8em;">
 <p>En Positron: <strong>Quarto: Render Document</strong> genera todos los formatos declarados.</p>
 </div>
 </section>
-<section id="informes-y-artículos" class="slide level2">
-<h2>Informes y artículos</h2>
+<section id="informes-y-artículos" class="level2">
+<h2 class="anchored" data-anchor-id="informes-y-artículos">Informes y artículos</h2>
 <ul>
-<li class="fragment"><p>Informes de investigación, tesis y artículos académicos</p></li>
-<li class="fragment"><p>Numeración y referencias cruzadas: al escribir <code>@fig-dispersion</code> en el texto, aparece “Figura 1” con su enlace</p></li>
-<li class="fragment"><p>Ecuaciones en LaTeX:</p></li>
+<li><p>Informes de investigación, tesis y artículos académicos</p></li>
+<li><p>Numeración y referencias cruzadas: al escribir <code>@fig-dispersion</code> en el texto, aparece “Figura 1” con su enlace</p></li>
+<li><p>Ecuaciones en LaTeX:</p></li>
 </ul>
-<div class="fragment">
+<p>. . .</p>
 <p><span class="math display">\[
 r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{(n-1)\, s_x\, s_y}
 \]</span></p>
-</div>
 </section>
-<section id="referencias-bibliográficas" class="slide level2">
-<h2>Referencias bibliográficas</h2>
+<section id="referencias-bibliográficas" class="level2">
+<h2 class="anchored" data-anchor-id="referencias-bibliográficas">Referencias bibliográficas</h2>
 <ul>
-<li class="fragment"><p>La bibliografía se guarda en texto plano: archivo <strong>BibTeX</strong> (<code>.bib</code>)</p></li>
-<li class="fragment"><p>Zotero + <strong>Better BibTeX</strong> exporta y actualiza el <code>.bib</code> automáticamente</p></li>
-<li class="fragment"><p>En el YAML: <code>bibliography: input/bib/referencias.bib</code></p></li>
-<li class="fragment"><p>En el texto: <code>[@pardo2014]</code> → (Pardo, 2014), con la lista de referencias al final</p></li>
-<li class="fragment"><p>El estilo se cambia con un archivo <code>csl</code> (APA, Chicago…), sin reescribir nada</p></li>
+<li><p>La bibliografía se guarda en texto plano: archivo <strong>BibTeX</strong> (<code>.bib</code>)</p></li>
+<li><p>Zotero + <strong>Better BibTeX</strong> exporta y actualiza el <code>.bib</code> automáticamente</p></li>
+<li><p>En el YAML: <code>bibliography: input/bib/referencias.bib</code></p></li>
+<li><p>En el texto: <code>[@pardo2014]</code> → (Pardo, 2014), con la lista de referencias al final</p></li>
+<li><p>El estilo se cambia con un archivo <code>csl</code> (APA, Chicago…), sin reescribir nada</p></li>
 </ul>
 </section>
-<section id="presentaciones" class="slide level2">
-<h2>Presentaciones</h2>
+<section id="presentaciones" class="level2">
+<h2 class="anchored" data-anchor-id="presentaciones">Presentaciones</h2>
 <ul>
-<li class="fragment"><p><strong>Esta presentación está hecha en Quarto</strong> (<code>format: revealjs</code>)</p></li>
-<li class="fragment"><p>Todas las clases del curso son archivos <code>.qmd</code></p></li>
-<li class="fragment"><p>Los gráficos y resultados de las láminas se calculan al generar la presentación</p></li>
-<li class="fragment"><p>También se puedes generar presentaciones en PowerPoint (<code>pptx</code>) y Beamer (PDF)</p></li>
+<li><p><strong>Esta presentación está hecha en Quarto</strong> (<code>format: revealjs</code>)</p></li>
+<li><p>Todas las clases del curso son archivos <code>.qmd</code></p></li>
+<li><p>Los gráficos y resultados de las láminas se calculan al generar la presentación</p></li>
+<li><p>También se puedes generar presentaciones en PowerPoint (<code>pptx</code>) y Beamer (PDF)</p></li>
 </ul>
 </section>
-<section id="sitios-web-y-libros" class="slide level2">
-<h2>Sitios web y libros</h2>
+<section id="sitios-web-y-libros" class="level2">
+<h2 class="anchored" data-anchor-id="sitios-web-y-libros">Sitios web y libros</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<h3 id="sitios-web">Sitios web</h3>
+<section id="sitios-web" class="level3">
+<h3 class="anchored" data-anchor-id="sitios-web">Sitios web</h3>
 <ul>
-<li class="fragment"><p>La <a href="https://correlacional.metodos-facso.org">página del curso</a> es un sitio Quarto</p></li>
-<li class="fragment"><p>Varios <code>.qmd</code> + un archivo <code>_quarto.yml</code></p></li>
-<li class="fragment"><p>Publicación gratuita en GitHub Pages o Quarto Pub</p></li>
+<li><p>La <a href="https://correlacional.metodos-facso.org">página del curso</a> es un sitio Quarto</p></li>
+<li><p>Varios <code>.qmd</code> + un archivo <code>_quarto.yml</code></p></li>
+<li><p>Publicación gratuita en GitHub Pages o Quarto Pub</p></li>
 </ul>
-</div><div class="column" style="width:50%;">
-<h3 id="libros">Libros</h3>
-<ul>
-<li class="fragment"><p>Capítulos en archivos <code>.qmd</code> separados</p></li>
-<li class="fragment"><p>Salida en HTML, PDF y ePub</p></li>
-<li class="fragment"><p>Ejemplo: <a href="https://r4ds.hadley.nz">R for Data Science (2.ª ed.)</a></p></li>
-</ul>
-</div></div>
 </section>
-<section id="visualizaciones-interactivas" class="slide level2 nonincremental">
-<h2>Visualizaciones interactivas</h2>
-<div class="panel-tabset">
-<ul id="tabset-1" class="panel-tabset-tabby"><li><a data-tabby-default="" href="#tabset-1-1">Gráfico</a></li><li><a href="#tabset-1-2">Tabla</a></li><li><a href="#tabset-1-3">Código</a></li></ul>
+</div><div class="column" style="width:50%;">
+<section id="libros" class="level3">
+<h3 class="anchored" data-anchor-id="libros">Libros</h3>
+<ul>
+<li><p>Capítulos en archivos <code>.qmd</code> separados</p></li>
+<li><p>Salida en HTML, PDF y ePub</p></li>
+<li><p>Ejemplo: <a href="https://r4ds.hadley.nz">R for Data Science (2.ª ed.)</a></p></li>
+</ul>
+</section>
+</div>
+</div>
+</section>
+<section id="visualizaciones-interactivas" class="level2 nonincremental">
+<h2 class="nonincremental anchored" data-anchor-id="visualizaciones-interactivas">Visualizaciones interactivas</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">Gráfico</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Tabla</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Código</a></li></ul>
 <div class="tab-content">
-<div id="tabset-1-1">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div class="plotly html-widget html-fill-item" id="htmlwidget-2ce651c9c325d9c2bfff" style="width:672px;height:403.2px;"></div>
@@ -1392,7 +1482,7 @@ r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{(n-1)\, s_x\, s_y}
 </div>
 </div>
 </div>
-<div id="tabset-1-2">
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
 <div class="cell">
 <div class="cell-output-display">
 <div class="datatables html-widget html-fill-item" id="htmlwidget-ae4eea77a4fdc0c19725" style="width:100%;height:auto;"></div>
@@ -1400,40 +1490,41 @@ r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{(n-1)\, s_x\, s_y}
 </div>
 </div>
 </div>
-<div id="tabset-1-3">
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">library</span>(plotly)</span>
-<span id="cb9-2"><a></a><span class="fu">ggplotly</span>(g)     <span class="co"># convierte un gráfico ggplot en interactivo</span></span>
-<span id="cb9-3"><a></a></span>
-<span id="cb9-4"><a></a><span class="fu">library</span>(DT)</span>
-<span id="cb9-5"><a></a><span class="fu">datatable</span>(datos_casen)   <span class="co"># tabla con búsqueda y orden</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplotly</span>(g)     <span class="co"># convierte un gráfico ggplot en interactivo</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="fu">datatable</span>(datos_casen)   <span class="co"># tabla con búsqueda y orden</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </div>
 </section>
-<section id="dashboards-y-diagramas" class="slide level2">
-<h2>Dashboards y diagramas</h2>
+<section id="dashboards-y-diagramas" class="level2">
+<h2 class="anchored" data-anchor-id="dashboards-y-diagramas">Dashboards y diagramas</h2>
 <ul>
-<li class="fragment"><p><strong>Dashboards</strong> (<code>format: dashboard</code>): paneles de indicadores con gráficos, tablas y valores destacados</p></li>
-<li class="fragment"><p><strong>Diagramas</strong> escritos como texto (Mermaid, Graphviz)</p></li>
-<li class="fragment"><p><strong>Shiny</strong> y <strong>Observable JS</strong> para aplicaciones con filtros y controles: <a href="https://ocs-coes.shinyapps.io/visualizador-la/">VISLATAM</a></p></li>
-<li class="fragment"><p>Galería de ejemplos: <a href="https://quarto.org/docs/gallery/">quarto.org/docs/gallery</a></p></li>
+<li><p><strong>Dashboards</strong> (<code>format: dashboard</code>): paneles de indicadores con gráficos, tablas y valores destacados</p></li>
+<li><p><strong>Diagramas</strong> escritos como texto (Mermaid, Graphviz)</p></li>
+<li><p><strong>Shiny</strong> y <strong>Observable JS</strong> para aplicaciones con filtros y controles: <a href="https://ocs-coes.shinyapps.io/visualizador-la/">VISLATAM</a></p></li>
+<li><p>Galería de ejemplos: <a href="https://quarto.org/docs/gallery/">quarto.org/docs/gallery</a></p></li>
 </ul>
 </section>
-<section id="resumen" class="slide level2" data-background-color="#0C3547">
-<h2>Resumen</h2>
+<section id="resumen" class="level2" data-background-color="#0C3547">
+<h2 data-background-color="#0C3547" class="anchored" data-anchor-id="resumen">Resumen</h2>
 <div style="color: white;">
 <ul>
-<li class="fragment"><p><strong>Escritura abierta</strong>: texto plano, independiente de programas comerciales</p></li>
-<li class="fragment"><p><strong>Documentos dinámicos</strong>: texto y código en un solo archivo, sin cortar/pegar</p></li>
-<li class="fragment"><p><strong>Quarto en Positron</strong>: <code>.qmd</code> + Preview → informe reproducible</p></li>
-<li class="fragment"><p>Un mismo sistema para informes, presentaciones, sitios web, libros y visualizaciones interactivas</p></li>
+<li><p><strong>Escritura abierta</strong>: texto plano, independiente de programas comerciales</p></li>
+<li><p><strong>Documentos dinámicos</strong>: texto y código en un solo archivo, sin cortar/pegar</p></li>
+<li><p><strong>Quarto en Positron</strong>: <code>.qmd</code> + Preview → informe reproducible</p></li>
+<li><p>Un mismo sistema para informes, presentaciones, sitios web, libros y visualizaciones interactivas</p></li>
 </ul>
 </div>
 </section>
-<section id="recursos" class="slide level2">
-<h2>Recursos</h2>
+<section id="recursos" class="level2">
+<h2 class="anchored" data-anchor-id="recursos">Recursos</h2>
+<div class="nonincremental">
 <ul>
 <li><p><a href="https://quarto.org/docs/tools/positron/">Quarto en Positron</a></p></li>
 <li><p><a href="https://www.markdownguide.org/cheat-sheet/">Guía de Markdown</a></p></li>
@@ -1441,25 +1532,26 @@ r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{(n-1)\, s_x\, s_y}
 <li><p><a href="https://retorque.re/zotero-better-bibtex/">Better BibTeX para Zotero</a></p></li>
 <li><p><a href="https://lisa-coes.com/">LISA: protocolos para investigación reproducible</a></p></li>
 </ul>
-</section></section>
-<section>
-<section id="section-6" class="title-slide slide level1 hide-logo center" data-background-color="#0C3547">
-<h1></h1>
-<p><br></p>
+</div>
 </section>
+</section>
+<section id="section-6" class="level1 hide-logo" data-background-color="#0C3547">
+<h1 class="hide-logo" data-background-color="#0C3547"></h1>
+<p><br></p>
 <div class="columns">
 <div class="column" style="width:30%;">
 <p><br></p>
 <div class="quarto-figure quarto-figure-right">
-<figure>
-<p><img data-src="img/logo-correlacional-transp.png" class="quarto-figure quarto-figure-right" style="width:100.0%"></p>
+<figure class="figure">
+<p><img src="img/logo-correlacional-transp.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:100.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:2%;">
 
 </div><div class="column" style="width: 65%; font-size: 25px; text-align: right; margin: 0 auto;">
 <p><br></p>
-<h3 id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
+<section id="estadística-correlacional-1" class="level3">
+<h3 class="anchored" data-anchor-id="estadística-correlacional-1"><span style="font-size: 2em; color: white;">Estadística Correlacional</span></h3>
 <div style="border-top: 1px solid white; margin: 0.3em 0;">
 
 </div>
@@ -1468,470 +1560,841 @@ r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{(n-1)\, s_x\, s_y}
 <span style="font-size: 1em; color: white;">Sociología FACSO - UChile</span><br>
 <span style="font-size: 1em; color: white;">2do Sem 2026</span></p>
 <p><a href="https://correlacional.metodos-facso.org">correlacional.metodos-facso.org</a></p>
+</section>
 </div>
 </div>
+
 
 </section>
-    </div>
-  <div class="quarto-auto-generated-content" style="display: none;">
-<p><img src="img/logo-correlacional-transp.png" class="slide-logo"></p>
-<div class="footer footer-default">
 
-</div>
-</div></div>
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="../site_libs/revealjs/dist/reveal.js"></script>
-  <!-- reveal.js plugins -->
-  <script src="../site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="../site_libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="../site_libs/revealjs/plugin/quarto-support/support.js"></script>
-  
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+  <i class="bi bi-chevron-left"></i>
+</button>
 
-  <script src="../site_libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="../site_libs/revealjs/plugin/search/search.js"></script>
-  <script src="../site_libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="../site_libs/revealjs/plugin/math/math.js"></script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-  <script>
+  /* ========================================================
+     ELEMENTOS
+     ======================================================== */
 
-      // Full list of configuration options available at:
-      // https://revealjs.com/config/
-      Reveal.initialize({
-'controlsAuto': true,
-'previewLinksAuto': false,
-'pdfSeparateFragments': false,
-'autoAnimateEasing': "ease",
-'autoAnimateDuration': 1,
-'autoAnimateUnmatched': true,
-'jumpToSlide': true,
-'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': false,
- 
-        // Display controls in the bottom right corner
-        controls: false,
+  const pathname = window.location.pathname;
 
-        // Help the user learn the controls by providing hints, for example by
-        // bouncing the down arrow when they first encounter a vertical slide
-        controlsTutorial: false,
+  const esPracticos =
+    /\/assignment(?:\/|$)/.test(pathname);
 
-        // Determines where controls appear, "edges" or "bottom-right"
-        controlsLayout: 'edges',
+  /*
+   * Detecta específicamente:
+   *
+   * /assignment
+   * /assignment/
+   * /assignment/index.html
+   */
+  const esPaginaPrincipalPracticos =
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
-        // Visibility rule for backwards navigation arrows; "faded", "hidden"
-        // or "visible"
-        controlsBackArrows: 'faded',
 
-        // Display a presentation progress bar
-        progress: true,
+  const boton =
+    document.getElementById("practicos-sidebar-toggle");
 
-        // Display the page number of the current slide
-        slideNumber: 'c/t',
+  const zona =
+    document.getElementById("practicos-sidebar-hover-zone");
 
-        // 'all', 'print', or 'speaker'
-        showSlideNumber: 'all',
+  const sidebar =
+    document.getElementById("quarto-sidebar");
 
-        // Add the current slide number to the URL hash so that reloading the
-        // page/copying the URL will return you to the same slide
-        hash: true,
 
-        // Start with 1 for the hash rather than 0
-        hashOneBasedIndex: false,
+  if (!esPracticos || !sidebar || !boton || !zona) {
 
-        // Flags if we should monitor the hash and change slides accordingly
-        respondToHashChanges: true,
+    if (boton) {
+      boton.style.display = "none";
+    }
 
-        // Push each slide change to the browser history
-        history: true,
+    if (zona) {
+      zona.style.display = "none";
+    }
 
-        // Enable keyboard shortcuts for navigation
-        keyboard: true,
+    return;
+  }
 
-        // Enable the slide overview mode
-        overview: true,
 
-        // Disables the default reveal.js slide layout (scaling and centering)
-        // so that you can use custom CSS layout
-        disableLayout: false,
+  const body = document.body;
 
-        // Vertical centering of slides
-        center: false,
+  let abiertoTemporalmente = false;
+  let temporizadorCierre = null;
 
-        // Enables touch navigation on devices with touch input
-        touch: true,
 
-        // Loop the presentation
-        loop: false,
+  /* ========================================================
+     POSICIÓN DE LA PESTAÑITA
+     ======================================================== */
 
-        // Change the presentation direction to be RTL
-        rtl: false,
+  function actualizarPosicion() {
 
-        // see https://revealjs.com/vertical-slides/#navigation-mode
-        navigationMode: 'linear',
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
 
-        // Randomizes the order of slides each time the presentation loads
-        shuffle: false,
+    if (cerrado) {
 
-        // Turns fragments on and off globally
-        fragments: true,
+      /*
+       * Menú cerrado:
+       * la pestañita queda en el borde izquierdo.
+       */
+      boton.style.left = "0px";
 
-        // Flags whether to include the current fragment in the URL,
-        // so that reloading brings you to the same fragment position
-        fragmentInURL: false,
+    } else {
 
-        // Flags if the presentation is running in an embedded mode,
-        // i.e. contained within a limited portion of the screen
-        embedded: false,
+      /*
+       * Usamos offsetWidth para que la posición
+       * no dependa de la animación del sidebar.
+       */
+      const anchoSidebar = sidebar.offsetWidth;
 
-        // Flags if we should show a help overlay when the questionmark
-        // key is pressed
-        help: true,
+      boton.style.left =
+        (anchoSidebar - 2) + "px";
+    }
+  }
 
-        // Flags if it should be possible to pause the presentation (blackout)
-        pause: true,
 
-        // Flags if speaker notes should be visible to all viewers
-        showNotes: false,
+  /* ========================================================
+     ACTUALIZAR ICONO
+     ======================================================== */
 
-        // Global override for autoplaying embedded media (null/true/false)
-        autoPlayMedia: true,
+  function mostrarIconoAbierto() {
 
-        // Global override for preloading lazy-loaded iframes (null/true/false)
-        preloadIframes: null,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-left"></i>';
 
-        // Number of milliseconds between automatically proceeding to the
-        // next slide, disabled when set to 0, this value can be overwritten
-        // by using a data-autoslide attribute on your slides
-        autoSlide: 0,
+    boton.setAttribute(
+      "aria-label",
+      "Ocultar menú de prácticos"
+    );
 
-        // Stop auto-sliding after user input
-        autoSlideStoppable: true,
+    boton.title =
+      "Ocultar menú";
+  }
 
-        // Use this method for navigation when auto-sliding
-        autoSlideMethod: null,
 
-        // Specify the average time in seconds that you think you will spend
-        // presenting each slide. This is used to show a pacing timer in the
-        // speaker view
-        defaultTiming: null,
+  function mostrarIconoCerrado() {
 
-        // Enable slide navigation via mouse wheel
-        mouseWheel: false,
+    boton.innerHTML =
+      '<i class="bi bi-chevron-right"></i>';
 
-        // The display mode that will be used to show slides
-        display: 'block',
+    boton.setAttribute(
+      "aria-label",
+      "Mostrar menú de prácticos"
+    );
 
-        // Hide cursor if inactive
-        hideInactiveCursor: true,
+    boton.title =
+      "Mostrar menú";
+  }
 
-        // Time before the cursor is hidden (in ms)
-        hideCursorTime: 5000,
 
-        // Opens links in an iframe preview overlay
-        previewLinks: false,
+  /* ========================================================
+     MOSTRAR SIDEBAR
+     ======================================================== */
 
-        // Transition style (none/fade/slide/convex/concave/zoom)
-        transition: 'none',
+  function mostrarSidebar(temporal = false) {
 
-        // Transition speed (default/fast/slow)
-        transitionSpeed: 'slow',
+    clearTimeout(temporizadorCierre);
 
-        // Transition style for full page slide backgrounds
-        // (none/fade/slide/convex/concave/zoom)
-        backgroundTransition: 'none',
+    body.classList.remove(
+      "practicos-sidebar-cerrado"
+    );
 
-        // Number of slides away from the current that are visible
-        viewDistance: 3,
+    mostrarIconoAbierto();
 
-        // Number of slides away from the current that are visible on mobile
-        // devices. It is advisable to set this to a lower number than
-        // viewDistance in order to save resources.
-        mobileViewDistance: 2,
+    abiertoTemporalmente = temporal;
 
-        // The "normal" size of the presentation, aspect ratio will be preserved
-        // when the presentation is scaled to fit different resolutions. Can be
-        // specified using percentage units.
-        width: 1050,
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
 
-        height: 700,
 
-        // Factor of the display size that should remain empty around the content
-        margin: 0.1,
+  /* ========================================================
+     OCULTAR SIDEBAR
+     ======================================================== */
 
-        math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
+  function ocultarSidebar(guardar = false) {
 
-        // reveal.js plugins
-        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+    clearTimeout(temporizadorCierre);
 
-          RevealMath,
-          RevealNotes,
-          RevealSearch,
-          RevealZoom
-        ]
+    body.classList.add(
+      "practicos-sidebar-cerrado"
+    );
+
+    mostrarIconoCerrado();
+
+    abiertoTemporalmente = false;
+
+    if (guardar) {
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "cerrado"
+      );
+    }
+
+    requestAnimationFrame(function () {
+      actualizarPosicion();
+    });
+  }
+
+
+  /* ========================================================
+     CLICK EN LA PESTAÑITA
+     ======================================================== */
+
+  boton.addEventListener("click", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    /*
+     * Si está cerrado:
+     * un clic lo abre permanentemente.
+     */
+    if (cerrado) {
+
+      mostrarSidebar(false);
+
+      localStorage.setItem(
+        "practicos-sidebar",
+        "abierto"
+      );
+
+    } else {
+
+      /*
+       * Si está visible, un solo clic lo cierra,
+       * independientemente de si se abrió por
+       * hover o normalmente.
+       */
+      ocultarSidebar(true);
+    }
+
+  });
+
+
+  /* ========================================================
+     HOVER EN EL BORDE IZQUIERDO
+     ======================================================== */
+
+  zona.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+
+    const cerrado =
+      body.classList.contains(
+        "practicos-sidebar-cerrado"
+      );
+
+    if (cerrado) {
+
+      /*
+       * Mostrar temporalmente sin modificar
+       * la preferencia guardada.
+       */
+      mostrarSidebar(true);
+    }
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     SALIR DEL SIDEBAR
+     ======================================================== */
+
+  sidebar.addEventListener("mouseleave", function () {
+
+    /*
+     * Solo cerrar automáticamente si se abrió
+     * mediante hover.
+     */
+    if (!abiertoTemporalmente) {
+      return;
+    }
+
+    temporizadorCierre =
+      setTimeout(function () {
+
+        ocultarSidebar(false);
+
+      }, 500);
+  });
+
+
+  /* ========================================================
+     MOUSE SOBRE EL BOTÓN
+     ======================================================== */
+
+  boton.addEventListener("mouseenter", function () {
+
+    clearTimeout(temporizadorCierre);
+  });
+
+
+  /* ========================================================
+     ESTADO INICIAL
+     ======================================================== */
+
+  /*
+   * PORTADA DE PRÁCTICOS
+   *
+   * Siempre comienza desplegada cada vez
+   * que se entra o recarga la página.
+   *
+   * Aun así, después de cargarla el usuario
+   * puede plegarla normalmente.
+   */
+  if (esPaginaPrincipalPracticos) {
+
+    mostrarSidebar(false);
+
+  } else {
+
+    /*
+     * En los prácticos individuales sí respetamos
+     * el estado que dejó anteriormente el usuario.
+     */
+    const estadoGuardado =
+      localStorage.getItem(
+        "practicos-sidebar"
+      );
+
+    if (estadoGuardado === "cerrado") {
+
+      ocultarSidebar(false);
+
+    } else {
+
+      mostrarSidebar(false);
+    }
+  }
+
+
+  /* ========================================================
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+     ======================================================== */
+
+  window.addEventListener(
+    "resize",
+    actualizarPosicion
+  );
+
+
+  /* ========================================================
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+     ======================================================== */
+
+  sidebar.addEventListener(
+    "transitionend",
+    actualizarPosicion
+  );
+
+
+  /*
+   * También esperamos el cambio de la
+   * grilla de Quarto.
+   */
+  const contenido =
+    document.getElementById("quarto-content");
+
+  if (contenido) {
+
+    contenido.addEventListener(
+      "transitionend",
+      actualizarPosicion
+    );
+  }
+
+
+  /* ========================================================
+     AJUSTE FINAL DESPUÉS DE CARGAR
+     ======================================================== */
+
+  requestAnimationFrame(function () {
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+  });
+
+});
+</script>
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
       });
-    </script>
-    
+    }
 
-    <script>
+  })();
+</script>
 
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
-      // slide changes (different for each slide format).
-
-      (function () {
-
-        // dispatch for htmlwidgets
-
-        function fireSlideEnter() {
-
-          const event = window.document.createEvent("Event");
-
-          event.initEvent("slideenter", true, true);
-
-          window.document.dispatchEvent(event);
-
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
         }
-
-    
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          fireSlideEnter();
-
-    
-
-          // dispatch for shiny
-
-          if (window.jQuery) {
-
-            if (previousSlide) {
-
-              window.jQuery(previousSlide).trigger("hidden");
-
-            }
-
-            if (currentSlide) {
-
-              window.jQuery(currentSlide).trigger("shown");
-
-            }
-
-          }
-
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
         }
-
-    
-
-        // hookup for slidy
-
-        if (window.w3c_slidy) {
-
-          window.w3c_slidy.add_observer(function (slide_num) {
-
-            // slide_num starts at position 1
-
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
-          });
-
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-
-    
-
-      })();
-
-    </script>
-
-    
-
-    <script id="quarto-html-after-body" type="application/javascript">
-      window.document.addEventListener("DOMContentLoaded", function (event) {
-        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-        tabsets.forEach(function(tabset) {
-          const tabby = new Tabby('#' + tabset.id);
-        });
-        const isCodeAnnotation = (el) => {
-          for (const clz of el.classList) {
-            if (clz.startsWith('code-annotation-')) {                     
-              return true;
-            }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
           }
-          return false;
         }
-        const onCopySuccess = function(e) {
-          // button target
-          const button = e.trigger;
-          // don't keep focus
-          button.blur();
-          // flash "checked"
-          button.classList.add('code-copy-button-checked');
-          var currentTitle = button.getAttribute("title");
-          button.setAttribute("title", "Copied!");
-          let tooltip;
-          if (window.bootstrap) {
-            button.setAttribute("data-bs-toggle", "tooltip");
-            button.setAttribute("data-bs-placement", "left");
-            button.setAttribute("data-bs-title", "Copied!");
-            tooltip = new bootstrap.Tooltip(button, 
-              { trigger: "manual", 
-                customClass: "code-copy-button-tooltip",
-                offset: [0, -8]});
-            tooltip.show();    
-          }
-          setTimeout(function() {
-            if (tooltip) {
-              tooltip.hide();
-              button.removeAttribute("data-bs-title");
-              button.removeAttribute("data-bs-toggle");
-              button.removeAttribute("data-bs-placement");
-            }
-            button.setAttribute("title", currentTitle);
-            button.classList.remove('code-copy-button-checked');
-          }, 1000);
-          // clear code selection
-          e.clearSelection();
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
         }
-        const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
           }
-          return codeEl.innerText;
         }
-        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-          text: getTextToCopy
-        });
-        clipboard.on('success', onCopySuccess);
-        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-            text: getTextToCopy,
-            container: window.document.getElementById('quarto-embedded-source-code-modal')
-          });
-          clipboardModal.on('success', onCopySuccess);
-        }
-          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-          var mailtoRegex = new RegExp(/^mailto:/);
-            var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
-          var isInternal = (href) => {
-              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-          }
-          // Inspect non-navigation links and adorn them if external
-         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-          for (var i=0; i<links.length; i++) {
-            const link = links[i];
-            if (!isInternal(link.href)) {
-              // undo the damage that might have been done by quarto-nav.js in the case of
-              // links that we want to consider external
-              if (link.dataset.originalHref !== undefined) {
-                link.href = link.dataset.originalHref;
-              }
-            }
-          }
-        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-          const config = {
-            allowHTML: true,
-            maxWidth: 500,
-            delay: 100,
-            arrow: false,
-            appendTo: function(el) {
-                return el.closest('section.slide') || el.parentElement;
-            },
-            interactive: true,
-            interactiveBorder: 10,
-            theme: 'light-border',
-            placement: 'bottom-start',
-          };
-          if (contentFn) {
-            config.content = contentFn;
-          }
-          if (onTriggerFn) {
-            config.onTrigger = onTriggerFn;
-          }
-          if (onUntriggerFn) {
-            config.onUntrigger = onUntriggerFn;
-          }
-            config['offset'] = [0,0];
-            config['maxWidth'] = 700;
-          window.tippy(el, config); 
-        }
-        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-        for (var i=0; i<noterefs.length; i++) {
-          const ref = noterefs[i];
-          tippyHover(ref, function() {
-            // use id or data attribute instead here
-            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-            try { href = new URL(href).hash; } catch {}
-            const id = href.replace(/^#\/?/, "");
-            const note = window.document.getElementById(id);
-            if (note) {
-              return note.innerHTML;
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
             } else {
-              return "";
+              container.appendChild(child.cloneNode(true));
+              break;
             }
-          });
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
         }
-        const findCites = (el) => {
-          const parentEl = el.parentElement;
-          if (parentEl) {
-            const cites = parentEl.dataset.cites;
-            if (cites) {
-              return {
-                el,
-                cites: cites.split(' ')
-              };
-            } else {
-              return findCites(el.parentElement)
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
             }
           } else {
-            return undefined;
-          }
-        };
-        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-        for (var i=0; i<bibliorefs.length; i++) {
-          const ref = bibliorefs[i];
-          const citeInfo = findCites(ref);
-          if (citeInfo) {
-            tippyHover(citeInfo.el, function() {
-              var popup = window.document.createElement('div');
-              citeInfo.cites.forEach(function(cite) {
-                var citeDiv = window.document.createElement('div');
-                citeDiv.classList.add('hanging-indent');
-                citeDiv.classList.add('csl-entry');
-                var biblioDiv = window.document.getElementById('ref-' + cite);
-                if (biblioDiv) {
-                  citeDiv.innerHTML = biblioDiv.innerHTML;
-                }
-                popup.appendChild(citeDiv);
-              });
-              return popup.innerHTML;
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
             });
           }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
+      }, function(instance) {
       });
-      </script>
-    
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
 
 </body></html>
