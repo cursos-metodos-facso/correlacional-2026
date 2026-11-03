@@ -139,9 +139,11 @@ format:
 
 # Inicio · ¿Qué recordamos de la inferencia estadística? {#inicio}
 
-La **inferencia estadística** utiliza información de una **muestra** para evaluar afirmaciones sobre una **población**, considerando la incertidumbre. En este repaso aplicaremos ese razonamiento a cuatro problemas de comparación de promedios. **Todos los datos son ficticios.**
+La **inferencia estadística** utiliza información de una **muestra** para evaluar afirmaciones sobre una **población**, considerando la incertidumbre. En esta sesión trabajaremos **tres problemas de comparación de promedios** mediante los cinco pasos de inferencia. **Todos los datos son ficticios.**
 
-**Cómo trabajar:** en cada problema, identifica el contraste desde la pregunta, intenta los **cinco pasos** aprendidos en clases y **después** abre la resolución o pauta. Si no recuerdas todo, utiliza la explicación posterior para completar tu razonamiento.
+**Cómo trabajar:** primero identifica qué plantea cada pregunta **antes de consultar las medias**. Después utiliza los datos y las fórmulas de apoyo para resolver los **cinco pasos**; abre la resolución o pauta solo después de tu intento.
+
+Al final encontrarás un **cuarto ejercicio opcional para estudio autónomo**. No está previsto para los 90 minutos de clase: puedes resolverlo posteriormente con las pistas y la pauta disponibles.
 
 # Ejercicio 1 · Pertenencia universitaria y participación en grupos de estudio {#ej1}
 
@@ -187,6 +189,18 @@ Se comparan **dos grupos independientes** y se suponen **varianzas poblacionales
 | Error estándar de la diferencia (SE) | 5 |
 | Tamaños y grados de libertad | $n_1=n_2=50$; $gl=98$ |
 
+::: {.callout-tip collapse="true" appearance="minimal" title="Consulta · ¿De dónde salen los 98 grados de libertad?"}
+
+En la **prueba t para dos grupos independientes con varianzas poblacionales iguales**, calculamos los grados de libertad así:
+
+$$
+gl=n_1+n_2-2=50+50-2=98
+$$
+
+Los grados de libertad permiten identificar qué **distribución t** utilizamos para consultar los valores críticos. Esta fórmula corresponde a la prueba con varianzas iguales; otras pruebas t pueden usar un cálculo diferente.
+
+:::
+
 El análisis se planificó con $\alpha=0{,}05$ **antes de observar los resultados**; compararemos además con $\alpha=0{,}01$ como ejercicio didáctico.
 
 **Valores críticos de referencia** ($gl=98$). Elige la fila y, si corresponde, el signo según la alternativa que anotaste antes de consultar los datos.
@@ -217,7 +231,15 @@ $$
 IC=\hat\Delta\pm(t^*\times SE_{\hat\Delta})
 $$
 
-$\bar{x}_1$ y $\bar{x}_2$ son los promedios **muestrales**; $\hat\Delta$ es su diferencia y $SE_{\hat\Delta}$, el error estándar **ya entregado**. Para calcular $t$ usamos una diferencia de referencia de cero. En el intervalo, $t^*$ es el valor crítico **positivo correspondiente al nivel de confianza**, con los grados de libertad indicados.
+**¿Qué representa cada símbolo?**
+
+- $\bar{x}_1$: promedio muestral del grupo 1.
+- $\bar{x}_2$: promedio muestral del grupo 2.
+- $\hat\Delta$: diferencia entre los promedios muestrales ($\bar{x}_1-\bar{x}_2$).
+- $SE_{\hat\Delta}$: error estándar de esa diferencia; **ya está entregado en la tabla**.
+- $t^*$: valor crítico positivo que corresponde al intervalo, según su nivel de confianza y grados de libertad.
+
+Para calcular $t$ en estos ejercicios, la diferencia de referencia de la hipótesis nula es **cero**.
 :::
 
 **Los cinco pasos**
@@ -264,7 +286,7 @@ $$
 \hat\Delta=\bar{x}_1-\bar{x}_2=68-56=12
 $$
 
-En la muestra, el grupo con participación en grupos de estudio obtiene **12 puntos más** de pertenencia, en promedio.
+En la muestra se observa una **diferencia de +12 puntos** en pertenencia universitaria (grupo 1 − grupo 2). El signo positivo describe el resultado observado; **no cambia la hipótesis bilateral** formulada antes de ver las medias.
 
 **Error estándar (SE).** El valor entregado, $SE=5$, describe la **incertidumbre de esta diferencia estimada entre muestras**, no la dispersión individual (desviación estándar, SD).
 
@@ -295,41 +317,21 @@ La diferencia está **2,4 errores estándar por encima de cero**. El signo indic
 </svg>
 </div>
 
-**Consulta para estudiar:** si la diferencia que propone $H_0$ fuera $\Delta_0\neq0$, utilizaríamos $t=(\hat\Delta-\Delta_0)/SE_{\hat\Delta}$. En los cuatro ejercicios de esta sesión la referencia es cero.
+**Consulta para estudiar:** si la diferencia que propone $H_0$ fuera $\Delta_0\neq0$, utilizaríamos $t=(\hat\Delta-\Delta_0)/SE_{\hat\Delta}$. En los cuatro ejercicios de este documento la referencia es cero.
 
 :::
 
-::: {.callout-tip collapse="true" appearance="minimal"  title="Consulta opcional · ¿Qué cambia si varía el SE?"}
+::: {.callout-tip collapse="true" appearance="minimal" title="Consulta opcional · ¿Qué cambia si disminuye el SE?"}
 
-**Una misma diferencia, distinta incertidumbre.** Con una diferencia de 12 puntos, $SE=4$ produciría $t=3$, mientras que $SE=6$ produciría $t=2$. La diferencia es la misma; cambia la incertidumbre.
+El SE está en el **denominador** de $t$. Si mantenemos fija una diferencia observada de 12 puntos:
 
-**Observa las curvas:** la más ancha corresponde a mayor SE. Son distribuciones muestrales *ilustrativas* bajo igualdad, no dispersiones de puntajes individuales; la prueba formal se realiza con la distribución t.
+$$
+SE=4\ \Rightarrow\ t=\frac{12}{4}=3
+\qquad
+SE=6\ \Rightarrow\ t=\frac{12}{6}=2
+$$
 
-```{r}
-#| label: fig-se-bloque-bilateral
-#| fig-cap: "Curvas ilustrativas de distribuciones muestrales bajo H₀: la misma diferencia observada y distintos errores estándar. La prueba formal del ejemplo utiliza t."
-#| fig-width: 7.8
-#| fig-height: 3.8
-library(ggplot2)
-x_se <- seq(-22, 22, length.out = 901)
-se_df <- rbind(
-  data.frame(d = x_se, densidad = dnorm(x_se, 0, 4), escenario = "Error estándar = 4"),
-  data.frame(d = x_se, densidad = dnorm(x_se, 0, 6), escenario = "Error estándar = 6")
-)
-fig_se <- ggplot(se_df, aes(x = d, y = densidad, colour = escenario, linetype = escenario)) +
-  geom_line(linewidth = 1.2) +
-  geom_vline(xintercept = 0, colour = "#9da5aa", linewidth = 0.5) +
-  geom_vline(xintercept = 12, colour = "#526e75", linewidth = 0.9, linetype = "dashed") +
-  annotate("label", x = 11.7, y = 0.108, label = "Diferencia observada = 12", hjust = 1,
-           size = 3.5, colour = "#38545b", fill = "#f4f8f8", label.size = 0) +
-  scale_colour_manual(values = c("Error estándar = 4" = "#426b77", "Error estándar = 6" = "#83949a")) +
-  scale_linetype_manual(values = c("Error estándar = 4" = "solid", "Error estándar = 6" = "dashed")) +
-  labs(x = "Diferencia de medias estimada (puntos)", y = "Densidad", colour = NULL, linetype = NULL) +
-  coord_cartesian(xlim = c(-22, 22), ylim = c(0, 0.113)) +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = "bottom", panel.grid.minor = element_blank())
-fig_se
-```
+Con la **misma diferencia** y los mismos grados de libertad, un SE menor produce un $|t|$ **más grande**, lo que aporta evidencia más fuerte contra la igualdad en una prueba bilateral. Si la diferencia fuera negativa, $t$ sería más negativo al disminuir el SE; no necesariamente mayor en valor numérico.
 
 :::
 
@@ -447,7 +449,7 @@ fig_ic
 
 ::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Abrir resolución · Paso 5 · Interpretación"}
 
-**Conclusión modelo.** «En la muestra, quienes participan en grupos de estudio presentan un promedio de pertenencia **12 puntos mayor**. La prueba de dos colas aporta evidencia al **5%** de una diferencia entre los promedios poblacionales, bajo los supuestos estadísticos. Esta comparación observacional **no permite concluir causalidad**, y la generalización depende también de cómo se obtuvo la muestra».
+**Conclusión modelo.** «En la muestra se observó una **diferencia de +12 puntos** en los promedios de pertenencia universitaria (grupo 1 − grupo 2). Bajo los supuestos estadísticos, la **prueba bilateral** aporta evidencia al **5%** de una **diferencia entre los promedios poblacionales**. Esta comparación observacional **no permite atribuir causalidad**, y la generalización depende también de cómo se obtuvo la muestra».
 
 :::
 
@@ -472,14 +474,10 @@ Se encuestó a **100 estudiantes**, 50 por grupo. La concentración se mide de *
 
 :::: {.rv-groups}
 ::: {.rv-group}
-**Grupo 1**
-
-Tienen las notificaciones del celular activadas.
+**Grupo 1 · Notificaciones activadas**
 :::
 ::: {.rv-group}
-**Grupo 2**
-
-Mantienen las notificaciones silenciadas.
+**Grupo 2 · Notificaciones silenciadas**
 :::
 ::::
 
@@ -499,8 +497,8 @@ Se comparan **dos grupos independientes** y se suponen **varianzas poblacionales
 
 | Información | Valor |
 |:--|--:|
-| Promedio muestral del grupo 1 ($\bar{x}_1$) | 54 |
-| Promedio muestral del grupo 2 ($\bar{x}_2$) | 64 |
+| Promedio muestral · grupo 1 (notificaciones activadas, $\bar{x}_1$) | 54 |
+| Promedio muestral · grupo 2 (notificaciones silenciadas, $\bar{x}_2$) | 64 |
 | SE de la diferencia | 4 |
 | Tamaños y grados de libertad | $n_1=n_2=50$; $gl=98$ |
 
@@ -573,7 +571,7 @@ $$
 \hat\Delta=54-64=-10;\qquad t=\frac{-10}{4}=-2{,}5
 $$
 
-En la muestra, el grupo con notificaciones activadas presenta **10 puntos menos** de concentración autopercibida; $t$ está 2,5 SE por debajo de cero.
+Se observa una **diferencia muestral de −10 puntos** en concentración autopercibida (grupo 1 − grupo 2). El estadístico $t=-2{,}5$ está 2,5 errores estándar por debajo de cero; la pregunta inicial sigue correspondiendo a una **prueba de dos colas**.
 
 **Paso 3 · Regla crítica.** El análisis fijó $\alpha=0{,}05$ antes de observar las medias. Con $gl=98$, los críticos de dos colas son $\pm1{,}98$; para la comparación al 1%, $\pm2{,}63$.
 
@@ -587,7 +585,7 @@ $$
 
 No incluye cero, en concordancia con el contraste al 5%.
 
-**Paso 5 · Interpretación.** «En la muestra, estudiantes con notificaciones activadas registran un promedio **10 puntos menor**. Bajo los supuestos, hay evidencia al 5% de una diferencia entre promedios poblacionales. La comparación no demuestra que las notificaciones **causen** la diferencia».
+**Paso 5 · Interpretación.** «En la muestra se observó una **diferencia de −10 puntos** en concentración autopercibida entre el grupo con notificaciones activadas y el grupo con notificaciones silenciadas (grupo 1 − grupo 2). Bajo los supuestos de la **prueba bilateral**, hay evidencia al **5%** de una **diferencia entre los promedios poblacionales**. Esto no permite afirmar que las notificaciones **causen** la diferencia».
 
 **Revisa:** cambiar $-10$ por $+10$ altera el orden de los grupos; no rechazar al 1% **no** equivale a demostrar igualdad.
 
@@ -602,7 +600,7 @@ No incluye cero, en concordancia con el contraste al 5%.
 ¿El promedio de confianza para enfrentar evaluaciones es mayor entre estudiantes con tutorías académicas que entre estudiantes sin tutorías?
 :::
 
-Se estudian **100 estudiantes**, 50 por grupo. La confianza académica se mide de **0 a 100**; un puntaje alto indica mayor confianza declarada.
+Se estudian **100 estudiantes**, 50 por grupo. La confianza para enfrentar evaluaciones se expresa mediante un **índice de 0 a 10**, donde los valores más altos representan mayor confianza declarada.
 
 :::: {.rv-groups}
 ::: {.rv-group}
@@ -633,9 +631,9 @@ Se comparan **dos grupos independientes** y se suponen **varianzas poblacionales
 
 | Información | Valor |
 |:--|--:|
-| Promedio muestral del grupo 1 ($\bar{x}_1$) | 67 |
-| Promedio muestral del grupo 2 ($\bar{x}_2$) | 60 |
-| SE de la diferencia | 4 |
+| Promedio muestral del grupo 1 ($\bar{x}_1$) | 6,7 |
+| Promedio muestral del grupo 2 ($\bar{x}_2$) | 6,0 |
+| SE de la diferencia (puntos del índice) | 0,4 |
 | Tamaños y grados de libertad | $n_1=n_2=50$; $gl=98$ |
 
 El análisis se planificó con $\alpha=0{,}05$ **antes de observar los resultados**; compararemos además con $\alpha=0{,}01$ como ejercicio didáctico.
@@ -698,10 +696,10 @@ Es una prueba **direccional, de una cola derecha**. La nula incluye igualdad y d
 Restamos las medias y dividimos por el SE ya entregado:
 
 $$
-\hat\Delta=67-60=7;\qquad t=\frac{7}{4}=1{,}75
+\hat\Delta=6{,}7-6{,}0=0{,}7;\qquad t=\frac{0{,}7}{0{,}4}=1{,}75
 $$
 
-En la muestra, el grupo con tutorías obtuvo **7 puntos más** de confianza, y el estadístico está 1,75 errores estándar por encima de cero. Aún falta aplicar la regla crítica.
+En la muestra, la diferencia fue de **+0,7 puntos del índice de confianza** (grupo 1 − grupo 2). El estadístico está 1,75 errores estándar por encima de cero; aún falta aplicar la regla crítica.
 
 :::
 
@@ -751,7 +749,7 @@ ggplot(dens_u, aes(t, densidad)) +
 
 ::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Abrir resolución · Paso 5 · Interpretación"}
 
-**Conclusión modelo.** «En la muestra, estudiantes con tutorías alcanzan un promedio de confianza **7 puntos mayor**. Bajo los supuestos, la prueba de una cola derecha aporta evidencia al **5%** de un promedio poblacional mayor en ese grupo. La asociación observada **no demuestra causalidad**».
+**Conclusión modelo.** «En la muestra se observó una **diferencia de +0,7 puntos del índice de confianza** (grupo 1 − grupo 2). Bajo los supuestos, la **prueba de una cola derecha** aporta evidencia al **5%** de un promedio poblacional mayor entre estudiantes con tutorías. La asociación observada **no demuestra causalidad**».
 
 :::
 
@@ -760,15 +758,65 @@ ggplot(dens_u, aes(t, densidad)) +
 Un límite unilateral ofrece una frontera de confianza en una dirección. Con los valores redondeados de este caso:
 
 $$
-LI=7-(1{,}66\times4)=0{,}36
+LI=0{,}7-(1{,}66\times0{,}4)=0{,}036
 $$
 
-El intervalo de confianza unilateral inferior al 95% es $[0{,}36;+\infty)$. **No** equivale a un intervalo bilateral del 95%.
+El intervalo de confianza unilateral inferior al 95% es $[0{,}036;+\infty)$ **en puntos del índice de confianza**, utilizando el crítico redondeado. **No** equivale a un intervalo bilateral del 95%.
 
 :::
 
 
-# Ejercicio 4 · Trabajo remunerado y tiempo de estudio {#ej4}
+# Cierre de la sesión · ¿Qué aprendimos de los tres problemas? {#cierre}
+
+La **pregunta formulada antes de observar los resultados** determina el contraste. Si buscamos cualquier diferencia entre promedios, utilizamos una **prueba de dos colas**. Si la pregunta plantea una **dirección específica**, utilizamos una **prueba de una cola** y evaluamos el extremo correspondiente de la distribución. En ambos casos seguimos los mismos **cinco pasos de inferencia**.
+
+**Observa el esquema:** izquierda corresponde a «primer promedio menor»; derecha, a «primer promedio mayor». En ambas situaciones usamos la resta grupo 1 − grupo 2.
+
+<div role="img" aria-label="Si la pregunta investiga si el primer promedio es menor, buscamos evidencia en la cola izquierda, de diferencias negativas. Si investiga si el primer promedio es mayor, buscamos evidencia en la cola derecha, de diferencias positivas.">
+<svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%;margin:.4rem auto .6rem;" aria-hidden="true" focusable="false">
+  <text x="18" y="20" font-size="15" fill="currentColor" font-weight="600">Primer promedio menor: izquierda</text>
+  <line x1="33" y1="52" x2="447" y2="52" stroke="currentColor" stroke-opacity=".32" stroke-width="2" />
+  <line x1="235" y1="52" x2="65" y2="52" stroke="#486f7b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M52 52 L69 43 L69 61 Z" fill="#486f7b" />
+  <circle cx="240" cy="52" r="4" fill="currentColor"/><text x="236" y="42" font-size="12" fill="currentColor">0</text>
+  <text x="18" y="88" font-size="15" fill="currentColor" font-weight="600">Primer promedio mayor: derecha</text>
+  <line x1="33" y1="117" x2="447" y2="117" stroke="currentColor" stroke-opacity=".32" stroke-width="2" />
+  <line x1="246" y1="117" x2="414" y2="117" stroke="#486f7b" stroke-width="5" stroke-linecap="round"/>
+  <path d="M429 117 L412 108 L412 126 Z" fill="#486f7b" />
+  <circle cx="240" cy="117" r="4" fill="currentColor"/><text x="236" y="106" font-size="12" fill="currentColor">0</text>
+  <text x="18" y="151" font-size="12" fill="currentColor" opacity=".78">En ambos casos restamos promedio 1 menos promedio 2.</text>
+</svg>
+</div>
+
+| Pregunta previa | Hipótesis alternativa | Región de rechazo al 5% ($gl=98$) |
+|:--|:--|:--|
+| ¿Son diferentes? | $\mu_1-\mu_2\neq0$ | $t<-1{,}98$ o $t>1{,}98$ |
+| ¿Es mayor el primero? | $\mu_1-\mu_2>0$ | $t>1{,}66$ |
+| ¿Es menor el primero? | $\mu_1-\mu_2<0$ | $t<-1{,}66$ |
+
+::: {.rv-activity}
+**Pregunta de salida.** Una investigación pregunta si dos promedios **son diferentes**. Después de observar la muestra, el promedio del grupo 1 resulta menor. **¿Sería correcto cambiar a una prueba de una cola izquierda porque la diferencia observada es negativa? ¿Por qué?**
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver respuesta · Pregunta de salida"}
+
+**No.** La pregunta inicial era no direccional: corresponde una prueba de **dos colas**. El signo negativo describe la diferencia muestral, pero no autoriza a elegir retrospectivamente la dirección que favorece el resultado. Eso alteraría las propiedades del contraste.
+
+:::
+
+**Dos ideas para cerrar:** no rechazar $H_0$ **no** demuestra igualdad; una diferencia estadísticamente significativa **no implica causalidad**.
+
+::: {.callout-tip collapse="true" appearance="minimal"  title="Consulta posterior · Errores tipo I y II"}
+
+**Error tipo I:** rechazar una $H_0$ verdadera; $\alpha=0{,}05$ controla la tasa nominal de este error bajo los supuestos del procedimiento.
+
+**Error tipo II:** no rechazar $H_0$ cuando una alternativa es verdadera. Ni $\alpha$ ni el valor p expresan la probabilidad posterior de que $H_0$ sea verdadera.
+
+:::
+
+# Ejercicio 4 · Práctica opcional para estudio autónomo {#ej4}
+
+**Trabajo remunerado y tiempo de estudio.** Esta actividad es **opcional y no está prevista para desarrollarse durante los 90 minutos de clase**. Puedes resolverla posteriormente para practicar los cinco pasos con mayor autonomía. Intenta responder antes de consultar las pistas y la pauta.
 
 ::: {.rv-question}
 **Pregunta de investigación**
@@ -883,52 +931,4 @@ En la muestra, el promedio de estudio es 4 horas menor entre quienes trabajan; $
 
 :::
 
-
-# Cierre · ¿Qué aprendimos de los cuatro problemas? {#cierre}
-
-La **pregunta formulada antes de ver los datos** determina el contraste. Si interesa cualquier diferencia, usamos **dos colas**; si se plantea una dirección, evaluamos el extremo correspondiente. **Los cinco pasos son los mismos** en los cuatro problemas.
-
-**Observa el esquema:** izquierda corresponde a «primer promedio menor»; derecha, a «primer promedio mayor». En ambas situaciones usamos la resta grupo 1 − grupo 2.
-
-<div role="img" aria-label="Si la pregunta investiga si el primer promedio es menor, buscamos evidencia en la cola izquierda, de diferencias negativas. Si investiga si el primer promedio es mayor, buscamos evidencia en la cola derecha, de diferencias positivas.">
-<svg width="480" height="160" viewBox="0 0 480 160" xmlns="http://www.w3.org/2000/svg" style="display:block;max-width:100%;margin:.4rem auto .6rem;" aria-hidden="true" focusable="false">
-  <text x="18" y="20" font-size="15" fill="currentColor" font-weight="600">Primer promedio menor: izquierda</text>
-  <line x1="33" y1="52" x2="447" y2="52" stroke="currentColor" stroke-opacity=".32" stroke-width="2" />
-  <line x1="235" y1="52" x2="65" y2="52" stroke="#486f7b" stroke-width="5" stroke-linecap="round"/>
-  <path d="M52 52 L69 43 L69 61 Z" fill="#486f7b" />
-  <circle cx="240" cy="52" r="4" fill="currentColor"/><text x="236" y="42" font-size="12" fill="currentColor">0</text>
-  <text x="18" y="88" font-size="15" fill="currentColor" font-weight="600">Primer promedio mayor: derecha</text>
-  <line x1="33" y1="117" x2="447" y2="117" stroke="currentColor" stroke-opacity=".32" stroke-width="2" />
-  <line x1="246" y1="117" x2="414" y2="117" stroke="#486f7b" stroke-width="5" stroke-linecap="round"/>
-  <path d="M429 117 L412 108 L412 126 Z" fill="#486f7b" />
-  <circle cx="240" cy="117" r="4" fill="currentColor"/><text x="236" y="106" font-size="12" fill="currentColor">0</text>
-  <text x="18" y="151" font-size="12" fill="currentColor" opacity=".78">En ambos casos restamos promedio 1 menos promedio 2.</text>
-</svg>
-</div>
-
-| Pregunta previa | Hipótesis alternativa | Región de rechazo al 5% ($gl=98$) |
-|:--|:--|:--|
-| ¿Son diferentes? | $\mu_1-\mu_2\neq0$ | $t<-1{,}98$ o $t>1{,}98$ |
-| ¿Es mayor el primero? | $\mu_1-\mu_2>0$ | $t>1{,}66$ |
-| ¿Es menor el primero? | $\mu_1-\mu_2<0$ | $t<-1{,}66$ |
-
-::: {.rv-activity}
-**Pregunta de salida.** Una investigación pregunta si dos promedios **son diferentes**. Después de observar la muestra, el promedio del grupo 1 resulta menor. **¿Sería correcto cambiar a una prueba de una cola izquierda porque la diferencia observada es negativa? ¿Por qué?**
-:::
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver respuesta · Pregunta de salida"}
-
-**No.** La pregunta inicial era no direccional: corresponde una prueba de **dos colas**. El signo negativo describe la diferencia muestral, pero no autoriza a elegir retrospectivamente la dirección que favorece el resultado. Eso alteraría las propiedades del contraste.
-
-:::
-
-**Dos ideas para cerrar:** no rechazar $H_0$ **no** demuestra igualdad; una diferencia estadísticamente significativa **no implica causalidad**.
-
-::: {.callout-tip collapse="true" appearance="minimal"  title="Consulta posterior · Errores tipo I y II"}
-
-**Error tipo I:** rechazar una $H_0$ verdadera; $\alpha=0{,}05$ controla la tasa nominal de este error bajo los supuestos del procedimiento.
-
-**Error tipo II:** no rechazar $H_0$ cuando una alternativa es verdadera. Ni $\alpha$ ni el valor p expresan la probabilidad posterior de que $H_0$ sea verdadera.
-
-:::
 
