@@ -172,6 +172,16 @@ Al finalizar la clase, generamos un **informe reproducible** que responda la sig
 ¿Se asocia la escolaridad con el ingreso del trabajo en Chile?
 :::
 
+::: {#capsula-quarto}
+**Cápsula de apoyo · Documentos dinámicos con Quarto en Positron**
+
+En este video revisamos los contenidos de esta sesión. Puedes verlo antes del taller o usarlo para repasar.
+
+{{< video https://youtu.be/tdKGlvVz5_Y aspect-ratio="16x9" title="Documentos dinámicos: Quarto en Positron" >}}
+
+[Ver la cápsula directamente en YouTube](https://youtu.be/tdKGlvVz5_Y).
+:::
+
 # A · Escribir en texto plano {#parte-a}
 
 ## El problema de cortar y pegar {#cortar-pegar}
@@ -272,7 +282,7 @@ Todo esto ocurre al presionar un solo botón en Positron: **Preview**, o su ataj
 
 ## Anatomía de un archivo `.qmd` {#anatomia}
 
-Un archivo `.qmd` tiene tres tipos de contenido:
+Un archivo `.qmd` tiene dos partes: un **encabezado YAML** y un **cuerpo**. En el cuerpo va todo el contenido del documento, es decir, **texto** y **código**:
 
 ````markdown
 ---
@@ -295,14 +305,21 @@ load("input/data/casen_barrio2024.rdata")
 
 ::: {.callout-note collapse="false" appearance="minimal" .rv-answer title="Anatomía de un .qmd"}
 
-**1. Encabezado YAML.** Va al inicio, entre dos líneas de tres guiones (`---`). Define el título, el autor y el formato de salida; cada campo lleva dos puntos.
+**1. Encabezado YAML.** Va al inicio, entre dos líneas de tres guiones (`---`). Define el título, el autor y el formato de salida; cada campo lleva dos puntos. Además, en el YAML se pueden agregar otras especificaciones sobre el documento, como el archivo de bibliografía y su formato de citas, o la configuración de las salidas HTML y PDF.
 
-**2. Texto en Markdown.** El título de sección y la frase con negrita: es lo que lee el lector.
+**2. Cuerpo.** Todo lo que va después del encabezado. Combina dos elementos:
 
-**3. Bloque de código (*chunk*).** Se abre con tres comillas invertidas y `{r}`, y se cierra con tres comillas invertidas. Su contenido se ejecuta como código R al generar el documento.
+- **Texto en Markdown:** el título de sección y la frase con negrita; es lo que lee el lector.
+- **Bloques de código (*chunks*):** se abren con tres comillas invertidas y `{r}`, y se cierran con tres comillas invertidas. Su contenido se ejecuta como código R al generar el documento.
 
-La línea `#| label: datos` es una **opción del bloque**: le da un nombre. Las opciones se escriben al inicio del bloque con `#|` y controlan, por ejemplo, si el lector ve el código o solo el resultado. 
+:::
 
+::: {.callout-important title="La pieza fundamental: el chunk"}
+La pieza fundamental de un documento dinámico es el **bloque de código (*chunk*)**, que se inserta dentro de un documento escrito en Markdown. Es lo que permite que los resultados se calculen al generar el documento, en lugar de copiarse y pegarse.
+:::
+
+::: {.callout-tip title="Opciones del bloque"}
+La línea `#| label: datos` es una **opción del bloque**: le da un nombre. Las opciones se escriben al inicio del bloque con `#|` y controlan, por ejemplo, si el lector ve el código o solo el resultado. Las veremos en detalle en el taller.
 :::
 
 # C · Taller: un informe reproducible en Positron {#parte-c}
@@ -318,20 +335,9 @@ Usaremos una submuestra aleatoria de la **CASEN 2024** con `r miles(n_total)` pe
 
 ## Preparar la carpeta y el documento {#ej1}
 
-En Positron, **la carpeta es el proyecto**: no se necesita un archivo `.Rproj`. Todo lo que el informe necesita (datos, documento y resultados) vive dentro de una misma carpeta, y el código se refiere a los archivos con **rutas relativas** a ella. Así, cualquier persona que reciba la carpeta puede generar el informe sin modificar nada.
+En Positron, **la carpeta es el proyecto**: no se necesita un archivo `.Rproj`. Todo lo que el informe necesita (datos, documento y resultados) vive dentro de una misma carpeta, y el código se refiere a los archivos con **rutas relativas** a ella. Por ejemplo, `input/data/casen_barrio2024.rdata` funciona en cualquier computador que tenga la carpeta. Así, cualquier persona que reciba la carpeta puede generar el informe sin modificar nada.
 
-:::: {.rv-groups}
-::: {.rv-group}
-**Ruta absoluta** (evitar)
-
-`setwd("C:/Users/Ana/Escritorio/...")` solo funciona en un computador.
-:::
-::: {.rv-group}
-**Ruta relativa** (usar)
-
-`input/data/casen_barrio2024.rdata` funciona en cualquier computador que tenga la carpeta.
-:::
-::::
+Dentro de la carpeta conviene separar los archivos en subcarpetas: `input/data` guarda los datos que usa el análisis y `output` los resultados que se generan (gráficos, tablas). Esta separación ayuda a mantener un flujo de trabajo ordenado.
 
 Todo lo necesario para generar un documento en Quarto se puede resumir en 3 pasos:
 
@@ -397,10 +403,10 @@ El código dentro de un chunk funciona igual que en un script de R: pueden ejecu
 
 **Ejercicio**
 
-A) Inserte un *chunk* en su documento para cargar la base de datos y cargar el paquete `tidyverse`. La base de datos se encuentra en el siguiente link:
+A) Descargue la base de datos desde [este enlace](https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata) y guárdela en la carpeta `input/data` de su proyecto. Luego, inserte un *chunk* en su documento que cargue el paquete `tidyverse` y la base de datos con una **ruta relativa**:
 
 ```{{r}}
-load(url("https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata"))
+load("input/data/casen_barrio2024.rdata")
 ```
 
 B) Inserte un segundo *chunk*. Calcule el total de casos en la base. Además, calcule el total de casos válidos en `ingresos_trabajos` con el código de más abajo. Luego, reporte sus hallazgos. 
@@ -436,8 +442,7 @@ La base tiene **`r miles(n_total)` personas**, de las cuales **`r miles(n_ingres
 
 En la mayoría de los informes, vamos a querer reportar **solo los resultados**. Sin embargo, en algunos documentos técnicos o pedagógicos (como este), nos interesa mostrar también el **código que genera el documento**. En Quarto, esta decisión se controla a través de las **opciones de bloque**. Estas se insertan en el encabezado del *chunk*, precedidas por un `#|`.
 
-```{{r}}
-#| label: ejemplo 
+```{{r}} 
 #| echo: false
 #| eval: false
 #| include: false
@@ -591,9 +596,9 @@ La frase con código en línea muestra el nuevo valor sin editar el texto. Ahora
 :::
 
 
-# D · Extensiones: ¿Qué más se puede hacer con Quarto?
+::: {.callout-note collapse="true" appearance="simple" title="Para profundizar (opcional): ¿qué más se puede hacer con Quarto?"}
 
-## Reportes multiformato
+**Reportes multiformato**
 
 El mismo sistema que usamos para el informe sirve para muchos otros productos. **Esta página y todas las clases del curso** están escritas en archivos `.qmd`.
 
@@ -609,16 +614,17 @@ format:
 ---
 ```
 
-## Referencias cruzadas, referencias bibliográficas y ecuaciones
+**Referencias cruzadas, referencias bibliográficas y ecuaciones**
 
 | Elemento | ¿Qué es? | ¿Cómo se usa? | ¿Por qué es útil? |
 |---|---|---|---|
 | **Referencias cruzadas** | Enlaces internos que remiten a figuras, tablas, ecuaciones o secciones del propio documento. | Se asigna una etiqueta con un prefijo (`fig-`, `tbl-`, `eq-`, `sec-`), por ejemplo `#| label: fig-dispersion` dentro del *chunk*, y se cita en el texto con `@fig-dispersion`. | Quarto numera automáticamente los elementos y actualiza las referencias si cambia el orden, evitando errores de numeración manual. |
 | **Referencias bibliográficas** | Citas a fuentes externas (artículos, libros, etc.) almacenadas en un archivo de bibliografía. | Se declara el archivo en el encabezado YAML (`bibliography: referencias.bib`) y se cita con `[@clave]` o `@clave`. El estilo se define con `csl:`. | Genera automáticamente las citas y la lista de referencias al final del documento, con un formato consistente (APA, Chicago, etc.). |
 | **Ecuaciones** | Expresiones matemáticas escritas en sintaxis LaTeX. | En línea con `$...$` y en bloque con `$$...$$`. | Permite escribir notación matemática con calidad tipográfica y vincularla al texto mediante referencias cruzadas. |
-## Más allá de los informes y reportes
 
-Quarto además nos permite crear otro tipos de productivos, tales como presentaciones, dashboards, sitios webs y libros. 
+**Más allá de los informes y reportes**
+
+Quarto además nos permite crear otro tipos de productos, tales como presentaciones, dashboards, sitios webs y libros. 
 
 
 | Producto | Cómo |
@@ -628,6 +634,8 @@ Quarto además nos permite crear otro tipos de productivos, tales como presentac
 | Dashboards y aplicaciones | `format: dashboard`; Shiny u Observable JS para filtros y controles, como [VISLATAM](https://ocs-coes.shinyapps.io/visualizador-la/) |
 
 Se pueden encontrar ejemplos de todos estos usos en el [sitio web oficial de Quarto](https://quarto.org/docs/gallery/)
+
+:::
 
 
 # Cierre {#cierre}

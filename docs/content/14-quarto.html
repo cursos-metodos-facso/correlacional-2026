@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Documentos Dinámicos Quarto en Positron – Estadística Correlacional</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-cb48db2c413f68497f7e060defb58192.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-00a7dfb16748208db56c055d58e770f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -114,7 +112,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -150,13 +148,15 @@ window.Quarto = {
 <meta property="og:locale" content="es">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -180,7 +180,7 @@ window.Quarto = {
 <span class="menu-text">Planificación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../content/index.html"> 
+    <a class="nav-link active" href="../content/index.html" aria-current="page"> 
 <span class="menu-text">Clases</span></a>
   </li>  
   <li class="nav-item">
@@ -205,10 +205,138 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Presentaciones</a></li><li class="breadcrumb-item"><a href="../content/14-quarto.html">Documentos dinámicos: Quarto</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Presentaciones</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicio Inferencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/08-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/09-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/10-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/11-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/13-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicio Bivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-repaso-inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repaso Unidad 1: Inferencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-quarto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Documentos dinámicos: Quarto</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foro-clases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foro Clases</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
@@ -234,18 +362,12 @@ window.Quarto = {
   <li><a href="#ej3" id="toc-ej3" class="nav-link" data-scroll-target="#ej3">Opciones de los bloques de código</a></li>
   <li><a href="#ej4" id="toc-ej4" class="nav-link" data-scroll-target="#ej4">Código en línea</a></li>
   </ul></li>
-  <li><a href="#d-extensiones-qué-más-se-puede-hacer-con-quarto" id="toc-d-extensiones-qué-más-se-puede-hacer-con-quarto" class="nav-link" data-scroll-target="#d-extensiones-qué-más-se-puede-hacer-con-quarto">D · Extensiones: ¿Qué más se puede hacer con Quarto?</a>
-  <ul class="collapse">
-  <li><a href="#reportes-multiformato" id="toc-reportes-multiformato" class="nav-link" data-scroll-target="#reportes-multiformato">Reportes multiformato</a></li>
-  <li><a href="#referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" id="toc-referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" class="nav-link" data-scroll-target="#referencias-cruzadas-referencias-bibliográficas-y-ecuaciones">Referencias cruzadas, referencias bibliográficas y ecuaciones</a></li>
-  <li><a href="#más-allá-de-los-informes-y-reportes" id="toc-más-allá-de-los-informes-y-reportes" class="nav-link" data-scroll-target="#más-allá-de-los-informes-y-reportes">Más allá de los informes y reportes</a></li>
-  </ul></li>
   <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Documentos Dinámicos Quarto en Positron</h1></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Presentaciones</a></li><li class="breadcrumb-item"><a href="../content/14-quarto.html">Documentos dinámicos: Quarto</a></li></ol></nav><h1 class="title display-7">Documentos Dinámicos Quarto en Positron</h1></header>
 
 <header id="title-block-header">
 
@@ -364,6 +486,12 @@ window.Quarto = {
 <div class="rv-question">
 <p><strong>Pregunta de investigación del informe</strong></p>
 <p>¿Se asocia la escolaridad con el ingreso del trabajo en Chile?</p>
+</div>
+<div id="capsula-quarto">
+<p><strong>Cápsula de apoyo · Documentos dinámicos con Quarto en Positron</strong></p>
+<p>En este video revisamos los contenidos de esta sesión. Puedes verlo antes del taller o usarlo para repasar.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/tdKGlvVz5_Y" title="Documentos dinámicos: Quarto en Positron" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><a href="https://youtu.be/tdKGlvVz5_Y">Ver la cápsula directamente en YouTube</a>.</p>
 </div>
 </section>
 <section id="parte-a" class="level1">
@@ -523,7 +651,7 @@ window.Quarto = {
 </section>
 <section id="anatomia" class="level2">
 <h2 class="anchored" data-anchor-id="anatomia">Anatomía de un archivo <code>.qmd</code></h2>
-<p>Un archivo <code>.qmd</code> tiene tres tipos de contenido:</p>
+<p>Un archivo <code>.qmd</code> tiene dos partes: un <strong>encabezado YAML</strong> y un <strong>cuerpo</strong>. En el cuerpo va todo el contenido del documento, es decir, <strong>texto</strong> y <strong>código</strong>:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Escolaridad e ingresos en Chile"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nombre Apellido"</span></span>
@@ -551,11 +679,39 @@ window.Quarto = {
 </div>
 <div id="callout-1" class="callout-1-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
-<p><strong>1. Encabezado YAML.</strong> Va al inicio, entre dos líneas de tres guiones (<code>---</code>). Define el título, el autor y el formato de salida; cada campo lleva dos puntos.</p>
-<p><strong>2. Texto en Markdown.</strong> El título de sección y la frase con negrita: es lo que lee el lector.</p>
-<p><strong>3. Bloque de código (<em>chunk</em>).</strong> Se abre con tres comillas invertidas y <code>{r}</code>, y se cierra con tres comillas invertidas. Su contenido se ejecuta como código R al generar el documento.</p>
-<p>La línea <code>#| label: datos</code> es una <strong>opción del bloque</strong>: le da un nombre. Las opciones se escriben al inicio del bloque con <code>#|</code> y controlan, por ejemplo, si el lector ve el código o solo el resultado.</p>
+<p><strong>1. Encabezado YAML.</strong> Va al inicio, entre dos líneas de tres guiones (<code>---</code>). Define el título, el autor y el formato de salida; cada campo lleva dos puntos. Además, en el YAML se pueden agregar otras especificaciones sobre el documento, como el archivo de bibliografía y su formato de citas, o la configuración de las salidas HTML y PDF.</p>
+<p><strong>2. Cuerpo.</strong> Todo lo que va después del encabezado. Combina dos elementos:</p>
+<ul>
+<li><strong>Texto en Markdown:</strong> el título de sección y la frase con negrita; es lo que lee el lector.</li>
+<li><strong>Bloques de código (<em>chunks</em>):</strong> se abren con tres comillas invertidas y <code>{r}</code>, y se cierran con tres comillas invertidas. Su contenido se ejecuta como código R al generar el documento.</li>
+</ul>
 </div>
+</div>
+</div>
+<div class="callout callout-style-default callout-important callout-titled" title="La pieza fundamental: el chunk">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>La pieza fundamental: el chunk
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La pieza fundamental de un documento dinámico es el <strong>bloque de código (<em>chunk</em>)</strong>, que se inserta dentro de un documento escrito en Markdown. Es lo que permite que los resultados se calculen al generar el documento, en lugar de copiarse y pegarse.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Opciones del bloque">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Opciones del bloque
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La línea <code>#| label: datos</code> es una <strong>opción del bloque</strong>: le da un nombre. Las opciones se escriben al inicio del bloque con <code>#|</code> y controlan, por ejemplo, si el lector ve el código o solo el resultado. Las veremos en detalle en el taller.</p>
 </div>
 </div>
 </section>
@@ -587,17 +743,8 @@ window.Quarto = {
 </table>
 <section id="ej1" class="level2">
 <h2 class="anchored" data-anchor-id="ej1">Preparar la carpeta y el documento</h2>
-<p>En Positron, <strong>la carpeta es el proyecto</strong>: no se necesita un archivo <code>.Rproj</code>. Todo lo que el informe necesita (datos, documento y resultados) vive dentro de una misma carpeta, y el código se refiere a los archivos con <strong>rutas relativas</strong> a ella. Así, cualquier persona que reciba la carpeta puede generar el informe sin modificar nada.</p>
-<div class="rv-groups">
-<div class="rv-group">
-<p><strong>Ruta absoluta</strong> (evitar)</p>
-<p><code>setwd("C:/Users/Ana/Escritorio/...")</code> solo funciona en un computador.</p>
-</div>
-<div class="rv-group">
-<p><strong>Ruta relativa</strong> (usar)</p>
-<p><code>input/data/casen_barrio2024.rdata</code> funciona en cualquier computador que tenga la carpeta.</p>
-</div>
-</div>
+<p>En Positron, <strong>la carpeta es el proyecto</strong>: no se necesita un archivo <code>.Rproj</code>. Todo lo que el informe necesita (datos, documento y resultados) vive dentro de una misma carpeta, y el código se refiere a los archivos con <strong>rutas relativas</strong> a ella. Por ejemplo, <code>input/data/casen_barrio2024.rdata</code> funciona en cualquier computador que tenga la carpeta. Así, cualquier persona que reciba la carpeta puede generar el informe sin modificar nada.</p>
+<p>Dentro de la carpeta conviene separar los archivos en subcarpetas: <code>input/data</code> guarda los datos que usa el análisis y <code>output</code> los resultados que se generan (gráficos, tablas). Esta separación ayuda a mantener un flujo de trabajo ordenado.</p>
 <p>Todo lo necesario para generar un documento en Quarto se puede resumir en 3 pasos:</p>
 <ol type="1">
 <li><p><strong>Abrir la carpeta como proyecto:</strong> <em>File › Open Folder…</em></p></li>
@@ -611,7 +758,7 @@ window.Quarto = {
 <li><p>Escribe un subtítulo <code>## Introducción</code> y una frase en Markdown con una palabra en negrita. Genera el documento con <strong>Preview</strong>.</p></li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 1">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -620,7 +767,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Estructura de carpetas</strong> La carpeta del proyecto queda así:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi-informe/</span>
@@ -653,10 +800,10 @@ window.Quarto = {
 <p>El código dentro de un chunk funciona igual que en un script de R: pueden ejecutar una línea con Ctrl/Cmd + Enter o el chunk completo con Ctrl/Cmd + Shift + Enter. <strong>Esto no genera el documento final</strong>; solo permite comprobar que el código funciona. <strong>Si el código contiene un error, la renderización del documento se detendrá</strong>.</p>
 <p><strong>Ejercicio</strong></p>
 <ol type="A">
-<li>Inserte un <em>chunk</em> en su documento para cargar la base de datos y cargar el paquete <code>tidyverse</code>. La base de datos se encuentra en el siguiente link:</li>
+<li>Descargue la base de datos desde <a href="https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata">este enlace</a> y guárdela en la carpeta <code>input/data</code> de su proyecto. Luego, inserte un <em>chunk</em> en su documento que cargue el paquete <code>tidyverse</code> y la base de datos con una <strong>ruta relativa</strong>:</li>
 </ol>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata"</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <ol start="2" type="A">
 <li>Inserte un segundo <em>chunk</em>. Calcule el total de casos en la base. Además, calcule el total de casos válidos en <code>ingresos_trabajos</code> con el código de más abajo. Luego, reporte sus hallazgos.</li>
@@ -666,7 +813,7 @@ window.Quarto = {
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_casen<span class="sc">$</span>ingreso_trabajo))   <span class="co"># personas con ingreso válido</span></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 2">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -675,7 +822,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Cargar datos y librerías en un chunk</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -698,16 +845,15 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="ej3">Opciones de los bloques de código</h2>
 <p>En la mayoría de los informes, vamos a querer reportar <strong>solo los resultados</strong>. Sin embargo, en algunos documentos técnicos o pedagógicos (como este), nos interesa mostrar también el <strong>código que genera el documento</strong>. En Quarto, esta decisión se controla a través de las <strong>opciones de bloque</strong>. Estas se insertan en el encabezado del <em>chunk</em>, precedidas por un <code>#|</code>.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: ejemplo </span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Grafico 1"</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-graf-1</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Acá va el código...</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Grafico 1"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-graf-1</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Acá va el código...</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="rv-formulas">
 <p><strong>Opciones de los bloques de código</strong></p>
 <table class="caption-top table">
@@ -761,7 +907,7 @@ window.Quarto = {
 <li>Etiquete el código como <code>fig-dispersion</code>, agregue una leyenda y haga que el informe muestre el gráfico, pero no el código ni las advertencias.</li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 3">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -770,7 +916,7 @@ window.Quarto = {
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Crear el gráfico y usar opciones de bloque</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -844,7 +990,7 @@ Tip
 <li><p>Reemplace <code>ingreso_trabajo</code> por <code>edad</code> en <code>cor()</code>, y vuelva a renderizar el documento. ¿Cambió el número del texto?</p></li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 4">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -853,7 +999,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Calcular R</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
@@ -872,12 +1018,19 @@ Tip
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="d-extensiones-qué-más-se-puede-hacer-con-quarto" class="level1">
-<h1>D · Extensiones: ¿Qué más se puede hacer con Quarto?</h1>
-<section id="reportes-multiformato" class="level2">
-<h2 class="anchored" data-anchor-id="reportes-multiformato">Reportes multiformato</h2>
+<div class="callout callout-style-simple callout-note callout-titled" title="Para profundizar (opcional): ¿qué más se puede hacer con Quarto?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Para profundizar (opcional): ¿qué más se puede hacer con Quarto?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Reportes multiformato</strong></p>
 <p>El mismo sistema que usamos para el informe sirve para muchos otros productos. <strong>Esta página y todas las clases del curso</strong> están escritas en archivos <code>.qmd</code>.</p>
 <p>Es más, es posible producir <strong>varios formatos desde un mismo archivo.</strong> Basta con declararlos en el encabezado; en Positron, <strong>Quarto: Render Document</strong> genera todos los formatos declarados:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
@@ -887,9 +1040,7 @@ Tip
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span><span class="co">    # vía LaTeX o Typst</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span><span class="co">   # Word, para quien lo pida</span></span>
 <span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</section>
-<section id="referencias-cruzadas-referencias-bibliográficas-y-ecuaciones" class="level2">
-<h2 class="anchored" data-anchor-id="referencias-cruzadas-referencias-bibliográficas-y-ecuaciones">Referencias cruzadas, referencias bibliográficas y ecuaciones</h2>
+<p><strong>Referencias cruzadas, referencias bibliográficas y ecuaciones</strong></p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 25%">
@@ -926,10 +1077,8 @@ Tip
 </tr>
 </tbody>
 </table>
-</section>
-<section id="más-allá-de-los-informes-y-reportes" class="level2">
-<h2 class="anchored" data-anchor-id="más-allá-de-los-informes-y-reportes">Más allá de los informes y reportes</h2>
-<p>Quarto además nos permite crear otro tipos de productivos, tales como presentaciones, dashboards, sitios webs y libros.</p>
+<p><strong>Más allá de los informes y reportes</strong></p>
+<p>Quarto además nos permite crear otro tipos de productos, tales como presentaciones, dashboards, sitios webs y libros.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -953,6 +1102,9 @@ Tip
 </tbody>
 </table>
 <p>Se pueden encontrar ejemplos de todos estos usos en el <a href="https://quarto.org/docs/gallery/">sitio web oficial de Quarto</a></p>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="cierre" class="level1">
@@ -1000,7 +1152,7 @@ Tip
 </tbody>
 </table>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Recursos">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1009,7 +1161,7 @@ Tip
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse show">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><a href="https://quarto.org/docs/tools/positron/">Quarto en Positron</a></li>
