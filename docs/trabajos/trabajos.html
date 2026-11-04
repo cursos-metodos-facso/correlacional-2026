@@ -117,6 +117,10 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Prácticos</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link active" href="../trabajos/trabajos.html" aria-current="page"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../resource/index.html"> 
 <span class="menu-text">Recursos</span></a>
   </li>  
@@ -207,7 +211,7 @@ ul.task-list li input[type="checkbox"] {
 <li><p>Cada grupo seleccionará <strong>un tema/concepto central</strong> (<em>variable dependiente</em>), por ejemplo: prejuicio hacia migrantes, nivel educacional, orientación política, etc.</p></li>
 <li><p>Luego, debe relacionar el tema seleccionado con al menos dos variables (ej: género, nivel socioeconómico, salud, confianza en instituciones, etc.) que serán las <em>variables independientes</em> del reporte.</p></li>
 <li><p>Para seleccionar el tema y las variables disponibles se deben revisar los cuestionarios, libros de códigos y reportes de las encuestas mencionadas.</p></li>
-<li><p>Los análisis deben considerar al menos un cruce entre variables categóricas, y otro entre una variable continua y una categórica.</p></li>
+<li><p>Los análisis deben considerar al menos un cruce entre variables categóricas, y otro entre una variable continua y una categórica. Las variables deben relacionarse directamente con las hipótesis planteadas en la sección de introducción del reporte.</p></li>
 </ul>
 </section>
 <section id="inscripción-de-grupos" class="level1">
@@ -222,16 +226,16 @@ ul.task-list li input[type="checkbox"] {
 <p>Definición de la problemática a abordar, su relevancia y principales conceptos.</p>
 <p>En este apartado es importante considerar:</p>
 <ul>
-<li><p>Relevancia del tema de investigación.</p></li>
+<li><p>Relevancia del tema de investigación : explicar por qué es importante estudiar el problema social seleccionado.</p></li>
 <li><p>Problematización: señalar problema de investigación y principales antecedentes</p></li>
 <li><p>Precisar los conceptos centrales a investigar: Ejemplo “vamos a analizar la participación informal, entendiendo por ello la frecuencia de participación en actividades como marchas, boycotts y en redes sociales” [cita que apoye la definición].</p></li>
-<li><p>Mencionar el principal objetivo del trabajo y las hipótesis de investigación en el párrafo final de esta sección (ej: se espera que el nivel educacional sea mayor en zonas urbanas en relación a zonas rurales). Mencionar al menos tres hipótesis.</p></li>
+<li><p>Mencionar el principal objetivo del trabajo y las hipótesis de investigación en el párrafo final de esta sección (ej: se espera que el nivel educacional sea mayor en zonas urbanas en relación a zonas rurales).</p></li>
 </ul>
 <p>Esta sección debe estar respaldada por al menos 5 referencias bibliográficas.</p>
 <p><strong>2. Metodología</strong> (2 puntos, app. 800 palabras)</p>
 <p>2.1 Datos: descripción detallada de los datos a utilizar</p>
 <p>2.2 Variables</p>
-<p>Descripción de cada una de las variables, su operacionalización y medición. Esta sección también incluye una <strong>tabla de descriptivos</strong> básicos.</p>
+<p>Descripción de cada una de las variables, su operacionalización y medición. Esta sección también incluye una <strong>tabla de descriptivos</strong> básicos. Por ejemplo, para ingresos, media y desviación estándar; para género, frecuencias y porcentajes.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -248,6 +252,7 @@ Nota
 <li><p>Ejemplo 1: si lo que se está midiendo es apoyo al aborto libre en una escala donde 5 es totalmente en desacuerdo y 1 totalmente de acuerdo, se deben recodificar los valores para que un mayor puntaje exprese mayor apoyo al aborto libre. En concreto: 1=5, 2=4, 4=2, 5=1.</p></li>
 <li><p>Ejemplo 2: variable dicotómica 0: si vota, 1: no vota, debe ser recodificada a 1: si vota, 0: no vota.</p></li>
 </ul>
+<p>Más sobre recodificación y preparación de variables <a href="https://multivariada.netlify.app/assignment/01-code/#procesamiento-de-variables">aquí</a></p>
 </div>
 </div>
 <p>2.3 Métodos</p>
@@ -265,11 +270,11 @@ Nota
 </section>
 <section id="formato" class="level1">
 <h1>Formato</h1>
-<p>El formato de entrega del trabajo será en html vía Rmarkdown/Quarto, dado que facilita la integración y reproducibilidad de los análisis en R. La plantilla para poder realizar el trabajo se presentará en los prácticos.</p>
+<p>El formato de entrega del trabajo será en html vía Quarto, dado que facilita la integración y reproducibilidad de los análisis en R. La plantilla para poder realizar el trabajo se presentará en los prácticos.</p>
 </section>
 <section id="entrega" class="level1">
 <h1>Entrega</h1>
-<p>En la sección de tareas de UCursos. Se debe adjuntar un archivo comprimido con la carpeta del proyecto.</p>
+<p>En la sección de tareas de UCursos. Se debe adjuntar un archivo comprimido con la carpeta del proyecto (el archivo .qmd, el HTML generado, los datos utilizados y los scripts correspondientes).</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -303,10 +308,11 @@ rm(list = c('casen2022')) # quitar del environment para liberar espacio en la me
 <h1 class="tabset">Recomendaciones generales para el trabajo</h1>
 <section id="organización-de-actividades" class="level2">
 <h2 class="anchored" data-anchor-id="organización-de-actividades">Organización de actividades</h2>
-<p>Hay 2 semanas para realizar el trabajo. Durante este tiempo los horarios de clases estarán destinados a contenidos asociados a la realización de los reportes, así como también a asesorar a los grupos. Se sugiere organizar las actividades de la siguiente manera:</p>
+<p>El trabajo se entrega el día <strong>Viernes 20 de Noviembre</strong>. Durante este tiempo los horarios de clases estarán destinados a contenidos asociados a la realización de los reportes, así como también a asesorar a los grupos. Se sugiere organizar las actividades de la siguiente manera:</p>
 <ul>
-<li>Semana 1: definición de grupos, temas y base de datos; análisis descriptivos univariados, chequeo de nivel de medición de variables, varianza y casos perdidos</li>
-<li>Semana 2: escritura de introducción y análisis conclusiones y redacción final del reporte.</li>
+<li>Semana 1: definición de grupos, temas y base de datos</li>
+<li>Semana 2: análisis descriptivos univariados, chequeo de nivel de medición de variables, varianza y casos perdidos</li>
+<li>Semana 3: escritura de introducción y análisis conclusiones y redacción final del reporte</li>
 </ul>
 </section>
 <section id="escritura-académica" class="level2">

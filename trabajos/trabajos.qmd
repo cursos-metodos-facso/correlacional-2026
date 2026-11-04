@@ -40,7 +40,7 @@ Para la elaboración de los trabajos se utilizarán bases de datos secundarias d
   
 - Para seleccionar el tema y las variables disponibles se deben revisar los cuestionarios, libros de códigos y reportes de las encuestas mencionadas.
 
-- Los análisis deben considerar al menos un cruce entre variables categóricas, y otro entre una variable continua y una categórica. 
+- Los análisis deben considerar al menos un cruce entre variables categóricas, y otro entre una variable continua y una categórica. Las variables deben relacionarse directamente con las hipótesis planteadas en la sección de introducción del reporte.
 
 # Inscripción de grupos
 
@@ -58,13 +58,13 @@ Definición de la problemática a abordar, su relevancia y principales conceptos
 
 En este apartado es importante considerar:
 
-  - Relevancia del tema de investigación.
+  - Relevancia del tema de investigación : explicar por qué es importante estudiar el problema social seleccionado.
   
   - Problematización: señalar problema de investigación y principales antecedentes
 
   - Precisar los conceptos centrales a investigar: Ejemplo "vamos a analizar la participación informal, entendiendo por ello la frecuencia de participación en actividades como marchas, boycotts y en redes sociales" [cita que apoye la definición].
   
-  - Mencionar el principal objetivo del trabajo y las hipótesis de investigación en el párrafo final de esta sección (ej: se espera que el nivel educacional sea mayor en zonas urbanas en relación a zonas rurales). Mencionar al menos tres hipótesis.
+  - Mencionar el principal objetivo del trabajo y las hipótesis de investigación en el párrafo final de esta sección (ej: se espera que el nivel educacional sea mayor en zonas urbanas en relación a zonas rurales). 
 
 Esta sección debe estar respaldada por al menos 5 referencias bibliográficas.
 
@@ -74,7 +74,7 @@ Esta sección debe estar respaldada por al menos 5 referencias bibliográficas.
 
 2.2 Variables
 
-Descripción de cada una de las variables, su operacionalización y medición. Esta sección también incluye una **tabla de descriptivos** básicos.
+Descripción de cada una de las variables, su operacionalización y medición. Esta sección también incluye una **tabla de descriptivos** básicos. Por ejemplo, para ingresos, media y desviación estándar; para género, frecuencias y porcentajes. 
 
 ::: callout-note
 **Atención sobre recodificación de variables**
@@ -84,6 +84,8 @@ Es importante que las variables sean recodificadas en el sentido del atributo qu
   - Ejemplo 1: si lo que se está midiendo es apoyo al aborto libre en una escala donde 5 es totalmente en desacuerdo y 1 totalmente de acuerdo, se deben recodificar los valores para que un mayor puntaje exprese mayor apoyo al aborto libre. En concreto: 1=5, 2=4, 4=2, 5=1.
 
   - Ejemplo 2: variable dicotómica 0: si vota, 1: no vota, debe ser recodificada a 1: si vota, 0: no vota.
+
+Más sobre recodificación y preparación de variables [aquí](https://multivariada.netlify.app/assignment/01-code/#procesamiento-de-variables)
 
 :::
 
@@ -110,11 +112,11 @@ Formato APA 7
 
 # Formato
 
-El formato de entrega del trabajo será en html vía Rmarkdown/Quarto, dado que facilita la integración y reproducibilidad de los análisis en R. La plantilla para poder realizar el trabajo se presentará en los prácticos.
+El formato de entrega del trabajo será en html vía Quarto, dado que facilita la integración y reproducibilidad de los análisis en R. La plantilla para poder realizar el trabajo se presentará en los prácticos.
 
 # Entrega
 
-En la sección de tareas de UCursos. Se debe adjuntar un archivo comprimido con la carpeta del proyecto.
+En la sección de tareas de UCursos. Se debe adjuntar un archivo comprimido con la carpeta del proyecto (el archivo .qmd, el HTML generado, los datos utilizados y los scripts correspondientes).
 
 ::: {.callout-tip}
 ## Sobre cargar bases de datos pesadas (ejemplo: CASEN)
@@ -152,10 +154,11 @@ Los trabajos se desarrollarán en grupos de máximo 5 integrantes (para quienes 
 
 ## Organización de actividades
 
-Hay 2 semanas para realizar el trabajo. Durante este tiempo los horarios de clases estarán destinados a contenidos asociados a la realización de los reportes, así como también a asesorar a los grupos. Se sugiere organizar las actividades de la siguiente manera:
+El trabajo se entrega el día **Viernes 20 de Noviembre**. Durante este tiempo los horarios de clases estarán destinados a contenidos asociados a la realización de los reportes, así como también a asesorar a los grupos. Se sugiere organizar las actividades de la siguiente manera:
 
-- Semana 1: definición de grupos, temas y base de datos; análisis descriptivos univariados, chequeo de nivel de medición de variables, varianza y casos perdidos
-- Semana 2: escritura de introducción y análisis conclusiones y redacción final del reporte.
+- Semana 1: definición de grupos, temas y base de datos
+- Semana 2: análisis descriptivos univariados, chequeo de nivel de medición de variables, varianza y casos perdidos
+- Semana 3: escritura de introducción y análisis conclusiones y redacción final del reporte
 
 ## Escritura académica
 
