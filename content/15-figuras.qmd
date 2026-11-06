@@ -141,23 +141,50 @@ format:
 
 En la sesión anterior aprendimos que un documento Quarto integra texto y código. Ahora nos preguntamos **cómo presentar los resultados**: ¿qué tabla o gráfico es adecuado según el tipo de variable? Aprenderemos a construir, en R, las tablas y figuras más simples y a incorporarlas al informe con leyenda y numeración automática.
 
+Para ello, en esta sesión veremos 4 puntos principales:
+
+- **Tablas**
+
+- **Gráficos de una variable**
+
+- **Gráficos de dos variables**
+
+- **Referencias y guardado de figuras**
+
 ::: {.rv-question}
 **Pregunta guía de la sesión**
 
 ¿Cómo describimos una variable y cómo mostramos la relación entre dos variables en un informe Quarto?
 :::
 
+Trabajaremos con la submuestra de la **CASEN 2024** usada en la sesión anterior. Usaremos principalmente **ggplot2** para gráficos y **knitr** (`kable()`) para tablas. 
+
 ```{r}
-#| label: setup
+pacman::p_load(ggplot2, dplyr, knitr)
+```
+
+```{r}
 #| include: false
 
-pacman::p_load(ggplot2, dplyr, knitr)
+# Tema común para todos los gráficos
+theme_set(theme_minimal(base_size = 13))
+```
+
+Cargamos la base de datos
+
+```{r}
+options(scipen = 999) # desactiva la notación científica
 
 url_datos <- paste0("https://raw.githubusercontent.com/",
                     "cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata")
-load(url(url_datos))  # crea el objeto datos_casen
+load(url(url_datos))
+```
 
-# Preparación común a todo el documento
+La base recibe un breve procesamiento para crear las variables que se describen a continuación.
+
+```{r}
+#| label: setup
+
 datos_casen <- datos_casen |>
   mutate(
     sexo = factor(mujer, levels = c(0, 1), labels = c("Hombre", "Mujer")),
@@ -165,10 +192,10 @@ datos_casen <- datos_casen |>
                     labels = c("1 (Nunca)", "2", "3", "4 (Siempre)")),
     tramo_esc = cut(escolaridad, breaks = c(-Inf, 8, 12, Inf),
                     labels = c("Básica o menos (0-8)", "Media (9-12)", "Superior (13+)"))
-  )
+  ) |>
+  na.omit()
 ```
 
-Trabajaremos con la submuestra de la **CASEN 2024** (`r nrow(datos_casen)` personas de 18 años o más) usada en la sesión anterior. Usaremos principalmente **ggplot2** para gráficos y **knitr** (`kable()`) para tablas. Las librerías (`ggplot2`, `dplyr`, `knitr`) se cargan con `pacman::p_load()`, y la base recibe un breve procesamiento para crear las variables que se describen a continuación.
 
 | Variable | Tipo | Descripción |
 |:--|:--|:--|
@@ -180,15 +207,6 @@ Trabajaremos con la submuestra de la **CASEN 2024** (`r nrow(datos_casen)` perso
 | `ingreso_trabajo` | Numérica | Ingreso mensual del trabajo (\$) |
 
 
-En la sesión veremos 4 puntos principales:
-
-- **Tablas**
-
-- **Gráficos de una variable**
-
-- **Gráficos de dos variables**
-
-- **Referencias y guardado de figuras**
 
 # Tablas {#parte-a}
 
@@ -250,7 +268,7 @@ Para variables numéricas se resumen con medidas de tendencia central y dispersi
 #| label: tbl-descriptivos
 #| tbl-cap: "Estadísticos descriptivos de variables numéricas"
 # 1. Seleccionar las variables numéricas que queremos resumir
-vars <- datos_casen[, c("edad", "escolaridad", "ingreso_trabajo")]
+vars <- datos_casen[, c("edad", "ingreso_trabajo")]
 
 # 2. Calcular cada estadístico para todas las variables a la vez
 #    (na.rm = TRUE ignora los valores perdidos)
@@ -269,9 +287,9 @@ kable(descriptivos, digits = 1, row.names = FALSE)
 
 A) Construya una tabla de frecuencias de `sexo` con casos y porcentajes.
 
-B) Agregue la etiqueta `tbl-sexo` y una leyenda con `tbl-cap`.
+B) Interprete los resultados. ¿Qué puede decir de la distribución de los casos?
 
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 1"}
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio"}
 
 ```{r}
 #| label: tbl-sexo
@@ -284,6 +302,7 @@ tabla_sexo <- datos_casen |>
 # 2. Presentar la tabla con nombres de columnas en español
 kable(tabla_sexo, col.names = c("Sexo", "n", "%"))
 ```
+
 :::
 
 # Gráficos de una variable {#parte-b}
@@ -380,10 +399,6 @@ ggplot(datos_casen, aes(x = ingreso_trabajo)) +
   theme_minimal(base_size = 13)
 ```
 
-::: {.callout-note title="¿Y los valores perdidos?"}
-`ggplot()` elimina automáticamente los `NA` y avisa con una advertencia. Como en este documento usamos `warning: false`, el aviso no se muestra, pero **la advertencia existe**: en un análisis real, siempre hay que saber cuántos casos se excluyen.
-:::
-
 ## Boxplot {#boxplot}
 
 El diagrama de caja resume la distribución con la mediana, los cuartiles y los valores extremos.
@@ -400,38 +415,7 @@ ggplot(datos_casen, aes(y = edad)) +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 ```
 
-**Ejercicio**
-
-A) Construya un gráfico de barras de `sexo`.
-
-B) Construya un histograma de `escolaridad` con `binwidth = 1`. ¿Qué valores de escolaridad son más frecuentes y por qué?
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 2"}
-
-```{r}
-#| label: fig-ej-sexo
-#| fig-cap: "Distribución por sexo"
-#| fig-width: 5
-#| fig-height: 3.5
-ggplot(datos_casen, aes(x = sexo)) +
-  geom_bar(fill = "#526e75") +
-  labs(x = "Sexo", y = "Número de personas") +
-  theme_minimal(base_size = 13)
-```
-
-```{r}
-#| label: fig-ej-escolaridad
-#| fig-cap: "Distribución de la escolaridad"
-#| fig-width: 7
-#| fig-height: 3.5
-ggplot(datos_casen, aes(x = escolaridad)) +
-  geom_histogram(binwidth = 1, fill = "#526e75", colour = "white") +
-  labs(x = "Años de escolaridad", y = "Número de personas") +
-  theme_minimal(base_size = 13)
-```
-
-Los valores más frecuentes suelen concentrarse en 12 años (educación media completa) y 8 años (educación básica completa), que corresponden a los **hitos de término de cada ciclo** del sistema educativo.
-:::
+> Qué podemos decir de este gráfico?
 
 # Gráficos de dos variables {#parte-c}
 
@@ -445,15 +429,13 @@ Para relacionar dos variables numéricas usamos el **gráfico de dispersión**: 
 #| fig-width: 7.8
 #| fig-height: 4.2
 ggplot(datos_casen, aes(x = escolaridad, y = ingreso_trabajo)) +
-  geom_jitter(alpha = 0.3, width = 0.3, colour = "#526e75") +
-  geom_smooth(method = "lm", se = FALSE, colour = "#284958") +
-  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
-  coord_cartesian(ylim = c(0, 3e6)) +
-  labs(x = "Años de escolaridad", y = "Ingreso del trabajo ($)") +
-  theme_minimal(base_size = 13)
+  geom_jitter(alpha = 0.3) +
+  geom_smooth(method = "lm", se = FALSE) +
+  coord_cartesian(ylim = c(0, 3000000)) +
+  labs(x = "Años de escolaridad", y = "Ingreso del trabajo ($)")
 ```
 
-`geom_smooth(method = "lm")` agrega la recta de regresión; con `method = "loess"` se obtiene una curva flexible que permite revisar si la relación es lineal.
+`geom_smooth(method = "lm")` agrega la recta de regresión que permite revisar si la relación es lineal.
 
 ## Numérica y categórica: boxplot por grupos {#boxplot-grupos}
 
@@ -464,12 +446,12 @@ Para comparar una variable numérica entre grupos, se pone la variable categóri
 #| fig-cap: "Ingreso del trabajo según tramo de escolaridad, CASEN 2024 (submuestra). Eje vertical acotado a $3.000.000."
 #| fig-width: 7
 #| fig-height: 4
-ggplot(datos_casen, aes(x = tramo_esc, y = ingreso_trabajo)) +
-  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
-  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
-  coord_cartesian(ylim = c(0, 3e6)) +
+ggplot(datos_casen, aes(x = tramo_esc, y = ingreso_trabajo, fill = tramo_esc)) +
+  geom_boxplot() +
+  scale_fill_brewer(palette = "Set2") +
+  coord_cartesian(ylim = c(0, 3000000)) +
   labs(x = "Tramo de escolaridad", y = "Ingreso del trabajo ($)") +
-  theme_minimal(base_size = 13)
+  theme(legend.position = "none")
 ```
 
 Otra alternativa es comparar **promedios** con barras, resumiendo antes con `dplyr`.
@@ -485,12 +467,8 @@ promedios <- datos_casen |>
 
 ggplot(promedios, aes(x = tramo_esc, y = ingreso, fill = sexo)) +
   geom_col(position = "dodge") +
-  scale_fill_manual(values = c("Hombre" = "#526e75", "Mujer" = "#c9a24a"),
-                    name = NULL) +
-  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
-  labs(x = "Tramo de escolaridad", y = "Ingreso promedio ($)") +
-  theme_minimal(base_size = 13) +
-  theme(legend.position = "top")
+  scale_fill_manual(values = c("Hombre" = "#2a6f97", "Mujer" = "#e07a5f")) +
+  labs(x = "Tramo de escolaridad", y = "Ingreso promedio ($)", fill = "Sexo")
 ```
 
 ## Categórica y categórica: jitter {#jitter-categoricas}
@@ -504,10 +482,8 @@ Cuando ambas variables son categóricas, todos los puntos de un gráfico de disp
 #| fig-height: 4
 ggplot(datos_casen, aes(x = ruidos, y = tramo_esc)) +
   # width y height controlan cuánto se dispersan los puntos
-  # (valores bajos para que no se mezclen con otras categorías)
-  geom_jitter(width = 0.25, height = 0.25, alpha = 0.4, colour = "#526e75") +
-  labs(x = "Frecuencia de ruidos molestos en el barrio", y = "Tramo de escolaridad") +
-  theme_minimal(base_size = 13)
+  geom_jitter(width = 0.25, height = 0.25, alpha = 0.4) +
+  labs(x = "Frecuencia de ruidos molestos en el barrio", y = "Tramo de escolaridad")
 ```
 
 ::: {.callout-note title="Limitación"}
@@ -518,42 +494,6 @@ El jitter muestra **dónde se concentran los casos**, pero no entrega porcentaje
 - **La variable explicativa va en X** y la variable de respuesta en Y.
 - Con muchos puntos, use **transparencia** (`alpha`) o `geom_jitter()`.
 - Mantenga `width` y `height` del jitter pequeños: solo debe separar puntos, no cambiar su categoría.
-:::
-
-**Ejercicio**
-
-A) Construya un gráfico de dispersión entre `edad` (X) y `escolaridad` (Y) con una recta de regresión.
-
-B) Construya un boxplot de `escolaridad` según `sexo`.
-
-C) Agregue títulos de ejes en español y una leyenda a cada figura.
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 3"}
-
-```{r}
-#| label: fig-ej-edad-esc
-#| fig-cap: "Edad y escolaridad"
-#| fig-width: 7
-#| fig-height: 4
-ggplot(datos_casen, aes(x = edad, y = escolaridad)) +
-  geom_jitter(alpha = 0.3, height = 0.3, colour = "#526e75") +
-  geom_smooth(method = "lm", se = FALSE, colour = "#284958") +
-  labs(x = "Edad (años)", y = "Años de escolaridad") +
-  theme_minimal(base_size = 13)
-```
-
-```{r}
-#| label: fig-ej-box-sexo
-#| fig-cap: "Escolaridad según sexo"
-#| fig-width: 5
-#| fig-height: 3.8
-ggplot(datos_casen, aes(x = sexo, y = escolaridad)) +
-  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
-  labs(x = "Sexo", y = "Años de escolaridad") +
-  theme_minimal(base_size = 13)
-```
-
-La relación entre edad y escolaridad es negativa: las personas de mayor edad tienen, en promedio, menos años de escolaridad, reflejando la expansión educativa de las últimas décadas.
 :::
 
 # Referencias y guardado de figuras {#parte-d}
@@ -604,6 +544,94 @@ grafico <- ggplot(datos_casen, aes(x = tramo_esc)) + geom_bar()
 ggsave("output/grafico-barras.png", plot = grafico,
        width = 7, height = 4, dpi = 300)
 ```
+
+
+# Ejercicio autónomo
+
+**Ejercicio 1**
+
+A) Genere un documento Quarto con los siguientes elementos:
+
+- Título 
+
+- Fecha
+
+B) Cree un chunk y dentro de él genere una tabla descriptiva de la variable `escolaridad`
+
+C) Añada la etiqueta `tbl-escolaridad` y reporte los resultados haciendo referencia a la tabla en el texto
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 1"}
+```{r}
+#| label: tbl-esc-descriptivos
+#| tbl-cap: "Estadísticos descriptivos de la escolaridad"
+# 1. Calcular cada estadístico de la escolaridad
+descriptivos_esc <- data.frame(
+  Variable = "Escolaridad (años)",
+  Media    = mean(datos_casen$escolaridad, na.rm = TRUE),
+  Mediana  = median(datos_casen$escolaridad, na.rm = TRUE),
+  DE       = sd(datos_casen$escolaridad, na.rm = TRUE)
+)
+
+# 2. Presentar la tabla
+kable(descriptivos_esc, digits = 1, row.names = FALSE)
+```
+:::
+
+**Ejercicio 2**
+
+A) Construya un gráfico de barras de `sexo`.
+
+B) Construya un histograma de `escolaridad` con `binwidth = 1`. ¿Qué valores de escolaridad son más frecuentes y por qué?
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 2"}
+
+```{r}
+#| label: fig-ej-sexo
+#| fig-cap: "Distribución por sexo"
+#| fig-width: 5
+#| fig-height: 3.5
+ggplot(datos_casen, aes(x = sexo)) +
+  geom_bar(fill = "#526e75") +
+  labs(x = "Sexo", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+
+```{r}
+#| label: fig-ej-escolaridad
+#| fig-cap: "Distribución de la escolaridad"
+#| fig-width: 7
+#| fig-height: 3.5
+ggplot(datos_casen, aes(x = escolaridad)) +
+  geom_histogram(binwidth = 1, fill = "#526e75", colour = "white") +
+  labs(x = "Años de escolaridad", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+:::
+
+**Ejercicio 3**
+
+A) Construya un boxplot de `escolaridad` según `sexo`.
+
+B) Agregue leyenda a los ejes de la figura y una etiqueta para poder referise a ella en el texto
+
+C) Interprete la figura utilizando la referencia en el texto
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 3"}
+
+```{r}
+#| label: fig-ej-box-sexo
+#| fig-cap: "Escolaridad según sexo"
+#| fig-width: 5
+#| fig-height: 3.8
+ggplot(datos_casen, aes(x = sexo, y = escolaridad, fill = sexo)) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("Hombre" = "#2a6f97", "Mujer" = "#e07a5f")) +
+  labs(x = "Sexo", y = "Años de escolaridad") +
+  theme(legend.position = "none")
+```
+
+:::
+
 
 # Cierre {#cierre}
 
