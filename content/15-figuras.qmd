@@ -1,0 +1,633 @@
+---
+title: "Tablas y figuras en Quarto"
+date: "2026-11-09"
+lang: es
+number-sections: false
+anchor-sections: true
+execute:
+  echo: true
+  warning: false
+  message: false
+  freeze: auto
+format:
+  html:
+    # Conservamos el ancho del contenido; el índice lo gestiona Quarto.
+    page-layout: article
+    grid:
+      body-width: 980px
+      margin-width: 250px
+      gutter-width: 1.25rem
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-expand: 2
+    toc-title: "En esta página"
+    code-copy: true
+    code-fold: false
+    code-tools: false
+    smooth-scroll: true
+    fig-align: center
+    fig-cap-location: bottom
+---
+
+```{=html}
+<style>
+/* Sistema visual local: solo distingue funciones pedagógicas. */
+.rv-question {
+  margin: .9rem 0 .65rem;
+  padding: .7rem .95rem;
+  border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .065));
+  border-radius: 0 .35rem .35rem 0;
+}
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .65rem 0 .35rem;
+}
+.rv-group {
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .045));
+}
+.rv-group p { margin: 0; }
+.rv-group p + p { margin-top: .25rem; }
+.rv-group p:first-child { font-size: .9rem; }
+.rv-order {
+  margin: .15rem 0 1.15rem;
+  padding: .2rem .15rem;
+  color: var(--bs-body-color, inherit);
+  font-size: .92rem;
+}
+.rv-order > :first-child, .rv-order > :last-child { margin: 0; }
+.rv-activity, .rv-practice {
+  margin: .75rem 0 .55rem;
+  border-left: 2px solid var(--bs-secondary-color, #83939a);
+  padding: .25rem 0 .25rem .85rem;
+}
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-practice p + p { padding-top: .25rem; }
+/* Fórmulas disponibles durante el intento: soporte, nunca solución. */
+.rv-formulas {
+  margin: .7rem 0 .85rem;
+  padding: .6rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+}
+.rv-formulas > :first-child { margin-top: 0; }
+.rv-formulas > :last-child { margin-bottom: 0; }
+.rv-formulas p { margin: .4rem 0; }
+.rv-formulas .math.display { margin: .35rem 0 .55rem; }
+.rv-formulas strong { font-weight: 650; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+/* Igualamos el tamaño del texto dentro de los bloques al texto general de la página. */
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li,
+#quarto-content main.content .callout .callout-body ul,
+#quarto-content main.content .callout .callout-body ol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rv-answer.callout p:has(> strong:first-child) { margin-top: .65rem; }
+.rv-answer.callout p:first-child { margin-top: .1rem; }
+.rv-answer.callout p:last-child { margin-bottom: .25rem; }
+.rv-answer.callout .math.display { margin: .6rem 0 .8rem; }
+.cell-output-display img, .quarto-figure img { max-width: 100%; height: auto; }
+/* Párrafos justificados, sin afectar títulos, tablas ni el índice lateral.
+   Se limita el ajuste al cuerpo de esta página. */
+@media (min-width: 768px) {
+  #quarto-content main.content p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  /* Etiquetas cortas y comparaciones de grupos: más legibles alineadas a la izquierda. */
+  #quarto-content main.content .rv-group p,
+  #quarto-content main.content .rv-order p,
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .rv-formulas p,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+/* En móvil evitamos huecos entre palabras en columnas estrechas. */
+@media (max-width: 767.98px) {
+  #quarto-content main.content p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-groups { grid-template-columns: 1fr; gap: .4rem; }
+  .rv-question { padding: .65rem .7rem; }
+  .rv-group { padding: .55rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+  .math.display, .math-display { overflow-x: auto; max-width: 100%; }
+}
+</style>
+```
+
+# Introducción {#inicio}
+
+En la sesión anterior aprendimos que un documento Quarto integra texto y código. Ahora nos preguntamos **cómo presentar los resultados**: ¿qué tabla o gráfico es adecuado según el tipo de variable? Aprenderemos a construir, en R, las tablas y figuras más simples y a incorporarlas al informe con leyenda y numeración automática.
+
+::: {.rv-question}
+**Pregunta guía de la sesión**
+
+¿Cómo describimos una variable y cómo mostramos la relación entre dos variables en un informe Quarto?
+:::
+
+```{r}
+#| label: setup
+#| include: false
+
+pacman::p_load(ggplot2, dplyr, knitr)
+
+url_datos <- paste0("https://raw.githubusercontent.com/",
+                    "cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata")
+load(url(url_datos))  # crea el objeto datos_casen
+
+# Preparación común a todo el documento
+datos_casen <- datos_casen |>
+  mutate(
+    sexo = factor(mujer, levels = c(0, 1), labels = c("Hombre", "Mujer")),
+    ruidos = factor(barrio_ruidos, levels = 1:4,
+                    labels = c("1 (Nunca)", "2", "3", "4 (Siempre)")),
+    tramo_esc = cut(escolaridad, breaks = c(-Inf, 8, 12, Inf),
+                    labels = c("Básica o menos (0-8)", "Media (9-12)", "Superior (13+)"))
+  )
+```
+
+Trabajaremos con la submuestra de la **CASEN 2024** (`r nrow(datos_casen)` personas de 18 años o más) usada en la sesión anterior. Usaremos principalmente **ggplot2** para gráficos y **knitr** (`kable()`) para tablas. Las librerías (`ggplot2`, `dplyr`, `knitr`) se cargan con `pacman::p_load()`, y la base recibe un breve procesamiento para crear las variables que se describen a continuación.
+
+| Variable | Tipo | Descripción |
+|:--|:--|:--|
+| `sexo` | Categórica | Hombre / Mujer (creada desde `mujer`) |
+| `tramo_esc` | Categórica ordinal | Tramo de escolaridad (creada desde `escolaridad`) |
+| `ruidos` | Categórica ordinal | Frecuencia con que ha presenciado ruidos molestos en su barrio, de 1 (Nunca) a 4 (Siempre) (creada desde `barrio_ruidos`) |
+| `escolaridad` | Numérica | Años de escolaridad |
+| `edad` | Numérica | Edad en años |
+| `ingreso_trabajo` | Numérica | Ingreso mensual del trabajo (\$) |
+
+
+En la sesión veremos 4 puntos principales:
+
+- **Tablas**
+
+- **Gráficos de una variable**
+
+- **Gráficos de dos variables**
+
+- **Referencias y guardado de figuras**
+
+# Tablas {#parte-a}
+
+## Tabla de frecuencias {#frecuencias}
+
+Para describir una variable categórica, la primera herramienta es la **tabla de frecuencias**. Primero calculamos los datos con `dplyr` y luego los presentamos con `kable()`.
+
+```{r}
+#| label: tbl-frecuencias
+#| tbl-cap: "Tramo de escolaridad, CASEN 2024 (submuestra)"
+# 1. Calcular: contar casos por tramo y obtener el porcentaje
+tabla_esc <- datos_casen |>
+  count(tramo_esc) |>
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+# 2. Presentar: kable() da formato a la tabla
+#    (col.names cambia los nombres de las columnas)
+kable(tabla_esc, col.names = c("Tramo de escolaridad", "n", "%"))
+```
+
+::: {.callout-important title="Idea central"}
+Se separan dos pasos: **(1) calcular** el resultado en un objeto y **(2) presentarlo** con `kable()`. Así el objeto puede reutilizarse en gráficos o en el texto.
+:::
+
+::: {.rv-formulas}
+**Apoyo · Opciones útiles de `kable()`**
+
+| Argumento | Qué hace |
+|:--|:--|
+| `col.names = c(...)` | Cambia los nombres de las columnas |
+| `digits = 1` | Número de decimales |
+| `align = "lcc"` | Alineación por columna (izquierda, centro, derecha) |
+| `format.args = list(big.mark = ".", decimal.mark = ",")` | Formato chileno de números |
+| `caption = "..."` | Leyenda (en Quarto se prefiere `tbl-cap`) |
+:::
+
+## Tabla de dos variables {#tabla-cruzada}
+
+Para ver cómo se distribuyen dos variables categóricas a la vez, usamos una **tabla de contingencia**. Aquí presentamos porcentajes por columna: la distribución del tramo de escolaridad dentro de cada categoría de frecuencia de ruidos molestos en el barrio.
+
+```{r}
+#| label: tbl-cruzada
+#| tbl-cap: "Tramo de escolaridad según frecuencia de ruidos molestos en el barrio (% por columna)"
+# 1. Tabla de frecuencias con las dos variables
+tabla_cruzada <- table(datos_casen$tramo_esc, datos_casen$ruidos)
+
+# 2. Convertir a porcentajes dentro de cada columna (margin = 2)
+porcentajes <- prop.table(tabla_cruzada, margin = 2) * 100
+
+# 3. Presentar la tabla con un decimal
+kable(porcentajes, digits = 1)
+```
+
+## Tabla de estadísticos descriptivos {#tabla-descriptivos}
+
+Para variables numéricas se resumen con medidas de tendencia central y dispersión.
+
+```{r}
+#| label: tbl-descriptivos
+#| tbl-cap: "Estadísticos descriptivos de variables numéricas"
+# 1. Seleccionar las variables numéricas que queremos resumir
+vars <- datos_casen[, c("edad", "escolaridad", "ingreso_trabajo")]
+
+# 2. Calcular cada estadístico para todas las variables a la vez
+#    (na.rm = TRUE ignora los valores perdidos)
+descriptivos <- data.frame(
+  Variable = names(vars),
+  Media    = sapply(vars, mean, na.rm = TRUE),
+  Mediana  = sapply(vars, median, na.rm = TRUE),
+  DE       = sapply(vars, sd, na.rm = TRUE)
+)
+
+# 3. Presentar la tabla (digits = 1: un decimal; row.names = FALSE: sin numerar filas)
+kable(descriptivos, digits = 1, row.names = FALSE)
+```
+
+**Ejercicio**
+
+A) Construya una tabla de frecuencias de `sexo` con casos y porcentajes.
+
+B) Agregue la etiqueta `tbl-sexo` y una leyenda con `tbl-cap`.
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 1"}
+
+```{r}
+#| label: tbl-sexo
+#| tbl-cap: "Distribución por sexo"
+# 1. Contar casos por sexo y calcular el porcentaje
+tabla_sexo <- datos_casen |>
+  count(sexo) |>
+  mutate(porcentaje = round(100 * n / sum(n), 1))
+
+# 2. Presentar la tabla con nombres de columnas en español
+kable(tabla_sexo, col.names = c("Sexo", "n", "%"))
+```
+:::
+
+# Gráficos de una variable {#parte-b}
+
+## La gramática de ggplot2 {#gramatica}
+
+**ggplot2** construye un gráfico por capas. Siempre se necesitan tres elementos: los **datos**, la **estética** (`aes()`, qué variable va en cada eje) y una **geometría** (`geom_*()`, la forma del gráfico). Las capas se suman con `+`.
+
+```{r}
+#| eval: false
+ggplot(data = datos,           # 1. datos
+       aes(x = variable)) +    # 2. estética
+  geom_bar() +                 # 3. geometría
+  labs(x = "...", y = "...") + # 4. títulos de ejes
+  theme_minimal()              # 5. tema
+```
+
+::: {.rv-formulas}
+**Apoyo · ¿Qué gráfico para qué variable?**
+
+| Objetivo | Tipo de variable | Geometría |
+|:--|:--|:--|
+| Describir una variable | Categórica | `geom_bar()` |
+| Describir una variable | Numérica | `geom_histogram()`, `geom_density()`, `geom_boxplot()` |
+| Relacionar dos variables | Numérica y numérica | `geom_point()` + `geom_smooth()` |
+| Relacionar dos variables | Numérica y categórica | `geom_boxplot()`, barras de promedios |
+| Relacionar dos variables | Categórica y categórica | `geom_jitter()` |
+:::
+
+## Gráfico de barras {#barras}
+
+El gráfico de barras muestra la **frecuencia de cada categoría**. `geom_bar()` cuenta los casos por sí mismo.
+
+```{r}
+#| label: fig-barras
+#| fig-cap: "Tramo de escolaridad, CASEN 2024 (submuestra)"
+#| fig-width: 7
+#| fig-height: 3.8
+ggplot(datos_casen, aes(x = tramo_esc)) +
+  geom_bar(fill = "#526e75") +
+  labs(x = "Tramo de escolaridad", y = "Número de personas") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.major.x = element_blank())
+```
+
+Si lo que se quiere mostrar son **porcentajes**, se calculan antes y se usa `geom_col()`, que dibuja barras con la altura de una variable ya calculada. Agregar `geom_text()` permite rotular las barras.
+
+```{r}
+#| label: fig-barras-pct
+#| fig-cap: "Tramo de escolaridad en porcentajes, CASEN 2024 (submuestra)"
+#| fig-width: 7
+#| fig-height: 3.8
+ggplot(tabla_esc, aes(x = tramo_esc, y = porcentaje)) +
+  geom_col(fill = "#526e75") +
+  geom_text(aes(label = paste0(format(porcentaje, decimal.mark = ","), "%")),
+            vjust = -0.4) +
+  scale_y_continuous(limits = c(0, 60)) +
+  labs(x = "Tramo de escolaridad", y = "Porcentaje") +
+  theme_minimal(base_size = 13) +
+  theme(panel.grid.major.x = element_blank())
+```
+
+::: {.callout-tip title="geom_bar() vs. geom_col()"}
+`geom_bar()` **cuenta** los casos de los datos originales. `geom_col()` **usa una columna ya calculada** (por ejemplo, porcentajes). Si el gráfico sale con barras todas iguales o con un error, es probable que se haya usado la función equivocada.
+:::
+
+## Histograma {#histograma}
+
+Para una variable **numérica**, el histograma divide el rango en intervalos (*bins*) y cuenta cuántos casos caen en cada uno. El resultado depende del ancho de los intervalos, por lo que conviene probar con distintos valores de `binwidth`.
+
+```{r}
+#| label: fig-histograma
+#| fig-cap: "Distribución de la edad, CASEN 2024 (submuestra)"
+#| fig-width: 7
+#| fig-height: 3.8
+ggplot(datos_casen, aes(x = edad)) +
+  geom_histogram(binwidth = 5, fill = "#526e75", colour = "white") +
+  labs(x = "Edad (años)", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+
+El ingreso es una variable muy asimétrica: pocas personas tienen ingresos muy altos. Una opción es acotar el eje para ver mejor la mayor parte de los datos, informándolo en la leyenda.
+
+```{r}
+#| label: fig-histograma-ingreso
+#| fig-cap: "Distribución del ingreso del trabajo, CASEN 2024 (submuestra). Eje horizontal acotado a $3.000.000."
+#| fig-width: 7
+#| fig-height: 3.8
+ggplot(datos_casen, aes(x = ingreso_trabajo)) +
+  geom_histogram(binwidth = 100000, fill = "#526e75", colour = "white") +
+  scale_x_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
+  coord_cartesian(xlim = c(0, 3e6)) +
+  labs(x = "Ingreso del trabajo ($)", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+
+::: {.callout-note title="¿Y los valores perdidos?"}
+`ggplot()` elimina automáticamente los `NA` y avisa con una advertencia. Como en este documento usamos `warning: false`, el aviso no se muestra, pero **la advertencia existe**: en un análisis real, siempre hay que saber cuántos casos se excluyen.
+:::
+
+## Boxplot {#boxplot}
+
+El diagrama de caja resume la distribución con la mediana, los cuartiles y los valores extremos.
+
+```{r}
+#| label: fig-boxplot
+#| fig-cap: "Distribución de la edad, CASEN 2024 (submuestra)"
+#| fig-width: 4.5
+#| fig-height: 3.8
+ggplot(datos_casen, aes(y = edad)) +
+  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
+  labs(y = "Edad (años)") +
+  theme_minimal(base_size = 13) +
+  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+```
+
+**Ejercicio**
+
+A) Construya un gráfico de barras de `sexo`.
+
+B) Construya un histograma de `escolaridad` con `binwidth = 1`. ¿Qué valores de escolaridad son más frecuentes y por qué?
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 2"}
+
+```{r}
+#| label: fig-ej-sexo
+#| fig-cap: "Distribución por sexo"
+#| fig-width: 5
+#| fig-height: 3.5
+ggplot(datos_casen, aes(x = sexo)) +
+  geom_bar(fill = "#526e75") +
+  labs(x = "Sexo", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+
+```{r}
+#| label: fig-ej-escolaridad
+#| fig-cap: "Distribución de la escolaridad"
+#| fig-width: 7
+#| fig-height: 3.5
+ggplot(datos_casen, aes(x = escolaridad)) +
+  geom_histogram(binwidth = 1, fill = "#526e75", colour = "white") +
+  labs(x = "Años de escolaridad", y = "Número de personas") +
+  theme_minimal(base_size = 13)
+```
+
+Los valores más frecuentes suelen concentrarse en 12 años (educación media completa) y 8 años (educación básica completa), que corresponden a los **hitos de término de cada ciclo** del sistema educativo.
+:::
+
+# Gráficos de dos variables {#parte-c}
+
+## Numérica y numérica: dispersión {#dispersion}
+
+Para relacionar dos variables numéricas usamos el **gráfico de dispersión**: cada punto es una persona. Como `escolaridad` toma valores enteros, muchos puntos se superponen; `geom_jitter()` los separa levemente y `alpha` los hace transparentes.
+
+```{r}
+#| label: fig-dispersion
+#| fig-cap: "Escolaridad e ingreso del trabajo, CASEN 2024 (submuestra). Eje vertical acotado a $3.000.000."
+#| fig-width: 7.8
+#| fig-height: 4.2
+ggplot(datos_casen, aes(x = escolaridad, y = ingreso_trabajo)) +
+  geom_jitter(alpha = 0.3, width = 0.3, colour = "#526e75") +
+  geom_smooth(method = "lm", se = FALSE, colour = "#284958") +
+  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
+  coord_cartesian(ylim = c(0, 3e6)) +
+  labs(x = "Años de escolaridad", y = "Ingreso del trabajo ($)") +
+  theme_minimal(base_size = 13)
+```
+
+`geom_smooth(method = "lm")` agrega la recta de regresión; con `method = "loess"` se obtiene una curva flexible que permite revisar si la relación es lineal.
+
+## Numérica y categórica: boxplot por grupos {#boxplot-grupos}
+
+Para comparar una variable numérica entre grupos, se pone la variable categórica en el eje X.
+
+```{r}
+#| label: fig-boxplot-grupos
+#| fig-cap: "Ingreso del trabajo según tramo de escolaridad, CASEN 2024 (submuestra). Eje vertical acotado a $3.000.000."
+#| fig-width: 7
+#| fig-height: 4
+ggplot(datos_casen, aes(x = tramo_esc, y = ingreso_trabajo)) +
+  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
+  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
+  coord_cartesian(ylim = c(0, 3e6)) +
+  labs(x = "Tramo de escolaridad", y = "Ingreso del trabajo ($)") +
+  theme_minimal(base_size = 13)
+```
+
+Otra alternativa es comparar **promedios** con barras, resumiendo antes con `dplyr`.
+
+```{r}
+#| label: fig-promedios
+#| fig-cap: "Ingreso promedio del trabajo según tramo de escolaridad y sexo, CASEN 2024 (submuestra)"
+#| fig-width: 7
+#| fig-height: 4
+promedios <- datos_casen |>
+  group_by(tramo_esc, sexo) |>
+  summarise(ingreso = mean(ingreso_trabajo, na.rm = TRUE), .groups = "drop")
+
+ggplot(promedios, aes(x = tramo_esc, y = ingreso, fill = sexo)) +
+  geom_col(position = "dodge") +
+  scale_fill_manual(values = c("Hombre" = "#526e75", "Mujer" = "#c9a24a"),
+                    name = NULL) +
+  scale_y_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
+  labs(x = "Tramo de escolaridad", y = "Ingreso promedio ($)") +
+  theme_minimal(base_size = 13) +
+  theme(legend.position = "top")
+```
+
+## Categórica y categórica: jitter {#jitter-categoricas}
+
+Cuando ambas variables son categóricas, todos los puntos de un gráfico de dispersión caerían exactamente sobre unas pocas posiciones y se superpondrían. `geom_jitter()` los **dispersa aleatoriamente** alrededor de cada cruce de categorías: el área con más puntos indica dónde hay más casos.
+
+```{r}
+#| label: fig-jitter-categoricas
+#| fig-cap: "Tramo de escolaridad según frecuencia de ruidos molestos en el barrio, CASEN 2024 (submuestra). Cada punto es una persona."
+#| fig-width: 7
+#| fig-height: 4
+ggplot(datos_casen, aes(x = ruidos, y = tramo_esc)) +
+  # width y height controlan cuánto se dispersan los puntos
+  # (valores bajos para que no se mezclen con otras categorías)
+  geom_jitter(width = 0.25, height = 0.25, alpha = 0.4, colour = "#526e75") +
+  labs(x = "Frecuencia de ruidos molestos en el barrio", y = "Tramo de escolaridad") +
+  theme_minimal(base_size = 13)
+```
+
+::: {.callout-note title="Limitación"}
+El jitter muestra **dónde se concentran los casos**, pero no entrega porcentajes exactos. Para leer cifras precisas, conviene complementarlo con la tabla de contingencia (@tbl-cruzada).
+:::
+
+::: {.callout-tip title="Tres recomendaciones para gráficos de dos variables"}
+- **La variable explicativa va en X** y la variable de respuesta en Y.
+- Con muchos puntos, use **transparencia** (`alpha`) o `geom_jitter()`.
+- Mantenga `width` y `height` del jitter pequeños: solo debe separar puntos, no cambiar su categoría.
+:::
+
+**Ejercicio**
+
+A) Construya un gráfico de dispersión entre `edad` (X) y `escolaridad` (Y) con una recta de regresión.
+
+B) Construya un boxplot de `escolaridad` según `sexo`.
+
+C) Agregue títulos de ejes en español y una leyenda a cada figura.
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 3"}
+
+```{r}
+#| label: fig-ej-edad-esc
+#| fig-cap: "Edad y escolaridad"
+#| fig-width: 7
+#| fig-height: 4
+ggplot(datos_casen, aes(x = edad, y = escolaridad)) +
+  geom_jitter(alpha = 0.3, height = 0.3, colour = "#526e75") +
+  geom_smooth(method = "lm", se = FALSE, colour = "#284958") +
+  labs(x = "Edad (años)", y = "Años de escolaridad") +
+  theme_minimal(base_size = 13)
+```
+
+```{r}
+#| label: fig-ej-box-sexo
+#| fig-cap: "Escolaridad según sexo"
+#| fig-width: 5
+#| fig-height: 3.8
+ggplot(datos_casen, aes(x = sexo, y = escolaridad)) +
+  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
+  labs(x = "Sexo", y = "Años de escolaridad") +
+  theme_minimal(base_size = 13)
+```
+
+La relación entre edad y escolaridad es negativa: las personas de mayor edad tienen, en promedio, menos años de escolaridad, reflejando la expansión educativa de las últimas décadas.
+:::
+
+# Referencias y guardado de figuras {#parte-d}
+
+## Leyendas y referencias cruzadas {#referencias}
+
+Para que Quarto numere una figura o tabla y permita referirse a ella en el texto, el bloque de código necesita **dos opciones**: una **etiqueta** con prefijo (`fig-` o `tbl-`) y una **leyenda** (`fig-cap` o `tbl-cap`).
+
+````markdown
+```{{r}}
+#| label: fig-barras
+#| fig-cap: "Tramo de escolaridad, CASEN 2024"
+ggplot(datos_casen, aes(x = tramo_esc)) + geom_bar()
+```
+
+Como muestra la @fig-barras, la mayoría de las personas ...
+````
+
+::: {.rv-formulas}
+**Apoyo · Opciones para figuras y tablas**
+
+| Opción | Qué hace |
+|:--|:--|
+| `label: fig-nombre` / `tbl-nombre` | Nombra la figura o tabla (el prefijo es obligatorio) |
+| `fig-cap: "..."` / `tbl-cap: "..."` | Leyenda numerada automáticamente |
+| `fig-width`, `fig-height` | Tamaño de la figura en pulgadas |
+| `fig-alt: "..."` | Texto alternativo para accesibilidad |
+| `fig-align: center` | Alineación de la figura |
+| `echo: false` | Oculta el código y muestra solo el resultado |
+:::
+
+En el texto, `@fig-barras` se convierte en un enlace «Figura 1» y `@tbl-frecuencias` en «Tabla 1». Por ejemplo, la @tbl-frecuencias presenta la distribución de la escolaridad y la @fig-barras la muestra gráficamente.
+
+::: {.callout-warning title="Errores frecuentes"}
+- Olvidar el prefijo: `label: barras` no lee la referencia como figura; debe ser `fig-barras`.
+- Que la etiqueta del chunk y la referencia no coincidan exactamente.
+- Usar guiones bajos en la etiqueta: use guiones (`fig-mi-grafico`).
+:::
+
+## Guardar una figura {#guardar}
+
+A veces se necesita el gráfico como archivo (para una presentación o un informe que no se busque ejecutar el código). `ggsave()` guarda el último gráfico o uno almacenado en un objeto. Por orden, se guarda en la carpeta `output`.
+
+```{r}
+#| eval: false
+grafico <- ggplot(datos_casen, aes(x = tramo_esc)) + geom_bar()
+
+ggsave("output/grafico-barras.png", plot = grafico,
+       width = 7, height = 4, dpi = 300)
+```
+
+# Cierre {#cierre}
+
+- Elegir la tabla o el gráfico adecuado depende del **tipo de variable** y del **objetivo**: describir una variable o relacionar dos.
+
+- En Quarto, la leyenda y la etiqueta convierten cada resultado en un elemento numerado al que se puede referir en el texto.
+
+| Objetivo | Tabla | Gráfico |
+|:--|:--|:--|
+| Una variable categórica | Frecuencias (`count()` + `kable()`) | Barras (`geom_bar()`) |
+| Una variable numérica | Descriptivos (`summarise()`) | Histograma, boxplot |
+| Numérica y numérica | Correlación | Dispersión (`geom_point()`) |
+| Numérica y categórica | Promedios por grupo | Boxplot por grupos |
+| Categórica y categórica | Tabla de contingencia | Jitter (`geom_jitter()`) |
+
+::: {.callout-tip collapse="false" appearance="minimal" title="Recursos"}
+
+- [Quarto: Cross References](https://quarto.org/docs/authoring/cross-references.html)
+- [Quarto: Figures](https://quarto.org/docs/authoring/figures.html)
+- [Quarto: Tables](https://quarto.org/docs/authoring/tables.html)
+- [Quarto: Computations with knitr](https://quarto.org/docs/computations/r.html)
+- [Tutorial de figuras y tablas en Quarto](https://data-wise.github.io/regression/appendix/r-topics/r-quarto-table-figure.html)
+- [Tablas en Quarto: Markdown, kable y gt](https://www.datanovia.com/learn/programming/quarto/tables)
+- [ggplot2: referencia de geometrías](https://ggplot2.tidyverse.org/reference/)
+- [R Graph Gallery](https://r-graph-gallery.com/)
+
+:::
