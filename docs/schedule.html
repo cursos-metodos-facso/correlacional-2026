@@ -73,6 +73,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Planificación – Estadística Correlacional">
+<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -272,6 +273,48 @@ h2 {
 
 .table-scroll a {
   overflow-wrap: anywhere;
+}
+
+/* Tabla desde el 4 de noviembre: columna 3 = Sección A, columna 4 = Sección B */
+/* Ignorar los anchos que Quarto calcula desde la tabla grid */
+.table-scroll col {
+  width: auto !important;
+}
+
+.table-split table {
+  min-width: 800px;
+}
+
+.table-split th:nth-child(3),
+.table-split td:nth-child(3),
+.table-split th:nth-child(4),
+.table-split td:nth-child(4) {
+  width: 41%;
+}
+
+.table-split thead th:nth-child(3) { color: #1f5f9e; }
+.table-split thead th:nth-child(4) { color: #2e7d32; }
+
+.table-scroll.table-split tbody tr td:nth-child(3) {
+  background: #e3effa !important;
+}
+
+.table-scroll.table-split tbody tr td:nth-child(4) {
+  background: #e6f4e7 !important;
+}
+
+.secA-label {
+  color: #1f5f9e;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.secB-label {
+  color: #2e7d32;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
 }
 
 /* Los prácticos conservan el fondo gris */
@@ -532,76 +575,66 @@ h2 {
 <tr class="odd">
 <td style="text-align: left;">02 / lun</td>
 <td style="text-align: left;">Lectiva</td>
-<td style="text-align: left;"><strong>14. Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.</td>
+<td style="text-align: left;"><strong>14. Presentación invitados externos:</strong> Aportes desde lo cuantitativo a la justicia y el mejoramiento educativo - Anaís Herrera y Francisco Meneses</td>
 <td style="text-align: left;">Ficha inicial del proyecto</td>
 <td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">04 / mié</td>
-<td style="text-align: left;">Seminario</td>
-<td style="text-align: left;"><strong>15. Actividad por definir</strong></td>
-<td style="text-align: left;">Actividad por definir</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">09 / lun</td>
-<td style="text-align: left;">Práctico</td>
-<td style="text-align: left;"><strong>Visualización 1: tablas</strong><br>Construcción, presentación e interpretación de tablas para el trabajo grupal.</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">11 / mié</td>
-<td style="text-align: left;">Práctico</td>
-<td style="text-align: left;"><strong>Escritura, reportes dinámicos y visualización 2</strong><br>Estructura del informe, integración de código y texto, gráficos, cápsula interpretativa y asesoría final.</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">16 / lun</td>
-<td style="text-align: left;">Evaluación</td>
-<td style="text-align: left;"><strong>Asesoría trabajos</strong></td>
-<td style="text-align: left;"><strong>Prueba 3</strong></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">18 / mié</td>
-<td style="text-align: left;">Evaluación</td>
-<td style="text-align: left;"><strong>Asesoría trabajos</strong></td>
-<td style="text-align: left;"><span class="eval-label"><strong>Pruebas recuperativas</strong></span><br>Recuperación de evaluaciones justificadas según la normativa del curso.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">20/ vier</td>
-<td style="text-align: left;">Evaluación</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><strong>Entrega trabajo final</strong></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">25 / mié</td>
-<td style="text-align: left;">Evaluación</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><span class="eval-label"><strong>Examen final: primera oportunidad</strong></span><br>Examen oral integrado para estudiantes no eximidos.</td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;"><span class="month-label"><strong>DICIEMBRE</strong></span></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">09 / mié</td>
-<td style="text-align: left;">Evaluación</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"><span class="eval-label"><strong>Examen final: segunda oportunidad</strong></span><br>Examen oral integrado para estudiantes que corresponda.</td>
-<td style="text-align: left;">Revisión integral del curso.</td>
 </tr>
 </tbody>
 </table>
 </div>
+<div class="table-scroll table-split">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fecha</th>
+<th style="text-align: left;">Tipo de sesión</th>
+<th style="text-align: left;">Sección A: Trabajos</th>
+<th style="text-align: left;">Sección B: Prueba</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">04 / mié</td>
+<td style="text-align: left;">Clase aplicada</td>
+<td style="text-align: left;"><p><strong>Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.</p>
+<p><strong>Práctico</strong>: <a href="./content/14-quarto.html">Documentos en Quarto</a> (con cápsula por paro)</p></td>
+<td style="text-align: left;"><strong>Práctico</strong>: <a href="./content/14-repaso-inferencia.html">Repaso Inferencia</a> (con cápsula por paro)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">09 / lun</td>
+<td style="text-align: left;">Clase aplicada</td>
+<td style="text-align: left;"><strong>Visualización: Tablas y Gráficos</strong><br>Construcción, presentación e interpretación de tablas para el trabajo grupal.</td>
+<td style="text-align: left;"><strong>Repaso correlación y matrices</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">11 / mié</td>
+<td style="text-align: left;">Clase aplicada</td>
+<td style="text-align: left;"><strong>Escritura en reportes dinámicos</strong> <br>Estructura del informe, integración de código, texto, tablas y gráficos.</td>
+<td style="text-align: left;"><strong>Repaso asociación categóricas</strong></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">16 / lun</td>
+<td style="text-align: left;">Asesoría/ Evaluación</td>
+<td style="text-align: left;"><strong>Asesoría trabajos</strong></td>
+<td style="text-align: left;"><strong>Prueba 3</strong></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">18 / mié</td>
+<td style="text-align: left;">Asesoría/ Evaluación</td>
+<td style="text-align: left;"><strong>Asesoría trabajos</strong></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Pruebas recuperativas</strong></span><br>Recuperación de evaluaciones justificadas según la normativa del curso.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">20/ vier</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"><strong>Entrega trabajo final</strong></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Exámen primera oportunidad: Miércoles 25 de Noviembre</p>
+<p>Exámen segunda oportunidad: Miércoles 9 de Diciembre</p>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".table-scroll table tbody tr").forEach(function (row) {
@@ -610,6 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
       row.classList.add("is-practico");
     }
   });
+
 });
 </script>
 

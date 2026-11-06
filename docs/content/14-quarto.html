@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,15 +68,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-00a7dfb16748208db56c055d58e770f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-8b3a51a542e1102fb297099a85116b91.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -93,7 +92,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "No se han encontrado resultados",
+    "search-no-results-text": "Sin resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -125,7 +124,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+      if (mathElements[i].tagName == "SPAN") {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -155,8 +154,6 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="../index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -188,6 +185,10 @@ window.Quarto = {
 <span class="menu-text">Prácticos</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="../trabajos/trabajos.html"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="../resource/index.html"> 
 <span class="menu-text">Recursos</span></a>
   </li>  
@@ -216,10 +217,6 @@ window.Quarto = {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      </a>
-      </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
@@ -661,7 +658,7 @@ Importante
 <section id="anatomia" class="level2">
 <h2 class="anchored" data-anchor-id="anatomia">Anatomía de un archivo <code>.qmd</code></h2>
 <p>Un archivo <code>.qmd</code> tiene dos partes: un <strong>encabezado YAML</strong> y un <strong>cuerpo</strong>. En el cuerpo va todo el contenido del documento, es decir, <strong>texto</strong> y <strong>código</strong>:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Escolaridad e ingresos en Chile"</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Nombre Apellido"</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> html</span></span>
@@ -675,14 +672,14 @@ Importante
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Anatomía de un .qmd">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Anatomía de un .qmd
+Anatomía de un .qmd
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -703,7 +700,7 @@ Importante
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>La pieza fundamental: el chunk
+La pieza fundamental: el chunk
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -716,7 +713,7 @@ Importante
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Opciones del bloque
+Opciones del bloque
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -767,37 +764,37 @@ Importante
 <li><p>Escribe un subtítulo <code>## Introducción</code> y una frase en Markdown con una palabra en negrita. Genera el documento con <strong>Preview</strong>.</p></li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 1">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 1
+Ver pauta · Ejercicio 1
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-5" class="callout-5-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Estructura de carpetas</strong> La carpeta del proyecto queda así:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi-informe/</span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mi-informe/</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>├── informe.qmd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>├── input/</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>│   └── data/</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>│       └── casen_barrio2024.rdata # si la data estuviera almacenada en el computador</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>└── output/</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>└── output/</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>B. Documento y encabezado</strong> El encabezado va al inicio del archivo:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos en Chile"</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">author</span><span class="kw">:</span><span class="at"> </span><span class="st">"Nombre Apellido"</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span><span class="at"> html</span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lang</span><span class="kw">:</span><span class="at"> es</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>lang: es</code> traduce al español los textos automáticos, como «Figura» o «Tabla».</p>
 <p><strong>C. Vista previa</strong> Bajo el encabezado:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción</span></span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Introducción</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Este informe analiza la relación entre **escolaridad** e **ingresos**</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>con datos de la *CASEN 2024*.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>con datos de la *CASEN 2024*.</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Al presionar <strong>Preview</strong>, el documento aparece en el panel <strong>Viewer</strong> de Positron y <code>informe.html</code> queda guardado junto a <code>informe.qmd</code>.</p>
 </div>
 </div>
@@ -811,40 +808,40 @@ Importante
 <ol type="A">
 <li>Descargue la base de datos desde <a href="https://raw.githubusercontent.com/cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata">este enlace</a> y guárdela en la carpeta <code>input/data</code> de su proyecto. Luego, inserte un <em>chunk</em> en su documento que cargue el paquete <code>tidyverse</code> y la base de datos con una <strong>ruta relativa</strong>:</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="A">
 <li>Inserte un segundo <em>chunk</em>. Calcule el total de casos en la base. Además, calcule el total de casos válidos en <code>ingresos_trabajos</code> con el código de más abajo. Luego, reporte sus hallazgos.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(datos_casen)                          <span class="co"># total de personas</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_casen<span class="sc">$</span>ingreso_trabajo))   <span class="co"># personas con ingreso válido</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 2">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 2
+Ver pauta · Ejercicio 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Cargar datos y librerías en un chunk</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: datos</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"input/data/casen_barrio2024.rdata"</span>)  <span class="co"># crea el objeto datos_casen</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>B. Analizar y reportar datos</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: casos</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(datos_casen)                          <span class="co"># total de personas</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_casen<span class="sc">$</span>ingreso_trabajo))   <span class="co"># personas con ingreso válido</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>La base tiene <strong>3.000 personas</strong>, de las cuales <strong>1.710</strong> (57%) reportan ingreso del trabajo: algo más de la mitad.</p>
 </div>
 </div>
@@ -853,7 +850,7 @@ Importante
 <section id="ej3" class="level2">
 <h2 class="anchored" data-anchor-id="ej3">Opciones de los bloques de código</h2>
 <p>En la mayoría de los informes, vamos a querer reportar <strong>solo los resultados</strong>. Sin embargo, en algunos documentos técnicos o pedagógicos (como este), nos interesa mostrar también el <strong>código que genera el documento</strong>. En Quarto, esta decisión se controla a través de las <strong>opciones de bloque</strong>. Estas se insertan en el encabezado del <em>chunk</em>, precedidas por un <code>#|</code>.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| include: false</span></span>
@@ -862,7 +859,7 @@ Importante
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-graf-1</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Acá va el código...</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="rv-formulas">
 <p><strong>Opciones de los bloques de código</strong></p>
 <table class="caption-top table">
@@ -904,31 +901,31 @@ Importante
 <ol type="A">
 <li>En un nuevo <em>chunk</em>, inserte el siguiente código que crea una gráfico de dispersión entre <code>escolaridad</code> en el eje X e <code>ingreso_trabajo</code> en el eje Y, con una recta de regresión.</li>
 </ol>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(datos_casen,</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> escolaridad, <span class="at">y =</span> ingreso_trabajo)) <span class="sc">+</span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_jitter</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <ol start="2" type="A">
 <li>Etiquete el código como <code>fig-dispersion</code>, agregue una leyenda y haga que el informe muestre el gráfico, pero no el código ni las advertencias.</li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 3">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 3
+Ver pauta · Ejercicio 3
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>Crear el gráfico y usar opciones de bloque</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-dispersion</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Escolaridad e ingreso del trabajo"</span></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
@@ -939,7 +936,7 @@ Importante
 <span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Años de escolaridad"</span>,</span>
 <span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Ingreso del trabajo ($)"</span>)</span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><code>warning: false</code> evita mostrar el aviso de <code>ggplot()</code> sobre las filas con <code>NA</code>, que no le interesa al lector. El resultado se verá así (aquí, con el eje vertical acotado a $3.000.000 para facilitar la lectura):</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -999,25 +996,25 @@ Tip
 <li><p>Reemplace <code>ingreso_trabajo</code> por <code>edad</code> en <code>cor()</code>, y vuelva a renderizar el documento. ¿Cambió el número del texto?</p></li>
 </ol>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio 4">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio 4
+Ver pauta · Ejercicio 4
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
 <div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A. Calcular R</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: correlacion</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>r <span class="ot">&lt;-</span> <span class="fu">cor</span>(datos_casen<span class="sc">$</span>escolaridad, datos_casen<span class="sc">$</span>ingreso_trabajo,</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>         <span class="at">use =</span> <span class="st">"complete.obs"</span>)</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>B. Reportar e interpretar</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>La correlación entre escolaridad e ingreso del trabajo es <span class="in">`r round(r, 2)`</span>.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>La correlación entre escolaridad e ingreso del trabajo es <span class="in">`r round(r, 2)`</span>.</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>y al generarlo se lee: la correlación entre escolaridad e ingreso del trabajo es <strong>0.43</strong>.</p>
 <p><strong>Interpretación modelo.</strong> «Existe una asociación <strong>positiva y moderada</strong> entre escolaridad e ingreso del trabajo (<span class="math inline">\(r=0,43\)</span>): las personas con más años de escolaridad tienden a tener mayores ingresos. Esta asociación <strong>no demuestra causalidad</strong> y considera solo a quienes trabajan».</p>
 <p><strong>C. Renderizar.</strong> Con <strong>Render on Save</strong> activado (barra del editor), el informe se actualiza cada vez que guardas el archivo.</p>
@@ -1028,12 +1025,12 @@ Tip
 </div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled" title="Para profundizar (opcional): ¿qué más se puede hacer con Quarto?">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Para profundizar (opcional): ¿qué más se puede hacer con Quarto?
+Para profundizar (opcional): ¿qué más se puede hacer con Quarto?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1042,13 +1039,13 @@ Tip
 <p><strong>Reportes multiformato</strong></p>
 <p>El mismo sistema que usamos para el informe sirve para muchos otros productos. <strong>Esta página y todas las clases del curso</strong> están escritas en archivos <code>.qmd</code>.</p>
 <p>Es más, es posible producir <strong>varios formatos desde un mismo archivo.</strong> Basta con declararlos en el encabezado; en Positron, <strong>Quarto: Render Document</strong> genera todos los formatos declarados:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Escolaridad e ingresos"</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">format</span><span class="kw">:</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">html</span><span class="kw">:</span><span class="at"> default</span><span class="co">   # página web (la más rápida)</span></span>
 <span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pdf</span><span class="kw">:</span><span class="at"> default</span><span class="co">    # vía LaTeX o Typst</span></span>
 <span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">docx</span><span class="kw">:</span><span class="at"> default</span><span class="co">   # Word, para quien lo pida</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="pp">---</span></span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p><strong>Referencias cruzadas, referencias bibliográficas y ecuaciones</strong></p>
 <table class="caption-top table">
 <colgroup>
@@ -1166,7 +1163,7 @@ Tip
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Recursos
+Recursos
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1190,750 +1187,377 @@ Tip
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -1986,14 +1610,13 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
