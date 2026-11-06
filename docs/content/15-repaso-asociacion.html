@@ -1,0 +1,2597 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Estadística Correlacional">
+
+<title>Repaso Unidad 2: asociación y correlación – Estadística Correlacional</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../images/logo.png" rel="icon" type="image/png">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-00a7dfb16748208db56c055d58e770f4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Repaso Unidad 2: asociación y correlación – Estadística Correlacional">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://correlacional.metodos-facso.org/content/images/logo.png">
+<meta property="og:site_name" content="Estadística Correlacional">
+<meta property="og:locale" content="es">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Estadística Correlacional</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Buscar"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Navegación de palanca" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../news/index.html"> 
+<span class="menu-text">Informaciones</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../syllabus.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../schedule.html"> 
+<span class="menu-text">Planificación</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../content/index.html"> 
+<span class="menu-text">Clases</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../assignment/index.html"> 
+<span class="menu-text">Prácticos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../trabajos/trabajos.html"> 
+<span class="menu-text">Trabajos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../resource/index.html"> 
+<span class="menu-text">Recursos</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../ayudantes.html"> 
+<span class="menu-text">Ayudantes</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+    <h2 id="toc-title">En esta página</h2>
+   
+  <ul>
+  <li><a href="#inicio" id="toc-inicio" class="nav-link active" data-scroll-target="#inicio">Inicio · ¿Qué recordamos de la asociación entre variables?</a></li>
+  <li><a href="#fundamentos" id="toc-fundamentos" class="nav-link" data-scroll-target="#fundamentos">Ejercicio 1 · Horas de estudio y nota</a>
+  <ul class="collapse">
+  <li><a href="#ej1-paso1" id="toc-ej1-paso1" class="nav-link" data-scroll-target="#ej1-paso1">Paso 1 · Mirar y anticipar</a></li>
+  <li><a href="#ej1-paso2" id="toc-ej1-paso2" class="nav-link" data-scroll-target="#ej1-paso2">Paso 2 · Desviaciones respecto de la media</a></li>
+  <li><a href="#ej1-paso3" id="toc-ej1-paso3" class="nav-link" data-scroll-target="#ej1-paso3">Paso 3 · Covarianza</a></li>
+  <li><a href="#ej1-paso4" id="toc-ej1-paso4" class="nav-link" data-scroll-target="#ej1-paso4">Paso 4 · Correlación de Pearson y <span class="math inline">\(R^2\)</span></a></li>
+  <li><a href="#ej1-paso5" id="toc-ej1-paso5" class="nav-link" data-scroll-target="#ej1-paso5">Paso 5 · Interpretar y volver a mirar</a></li>
+  <li><a href="#ej1-paso6" id="toc-ej1-paso6" class="nav-link" data-scroll-target="#ej1-paso6">Paso 6 · ¿Podemos generalizar?</a></li>
+  </ul></li>
+  <li><a href="#apl-a" id="toc-apl-a" class="nav-link" data-scroll-target="#apl-a">Ejercicio Autónomo A · Escolaridad e ingreso del trabajo (CASEN 2024)</a></li>
+  <li><a href="#apl-b" id="toc-apl-b" class="nav-link" data-scroll-target="#apl-b">Ejercicio Autónomo B · Confianza en instituciones y posición política (CEP 2026)</a>
+  <ul class="collapse">
+  <li><a href="#apl-b-observar" id="toc-apl-b-observar" class="nav-link" data-scroll-target="#apl-b-observar">Paso 1 · Observar los datos</a></li>
+  <li><a href="#apl-b-decidir" id="toc-apl-b-decidir" class="nav-link" data-scroll-target="#apl-b-decidir">Paso 2 · Decidir y justificar</a></li>
+  <li><a href="#apl-b-calcular" id="toc-apl-b-calcular" class="nav-link" data-scroll-target="#apl-b-calcular">Paso 3 · Calcular y comprobar las decisiones</a></li>
+  </ul></li>
+  <li><a href="#apl-c" id="toc-apl-c" class="nav-link" data-scroll-target="#apl-c">Ejercicio Autónomo C · Edad e ingreso</a></li>
+  <li><a href="#cierre" id="toc-cierre" class="nav-link" data-scroll-target="#cierre">Cierre de la sesión</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Repaso Unidad 2: asociación y correlación</h1></header>
+
+<header id="title-block-header">
+
+
+<div class="date-block bg-content text-white p-2">
+  <p class="date">Sesión del miércoles, 11 de noviembre de 2026</p>
+</div>
+</header>
+
+
+<style>
+/* Sistema visual local: solo distingue funciones pedagógicas. */
+.rv-question {
+  margin: .9rem 0 .65rem;
+  padding: .7rem .95rem;
+  border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .065));
+  border-radius: 0 .35rem .35rem 0;
+}
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .65rem 0 .35rem;
+}
+.rv-group {
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .045));
+}
+.rv-group p { margin: 0; }
+.rv-group p + p { margin-top: .25rem; }
+.rv-group p:first-child { font-size: .9rem; }
+.rv-order {
+  margin: .15rem 0 1.15rem;
+  padding: .2rem .15rem;
+  color: var(--bs-body-color, inherit);
+  font-size: .92rem;
+}
+.rv-order > :first-child, .rv-order > :last-child { margin: 0; }
+.rv-activity, .rv-practice {
+  margin: .75rem 0 .55rem;
+  border-left: 2px solid var(--bs-secondary-color, #83939a);
+  padding: .25rem 0 .25rem .85rem;
+}
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-practice p + p { padding-top: .25rem; }
+/* Fórmulas disponibles durante el intento: soporte, nunca solución. */
+.rv-formulas {
+  margin: .7rem 0 .85rem;
+  padding: .6rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+}
+.rv-formulas > :first-child { margin-top: 0; }
+.rv-formulas > :last-child { margin-bottom: 0; }
+.rv-formulas p { margin: .4rem 0; }
+.rv-formulas .math.display { margin: .35rem 0 .55rem; }
+.rv-formulas strong { font-weight: 650; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+/* Igualamos el tamaño del texto dentro de los bloques al texto general de la página. */
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li,
+#quarto-content main.content .callout .callout-body ul,
+#quarto-content main.content .callout .callout-body ol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rv-answer.callout p:has(> strong:first-child) { margin-top: .65rem; }
+.rv-answer.callout p:first-child { margin-top: .1rem; }
+.rv-answer.callout p:last-child { margin-bottom: .25rem; }
+.rv-answer.callout .math.display { margin: .6rem 0 .8rem; }
+.cell-output-display img, .quarto-figure img { max-width: 100%; height: auto; }
+/* Párrafos justificados, sin afectar títulos, tablas ni el índice lateral.
+   Se limita el ajuste al cuerpo de esta página. */
+@media (min-width: 768px) {
+  #quarto-content main.content p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  /* Etiquetas cortas y comparaciones de grupos: más legibles alineadas a la izquierda. */
+  #quarto-content main.content .rv-group p,
+  #quarto-content main.content .rv-order p,
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .rv-formulas p,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+/* En móvil evitamos huecos entre palabras en columnas estrechas. */
+@media (max-width: 767.98px) {
+  #quarto-content main.content p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-groups { grid-template-columns: 1fr; gap: .4rem; }
+  .rv-question { padding: .65rem .7rem; }
+  .rv-group { padding: .55rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+  .math.display, .math-display { overflow-x: auto; max-width: 100%; }
+}
+</style>
+<section id="inicio" class="level1">
+<h1>Inicio · ¿Qué recordamos de la asociación entre variables?</h1>
+<p>Cuando analizamos la asociación entre variables, estudiamos si <strong>dos variables</strong> presentan un <strong>patrón conjunto</strong>. Para describir ese patrón utilizamos los <strong>coeficientes de correlación</strong> (Pearson, Spearman y Kendall), que nos entregan información sobre el sentido y magnitud de la asociación; para evaluar si la asociación observada en la muestra permite concluir algo sobre la <strong>población</strong>, retomamos los <strong>cinco pasos de inferencia</strong> de la Unidad 1. Además, podemos observar y describir la asociación de un grupo de variables, a través de las <strong>matrices de correlación</strong>.</p>
+<p><strong>Cómo trabajar:</strong> antes de mirar cada resultado, <strong>anticipe</strong> qué espera encontrar. Después lea la salida de R, responda las preguntas y abra la pauta solo después de su intento.</p>
+<p><span class="math display">\[
+\text{Mirar}\rightarrow\text{anticipar}\rightarrow\text{calcular}\rightarrow\text{volver a mirar}
+\]</span></p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta · Fórmulas y criterios de apoyo">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Consulta · Fórmulas y criterios de apoyo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Inferencia para una correlación</strong></p>
+<p><span class="math display">\[
+SE_r=\sqrt{\frac{1-r^2}{n-2}}
+\qquad
+t=\frac{r}{SE_r}
+\qquad
+gl=n-2
+\qquad
+R^2=r^2
+\]</span></p>
+<ul>
+<li><span class="math inline">\(r\)</span>: correlación observada en la <strong>muestra</strong>; <span class="math inline">\(\rho\)</span>: correlación en la <strong>población</strong> (la que aparece en las hipótesis).</li>
+<li>Hipótesis no direccionales: <span class="math inline">\(H_0:\rho=0\)</span> y <span class="math inline">\(H_A:\rho\neq0\)</span>.</li>
+<li>Con muestras grandes, los valores críticos bilaterales son aproximadamente <span class="math inline">\(\pm1{,}96\)</span> (5%) y <span class="math inline">\(\pm2{,}58\)</span> (1%).</li>
+</ul>
+<p><strong>¿Qué coeficiente usar?</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Coeficiente</th>
+<th style="text-align: left;">Símbolo</th>
+<th style="text-align: left;">¿Cuándo usarlo?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Pearson</td>
+<td style="text-align: left;"><span class="math inline">\(r\)</span></td>
+<td style="text-align: left;">Variables cuantitativas y relación lineal</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Spearman</td>
+<td style="text-align: left;"><span class="math inline">\(r_s\)</span></td>
+<td style="text-align: left;">Variables ordinales, o cuantitativas muy asimétricas o con casos atípicos</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kendall</td>
+<td style="text-align: left;"><span class="math inline">\(\tau\)</span></td>
+<td style="text-align: left;">Variables ordinales con <strong>muchos empates</strong> y/o muestras pequeñas</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Magnitud</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><span class="math inline">\(\lvert r\rvert\)</span></th>
+<th style="text-align: left;">Magnitud aproximada (Cohen, 1988)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(&lt;0{,}1\)</span></td>
+<td style="text-align: left;">Muy pequeña</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(0{,}1\)</span>–<span class="math inline">\(0{,}3\)</span></td>
+<td style="text-align: left;">Pequeña</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">\(0{,}3\)</span>–<span class="math inline">\(0{,}5\)</span></td>
+<td style="text-align: left;">Moderada</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><span class="math inline">\(&gt;0{,}5\)</span></td>
+<td style="text-align: left;">Grande</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Casos perdidos</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Tratamiento</th>
+<th style="text-align: left;">Qué hace</th>
+<th style="text-align: left;">En <code>cor()</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><em>Listwise</em></td>
+<td style="text-align: left;">Elimina el caso si tiene <code>NA</code> en <strong>cualquier</strong> variable; todas las correlaciones usan el mismo <span class="math inline">\(N\)</span></td>
+<td style="text-align: left;"><code>use = "complete.obs"</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><em>Pairwise</em></td>
+<td style="text-align: left;">Elimina el caso solo de los pares donde tiene <code>NA</code>; el <span class="math inline">\(N\)</span> varía por par</td>
+<td style="text-align: left;"><code>use = "pairwise.complete.obs"</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<p><strong>Paquetes.</strong> Utilizaremos <code>dplyr</code> para preparar los datos, <code>ggplot2</code> para los gráficos y, en el Ejercicio B, <code>psych</code> y <code>sjPlot</code> para contar casos y construir las matrices de correlación.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(dplyr, ggplot2, psych, sjPlot)</span></code></pre></div>
+</div>
+</section>
+<section id="fundamentos" class="level1">
+<h1>Ejercicio 1 · Horas de estudio y nota</h1>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿En qué medida las horas semanales de estudio y la nota obtenida en una evaluación se encuentran asociadas en este pequeño grupo de estudiantes?</p>
+</div>
+<p>Para recordar los fundamentos de la unidad, resolveremos <strong>juntos y paso a paso</strong> un ejemplo simple con <strong>solo 5 estudiantes</strong>. Las horas corresponden a horas semanales de estudio individual y la nota está en escala de <strong>1 a 7</strong>. Los datos son simulados para que todos los cálculos puedan hacerse a mano.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Estudiante</th>
+<th style="text-align: right;">Horas de estudio (<span class="math inline">\(x\)</span>)</th>
+<th style="text-align: right;">Nota (<span class="math inline">\(y\)</span>)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: right;">6</td>
+</tr>
+</tbody>
+</table>
+<section id="ej1-paso1" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso1">Paso 1 · Mirar y anticipar</h2>
+<div class="rv-activity">
+<p>A medida que aumentan las horas, ¿la nota tiende a subir o a bajar? ¿El patrón parece aproximadamente recto?</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ej1-nube" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ej1-nube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="15-repaso-asociacion_files/figure-html/fig-ej1-nube-1.png" class="img-fluid figure-img" width="624">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ej1-nube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Horas semanales de estudio y nota de la evaluación (5 estudiantes, datos simulados).
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Las notas tienden a ser <strong>más altas</strong> cuando hay más horas de estudio, aunque no de forma perfecta: C estudia más que B y obtiene menos nota, y lo mismo ocurre entre D y E. La tendencia es <strong>aproximadamente recta y ascendente</strong>, así que anticipamos una <strong>asociación positiva</strong>.</p>
+</section>
+<section id="ej1-paso2" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso2">Paso 2 · Desviaciones respecto de la media</h2>
+<p>Para medir el patrón conjunto, primero ubicamos a cada estudiante respecto del <strong>promedio</strong> de cada variable:</p>
+<p><span class="math display">\[
+\bar{x}=\frac{2+4+6+8+10}{5}=6
+\qquad
+\bar{y}=\frac{3+5+4+7+6}{5}=5
+\]</span></p>
+<p>La <strong>desviación</strong> de cada caso es su distancia a la media: <span class="math inline">\(x_i-\bar{x}\)</span> y <span class="math inline">\(y_i-\bar{y}\)</span>. Luego <strong>multiplicamos</strong> ambas desviaciones.</p>
+<div class="rv-activity">
+<p>¿Qué signo tendrá el producto de un estudiante que está <strong>bajo</strong> ambas medias? ¿Y el de uno que está sobre una y bajo la otra?</p>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Estudiante</th>
+<th style="text-align: right;"><span class="math inline">\(x_i-\bar{x}\)</span></th>
+<th style="text-align: right;"><span class="math inline">\(y_i-\bar{y}\)</span></th>
+<th style="text-align: right;">Producto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: right;"><span class="math inline">\(2-6=-4\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(3-5=-2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(+8\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">B</td>
+<td style="text-align: right;"><span class="math inline">\(4-6=-2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(5-5=0\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">C</td>
+<td style="text-align: right;"><span class="math inline">\(6-6=0\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(4-5=-1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(0\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">D</td>
+<td style="text-align: right;"><span class="math inline">\(8-6=+2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(7-5=+2\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(+4\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">E</td>
+<td style="text-align: right;"><span class="math inline">\(10-6=+4\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(6-5=+1\)</span></td>
+<td style="text-align: right;"><span class="math inline">\(+4\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Suma</strong></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"></td>
+<td style="text-align: right;"><span class="math inline">\(\mathbf{+16}\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>A</strong> está <strong>bajo ambas medias</strong>: <span class="math inline">\((-)(-)=+\)</span>. Es el caso más alejado de ambas, por eso aporta el producto más grande.</li>
+<li><strong>D</strong> y <strong>E</strong> están <strong>sobre ambas medias</strong>: <span class="math inline">\((+)(+)=+\)</span>.</li>
+<li><strong>B</strong> y <strong>C</strong> coinciden con una de las medias, por lo que su aporte es <strong>cero</strong>.</li>
+<li>Nadie queda en lados opuestos de las medias, así que <strong>no hay productos negativos</strong>.</li>
+</ul>
+<p>La figura muestra la misma idea: las medias dividen el plano en cuatro cuadrantes, y los puntos en los cuadrantes sombreados aportan productos positivos.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-ej1-cuadrantes" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ej1-cuadrantes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="15-repaso-asociacion_files/figure-html/fig-ej1-cuadrantes-1.png" class="img-fluid figure-img" width="624">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ej1-cuadrantes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;2: Las medias dividen el plano en cuatro cuadrantes; cada etiqueta indica el producto de desviaciones de ese estudiante.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="ej1-paso3" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso3">Paso 3 · Covarianza</h2>
+<p>La <strong>covarianza</strong> promedia esos productos, dividiendo por <span class="math inline">\(n-1\)</span>:</p>
+<p><span class="math display">\[
+\operatorname{cov}(X,Y)=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{n-1}=\frac{16}{5-1}=4
+\]</span></p>
+<p>El <strong>signo positivo</strong> confirma lo que anticipamos al mirar la nube.</p>
+<div class="rv-activity">
+<p>La covarianza es 4. ¿Eso es mucho o poco? ¿Qué pasaría si midiéramos el estudio en minutos en vez de horas?</p>
+</div>
+<p>No podemos saberlo: la covarianza está expresada en <em>horas × puntos de nota</em>. Si midiéramos el estudio en minutos, sería <strong>60 veces mayor</strong> (240) sin que el patrón cambiara. La covarianza nos dice el <strong>signo</strong>, pero su magnitud depende de las unidades. Por eso necesitamos <strong>estandarizarla</strong>.</p>
+</section>
+<section id="ej1-paso4" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso4">Paso 4 · Correlación de Pearson y <span class="math inline">\(R^2\)</span></h2>
+<p>Pearson divide la covarianza por el producto de las <strong>desviaciones estándar</strong>, con lo que las unidades se cancelan y el resultado queda entre <span class="math inline">\(-1\)</span> y <span class="math inline">\(1\)</span>. En estos datos, <span class="math inline">\(s_X=\sqrt{10}\approx3{,}16\)</span> y <span class="math inline">\(s_Y=\sqrt{2{,}5}\approx1{,}58\)</span>, y su producto es exacto: <span class="math inline">\(\sqrt{10}\times\sqrt{2{,}5}=\sqrt{25}=5\)</span>.</p>
+<p><span class="math display">\[
+r=\frac{\operatorname{cov}(X,Y)}{s_X\,s_Y}=\frac{4}{5}=0{,}80
+\]</span></p>
+<p>Elevando al cuadrado obtenemos el <strong>coeficiente de determinación</strong>:</p>
+<p><span class="math display">\[
+R^2=r^2=0{,}80^2=0{,}64
+\]</span></p>
+<div class="rv-activity">
+<p><strong>Recordemos.</strong> Según los criterios de Cohen, ¿cómo clasificaría usted <span class="math inline">\(r=0{,}80\)</span>? ¿Qué significa que <span class="math inline">\(R^2=0{,}64\)</span>?</p>
+</div>
+<p><span class="math inline">\(r=0{,}80\)</span> es una asociación <strong>grande</strong> (<span class="math inline">\(|r|&gt;0{,}5\)</span>). Un <span class="math inline">\(R^2=0{,}64\)</span> indica que horas de estudio y nota <strong>comparten un 64% de su varianza</strong> en este grupo.</p>
+<p>En R, todo lo anterior se obtiene en tres líneas:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>horas <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">10</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>nota  <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">4</span>, <span class="dv">7</span>, <span class="dv">6</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cov</span>(horas, nota)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 4</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(horas, nota)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(horas, nota)<span class="sc">^</span><span class="dv">2</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.64</code></pre>
+</div>
+</div>
+</section>
+<section id="ej1-paso5" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso5">Paso 5 · Interpretar y volver a mirar</h2>
+<p>«En este grupo de cinco estudiantes, las horas semanales de estudio y la nota presentan una <strong>asociación positiva</strong> (<span class="math inline">\(r=0{,}80\)</span>) de <strong>magnitud grande</strong>: quienes estudian más horas tienden a obtener notas más altas. Ambas variables <strong>comparten un 64% de su varianza</strong>. Esta asociación <strong>no demuestra que estudiar más cause</strong> mejores notas».</p>
+<p><strong>Volver a mirar:</strong> el valor de <span class="math inline">\(r\)</span> es coherente con la nube, que muestra una tendencia ascendente clara pero no perfecta (C y E rompen la secuencia). Por eso <span class="math inline">\(r\)</span> es alto, pero no igual a 1.</p>
+</section>
+<section id="ej1-paso6" class="level2">
+<h2 class="anchored" data-anchor-id="ej1-paso6">Paso 6 · ¿Podemos generalizar?</h2>
+<div class="rv-activity">
+<p>Con una correlación tan grande, ¿podemos concluir que en la <strong>población</strong> de estudiantes existe esta asociación?</p>
+</div>
+<p>Aplicamos la prueba de hipótesis para una correlación (<span class="math inline">\(H_0:\rho=0\)</span>; <span class="math inline">\(H_A:\rho\neq0\)</span>):</p>
+<p><span class="math display">\[
+SE_r=\sqrt{\frac{1-r^2}{n-2}}=\sqrt{\frac{1-0{,}64}{5-2}}\approx0{,}346
+\]</span></p>
+<p><span class="math display">\[
+t=\frac{r}{SE_r}=\frac{0{,}80}{0{,}346}\approx2{,}31
+\qquad
+gl=3
+\]</span></p>
+<p>El valor crítico bilateral al 5% con 3 grados de libertad es <span class="math inline">\(\pm3{,}18\)</span>. Como <span class="math inline">\(2{,}31&lt;3{,}18\)</span>, <strong>no rechazamos <span class="math inline">\(H_0\)</span></strong>: aun con una correlación grande, <strong>cinco casos no aportan evidencia suficiente</strong> sobre la población. La <strong>magnitud</strong> describe el patrón en la muestra; la <strong>inferencia</strong> depende también del tamaño muestral.</p>
+</section>
+</section>
+<section id="apl-a" class="level1">
+<h1>Ejercicio Autónomo A · Escolaridad e ingreso del trabajo (CASEN 2024)</h1>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿Se asocian los años de escolaridad y el ingreso del trabajo entre las personas ocupadas en Chile?</p>
+</div>
+<p>Utilizamos un <strong>subconjunto de 3.000 personas</strong> de la Encuesta CASEN 2024. Las variables <code>escolaridad</code> (años de estudio) e <code>ingreso_trabajo</code> (pesos mensuales) son <strong>cuantitativas</strong>. El ingreso solo existe para quienes trabajan, por lo que conservamos los casos con información en ambas variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_barrio2024.rdata"</span>))</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>casen_subset <span class="ot">&lt;-</span> datos_casen <span class="sc">|&gt;</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(escolaridad, ingreso_trabajo) <span class="sc">|&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), as.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()   <span class="co"># listwise: casos con información en ambas variables</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(datos_casen)   <span class="co"># total del subconjunto</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 3000</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(casen_subset)  <span class="co"># personas ocupadas con ambos datos</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1707</code></pre>
+</div>
+</div>
+<div class="rv-activity">
+<p><strong>Antes de calcular.</strong> Observe la nube. ¿Qué signo anticipa para la correlación? ¿Ve algo en la distribución del ingreso que pueda afectar a Pearson?</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-apl-a-nube" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-apl-a-nube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="15-repaso-asociacion_files/figure-html/fig-apl-a-nube-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-apl-a-nube-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3: Años de escolaridad e ingreso mensual del trabajo (CASEN 2024, subconjunto de personas ocupadas, N = 1.707). Cada punto es una persona; la línea resume la tendencia lineal.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(casen_subset<span class="sc">$</span>escolaridad, casen_subset<span class="sc">$</span>ingreso_trabajo, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  casen_subset$escolaridad and casen_subset$ingreso_trabajo
+t = 19.863, df = 1705, p-value &lt; 2.2e-16
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ 0.3941627 0.4712528
+sample estimates:
+      cor 
+0.4335005 </code></pre>
+</div>
+</div>
+<div class="rv-practice">
+<p><strong>A1 · Mirar.</strong> Describa la dirección del patrón y la forma de la distribución del ingreso.</p>
+<p><strong>A2 · Calcular.</strong> Plantee <span class="math inline">\(H_0\)</span> y <span class="math inline">\(H_A\)</span>. Identifique en la salida de <code>cor.test()</code> el valor de <span class="math inline">\(r\)</span>, <span class="math inline">\(t\)</span>, los grados de libertad, el valor <span class="math inline">\(p\)</span> y el intervalo de confianza. Compruebe que <span class="math inline">\(gl=n-2\)</span>. Tome una decisión respecto de la hipótesis nula al 5% y al 1%.</p>
+<p><strong>A3 · Magnitud.</strong> Clasifique <span class="math inline">\(r\)</span> según Cohen y calcule <span class="math inline">\(R^2\)</span>.</p>
+<p><strong>A4 · Pearson y Spearman.</strong> ¿Por qué Spearman es mayor que Pearson en estos datos? ¿Cuál reportaría usted?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(casen_subset<span class="sc">$</span>escolaridad, casen_subset<span class="sc">$</span>ingreso_trabajo,</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         <span class="at">method =</span> <span class="st">"spearman"</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)<span class="sc">$</span>estimate</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>      rho 
+0.4849331 </code></pre>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · ¿Por qué podrían diferir Pearson y Spearman?">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista · ¿Por qué podrían diferir Pearson y Spearman?
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Mire el eje vertical: la mayoría de los ingresos está bajo 2 millones, pero unos pocos casos superan los 5 millones. Pearson trabaja con las <strong>distancias</strong> a la media; Spearman, con los <strong>rankings</strong>. ¿Cuál de los dos se ve más afectado por esos pocos casos tan alejados?</p>
+</div>
+</div>
+</div>
+<p><strong>A5 · Reporte.</strong> Redacte una conclusión de dos o tres líneas, sin afirmar causalidad.</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio A">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio A
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>A1 · Mirar.</strong> Quienes tienen más años de escolaridad tienden a tener ingresos más altos: la tendencia es <strong>positiva</strong>. Pero el ingreso es <strong>muy asimétrico</strong>: se concentra en valores bajos y tiene una cola larga de ingresos muy altos, sobre todo entre quienes tienen 16 o más años de estudio. La dispersión del ingreso también aumenta con la escolaridad.</p>
+<p><strong>A2 · Calcular.</strong> La pregunta es no direccional, por lo que planteamos una prueba de dos colas:</p>
+<p><span class="math display">\[
+H_0:\rho=0\qquad H_A:\rho\neq0
+\]</span></p>
+<p>La salida entrega <span class="math inline">\(r=0{,}43\)</span>; <span class="math inline">\(t=19{,}86\)</span>; <span class="math inline">\(gl=1.705=1.707-2\)</span>; <span class="math inline">\(p&lt;0{,}001\)</span>; <span class="math inline">\(IC_{95\%}=[0{,}39;\ 0{,}47]\)</span>. Con 1.705 gl, los críticos bilaterales son aproximadamente <span class="math inline">\(\pm1{,}96\)</span> (5%) y <span class="math inline">\(\pm2{,}58\)</span> (1%). Como <span class="math inline">\(t=19{,}86\)</span> los supera ampliamente (<span class="math inline">\(p&lt;0{,}001\)</span>), <strong>rechazamos <span class="math inline">\(H_0\)</span> al 5% y al 1%</strong>. El IC no incluye cero, en concordancia con la decisión.</p>
+<p><strong>A3 · Magnitud.</strong> <span class="math inline">\(r=0{,}43\)</span> es una asociación <strong>moderada</strong> según Cohen. <span class="math inline">\(R^2=0{,}43^2\approx0{,}19\)</span>: escolaridad e ingreso comparten cerca de un <strong>19% de su varianza</strong>; el 81% restante se asocia a otros factores (ocupación, horas, edad, sexo, región, etc.).</p>
+<p><strong>A4 · Pearson y Spearman.</strong> Spearman (<span class="math inline">\(r_s=0{,}48\)</span>) es mayor porque, al trabajar con rankings, <strong>reduce el peso de los ingresos extremos</strong>. Esos pocos casos muy altos no siguen la recta y agregan dispersión que penaliza a Pearson. Dado que el ingreso es muy asimétrico, <strong>Spearman</strong> es una opción defendible como análisis principal, o al menos como comprobación. Lo importante es que ambos coinciden en el <strong>sentido</strong> y en una magnitud <strong>moderada</strong>: la conclusión sustantiva no cambia.</p>
+<p><strong>A5 · Reporte.</strong> «Entre las personas ocupadas del subconjunto de CASEN 2024, los años de escolaridad y el ingreso del trabajo presentan una <strong>asociación positiva de magnitud moderada</strong> y estadísticamente significativa (<span class="math inline">\(r=0{,}43\)</span>; <span class="math inline">\(IC_{95\%}=[0{,}39;\ 0{,}47]\)</span>; <span class="math inline">\(t(1.705)=19{,}86\)</span>; <span class="math inline">\(p&lt;0{,}001\)</span>; <span class="math inline">\(N=1.707\)</span>). Comparten cerca de un 19% de su varianza. Dada la fuerte asimetría del ingreso, se calculó también Spearman, con un resultado similar (<span class="math inline">\(r_s=0{,}48\)</span>). Esta asociación no permite afirmar que la escolaridad cause por sí sola mayores ingresos».</p>
+</div>
+</div>
+</div>
+</section>
+<section id="apl-b" class="level1">
+<h1>Ejercicio Autónomo B · Confianza en instituciones y posición política (CEP 2026)</h1>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿Cómo se asocian la confianza en distintas instituciones y la autoubicación política entre los adultos de Chile?</p>
+</div>
+<p>Utilizamos la <strong>Encuesta CEP N° 96</strong> (abril-mayo de 2026, <span class="math inline">\(N=1.466\)</span>) con seis variables:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: left;">Qué representa</th>
+<th style="text-align: left;">Escala</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><code>conf_carab</code></td>
+<td style="text-align: left;">Confianza en Carabineros</td>
+<td style="text-align: left;">1 = nada … 4 = mucha</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>conf_ffaa</code></td>
+<td style="text-align: left;">Confianza en las Fuerzas Armadas</td>
+<td style="text-align: left;">1 = nada … 4 = mucha</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>conf_gobierno</code></td>
+<td style="text-align: left;">Confianza en el Gobierno</td>
+<td style="text-align: left;">1 = nada … 4 = mucha</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>conf_congreso</code></td>
+<td style="text-align: left;">Confianza en el Congreso</td>
+<td style="text-align: left;">1 = nada … 4 = mucha</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>conf_partidos</code></td>
+<td style="text-align: left;">Confianza en los partidos políticos</td>
+<td style="text-align: left;">1 = nada … 4 = mucha</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>pos_pol</code></td>
+<td style="text-align: left;">Autoubicación política</td>
+<td style="text-align: left;">1 = izquierda … 10 = derecha</td>
+</tr>
+</tbody>
+</table>
+<p>En este ejercicio <strong>R no decide por nosotros</strong>. Antes de calcular la matriz debemos tomar dos decisiones y justificarlas: <strong>qué coeficiente usar</strong> y <strong>cómo tratar los casos perdidos</strong>.</p>
+<section id="apl-b-observar" class="level2">
+<h2 class="anchored" data-anchor-id="apl-b-observar">Paso 1 · Observar los datos</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="fu">url</span>(<span class="st">"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData"</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>cep_subset <span class="ot">&lt;-</span> datos_cep <span class="sc">|&gt;</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(conf_carab, conf_ffaa, conf_gobierno,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>         conf_congreso, conf_partidos, pos_pol) <span class="sc">|&gt;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), as.numeric))</span></code></pre></div>
+</div>
+<p><strong>¿Cuántos casos perdidos hay y cuántos casos quedan según cada tratamiento?</strong></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colSums</span>(<span class="fu">is.na</span>(cep_subset))        <span class="co"># casos perdidos por variable</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   conf_carab     conf_ffaa conf_gobierno conf_congreso conf_partidos 
+            5            26            17            40            26 
+      pos_pol 
+          260 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">complete.cases</span>(cep_subset))   <span class="co"># N con eliminación listwise</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1168</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>psych<span class="sc">::</span><span class="fu">pairwiseCount</span>(cep_subset)  <span class="co"># N de cada par con eliminación pairwise</span></span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              conf_carab conf_ffaa conf_gobierno conf_congreso conf_partidos
+conf_carab          1461      1438          1445          1422          1438
+conf_ffaa           1438      1440          1427          1410          1424
+conf_gobierno       1445      1427          1449          1417          1429
+conf_congreso       1422      1410          1417          1426          1412
+conf_partidos       1438      1424          1429          1412          1440
+pos_pol             1205      1195          1200          1185          1195
+              pos_pol
+conf_carab       1205
+conf_ffaa        1195
+conf_gobierno    1200
+conf_congreso    1185
+conf_partidos    1195
+pos_pol          1206</code></pre>
+</div>
+</div>
+</section>
+<section id="apl-b-decidir" class="level2">
+<h2 class="anchored" data-anchor-id="apl-b-decidir">Paso 2 · Decidir y justificar</h2>
+<div class="rv-practice">
+<p><strong>Decisión 1 · ¿Qué coeficiente?</strong> ¿Pearson, Spearman o Kendall? Justifique su elección.</p>
+<p><strong>Decisión 2 · ¿Cómo tratar los casos perdidos?</strong> ¿<em>Listwise</em> o <em>pairwise</em>? Justifique considerando:</p>
+<ul>
+<li>qué variable concentra los casos perdidos y por qué podría ocurrir;</li>
+<li>cuántos casos se pierden con cada tratamiento;</li>
+<li>qué gana y qué pierde con cada opción.</li>
+</ul>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Elegir el coeficiente">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista · Elegir el coeficiente
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Fíjese en cuántos valores distintos puede tomar cada variable de confianza. Con 4 categorías y casi 1.500 personas, ¿cuántas personas comparten exactamente la misma respuesta? ¿Qué coeficiente está pensado para esa situación?</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Decidir sobre los casos perdidos">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista · Decidir sobre los casos perdidos
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ningún tratamiento es correcto en abstracto. Pregúntese: ¿la pérdida está concentrada en una variable o repartida? ¿Necesito que todas las correlaciones se refieran a las <strong>mismas personas</strong>?</p>
+</div>
+</div>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Decisiones">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Decisiones
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>No hay una única respuesta correcta: lo que se evalúa es que la decisión sea <strong>coherente con los datos</strong> y esté <strong>justificada</strong>.</p>
+<p><strong>Decisión 1 · Coeficiente.</strong> Las cinco variables de confianza son <strong>ordinales</strong> de 4 categorías y <code>pos_pol</code> es una escala ordinal de 10 puntos. Los números indican orden, no distancias iguales, por lo que <strong>Pearson no corresponde</strong>. Quedan dos opciones defendibles:</p>
+<ul>
+<li><strong>Spearman</strong>, porque las variables son ordinales y la muestra es grande. Es el coeficiente más usado y el que permite comparar con otros estudios.</li>
+<li><strong>Kendall (τ-b)</strong>, porque con solo 4 categorías hay <strong>muchísimos empates</strong>: con casi 1.500 personas, cada categoría agrupa cientos de respuestas idénticas. Kendall está pensado justamente para esa situación.</li>
+</ul>
+<p>Elegir uno y <strong>mencionar el otro como comprobación</strong> es una buena práctica.</p>
+<p><strong>Decisión 2 · Casos perdidos.</strong> La pérdida se concentra en <code>pos_pol</code> (<strong>260 casos</strong>, 18%), mientras el resto de las variables pierde entre 5 y 40 casos. Es habitual que muchas personas no se ubiquen en el eje izquierda-derecha.</p>
+<ul>
+<li>Con <em>listwise</em> quedan <strong>1.168 casos</strong> (−20%), y todas las correlaciones se refieren a las <strong>mismas personas</strong>. <em>Listwise</em> es defendible si se quiere una matriz coherente o si la matriz se usará después en técnicas multivariadas.</li>
+<li>Con <em>pairwise</em>, el <span class="math inline">\(N\)</span> por par va de <strong>1.185</strong> (pares con <code>pos_pol</code>) a <strong>1.445</strong>: las correlaciones entre instituciones conservan casi toda la muestra. <em>Pairwise</em> es preferible si se quiere mantener el poder estadístico, sobre todo en los pares que no incluyen <code>pos_pol</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</section>
+<section id="apl-b-calcular" class="level2">
+<h2 class="anchored" data-anchor-id="apl-b-calcular">Paso 3 · Calcular y comprobar las decisiones</h2>
+<p>Calculamos la matriz con ambos coeficientes y, para cada uno, con ambos tratamientos de casos perdidos. Usamos <code>sjPlot::tab_corr()</code>, que además de cada coeficiente indica su <strong>significación estadística</strong> con asteriscos. En cada bloque, <strong>cambie de pestaña</strong> para comparar <em>listwise</em> y <em>pairwise</em>: fíjese en si cambian los coeficientes <strong>y</strong> si algún par gana o pierde asteriscos. La matriz con la que trabajará es la que corresponde a <strong>sus decisiones</strong>.</p>
+<p><strong>Spearman</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><em>Pairwise</em></a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cep_subset,</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Spearman · listwise (N = 1.168)"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Spearman · listwise (N = 1.168)</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_carab</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_ffaa</td>
+<td style="text-align: center; padding: 0.2cm;">0.622<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_gobierno</td>
+<td style="text-align: center; padding: 0.2cm;">0.463<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.511<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_congreso</td>
+<td style="text-align: center; padding: 0.2cm;">0.224<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.256<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.345<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_partidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.127<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.113<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.231<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.433<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">pos_pol</td>
+<td style="text-align: center; padding: 0.2cm;">0.351<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.366<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.524<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.106<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.014<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with listwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cep_subset,</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"spearman"</span>,</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Spearman · pairwise (N entre 1.185 y 1.445)"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Spearman · pairwise (N entre 1.185 y 1.445)</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_carab</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_ffaa</td>
+<td style="text-align: center; padding: 0.2cm;">0.585<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_gobierno</td>
+<td style="text-align: center; padding: 0.2cm;">0.450<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.488<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_congreso</td>
+<td style="text-align: center; padding: 0.2cm;">0.235<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.278<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.363<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_partidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.151<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.152<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.276<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.454<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">pos_pol</td>
+<td style="text-align: center; padding: 0.2cm;">0.346<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.363<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.518<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.106<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.020<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used spearman-method with pairwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><strong>Kendall (τ-b)</strong></p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><em>Pairwise</em></a></li></ul>
+<div class="tab-content">
+<div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cep_subset,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"kendall"</span>,</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"listwise"</span>,</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Kendall · listwise (N = 1.168)"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kendall · listwise (N = 1.168)</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_carab</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_ffaa</td>
+<td style="text-align: center; padding: 0.2cm;">0.567<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_gobierno</td>
+<td style="text-align: center; padding: 0.2cm;">0.408<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.455<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_congreso</td>
+<td style="text-align: center; padding: 0.2cm;">0.200<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.229<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.314<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_partidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.115<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.103<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.212<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.410<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">pos_pol</td>
+<td style="text-align: center; padding: 0.2cm;">0.292<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.306<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.447<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.091<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.012<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used kendall-method with listwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">tab_corr</span>(cep_subset,</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">corr.method =</span> <span class="st">"kendall"</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">na.deletion =</span> <span class="st">"pairwise"</span>,</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Kendall · pairwise (N entre 1.185 y 1.445)"</span>)</span></code></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption>Kendall · pairwise (N entre 1.185 y 1.445)</caption>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_carab</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_ffaa</td>
+<td style="text-align: center; padding: 0.2cm;">0.532<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_gobierno</td>
+<td style="text-align: center; padding: 0.2cm;">0.398<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.434<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">conf_congreso</td>
+<td style="text-align: center; padding: 0.2cm;">0.211<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.249<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.331<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td style="font-style: italic">conf_partidos</td>
+<td style="text-align: center; padding: 0.2cm;">0.137<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.138<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.253<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.431<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="odd">
+<td style="font-style: italic">pos_pol</td>
+<td style="text-align: center; padding: 0.2cm;">0.289<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.303<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.442<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm;">0.090<span style="vertical-align:super;font-size:0.8em;">***</span></td>
+<td style="text-align: center; padding: 0.2cm; color: #999999;">0.018<span style="vertical-align:super;font-size:0.8em;"></span></td>
+<td style="text-align: center; padding: 0.2cm;">&nbsp;</td>
+</tr>
+<tr class="even">
+<td colspan="7" style="text-align: right; border-bottom: double black; border-top: 1px solid black; font-style: italic; font-size: 0.9em;">Computed correlation used kendall-method with pairwise-deletion.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="rv-practice">
+<p><strong>B1 · Comprobar las decisiones.</strong> Compare las cuatro tablas. ¿Cambian los coeficientes si usamos <em>pairwise</em> en vez de <em>listwise</em>, o Kendall en vez de Spearman? ¿Algún par <strong>cambia de significación estadística</strong> (gana o pierde asteriscos)?</p>
+<p><strong>B2 · Lectura de la matriz.</strong> Identifique la asociación más fuerte y la más débil.</p>
+<p><strong>B3 · Interpretación sustantiva.</strong> ¿Cómo interpreta usted que quienes se ubican más a la derecha confíen más en el Gobierno, Carabineros y las Fuerzas Armadas, pero no en el Congreso ni en los partidos?</p>
+<p><strong>B4 · Reporte.</strong> Redacte una conclusión breve sobre <code>conf_gobierno</code>–<code>pos_pol</code> que incluya y justifique sus decisiones.</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Resultados">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Resultados
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>B1 · Comprobar las decisiones.</strong></p>
+<ul>
+<li><strong><em>Pairwise</em> vs.&nbsp;<em>listwise</em>:</strong> los coeficientes cambian muy poco, solo en algunas centésimas. La decisión sobre casos perdidos <strong>no altera las conclusiones</strong>.</li>
+<li><strong>Kendall vs.&nbsp;Spearman:</strong> Kendall entrega valores <strong>más bajos</strong> (por ejemplo, para Carabineros–FF.AA.), pero el <strong>orden</strong> de las asociaciones y los bloques son los mismos. Kendall es más bajo porque compara <strong>pares de casos</strong> (cuántos están ordenados igual o al revés en ambas variables), mientras Spearman correlaciona las <strong>posiciones</strong> en los rankings: miden la asociación en escalas distintas. Por eso <strong>no se comparan magnitudes</strong> entre coeficientes distintos.</li>
+<li><strong>Significación estadística:</strong> <strong>ningún par cambia de significación</strong> en las cuatro combinaciones. Catorce de los quince pares son significativos al 0,1% (<span class="math inline">\(p&lt;0{,}001\)</span>, tres asteriscos) en todas las tablas, y el único par no significativo, <code>conf_partidos</code>–<code>pos_pol</code> (<span class="math inline">\(r_s\approx0{,}01\)</span>; <span class="math inline">\(p\approx0{,}5\)</span>), lo es en todas. Con <span class="math inline">\(N&gt;1.100\)</span>, incluso coeficientes pequeños como <code>conf_congreso</code>–<code>pos_pol</code> (<span class="math inline">\(r_s\approx0{,}11\)</span>) alcanzan significación: perder 260 casos con <em>listwise</em> reduce algo la precisión, pero no lo suficiente para cambiar ninguna decisión.</li>
+</ul>
+<p><strong>B2 · Lectura de la matriz.</strong></p>
+<ul>
+<li><strong>Más fuerte:</strong> <code>conf_carab</code>–<code>conf_ffaa</code>, <span class="math inline">\(r_s=0{,}62\)</span>: positiva y <strong>grande</strong>. Quien confía en Carabineros tiende a confiar en las Fuerzas Armadas.</li>
+<li><strong>Más débil:</strong> <code>conf_partidos</code>–<code>pos_pol</code>, <span class="math inline">\(r_s=0{,}01\)</span>: prácticamente nula. La (baja) confianza en los partidos no se ordena según izquierda o derecha.</li>
+<li><strong>Para profundizar:</strong> las instituciones de <strong>orden y seguridad</strong> (Carabineros, FF.AA.) y el <strong>Gobierno</strong> forman un bloque con asociaciones moderadas a grandes (0,46–0,62), y las tres se asocian moderadamente con <code>pos_pol</code> (0,35–0,52). Las instituciones de <strong>representación</strong> (Congreso, partidos) forman otro par (<span class="math inline">\(r_s=0{,}43\)</span>) que casi no se asocia con la posición política.</li>
+</ul>
+<p><strong>B3 · Interpretación sustantiva.</strong> Los signos positivos indican que quienes se ubican más a la <strong>derecha</strong> tienden a declarar <strong>más confianza en el Gobierno</strong> (<span class="math inline">\(r_s=0{,}52\)</span>), <strong>Carabineros</strong> (0,35) y las <strong>Fuerzas Armadas</strong> (0,37), mientras la confianza en el Congreso (0,11) y en los partidos (0,01) casi no varía según la posición política. La asociación con Carabineros y FF.AA. es coherente con la mayor valoración del orden y la seguridad en la derecha. La asociación con el Gobierno, en cambio, no es una propiedad fija de «la derecha»: la encuesta se aplicó en 2026, con un gobierno de ese sector. La confianza en el Gobierno suele depender de la <strong>cercanía política</strong> con quien gobierna, por lo que bajo un gobierno de otro signo podríamos esperar una asociación <strong>más débil o incluso negativa</strong>. Un coeficiente describe un patrón <strong>en un momento y una población</strong>: interpretarlo requiere conocer el contexto.</p>
+<p><strong>B4 · Reporte modelo.</strong> «Dado que las variables son ordinales, se utilizó la correlación de Spearman; Kendall (τ-b), calculado como comprobación por la cantidad de empates, entrega el mismo patrón. Se aplicó eliminación <em>listwise</em> (<span class="math inline">\(N=1.168\)</span> de 1.466), considerando que la no respuesta se concentra en la autoubicación política (18%); con eliminación <em>pairwise</em> los coeficientes varían solo en algunas centésimas. La confianza en el Gobierno y la autoubicación política presentan una <strong>asociación positiva de magnitud grande</strong> y estadísticamente significativa (<span class="math inline">\(r_s=0{,}52\)</span>; <span class="math inline">\(p&lt;0{,}001\)</span>): quienes se ubican más a la derecha tienden a declarar mayor confianza en el Gobierno. El resultado no permite establecer una relación causal».</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="apl-c" class="level1">
+<h1>Ejercicio Autónomo C · Edad e ingreso</h1>
+<div class="rv-question">
+<p><strong>Pregunta de investigación</strong></p>
+<p>¿Se asocian la edad y el ingreso del trabajo entre las personas ocupadas en Chile?</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>casen_edad <span class="ot">&lt;-</span> datos_casen <span class="sc">|&gt;</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(edad, ingreso_trabajo) <span class="sc">|&gt;</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), as.numeric)) <span class="sc">|&gt;</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(casen_edad)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1710</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(casen_edad<span class="sc">$</span>edad, casen_edad<span class="sc">$</span>ingreso_trabajo, <span class="at">method =</span> <span class="st">"pearson"</span>)</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's product-moment correlation
+
+data:  casen_edad$edad and casen_edad$ingreso_trabajo
+t = -0.83407, df = 1708, p-value = 0.4044
+alternative hypothesis: true correlation is not equal to 0
+95 percent confidence interval:
+ -0.06751594  0.02725153
+sample estimates:
+        cor 
+-0.02017753 </code></pre>
+</div>
+</div>
+<div class="rv-activity">
+<p><strong>Antes de mirar el gráfico.</strong> Con <span class="math inline">\(r\approx-0{,}02\)</span> y <span class="math inline">\(p=0{,}40\)</span>, ¿concluiría usted que la edad y el ingreso no están relacionados? Anote su respuesta y luego observe la figura.</p>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-apl-c-edad" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-apl-c-edad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="15-repaso-asociacion_files/figure-html/fig-apl-c-edad-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-apl-c-edad-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4: Edad e ingreso mensual del trabajo (CASEN 2024, personas ocupadas, N = 1.710). Para que el patrón se vea, el eje vertical se limita a 3 millones (quedan fuera 37 casos); la curva resume la tendencia sin suponer una recta.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><small>Línea continua: tendencia suavizada. Línea discontinua: recta que resume Pearson.</small></p>
+<p>Calculemos ahora la correlación <strong>por separado</strong> para menores y mayores de 40 años:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>casen_edad <span class="sc">|&gt;</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tramo =</span> <span class="fu">ifelse</span>(edad <span class="sc">&lt;=</span> <span class="dv">40</span>, <span class="st">"18 a 40 años"</span>, <span class="st">"41 años o más"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tramo) <span class="sc">|&gt;</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(),</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">spearman =</span> <span class="fu">cor</span>(edad, ingreso_trabajo, <span class="at">method =</span> <span class="st">"spearman"</span>))</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 3
+  tramo             n spearman
+  &lt;chr&gt;         &lt;int&gt;    &lt;dbl&gt;
+1 18 a 40 años    762    0.216
+2 41 años o más   948   -0.272</code></pre>
+</div>
+</div>
+<div class="rv-practice">
+<p><strong>C1.</strong> Describa la forma del patrón en la figura. ¿Es lineal?</p>
+<p><strong>C2.</strong> ¿Por qué la correlación con toda la muestra es cercana a cero, si dentro de cada tramo etario hay asociaciones mayores?</p>
+<p><strong>C3.</strong> ¿Qué conclusión sobre edad e ingreso sería correcta? ¿Qué error cometería alguien que solo mira <span class="math inline">\(r\)</span> y <span class="math inline">\(p\)</span>?</p>
+</div>
+<div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio C">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio C
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>C1.</strong> El patrón tiene forma de <strong>U invertida</strong>: el ingreso tiende a subir desde los 20 hasta cerca de los 40 años y luego baja, sobre todo después de los 65. <strong>No es lineal</strong>: una recta no lo representa.</p>
+<p><strong>C2.</strong> Hasta los 40 años la asociación es <strong>positiva</strong> (<span class="math inline">\(r_s\approx0{,}22\)</span>) y desde los 41 es <strong>negativa</strong> (<span class="math inline">\(r_s\approx-0{,}27\)</span>). Con toda la muestra, esos dos tramos <strong>se compensan</strong>: la recta queda casi plana y <span class="math inline">\(r\approx0\)</span>.</p>
+<p><strong>C3.</strong> «La edad y el ingreso del trabajo <strong>sí se relacionan</strong>, pero de forma <strong>no lineal</strong>: el ingreso aumenta hasta cerca de los 40 años y disminuye después». Quien solo mira <span class="math inline">\(r=-0{,}02\)</span> y <span class="math inline">\(p=0{,}40\)</span> concluiría erróneamente que <strong>no hay relación</strong>. Un <span class="math inline">\(r\)</span> cercano a cero indica ausencia de asociación <strong>lineal</strong>, no ausencia de relación. Por eso <strong>siempre</strong> volvemos al gráfico.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cierre" class="level1">
+<h1>Cierre de la sesión</h1>
+<p>Una correlación se interpreta respondiendo <strong>preguntas distintas</strong>, que no deben confundirse: el <strong>signo</strong> indica la dirección; el <strong>valor absoluto</strong> indica qué tan marcado es el patrón; el <strong>valor <span class="math inline">\(p\)</span></strong> indica si hay evidencia de asociación en la población; y el <strong>gráfico</strong> permite evaluar si el coeficiente representa bien los datos.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Pregunta</th>
+<th style="text-align: left;">Qué miramos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">¿Qué patrón muestran los datos?</td>
+<td style="text-align: left;">Nube de puntos</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">¿Qué coeficiente corresponde?</td>
+<td style="text-align: left;">Nivel de medición, distribución, empates</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">¿En qué dirección?</td>
+<td style="text-align: left;">Signo de <span class="math inline">\(r\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">¿Qué tan marcada?</td>
+<td style="text-align: left;"><span class="math inline">\(\lvert r\rvert\)</span> y criterios de Cohen</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">¿Cuánta varianza comparten?</td>
+<td style="text-align: left;"><span class="math inline">\(R^2=r^2\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">¿Hay evidencia en la población?</td>
+<td style="text-align: left;"><span class="math inline">\(H_0:\rho=0\)</span>, <span class="math inline">\(t\)</span> o valor <span class="math inline">\(p\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">¿Con cuántos casos?</td>
+<td style="text-align: left;"><span class="math inline">\(N\)</span> y observación de <code>NA</code></td>
+</tr>
+</tbody>
+</table>
+
+
+</section>
+
+</main> <!-- /main -->
+<div id="practicos-sidebar-hover-zone"></div>
+
+
+
+<button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
+  <i class="bi bi-chevron-left"></i>
+
+</button>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+
+
+
+  /* ========================================================
+
+     ELEMENTOS
+
+     ======================================================== */
+
+
+
+  const pathname = window.location.pathname;
+
+
+
+  const esPracticos =
+
+    /\/assignment(?:\/|$)/.test(pathname);
+
+
+
+  /*
+
+   * Detecta específicamente:
+
+   *
+
+   * /assignment
+
+   * /assignment/
+
+   * /assignment/index.html
+
+   */
+
+  const esPaginaPrincipalPracticos =
+
+    /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
+
+
+
+
+
+  const boton =
+
+    document.getElementById("practicos-sidebar-toggle");
+
+
+
+  const zona =
+
+    document.getElementById("practicos-sidebar-hover-zone");
+
+
+
+  const sidebar =
+
+    document.getElementById("quarto-sidebar");
+
+
+
+
+
+  if (!esPracticos || !sidebar || !boton || !zona) {
+
+
+
+    if (boton) {
+
+      boton.style.display = "none";
+
+    }
+
+
+
+    if (zona) {
+
+      zona.style.display = "none";
+
+    }
+
+
+
+    return;
+
+  }
+
+
+
+
+
+  const body = document.body;
+
+
+
+  let abiertoTemporalmente = false;
+
+  let temporizadorCierre = null;
+
+
+
+
+
+  /* ========================================================
+
+     POSICIÓN DE LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  function actualizarPosicion() {
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Menú cerrado:
+
+       * la pestañita queda en el borde izquierdo.
+
+       */
+
+      boton.style.left = "0px";
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Usamos offsetWidth para que la posición
+
+       * no dependa de la animación del sidebar.
+
+       */
+
+      const anchoSidebar = sidebar.offsetWidth;
+
+
+
+      boton.style.left =
+
+        (anchoSidebar - 2) + "px";
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     ACTUALIZAR ICONO
+
+     ======================================================== */
+
+
+
+  function mostrarIconoAbierto() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-left"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Ocultar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Ocultar menú";
+
+  }
+
+
+
+
+
+  function mostrarIconoCerrado() {
+
+
+
+    boton.innerHTML =
+
+      '<i class="bi bi-chevron-right"></i>';
+
+
+
+    boton.setAttribute(
+
+      "aria-label",
+
+      "Mostrar menú de prácticos"
+
+    );
+
+
+
+    boton.title =
+
+      "Mostrar menú";
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     MOSTRAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function mostrarSidebar(temporal = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.remove(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoAbierto();
+
+
+
+    abiertoTemporalmente = temporal;
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     OCULTAR SIDEBAR
+
+     ======================================================== */
+
+
+
+  function ocultarSidebar(guardar = false) {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    body.classList.add(
+
+      "practicos-sidebar-cerrado"
+
+    );
+
+
+
+    mostrarIconoCerrado();
+
+
+
+    abiertoTemporalmente = false;
+
+
+
+    if (guardar) {
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "cerrado"
+
+      );
+
+    }
+
+
+
+    requestAnimationFrame(function () {
+
+      actualizarPosicion();
+
+    });
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     CLICK EN LA PESTAÑITA
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("click", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    /*
+
+     * Si está cerrado:
+
+     * un clic lo abre permanentemente.
+
+     */
+
+    if (cerrado) {
+
+
+
+      mostrarSidebar(false);
+
+
+
+      localStorage.setItem(
+
+        "practicos-sidebar",
+
+        "abierto"
+
+      );
+
+
+
+    } else {
+
+
+
+      /*
+
+       * Si está visible, un solo clic lo cierra,
+
+       * independientemente de si se abrió por
+
+       * hover o normalmente.
+
+       */
+
+      ocultarSidebar(true);
+
+    }
+
+
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     HOVER EN EL BORDE IZQUIERDO
+
+     ======================================================== */
+
+
+
+  zona.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+
+
+    const cerrado =
+
+      body.classList.contains(
+
+        "practicos-sidebar-cerrado"
+
+      );
+
+
+
+    if (cerrado) {
+
+
+
+      /*
+
+       * Mostrar temporalmente sin modificar
+
+       * la preferencia guardada.
+
+       */
+
+      mostrarSidebar(true);
+
+    }
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     SALIR DEL SIDEBAR
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener("mouseleave", function () {
+
+
+
+    /*
+
+     * Solo cerrar automáticamente si se abrió
+
+     * mediante hover.
+
+     */
+
+    if (!abiertoTemporalmente) {
+
+      return;
+
+    }
+
+
+
+    temporizadorCierre =
+
+      setTimeout(function () {
+
+
+
+        ocultarSidebar(false);
+
+
+
+      }, 500);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     MOUSE SOBRE EL BOTÓN
+
+     ======================================================== */
+
+
+
+  boton.addEventListener("mouseenter", function () {
+
+
+
+    clearTimeout(temporizadorCierre);
+
+  });
+
+
+
+
+
+  /* ========================================================
+
+     ESTADO INICIAL
+
+     ======================================================== */
+
+
+
+  /*
+
+   * PORTADA DE PRÁCTICOS
+
+   *
+
+   * Siempre comienza desplegada cada vez
+
+   * que se entra o recarga la página.
+
+   *
+
+   * Aun así, después de cargarla el usuario
+
+   * puede plegarla normalmente.
+
+   */
+
+  if (esPaginaPrincipalPracticos) {
+
+
+
+    mostrarSidebar(false);
+
+
+
+  } else {
+
+
+
+    /*
+
+     * En los prácticos individuales sí respetamos
+
+     * el estado que dejó anteriormente el usuario.
+
+     */
+
+    const estadoGuardado =
+
+      localStorage.getItem(
+
+        "practicos-sidebar"
+
+      );
+
+
+
+    if (estadoGuardado === "cerrado") {
+
+
+
+      ocultarSidebar(false);
+
+
+
+    } else {
+
+
+
+      mostrarSidebar(false);
+
+    }
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
+     ======================================================== */
+
+
+
+  window.addEventListener(
+
+    "resize",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /* ========================================================
+
+     REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
+     ======================================================== */
+
+
+
+  sidebar.addEventListener(
+
+    "transitionend",
+
+    actualizarPosicion
+
+  );
+
+
+
+
+
+  /*
+
+   * También esperamos el cambio de la
+
+   * grilla de Quarto.
+
+   */
+
+  const contenido =
+
+    document.getElementById("quarto-content");
+
+
+
+  if (contenido) {
+
+
+
+    contenido.addEventListener(
+
+      "transitionend",
+
+      actualizarPosicion
+
+    );
+
+  }
+
+
+
+
+
+  /* ========================================================
+
+     AJUSTE FINAL DESPUÉS DE CARGAR
+
+     ======================================================== */
+
+
+
+  requestAnimationFrame(function () {
+
+
+
+    requestAnimationFrame(function () {
+
+
+
+      actualizarPosicion();
+
+
+
+    });
+
+  });
+
+
+
+});
+
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/correlacional\.metodos-facso\.org");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Made with <i class="fa-brands fa-r-project" aria-label="r-project"></i> and <a href="https://quarto.org/">Quarto</a><br> <a href="https://github.com/cursos-metodos-facso/correlacional-2026">View the source at <i class="fa-brands fa-github" aria-label="github"></i> GitHub</a></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+<script src="../site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

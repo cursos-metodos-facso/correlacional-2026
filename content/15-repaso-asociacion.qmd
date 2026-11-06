@@ -1,0 +1,742 @@
+---
+title: "Repaso Unidad 2: asociación y correlación"
+date: "2026-11-11"
+lang: es
+number-sections: false
+anchor-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: auto
+format:
+  html:
+    # Conservamos el ancho del contenido; el índice lo gestiona Quarto.
+    page-layout: article
+    grid:
+      body-width: 980px
+      margin-width: 250px
+      gutter-width: 1.25rem
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-expand: 2
+    toc-title: "En esta página"
+    code-copy: false
+    code-fold: false
+    code-tools: false
+    smooth-scroll: true
+    fig-align: center
+    fig-cap-location: bottom
+---
+
+```{=html}
+<style>
+/* Sistema visual local: solo distingue funciones pedagógicas. */
+.rv-question {
+  margin: .9rem 0 .65rem;
+  padding: .7rem .95rem;
+  border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .065));
+  border-radius: 0 .35rem .35rem 0;
+}
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .65rem;
+  margin: .65rem 0 .35rem;
+}
+.rv-group {
+  min-width: 0;
+  padding: .65rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+  background: var(--bs-tertiary-bg, rgba(118, 134, 143, .045));
+}
+.rv-group p { margin: 0; }
+.rv-group p + p { margin-top: .25rem; }
+.rv-group p:first-child { font-size: .9rem; }
+.rv-order {
+  margin: .15rem 0 1.15rem;
+  padding: .2rem .15rem;
+  color: var(--bs-body-color, inherit);
+  font-size: .92rem;
+}
+.rv-order > :first-child, .rv-order > :last-child { margin: 0; }
+.rv-activity, .rv-practice {
+  margin: .75rem 0 .55rem;
+  border-left: 2px solid var(--bs-secondary-color, #83939a);
+  padding: .25rem 0 .25rem .85rem;
+}
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-practice p + p { padding-top: .25rem; }
+/* Fórmulas disponibles durante el intento: soporte, nunca solución. */
+.rv-formulas {
+  margin: .7rem 0 .85rem;
+  padding: .6rem .85rem;
+  border: 1px solid var(--bs-border-color, #d5dcde);
+  border-radius: .35rem;
+}
+.rv-formulas > :first-child { margin-top: 0; }
+.rv-formulas > :last-child { margin-bottom: 0; }
+.rv-formulas p { margin: .4rem 0; }
+.rv-formulas .math.display { margin: .35rem 0 .55rem; }
+.rv-formulas strong { font-weight: 650; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+/* Igualamos el tamaño del texto dentro de los bloques al texto general de la página. */
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li,
+#quarto-content main.content .callout .callout-body ul,
+#quarto-content main.content .callout .callout-body ol {
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.rv-answer.callout p:has(> strong:first-child) { margin-top: .65rem; }
+.rv-answer.callout p:first-child { margin-top: .1rem; }
+.rv-answer.callout p:last-child { margin-bottom: .25rem; }
+.rv-answer.callout .math.display { margin: .6rem 0 .8rem; }
+.cell-output-display img, .quarto-figure img { max-width: 100%; height: auto; }
+/* Párrafos justificados, sin afectar títulos, tablas ni el índice lateral.
+   Se limita el ajuste al cuerpo de esta página. */
+@media (min-width: 768px) {
+  #quarto-content main.content p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+  /* Etiquetas cortas y comparaciones de grupos: más legibles alineadas a la izquierda. */
+  #quarto-content main.content .rv-group p,
+  #quarto-content main.content .rv-order p,
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .rv-formulas p,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p {
+    text-align: left;
+    hyphens: none;
+  }
+}
+/* En móvil evitamos huecos entre palabras en columnas estrechas. */
+@media (max-width: 767.98px) {
+  #quarto-content main.content p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-groups { grid-template-columns: 1fr; gap: .4rem; }
+  .rv-question { padding: .65rem .7rem; }
+  .rv-group { padding: .55rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+  .math.display, .math-display { overflow-x: auto; max-width: 100%; }
+}
+</style>
+```
+
+# Inicio · ¿Qué recordamos de la asociación entre variables? {#inicio}
+
+Cuando analizamos la asociación entre variables, estudiamos si **dos variables** presentan un **patrón conjunto**. Para describir ese patrón utilizamos los **coeficientes de correlación** (Pearson, Spearman y Kendall), que nos entregan información sobre el sentido y magnitud de la asociación; para evaluar si la asociación observada en la muestra permite concluir algo sobre la **población**, retomamos los **cinco pasos de inferencia** de la Unidad 1. Además, podemos observar y describir la asociación de un grupo de variables, a través de las **matrices de correlación**.
+
+**Cómo trabajar:** antes de mirar cada resultado, **anticipe** qué espera encontrar. Después lea la salida de R, responda las preguntas y abra la pauta solo después de su intento.
+
+$$
+\text{Mirar}\rightarrow\text{anticipar}\rightarrow\text{calcular}\rightarrow\text{volver a mirar}
+$$
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Consulta · Fórmulas y criterios de apoyo"}
+
+**Inferencia para una correlación**
+
+$$
+SE_r=\sqrt{\frac{1-r^2}{n-2}}
+\qquad
+t=\frac{r}{SE_r}
+\qquad
+gl=n-2
+\qquad
+R^2=r^2
+$$
+
+- $r$: correlación observada en la **muestra**; $\rho$: correlación en la **población** (la que aparece en las hipótesis).
+- Hipótesis no direccionales: $H_0:\rho=0$ y $H_A:\rho\neq0$.
+- Con muestras grandes, los valores críticos bilaterales son aproximadamente $\pm1{,}96$ (5%) y $\pm2{,}58$ (1%).
+
+**¿Qué coeficiente usar?**
+
+| Coeficiente | Símbolo | ¿Cuándo usarlo? |
+|:--|:--|:--|
+| Pearson | $r$ | Variables cuantitativas y relación lineal |
+| Spearman | $r_s$ | Variables ordinales, o cuantitativas muy asimétricas o con casos atípicos |
+| Kendall | $\tau$ | Variables ordinales con **muchos empates** y/o muestras pequeñas |
+
+**Magnitud**
+
+| $\lvert r\rvert$ | Magnitud aproximada (Cohen, 1988) |
+|:--|:--|
+| $<0{,}1$ | Muy pequeña |
+| $0{,}1$–$0{,}3$ | Pequeña |
+| $0{,}3$–$0{,}5$ | Moderada |
+| $>0{,}5$ | Grande |
+
+**Casos perdidos**
+
+| Tratamiento | Qué hace | En `cor()` |
+|:--|:--|:--|
+| *Listwise* | Elimina el caso si tiene `NA` en **cualquier** variable; todas las correlaciones usan el mismo $N$ | `use = "complete.obs"` |
+| *Pairwise* | Elimina el caso solo de los pares donde tiene `NA`; el $N$ varía por par | `use = "pairwise.complete.obs"` |
+
+:::
+
+**Paquetes.** Utilizaremos `dplyr` para preparar los datos, `ggplot2` para los gráficos y, en el Ejercicio B, `psych` y `sjPlot` para contar casos y construir las matrices de correlación.
+
+```{r}
+#| label: apl-paquetes
+#| echo: true
+library(pacman)
+
+p_load(dplyr, ggplot2, psych, sjPlot)
+```
+
+# Ejercicio 1 · Horas de estudio y nota {#fundamentos}
+
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿En qué medida las horas semanales de estudio y la nota obtenida en una evaluación se encuentran asociadas en este pequeño grupo de estudiantes?
+:::
+
+Para recordar los fundamentos de la unidad, resolveremos **juntos y paso a paso** un ejemplo simple con **solo 5 estudiantes**. Las horas corresponden a horas semanales de estudio individual y la nota está en escala de **1 a 7**. Los datos son simulados para que todos los cálculos puedan hacerse a mano.
+
+| Estudiante | Horas de estudio ($x$) | Nota ($y$) |
+|:--|--:|--:|
+| A | 2 | 3 |
+| B | 4 | 5 |
+| C | 6 | 4 |
+| D | 8 | 7 |
+| E | 10 | 6 |
+
+## Paso 1 · Mirar y anticipar {#ej1-paso1}
+
+::: {.rv-activity}
+A medida que aumentan las horas, ¿la nota tiende a subir o a bajar? ¿El patrón parece aproximadamente recto?
+:::
+
+```{r}
+#| label: fig-ej1-nube
+#| fig-cap: "Horas semanales de estudio y nota de la evaluación (5 estudiantes, datos simulados)."
+#| fig-width: 6.5
+#| fig-height: 4
+ej1 <- data.frame(
+  id = c("A", "B", "C", "D", "E"),
+  x = c(2, 4, 6, 8, 10),
+  y = c(3, 5, 4, 7, 6)
+)
+ggplot(ej1, aes(x, y)) +
+  geom_point(size = 3.6, colour = "#426b77") +
+  geom_text(aes(label = id), nudge_y = .3, size = 3.6, colour = "#3e535f") +
+  scale_x_continuous(breaks = seq(0, 12, 2), limits = c(0, 12)) +
+  scale_y_continuous(breaks = 1:7, limits = c(1, 7.5)) +
+  labs(x = "Horas semanales de estudio", y = "Nota (1 a 7)") +
+  theme_minimal(base_size = 13) + theme(panel.grid.minor = element_blank())
+```
+
+Las notas tienden a ser **más altas** cuando hay más horas de estudio, aunque no de forma perfecta: C estudia más que B y obtiene menos nota, y lo mismo ocurre entre D y E. La tendencia es **aproximadamente recta y ascendente**, así que anticipamos una **asociación positiva**.
+
+## Paso 2 · Desviaciones respecto de la media {#ej1-paso2}
+
+Para medir el patrón conjunto, primero ubicamos a cada estudiante respecto del **promedio** de cada variable:
+
+$$
+\bar{x}=\frac{2+4+6+8+10}{5}=6
+\qquad
+\bar{y}=\frac{3+5+4+7+6}{5}=5
+$$
+
+La **desviación** de cada caso es su distancia a la media: $x_i-\bar{x}$ y $y_i-\bar{y}$. Luego **multiplicamos** ambas desviaciones.
+
+::: {.rv-activity}
+¿Qué signo tendrá el producto de un estudiante que está **bajo** ambas medias? ¿Y el de uno que está sobre una y bajo la otra?
+:::
+
+| Estudiante | $x_i-\bar{x}$ | $y_i-\bar{y}$ | Producto |
+|:--|--:|--:|--:|
+| A | $2-6=-4$ | $3-5=-2$ | $+8$ |
+| B | $4-6=-2$ | $5-5=0$ | $0$ |
+| C | $6-6=0$ | $4-5=-1$ | $0$ |
+| D | $8-6=+2$ | $7-5=+2$ | $+4$ |
+| E | $10-6=+4$ | $6-5=+1$ | $+4$ |
+| **Suma** | | | $\mathbf{+16}$ |
+
+- **A** está **bajo ambas medias**: $(-)(-)=+$. Es el caso más alejado de ambas, por eso aporta el producto más grande.
+- **D** y **E** están **sobre ambas medias**: $(+)(+)=+$.
+- **B** y **C** coinciden con una de las medias, por lo que su aporte es **cero**.
+- Nadie queda en lados opuestos de las medias, así que **no hay productos negativos**.
+
+La figura muestra la misma idea: las medias dividen el plano en cuatro cuadrantes, y los puntos en los cuadrantes sombreados aportan productos positivos.
+
+```{r}
+#| label: fig-ej1-cuadrantes
+#| fig-cap: "Las medias dividen el plano en cuatro cuadrantes; cada etiqueta indica el producto de desviaciones de ese estudiante."
+#| fig-width: 6.5
+#| fig-height: 4.2
+ej1$prod <- (ej1$x - 6) * (ej1$y - 5)
+ej1$etq <- paste0(ej1$id, " (", ifelse(ej1$prod > 0, "+", ""), ej1$prod, ")")
+ggplot(ej1, aes(x, y)) +
+  annotate("rect", xmin = 6, xmax = Inf, ymin = 5, ymax = Inf, fill = "#8daeb5", alpha = .22) +
+  annotate("rect", xmin = -Inf, xmax = 6, ymin = -Inf, ymax = 5, fill = "#8daeb5", alpha = .22) +
+  geom_vline(xintercept = 6, linetype = "dashed", colour = "#6c858d") +
+  geom_hline(yintercept = 5, linetype = "dashed", colour = "#6c858d") +
+  geom_point(size = 3.6, colour = "#284958") +
+  geom_text(aes(label = etq), nudge_y = .35, size = 3.5, colour = "#284958") +
+  annotate("text", x = 11.6, y = 7.3, label = "(+)(+) = +", hjust = 1, size = 3.4, colour = "#3e535f") +
+  annotate("text", x = .4, y = 1.3, label = "(−)(−) = +", hjust = 0, size = 3.4, colour = "#3e535f") +
+  annotate("text", x = 11.6, y = 1.3, label = "(+)(−) = −", hjust = 1, size = 3.4, colour = "#83949a") +
+  annotate("text", x = .4, y = 7.3, label = "(−)(+) = −", hjust = 0, size = 3.4, colour = "#83949a") +
+  scale_x_continuous(breaks = seq(0, 12, 2), limits = c(0, 12)) +
+  scale_y_continuous(breaks = 1:7, limits = c(1, 7.5)) +
+  labs(x = "Horas semanales de estudio (media = 6)", y = "Nota (media = 5)") +
+  theme_minimal(base_size = 13) + theme(panel.grid.minor = element_blank())
+```
+
+## Paso 3 · Covarianza {#ej1-paso3}
+
+La **covarianza** promedia esos productos, dividiendo por $n-1$:
+
+$$
+\operatorname{cov}(X,Y)=\frac{\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})}{n-1}=\frac{16}{5-1}=4
+$$
+
+El **signo positivo** confirma lo que anticipamos al mirar la nube.
+
+::: {.rv-activity}
+La covarianza es 4. ¿Eso es mucho o poco? ¿Qué pasaría si midiéramos el estudio en minutos en vez de horas?
+:::
+
+No podemos saberlo: la covarianza está expresada en *horas × puntos de nota*. Si midiéramos el estudio en minutos, sería **60 veces mayor** (240) sin que el patrón cambiara. La covarianza nos dice el **signo**, pero su magnitud depende de las unidades. Por eso necesitamos **estandarizarla**.
+
+## Paso 4 · Correlación de Pearson y $R^2$ {#ej1-paso4}
+
+Pearson divide la covarianza por el producto de las **desviaciones estándar**, con lo que las unidades se cancelan y el resultado queda entre $-1$ y $1$. En estos datos, $s_X=\sqrt{10}\approx3{,}16$ y $s_Y=\sqrt{2{,}5}\approx1{,}58$, y su producto es exacto: $\sqrt{10}\times\sqrt{2{,}5}=\sqrt{25}=5$.
+
+$$
+r=\frac{\operatorname{cov}(X,Y)}{s_X\,s_Y}=\frac{4}{5}=0{,}80
+$$
+
+Elevando al cuadrado obtenemos el **coeficiente de determinación**:
+
+$$
+R^2=r^2=0{,}80^2=0{,}64
+$$
+
+::: {.rv-activity}
+**Recordemos.** Según los criterios de Cohen, ¿cómo clasificaría usted $r=0{,}80$? ¿Qué significa que $R^2=0{,}64$?
+:::
+
+$r=0{,}80$ es una asociación **grande** ($|r|>0{,}5$). Un $R^2=0{,}64$ indica que horas de estudio y nota **comparten un 64% de su varianza** en este grupo.
+
+En R, todo lo anterior se obtiene en tres líneas:
+
+```{r}
+#| label: ej1-r
+#| echo: true
+horas <- c(2, 4, 6, 8, 10)
+nota  <- c(3, 5, 4, 7, 6)
+cov(horas, nota)
+cor(horas, nota)
+cor(horas, nota)^2
+```
+
+## Paso 5 · Interpretar y volver a mirar {#ej1-paso5}
+
+«En este grupo de cinco estudiantes, las horas semanales de estudio y la nota presentan una **asociación positiva** ($r=0{,}80$) de **magnitud grande**: quienes estudian más horas tienden a obtener notas más altas. Ambas variables **comparten un 64% de su varianza**. Esta asociación **no demuestra que estudiar más cause** mejores notas».
+
+**Volver a mirar:** el valor de $r$ es coherente con la nube, que muestra una tendencia ascendente clara pero no perfecta (C y E rompen la secuencia). Por eso $r$ es alto, pero no igual a 1.
+
+## Paso 6 · ¿Podemos generalizar? {#ej1-paso6}
+
+::: {.rv-activity}
+Con una correlación tan grande, ¿podemos concluir que en la **población** de estudiantes existe esta asociación?
+:::
+
+Aplicamos la prueba de hipótesis para una correlación ($H_0:\rho=0$; $H_A:\rho\neq0$):
+
+$$
+SE_r=\sqrt{\frac{1-r^2}{n-2}}=\sqrt{\frac{1-0{,}64}{5-2}}\approx0{,}346
+$$
+
+$$
+t=\frac{r}{SE_r}=\frac{0{,}80}{0{,}346}\approx2{,}31
+\qquad
+gl=3
+$$
+
+El valor crítico bilateral al 5% con 3 grados de libertad es $\pm3{,}18$. Como $2{,}31<3{,}18$, **no rechazamos $H_0$**: aun con una correlación grande, **cinco casos no aportan evidencia suficiente** sobre la población. La **magnitud** describe el patrón en la muestra; la **inferencia** depende también del tamaño muestral.
+
+
+# Ejercicio Autónomo A · Escolaridad e ingreso del trabajo (CASEN 2024) {#apl-a}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Se asocian los años de escolaridad y el ingreso del trabajo entre las personas ocupadas en Chile?
+:::
+
+Utilizamos un **subconjunto de 3.000 personas** de la Encuesta CASEN 2024. Las variables `escolaridad` (años de estudio) e `ingreso_trabajo` (pesos mensuales) son **cuantitativas**. El ingreso solo existe para quienes trabajan, por lo que conservamos los casos con información en ambas variables.
+
+```{r}
+#| label: apl-a-carga
+#| echo: true
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/casen_barrio2024.rdata"))
+
+casen_subset <- datos_casen |>
+  select(escolaridad, ingreso_trabajo) |>
+  mutate(across(everything(), as.numeric)) |>
+  na.omit()   # listwise: casos con información en ambas variables
+
+nrow(datos_casen)   # total del subconjunto
+nrow(casen_subset)  # personas ocupadas con ambos datos
+```
+
+::: {.rv-activity}
+**Antes de calcular.** Observe la nube. ¿Qué signo anticipa para la correlación? ¿Ve algo en la distribución del ingreso que pueda afectar a Pearson?
+:::
+
+```{r}
+#| label: fig-apl-a-nube
+#| fig-cap: "Años de escolaridad e ingreso mensual del trabajo (CASEN 2024, subconjunto de personas ocupadas, N = 1.707). Cada punto es una persona; la línea resume la tendencia lineal."
+#| fig-width: 7
+#| fig-height: 4.3
+ggplot(casen_subset, aes(escolaridad, ingreso_trabajo / 1e6)) +
+  geom_jitter(width = .25, height = 0, alpha = .28, size = 1.6, colour = "#426b77") +
+  geom_smooth(method = "lm", se = FALSE, colour = "#284958", linewidth = 1) +
+  scale_x_continuous(breaks = seq(0, 26, 2)) +
+  labs(x = "Años de escolaridad", y = "Ingreso del trabajo (millones de pesos)") +
+  theme_minimal(base_size = 13) + theme(panel.grid.minor = element_blank())
+```
+
+```{r}
+#| label: apl-a-cortest
+#| echo: true
+cor.test(casen_subset$escolaridad, casen_subset$ingreso_trabajo, method = "pearson")
+```
+
+
+::: {.rv-practice}
+**A1 · Mirar.** Describa la dirección del patrón y la forma de la distribución del ingreso.
+
+**A2 · Calcular.** Plantee $H_0$ y $H_A$. Identifique en la salida de `cor.test()` el valor de $r$, $t$, los grados de libertad, el valor $p$ y el intervalo de confianza. Compruebe que $gl=n-2$. Tome una decisión respecto de la hipótesis nula al 5% y al 1%.
+
+**A3 · Magnitud.** Clasifique $r$ según Cohen y calcule $R^2$.
+
+**A4 · Pearson y Spearman.** ¿Por qué Spearman es mayor que Pearson en estos datos? ¿Cuál reportaría usted?
+
+```{r}
+#| label: apl-a-spearman
+#| echo: true
+cor.test(casen_subset$escolaridad, casen_subset$ingreso_trabajo,
+         method = "spearman", exact = FALSE)$estimate
+```
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Pista · ¿Por qué podrían diferir Pearson y Spearman?"}
+
+Mire el eje vertical: la mayoría de los ingresos está bajo 2 millones, pero unos pocos casos superan los 5 millones. Pearson trabaja con las **distancias** a la media; Spearman, con los **rankings**. ¿Cuál de los dos se ve más afectado por esos pocos casos tan alejados?
+
+:::
+
+**A5 · Reporte.** Redacte una conclusión de dos o tres líneas, sin afirmar causalidad.
+:::
+
+
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio A"}
+
+**A1 · Mirar.** Quienes tienen más años de escolaridad tienden a tener ingresos más altos: la tendencia es **positiva**. Pero el ingreso es **muy asimétrico**: se concentra en valores bajos y tiene una cola larga de ingresos muy altos, sobre todo entre quienes tienen 16 o más años de estudio. La dispersión del ingreso también aumenta con la escolaridad.
+
+**A2 · Calcular.** La pregunta es no direccional, por lo que planteamos una prueba de dos colas:
+
+$$
+H_0:\rho=0\qquad H_A:\rho\neq0
+$$
+
+La salida entrega $r=0{,}43$; $t=19{,}86$; $gl=1.705=1.707-2$; $p<0{,}001$; $IC_{95\%}=[0{,}39;\ 0{,}47]$. Con 1.705 gl, los críticos bilaterales son aproximadamente $\pm1{,}96$ (5%) y $\pm2{,}58$ (1%). Como $t=19{,}86$ los supera ampliamente ($p<0{,}001$), **rechazamos $H_0$ al 5% y al 1%**. El IC no incluye cero, en concordancia con la decisión.
+
+**A3 · Magnitud.** $r=0{,}43$ es una asociación **moderada** según Cohen. $R^2=0{,}43^2\approx0{,}19$: escolaridad e ingreso comparten cerca de un **19% de su varianza**; el 81% restante se asocia a otros factores (ocupación, horas, edad, sexo, región, etc.).
+
+**A4 · Pearson y Spearman.** Spearman ($r_s=0{,}48$) es mayor porque, al trabajar con rankings, **reduce el peso de los ingresos extremos**. Esos pocos casos muy altos no siguen la recta y agregan dispersión que penaliza a Pearson. Dado que el ingreso es muy asimétrico, **Spearman** es una opción defendible como análisis principal, o al menos como comprobación. Lo importante es que ambos coinciden en el **sentido** y en una magnitud **moderada**: la conclusión sustantiva no cambia.
+
+**A5 · Reporte.** «Entre las personas ocupadas del subconjunto de CASEN 2024, los años de escolaridad y el ingreso del trabajo presentan una **asociación positiva de magnitud moderada** y estadísticamente significativa ($r=0{,}43$; $IC_{95\%}=[0{,}39;\ 0{,}47]$; $t(1.705)=19{,}86$; $p<0{,}001$; $N=1.707$). Comparten cerca de un 19% de su varianza. Dada la fuerte asimetría del ingreso, se calculó también Spearman, con un resultado similar ($r_s=0{,}48$). Esta asociación no permite afirmar que la escolaridad cause por sí sola mayores ingresos».
+:::
+
+# Ejercicio Autónomo B · Confianza en instituciones y posición política (CEP 2026) {#apl-b}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Cómo se asocian la confianza en distintas instituciones y la autoubicación política entre los adultos de Chile?
+:::
+
+Utilizamos la **Encuesta CEP N° 96** (abril-mayo de 2026, $N=1.466$) con seis variables:
+
+| Variable | Qué representa | Escala |
+|:--|:--|:--|
+| `conf_carab` | Confianza en Carabineros | 1 = nada … 4 = mucha |
+| `conf_ffaa` | Confianza en las Fuerzas Armadas | 1 = nada … 4 = mucha |
+| `conf_gobierno` | Confianza en el Gobierno | 1 = nada … 4 = mucha |
+| `conf_congreso` | Confianza en el Congreso | 1 = nada … 4 = mucha |
+| `conf_partidos` | Confianza en los partidos políticos | 1 = nada … 4 = mucha |
+| `pos_pol` | Autoubicación política | 1 = izquierda … 10 = derecha |
+
+En este ejercicio **R no decide por nosotros**. Antes de calcular la matriz debemos tomar dos decisiones y justificarlas: **qué coeficiente usar** y **cómo tratar los casos perdidos**.
+
+## Paso 1 · Observar los datos {#apl-b-observar}
+
+```{r}
+#| label: apl-b-carga
+#| echo: true
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData"))
+
+cep_subset <- datos_cep |>
+  select(conf_carab, conf_ffaa, conf_gobierno,
+         conf_congreso, conf_partidos, pos_pol) |>
+  mutate(across(everything(), as.numeric))
+```
+
+**¿Cuántos casos perdidos hay y cuántos casos quedan según cada tratamiento?**
+
+```{r}
+#| label: apl-b-na
+#| echo: true
+colSums(is.na(cep_subset))        # casos perdidos por variable
+sum(complete.cases(cep_subset))   # N con eliminación listwise
+psych::pairwiseCount(cep_subset)  # N de cada par con eliminación pairwise
+```
+
+
+## Paso 2 · Decidir y justificar {#apl-b-decidir}
+
+::: {.rv-practice}
+**Decisión 1 · ¿Qué coeficiente?** ¿Pearson, Spearman o Kendall? Justifique su elección.
+
+**Decisión 2 · ¿Cómo tratar los casos perdidos?** ¿*Listwise* o *pairwise*? Justifique considerando:
+
+- qué variable concentra los casos perdidos y por qué podría ocurrir;
+- cuántos casos se pierden con cada tratamiento;
+- qué gana y qué pierde con cada opción.
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Pista · Elegir el coeficiente"}
+
+Fíjese en cuántos valores distintos puede tomar cada variable de confianza. Con 4 categorías y casi 1.500 personas, ¿cuántas personas comparten exactamente la misma respuesta? ¿Qué coeficiente está pensado para esa situación?
+
+:::
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Pista · Decidir sobre los casos perdidos"}
+
+Ningún tratamiento es correcto en abstracto. Pregúntese: ¿la pérdida está concentrada en una variable o repartida? ¿Necesito que todas las correlaciones se refieran a las **mismas personas**?
+
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Decisiones"}
+
+No hay una única respuesta correcta: lo que se evalúa es que la decisión sea **coherente con los datos** y esté **justificada**.
+
+**Decisión 1 · Coeficiente.** Las cinco variables de confianza son **ordinales** de 4 categorías y `pos_pol` es una escala ordinal de 10 puntos. Los números indican orden, no distancias iguales, por lo que **Pearson no corresponde**. Quedan dos opciones defendibles:
+
+- **Spearman**, porque las variables son ordinales y la muestra es grande. Es el coeficiente más usado y el que permite comparar con otros estudios.
+- **Kendall (τ-b)**, porque con solo 4 categorías hay **muchísimos empates**: con casi 1.500 personas, cada categoría agrupa cientos de respuestas idénticas. Kendall está pensado justamente para esa situación.
+
+Elegir uno y **mencionar el otro como comprobación** es una buena práctica.
+
+**Decisión 2 · Casos perdidos.** La pérdida se concentra en `pos_pol` (**260 casos**, 18%), mientras el resto de las variables pierde entre 5 y 40 casos. Es habitual que muchas personas no se ubiquen en el eje izquierda-derecha.
+
+- Con *listwise* quedan **1.168 casos** (−20%), y todas las correlaciones se refieren a las **mismas personas**. *Listwise* es defendible si se quiere una matriz coherente o si la matriz se usará después en técnicas multivariadas.
+- Con *pairwise*, el $N$ por par va de **1.185** (pares con `pos_pol`) a **1.445**: las correlaciones entre instituciones conservan casi toda la muestra. *Pairwise* es preferible si se quiere mantener el poder estadístico, sobre todo en los pares que no incluyen `pos_pol`.
+:::
+
+## Paso 3 · Calcular y comprobar las decisiones {#apl-b-calcular}
+
+Calculamos la matriz con ambos coeficientes y, para cada uno, con ambos tratamientos de casos perdidos. Usamos `sjPlot::tab_corr()`, que además de cada coeficiente indica su **significación estadística** con asteriscos. En cada bloque, **cambie de pestaña** para comparar *listwise* y *pairwise*: fíjese en si cambian los coeficientes **y** si algún par gana o pierde asteriscos. La matriz con la que trabajará es la que corresponde a **sus decisiones**.
+
+**Spearman**
+
+::: {.panel-tabset}
+
+### *Listwise*
+
+```{r}
+#| label: apl-b-sp-lw
+#| echo: true
+sjPlot::tab_corr(cep_subset,
+                 corr.method = "spearman",
+                 na.deletion = "listwise",
+                 triangle = "lower",
+                 title = "Spearman · listwise (N = 1.168)")
+```
+
+### *Pairwise*
+
+```{r}
+#| label: apl-b-sp-pw
+#| echo: true
+sjPlot::tab_corr(cep_subset,
+                 corr.method = "spearman",
+                 na.deletion = "pairwise",
+                 triangle = "lower",
+                 title = "Spearman · pairwise (N entre 1.185 y 1.445)")
+```
+
+:::
+
+**Kendall (τ-b)**
+
+::: {.panel-tabset}
+
+### *Listwise*
+
+```{r}
+#| label: apl-b-k-lw
+#| echo: true
+sjPlot::tab_corr(cep_subset,
+                 corr.method = "kendall",
+                 na.deletion = "listwise",
+                 triangle = "lower",
+                 title = "Kendall · listwise (N = 1.168)")
+```
+
+### *Pairwise*
+
+```{r}
+#| label: apl-b-k-pw
+#| echo: true
+sjPlot::tab_corr(cep_subset,
+                 corr.method = "kendall",
+                 na.deletion = "pairwise",
+                 triangle = "lower",
+                 title = "Kendall · pairwise (N entre 1.185 y 1.445)")
+```
+
+:::
+
+::: {.rv-practice}
+**B1 · Comprobar las decisiones.** Compare las cuatro tablas. ¿Cambian los coeficientes si usamos *pairwise* en vez de *listwise*, o Kendall en vez de Spearman? ¿Algún par **cambia de significación estadística** (gana o pierde asteriscos)?
+
+**B2 · Lectura de la matriz.** Identifique la asociación más fuerte y la más débil.
+
+**B3 · Interpretación sustantiva.** ¿Cómo interpreta usted que quienes se ubican más a la derecha confíen más en el Gobierno, Carabineros y las Fuerzas Armadas, pero no en el Congreso ni en los partidos?
+
+**B4 · Reporte.** Redacte una conclusión breve sobre `conf_gobierno`–`pos_pol` que incluya y justifique sus decisiones.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Resultados"}
+
+**B1 · Comprobar las decisiones.**
+
+- ***Pairwise* vs. *listwise*:** los coeficientes cambian muy poco, solo en algunas centésimas. La decisión sobre casos perdidos **no altera las conclusiones**.
+- **Kendall vs. Spearman:** Kendall entrega valores **más bajos** (por ejemplo, para Carabineros–FF.AA.), pero el **orden** de las asociaciones y los bloques son los mismos. Kendall es más bajo porque compara **pares de casos** (cuántos están ordenados igual o al revés en ambas variables), mientras Spearman correlaciona las **posiciones** en los rankings: miden la asociación en escalas distintas. Por eso **no se comparan magnitudes** entre coeficientes distintos.
+- **Significación estadística:** **ningún par cambia de significación** en las cuatro combinaciones. Catorce de los quince pares son significativos al 0,1% ($p<0{,}001$, tres asteriscos) en todas las tablas, y el único par no significativo, `conf_partidos`–`pos_pol` ($r_s\approx0{,}01$; $p\approx0{,}5$), lo es en todas. Con $N>1.100$, incluso coeficientes pequeños como `conf_congreso`–`pos_pol` ($r_s\approx0{,}11$) alcanzan significación: perder 260 casos con *listwise* reduce algo la precisión, pero no lo suficiente para cambiar ninguna decisión.
+
+**B2 · Lectura de la matriz.**
+
+- **Más fuerte:** `conf_carab`–`conf_ffaa`, $r_s=0{,}62$: positiva y **grande**. Quien confía en Carabineros tiende a confiar en las Fuerzas Armadas.
+- **Más débil:** `conf_partidos`–`pos_pol`, $r_s=0{,}01$: prácticamente nula. La (baja) confianza en los partidos no se ordena según izquierda o derecha.
+- **Para profundizar:** las instituciones de **orden y seguridad** (Carabineros, FF.AA.) y el **Gobierno** forman un bloque con asociaciones moderadas a grandes (0,46–0,62), y las tres se asocian moderadamente con `pos_pol` (0,35–0,52). Las instituciones de **representación** (Congreso, partidos) forman otro par ($r_s=0{,}43$) que casi no se asocia con la posición política.
+
+**B3 · Interpretación sustantiva.** Los signos positivos indican que quienes se ubican más a la **derecha** tienden a declarar **más confianza en el Gobierno** ($r_s=0{,}52$), **Carabineros** (0,35) y las **Fuerzas Armadas** (0,37), mientras la confianza en el Congreso (0,11) y en los partidos (0,01) casi no varía según la posición política. La asociación con Carabineros y FF.AA. es coherente con la mayor valoración del orden y la seguridad en la derecha. La asociación con el Gobierno, en cambio, no es una propiedad fija de «la derecha»: la encuesta se aplicó en 2026, con un gobierno de ese sector. La confianza en el Gobierno suele depender de la **cercanía política** con quien gobierna, por lo que bajo un gobierno de otro signo podríamos esperar una asociación **más débil o incluso negativa**. Un coeficiente describe un patrón **en un momento y una población**: interpretarlo requiere conocer el contexto.
+
+**B4 · Reporte modelo.** «Dado que las variables son ordinales, se utilizó la correlación de Spearman; Kendall (τ-b), calculado como comprobación por la cantidad de empates, entrega el mismo patrón. Se aplicó eliminación *listwise* ($N=1.168$ de 1.466), considerando que la no respuesta se concentra en la autoubicación política (18%); con eliminación *pairwise* los coeficientes varían solo en algunas centésimas. La confianza en el Gobierno y la autoubicación política presentan una **asociación positiva de magnitud grande** y estadísticamente significativa ($r_s=0{,}52$; $p<0{,}001$): quienes se ubican más a la derecha tienden a declarar mayor confianza en el Gobierno. El resultado no permite establecer una relación causal».
+
+:::
+
+# Ejercicio Autónomo C · Edad e ingreso {#apl-c}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Se asocian la edad y el ingreso del trabajo entre las personas ocupadas en Chile?
+:::
+
+```{r}
+#| label: apl-c-datos
+#| echo: true
+casen_edad <- datos_casen |>
+  select(edad, ingreso_trabajo) |>
+  mutate(across(everything(), as.numeric)) |>
+  na.omit()
+
+nrow(casen_edad)
+
+cor.test(casen_edad$edad, casen_edad$ingreso_trabajo, method = "pearson")
+```
+
+::: {.rv-activity}
+**Antes de mirar el gráfico.** Con $r\approx-0{,}02$ y $p=0{,}40$, ¿concluiría usted que la edad y el ingreso no están relacionados? Anote su respuesta y luego observe la figura.
+:::
+
+```{r}
+#| label: fig-apl-c-edad
+#| fig-cap: "Edad e ingreso mensual del trabajo (CASEN 2024, personas ocupadas, N = 1.710). Para que el patrón se vea, el eje vertical se limita a 3 millones (quedan fuera 37 casos); la curva resume la tendencia sin suponer una recta."
+#| fig-width: 7
+#| fig-height: 4.3
+ggplot(casen_edad, aes(edad, ingreso_trabajo / 1e6)) +
+  geom_point(alpha = .22, size = 1.5, colour = "#426b77") +
+  geom_smooth(method = "loess", se = FALSE, colour = "#284958", linewidth = 1.1) +
+  geom_smooth(method = "lm", se = FALSE, colour = "#c97b63", linewidth = .9, linetype = "dashed") +
+  coord_cartesian(ylim = c(0, 3)) +
+  scale_x_continuous(breaks = seq(20, 90, 10)) +
+  labs(x = "Edad (años)", y = "Ingreso del trabajo (millones de pesos)") +
+  theme_minimal(base_size = 13) + theme(panel.grid.minor = element_blank())
+```
+
+<small>Línea continua: tendencia suavizada. Línea discontinua: recta que resume Pearson.</small>
+
+Calculemos ahora la correlación **por separado** para menores y mayores de 40 años:
+
+```{r}
+#| label: apl-c-tramos
+#| echo: true
+casen_edad |>
+  mutate(tramo = ifelse(edad <= 40, "18 a 40 años", "41 años o más")) |>
+  group_by(tramo) |>
+  summarise(n = n(),
+            spearman = cor(edad, ingreso_trabajo, method = "spearman"))
+```
+
+::: {.rv-practice}
+**C1.** Describa la forma del patrón en la figura. ¿Es lineal?
+
+**C2.** ¿Por qué la correlación con toda la muestra es cercana a cero, si dentro de cada tramo etario hay asociaciones mayores?
+
+**C3.** ¿Qué conclusión sobre edad e ingreso sería correcta? ¿Qué error cometería alguien que solo mira $r$ y $p$?
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio C"}
+
+**C1.** El patrón tiene forma de **U invertida**: el ingreso tiende a subir desde los 20 hasta cerca de los 40 años y luego baja, sobre todo después de los 65. **No es lineal**: una recta no lo representa.
+
+**C2.** Hasta los 40 años la asociación es **positiva** ($r_s\approx0{,}22$) y desde los 41 es **negativa** ($r_s\approx-0{,}27$). Con toda la muestra, esos dos tramos **se compensan**: la recta queda casi plana y $r\approx0$. 
+
+**C3.** «La edad y el ingreso del trabajo **sí se relacionan**, pero de forma **no lineal**: el ingreso aumenta hasta cerca de los 40 años y disminuye después». Quien solo mira $r=-0{,}02$ y $p=0{,}40$ concluiría erróneamente que **no hay relación**. Un $r$ cercano a cero indica ausencia de asociación **lineal**, no ausencia de relación. Por eso **siempre** volvemos al gráfico.
+
+:::
+
+
+# Cierre de la sesión {#cierre}
+
+Una correlación se interpreta respondiendo **preguntas distintas**, que no deben confundirse: el **signo** indica la dirección; el **valor absoluto** indica qué tan marcado es el patrón; el **valor $p$** indica si hay evidencia de asociación en la población; y el **gráfico** permite evaluar si el coeficiente representa bien los datos.
+
+
+| Pregunta | Qué miramos |
+|:--|:--|
+| ¿Qué patrón muestran los datos? | Nube de puntos |
+| ¿Qué coeficiente corresponde? | Nivel de medición, distribución, empates |
+| ¿En qué dirección? | Signo de $r$ |
+| ¿Qué tan marcada? | $\lvert r\rvert$ y criterios de Cohen |
+| ¿Cuánta varianza comparten? | $R^2=r^2$ | 
+| ¿Hay evidencia en la población? | $H_0:\rho=0$, $t$ o valor $p$ |
+| ¿Con cuántos casos? | $N$ y observación de `NA` |
+
