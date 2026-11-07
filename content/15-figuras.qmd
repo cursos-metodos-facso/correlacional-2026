@@ -1,5 +1,5 @@
 ---
-title: "Tablas y figuras en Quarto"
+title: "Gráficos y tablas en Quarto"
 date: "2026-11-09"
 lang: es
 number-sections: false
@@ -137,515 +137,1063 @@ format:
 </style>
 ```
 
-# Introducción {#inicio}
+# Objetivo de la sesión {.unnumbered}
 
-En la sesión anterior aprendimos que un documento Quarto integra texto y código. Ahora nos preguntamos **cómo presentar los resultados**: ¿qué tabla o gráfico es adecuado según el tipo de variable? Aprenderemos a construir, en R, las tablas y figuras más simples y a incorporarlas al informe con leyenda y numeración automática.
+En esta sesión aprenderemos de manera aplicada como construir gráficos y tablas en Quarto mediante R. Para efectos prácticos, les proporcionamos un documento guía para que puedan seguir paso a paso esta sesión. Para descargar el documento, hagan click [aquí](documento-figuras.qmd){download="documento-figuras.qmd"}
 
-Para ello, en esta sesión veremos 4 puntos principales:
 
-- **Tablas**
 
-- **Gráficos de una variable**
+# Repaso de Quarto
 
-- **Gráficos de dos variables**
+Recordemos que la razón principal de trabajar con Quarto es que nos permite elaborar un documento dinámico, es decir, un documento que integra **texto y código en un mismo archivo**. Esto nos da la posibilidad de generar análisis y figuras, las cuales son actualizadas automáticamente cada vez que se ejecuta el código. 
 
-- **Referencias y guardado de figuras**
+Una de las ventajas de los documentos dinámicos es que tienen distintos formatos de salida: un documento Quarto (`.qmd`) puede ser exportado a un documento HTML, PDF o Word. Este proceso de transformación de formato (por ejemplo, de .qmd a HTML) se denomina **renderizado**. 
 
-::: {.rv-question}
-**Pregunta guía de la sesión**
+El renderizado es un proceso fundamental para la presentación de resultados: un documento Quarto se escribe en texto plano, y solo una vez que pasa por el proceso de renderización **se vuelven visibles** las marcas de texto, los gráficos y las tablas dentro del documento.
 
-¿Cómo describimos una variable y cómo mostramos la relación entre dos variables en un informe Quarto?
+::: {.callout-note}
+
+Para profundizar en Quarto, visitar la sesión de [documentos dinámicos](https://correlacional.metodos-facso.org/content/14-quarto.html).
+
 :::
 
-Trabajaremos con la submuestra de la **CASEN 2024** usada en la sesión anterior. Usaremos principalmente **ggplot2** para gráficos y **knitr** (`kable()`) para tablas. 
 
-```{r}
-pacman::p_load(ggplot2, dplyr, knitr)
+
+
+
+# Gráficos: ¿Qué es visualizar datos?
+
+La visualización de datos consiste en dar sentido a filas y columnas de datos, presentándolos en un formato fácilmente comprensible a una audiencia. 
+
+![](https://descriptiva-facso.netlify.app/images/visual1.png) 
+
+Visualizar datos es una de las tareas más recurrentes en estadística, al mismo tiempo que es una de las formas más delicadas de comunicar información. ¿A qué nos referimos? básicamente a que, como investigadores/as, comunicamos nuestros resultados buscando resaltar un aspecto de la realidad e intentando crear un mensaje con los datos. Por ello, **es sumamente importante** hacerlo de forma fidedigna, sencilla y pensando siempre en cómo la audiencia podría interpretarlo. 
+
+![](../images/graphs.png)
+
+**Cómo NO visualizar datos**
+
+Es bastante común ver malas formas de comunicar datos; en los medios de comunicación, redes sociales e inclusive en la misma investigación acádemica. Esto ocurre por diversos motivos, ya sea por elementos gráficos, de escalas o de orden que engañan al ojo y percepción humana. Algunos ejemplos de cómo **no** se deben comunicar datos son: 
+
+```{r echo=FALSE, warning=FALSE, out.width="60%", fig.align='left'}
+knitr::include_graphics(path = "https://descriptiva-facso.netlify.app/images/pinera.png", error = F)
 ```
 
-```{r}
-#| include: false
+> **Qué se puede cuestionar de este gráfico?**  
 
-# Tema común para todos los gráficos
-theme_set(theme_minimal(base_size = 13))
+<br>
+
+::: {.callout-tip}
+
+**10 Principios para la visualización de datos**
+
+1. Conoce a tu audiencia ¿Qué preguntas necesitan respuesta?
+
+2. Utiliza el tipo de gráfico adecuado para representar el tipo de información que se dispone.
+
+3. La forma sigue a la función. Concéntrate en cómo va a utilizar los datos tu público y deja que eso determine el estilo de presentación.
+
+4. Proporciona el contexto necesario para que los datos se interpreten y se actúe en consecuencia.
+
+5. Mantén la sencillez. Elimina la información no esencial.
+
+6. Resalta la información más importante 
+
+7. Utiliza los colores con prudencia
+
+8. Utiliza cuidadosamente las proporciones para que las diferencias de tamaño en el diseño representen fielmente las diferencias de valor.
+
+9. Sé escéptico. Pregúntate qué datos no están representados y qué información podría, por tanto, malinterpretarse o perderse.
+
+10. Muestra la verdad de tus datos, no lo que quisieras creer.
+
+
+:::
+
+
+
+## Preparación de datos
+
+En esta ocasión trabajaremos con un subconjunto de datos previamente procesados derivados de las encuestas realizadas en diferentes países por el [Latin American Public Opinion Proyect (LAPOP)](https://www.vanderbilt.edu/lapop/) en su ola del 2018. Para este ejercicio, obtendremos directamente esta base desde internet. No obstante, también tienes la opción de acceder a la misma información a través del siguiente enlace: [{{< fa table >}} `LAPOP 2018`](https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/lapop_proc_2018.RData). Desde allí, podrás descargar el archivo que contiene el subconjunto procesado de la base de datos LAPOP 2018.
+
+Comencemos por preparar nuestros datos. Iniciamos cargando las librerías necesarias.
+
+
+```{r librerias, echo=TRUE, message=FALSE, warning=FALSE, collapse=TRUE}
+pacman::p_load(tidyverse, # Manipulacion datos
+               ggplot2, # Gráficos
+               sjPlot, # Tablas y gráficos
+               ggpubr, # Gráficos
+               ggmosaic) # Gráficos
+               
+
+options(scipen = 999) # para desactivar notacion cientifica
+rm(list = ls()) # para limpiar el entorno de trabajo
 ```
 
-Cargamos la base de datos
+Cargamos los datos desde internet.
 
-```{r}
-options(scipen = 999) # desactiva la notación científica
+```{r datos, echo=TRUE, message=FALSE, warning=FALSE}
 
-url_datos <- paste0("https://raw.githubusercontent.com/",
-                    "cursos-metodos-facso/datos-ejemplos/main/casen_barrio2024.rdata")
-load(url(url_datos))
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/lapop_proc_2018.RData")) #Cargar base de datos
+
 ```
 
-La base recibe un breve procesamiento para crear las variables que se describen a continuación.
+A continuación, exploramos la base de datos.
 
-```{r}
-#| label: setup
+```{r exploracion, echo=TRUE, message=FALSE, warning=FALSE}
 
-datos_casen <- datos_casen |>
-  mutate(
-    sexo = factor(mujer, levels = c(0, 1), labels = c("Hombre", "Mujer")),
-    ruidos = factor(barrio_ruidos, levels = 1:4,
-                    labels = c("1 (Nunca)", "2", "3", "4 (Siempre)")),
-    tramo_esc = cut(escolaridad, breaks = c(-Inf, 8, 12, Inf),
-                    labels = c("Básica o menos (0-8)", "Media (9-12)", "Superior (13+)"))
-  ) |>
+names(lapop) # Nombre de columnas
+dim(lapop) # Dimensiones
+
+```
+
+Contamos con 39 variables (columnas) y 23.386 observaciones (filas).
+
+Realizamos un pequeño procesamiento de datos que nos servirá después.
+
+```{r echo=TRUE}
+# Transformamos las variables gini y gpd en variables numéricas
+lapop <- lapop %>% mutate(across(c("gini", "gdp"), ~ as.numeric(.))) 
+```
+
+## Analizar la forma de distribución
+
+Antes de visualizar los datos, **es crucial conocer el nivel de medición de nuestras variables y analizar la forma de su distribución**. En esta guía utilizaremos las siguientes variables del subset de LAPOP 2018:
+
+| Variable | Qué mide | Nivel de medición |
+|:---------|:---------|:------------------|
+| `pais` | País de residencia de la persona encuestada | Nominal (politómica) |
+| `sexo` | Sexo de la persona encuestada | Nominal _(dummy)_ |
+| `edad` | Edad de la persona encuestada | Continua |
+| `decile` | Ingreso del hogar (decil) | Continua |
+| `ideologia_f` | Ideología política (izquierda, centro, derecha, no identificada) | Nominal (politómica) |
+| `ros4` | Preferencia por la redistribución (1 a 7) | Ordinal |
+| `prot3` | Participación en protestas | Nominal _(dummy)_ |
+| `gini` | Índice de Gini del país (desigualdad económica) | Continua |
+
+
+Ahora nos concentraremos en analizar y visualizar la variable sobre preferencia por la redistribución [`ros4`]. Veamos su distribución univariada:
+
+```{r eval=TRUE, include=TRUE, collapse=FALSE}
+
+sjmisc::frq(lapop$ros4)
+
+```
+
+
+## Visualización de datos con `ggplot2`
+
+Una vez que conocemos cómo es la distribución de nuestras variables, procedemos a graficarlas considerando los principios para una buena visualizacion de datos.
+
+En este contexto, `ggplot2` es un potente paquete para visualizar datos en R. **Funciona por capas**, comenzando desde lo central hasta llegar a los detalles más estéticos necesarios.
+
+```{r echo=FALSE, warning=FALSE, out.width="80%", fig.align='right'}
+knitr::include_graphics(path = "https://descriptiva-facso.netlify.app/images/gg.png", error = FALSE)
+```
+
+
+
+1. La **primera capa corresponde a los datos**, es decir, las variables que queremos graficar ya listas y procesadas.
+2. La **segunda corresponde** al "mapping", que es básicamente determinar **cuáles variables serán el eje X e Y**, si existen grupos u otros. 
+3. La **tercera es la geometría**, la cual se refiere a la **forma** que tendrá el gráfico (líneas, barras, puntos, boxplot, violinplot, etc.). 
+
+## Visualización bivariada de datos
+
+El primer paso (recomendado) para generar gráficos en R es crear un objeto o base de datos ya procesada que contenga las variables que nos interesan listas para graficar. Luego, ir aplicando capa por capa los diferentes elementos de mapping, geometría, escalas, estadísticas y elementos estéticos útiles. 
+
+### Diferencias de medias (o proporciones) entre grupos
+
+Evaluemos si, visualmente, se observan diferencias en la media de preferencia por la redistribución entre las personas que se definen como de izquierda, centro, derecha y no identificada.
+
+
+#### Con `ggplot2`
+
+::: {.panel-tabset}
+## Datos
+
+```{r, echo=TRUE, collapse=TRUE}
+
+db_g1 <- lapop %>%
+  group_by(ideologia_f) %>%
+  summarise(
+    media_ros4 = mean(ros4, na.rm = TRUE),
+    error_std = sd(ros4, na.rm = TRUE) / sqrt(n()),
+    ci_inf = media_ros4 - qt(0.975, df = n() - 1) * error_std,
+    ci_sup = media_ros4 + qt(0.975, df = n() - 1) * error_std
+  ) %>%
   na.omit()
+  
+
+db_g1
+```
+
+## Mapping
+
+```{r echo=TRUE}
+
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4)) # especificamos datos y mapping 
+
+```
+
+## Geometría
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4)) + # especificamos datos y mapping 
+  geom_bar(stat = "identity") # agregamos geometria 
+
+```
+
+## Estadísticas (opcional)
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4, group = ideologia_f)) + # especificamos datos y mapping 
+  geom_bar(stat = "identity") + # agregamos geometria
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, color = "red") # agregamos intervalo de confianza calculado previamente
+
+
 ```
 
 
-| Variable | Tipo | Descripción |
-|:--|:--|:--|
-| `sexo` | Categórica | Hombre / Mujer (creada desde `mujer`) |
-| `tramo_esc` | Categórica ordinal | Tramo de escolaridad (creada desde `escolaridad`) |
-| `ruidos` | Categórica ordinal | Frecuencia con que ha presenciado ruidos molestos en su barrio, de 1 (Nunca) a 4 (Siempre) (creada desde `barrio_ruidos`) |
-| `escolaridad` | Numérica | Años de escolaridad |
-| `edad` | Numérica | Edad en años |
-| `ingreso_trabajo` | Numérica | Ingreso mensual del trabajo (\$) |
+## Escala
 
+```{r echo=TRUE, warning=FALSE, message=FALSE}
 
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4, group = ideologia_f)) + # especificamos datos y mapping 
+  geom_bar(stat = "identity") + # agregamos geometria
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, color = "red") + # agregamos intervalo de confianza calculado previamente
+   scale_y_continuous(limits = c(0,7), n.breaks = 7)  # agregamos escala en eje Y y ponemos limites minimos y maximos
 
-# Tablas {#parte-a}
-
-## Tabla de frecuencias {#frecuencias}
-
-Para describir una variable categórica, la primera herramienta es la **tabla de frecuencias**. Primero calculamos los datos con `dplyr` y luego los presentamos con `kable()`.
-
-```{r}
-#| label: tbl-frecuencias
-#| tbl-cap: "Tramo de escolaridad, CASEN 2024 (submuestra)"
-# 1. Calcular: contar casos por tramo y obtener el porcentaje
-tabla_esc <- datos_casen |>
-  count(tramo_esc) |>
-  mutate(porcentaje = round(100 * n / sum(n), 1))
-
-# 2. Presentar: kable() da formato a la tabla
-#    (col.names cambia los nombres de las columnas)
-kable(tabla_esc, col.names = c("Tramo de escolaridad", "n", "%"))
 ```
 
-::: {.callout-important title="Idea central"}
-Se separan dos pasos: **(1) calcular** el resultado en un objeto y **(2) presentarlo** con `kable()`. Así el objeto puede reutilizarse en gráficos o en el texto.
+## Etiquetas
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4, group = ideologia_f)) + # especificamos datos y mapping 
+  geom_bar(stat = "identity") + # agregamos geometria
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, color = "red") + # agregamos intervalo de confianza calculado previamente
+   scale_y_continuous(limits = c(0,7), n.breaks = 7) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+  geom_text(aes(label = round(media_ros4,2)), vjust = 1.5, colour = "white") # agregamos los valores de la media para cada barra/grupo
+
+```
+
+
+
+## Plot final
+
+```{r echo=TRUE, message=FALSE}
+
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4, group = ideologia_f)) + # especificamos datos y mapping 
+  geom_bar(stat = "identity", color = "black", fill = "steelblue") + # agregamos geometria
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, color = "red") + # agregamos intervalo de confianza calculado previamente
+   scale_y_continuous(limits = c(0,7), n.breaks = 7) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+  geom_text(aes(label = round(media_ros4,2)), vjust = 1.5, colour = "white") + # agregamos los valores de la media para cada barra/grupo 
+  labs(title ="Media de preferencia por la redistribución según ideología política", 
+       x = "Ideología política", 
+       y = "Media",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
+  theme_bw() # especificamos tema
+```
+
 :::
 
-::: {.rv-formulas}
-**Apoyo · Opciones útiles de `kable()`**
 
-| Argumento | Qué hace |
-|:--|:--|
-| `col.names = c(...)` | Cambia los nombres de las columnas |
-| `digits = 1` | Número de decimales |
-| `align = "lcc"` | Alineación por columna (izquierda, centro, derecha) |
-| `format.args = list(big.mark = ".", decimal.mark = ",")` | Formato chileno de números |
-| `caption = "..."` | Leyenda (en Quarto se prefiere `tbl-cap`) |
-:::
 
-## Tabla de dos variables {#tabla-cruzada}
 
-Para ver cómo se distribuyen dos variables categóricas a la vez, usamos una **tabla de contingencia**. Aquí presentamos porcentajes por columna: la distribución del tramo de escolaridad dentro de cada categoría de frecuencia de ruidos molestos en el barrio.
+### Asociación entre continuas
 
-```{r}
-#| label: tbl-cruzada
-#| tbl-cap: "Tramo de escolaridad según frecuencia de ruidos molestos en el barrio (% por columna)"
-# 1. Tabla de frecuencias con las dos variables
-tabla_cruzada <- table(datos_casen$tramo_esc, datos_casen$ruidos)
+Evaluemos cómo se asocian la preferencias por la redistribución de los países con su nivel de desigualdad económica.
 
-# 2. Convertir a porcentajes dentro de cada columna (margin = 2)
-porcentajes <- prop.table(tabla_cruzada, margin = 2) * 100
 
-# 3. Presentar la tabla con un decimal
-kable(porcentajes, digits = 1)
+#### Con `ggplot2`
+
+::: {.panel-tabset}
+## Datos
+
+```{r, echo=TRUE, collapse=TRUE}
+
+db_g2 <- lapop %>%
+  group_by(pais) %>% 
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>% 
+  ungroup()
+
+head(db_g2)
 ```
 
-## Tabla de estadísticos descriptivos {#tabla-descriptivos}
+## Mapping
 
-Para variables numéricas se resumen con medidas de tendencia central y dispersión.
+```{r echo=TRUE}
 
-```{r}
-#| label: tbl-descriptivos
-#| tbl-cap: "Estadísticos descriptivos de variables numéricas"
-# 1. Seleccionar las variables numéricas que queremos resumir
-vars <- datos_casen[, c("edad", "ingreso_trabajo")]
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) # especificamos datos y mapping 
 
-# 2. Calcular cada estadístico para todas las variables a la vez
-#    (na.rm = TRUE ignora los valores perdidos)
-descriptivos <- data.frame(
-  Variable = names(vars),
-  Media    = sapply(vars, mean, na.rm = TRUE),
-  Mediana  = sapply(vars, median, na.rm = TRUE),
-  DE       = sapply(vars, sd, na.rm = TRUE)
+```
+
+## Geometría
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping  
+  geom_point(size = 3, color = "darkred")  # agregamos geometria y color 
+```
+
+## Estadísticas (opcional)
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping  
+  geom_point(size = 3, color = "darkred") + # agregamos geometria y color 
+  geom_smooth(stat = "smooth", position = "identity", method = "lm", 
+              colour = "blue", size = 0.7) # agregamos recta que representa la correlacion
+```
+
+
+## Escala
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping  
+  geom_point(size = 3, color = "darkred") + # agregamos geometria y color 
+  geom_smooth(stat = "smooth", position = "identity", method = "lm", 
+              colour = "blue", size = 0.7) + # agregamos recta que representa la correlacion
+   scale_y_continuous(limits = c(4,6.5), breaks = seq(4,6.5, by = 0.5))  + # agregamos escala en eje Y y ponemos limites minimos y maximos
+   scale_x_continuous(n.breaks = 7) # agregamos escala eje X para mostrar más valores
+
+```
+
+## Etiquetas
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping  
+  geom_point(size = 3, color = "darkred") + # agregamos geometria y color 
+  geom_smooth(stat = "smooth", position = "identity", method = "lm", 
+              colour = "blue", size = 0.7) + # agregamos recta que representa la correlacion
+   scale_y_continuous(limits = c(4,6.5), breaks = seq(4,6.5, by = 0.5)) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+   scale_x_continuous(n.breaks = 7) +# agregamos escala eje X para mostrar más valores 
+  geom_text(aes(label = pais), size = 3, color = "black", 
+            nudge_y = 0.15) # agregamos los valores de la media para cada barra/grupo
+
+```
+
+
+
+## Plot final
+
+```{r echo=TRUE, message=FALSE}
+
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping  
+  geom_point(size = 3, color = "darkred") + # agregamos geometria y color 
+  geom_smooth(stat = "smooth", position = "identity", method = "lm", 
+              colour = "blue", size = 0.7) + # agregamos recta que representa la correlacion
+   scale_y_continuous(limits = c(4,6.5), breaks = seq(4,6.5, by = 0.5)) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+   scale_x_continuous(n.breaks = 7) +  # agregamos escala eje X para mostrar más valores
+  geom_text(aes(label = pais), size = 3, color = "black", 
+            nudge_y = 0.15) + # agregamos los valores de la media para cada barra/grupo
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países", 
+       y = "Media preferencias redistributivas", 
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
+  theme_bw() # especificamos tema
+```
+
+:::
+
+
+#### Con `ggpubr`
+
+
+::: {.panel-tabset}
+## Datos
+
+```{r, echo=TRUE, collapse=TRUE}
+
+db_g2 <- lapop %>%
+  group_by(pais) %>% 
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>% 
+  ungroup()
+
+head(db_g2)
+```
+
+## Mapping y geometría
+
+```{r echo=TRUE}
+
+ggscatter(data = db_g2,
+          x = "cm_gini", 
+          y = "cm_ros4",
+          color = "darkred") # agregamos mapping y geometría a la vez
+
+```
+
+
+## Estadísticas (opcional)
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggscatter(data = db_g2,
+          x = "cm_gini", 
+          y = "cm_ros4",
+          color = "darkred",
+          cor.coef = T, # mostrar coef corr
+          cor.coef.size = 4, # tamaño texto coef corr
+          add = "reg.line",  # mostrar linea de reg
+          conf.int = T,  # mostrar SE
+          add.params = list(color = "blue", fill = "lightgray")) # colores
+
+```
+
+
+
+## Etiquetas
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggscatter(data = db_g2,
+          x = "cm_gini", 
+          y = "cm_ros4",
+          color = "darkred",
+          cor.coef = T, # mostrar coef corr
+          cor.coef.size = 4, # tamaño texto coef corr
+          add = "reg.line",  # mostrar linea de reg
+          conf.int = T,  # mostrar SE
+          add.params = list(color = "blue", fill = "lightgray"), # colores
+          label = "pais",
+          size = 3,
+          font.label = c(8, "plain")
 )
 
-# 3. Presentar la tabla (digits = 1: un decimal; row.names = FALSE: sin numerar filas)
-kable(descriptivos, digits = 1, row.names = FALSE)
 ```
 
-**Ejercicio**
 
-A) Construya una tabla de frecuencias de `sexo` con casos y porcentajes.
 
-B) Interprete los resultados. ¿Qué puede decir de la distribución de los casos?
+## Plot final
 
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio"}
+```{r echo=TRUE, message=FALSE}
 
-```{r}
-#| label: tbl-sexo
-#| tbl-cap: "Distribución por sexo"
-# 1. Contar casos por sexo y calcular el porcentaje
-tabla_sexo <- datos_casen |>
-  count(sexo) |>
-  mutate(porcentaje = round(100 * n / sum(n), 1))
-
-# 2. Presentar la tabla con nombres de columnas en español
-kable(tabla_sexo, col.names = c("Sexo", "n", "%"))
+ggscatter(data = db_g2,
+          x = "cm_gini", 
+          y = "cm_ros4",
+          color = "darkred",
+          cor.coef = T, # mostrar coef corr
+          cor.coef.size = 4, # tamaño texto coef corr
+          add = "reg.line",  # mostrar linea de reg
+          conf.int = T,  # mostrar SE
+          add.params = list(color = "blue", fill = "lightgray"), # colores
+          label = "pais",
+          size = 3,
+          font.label = c(8, "plain")
+) +
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países", 
+       y = "Media preferencias redistributivas", 
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
+  theme_bw() # especificamos tema
 ```
 
 :::
 
-# Gráficos de una variable {#parte-b}
+#### Con `sjPlot`
 
-## La gramática de ggplot2 {#gramatica}
 
-**ggplot2** construye un gráfico por capas. Siempre se necesitan tres elementos: los **datos**, la **estética** (`aes()`, qué variable va en cada eje) y una **geometría** (`geom_*()`, la forma del gráfico). Las capas se suman con `+`.
+::: {.panel-tabset}
+## Datos
 
-```{r}
-#| eval: false
-ggplot(data = datos,           # 1. datos
-       aes(x = variable)) +    # 2. estética
-  geom_bar() +                 # 3. geometría
-  labs(x = "...", y = "...") + # 4. títulos de ejes
-  theme_minimal()              # 5. tema
+```{r, echo=TRUE, collapse=TRUE}
+
+db_g2 <- lapop %>%
+  group_by(pais) %>% 
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>% 
+  ungroup()
+
+head(db_g2)
 ```
 
-::: {.rv-formulas}
-**Apoyo · ¿Qué gráfico para qué variable?**
+## Mapping y geometría
 
-| Objetivo | Tipo de variable | Geometría |
-|:--|:--|:--|
-| Describir una variable | Categórica | `geom_bar()` |
-| Describir una variable | Numérica | `geom_histogram()`, `geom_density()`, `geom_boxplot()` |
-| Relacionar dos variables | Numérica y numérica | `geom_point()` + `geom_smooth()` |
-| Relacionar dos variables | Numérica y categórica | `geom_boxplot()`, barras de promedios |
-| Relacionar dos variables | Categórica y categórica | `geom_jitter()` |
+```{r echo=TRUE}
+
+sjPlot::plot_scatter(data = db_g2, 
+                     x = cm_gini,
+                     y = cm_ros4) # agregamos mapping y geometría a la vez
+
+```
+
+
+## Estadísticas (opcional)
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+sjPlot::plot_scatter(data = db_g2, 
+                     x = cm_gini,
+                     y = cm_ros4, 
+                     fit.line = "lm", # mostrar linea de reg
+                     show.ci = T,# mostrar SE
+                     dot.size = 3)
+
+```
+
+
+
+## Etiquetas
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+sjPlot::plot_scatter(
+  data = db_g2, 
+  x = cm_gini,
+  y = cm_ros4, 
+  fit.line = "lm",      # Mostrar línea de regresión
+  show.ci = TRUE,       # Mostrar intervalo de confianza
+  dot.size = 3,
+  dot.labels = db_g2$pais # Etiquetas de los puntos
+)
+
+```
+
+
+
+## Plot final
+
+```{r echo=TRUE, message=FALSE}
+
+sjPlot::plot_scatter(
+  data = db_g2, 
+  x = cm_gini,
+  y = cm_ros4, 
+  fit.line = "lm",      # Mostrar línea de regresión
+  show.ci = TRUE,       # Mostrar intervalo de confianza
+  dot.size = 3,
+  dot.labels = db_g2$pais # Etiquetas de los puntos
+) +
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países", 
+       y = "Media preferencias redistributivas", 
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
+  theme_bw() # especificamos tema
+```
+
 :::
 
-## Gráfico de barras {#barras}
 
-El gráfico de barras muestra la **frecuencia de cada categoría**. `geom_bar()` cuenta los casos por sí mismo.
+### Asociación entre categóricas
 
-```{r}
-#| label: fig-barras
-#| fig-cap: "Tramo de escolaridad, CASEN 2024 (submuestra)"
-#| fig-width: 7
-#| fig-height: 3.8
-ggplot(datos_casen, aes(x = tramo_esc)) +
-  geom_bar(fill = "#526e75") +
-  labs(x = "Tramo de escolaridad", y = "Número de personas") +
-  theme_minimal(base_size = 13) +
-  theme(panel.grid.major.x = element_blank())
+Evaluemos la asociación entre la participación en protestas y la ideología política de los individuos.
+
+
+#### Con `ggmosaic` y `ggplot2`
+
+::: {.panel-tabset}
+## Datos
+
+```{r, echo=TRUE, collapse=TRUE}
+
+db_g3 <- lapop %>%
+  dplyr::select(prot3, ideologia_f) %>% 
+  na.omit()
+
+head(db_g3)
 ```
 
-Si lo que se quiere mostrar son **porcentajes**, se calculan antes y se usa `geom_col()`, que dibuja barras con la altura de una variable ya calculada. Agregar `geom_text()` permite rotular las barras.
+## Mapping y geometría
 
-```{r}
-#| label: fig-barras-pct
-#| fig-cap: "Tramo de escolaridad en porcentajes, CASEN 2024 (submuestra)"
-#| fig-width: 7
-#| fig-height: 3.8
-ggplot(tabla_esc, aes(x = tramo_esc, y = porcentaje)) +
-  geom_col(fill = "#526e75") +
-  geom_text(aes(label = paste0(format(porcentaje, decimal.mark = ","), "%")),
-            vjust = -0.4) +
-  scale_y_continuous(limits = c(0, 60)) +
-  labs(x = "Tramo de escolaridad", y = "Porcentaje") +
-  theme_minimal(base_size = 13) +
-  theme(panel.grid.major.x = element_blank())
+```{r echo=TRUE}
+
+ggplot(data = db_g3) +
+  geom_mosaic(aes(product(prot3, ideologia_f), fill = ideologia_f)) # agregamos mapping y geometría a la vez
+
 ```
 
-::: {.callout-tip title="geom_bar() vs. geom_col()"}
-`geom_bar()` **cuenta** los casos de los datos originales. `geom_col()` **usa una columna ya calculada** (por ejemplo, porcentajes). Si el gráfico sale con barras todas iguales o con un error, es probable que se haya usado la función equivocada.
+
+## Estadísticas (opcional) y etiquetas
+
+
+```{r echo=TRUE, warning=FALSE, message=FALSE}
+
+ggplot(data = db_g3) +
+  geom_mosaic(aes(product(prot3, ideologia_f), fill = ideologia_f)) + # agregamos mapping y geometría a la vez
+  geom_label(data = layer_data(last_plot(), 1),
+             aes(x = (xmin + xmax)/ 2,
+                 y = (ymin + ymax)/ 2,
+                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) # agregamos porcentajes de cada combinación de categórias
+
+```
+
+## Escala
+
+
+```{r echo=TRUE, message=FALSE}
+
+ggplot(data = db_g3) +
+  geom_mosaic(aes(product(prot3, ideologia_f), fill = ideologia_f)) + # agregamos mapping y geometría a la vez
+  geom_label(data = layer_data(last_plot(), 1),
+             aes(x = (xmin + xmax)/ 2,
+                 y = (ymin + ymax)/ 2,
+                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) +# agregamos porcentajes de cada combinación de categórias
+  scale_fill_discrete(name = "",
+                      labels = c("Derecha",
+                                 "Centro",
+                                 "Izquierda", 
+                                 "No declarado"))
+
+```
+
+
+## Plot final
+
+```{r echo=TRUE, message=FALSE}
+
+ggplot(data = db_g3) +
+  geom_mosaic(aes(product(prot3, ideologia_f), fill = ideologia_f)) + # agregamos mapping y geometría a la vez
+  geom_label(data = layer_data(last_plot(), 1),
+             aes(x = (xmin + xmax)/ 2,
+                 y = (ymin + ymax)/ 2,
+                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) +# agregamos porcentajes de cada combinación de categórias
+  scale_fill_discrete(name = "",
+                      labels = c("Derecha",
+                                 "Centro",
+                                 "Izquierda", 
+                                 "No declarado")) + 
+  labs(title ="Asociación entre participación en protestas e ideología política", 
+       y = "Participación protesta", 
+       x = "Ideología política",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
+  theme_bw() # especificamos tema
+```
+
 :::
 
-## Histograma {#histograma}
+# Tablas
 
-Para una variable **numérica**, el histograma divide el rango en intervalos (*bins*) y cuenta cuántos casos caen en cada uno. El resultado depende del ancho de los intervalos, por lo que conviene probar con distintos valores de `binwidth`.
-
-```{r}
-#| label: fig-histograma
-#| fig-cap: "Distribución de la edad, CASEN 2024 (submuestra)"
-#| fig-width: 7
-#| fig-height: 3.8
-ggplot(datos_casen, aes(x = edad)) +
-  geom_histogram(binwidth = 5, fill = "#526e75", colour = "white") +
-  labs(x = "Edad (años)", y = "Número de personas") +
-  theme_minimal(base_size = 13)
-```
-
-El ingreso es una variable muy asimétrica: pocas personas tienen ingresos muy altos. Una opción es acotar el eje para ver mejor la mayor parte de los datos, informándolo en la leyenda.
+Para la construcción y visualización de tablas en R utilizamos paquetes distintos a los que usamos para gráficos. En esta sección de la sesión cargaremos los siguientes paquetes: 
 
 ```{r}
-#| label: fig-histograma-ingreso
-#| fig-cap: "Distribución del ingreso del trabajo, CASEN 2024 (submuestra). Eje horizontal acotado a $3.000.000."
-#| fig-width: 7
-#| fig-height: 3.8
-ggplot(datos_casen, aes(x = ingreso_trabajo)) +
-  geom_histogram(binwidth = 100000, fill = "#526e75", colour = "white") +
-  scale_x_continuous(labels = scales::label_number(big.mark = ".", decimal.mark = ",")) +
-  coord_cartesian(xlim = c(0, 3e6)) +
-  labs(x = "Ingreso del trabajo ($)", y = "Número de personas") +
-  theme_minimal(base_size = 13)
+pacman::p_load(tidyverse, # Manipulacion datos
+               sjmisc, # Descriptivos
+               knitr, # Render y tablas
+               kableExtra, # Formateo tablas
+               summarytools, # Tablas
+               sjPlot, # Tablas y gráficos
+               stargazer, # Tablas
+               janitor, # Tablas y formateo
+               crosstable, # Tablas
+               table1 # Tablas
+               ) 
 ```
 
-## Boxplot {#boxplot}
+La mejor forma de generar tablas es con la función `kable()` del paquete `knitr` y las distintas funciones de formateo que ofrece el paquete `kableExtra`. Esto se debe a que `kable()` y las funciones de `kableExtra` aplican estilo y formato a un objeto de R (generalmente un `data.frame`). Esto quiere decir que para hacer una tabla debemos:
 
-El diagrama de caja resume la distribución con la mediana, los cuartiles y los valores extremos.
+1. Procesar nuestros datos de manera que **generemos un objeto tipo `data.frame`** (base de datos) con la información requerida. Esto lo hacemos a través de `dplyr` o algún otro paquete dedicado al manejo de datos.
+
+2. **Aplicar el estilo y el formateo** que queramos para ese objeto. Esto lo hacemos a través de `kableExtra` (hay otras opciones, por ejemplo [`flextable`](https://ardata-fr.github.io/flextable-book/)).
+
+Apliquemos esto con nuestros datos.
+
+Primero, generaremos un objeto llamado `tab1` que usaremos como contenido de la tabla. Este objeto tendrá la distribución de `it1` (confianza interpersonal) por país, es decir, es una tabla bivariada.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+tab1 <- lapop %>%
+  group_by(pais, it1) %>% # agrupamos por pais y variable
+  summarise(n = n()) %>% # contamos por categ de respuesta
+  mutate(prop = round((n / sum(n)) * 100, 2)) %>% # porcentaje
+  na.omit() %>% # borramos NA
+  pivot_wider(id_cols = pais, names_from = it1, values_from = prop) # convertimos a formato ancho
+
+tab1
+```
+
+**Creemos nuestra tabla**. Usemos primero la función `kable()` directamente:
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+tab1 %>% kable()
+```
+
+Ahora tenemos una tabla, pero es muy simple y poco presentable. Especifiquemos opciones de formato:
+
+- `format`: para especificar formato de la tabla (html, markdown, latex)
+- `aling`: para especificar alineacion de las celdas ('r'=derecha, 'c'=centro, 'l'=izquierda),
+- `col.names`: para nombres de columnas visibles en la tabla, se ingresan como un vector `c()`
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+tab1 %>% 
+  kable(
+    format = "markdown",
+    align = "c",
+    col.names = c("País", "Nada confiable", "Poco confiable", "Algo confiable", "Muy confiable"))
+```
+
+Ahora agregemos otros elementos importantes, como el título, estilo y fuente a la tabla:
+
+- `caption`: para dar titulo de la tabla
+- `kable_classic()`: para dar estilo
+- `add_footnote()`: para agregar fuente o pie a la tabla
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+tab1 %>% 
+  kable(format = "markdown",
+        align = "c",
+        col.names = c("País", "Nada confiable", "Poco confiable", "Algo confiable", "Muy confiable"),
+        caption = "Tabla 1. Confianza interpersonal según país") %>% 
+  kableExtra::kable_classic() %>% 
+  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a LAPOP 2018.")
+```
+
+¿Muy grande? También podemos ajustar el ancho que ocupa la tabla, el tamaño de la letra y la posición:
+
+- `full_width`: para indicar si la tabla cubre todo el ancho o no (`TRUE`/`FALSE`) 
+- `position`: para indicar posición de la tabla en el documento
+- `font_size`: para indicar tamaño de la letra
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+tabla1 <- tab1 %>% 
+  kable(format = "markdown",
+                    align = "c",
+                    col.names = c("País", "Nada confiable", "Poco confiable", "Algo confiable", "Muy confiable"),
+                    caption = "Tabla 1. Confianza interpersonal según país") %>% 
+  kableExtra::kable_classic(full_width = FALSE, position = "center", font_size = 14) %>% 
+  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a LAPOP 2018.")
+
+tabla1
+```
+
+En este caso, nuestro ejemplo fue para hacer una tabla bivariada con dos variables categóricas. Sin embargo, podríamos hacer lo mismo para una variable continua y crear una tabla bivariada con los principales estadisticos descriptivos.
+
+Creemos el objeto `tab2`, el cual serán los estadísticos descriptivos de la variable `edad` por país en nuestra base de datos.
+
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+ tab2 <- lapop %>% 
+    group_by(pais) %>% 
+    summarise(
+        n = n(), # Tamaño muestral
+        min = min(edad, na.rm = T), # Mínimo
+        max = max(edad, na.rm = T), # Máximo
+        media = round(mean(edad, na.rm = T), 2), # Media redondeada a 2 digitos
+        sd = round(sd(edad, na.rm = T), 2), # Desviación estándar redondeada a 2 digitos
+        mediana = median(edad, na.rm = T) # Mediana
+        #cv = round((media/sd)*100, 2) # Coeficiente de variación redondeado a 2 digi
+        )
+```
+
+Y ahora apliquemos el formato con `kable()` y las funcionalidades del paquete de `kableExtra`:
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+tabla2 <- tab2 %>% 
+  kable(format = "markdown",
+                    align = "c",
+                    col.names = c("País", "Tamaño muestral", "Mínimo", "Máximo", "Media", "Desv. estándar", "Mediana"),
+                    caption = "Tabla 2. Edad según país") %>% 
+  kableExtra::kable_classic(full_width = FALSE, position = "center", font_size = 14) %>% 
+  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a LAPOP 2018.")
+
+tabla2
+```
+
+Para ver todas las funcionalidades y estilos que se pueden generar con `kableExtra`, ver [aquí](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html).
+
+# Tablas con otros paquetes
+
+Si bien la combinación de crear nuestra tabla (probablemente con `dplyr`) y formatear con `kableExtra` es la mejor forma para reportar tablas, existen otras funciones. 
+
+Las funciones varían de acuerdo a qué es lo que se quiere reportar, es decir, si es una variable categórica o numérica y si el reporte debe ser univariado o bivariado. De todos modos, solo algunas funciones tienen una salida directa en HTML (pensando en que se utilizarán en Quarto), por lo que algunas veces solo nos ahorraremos el procesamiento. El formateo deberemos hacerlo igual.
+
+La principal virtud de estas funciones es que nos ahorra hacer el procesamiento de la tabla. Sin embargo, el desafío es que debemos saber bien qué es lo que queremos reportar para utilizar la función adecuada.
+
+A continuación, presentaremos algunas de las funcionas más conocidas, dividiendo si son para tablas univariadas o bivariadas.
+
+Vamos a crear una versión recortada de **lapop** para ejemplifcar cada función:
 
 ```{r}
-#| label: fig-boxplot
-#| fig-cap: "Distribución de la edad, CASEN 2024 (submuestra)"
-#| fig-width: 4.5
-#| fig-height: 3.8
-ggplot(datos_casen, aes(y = edad)) +
-  geom_boxplot(fill = "#a9bcc2", colour = "#284958") +
-  labs(y = "Edad (años)") +
-  theme_minimal(base_size = 13) +
-  theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
+# Creemos una version de lapop solo con algunas variables como ejemplo
+data_example <- lapop %>%
+  select(pais, it1, edad, sexo, gini, gdp)
+
 ```
 
-> Qué podemos decir de este gráfico?
+## Funciones para tablas univariadas
 
-# Gráficos de dos variables {#parte-c}
+Estas tablas suelen incluir estadísticas descriptivas de una sola variable como medias, medianas, desviaciones estándar, entre otras.
 
-## Numérica y numérica: dispersión {#dispersion}
+### [`summarytools`](https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html):
 
-Para relacionar dos variables numéricas usamos el **gráfico de dispersión**: cada punto es una persona. Como `escolaridad` toma valores enteros, muchos puntos se superponen; `geom_jitter()` los separa levemente y `alpha` los hace transparentes.
+- `summarytools::dfSummary():` Genera un resumen univariado completo de cada variable en el dataset, con estadísticas, frecuencia de valores y gráficos.
+
+```{r message=FALSE, warning=FALSE}
+tab <- summarytools::dfSummary(data_example)
+summarytools::view(tab, method = "render")
+```
+
+- `summarytools::descr():` Proporciona estadísticas descriptivas para variables numéricas.
+
+```{r message=FALSE, warning=FALSE, error=FALSE}
+tab <- summarytools::descr(data_example$edad)
+summarytools::view(tab, method = "render")
+```
+
+### [`stargazer`](https://cran.r-project.org/web/packages/stargazer/vignettes/stargazer.pdf):
+
+- `stargazer::stargazer()`: Para reportar estadísticas descriptivas.
+
+```{r message=FALSE, warning=FALSE, results='asis', eval=FALSE}
+stargazer(as.data.frame(data_example), type = "text", summary.stat = c("mean", "sd", "min", "max"))
+```
+
+```{r message=FALSE, warning=FALSE, results='asis', echo=FALSE}
+stargazer(as.data.frame(data_example), type = "html", summary.stat = c("mean", "sd", "min", "max"))
+```
+
+### [`psych`](https://personality-project.org/r/html/describe.html):
+
+- `psych::describe()`: Calcula estadísticas descriptivas adicionales, como curtosis y asimetría.
+
+```{r message=FALSE, warning=FALSE}
+psych::describe(data_example) %>%
+  kable() %>%
+  kable_styling(full_width = TRUE)
+```
+
+### [`sjmisc`](https://strengejacke.github.io/sjmisc/articles/exploringdatasets.html):
+
+- `sjmisc::frq()`: Para tablas de frecuencias detalladas de variables categóricas. Incluye labels.
+
+```{r message=FALSE, warning=FALSE}
+sjmisc::frq(data_example$it1) %>%
+  kable() 
+```
+
+### [`table1`](https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html):
+
+- `table1::table1()`: Permite ver tanto variables categoricas como numericas en la misma tabla de manera estética
+
+```{r message=FALSE, warning=FALSE}
+table1::table1(~ factor(sexo) + edad + gini + gdp, data = data_example)
+```
+
+## Funciones para tablas bivariadas
+
+Las tablas bivariadas permiten explorar relaciones entre pares de variables, útiles para comparar medias o analizar frecuencias conjuntas en tablas de contingencia.
+
+### [`sjPlot`:](https://strengejacke.github.io/sjPlot/articles/table_css.html)
+
+-  `sjPlot::tab_xtab()`: Produce tablas cruzadas de frecuencias y porcentajes, y es útil para comparar variables categóricas entre grupos.
+
+```{r message=FALSE, warning=FALSE}
+sjPlot::tab_xtab(data_example$pais, data_example$it1, show.row.prc = TRUE)
+```
+
+### [`summarytools`](https://cran.r-project.org/web/packages/summarytools/vignettes/introduction.html):
+
+- `summarytools::ctable()`: Para tablas de contingencia que incluyen porcentajes y frecuencias, con opciones de personalización.
+
+```{r message=FALSE, warning=FALSE, eval=FALSE}
+tab <- summarytools::ctable(data_example$pais, data_example$sexo)
+summarytools::view(tab, method = "viewer")
+```
+
+```{r message=FALSE, warning=FALSE, echo=FALSE}
+tab <- summarytools::ctable(data_example$pais, data_example$sexo)
+summarytools::view(tab, method = "render")
+```
+
+### [`crosstable`](https://cran.r-project.org/web/packages/crosstable/vignettes/crosstable.html):
+
+- `crosstable::crosstable()`: También produce tablas de continencia con opciones de personalización.
+
+```{r message=FALSE, warning=FALSE}
+crosstable::crosstable(data_example, pais, by = sexo, margin=c("row", "col"), total = "both") %>% 
+  kable() %>%
+  kable_styling(full_width = TRUE)
+```
+
+### [`table1`](https://cran.r-project.org/web/packages/table1/vignettes/table1-examples.html):
+
+- `table1::table1()`: También se puede utilizar agrupando las variables (numericas o categoricas) por alguna variable categórica. 
+
+```{r message=FALSE, warning=FALSE}
+table1::table1(~ factor(sexo) + edad + gini + gdp | pais, data = data_example)
+```
+
+### [`dplyr`](https://cran.r-project.org/web/packages/dplyr/vignettes/dplyr.html) y [`janitor`](https://cran.r-project.org/web/packages/janitor/vignettes/janitor.html):
+
+- dplyr + `janitor::tabyl()`: Puedes hacer resúmenes bivariados personalizados con count() o group_by(), y tabyl() genera tablas de contingencia de frecuencias para un vistazo rápido.
 
 ```{r}
-#| label: fig-dispersion
-#| fig-cap: "Escolaridad e ingreso del trabajo, CASEN 2024 (submuestra). Eje vertical acotado a $3.000.000."
-#| fig-width: 7.8
-#| fig-height: 4.2
-ggplot(datos_casen, aes(x = escolaridad, y = ingreso_trabajo)) +
-  geom_jitter(alpha = 0.3) +
-  geom_smooth(method = "lm", se = FALSE) +
-  coord_cartesian(ylim = c(0, 3000000)) +
-  labs(x = "Años de escolaridad", y = "Ingreso del trabajo ($)")
+data_example %>%
+  janitor::tabyl(pais, it1) %>% # Esto reemplaza el procesamiento, buena alternativa
+  kable() %>%
+  kable_styling(full_width = TRUE)
 ```
 
-`geom_smooth(method = "lm")` agrega la recta de regresión que permite revisar si la relación es lineal.
 
-## Numérica y categórica: boxplot por grupos {#boxplot-grupos}
+::: {.callout-important title="Recomendaciones para el trabajo final"}
 
-Para comparar una variable numérica entre grupos, se pone la variable categórica en el eje X.
+Para la sección de métodos siempre es recomendable presentar una tabla general de descriptivos de las variables que se van a utilizar en el análisis. Para este caso `summarytools` o `table1` son una buenas alternativas, puesto que se pueden ver dentro de una misma tabla variables categóricas y continuas.
 
-```{r}
-#| label: fig-boxplot-grupos
-#| fig-cap: "Ingreso del trabajo según tramo de escolaridad, CASEN 2024 (submuestra). Eje vertical acotado a $3.000.000."
-#| fig-width: 7
-#| fig-height: 4
-ggplot(datos_casen, aes(x = tramo_esc, y = ingreso_trabajo, fill = tramo_esc)) +
-  geom_boxplot() +
-  scale_fill_brewer(palette = "Set2") +
-  coord_cartesian(ylim = c(0, 3000000)) +
-  labs(x = "Tramo de escolaridad", y = "Ingreso del trabajo ($)") +
-  theme(legend.position = "none")
-```
+En caso de querer visualizar tablas bivariadas en la sección de resultados, se sugiere la opción con `sjPlot` ya que permite observar las frecuencias y porcentajes de cada combinación de categorías
 
-Otra alternativa es comparar **promedios** con barras, resumiendo antes con `dplyr`.
-
-```{r}
-#| label: fig-promedios
-#| fig-cap: "Ingreso promedio del trabajo según tramo de escolaridad y sexo, CASEN 2024 (submuestra)"
-#| fig-width: 7
-#| fig-height: 4
-promedios <- datos_casen |>
-  group_by(tramo_esc, sexo) |>
-  summarise(ingreso = mean(ingreso_trabajo, na.rm = TRUE), .groups = "drop")
-
-ggplot(promedios, aes(x = tramo_esc, y = ingreso, fill = sexo)) +
-  geom_col(position = "dodge") +
-  scale_fill_manual(values = c("Hombre" = "#2a6f97", "Mujer" = "#e07a5f")) +
-  labs(x = "Tramo de escolaridad", y = "Ingreso promedio ($)", fill = "Sexo")
-```
-
-## Categórica y categórica: jitter {#jitter-categoricas}
-
-Cuando ambas variables son categóricas, todos los puntos de un gráfico de dispersión caerían exactamente sobre unas pocas posiciones y se superpondrían. `geom_jitter()` los **dispersa aleatoriamente** alrededor de cada cruce de categorías: el área con más puntos indica dónde hay más casos.
-
-```{r}
-#| label: fig-jitter-categoricas
-#| fig-cap: "Tramo de escolaridad según frecuencia de ruidos molestos en el barrio, CASEN 2024 (submuestra). Cada punto es una persona."
-#| fig-width: 7
-#| fig-height: 4
-ggplot(datos_casen, aes(x = ruidos, y = tramo_esc)) +
-  # width y height controlan cuánto se dispersan los puntos
-  geom_jitter(width = 0.25, height = 0.25, alpha = 0.4) +
-  labs(x = "Frecuencia de ruidos molestos en el barrio", y = "Tramo de escolaridad")
-```
-
-::: {.callout-note title="Limitación"}
-El jitter muestra **dónde se concentran los casos**, pero no entrega porcentajes exactos. Para leer cifras precisas, conviene complementarlo con la tabla de contingencia (@tbl-cruzada).
 :::
 
-::: {.callout-tip title="Tres recomendaciones para gráficos de dos variables"}
-- **La variable explicativa va en X** y la variable de respuesta en Y.
-- Con muchos puntos, use **transparencia** (`alpha`) o `geom_jitter()`.
-- Mantenga `width` y `height` del jitter pequeños: solo debe separar puntos, no cambiar su categoría.
+
+
+# 6. Figuras dentro de Quarto
+
+Una de las ventajas de usar documentos dinámicos con Quarto es que podemos autoreferenciar los gráficos y figuras que creamos dentro del mismo documento, además de especificar una serie de propiedades para ajustar la presentación de nuestro gráfico.
+
+Para especificar elementos de presentación de gráficos en un documento Quarto usaremos las opciones de **chunks**. Algunas de las más comunes son:
+
+- `label`: para especificar el nombre y tipo de elemento, cuando es un gráfico debemos nombrar al chunk con el prefijo `fig-` antes del nombre respectivo. 
+- `fig-align`: para espeficiar alineación del gráfico en el documento (left, right, center)
+- `out-width`: para especificar el tamaño del gráfico en el documento
+- `fig-cap`: para espeficiar el título del gráfico que se muestra en el documento
+
+
+::: {.callout-important}
+
+Cuando referenciamos gráficos utilizamos el prefijo `fig-`. En cambio, cuando buscamos referenciar tablas, debemos usar el prefijo `tab-`. Esto es importante para que Quarto pueda diferenciar entre ambos elementos y los muestre correctamente en el documento.
+
 :::
 
-# Referencias y guardado de figuras {#parte-d}
+Tomemos por ejemplo el siguiente gráfico que muestra el promedio de preferencias redistribuivas (`ros4`) y del índice de Gini de los países (`gini`). Esto lo haremos paso por paso.
 
-## Leyendas y referencias cruzadas {#referencias}
+- Primero, creamos un objeto llamado `g1` en donde almacenaremos la información que queremos graficar. 
 
-Para que Quarto numere una figura o tabla y permita referirse a ella en el texto, el bloque de código necesita **dos opciones**: una **etiqueta** con prefijo (`fig-` o `tbl-`) y una **leyenda** (`fig-cap` o `tbl-cap`).
-
-````markdown
-```{{r}}
-#| label: fig-barras
-#| fig-cap: "Tramo de escolaridad, CASEN 2024"
-ggplot(datos_casen, aes(x = tramo_esc)) + geom_bar()
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+g1 <- lapop %>%
+  group_by(pais) %>% 
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>% 
+  ungroup()
 ```
 
-Como muestra la @fig-barras, la mayoría de las personas ...
+- Ahora, graficamos esta asociación en un objeto llamado `grafico1`.
+
+```{r, echo=TRUE, warning=FALSE, message=FALSE}
+
+grafico1 <- ggplot(data = g1,
+       mapping = aes(x = cm_gini, y = cm_ros4, label = pais)) +
+  geom_point() +
+  geom_smooth(method = "lm",colour = "black",fill="lightblue",size=0.5) + 
+  geom_text(aes(label = pais), size = 3, color = "black", nudge_y = 0.05) +
+  labs(x = "Índice de Gini",
+       y = "Preferencias redistributivas",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018") +
+  theme_bw()
+
+grafico1
+```
+
+
+Llamemos a nuestro `grafico1`, pero ahora especificando en el chunk: 
+
+````
+```{r}`r ''`
+#| label: fig-asociacion
+#| fig-align: center 
+#| out-width: '80%'
+#| fig-cap: 'Asociación entre Índice de Gini y Preferencias Redistributivas'
+#| echo: true
+
+grafico1
+
+```
 ````
 
-::: {.rv-formulas}
-**Apoyo · Opciones para figuras y tablas**
-
-| Opción | Qué hace |
-|:--|:--|
-| `label: fig-nombre` / `tbl-nombre` | Nombra la figura o tabla (el prefijo es obligatorio) |
-| `fig-cap: "..."` / `tbl-cap: "..."` | Leyenda numerada automáticamente |
-| `fig-width`, `fig-height` | Tamaño de la figura en pulgadas |
-| `fig-alt: "..."` | Texto alternativo para accesibilidad |
-| `fig-align: center` | Alineación de la figura |
-| `echo: false` | Oculta el código y muestra solo el resultado |
-:::
-
-En el texto, `@fig-barras` se convierte en un enlace «Figura 1» y `@tbl-frecuencias` en «Tabla 1». Por ejemplo, la @tbl-frecuencias presenta la distribución de la escolaridad y la @fig-barras la muestra gráficamente.
-
-::: {.callout-warning title="Errores frecuentes"}
-- Olvidar el prefijo: `label: barras` no lee la referencia como figura; debe ser `fig-barras`.
-- Que la etiqueta del chunk y la referencia no coincidan exactamente.
-- Usar guiones bajos en la etiqueta: use guiones (`fig-mi-grafico`).
-:::
-
-## Guardar una figura {#guardar}
-
-A veces se necesita el gráfico como archivo (para una presentación o un informe que no se busque ejecutar el código). `ggsave()` guarda el último gráfico o uno almacenado en un objeto. Por orden, se guarda en la carpeta `output`.
-
 ```{r}
-#| eval: false
-grafico <- ggplot(datos_casen, aes(x = tramo_esc)) + geom_bar()
+#| label: fig-asociacion
+#| fig-align: center
+#| out-width: '80%'
+#| fig-cap: 'Asociación entre Índice de Gini y Preferencias Redistributivas'
+#| echo: true
 
-ggsave("output/grafico-barras.png", plot = grafico,
-       width = 7, height = 4, dpi = 300)
+grafico1
+
 ```
 
 
-# Ejercicio autónomo
+Ahora tenemos un gráfico centrado, más grande y con un título en nuestro documento. Además, podemos llamar a este gráfico usando  `@fig-asociacion`.
 
-**Ejercicio 1**
 
-A) Genere un documento Quarto con los siguientes elementos:
+Texto de ejemplo:
 
-- Título 
+> En la @fig-asociacion se muestra la asociación entre el promedio de preferencia por la redistribución y el nivel de desigualdad ecónomica de los países. 
 
-- Fecha
 
-B) Cree un chunk y dentro de él genere una tabla descriptiva de la variable `escolaridad`
+Apliquemos el mismo procedimiento con una tabla. Para que sea simple, usaremos la edad promedio de los primeros cinco países de la base. Primero, creamos el objeto `tab3`:
 
-C) Añada la etiqueta `tbl-escolaridad` y reporte los resultados haciendo referencia a la tabla en el texto
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 1"}
-```{r}
-#| label: tbl-esc-descriptivos
-#| tbl-cap: "Estadísticos descriptivos de la escolaridad"
-# 1. Calcular cada estadístico de la escolaridad
-descriptivos_esc <- data.frame(
-  Variable = "Escolaridad (años)",
-  Media    = mean(datos_casen$escolaridad, na.rm = TRUE),
-  Mediana  = median(datos_casen$escolaridad, na.rm = TRUE),
-  DE       = sd(datos_casen$escolaridad, na.rm = TRUE)
-)
-
-# 2. Presentar la tabla
-kable(descriptivos_esc, digits = 1, row.names = FALSE)
-```
-:::
-
-**Ejercicio 2**
-
-A) Construya un gráfico de barras de `sexo`.
-
-B) Construya un histograma de `escolaridad` con `binwidth = 1`. ¿Qué valores de escolaridad son más frecuentes y por qué?
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 2"}
-
-```{r}
-#| label: fig-ej-sexo
-#| fig-cap: "Distribución por sexo"
-#| fig-width: 5
-#| fig-height: 3.5
-ggplot(datos_casen, aes(x = sexo)) +
-  geom_bar(fill = "#526e75") +
-  labs(x = "Sexo", y = "Número de personas") +
-  theme_minimal(base_size = 13)
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+tab3 <- lapop %>%
+  group_by(pais) %>%
+  summarise(n = n(),
+            media = round(mean(edad, na.rm = TRUE), 1)) %>%
+  head(5)
 ```
 
-```{r}
-#| label: fig-ej-escolaridad
-#| fig-cap: "Distribución de la escolaridad"
-#| fig-width: 7
-#| fig-height: 3.5
-ggplot(datos_casen, aes(x = escolaridad)) +
-  geom_histogram(binwidth = 1, fill = "#526e75", colour = "white") +
-  labs(x = "Años de escolaridad", y = "Número de personas") +
-  theme_minimal(base_size = 13)
+Luego, llamamos a la tabla con `kable()` especificando en el chunk el nombre (con prefijo `tab-`) y el título con `tbl-cap`:
+
+````
+```{r}`r ''`
+#| label: tbl-edad
+#| tbl-cap: 'Edad promedio según país'
+#| echo: true
+
+kable(tab3,
+      col.names = c("País", "N", "Edad promedio"),
+      align = "lcc")
 ```
-:::
-
-**Ejercicio 3**
-
-A) Construya un boxplot de `escolaridad` según `sexo`.
-
-B) Agregue leyenda a los ejes de la figura y una etiqueta para poder referise a ella en el texto
-
-C) Interprete la figura utilizando la referencia en el texto
-
-::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio 3"}
+````
 
 ```{r}
-#| label: fig-ej-box-sexo
-#| fig-cap: "Escolaridad según sexo"
-#| fig-width: 5
-#| fig-height: 3.8
-ggplot(datos_casen, aes(x = sexo, y = escolaridad, fill = sexo)) +
-  geom_boxplot() +
-  scale_fill_manual(values = c("Hombre" = "#2a6f97", "Mujer" = "#e07a5f")) +
-  labs(x = "Sexo", y = "Años de escolaridad") +
-  theme(legend.position = "none")
+#| label: tbl-edad
+#| tbl-cap: 'Edad promedio según país'
+#| echo: true
+
+kable(tab3,
+      col.names = c("País", "N", "Edad promedio"),
+      align = "lcc")
 ```
 
-:::
+Al igual que con los gráficos, ahora podemos llamar a esta tabla usando `@tbl-edad`.
 
+Texto de ejemplo:
 
-# Cierre {#cierre}
+> En la @tbl-edad se muestra la edad promedio de las personas encuestadas en cinco países de la base LAPOP 2018.
 
-- Elegir la tabla o el gráfico adecuado depende del **tipo de variable** y del **objetivo**: describir una variable o relacionar dos.
+# Trabajo autónomo
 
-- En Quarto, la leyenda y la etiqueta convierten cada resultado en un elemento numerado al que se puede referir en el texto.
+- A partir de lo visto en clases, reúnase con su grupo y comiencen a discutir sobre qué gráficos y tablas podrían utilizar en su trabajo final.
 
-| Objetivo | Tabla | Gráfico |
-|:--|:--|:--|
-| Una variable categórica | Frecuencias (`count()` + `kable()`) | Barras (`geom_bar()`) |
-| Una variable numérica | Descriptivos (`summarise()`) | Histograma, boxplot |
-| Numérica y numérica | Correlación | Dispersión (`geom_point()`) |
-| Numérica y categórica | Promedios por grupo | Boxplot por grupos |
-| Categórica y categórica | Tabla de contingencia | Jitter (`geom_jitter()`) |
+- Carguen su base de datos en Positron y prueben distintos tipos de visualización para sus variables de interés.
+
+# Resumen y recursos
+
+Hoy aprendimos a visualizar gráficos y tablas bivariadas en documentos dinámicos con Quarto, así como también a autoreferenciar elementos dentro de un documento `.qmd`.
+
+Les compartimos una serie de recursos en caso de que busquen profundizar en la construcción de figuras en Quarto
 
 ::: {.callout-tip collapse="false" appearance="minimal" title="Recursos"}
 
