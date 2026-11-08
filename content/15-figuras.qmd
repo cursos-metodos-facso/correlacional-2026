@@ -139,7 +139,7 @@ format:
 
 # Objetivo de la sesión {.unnumbered}
 
-En esta sesión aprenderemos de manera aplicada como construir gráficos y tablas en Quarto mediante R. Para efectos prácticos, les proporcionamos un documento guía para que puedan seguir paso a paso esta sesión. Para descargar el documento, hagan click [aquí](documento-figuras.qmd){download="documento-figuras.qmd"}
+En esta sesión aprenderemos de manera aplicada como construir gráficos y tablas en Quarto mediante R. Para efectos prácticos, les proporcionamos un documento guía para que puedan seguir paso a paso esta sesión. Para descargar el documento, hagan click [aquí](/files/templates/documento-figuras.qmd){download="documento-figuras.qmd"}
 
 
 
@@ -916,7 +916,7 @@ tabla2
 
 Para ver todas las funcionalidades y estilos que se pueden generar con `kableExtra`, ver [aquí](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html).
 
-# Tablas con otros paquetes
+# Funciones para la construcción de tablas
 
 Si bien la combinación de crear nuestra tabla (probablemente con `dplyr`) y formatear con `kableExtra` es la mejor forma para reportar tablas, existen otras funciones. 
 
@@ -1060,9 +1060,9 @@ En caso de querer visualizar tablas bivariadas en la sección de resultados, se 
 
 
 
-# 6. Figuras dentro de Quarto
+# Gráficos y tablas dentro de Quarto
 
-Una de las ventajas de usar documentos dinámicos con Quarto es que podemos autoreferenciar los gráficos y figuras que creamos dentro del mismo documento, además de especificar una serie de propiedades para ajustar la presentación de nuestro gráfico.
+Una de las ventajas de usar documentos dinámicos con Quarto es que podemos autoreferenciar los gráficos y tablas que creamos dentro del mismo documento, además de especificar una serie de propiedades para ajustar la presentación de nuestro gráfico.
 
 Para especificar elementos de presentación de gráficos en un documento Quarto usaremos las opciones de **chunks**. Algunas de las más comunes son:
 
