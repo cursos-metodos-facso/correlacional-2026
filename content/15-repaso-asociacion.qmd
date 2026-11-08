@@ -378,6 +378,15 @@ $$
 El valor crítico bilateral al 5% con 3 grados de libertad es $\pm3{,}18$. Como $2{,}31<3{,}18$, **no rechazamos $H_0$**: aun con una correlación grande, **cinco casos no aportan evidencia suficiente** sobre la población. La **magnitud** describe el patrón en la muestra; la **inferencia** depende también del tamaño muestral.
 
 
+::: {.callout-important}
+
+## Recordatorio
+
+El valor crítico de la prueba t disminuye a medida que aumenta el tamaño de la muestra y, por consiguiente, los grados de libertad. Esto ocurre porque, conforme crecen los grados de libertad, la distribución t converge hacia la distribución normal estándar. Por ello, en una prueba bilateral con un nivel de significación del 5 % (es decir, un 95 % de confianza), el valor crítico tiende a 1,96.
+
+:::
+
+
 # Ejercicio Autónomo A · Escolaridad e ingreso del trabajo (CASEN 2024) {#apl-a}
 
 ::: {.rv-question}
@@ -644,7 +653,7 @@ sjPlot::tab_corr(cep_subset,
 
 - **Más fuerte:** `conf_carab`–`conf_ffaa`, $r_s=0{,}62$: positiva y **grande**. Quien confía en Carabineros tiende a confiar en las Fuerzas Armadas.
 - **Más débil:** `conf_partidos`–`pos_pol`, $r_s=0{,}01$: prácticamente nula. La (baja) confianza en los partidos no se ordena según izquierda o derecha.
-- **Para profundizar:** las instituciones de **orden y seguridad** (Carabineros, FF.AA.) y el **Gobierno** forman un bloque con asociaciones moderadas a grandes (0,46–0,62), y las tres se asocian moderadamente con `pos_pol` (0,35–0,52). Las instituciones de **representación** (Congreso, partidos) forman otro par ($r_s=0{,}43$) que casi no se asocia con la posición política.
+- **Para profundizar:** las instituciones de **orden y seguridad** (Carabineros, FF.AA.) y el **Gobierno** forman un bloque con asociaciones moderadas a grandesf (0,46–0,62), y las tres se asocian moderadamente con `pos_pol` (0,35–0,52). Las instituciones de **representación** (Congreso, partidos) forman otro par ($r_s=0{,}43$) que casi no se asocia con la posición política.
 
 **B3 · Interpretación sustantiva.** Los signos positivos indican que quienes se ubican más a la **derecha** tienden a declarar **más confianza en el Gobierno** ($r_s=0{,}52$), **Carabineros** (0,35) y las **Fuerzas Armadas** (0,37), mientras la confianza en el Congreso (0,11) y en los partidos (0,01) casi no varía según la posición política. La asociación con Carabineros y FF.AA. es coherente con la mayor valoración del orden y la seguridad en la derecha. La asociación con el Gobierno, en cambio, no es una propiedad fija de «la derecha»: la encuesta se aplicó en 2026, con un gobierno de ese sector. La confianza en el Gobierno suele depender de la **cercanía política** con quien gobierna, por lo que bajo un gobierno de otro signo podríamos esperar una asociación **más débil o incluso negativa**. Un coeficiente describe un patrón **en un momento y una población**: interpretarlo requiere conocer el contexto.
 
