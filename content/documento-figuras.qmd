@@ -16,8 +16,7 @@ Comencemos por preparar nuestros datos. Iniciamos cargando las librerías necesa
 pacman::p_load(tidyverse, # Manipulacion datos
                ggplot2, # Gráficos
                sjPlot, # Tablas y gráficos
-               ggpubr, # Gráficos
-               ggmosaic) # Gráficos
+               ggpubr) # Gráficos
                
 
 options(scipen = 999) # para desactivar notacion cientifica
@@ -161,34 +160,53 @@ sjPlot::plot_scatter(
 
 ## Asociación entre categóricas
 
-### Con `ggmosaic` y `ggplot2`
+### Con `ggplot2`
 
 ```{r, echo=TRUE, collapse=TRUE}
 
 db_g3 <- lapop %>%
-  dplyr::select(prot3, ideologia_f) %>% 
+  dplyr::select(prot3, ideologia_f) %>%
   na.omit()
 
 head(db_g3)
 ```
 
+**Porcentajes que suman 100% dentro de cada categoría de ideología**: ¿qué proporción de cada grupo ideológico participó en protestas?
+
 ```{r}
-ggplot(data = db_g3) +
-  geom_mosaic(aes(product(prot3, ideologia_f), fill = ideologia_f)) + # agregamos mapping y geometría a la vez
-  geom_label(data = layer_data(last_plot(), 1),
-             aes(x = (xmin + xmax)/ 2,
-                 y = (ymin + ymax)/ 2,
-                 label = paste0(round((.wt/sum(.wt))*100,1),"%"))) +# agregamos porcentajes de cada combinación de categórias
-  scale_fill_discrete(name = "",
-                      labels = c("Derecha",
-                                 "Centro",
-                                 "Izquierda", 
-                                 "No declarado")) + 
-  labs(title ="Asociación entre participación en protestas e ideología política", 
-       y = "Participación protesta", 
+db_g3 %>%
+  count(ideologia_f, prot3) %>% # frecuencias por combinación de categorías
+  group_by(ideologia_f) %>% # porcentajes dentro de cada ideología
+  mutate(prop = n / sum(n) * 100) %>%
+  ggplot(aes(x = ideologia_f, y = prop, fill = prot3)) +
+  geom_col() + # barras apiladas que suman 100%
+  geom_text(aes(label = paste0(round(prop, 1), "%")),
+            position = position_stack(vjust = 0.5)) + # porcentajes al centro de cada segmento
+  labs(title = "Participación en protestas según ideología política",
+       y = "Porcentaje",
        x = "Ideología política",
-       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente 
-  theme_bw() # especificamos tema
+       fill = "Participación protesta",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") +
+  theme_bw()
+```
+
+**Porcentajes que suman 100% dentro de cada categoría de participación en protestas**: ¿cuál es la composición ideológica de quienes participan y de quienes no?
+
+```{r}
+db_g3 %>%
+  count(prot3, ideologia_f) %>% # frecuencias por combinación de categorías
+  group_by(prot3) %>% # porcentajes dentro de cada categoría de participación
+  mutate(prop = n / sum(n) * 100) %>%
+  ggplot(aes(x = prot3, y = prop, fill = ideologia_f)) +
+  geom_col() + # barras apiladas que suman 100%
+  geom_text(aes(label = paste0(round(prop, 1), "%")),
+            position = position_stack(vjust = 0.5)) + # porcentajes al centro de cada segmento
+  labs(title = "Ideología política según participación en protestas",
+       y = "Porcentaje",
+       x = "Participación protesta",
+       fill = "Ideología política",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") +
+  theme_bw()
 ```
 
 # Tablas
