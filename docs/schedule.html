@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -33,15 +33,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="./images/logo.png" rel="icon" type="image/png">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-6357a59cc198ef7ef3c751a17518a47f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-57ca66b0c9509503ed6176d05dbad436.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -74,7 +73,6 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Planificación – Estadística Correlacional">
-<meta property="og:description" content="">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -89,8 +87,6 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
-    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -623,9 +619,9 @@ h2 {
 </tr>
 <tr class="odd">
 <td style="text-align: left;">18 / mié</td>
-<td style="text-align: left;">Asesoría/ Evaluación</td>
-<td style="text-align: left;"><strong>Asesoría trabajos</strong></td>
-<td style="text-align: left;"><span class="eval-label"><strong>Pruebas recuperativas</strong></span><br>Recuperación de evaluaciones justificadas según la normativa del curso.</td>
+<td style="text-align: left;">Pruebas recuperativas</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">20/ vier</td>
@@ -636,8 +632,23 @@ h2 {
 </tbody>
 </table>
 </div>
-<p>Exámen primera oportunidad: Miércoles 25 de Noviembre</p>
-<p>Exámen segunda oportunidad: Miércoles 9 de Diciembre</p>
+<section id="sobre-pruebas-recuperativas-miércoles-18-de-noviembre" class="level3">
+<h3 class="anchored" data-anchor-id="sobre-pruebas-recuperativas-miércoles-18-de-noviembre">Sobre pruebas recuperativas (miércoles 18 de Noviembre):</h3>
+<ul>
+<li><p>Serán en horario de clases (8:30 - 10:00)</p></li>
+<li><p>Prueba 1: Sala B1</p></li>
+<li><p>Prueba 2: Sala de computación 45</p></li>
+<li><p>Quienes deban ambas pruebas, deben comenzar dando la prueba 2 en sala de computación, luego a las 10:00 continuarán con la prueba 1.</p></li>
+<li><p>Para poder optar a evaluaciones recuperativas, la inasistencia a las fechas de prueba deben estar justificadas. Si la justificación no está en UCursos, resolver previo a la prueba con secretaría de carrera.</p></li>
+</ul>
+</section>
+<section id="exámenes" class="level3">
+<h3 class="anchored" data-anchor-id="exámenes">Exámenes</h3>
+<ul>
+<li><p>Los criterios de eximición a exámen se encuentran en el <a href="https://correlacional.metodos-facso.org/syllabus.html#requisitos-de-aprobaci%C3%B3n">programa del curso</a></p></li>
+<li><p>Exámen primera oportunidad: Miércoles 25 de Noviembre</p></li>
+<li><p>Exámen segunda oportunidad: Miércoles 9 de Diciembre</p></li>
+</ul>
 <script>
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll(".table-scroll table tbody tr").forEach(function (row) {
@@ -651,6 +662,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1079,14 +1091,13 @@ document.addEventListener("DOMContentLoaded", function () {
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
         }
-      }
-      return codeEl.innerText;
+        return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
