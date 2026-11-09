@@ -1,4 +1,4 @@
-project:
+﻿project:
   type: website
   output-dir: docs
   render:
@@ -18,7 +18,15 @@ project:
     - "!content/codigo_graficos_tablas.qmd"
 
   resources:
-    - "files/"
+    - "files/bib/"
+    - "files/data/"
+    - "files/img/"
+    - "files/js/"
+    - "files/templates/"
+    - "!files/textos/"
+    - "files/*.pdf"
+    - "files/*.ics"
+    - "files/*.odp"
     - "!files/pruebas/"
     - "!files/otros/2/"
     - "projects/"

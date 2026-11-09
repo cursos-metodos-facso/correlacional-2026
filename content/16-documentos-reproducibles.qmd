@@ -173,7 +173,6 @@ En las sesiones anteriores aprendimos a escribir [documentos dinámicos con Quar
 
 Durante esta sesión revisaremos la plantilla del informe, identificaremos dónde incorporar los análisis y comprobaremos cómo compartir el proyecto para que otra persona pueda generar nuevamente sus resultados. Finalmente, dedicaremos un espacio a revisar los avances y las dificultades pendientes de cada grupo.
 
-*Clase aplicada del miércoles 11 de noviembre de 2026 · Duración: 90 minutos · A cargo de Katherine Aravena.*
 
 ## Plantilla del trabajo final {.unnumbered}
 
@@ -252,7 +251,7 @@ Estas son las carpetas principales y los archivos de referencia de la plantilla:
 
 ::: {.rv-project-tree}
 ```text
-estadistica-correlacional/
+Plantilla-trabajo-final-2026/
 ├── index.qmd                 # Documento del informe
 ├── _quarto.yml               # Configuración general
 ├── README.md                 # Instrucciones del proyecto
@@ -313,6 +312,11 @@ Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el 
 ```bash
 quarto render index.qmd
 ```
+
+```bash
+quarto preview index.qmd
+```
+
 
 Después, si es posible, copien la carpeta completa a otra ubicación y repitan la renderización sin modificar las rutas. Esta prueba ayuda a detectar dependencias de archivos personales o faltantes.
 

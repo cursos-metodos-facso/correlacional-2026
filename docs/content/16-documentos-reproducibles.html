@@ -189,11 +189,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#proyecto-reproducible" id="toc-proyecto-reproducible" class="nav-link" data-scroll-target="#proyecto-reproducible"><span class="header-section-number">1</span> Del documento dinámico al proyecto reproducible</a></li>
   <li><a href="#estructura-ipo" id="toc-estructura-ipo" class="nav-link" data-scroll-target="#estructura-ipo"><span class="header-section-number">2</span> Organización del proyecto: estructura IPO</a></li>
-  <li><a href="#integrar-analisis" id="toc-integrar-analisis" class="nav-link" data-scroll-target="#integrar-analisis"><span class="header-section-number">3</span> Integrar nuestros análisis en el informe</a>
+  <li><a href="#verificar-reproducibilidad" id="toc-verificar-reproducibilidad" class="nav-link" data-scroll-target="#verificar-reproducibilidad"><span class="header-section-number">3</span> Verificar la reproducibilidad del proyecto</a></li>
+  <li><a href="#integrar-analisis" id="toc-integrar-analisis" class="nav-link" data-scroll-target="#integrar-analisis"><span class="header-section-number">4</span> Integrar nuestros análisis en el informe</a>
   <ul class="collapse">
   <li><a href="#citas-y-bibliografía-con-bibtex" id="toc-citas-y-bibliografía-con-bibtex" class="nav-link" data-scroll-target="#citas-y-bibliografía-con-bibtex">Citas y bibliografía con BibTeX</a></li>
   </ul></li>
-  <li><a href="#verificar-reproducibilidad" id="toc-verificar-reproducibilidad" class="nav-link" data-scroll-target="#verificar-reproducibilidad"><span class="header-section-number">4</span> Verificar la reproducibilidad del proyecto</a></li>
   <li><a href="#monitoreo" id="toc-monitoreo" class="nav-link" data-scroll-target="#monitoreo"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</a></li>
   <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega"><span class="header-section-number">6</span> Preparación de la entrega</a></li>
   </ul>
@@ -349,7 +349,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 class="unnumbered">Objetivo de la sesión</h1>
 <p>En las sesiones anteriores aprendimos a escribir <a href="https://correlacional.metodos-facso.org/content/14-quarto.html">documentos dinámicos con Quarto</a> y a presentar <a href="https://correlacional.metodos-facso.org/content/15-visualizacion.html">gráficos y tablas en R</a>. Ahora utilizaremos esas herramientas para <strong>organizar el trabajo final como un proyecto de investigación reproducible</strong>. En lugar de comenzar un análisis nuevo, trabajaremos con los datos, las variables y los resultados que cada grupo ya ha desarrollado.</p>
 <p>Durante esta sesión revisaremos la plantilla del informe, identificaremos dónde incorporar los análisis y comprobaremos cómo compartir el proyecto para que otra persona pueda generar nuevamente sus resultados. Finalmente, dedicaremos un espacio a revisar los avances y las dificultades pendientes de cada grupo.</p>
-<p><em>Clase aplicada del miércoles 11 de noviembre de 2026 · Duración: 90 minutos · A cargo de Katherine Aravena.</em></p>
 <section id="plantilla-del-trabajo-final" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="plantilla-del-trabajo-final">Plantilla del trabajo final</h2>
 <p>La plantilla contiene la estructura del informe, una tabla de operacionalización de variables y ejemplos mínimos de una figura y una cita bibliográfica. <strong>Los ejemplos son ilustrativos:</strong> deberán reemplazarlos por los resultados y fuentes de su propia investigación. Su diseño ya está preparado, por lo que no necesitan construir el informe desde cero.</p>
@@ -438,7 +437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>La plantilla utiliza la organización <strong>IPO</strong> (<em>Input–Processing–Output</em>). Su propósito es separar los insumos, el código de análisis y los productos del trabajo, de modo que los integrantes del grupo puedan localizar los archivos y comprender cómo se generaron los resultados. Esta estructura también facilita que el proyecto se abra en otro computador sin depender de carpetas personales.</p>
 <p>Estas son las carpetas principales y los archivos de referencia de la plantilla:</p>
 <div class="rv-project-tree">
-<pre class="text"><code>estadistica-correlacional/
+<pre class="text"><code>Plantilla-trabajo-final-2026/
 ├── index.qmd                 # Documento del informe
 ├── _quarto.yml               # Configuración general
 ├── README.md                 # Instrucciones del proyecto
@@ -462,19 +461,44 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><strong>Input</strong> guarda los insumos del estudio: las bases originales y preparadas, las imágenes y la bibliografía. <strong>Processing</strong> contiene los scripts de preparación y análisis. <strong>Output</strong> se reserva para gráficos y tablas que se exportan como archivos independientes cuando sea necesario. Finalmente, <code>index.qmd</code> reúne la escritura y los resultados para producir el informe HTML.</p>
 <p>La mayor parte del trabajo se concentrará en <code>index.qmd</code>, las bases guardadas en <code>input/data/</code> y los scripts ubicados en <code>processing/</code>. En cambio, <code>_quarto.yml</code> y <code>libs/custom.scss</code> ya contienen la configuración y el diseño del informe; no necesitan modificarlos para comenzar. Los archivos <code>.gitkeep</code> que puedan encontrar dentro de algunas carpetas sirven para conservarlas vacías en Git y no requieren ninguna acción especial.</p>
-<div class="rv-project-activity">
-<p><strong>Ejercicio · Reconocer la plantilla (5 minutos)</strong></p>
-<ol type="A">
-<li><p>Descarguen la plantilla, descomprímanla y abran su carpeta completa en Positron.</p></li>
-<li><p>Localicen <code>index.qmd</code>, las carpetas de datos y los archivos de <code>processing/</code>. Reconozcan qué función cumple cada uno.</p></li>
-<li><p>Abran <code>index.qmd</code> e identifiquen la tabla de variables, la figura ilustrativa y el ejemplo de cita bibliográfica.</p></li>
-<li><p>Conversen brevemente sobre cuáles de esos archivos deberán modificar primero para avanzar en su investigación.</p></li>
-</ol>
-</div>
 <!-- Bloque 3: 20 minutos. -->
 </section>
-<section id="integrar-analisis" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> Integrar nuestros análisis en el informe</h1>
+<section id="verificar-reproducibilidad" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Verificar la reproducibilidad del proyecto</h1>
+<p>Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de <strong>rutas absolutas</strong>, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante <strong>rutas relativas a la carpeta del proyecto</strong>.</p>
+<div class="rv-project-route">
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>Ruta personal: evitar</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"C:/Users/Estudiante/Downloads/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div><div class="column" style="width:50%;">
+<p><strong>Ruta relativa: preferir</strong></p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"input/data/proc/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</div>
+<p>En el segundo caso, R buscará <code>encuesta.rds</code> dentro de la carpeta <code>input/data/proc/</code> del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la pauta del curso.</p>
+<p>Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el informe mediante <strong>Preview</strong> en Positron o ejecutando el siguiente comando desde la carpeta raíz:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render index.qmd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview index.qmd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Después, si es posible, copien la carpeta completa a otra ubicación y repitan la renderización sin modificar las rutas. Esta prueba ayuda a detectar dependencias de archivos personales o faltantes.</p>
+<div class="callout callout-style-simple callout-important no-icon callout-titled" title="Una distinción importante">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Una distinción importante
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Abrir un HTML no es lo mismo que reproducir un análisis.</strong> La plantilla inicial puede generar su figura ilustrativa aunque los scripts de investigación todavía no estén activos. Cuando incorporen los datos y análisis del grupo, deberán comprobar que esos procedimientos también se ejecutan y que el HTML presenta <strong>sus resultados reales</strong>.</p>
+</div>
+</div>
+<!-- Bloque 5: 20 minutos. -->
+</section>
+<section id="integrar-analisis" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Integrar nuestros análisis en el informe</h1>
 <p>Una vez que los datos y los análisis están organizados, el siguiente paso es <strong>transformar los resultados estadísticos en un argumento de investigación</strong>. Esto significa que las tablas y los gráficos deben responder a la pregunta formulada, relacionarse con las hipótesis y acompañarse de una interpretación sustantiva. No basta con insertar una salida de R sin explicar qué información aporta.</p>
 <p>La plantilla ya incorpora las secciones exigidas por la <a href="https://correlacional.metodos-facso.org/trabajos/trabajos.html">pauta del trabajo grupal</a>. Para reconocer dónde corresponde cada resultado, podemos utilizar la siguiente orientación:</p>
 <div class="rv-project-scroll">
@@ -519,54 +543,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="citas-y-bibliografía-con-bibtex" class="level2 unnumbered">
 <h2 class="unnumbered anchored" data-anchor-id="citas-y-bibliografía-con-bibtex">Citas y bibliografía con BibTeX</h2>
 <p>La plantilla también permite <strong>incorporar citas y generar automáticamente la bibliografía</strong>. Para ello utiliza <strong>BibTeX</strong>, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo <code>input/bib/referencias.bib</code>. Cada referencia tiene una <strong>clave única</strong> que permite citarla desde <code>index.qmd</code>. Por ejemplo, una entrada se organiza así (datos ilustrativos):</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">apellido2026</span>,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Apellido, Nombre},</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Título del artículo},</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Nombre de la revista},</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2026}</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">apellido2026</span>,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Apellido, Nombre},</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Título del artículo},</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Nombre de la revista},</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2026}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>En la plantilla encontrarán la clave <code>wickham2023r</code>. Para utilizarla en el informe, pueden escribir:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Según @wickham2023r, ...</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>La organización de los datos facilita el análisis reproducible <span class="co">[</span><span class="ot">@wickham2023r</span><span class="co">]</span>.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Según @wickham2023r, ...</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>La organización de los datos facilita el análisis reproducible <span class="co">[</span><span class="ot">@wickham2023r</span><span class="co">]</span>.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Al renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo <code>input/bib/apa.csl</code> define el estilo de citación <strong>APA</strong>. Para incorporar sus propias fuentes, deben agregarlas a <code>referencias.bib</code> y citar sus claves en el texto. <strong>No es necesario escribir manualmente la bibliografía al final del informe.</strong></p>
 <p>Estos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la <a href="https://correlacional.metodos-facso.org/content/15-visualizacion.html">sesión de visualización</a>. <strong>No deben conservar los resultados ni las referencias de ejemplo en la entrega:</strong> su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.</p>
 <p>Cada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación.</p>
 <!-- Bloque 4: 15 minutos. -->
 </section>
-</section>
-<section id="verificar-reproducibilidad" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Verificar la reproducibilidad del proyecto</h1>
-<p>Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de <strong>rutas absolutas</strong>, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante <strong>rutas relativas a la carpeta del proyecto</strong>.</p>
-<div class="rv-project-route">
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Ruta personal: evitar</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"C:/Users/Estudiante/Downloads/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
-<p><strong>Ruta relativa: preferir</strong></p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"input/data/proc/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</div>
-<p>En el segundo caso, R buscará <code>encuesta.rds</code> dentro de la carpeta <code>input/data/proc/</code> del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la pauta del curso.</p>
-<p>Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el informe mediante <strong>Preview</strong> en Positron o ejecutando el siguiente comando desde la carpeta raíz:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render index.qmd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Después, si es posible, copien la carpeta completa a otra ubicación y repitan la renderización sin modificar las rutas. Esta prueba ayuda a detectar dependencias de archivos personales o faltantes.</p>
-<div class="callout callout-style-simple callout-important no-icon callout-titled" title="Una distinción importante">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Importante</span>Una distinción importante
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p><strong>Abrir un HTML no es lo mismo que reproducir un análisis.</strong> La plantilla inicial puede generar su figura ilustrativa aunque los scripts de investigación todavía no estén activos. Cuando incorporen los datos y análisis del grupo, deberán comprobar que esos procedimientos también se ejecutan y que el HTML presenta <strong>sus resultados reales</strong>.</p>
-</div>
-</div>
-<!-- Bloque 5: 20 minutos. -->
 </section>
 <section id="monitoreo" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</h1>
