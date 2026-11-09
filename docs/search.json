@@ -5362,5 +5362,40 @@
       "Presentaciones",
       "Repaso Unidad 2: Asociación"
     ]
+  },
+  {
+    "objectID": "content/16-documentos-proyectos-reproducibles.html",
+    "href": "content/16-documentos-proyectos-reproducibles.html",
+    "title": "Trabajo final: plantilla y proyecto reproducible",
+    "section": "",
+    "text": "Sesión del miércoles, 11 de noviembre de 2026"
+  },
+  {
+    "objectID": "content/16-documentos-proyectos-reproducibles.html#plantilla-del-trabajo-final",
+    "href": "content/16-documentos-proyectos-reproducibles.html#plantilla-del-trabajo-final",
+    "title": "Trabajo final: plantilla y proyecto reproducible",
+    "section": "Plantilla del trabajo final",
+    "text": "Plantilla del trabajo final\nLa plantilla contiene la estructura del informe, una tabla de operacionalización de variables y ejemplos mínimos de una figura y una cita bibliográfica. Los ejemplos son ilustrativos: deberán reemplazarlos por los resultados y fuentes de su propia investigación. Su diseño ya está preparado, por lo que no necesitan construir el informe desde cero.\nDescargar plantilla del trabajo final (ZIP)\nPara utilizarla, descarguen y descompriman el archivo. En Positron, seleccionen File → Open Folder y abran la carpeta completa del proyecto. La redacción del informe se realiza principalmente en index.qmd."
+  },
+  {
+    "objectID": "content/16-documentos-reproducibles.html",
+    "href": "content/16-documentos-reproducibles.html",
+    "title": "Trabajo final: plantilla y proyecto reproducible",
+    "section": "",
+    "text": "Sesión del miércoles, 11 de noviembre de 2026"
+  },
+  {
+    "objectID": "content/16-documentos-reproducibles.html#plantilla-del-trabajo-final",
+    "href": "content/16-documentos-reproducibles.html#plantilla-del-trabajo-final",
+    "title": "Trabajo final: plantilla y proyecto reproducible",
+    "section": "Plantilla del trabajo final",
+    "text": "Plantilla del trabajo final\nLa plantilla contiene la estructura del informe, una tabla de operacionalización de variables y ejemplos mínimos de una figura y una cita bibliográfica. Los ejemplos son ilustrativos: deberán reemplazarlos por los resultados y fuentes de su propia investigación. Su diseño ya está preparado, por lo que no necesitan construir el informe desde cero.\nDescargar plantilla del trabajo final (ZIP)\nPara utilizarla, descarguen y descompriman el archivo. En Positron, seleccionen File → Open Folder y abran la carpeta completa del proyecto. La redacción del informe se realiza principalmente en index.qmd."
+  },
+  {
+    "objectID": "content/16-documentos-reproducibles.html#citas-y-bibliografía-con-bibtex",
+    "href": "content/16-documentos-reproducibles.html#citas-y-bibliografía-con-bibtex",
+    "title": "Trabajo final: plantilla y proyecto reproducible",
+    "section": "Citas y bibliografía con BibTeX",
+    "text": "Citas y bibliografía con BibTeX\nLa plantilla también permite incorporar citas y generar automáticamente la bibliografía. Para ello utiliza BibTeX, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo input/bib/referencias.bib. Cada referencia tiene una clave única que permite citarla desde index.qmd. Por ejemplo, una entrada se organiza así (datos ilustrativos):\n@article{apellido2026,\n  author  = {Apellido, Nombre},\n  title   = {Título del artículo},\n  journal = {Nombre de la revista},\n  year    = {2026}\n}\nEn la plantilla encontrarán la clave wickham2023r. Para utilizarla en el informe, pueden escribir:\nSegún @wickham2023r, ...\n\nLa organización de los datos facilita el análisis reproducible [@wickham2023r].\nAl renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo input/bib/apa.csl define el estilo de citación APA. Para incorporar sus propias fuentes, deben agregarlas a referencias.bib y citar sus claves en el texto. No es necesario escribir manualmente la bibliografía al final del informe.\nEstos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la sesión de visualización. No deben conservar los resultados ni las referencias de ejemplo en la entrega: su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.\nCada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación."
   }
 ]

@@ -1,0 +1,414 @@
+---
+title: "Trabajo final: plantilla y proyecto reproducible"
+date: "2026-11-11"
+lang: es
+number-sections: true
+anchor-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: auto
+format:
+  html:
+    page-layout: article
+    grid:
+      body-width: 980px
+      margin-width: 250px
+      gutter-width: 1.25rem
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-expand: 2
+    toc-title: "En esta página"
+    code-copy: true
+    highlight-style: github
+    code-fold: false
+    code-tools: false
+    smooth-scroll: true
+    fig-align: center
+    fig-cap-location: bottom
+---
+
+```{=html}
+<style>
+/* Ajustes exclusivos de esta página: el estilo general proviene del sitio. */
+.rv-project-activity {
+  margin: .85rem 0 1.2rem;
+  padding: .25rem 0 .25rem .85rem;
+  border-left: 2px solid #83939a;
+}
+.rv-project-activity > :first-child,
+.rv-project-activity > :last-child { margin-top: 0; margin-bottom: 0; }
+.rv-project-activity ol { margin: .35rem 0 .55rem; padding-left: 1.4rem; }
+.rv-project-activity li { margin: .32rem 0; }
+
+/* IPO: tres carpetas; a continuación, publicación del informe. */
+.rv-ipo-caption {
+  margin: .9rem 0 .35rem;
+  font-size: .88rem;
+  font-weight: 650;
+  color: #46616a;
+  letter-spacing: .015em;
+}
+.rv-ipo-flow, .rv-ipo-publication {
+  display: grid;
+  gap: 1.35rem;
+  margin: .55rem 0 1rem;
+}
+.rv-ipo-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rv-ipo-publication { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 650px; margin-left: auto; margin-right: auto; }
+.rv-ipo-step {
+  position: relative;
+  min-width: 0;
+  padding: .65rem .7rem;
+  border: 1px solid var(--bs-border-color, #d9dee1);
+  border-radius: .3rem;
+  background: #fff;
+  text-align: center;
+}
+.rv-ipo-step p { margin: 0; line-height: 1.42; }
+.rv-ipo-step p + p { margin-top: .25rem; font-size: .87rem; color: #5b6d73; }
+.rv-ipo-flow .rv-ipo-step:not(:last-child)::after,
+.rv-ipo-publication .rv-ipo-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -1.04rem;
+  top: 33%;
+  color: #147a82;
+  font-weight: 650;
+}
+/* Árbol de carpetas: texto oscuro incluso si el tema colorea el código. */
+.rv-project-tree { margin: .85rem 0 1.2rem; }
+#quarto-content main.content .rv-project-tree div.sourceCode {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#quarto-content main.content .rv-project-tree pre {
+  max-width: 100%;
+  overflow-x: auto;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  line-height: 1.55;
+  box-shadow: none !important;
+  color: #263238 !important;
+}
+#quarto-content main.content .rv-project-tree pre code,
+#quarto-content main.content .rv-project-tree pre code span,
+#quarto-content main.content .rv-project-tree pre span {
+  color: #263238 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #263238 !important;
+}
+
+.rv-project-scroll { overflow-x: auto; max-width: 100%; margin: .85rem 0 1.15rem; }
+.rv-project-scroll > table { width: 100%; margin-bottom: .1rem; }
+.rv-project-scroll table th,
+.rv-project-scroll table td { vertical-align: top; }
+.rv-project-route { margin: .8rem 0 1.1rem; }
+.rv-project-route .column { min-width: 0; }
+.rv-project-route .column > p:first-child { margin-bottom: .35rem; }
+.rv-project-route pre { max-width: 100%; overflow-x: auto; }
+
+/* Bloques de código: fondo gris neutro, nunca azul. */
+#quarto-content main.content :not(pre) > code {
+  color: #00695c !important;
+  background: #eef7f6 !important;
+  padding: .1em .3em;
+  border-radius: 4px;
+}
+#quarto-content main.content div.sourceCode,
+#quarto-content main.content pre.sourceCode,
+#quarto-content main.content pre:not(.sourceCode) {
+  background: #f7f8fa !important;
+  border: 1px solid #d9dee7 !important;
+  border-radius: 6px;
+  box-shadow: none !important;
+}
+#quarto-content main.content pre.sourceCode code,
+#quarto-content main.content div.sourceCode pre code,
+#quarto-content main.content pre code {
+  background: transparent !important;
+}
+#quarto-content main.content .cell-output.cell-output-stdout {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#quarto-content main.content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #f7f8fa !important;
+  border: 1px solid #d9dee7 !important;
+  border-left: 4px solid #b8c2d1 !important;
+  padding: .8em 1em;
+}
+#quarto-content main.content .rv-project-activity p,
+#quarto-content main.content .rv-ipo-step p,
+#quarto-content main.content .rv-project-route p { text-align: left; hyphens: none; }
+#quarto-content main.content .rv-ipo-step p { text-align: center; }
+@media (min-width: 768px) {
+  #quarto-content main.content > p { text-align: justify; text-justify: inter-word; hyphens: auto; }
+}
+@media (max-width: 767.98px) {
+  .rv-ipo-flow, .rv-ipo-publication { grid-template-columns: 1fr; gap: 1.15rem; }
+  .rv-ipo-flow .rv-ipo-step:not(:last-child)::after,
+  .rv-ipo-publication .rv-ipo-step:not(:last-child)::after {
+    right: 50%; top: auto; bottom: -.98rem;
+    transform: translateX(50%) rotate(90deg);
+  }
+  .rv-project-route .columns { display: block; }
+  .rv-project-route .column { width: 100% !important; margin-bottom: .6rem; }
+  .rv-project-activity { padding-left: .65rem; }
+  #quarto-content main.content > p { text-align: left; hyphens: none; }
+}
+</style>
+```
+
+# Objetivo de la sesión {.unnumbered}
+
+En las sesiones anteriores aprendimos a escribir [documentos dinámicos con Quarto](https://correlacional.metodos-facso.org/content/14-quarto.html) y a presentar [gráficos y tablas en R](https://correlacional.metodos-facso.org/content/15-visualizacion.html). Ahora utilizaremos esas herramientas para **organizar el trabajo final como un proyecto de investigación reproducible**. En lugar de comenzar un análisis nuevo, trabajaremos con los datos, las variables y los resultados que cada grupo ya ha desarrollado.
+
+Durante esta sesión revisaremos la plantilla del informe, identificaremos dónde incorporar los análisis y comprobaremos cómo compartir el proyecto para que otra persona pueda generar nuevamente sus resultados. Finalmente, dedicaremos un espacio a revisar los avances y las dificultades pendientes de cada grupo.
+
+*Clase aplicada del miércoles 11 de noviembre de 2026 · Duración: 90 minutos · A cargo de Katherine Aravena.*
+
+## Plantilla del trabajo final {.unnumbered}
+
+La plantilla contiene la estructura del informe, una tabla de operacionalización de variables y ejemplos mínimos de una figura y una cita bibliográfica. **Los ejemplos son ilustrativos:** deberán reemplazarlos por los resultados y fuentes de su propia investigación. Su diseño ya está preparado, por lo que no necesitan construir el informe desde cero.
+
+[**Descargar plantilla del trabajo final (ZIP)**](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/Plantilla-trabajo-final-2026.zip){.btn .btn-primary}
+
+Para utilizarla, descarguen y descompriman el archivo. En Positron, seleccionen *File → Open Folder* y abran la **carpeta completa** del proyecto. La redacción del informe se realiza principalmente en `index.qmd`.
+
+<!-- Bloque 1: 10 minutos. -->
+
+# Del documento dinámico al proyecto reproducible {#proyecto-reproducible}
+
+Un documento dinámico permite integrar el texto y el código de análisis en un archivo `.qmd`. Al renderizarlo, Quarto ejecuta el código correspondiente y produce un documento con los resultados actualizados. Sin embargo, **obtener un HTML no garantiza, por sí solo, que otra persona pueda reproducir la investigación**: si faltan los datos o los scripts, no será posible reconstruir las tablas, las cifras y los gráficos.
+
+Por eso, para el trabajo final organizaremos un **proyecto autocontenido**: una carpeta que reúne los archivos necesarios para realizar el análisis y generar el informe. Podemos representar su funcionamiento de la siguiente manera:
+
+**Organización de los archivos (IPO)**
+
+:::: {.rv-ipo-flow aria-label="Organización de archivos del proyecto: Input, Processing y Output"}
+::: {.rv-ipo-step}
+**Input**
+
+Datos y bibliografía
+:::
+::: {.rv-ipo-step}
+**Processing**
+
+Preparación y análisis en R
+:::
+::: {.rv-ipo-step}
+**Output**
+
+Gráficos y tablas exportados
+:::
+::::
+
+**Publicación del informe**
+
+:::: {.rv-ipo-publication aria-label="Publicación del informe: documento Quarto hacia HTML"}
+::: {.rv-ipo-step}
+**Informe Quarto (`index.qmd`)**
+
+Texto, código y resultados
+:::
+::: {.rv-ipo-step}
+**HTML final**
+
+Documento para lectura y entrega
+:::
+::::
+
+El esquema **Input–Processing–Output** describe cómo organizamos las carpetas del proyecto. El archivo `index.qmd` utiliza los insumos y análisis pertinentes para generar el HTML. **No es obligatorio exportar primero todos los gráficos y tablas a `output/`:** Quarto también puede producirlos directamente al renderizar el documento.
+
+Conviene distinguir tres conceptos que están relacionados, pero no son equivalentes:
+
+::: {.rv-project-scroll}
+| Concepto | ¿Qué significa en nuestro trabajo? |
+|:--|:--|
+| **Documento dinámico** | El informe puede actualizar sus resultados al ejecutar el código del `.qmd`. |
+| **HTML autocontenido** | El archivo de salida incorpora los recursos necesarios para visualizarse sin depender de archivos auxiliares de presentación, cuando se configura para ello. |
+| **Proyecto reproducible** | Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe. |
+:::
+
+::: {.callout-note appearance="minimal" title="Para comenzar"}
+Si compartimos únicamente el archivo `index.html` con otro integrante del curso, ¿qué necesitaría para obtener nuevamente nuestros resultados? La pregunta permite reconocer por qué no basta con entregar un informe bien presentado.
+:::
+
+<!-- Bloque 2: 15 minutos. -->
+
+# Organización del proyecto: estructura IPO {#estructura-ipo}
+
+La plantilla utiliza la organización **IPO** (*Input–Processing–Output*). Su propósito es separar los insumos, el código de análisis y los productos del trabajo, de modo que los integrantes del grupo puedan localizar los archivos y comprender cómo se generaron los resultados. Esta estructura también facilita que el proyecto se abra en otro computador sin depender de carpetas personales.
+
+Estas son las carpetas principales y los archivos de referencia de la plantilla:
+
+::: {.rv-project-tree}
+```text
+estadistica-correlacional/
+├── index.qmd                 # Documento del informe
+├── _quarto.yml               # Configuración general
+├── README.md                 # Instrucciones del proyecto
+├── .gitignore                # Archivos excluidos de Git
+├── input/
+│   ├── data/
+│   │   ├── original/         # Datos originales
+│   │   └── proc/             # Datos preparados
+│   ├── images/               # Imágenes incorporadas
+│   └── bib/
+│       ├── referencias.bib   # Referencias bibliográficas
+│       └── apa.csl           # Estilo de citación
+├── processing/
+│   ├── 01_preparacion.R      # Preparación de datos
+│   └── 02_analisis.R         # Análisis estadísticos
+├── output/
+│   ├── graphs/               # Gráficos exportados
+│   └── tables/               # Tablas exportadas
+└── libs/
+    └── custom.scss          # Estilos del informe
+```
+:::
+
+**Input** guarda los insumos del estudio: las bases originales y preparadas, las imágenes y la bibliografía. **Processing** contiene los scripts de preparación y análisis. **Output** se reserva para gráficos y tablas que se exportan como archivos independientes cuando sea necesario. Finalmente, `index.qmd` reúne la escritura y los resultados para producir el informe HTML.
+
+La mayor parte del trabajo se concentrará en `index.qmd`, las bases guardadas en `input/data/` y los scripts ubicados en `processing/`. En cambio, `_quarto.yml` y `libs/custom.scss` ya contienen la configuración y el diseño del informe; no necesitan modificarlos para comenzar. Los archivos `.gitkeep` que puedan encontrar dentro de algunas carpetas sirven para conservarlas vacías en Git y no requieren ninguna acción especial.
+
+<!-- Bloque 3: 20 minutos. -->
+
+
+# Verificar la reproducibilidad del proyecto {#verificar-reproducibilidad}
+
+Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de **rutas absolutas**, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante **rutas relativas a la carpeta del proyecto**.
+
+::: {.rv-project-route}
+:::: {.columns}
+::: {.column width="50%"}
+**Ruta personal: evitar**
+
+```r
+readRDS("C:/Users/Estudiante/Downloads/encuesta.rds")
+```
+:::
+::: {.column width="50%"}
+**Ruta relativa: preferir**
+
+```r
+readRDS("input/data/proc/encuesta.rds")
+```
+:::
+::::
+:::
+
+En el segundo caso, R buscará `encuesta.rds` dentro de la carpeta `input/data/proc/` del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la pauta del curso.
+
+Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el informe mediante **Preview** en Positron o ejecutando el siguiente comando desde la carpeta raíz:
+
+```bash
+quarto render index.qmd
+```
+
+Después, si es posible, copien la carpeta completa a otra ubicación y repitan la renderización sin modificar las rutas. Esta prueba ayuda a detectar dependencias de archivos personales o faltantes.
+
+::: {.callout-important appearance="minimal" title="Una distinción importante"}
+**Abrir un HTML no es lo mismo que reproducir un análisis.** La plantilla inicial puede generar su figura ilustrativa aunque los scripts de investigación todavía no estén activos. Cuando incorporen los datos y análisis del grupo, deberán comprobar que esos procedimientos también se ejecutan y que el HTML presenta **sus resultados reales**.
+:::
+
+<!-- Bloque 5: 20 minutos. -->
+
+
+# Integrar nuestros análisis en el informe {#integrar-analisis}
+
+Una vez que los datos y los análisis están organizados, el siguiente paso es **transformar los resultados estadísticos en un argumento de investigación**. Esto significa que las tablas y los gráficos deben responder a la pregunta formulada, relacionarse con las hipótesis y acompañarse de una interpretación sustantiva. No basta con insertar una salida de R sin explicar qué información aporta.
+
+La plantilla ya incorpora las secciones exigidas por la [pauta del trabajo grupal](https://correlacional.metodos-facso.org/trabajos/trabajos.html). Para reconocer dónde corresponde cada resultado, podemos utilizar la siguiente orientación:
+
+::: {.rv-project-scroll}
+| Si el grupo ya tiene… | Se incorpora en… | Debe acompañarse de… |
+|:--|:--|:--|
+| Definiciones y recodificaciones de variables | **Metodología: Variables** | Operacionalización y descriptivos de las variables utilizadas. |
+| Tablas y gráficos descriptivos | **Análisis descriptivo** | Descripción e interpretación de los patrones observados. |
+| Pruebas y medidas de asociación | **Análisis estadístico bivariado** | Estadísticos, magnitud de la asociación y relación con las hipótesis. |
+| Resultados relacionados con las hipótesis | **Discusión de resultados** | Interpretación a la luz de los antecedentes y las limitaciones del análisis. |
+:::
+
+Para observar cómo se integran estos elementos, abran la sección **Análisis descriptivo** del archivo `index.qmd`. La figura ilustrativa se genera desde un bloque de R, pero el código no se muestra en el HTML porque contiene la opción `#| echo: false`. La leyenda se incorpora mediante `fig-cap`, y una referencia como `@fig-ejemplo-descriptivo` permite mencionarla desde el texto. Del mismo modo, la tabla de variables utiliza `@tbl-operacionalizacion` y la cita de ejemplo `@wickham2023r` se vincula con el archivo `input/bib/referencias.bib`.
+
+## Citas y bibliografía con BibTeX {.unnumbered}
+
+La plantilla también permite **incorporar citas y generar automáticamente la bibliografía**. Para ello utiliza **BibTeX**, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo `input/bib/referencias.bib`. Cada referencia tiene una **clave única** que permite citarla desde `index.qmd`. Por ejemplo, una entrada se organiza así (datos ilustrativos):
+
+```bibtex
+@article{apellido2026,
+  author  = {Apellido, Nombre},
+  title   = {Título del artículo},
+  journal = {Nombre de la revista},
+  year    = {2026}
+}
+```
+
+En la plantilla encontrarán la clave `wickham2023r`. Para utilizarla en el informe, pueden escribir:
+
+```markdown
+Según @wickham2023r, ...
+
+La organización de los datos facilita el análisis reproducible [@wickham2023r].
+```
+
+Al renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo `input/bib/apa.csl` define el estilo de citación **APA**. Para incorporar sus propias fuentes, deben agregarlas a `referencias.bib` y citar sus claves en el texto. **No es necesario escribir manualmente la bibliografía al final del informe.**
+
+Estos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la [sesión de visualización](https://correlacional.metodos-facso.org/content/15-visualizacion.html). **No deben conservar los resultados ni las referencias de ejemplo en la entrega:** su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.
+
+Cada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación.
+
+<!-- Bloque 4: 15 minutos. -->
+
+# Revisión de avances del trabajo grupal {#monitoreo}
+
+Para finalizar el trabajo necesitamos reconocer qué partes de la investigación ya están resueltas y cuáles requieren atención. Este monitoreo **no constituye una nueva evaluación**: es una instancia para que cada grupo organice sus pendientes y pueda plantear preguntas concretas al equipo docente.
+
+A continuación, revisaremos los principales componentes del informe para identificar qué aspectos tiene avanzado cada grupo y cuáles requieren mayor atención. Esta revisión servirá para orientar las consultas y priorizar el trabajo pendiente antes de la entrega.
+
+::: {.rv-project-scroll}
+| Componente del informe | Qué revisar |
+|:--|:--|
+| Tema, pregunta y conceptos | Claridad y coherencia del problema. |
+| Objetivo e hipótesis | Correspondencia con el análisis. |
+| Base de datos y selección de casos | Disponibilidad y justificación. |
+| Variables, recodificaciones y descriptivos | Preparación y documentación. |
+| Cruce entre variables categóricas | Análisis e interpretación. |
+| Análisis entre variable continua y categórica | Análisis e interpretación. |
+| Gráficos, tablas e interpretaciones | Presentación y explicación de los resultados. |
+| Introducción, discusión y conclusiones | Coherencia argumentativa. |
+| Citas, bibliografía y proyecto reproducible | Fuentes, archivos y renderización. |
+:::
+
+Durante la asesoría conversaremos con cada grupo a partir de tres preguntas: **¿qué tenemos avanzado y podemos incorporar al informe?**, **¿qué nos falta completar antes de la entrega?** y **¿qué dificultad concreta necesitamos resolver con el equipo docente?**
+
+A partir de esta revisión, cada grupo debería identificar **hasta dos prioridades principales** para continuar su trabajo. Si existen dificultades metodológicas o técnicas, pueden plantearlas al equipo docente durante la asesoría.
+
+<!-- Bloque 6: 10 minutos. -->
+
+# Preparación de la entrega {#entrega}
+
+El producto final es un **informe académico en HTML generado con Quarto**, acompañado de una carpeta comprimida que permita revisar el trabajo realizado. Según las [instrucciones oficiales](https://correlacional.metodos-facso.org/trabajos/trabajos.html), esa carpeta debe incluir el archivo `.qmd`, los datos utilizados, los scripts correspondientes y el HTML generado.
+
+Antes de entregar, es importante comprobar que el documento presenta los **resultados reales del grupo**, que las figuras y tablas están identificadas e interpretadas, y que las rutas permiten generar nuevamente el informe. Asimismo, recuerden reemplazar la figura y la referencia bibliográfica ilustrativas que vienen en la plantilla.
+
+La [planificación del curso](https://correlacional.metodos-facso.org/schedule.html) indica como fecha de entrega el **viernes 20 de noviembre de 2026, mediante UCursos**. Revisen los avisos del equipo docente por si se comunica alguna actualización.
+
+**Idea central:** un proyecto reproducible no es únicamente un informe bien presentado; también permite reconstruir el procedimiento mediante el cual se obtuvieron los resultados de la investigación.
+
+::: {.callout-tip collapse="false" appearance="minimal" title="Recursos"}
+
+- [Documentos Dinámicos Quarto en Positron](https://correlacional.metodos-facso.org/content/14-quarto.html): estructura `.qmd`, bloques de código y renderización.
+- [Gráficos y tablas en R y publicación en Quarto](https://correlacional.metodos-facso.org/content/15-visualizacion.html): construcción de visualizaciones y referencias cruzadas.
+- [Trabajo grupal](https://correlacional.metodos-facso.org/trabajos/trabajos.html): requisitos, formato y entrega del informe.
+
+:::
