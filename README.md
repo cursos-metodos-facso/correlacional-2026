@@ -36,3 +36,15 @@ echo $! > bib-watcher.pid  # guarda el PID para poder detenerlo con: kill $(cat 
 ```
 
 **Requisitos:** `git` configurado con `user.name` / `user.email` y acceso de push a `origin/main`.
+# Optimización de HTML publicados
+
+Después de un renderizado exitoso de Quarto, ejecutar desde la raíz del repositorio:
+
+```powershell
+python scripts/optimize_embedded_css.py
+```
+
+El script extrae dos bloques CSS grandes e idénticos de nueve páginas publicadas y los comparte en `docs/optimized-assets/`. No ejecuta R, no modifica los QMD y puede ejecutarse de nuevo sin cambiar el resultado. Para probar solamente una página, usar `--pilot`.
+
+Este paso permanece como comando explícito. No se configuró `project.post-render` porque un renderizado completo puede reejecutar código R de los prácticos y esa integración aún no se ha validado.
+
