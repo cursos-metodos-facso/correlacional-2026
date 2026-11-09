@@ -5242,5 +5242,125 @@
       "Presentaciones",
       "Visualización de datos: gráficos y tablas"
     ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html",
+    "href": "content/15-repaso-asociacion.html",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "",
+    "text": "Sesión del miércoles, 11 de noviembre de 2026",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso1",
+    "href": "content/15-repaso-asociacion.html#ej1-paso1",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 1 · Mirar y anticipar",
+    "text": "Paso 1 · Mirar y anticipar\n\nA medida que aumentan las horas, ¿la nota tiende a subir o a bajar? ¿El patrón parece aproximadamente recto?\n\n\n\n\n\n\n\n\n\nFigura 1: Horas semanales de estudio y nota de la evaluación (5 estudiantes, datos simulados).\n\n\n\n\n\nLas notas tienden a ser más altas cuando hay más horas de estudio, aunque no de forma perfecta: C estudia más que B y obtiene menos nota, y lo mismo ocurre entre D y E. La tendencia es aproximadamente recta y ascendente, así que anticipamos una asociación positiva.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso2",
+    "href": "content/15-repaso-asociacion.html#ej1-paso2",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 2 · Desviaciones respecto de la media",
+    "text": "Paso 2 · Desviaciones respecto de la media\nPara medir el patrón conjunto, primero ubicamos a cada estudiante respecto del promedio de cada variable:\n\\[\n\\bar{x}=\\frac{2+4+6+8+10}{5}=6\n\\qquad\n\\bar{y}=\\frac{3+5+4+7+6}{5}=5\n\\]\nLa desviación de cada caso es su distancia a la media: \\(x_i-\\bar{x}\\) y \\(y_i-\\bar{y}\\). Luego multiplicamos ambas desviaciones.\n\n¿Qué signo tendrá el producto de un estudiante que está bajo ambas medias? ¿Y el de uno que está sobre una y bajo la otra?\n\n\n\n\nEstudiante\n\\(x_i-\\bar{x}\\)\n\\(y_i-\\bar{y}\\)\nProducto\n\n\n\n\nA\n\\(2-6=-4\\)\n\\(3-5=-2\\)\n\\(+8\\)\n\n\nB\n\\(4-6=-2\\)\n\\(5-5=0\\)\n\\(0\\)\n\n\nC\n\\(6-6=0\\)\n\\(4-5=-1\\)\n\\(0\\)\n\n\nD\n\\(8-6=+2\\)\n\\(7-5=+2\\)\n\\(+4\\)\n\n\nE\n\\(10-6=+4\\)\n\\(6-5=+1\\)\n\\(+4\\)\n\n\nSuma\n\n\n\\(\\mathbf{+16}\\)\n\n\n\n\nA está bajo ambas medias: \\((-)(-)=+\\). Es el caso más alejado de ambas, por eso aporta el producto más grande.\nD y E están sobre ambas medias: \\((+)(+)=+\\).\nB y C coinciden con una de las medias, por lo que su aporte es cero.\nNadie queda en lados opuestos de las medias, así que no hay productos negativos.\n\nLa figura muestra la misma idea: las medias dividen el plano en cuatro cuadrantes, y los puntos en los cuadrantes sombreados aportan productos positivos.\n\n\n\n\n\n\n\n\nFigura 2: Las medias dividen el plano en cuatro cuadrantes; cada etiqueta indica el producto de desviaciones de ese estudiante.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso3",
+    "href": "content/15-repaso-asociacion.html#ej1-paso3",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 3 · Covarianza",
+    "text": "Paso 3 · Covarianza\nLa covarianza promedia esos productos, dividiendo por \\(n-1\\):\n\\[\n\\operatorname{cov}(X,Y)=\\frac{\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}{n-1}=\\frac{16}{5-1}=4\n\\]\nEl signo positivo confirma lo que anticipamos al mirar la nube.\n\nLa covarianza es 4. ¿Eso es mucho o poco? ¿Qué pasaría si midiéramos el estudio en minutos en vez de horas?\n\nNo podemos saberlo: la covarianza está expresada en horas × puntos de nota. Si midiéramos el estudio en minutos, sería 60 veces mayor (240) sin que el patrón cambiara. La covarianza nos dice el signo, pero su magnitud depende de las unidades. Por eso necesitamos estandarizarla.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso4",
+    "href": "content/15-repaso-asociacion.html#ej1-paso4",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 4 · Correlación de Pearson y \\(R^2\\)",
+    "text": "Paso 4 · Correlación de Pearson y \\(R^2\\)\nPearson divide la covarianza por el producto de las desviaciones estándar, con lo que las unidades se cancelan y el resultado queda entre \\(-1\\) y \\(1\\). En estos datos, \\(s_X=\\sqrt{10}\\approx3{,}16\\) y \\(s_Y=\\sqrt{2{,}5}\\approx1{,}58\\), y su producto es exacto: \\(\\sqrt{10}\\times\\sqrt{2{,}5}=\\sqrt{25}=5\\).\n\\[\nr=\\frac{\\operatorname{cov}(X,Y)}{s_X\\,s_Y}=\\frac{4}{5}=0{,}80\n\\]\nElevando al cuadrado obtenemos el coeficiente de determinación:\n\\[\nR^2=r^2=0{,}80^2=0{,}64\n\\]\n\nRecordemos. Según los criterios de Cohen, ¿cómo clasificaría usted \\(r=0{,}80\\)? ¿Qué significa que \\(R^2=0{,}64\\)?\n\n\\(r=0{,}80\\) es una asociación grande (\\(|r|&gt;0{,}5\\)). Un \\(R^2=0{,}64\\) indica que horas de estudio y nota comparten un 64% de su varianza en este grupo.\nEn R, todo lo anterior se obtiene en tres líneas:\n\nhoras &lt;- c(2, 4, 6, 8, 10)\nnota  &lt;- c(3, 5, 4, 7, 6)\ncov(horas, nota)\n\n[1] 4\n\ncor(horas, nota)\n\n[1] 0.8\n\ncor(horas, nota)^2\n\n[1] 0.64",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso5",
+    "href": "content/15-repaso-asociacion.html#ej1-paso5",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 5 · Interpretar y volver a mirar",
+    "text": "Paso 5 · Interpretar y volver a mirar\n«En este grupo de cinco estudiantes, las horas semanales de estudio y la nota presentan una asociación positiva (\\(r=0{,}80\\)) de magnitud grande: quienes estudian más horas tienden a obtener notas más altas. Ambas variables comparten un 64% de su varianza. Esta asociación no demuestra que estudiar más cause mejores notas».\nVolver a mirar: el valor de \\(r\\) es coherente con la nube, que muestra una tendencia ascendente clara pero no perfecta (C y E rompen la secuencia). Por eso \\(r\\) es alto, pero no igual a 1.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#ej1-paso6",
+    "href": "content/15-repaso-asociacion.html#ej1-paso6",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 6 · ¿Podemos generalizar?",
+    "text": "Paso 6 · ¿Podemos generalizar?\n\nCon una correlación tan grande, ¿podemos concluir que en la población de estudiantes existe esta asociación?\n\nAplicamos la prueba de hipótesis para una correlación (\\(H_0:\\rho=0\\); \\(H_A:\\rho\\neq0\\)):\n\\[\nSE_r=\\sqrt{\\frac{1-r^2}{n-2}}=\\sqrt{\\frac{1-0{,}64}{5-2}}\\approx0{,}346\n\\]\n\\[\nt=\\frac{r}{SE_r}=\\frac{0{,}80}{0{,}346}\\approx2{,}31\n\\qquad\ngl=3\n\\]\nEl valor crítico bilateral al 5% con 3 grados de libertad es \\(\\pm3{,}18\\). Como \\(2{,}31&lt;3{,}18\\), no rechazamos \\(H_0\\): aun con una correlación grande, cinco casos no aportan evidencia suficiente sobre la población. La magnitud describe el patrón en la muestra; la inferencia depende también del tamaño muestral.\n\n\n\n\n\n\nRecordatorio\n\n\n\nEl valor crítico de la prueba t disminuye a medida que aumenta el tamaño de la muestra y, por consiguiente, los grados de libertad. Esto ocurre porque, conforme crecen los grados de libertad, la distribución t converge hacia la distribución normal estándar. Por ello, en una prueba bilateral con un nivel de significación del 5 % (es decir, un 95 % de confianza), el valor crítico tiende a 1,96.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#apl-b-observar",
+    "href": "content/15-repaso-asociacion.html#apl-b-observar",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 1 · Observar los datos",
+    "text": "Paso 1 · Observar los datos\n\nload(url(\"https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData\"))\n\ncep_subset &lt;- datos_cep |&gt;\n  select(conf_carab, conf_ffaa, conf_gobierno,\n         conf_congreso, conf_partidos, pos_pol) |&gt;\n  mutate(across(everything(), as.numeric))\n\n¿Cuántos casos perdidos hay y cuántos casos quedan según cada tratamiento?\n\ncolSums(is.na(cep_subset))        # casos perdidos por variable\n\n   conf_carab     conf_ffaa conf_gobierno conf_congreso conf_partidos \n            5            26            17            40            26 \n      pos_pol \n          260 \n\nsum(complete.cases(cep_subset))   # N con eliminación listwise\n\n[1] 1168\n\npsych::pairwiseCount(cep_subset)  # N de cada par con eliminación pairwise\n\n              conf_carab conf_ffaa conf_gobierno conf_congreso conf_partidos\nconf_carab          1461      1438          1445          1422          1438\nconf_ffaa           1438      1440          1427          1410          1424\nconf_gobierno       1445      1427          1449          1417          1429\nconf_congreso       1422      1410          1417          1426          1412\nconf_partidos       1438      1424          1429          1412          1440\npos_pol             1205      1195          1200          1185          1195\n              pos_pol\nconf_carab       1205\nconf_ffaa        1195\nconf_gobierno    1200\nconf_congreso    1185\nconf_partidos    1195\npos_pol          1206",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#apl-b-decidir",
+    "href": "content/15-repaso-asociacion.html#apl-b-decidir",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 2 · Decidir y justificar",
+    "text": "Paso 2 · Decidir y justificar\n\nDecisión 1 · ¿Qué coeficiente? ¿Pearson, Spearman o Kendall? Justifique su elección.\nDecisión 2 · ¿Cómo tratar los casos perdidos? ¿Listwise o pairwise? Justifique considerando:\n\nqué variable concentra los casos perdidos y por qué podría ocurrir;\ncuántos casos se pierden con cada tratamiento;\nqué gana y qué pierde con cada opción.\n\n\n\n\n\n\n\n\nPista · Elegir el coeficiente\n\n\n\n\n\nFíjese en cuántos valores distintos puede tomar cada variable de confianza. Con 4 categorías y casi 1.500 personas, ¿cuántas personas comparten exactamente la misma respuesta? ¿Qué coeficiente está pensado para esa situación?\n\n\n\n\n\n\n\n\n\nPista · Decidir sobre los casos perdidos\n\n\n\n\n\nNingún tratamiento es correcto en abstracto. Pregúntese: ¿la pérdida está concentrada en una variable o repartida? ¿Necesito que todas las correlaciones se refieran a las mismas personas?\n\n\n\n\n\n\n\n\n\nVer pauta · Decisiones\n\n\n\n\n\nNo hay una única respuesta correcta: lo que se evalúa es que la decisión sea coherente con los datos y esté justificada.\nDecisión 1 · Coeficiente. Las cinco variables de confianza son ordinales de 4 categorías y pos_pol es una escala ordinal de 10 puntos. Los números indican orden, no distancias iguales, por lo que Pearson no corresponde. Quedan dos opciones defendibles:\n\nSpearman, porque las variables son ordinales y la muestra es grande. Es el coeficiente más usado y el que permite comparar con otros estudios.\nKendall (τ-b), porque con solo 4 categorías hay muchísimos empates: con casi 1.500 personas, cada categoría agrupa cientos de respuestas idénticas. Kendall está pensado justamente para esa situación.\n\nElegir uno y mencionar el otro como comprobación es una buena práctica.\nDecisión 2 · Casos perdidos. La pérdida se concentra en pos_pol (260 casos, 18%), mientras el resto de las variables pierde entre 5 y 40 casos. Es habitual que muchas personas no se ubiquen en el eje izquierda-derecha.\n\nCon listwise quedan 1.168 casos (−20%), y todas las correlaciones se refieren a las mismas personas. Listwise es defendible si se quiere una matriz coherente o si la matriz se usará después en técnicas multivariadas.\nCon pairwise, el \\(N\\) por par va de 1.185 (pares con pos_pol) a 1.445: las correlaciones entre instituciones conservan casi toda la muestra. Pairwise es preferible si se quiere mantener el poder estadístico, sobre todo en los pares que no incluyen pos_pol.",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
+  },
+  {
+    "objectID": "content/15-repaso-asociacion.html#apl-b-calcular",
+    "href": "content/15-repaso-asociacion.html#apl-b-calcular",
+    "title": "Repaso Unidad 2: asociación y correlación",
+    "section": "Paso 3 · Calcular y comprobar las decisiones",
+    "text": "Paso 3 · Calcular y comprobar las decisiones\nCalculamos la matriz con ambos coeficientes y, para cada uno, con ambos tratamientos de casos perdidos. Usamos sjPlot::tab_corr(), que además de cada coeficiente indica su significación estadística con asteriscos. En cada bloque, cambie de pestaña para comparar listwise y pairwise: fíjese en si cambian los coeficientes y si algún par gana o pierde asteriscos. La matriz con la que trabajará es la que corresponde a sus decisiones.\nSpearman\n\nListwisePairwise\n\n\n\nsjPlot::tab_corr(cep_subset,\n                 corr.method = \"spearman\",\n                 na.deletion = \"listwise\",\n                 triangle = \"lower\",\n                 title = \"Spearman · listwise (N = 1.168)\")\n\n\nSpearman  listwise (N = 1.168)\n\n\n \nconf_carab\nconf_ffaa\nconf_gobierno\nconf_congreso\nconf_partidos\npos_pol\n\n\nconf_carab\n \n \n \n \n \n \n\n\nconf_ffaa\n0.622***\n \n \n \n \n \n\n\nconf_gobierno\n0.463***\n0.511***\n \n \n \n \n\n\nconf_congreso\n0.224***\n0.256***\n0.345***\n \n \n \n\n\nconf_partidos\n0.127***\n0.113***\n0.231***\n0.433***\n \n \n\n\npos_pol\n0.351***\n0.366***\n0.524***\n0.106***\n0.014\n \n\n\nComputed correlation used spearman-method with listwise-deletion.\n\n\n\n\n\n\n\n\nsjPlot::tab_corr(cep_subset,\n                 corr.method = \"spearman\",\n                 na.deletion = \"pairwise\",\n                 triangle = \"lower\",\n                 title = \"Spearman · pairwise (N entre 1.185 y 1.445)\")\n\n\nSpearman  pairwise (N entre 1.185 y 1.445)\n\n\n \nconf_carab\nconf_ffaa\nconf_gobierno\nconf_congreso\nconf_partidos\npos_pol\n\n\nconf_carab\n \n \n \n \n \n \n\n\nconf_ffaa\n0.585***\n \n \n \n \n \n\n\nconf_gobierno\n0.450***\n0.488***\n \n \n \n \n\n\nconf_congreso\n0.235***\n0.278***\n0.363***\n \n \n \n\n\nconf_partidos\n0.151***\n0.152***\n0.276***\n0.454***\n \n \n\n\npos_pol\n0.346***\n0.363***\n0.518***\n0.106***\n0.020\n \n\n\nComputed correlation used spearman-method with pairwise-deletion.\n\n\n\n\n\n\n\n\nKendall (τ-b)\n\nListwisePairwise\n\n\n\nsjPlot::tab_corr(cep_subset,\n                 corr.method = \"kendall\",\n                 na.deletion = \"listwise\",\n                 triangle = \"lower\",\n                 title = \"Kendall · listwise (N = 1.168)\")\n\n\nKendall  listwise (N = 1.168)\n\n\n \nconf_carab\nconf_ffaa\nconf_gobierno\nconf_congreso\nconf_partidos\npos_pol\n\n\nconf_carab\n \n \n \n \n \n \n\n\nconf_ffaa\n0.567***\n \n \n \n \n \n\n\nconf_gobierno\n0.408***\n0.455***\n \n \n \n \n\n\nconf_congreso\n0.200***\n0.229***\n0.314***\n \n \n \n\n\nconf_partidos\n0.115***\n0.103***\n0.212***\n0.410***\n \n \n\n\npos_pol\n0.292***\n0.306***\n0.447***\n0.091***\n0.012\n \n\n\nComputed correlation used kendall-method with listwise-deletion.\n\n\n\n\n\n\n\n\nsjPlot::tab_corr(cep_subset,\n                 corr.method = \"kendall\",\n                 na.deletion = \"pairwise\",\n                 triangle = \"lower\",\n                 title = \"Kendall · pairwise (N entre 1.185 y 1.445)\")\n\n\nKendall  pairwise (N entre 1.185 y 1.445)\n\n\n \nconf_carab\nconf_ffaa\nconf_gobierno\nconf_congreso\nconf_partidos\npos_pol\n\n\nconf_carab\n \n \n \n \n \n \n\n\nconf_ffaa\n0.532***\n \n \n \n \n \n\n\nconf_gobierno\n0.398***\n0.434***\n \n \n \n \n\n\nconf_congreso\n0.211***\n0.249***\n0.331***\n \n \n \n\n\nconf_partidos\n0.137***\n0.138***\n0.253***\n0.431***\n \n \n\n\npos_pol\n0.289***\n0.303***\n0.442***\n0.090***\n0.018\n \n\n\nComputed correlation used kendall-method with pairwise-deletion.\n\n\n\n\n\n\n\n\n\nB1 · Comprobar las decisiones. Compare las cuatro tablas. ¿Cambian los coeficientes si usamos pairwise en vez de listwise, o Kendall en vez de Spearman? ¿Algún par cambia de significación estadística (gana o pierde asteriscos)?\nB2 · Lectura de la matriz. Identifique la asociación más fuerte y la más débil.\nB3 · Interpretación sustantiva. ¿Cómo interpreta usted que quienes se ubican más a la derecha confíen más en el Gobierno, Carabineros y las Fuerzas Armadas, pero no en el Congreso ni en los partidos?\nB4 · Reporte. Redacte una conclusión breve sobre conf_gobierno–pos_pol que incluya y justifique sus decisiones.\n\n\n\n\n\n\n\nVer pauta · Resultados\n\n\n\n\n\nB1 · Comprobar las decisiones.\n\nPairwise vs. listwise: los coeficientes cambian muy poco, solo en algunas centésimas. La decisión sobre casos perdidos no altera las conclusiones.\nKendall vs. Spearman: Kendall entrega valores más bajos (por ejemplo, para Carabineros–FF.AA.), pero el orden de las asociaciones y los bloques son los mismos. Kendall es más bajo porque compara pares de casos (cuántos están ordenados igual o al revés en ambas variables), mientras Spearman correlaciona las posiciones en los rankings: miden la asociación en escalas distintas. Por eso no se comparan magnitudes entre coeficientes distintos.\nSignificación estadística: ningún par cambia de significación en las cuatro combinaciones. Catorce de los quince pares son significativos al 0,1% (\\(p&lt;0{,}001\\), tres asteriscos) en todas las tablas, y el único par no significativo, conf_partidos–pos_pol (\\(r_s\\approx0{,}01\\); \\(p\\approx0{,}5\\)), lo es en todas. Con \\(N&gt;1.100\\), incluso coeficientes pequeños como conf_congreso–pos_pol (\\(r_s\\approx0{,}11\\)) alcanzan significación: perder 260 casos con listwise reduce algo la precisión, pero no lo suficiente para cambiar ninguna decisión.\n\nB2 · Lectura de la matriz.\n\nMás fuerte: conf_carab–conf_ffaa, \\(r_s=0{,}62\\): positiva y grande. Quien confía en Carabineros tiende a confiar en las Fuerzas Armadas.\nMás débil: conf_partidos–pos_pol, \\(r_s=0{,}01\\): prácticamente nula. La (baja) confianza en los partidos no se ordena según izquierda o derecha.\nPara profundizar: las instituciones de orden y seguridad (Carabineros, FF.AA.) y el Gobierno forman un bloque con asociaciones moderadas a grandesf (0,46–0,62), y las tres se asocian moderadamente con pos_pol (0,35–0,52). Las instituciones de representación (Congreso, partidos) forman otro par (\\(r_s=0{,}43\\)) que casi no se asocia con la posición política.\n\nB3 · Interpretación sustantiva. Los signos positivos indican que quienes se ubican más a la derecha tienden a declarar más confianza en el Gobierno (\\(r_s=0{,}52\\)), Carabineros (0,35) y las Fuerzas Armadas (0,37), mientras la confianza en el Congreso (0,11) y en los partidos (0,01) casi no varía según la posición política. La asociación con Carabineros y FF.AA. es coherente con la mayor valoración del orden y la seguridad en la derecha. La asociación con el Gobierno, en cambio, no es una propiedad fija de «la derecha»: la encuesta se aplicó en 2026, con un gobierno de ese sector. La confianza en el Gobierno suele depender de la cercanía política con quien gobierna, por lo que bajo un gobierno de otro signo podríamos esperar una asociación más débil o incluso negativa. Un coeficiente describe un patrón en un momento y una población: interpretarlo requiere conocer el contexto.\nB4 · Reporte modelo. «Dado que las variables son ordinales, se utilizó la correlación de Spearman; Kendall (τ-b), calculado como comprobación por la cantidad de empates, entrega el mismo patrón. Se aplicó eliminación listwise (\\(N=1.168\\) de 1.466), considerando que la no respuesta se concentra en la autoubicación política (18%); con eliminación pairwise los coeficientes varían solo en algunas centésimas. La confianza en el Gobierno y la autoubicación política presentan una asociación positiva de magnitud grande y estadísticamente significativa (\\(r_s=0{,}52\\); \\(p&lt;0{,}001\\)): quienes se ubican más a la derecha tienden a declarar mayor confianza en el Gobierno. El resultado no permite establecer una relación causal».",
+    "crumbs": [
+      "Clases",
+      "Presentaciones",
+      "Repaso Unidad 2: Asociación"
+    ]
   }
 ]
