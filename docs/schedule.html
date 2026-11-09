@@ -8,7 +8,7 @@
 
 <meta name="description" content="Estadística Correlacional">
 
-<title>schedule – Estadística Correlacional</title>
+<title>Planificación – Estadística Correlacional</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -75,7 +75,7 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Estadística Correlacional">
+<meta property="og:title" content="Planificación – Estadística Correlacional">
 <meta property="og:image" content="https://correlacional.metodos-facso.org/images/logo.png">
 <meta property="og:site_name" content="Estadística Correlacional">
 <meta property="og:locale" content="es">
@@ -140,24 +140,12 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#forma-general-de-funcionamiento" id="toc-forma-general-de-funcionamiento" class="nav-link active" data-scroll-target="#forma-general-de-funcionamiento">Forma general de funcionamiento</a>
-  <ul class="collapse">
-  <li><a href="#sobre-pruebas-recuperativas-miércoles-18-de-noviembre" id="toc-sobre-pruebas-recuperativas-miércoles-18-de-noviembre" class="nav-link" data-scroll-target="#sobre-pruebas-recuperativas-miércoles-18-de-noviembre">Sobre pruebas recuperativas (miércoles 18 de Noviembre):</a></li>
-  <li><a href="#exámenes" id="toc-exámenes" class="nav-link" data-scroll-target="#exámenes">Exámenes</a></li>
-  </ul></li>
-  </ul>
-</nav>
-    </div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -166,7 +154,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-title-meta">
+<div class="quarto-title-meta column-page">
 
     
   
@@ -179,179 +167,49 @@ ul.task-list li input[type="checkbox"] {
 
 
 <style>
-/* Portada y texto introductorio más compactos */
-#title-block-header {
-  margin-bottom: 0.6rem;
-}
-
-#title-block-header .title {
-  font-size: 1.65rem !important;
-  line-height: 1.15;
-  margin-bottom: 0;
-}
-
-h2 {
-  font-size: 1.15rem !important;
-  margin-top: 0.4rem;
-  margin-bottom: 0.55rem;
-}
-
-.course-intro {
-  font-size: 0.88rem;
-  line-height: 1.42;
-  margin-bottom: 0.9rem;
-}
-
-.course-intro p {
-  margin-bottom: 0.45rem;
-}
-
-.course-intro ul {
-  margin-top: 0.25rem;
-  margin-bottom: 0.6rem;
-}
-
-.course-intro li {
-  margin-bottom: 0.25rem;
-}
-
-/* Tabla */
-.table-scroll {
-  width: 100%;
-  overflow-x: auto;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.table-scroll table {
-  width: 100% !important;
-  min-width: 1050px;
-  table-layout: fixed;
-  font-size: 0.78rem !important;
-  margin: 0;
-}
-
-.table-scroll thead th {
-  font-size: 0.84rem !important;
-  line-height: 1.15;
-  padding: 0.42rem 0.48rem !important;
-  vertical-align: bottom;
-  white-space: normal;
-}
-
-.table-scroll tbody td {
-  padding: 0.38rem 0.48rem !important;
-  line-height: 1.3;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-.table-scroll th:nth-child(1),
-.table-scroll td:nth-child(1) {
-  width: 8%;
-  white-space: nowrap;
-}
-
-.table-scroll th:nth-child(2),
-.table-scroll td:nth-child(2) {
-  width: 10%;
-}
-
-.table-scroll th:nth-child(3),
-.table-scroll td:nth-child(3) {
-  width: 39%;
-}
-
-.table-scroll th:nth-child(4),
-.table-scroll td:nth-child(4) {
-  width: 21%;
-}
-
-.table-scroll th:nth-child(5),
-.table-scroll td:nth-child(5) {
-  width: 22%;
-}
-
-.month-label {
-  color: #d98200;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-.eval-label {
-  color: #c62828;
-  font-weight: 700;
-}
-
-.table-scroll a {
-  overflow-wrap: anywhere;
-}
-
-/* Tabla desde el 4 de noviembre: columna 3 = Sección A, columna 4 = Sección B */
-/* Ignorar los anchos que Quarto calcula desde la tabla grid */
-.table-scroll col {
-  width: auto !important;
-}
-
-.table-split table {
-  min-width: 800px;
-}
-
-.table-split th:nth-child(3),
-.table-split td:nth-child(3),
-.table-split th:nth-child(4),
-.table-split td:nth-child(4) {
-  width: 41%;
-}
-
-.table-split thead th:nth-child(3) { color: #1f5f9e; }
-.table-split thead th:nth-child(4) { color: #2e7d32; }
-
-.table-scroll.table-split tbody tr td:nth-child(3) {
-  background: #e3effa !important;
-}
-
-.table-scroll.table-split tbody tr td:nth-child(4) {
-  background: #e6f4e7 !important;
-}
-
-.secA-label {
-  color: #1f5f9e;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-.secB-label {
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-/* Los prácticos conservan el fondo gris */
-.table-scroll tbody tr.is-practico td {
-  background: #f2f2f2 !important;
-}
-
-@media (max-width: 900px) {
-  #title-block-header .title {
-    font-size: 1.45rem !important;
-  }
-
-  .course-intro {
-    font-size: 0.84rem;
-  }
-
-  .table-scroll table {
-    font-size: 0.74rem !important;
-  }
-
-  .table-scroll thead th {
-    font-size: 0.78rem !important;
-  }
+/* Estilos locales de la planificación: tablas Markdown, sin bordes ASCII. */
+#title-block-header { margin-bottom: .6rem; }
+#title-block-header .title { font-size: 1.65rem !important; line-height: 1.15; }
+h2 { font-size: 1.15rem !important; margin: .5rem 0; }
+.course-intro { max-width: 1100px; font-size: .92rem; line-height: 1.48; margin-bottom: 1.15rem; }
+.course-intro p { margin-bottom: .4rem; }
+.course-intro ul { margin-top: .35rem; margin-bottom: .7rem; }
+.course-intro li { margin-bottom: .3rem; }
+/* Dejar que la tabla se adapte; desplazarla horizontalmente en pantallas estrechas. */
+.table-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin: 1rem 0 1.4rem; border: 1px solid #dce1e5; border-radius: 5px; }
+.table-scroll table { width: 100% !important; min-width: 1080px; table-layout: fixed; border-collapse: collapse; margin: 0 !important; font-size: .84rem; }
+.table-scroll colgroup col { width: auto !important; }
+.table-scroll thead th { font-weight: 650; background: #f2f5f7; color: #34434a; border-bottom: 2px solid #d4dde2; padding: .7rem .65rem !important; line-height: 1.35; text-align: left; vertical-align: top; }
+.table-scroll tbody td { border-bottom: 1px solid #e3e8eb; padding: .65rem .65rem !important; line-height: 1.4; vertical-align: top; overflow-wrap: break-word; word-break: normal; }
+.table-scroll tbody tr:last-child td { border-bottom: 0; }
+.table-scroll:not(.table-split) th:nth-child(1),
+.table-scroll:not(.table-split) td:nth-child(1) { width: 9%; white-space: nowrap; }
+.table-scroll:not(.table-split) th:nth-child(2),
+.table-scroll:not(.table-split) td:nth-child(2) { width: 12%; }
+.table-scroll:not(.table-split) th:nth-child(3),
+.table-scroll:not(.table-split) td:nth-child(3) { width: 34%; }
+.table-scroll:not(.table-split) th:nth-child(4),
+.table-scroll:not(.table-split) td:nth-child(4) { width: 20%; }
+.table-scroll:not(.table-split) th:nth-child(5),
+.table-scroll:not(.table-split) td:nth-child(5) { width: 25%; }
+.table-scroll tbody tr.is-practico td { background: #f3f5f6 !important; }
+.table-scroll tbody td .month-label { color: #a66500; font-size: .83rem; font-weight: 700; letter-spacing: .02em; }
+.table-scroll tbody tr:has(.month-label) td { background: #faf6ef; border-top: 2px solid #e5d9c7; }
+.eval-label { color: #b22525; font-weight: 700; }
+.table-scroll a { overflow-wrap: anywhere; }
+.table-split table { min-width: 820px; }
+.table-split th:nth-child(1), .table-split td:nth-child(1) { width: 10%; white-space: nowrap; }
+.table-split th:nth-child(2), .table-split td:nth-child(2) { width: 17%; }
+.table-split th:nth-child(3), .table-split td:nth-child(3) { width: 37%; }
+.table-split th:nth-child(4), .table-split td:nth-child(4) { width: 36%; }
+.table-split th:nth-child(3) { color: #225d89; }
+.table-split th:nth-child(4) { color: #2f733c; }
+.table-split tbody td:nth-child(3) { background: #f0f6fc; }
+.table-split tbody td:nth-child(4) { background: #f0f8f1; }
+@media(max-width:767px) {
+  #title-block-header .title { font-size:1.4rem !important; }
+  .course-intro { font-size:.88rem; }
+  .table-scroll table { font-size:.8rem; }
 }
 </style>
 <section id="forma-general-de-funcionamiento" class="level2">
@@ -366,253 +224,232 @@ h2 {
 </div>
 <div class="table-scroll">
 <table class="caption-top table">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 1%">
-<col style="width: 25%">
-<col style="width: 17%">
-<col style="width: 28%">
-<col style="width: 23%">
-</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Fecha</th>
+<th style="text-align: left;">Tipo de sesión</th>
+<th style="text-align: left;"><i class="fas fa-chalkboard-teacher"></i> Contenidos</th>
+<th style="text-align: left;"><i class="fas fa-user-edit"></i> Prácticas y evaluaciones</th>
+<th style="text-align: left;"><i class="fas fa-book-reader"></i> Lecturas y links</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td rowspan="2">Fecha :=============================== <span class="month-label"><strong>AGOSTO</strong></span></td>
-<td rowspan="2">Tipo de sesión :===============</td>
-<td rowspan="2"><i class="fas fa-chalkboard-teacher"></i> Contenidos :=================================================================================================================================================================================================================================================================</td>
-<td rowspan="2"><i class="fas fa-user-edit"></i> Prácticas y evaluaciones :==============================================================================================================================================================================</td>
-<td rowspan="2"><i class="fas fa-book-reader"></i> Lecturas y links :===============================================================================================================================================================================================================================================================================================</td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>AGOSTO</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td></td>
+<td style="text-align: left;">03 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>1. Presentación general del curso</strong><br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Leer detalladamente el <a href="https://correlacional.metodos-facso.org/syllabus.html">programa del curso.</a><br><br><a href="https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico">Poldrack - ¿Qué es el pensamiento estadístico?</a></td>
 </tr>
 <tr class="odd">
-<td>03 / lun</td>
-<td>Lectiva</td>
-<td><strong>1. Presentación general del curso</strong><br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.</td>
-<td></td>
-<td>Leer detalladamente el <a href="https://correlacional.metodos-facso.org/syllabus.html">programa del curso.</a><br><br><a href="https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico">Poldrack - ¿Qué es el pensamiento estadístico?</a></td>
-<td></td>
+<td style="text-align: left;">05 / mié</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>2. Datos, probabilidad y distribuciones muestrales</strong><br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, cap. 2</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, pp.&nbsp;1–21.</a></td>
 </tr>
 <tr class="even">
-<td>05 / mié</td>
-<td>Lectiva</td>
-<td><strong>2. Datos, probabilidad y distribuciones muestrales</strong><br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, cap. 2</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, pp.&nbsp;1–21.</a> |</td>
+<td style="text-align: left;">10 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>3. Error estándar y distribución normal; intro intervalos</strong><br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 6</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, cap. 6.</a></td>
 </tr>
 <tr class="odd">
-<td>10 / lun</td>
-<td>Lectiva</td>
-<td><strong>3. Error estándar y distribución normal; intro intervalos</strong><br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 6</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, cap. 6.</a> |</td>
+<td style="text-align: left;">12 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico R e intervalos de confianza</strong><br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 7</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 8.</a></td>
 </tr>
 <tr class="even">
-<td>12 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico R e intervalos de confianza</strong><br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 7</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 8.</a> |</td>
+<td style="text-align: left;">17 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>4. Prueba de hipótesis</strong><br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 9</a> <br><br> <a href="https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf">Montoya, “Los conceptos de especificación y falsación”.</a></td>
 </tr>
 <tr class="odd">
-<td>17 / lun</td>
-<td>Lectiva</td>
-<td><strong>4. Prueba de hipótesis</strong><br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 9</a> <br><br> <a href="https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf">Montoya, “Los conceptos de especificación y falsación”.</a> |</td>
+<td style="text-align: left;">19 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Inferencia 1</strong><br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de las lecturas anteriores.</td>
 </tr>
 <tr class="even">
-<td>19 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Inferencia 1</strong><br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.</td>
-<td></td>
-<td>Revisión de las lecturas anteriores.</td>
-<td></td>
+<td style="text-align: left;">24 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>5. Falsación, tipos de error y prueba t</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 10.</a></td>
 </tr>
 <tr class="odd">
-<td>24 / lun</td>
-<td>Lectiva</td>
-<td><strong>5. Falsación, tipos de error y prueba t</strong></td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 10.</a> |</td>
+<td style="text-align: left;">26 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Inferencia 2</strong><br></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, caps. 10 y 11.</a></td>
 </tr>
 <tr class="even">
-<td>26 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Inferencia 2</strong><br></td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, caps. 10 y 11.</a> |</td>
+<td style="text-align: left;">31 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>6. Hipótesis direccionales</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 11.</a></td>
 </tr>
 <tr class="odd">
-<td>31 / lun</td>
-<td>Lectiva</td>
-<td><strong>6. Hipótesis direccionales</strong></td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf">Ritchey, cap. 11.</a> |</td>
+<td style="text-align: left;"><span class="month-label"><strong>SEPTIEMBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td><span class="month-label"><strong>SEPTIEMBRE</strong></span></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">02 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Integración e interpretación de inferencia</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de la bibliografía de la Unidad 1.</td>
 </tr>
 <tr class="odd">
-<td>02 / mié</td>
-<td>Práctico</td>
-<td><strong>Integración e interpretación de inferencia</strong></td>
-<td></td>
-<td>Revisión de la bibliografía de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">07 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>7. Preparación para la Evaluación 1</strong></td>
+<td style="text-align: left;">Guía de preparación E1</td>
+<td style="text-align: left;">Revisión integral de la Unidad 1.</td>
 </tr>
 <tr class="even">
-<td>07 / lun</td>
-<td>Lectiva</td>
-<td><strong>7. Preparación para la Evaluación 1</strong></td>
-<td>Guía de preparación E1</td>
-<td>Revisión integral de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">09 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Evaluación 1: Inferencia estadística</strong></span><br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.</td>
+<td style="text-align: left;">Bibliografía completa de la Unidad 1.</td>
 </tr>
 <tr class="odd">
-<td>09 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><span class="eval-label"><strong>Evaluación 1: Inferencia estadística</strong></span><br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras.</td>
-<td>Bibliografía completa de la Unidad 1.</td>
-<td></td>
+<td style="text-align: left;">14 / lun</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>14 / lun</td>
-<td></td>
-<td><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">16 / mié</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>16 / mié</td>
-<td></td>
-<td><strong>Semana de pausa del segundo semestre</strong><br>Suspensión de clases, prácticos, trabajos y evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">21 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>8. Asociación, covarianza y correlación de Pearson</strong><br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf">Moore, pp.&nbsp;97–131</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Piovani2008.pdf">Piovani, “The Historical Construction of Correlation”.</a></td>
 </tr>
 <tr class="even">
-<td>21 / lun</td>
-<td>Lectiva</td>
-<td><strong>8. Asociación, covarianza y correlación de Pearson</strong><br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf">Moore, pp.&nbsp;97–131</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Piovani2008.pdf">Piovani, “The Historical Construction of Correlation”.</a> |</td>
+<td style="text-align: left;">23 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 1</strong><br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf">Moore pp.&nbsp;97-131</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo pp.&nbsp;307-330</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf">Huck pp.&nbsp;183-203</a></td>
 </tr>
 <tr class="odd">
-<td>23 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 1</strong><br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf">Moore pp.&nbsp;97-131</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo pp.&nbsp;307-330</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf">Huck pp.&nbsp;183-203</a></td>
+<td style="text-align: left;">28 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>9. Magnitud de la correlación y contraste de hipótesis</strong><br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, pp.&nbsp;307–330</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf">Huck, pp.&nbsp;183–203.</a></td>
 </tr>
 <tr class="even">
-<td>28 / lun</td>
-<td>Lectiva</td>
-<td><strong>9. Magnitud de la correlación y contraste de hipótesis</strong><br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf">Pardo, pp.&nbsp;307–330</a> <br><br> <a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf">Huck, pp.&nbsp;183–203.</a> |</td>
+<td style="text-align: left;">30 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico Bivariada 2</strong></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>30 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico Bivariada 2</strong></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>OCTUBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td><span class="month-label"><strong>OCTUBRE</strong></span></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">05 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>10. Matrices de correlación</strong> <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
 </tr>
 <tr class="odd">
-<td>05 / lun</td>
-<td>Lectiva</td>
-<td><strong>10. Matrices de correlación</strong> <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a> |</td>
+<td style="text-align: left;">07 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 3</strong><br>Spearman, Kendall y matrices de correlación mediante software.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a></td>
 </tr>
 <tr class="even">
-<td>07 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 3</strong><br>Spearman, Kendall y matrices de correlación mediante software.</td>
-<td></td>
-<td colspan="2"><a href="https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf">Field, pp.&nbsp;223–233.</a> |</td>
+<td style="text-align: left;">12 / lun</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><strong>Feriado legal: Encuentro de Dos Mundos</strong><br>No se realizan clases ni evaluaciones.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>12 / lun</td>
-<td></td>
-<td><strong>Feriado legal: Encuentro de Dos Mundos</strong><br>No se realizan clases ni evaluaciones.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">14 / mié</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>11. Asociación con variables categóricas 1</strong><br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="even">
-<td>14 / mié</td>
-<td>Lectiva</td>
-<td><strong>11. Asociación con variables categóricas 1</strong><br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">19 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>12. Asociación con variables categóricas 2</strong><br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td>19 / lun</td>
-<td>Lectiva</td>
-<td><strong>12. Asociación con variables categóricas 2</strong><br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.</td>
-<td></td>
-<td></td>
-<td></td>
+<td style="text-align: left;">21 / mié</td>
+<td style="text-align: left;">Práctico</td>
+<td style="text-align: left;"><strong>Práctico de Bivariada 4</strong><br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">Revisión de las lecturas de asociación categórica.</td>
 </tr>
 <tr class="even">
-<td>21 / mié</td>
-<td>Práctico</td>
-<td><strong>Práctico de Bivariada 4</strong><br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.</td>
-<td></td>
-<td>Revisión de las lecturas de asociación categórica.</td>
-<td></td>
+<td style="text-align: left;">26 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>13. Preparación y repaso de prácticos</strong><br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.</td>
+<td style="text-align: left;">Guía de preparación E2</td>
+<td style="text-align: left;">Revisión integral de la Unidad 2.</td>
 </tr>
 <tr class="odd">
-<td>26 / lun</td>
-<td>Lectiva</td>
-<td><strong>13. Preparación y repaso de prácticos</strong><br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.</td>
-<td>Guía de preparación E2</td>
-<td>Revisión integral de la Unidad 2.</td>
-<td></td>
+<td style="text-align: left;">28 / mié</td>
+<td style="text-align: left;">Evaluación</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"><span class="eval-label"><strong>Evaluación 2: Asociación bivariada</strong></span><br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.</td>
+<td style="text-align: left;">Bibliografía completa de la Unidad 2.</td>
 </tr>
 <tr class="even">
-<td>28 / mié</td>
-<td>Evaluación</td>
-<td></td>
-<td><span class="eval-label"><strong>Evaluación 2: Asociación bivariada</strong></span><br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.</td>
-<td>Bibliografía completa de la Unidad 2.</td>
-<td></td>
+<td style="text-align: left;"><span class="month-label"><strong>NOVIEMBRE</strong></span></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 </tr>
 <tr class="odd">
-<td><span class="month-label"><strong>NOVIEMBRE</strong></span></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr class="even">
-<td>02 / lun</td>
-<td>Lectiva</td>
-<td><strong>14. Presentación invitados externos:</strong> Aportes desde lo cuantitativo a la justicia y el mejoramiento educativo - Anaís Herrera y Francisco Meneses</td>
-<td>Ficha inicial del proyecto</td>
-<td></td>
-<td></td>
+<td style="text-align: left;">02 / lun</td>
+<td style="text-align: left;">Lectiva</td>
+<td style="text-align: left;"><strong>14. Presentación invitados externos:</strong> Aportes desde lo cuantitativo a la justicia y el mejoramiento educativo - Anaís Herrera y Francisco Meneses</td>
+<td style="text-align: left;">Ficha inicial del proyecto</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
@@ -631,8 +468,7 @@ h2 {
 <tr class="odd">
 <td style="text-align: left;">04 / mié</td>
 <td style="text-align: left;">Clase aplicada</td>
-<td style="text-align: left;"><p><strong>Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.</p>
-<p><strong>Práctico</strong>: <a href="./content/14-quarto.html">Documentos en Quarto</a> (con cápsula por paro)</p></td>
+<td style="text-align: left;"><strong>Definición de grupos, temas y asesoría inicial</strong><br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.<br><br><strong>Práctico</strong>: <a href="./content/14-quarto.html">Documentos en Quarto</a> (con cápsula por paro)</td>
 <td style="text-align: left;"><strong>Práctico</strong>: <a href="./content/14-repaso-inferencia.html">Repaso Inferencia</a> (con cápsula por paro)</td>
 </tr>
 <tr class="even">
@@ -669,31 +505,31 @@ h2 {
 </table>
 </div>
 <section id="sobre-pruebas-recuperativas-miércoles-18-de-noviembre" class="level3">
-<h3 class="anchored" data-anchor-id="sobre-pruebas-recuperativas-miércoles-18-de-noviembre">Sobre pruebas recuperativas (miércoles 18 de Noviembre):</h3>
+<h3 class="anchored" data-anchor-id="sobre-pruebas-recuperativas-miércoles-18-de-noviembre">Sobre pruebas recuperativas (miércoles 18 de noviembre)</h3>
 <ul>
-<li><p>Serán en horario de clases (8:30 - 10:00)</p></li>
-<li><p>Prueba 1: Sala B1</p></li>
-<li><p>Prueba 2: Sala de computación 45</p></li>
-<li><p>Quienes deban ambas pruebas, deben comenzar dando la prueba 2 en sala de computación, luego a las 10:00 continuarán con la prueba 1.</p></li>
-<li><p>Para poder optar a evaluaciones recuperativas, la inasistencia a las fechas de prueba deben estar justificadas. Si la justificación no está en UCursos, resolver previo a la prueba con secretaría de carrera.</p></li>
+<li>Serán en horario de clases (8:30 - 10:00)</li>
+<li>Prueba 1: Sala B1</li>
+<li>Prueba 2: Sala de computación 45</li>
+<li>Quienes deban ambas pruebas, deben comenzar dando la prueba 2 en sala de computación, luego a las 10:00 continuarán con la prueba 1.</li>
+<li>Para poder optar a evaluaciones recuperativas, la inasistencia a las fechas de prueba deben estar justificadas. Si la justificación no está en UCursos, resolver previo a la prueba con secretaría de carrera.</li>
 </ul>
 </section>
 <section id="exámenes" class="level3">
 <h3 class="anchored" data-anchor-id="exámenes">Exámenes</h3>
 <ul>
-<li><p>Los criterios de eximición a exámen se encuentran en el <a href="https://correlacional.metodos-facso.org/syllabus.html#requisitos-de-aprobaci%C3%B3n">programa del curso</a></p></li>
-<li><p>Exámen primera oportunidad: Miércoles 25 de Noviembre</p></li>
-<li><p>Exámen segunda oportunidad: Miércoles 9 de Diciembre</p></li>
+<li>Los criterios de eximición a exámen se encuentran en el <a href="https://correlacional.metodos-facso.org/syllabus.html#requisitos-de-aprobaci%C3%B3n">programa del curso</a></li>
+<li>Exámen primera oportunidad: Miércoles 25 de Noviembre</li>
+<li>Exámen segunda oportunidad: Miércoles 9 de Diciembre</li>
 </ul>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".table-scroll table tbody tr").forEach(function (row) {
-    var cells = row.querySelectorAll("td");
-    if (cells.length > 1 && cells[1].textContent.trim() === "Práctico") {
-      row.classList.add("is-practico");
+// Resaltar de manera discreta los prácticos en la tabla principal.
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.table-scroll:not(.table-split) table tbody tr').forEach(function (row) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length > 1 && cells[1].textContent.trim() === 'Práctico') {
+      row.classList.add('is-practico');
     }
   });
-
 });
 </script>
 

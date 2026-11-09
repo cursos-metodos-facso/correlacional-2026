@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Planificación"
 sidebar: false
 toc: false
@@ -7,311 +7,134 @@ page-layout: full
 
 ```{=html}
 <style>
-/* Portada y texto introductorio más compactos */
-#title-block-header {
-  margin-bottom: 0.6rem;
-}
-
-#title-block-header .title {
-  font-size: 1.65rem !important;
-  line-height: 1.15;
-  margin-bottom: 0;
-}
-
-h2 {
-  font-size: 1.15rem !important;
-  margin-top: 0.4rem;
-  margin-bottom: 0.55rem;
-}
-
-.course-intro {
-  font-size: 0.88rem;
-  line-height: 1.42;
-  margin-bottom: 0.9rem;
-}
-
-.course-intro p {
-  margin-bottom: 0.45rem;
-}
-
-.course-intro ul {
-  margin-top: 0.25rem;
-  margin-bottom: 0.6rem;
-}
-
-.course-intro li {
-  margin-bottom: 0.25rem;
-}
-
-/* Tabla */
-.table-scroll {
-  width: 100%;
-  overflow-x: auto;
-  margin-top: 0.5rem;
-  margin-bottom: 1rem;
-}
-
-.table-scroll table {
-  width: 100% !important;
-  min-width: 1050px;
-  table-layout: fixed;
-  font-size: 0.78rem !important;
-  margin: 0;
-}
-
-.table-scroll thead th {
-  font-size: 0.84rem !important;
-  line-height: 1.15;
-  padding: 0.42rem 0.48rem !important;
-  vertical-align: bottom;
-  white-space: normal;
-}
-
-.table-scroll tbody td {
-  padding: 0.38rem 0.48rem !important;
-  line-height: 1.3;
-  vertical-align: top;
-  overflow-wrap: anywhere;
-  word-break: normal;
-}
-
-.table-scroll th:nth-child(1),
-.table-scroll td:nth-child(1) {
-  width: 8%;
-  white-space: nowrap;
-}
-
-.table-scroll th:nth-child(2),
-.table-scroll td:nth-child(2) {
-  width: 10%;
-}
-
-.table-scroll th:nth-child(3),
-.table-scroll td:nth-child(3) {
-  width: 39%;
-}
-
-.table-scroll th:nth-child(4),
-.table-scroll td:nth-child(4) {
-  width: 21%;
-}
-
-.table-scroll th:nth-child(5),
-.table-scroll td:nth-child(5) {
-  width: 22%;
-}
-
-.month-label {
-  color: #d98200;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-.eval-label {
-  color: #c62828;
-  font-weight: 700;
-}
-
-.table-scroll a {
-  overflow-wrap: anywhere;
-}
-
-/* Tabla desde el 4 de noviembre: columna 3 = Sección A, columna 4 = Sección B */
-/* Ignorar los anchos que Quarto calcula desde la tabla grid */
-.table-scroll col {
-  width: auto !important;
-}
-
-.table-split table {
-  min-width: 800px;
-}
-
-.table-split th:nth-child(3),
-.table-split td:nth-child(3),
-.table-split th:nth-child(4),
-.table-split td:nth-child(4) {
-  width: 41%;
-}
-
-.table-split thead th:nth-child(3) { color: #1f5f9e; }
-.table-split thead th:nth-child(4) { color: #2e7d32; }
-
-.table-scroll.table-split tbody tr td:nth-child(3) {
-  background: #e3effa !important;
-}
-
-.table-scroll.table-split tbody tr td:nth-child(4) {
-  background: #e6f4e7 !important;
-}
-
-.secA-label {
-  color: #1f5f9e;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-.secB-label {
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 0.8rem;
-  letter-spacing: 0.03em;
-}
-
-/* Los prácticos conservan el fondo gris */
-.table-scroll tbody tr.is-practico td {
-  background: #f2f2f2 !important;
-}
-
-@media (max-width: 900px) {
-  #title-block-header .title {
-    font-size: 1.45rem !important;
-  }
-
-  .course-intro {
-    font-size: 0.84rem;
-  }
-
-  .table-scroll table {
-    font-size: 0.74rem !important;
-  }
-
-  .table-scroll thead th {
-    font-size: 0.78rem !important;
-  }
+/* Estilos locales de la planificación: tablas Markdown, sin bordes ASCII. */
+#title-block-header { margin-bottom: .6rem; }
+#title-block-header .title { font-size: 1.65rem !important; line-height: 1.15; }
+h2 { font-size: 1.15rem !important; margin: .5rem 0; }
+.course-intro { max-width: 1100px; font-size: .92rem; line-height: 1.48; margin-bottom: 1.15rem; }
+.course-intro p { margin-bottom: .4rem; }
+.course-intro ul { margin-top: .35rem; margin-bottom: .7rem; }
+.course-intro li { margin-bottom: .3rem; }
+/* Dejar que la tabla se adapte; desplazarla horizontalmente en pantallas estrechas. */
+.table-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin: 1rem 0 1.4rem; border: 1px solid #dce1e5; border-radius: 5px; }
+.table-scroll table { width: 100% !important; min-width: 1080px; table-layout: fixed; border-collapse: collapse; margin: 0 !important; font-size: .84rem; }
+.table-scroll colgroup col { width: auto !important; }
+.table-scroll thead th { font-weight: 650; background: #f2f5f7; color: #34434a; border-bottom: 2px solid #d4dde2; padding: .7rem .65rem !important; line-height: 1.35; text-align: left; vertical-align: top; }
+.table-scroll tbody td { border-bottom: 1px solid #e3e8eb; padding: .65rem .65rem !important; line-height: 1.4; vertical-align: top; overflow-wrap: break-word; word-break: normal; }
+.table-scroll tbody tr:last-child td { border-bottom: 0; }
+.table-scroll:not(.table-split) th:nth-child(1),
+.table-scroll:not(.table-split) td:nth-child(1) { width: 9%; white-space: nowrap; }
+.table-scroll:not(.table-split) th:nth-child(2),
+.table-scroll:not(.table-split) td:nth-child(2) { width: 12%; }
+.table-scroll:not(.table-split) th:nth-child(3),
+.table-scroll:not(.table-split) td:nth-child(3) { width: 34%; }
+.table-scroll:not(.table-split) th:nth-child(4),
+.table-scroll:not(.table-split) td:nth-child(4) { width: 20%; }
+.table-scroll:not(.table-split) th:nth-child(5),
+.table-scroll:not(.table-split) td:nth-child(5) { width: 25%; }
+.table-scroll tbody tr.is-practico td { background: #f3f5f6 !important; }
+.table-scroll tbody td .month-label { color: #a66500; font-size: .83rem; font-weight: 700; letter-spacing: .02em; }
+.table-scroll tbody tr:has(.month-label) td { background: #faf6ef; border-top: 2px solid #e5d9c7; }
+.eval-label { color: #b22525; font-weight: 700; }
+.table-scroll a { overflow-wrap: anywhere; }
+.table-split table { min-width: 820px; }
+.table-split th:nth-child(1), .table-split td:nth-child(1) { width: 10%; white-space: nowrap; }
+.table-split th:nth-child(2), .table-split td:nth-child(2) { width: 17%; }
+.table-split th:nth-child(3), .table-split td:nth-child(3) { width: 37%; }
+.table-split th:nth-child(4), .table-split td:nth-child(4) { width: 36%; }
+.table-split th:nth-child(3) { color: #225d89; }
+.table-split th:nth-child(4) { color: #2f733c; }
+.table-split tbody td:nth-child(3) { background: #f0f6fc; }
+.table-split tbody td:nth-child(4) { background: #f0f8f1; }
+@media(max-width:767px) {
+  #title-block-header .title { font-size:1.4rem !important; }
+  .course-intro { font-size:.88rem; }
+  .table-scroll table { font-size:.8rem; }
 }
 </style>
 ```
 
 ## Forma general de funcionamiento
 
-::: course-intro
+::: {.course-intro}
 Este curso se compone de tres actividades principales a la semana, que se organizan regularmente de la siguiente manera:
 
--   <i class="fas fa-chalkboard-teacher"></i> **Clases lectivas presenciales**: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.
--   <i class="fas fa-user-edit"></i> **Talleres prácticos**: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO Sala 345 FACSO.
--   <i class="fas fa-book-reader"></i> **Lecturas**: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.
+-  <i class="fas fa-chalkboard-teacher"></i> **Clases lectivas presenciales**: los lunes de 8:30 a 10:00 en sala C6 (Aulario C), donde en base a las lecturas correspondientes a esa semana se presentará un resumen de los contenidos principales y se resolverán dudas.
+-  <i class="fas fa-user-edit"></i> **Talleres prácticos**: días miércoles de 8:30 a 10:00 en sala B1 (Aulario B), Sala 45 FACSO Sala 345 FACSO.
+-  <i class="fas fa-book-reader"></i> **Lecturas**: cada sesión lectiva tiene lecturas obligatorias asignada a la semana, la que se encuentra a disposición en esta página.
 :::
 
-::: table-scroll
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Fecha                          | Tipo de sesión | <i class="fas fa-chalkboard-teacher"></i> Contenidos                                                                                                                                                                                                             | <i class="fas fa-user-edit"></i> Prácticas y evaluaciones                                                                                                                     | <i class="fas fa-book-reader"></i> Lecturas y links                                                                                                                                                                                                                                            |
-+:===============================+:===============+:=================================================================================================================================================================================================================================================================+:==============================================================================================================================================================================+:===============================================================================================================================================================================================================================================================================================+
-| [**AGOSTO**]{.month-label}     |                |                                                                                                                                                                                                                                                                  |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 03 / lun                       | Lectiva        | **1. Presentación general del curso**<br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas.                                                                                                                          |                                                                                                                                                                               | Leer detalladamente el [programa del curso.](https://correlacional.metodos-facso.org/syllabus.html)<br><br>[Poldrack - ¿Qué es el pensamiento estadístico?](https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico) |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 05 / mié                       | Lectiva        | **2. Datos, probabilidad y distribuciones muestrales**<br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales.                                                                                              |                                                                                                                                                                               | [Pardo, cap. 2](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Ritchey, pp. 1–21.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf)                                                                                                                                                                                              |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 10 / lun                       | Lectiva        | **3. Error estándar y distribución normal; intro intervalos**<br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar.                                                                                       |                                                                                                                                                                               | [Ritchey, cap. 6](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Pardo, cap. 6.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf)                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 12 / mié                       | Práctico       | **Práctico R e intervalos de confianza**<br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos.                                                                                                        |                                                                                                                                                                               | [Ritchey, cap. 7](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Ritchey, cap. 8.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf)                                                                                                                                                                                            |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 17 / lun                       | Lectiva        | **4. Prueba de hipótesis**<br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística.                                                                                                                                        |                                                                                                                                                                               | [Ritchey, cap. 9](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Montoya, “Los conceptos de especificación y falsación”.](https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf)                                                                                                   |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 19 / mié                       | Práctico       | **Práctico de Inferencia 1**<br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software.                                                                                                                                 |                                                                                                                                                                               | Revisión de las lecturas anteriores.                                                                                                                                                                                                                                                           |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 24 / lun                       | Lectiva        | **5. Falsación, tipos de error y prueba t**                                                                                                                                                                                                                      |                                                                                                                                                                               | [Ritchey, cap. 10.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf)                                                                                                                                                                                                                                                 |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 26 / mié                       | Práctico       | **Práctico de Inferencia 2**<br>                                                                                                                                                                                                                                 |                                                                                                                                                                               | [Ritchey, caps. 10 y 11.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf)                                                                                                                                                                                                                                           |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 31 / lun                       | Lectiva        | **6. Hipótesis direccionales**                                                                                                                                                                                                                                   |                                                                                                                                                                               | [Ritchey, cap. 11.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf)                                                                                                                                                                                                                                                 |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [**SEPTIEMBRE**]{.month-label} |                |                                                                                                                                                                                                                                                                  |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 02 / mié                       | Práctico       | **Integración e interpretación de inferencia**                                                                                                                                                                                                                   |                                                                                                                                                                               | Revisión de la bibliografía de la Unidad 1.                                                                                                                                                                                                                                                    |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 07 / lun                       | Lectiva        | **7. Preparación para la Evaluación 1**                                                                                                                                                                                                                          | Guía de preparación E1                                                                                                                                                        | Revisión integral de la Unidad 1.                                                                                                                                                                                                                                                              |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 09 / mié                       | Evaluación     |                                                                                                                                                                                                                                                                  | [**Evaluación 1: Inferencia estadística**]{.eval-label}<br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras. | Bibliografía completa de la Unidad 1.                                                                                                                                                                                                                                                          |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 14 / lun                       |                | **Semana de pausa del segundo semestre**<br>Suspensión de clases, prácticos, trabajos y evaluaciones.                                                                                                                                                            |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 16 / mié                       |                | **Semana de pausa del segundo semestre**<br>Suspensión de clases, prácticos, trabajos y evaluaciones.                                                                                                                                                            |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 21 / lun                       | Lectiva        | **8. Asociación, covarianza y correlación de Pearson**<br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación.                                                                                                            |                                                                                                                                                                               | [Moore, pp. 97–131](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf) <br><br> [Piovani, “The Historical Construction of Correlation”.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Piovani2008.pdf)                                                                                                                                                  |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 23 / mié                       | Práctico       | **Práctico de Bivariada 1**<br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software.                                                                                                                                    |                                                                                                                                                                               | [Moore pp. 97-131](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf) <br><br> [Pardo pp. 307-330](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Huck pp. 183-203](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf)                                                                                                                                      |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 28 / lun                       | Lectiva        | **9. Magnitud de la correlación y contraste de hipótesis**<br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación.                                                                                                     |                                                                                                                                                                               | [Pardo, pp. 307–330](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Huck, pp. 183–203.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf)                                                                                                                                                                                        |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 30 / mié                       | Práctico       | **Práctico Bivariada 2**                                                                                                                                                                                                                                         |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [**OCTUBRE**]{.month-label}    |                |                                                                                                                                                                                                                                                                  |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 05 / lun                       | Lectiva        | **10. Matrices de correlación** <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación. |                                                                                                                                                                               | [Field, pp. 223–233.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf)                                                                                                                                                                                                                                     |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 07 / mié                       | Práctico       | **Práctico de Bivariada 3**<br>Spearman, Kendall y matrices de correlación mediante software.                                                                                                                                                                    |                                                                                                                                                                               | [Field, pp. 223–233.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf)                                                                                                                                                                                                                                     |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 12 / lun                       |                | **Feriado legal: Encuentro de Dos Mundos**<br>No se realizan clases ni evaluaciones.                                                                                                                                                                             |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 14 / mié                       | Lectiva        | **11. Asociación con variables categóricas 1**<br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado.                                                                                                                          |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 19 / lun                       | Lectiva        | **12. Asociación con variables categóricas 2**<br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer.                                                                                                                                      |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 21 / mié                       | Práctico       | **Práctico de Bivariada 4**<br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas.                                                                                                                                         |                                                                                                                                                                               | Revisión de las lecturas de asociación categórica.                                                                                                                                                                                                                                             |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 26 / lun                       | Lectiva        | **13. Preparación y repaso de prácticos**<br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos.                                                                                                                        | Guía de preparación E2                                                                                                                                                        | Revisión integral de la Unidad 2.                                                                                                                                                                                                                                                              |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 28 / mié                       | Evaluación     |                                                                                                                                                                                                                                                                  | [**Evaluación 2: Asociación bivariada**]{.eval-label}<br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud.                       | Bibliografía completa de la Unidad 2.                                                                                                                                                                                                                                                          |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [**NOVIEMBRE**]{.month-label}  |                |                                                                                                                                                                                                                                                                  |                                                                                                                                                                               |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| 02 / lun                       | Lectiva        | **14. Presentación invitados externos:** Aportes desde lo cuantitativo a la justicia y el mejoramiento educativo - Anaís Herrera y Francisco Meneses                                                                                                             | Ficha inicial del proyecto                                                                                                                                                    |                                                                                                                                                                                                                                                                                                |
-+--------------------------------+----------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+::: {.table-scroll}
+| Fecha | Tipo de sesión | <i class="fas fa-chalkboard-teacher"></i> Contenidos | <i class="fas fa-user-edit"></i> Prácticas y evaluaciones | <i class="fas fa-book-reader"></i> Lecturas y links |
+| :--- | :--- | :--- | :--- | :--- |
+| [**AGOSTO**]{.month-label} |  |  |  |  |
+| 03 / lun | Lectiva | **1. Presentación general del curso**<br>Programa, metodología, evaluaciones, página del curso, recursos, clases, prácticos y lecturas. |  | Leer detalladamente el [programa del curso.](https://correlacional.metodos-facso.org/syllabus.html)<br><br>[Poldrack - ¿Qué es el pensamiento estadístico?](https://statsthinking21.github.io/statsthinking21-core-spanish-site/introduction.html#qu%C3%A9-es-el-pensamiento-estad%C3%ADstico) |
+| 05 / mié | Lectiva | **2. Datos, probabilidad y distribuciones muestrales**<br>Tipos de datos, variabilidad, probabilidad, población, muestra y lógica de las distribuciones muestrales. |  | [Pardo, cap. 2](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Ritchey, pp. 1–21.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) |
+| 10 / lun | Lectiva | **3. Error estándar y distribución normal; intro intervalos**<br>Distribución normal, puntuaciones estandarizadas, variabilidad muestral y significado del error estándar. |  | [Ritchey, cap. 6](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Pardo, cap. 6.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) |
+| 12 / mié | Práctico | **Práctico R e intervalos de confianza**<br>Relación entre estimador, error estándar, nivel de confianza, margen de error e interpretación de intervalos. |  | [Ritchey, cap. 7](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Ritchey, cap. 8.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) |
+| 17 / lun | Lectiva | **4. Prueba de hipótesis**<br>Hipótesis nula y alternativa, falsación, error tipo I y II, valor p y decisión estadística. |  | [Ritchey, cap. 9](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) <br><br> [Montoya, “Los conceptos de especificación y falsación”.](https://revistas.lasalle.edu.co/files-articles/lo/vol1/iss19/2/fulltext.pdf) |
+| 19 / mié | Práctico | **Práctico de Inferencia 1**<br>Error estándar, distribución normal, intervalos de confianza e interpretación mediante software. |  | Revisión de las lecturas anteriores. |
+| 24 / lun | Lectiva | **5. Falsación, tipos de error y prueba t** |  | [Ritchey, cap. 10.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) |
+| 26 / mié | Práctico | **Práctico de Inferencia 2**<br> |  | [Ritchey, caps. 10 y 11.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) |
+| 31 / lun | Lectiva | **6. Hipótesis direccionales** |  | [Ritchey, cap. 11.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Ritchey.pdf) |
+| [**SEPTIEMBRE**]{.month-label} |  |  |  |  |
+| 02 / mié | Práctico | **Integración e interpretación de inferencia** |  | Revisión de la bibliografía de la Unidad 1. |
+| 07 / lun | Lectiva | **7. Preparación para la Evaluación 1** | Guía de preparación E1 | Revisión integral de la Unidad 1. |
+| 09 / mié | Evaluación |  | [**Evaluación 1: Inferencia estadística**]{.eval-label}<br>Datos, distribuciones muestrales, error estándar, normal, intervalos, hipótesis y pruebas para una y dos muestras. | Bibliografía completa de la Unidad 1. |
+| 14 / lun |  | **Semana de pausa del segundo semestre**<br>Suspensión de clases, prácticos, trabajos y evaluaciones. |  |  |
+| 16 / mié |  | **Semana de pausa del segundo semestre**<br>Suspensión de clases, prácticos, trabajos y evaluaciones. |  |  |
+| 21 / lun | Lectiva | **8. Asociación, covarianza y correlación de Pearson**<br>Dirección, forma y fuerza de la relación; desviaciones conjuntas, covarianza y correlación. |  | [Moore, pp. 97–131](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf) <br><br> [Piovani, “The Historical Construction of Correlation”.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Piovani2008.pdf) |
+| 23 / mié | Práctico | **Práctico de Bivariada 1**<br>Diagramas de dispersión, covarianza, Pearson, magnitud, contraste y reporte mediante software. |  | [Moore pp. 97-131](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Moore.pdf) <br><br> [Pardo pp. 307-330](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Huck pp. 183-203](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf) |
+| 28 / lun | Lectiva | **9. Magnitud de la correlación y contraste de hipótesis**<br>Interpretación de r, magnitud, contraste de hipótesis, supuestos y cautelas de interpretación. |  | [Pardo, pp. 307–330](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Pardo.pdf) <br><br> [Huck, pp. 183–203.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Huck2011.pdf) |
+| 30 / mié | Práctico | **Práctico Bivariada 2** |  |  |
+| [**OCTUBRE**]{.month-label} |  |  |  |  |
+| 05 / lun | Lectiva | **10. Matrices de correlación** <br>Correlación con variables ordinales<br>Lectura de matrices, comparación de coeficientes, significación e interpretación conjunta. Rangos, correlación de Spearman y Kendall, empates, supuestos, selección e interpretación. |  | [Field, pp. 223–233.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf) |
+| 07 / mié | Práctico | **Práctico de Bivariada 3**<br>Spearman, Kendall y matrices de correlación mediante software. |  | [Field, pp. 223–233.](https://raw.githubusercontent.com/cursos-metodos-facso/correlacional-2026/main/files/textos/Field-correlation.pdf) |
+| 12 / lun |  | **Feriado legal: Encuentro de Dos Mundos**<br>No se realizan clases ni evaluaciones. |  |  |
+| 14 / mié | Lectiva | **11. Asociación con variables categóricas 1**<br>Tablas de contingencia, porcentajes, independencia estadística y prueba chi-cuadrado. |  |  |
+| 19 / lun | Lectiva | **12. Asociación con variables categóricas 2**<br>Residuos estandarizados, localización de asociaciones, Phi y V de Cramer. |  |  |
+| 21 / mié | Práctico | **Práctico de Bivariada 4**<br>Tablas de contingencia, chi-cuadrado, residuos, Phi, V de Cramer y selección de técnicas. |  | Revisión de las lecturas de asociación categórica. |
+| 26 / lun | Lectiva | **13. Preparación y repaso de prácticos**<br>Síntesis de la Unidad 2, selección de técnicas, ejercicios y revisión de los tres prácticos. | Guía de preparación E2 | Revisión integral de la Unidad 2. |
+| 28 / mié | Evaluación |  | [**Evaluación 2: Asociación bivariada**]{.eval-label}<br>Pearson, contraste, ordinales, matrices, tablas, chi-cuadrado, residuos y medidas de magnitud. | Bibliografía completa de la Unidad 2. |
+| [**NOVIEMBRE**]{.month-label} |  |  |  |  |
+| 02 / lun | Lectiva | **14. Presentación invitados externos:** Aportes desde lo cuantitativo a la justicia y el mejoramiento educativo - Anaís Herrera y Francisco Meneses | Ficha inicial del proyecto |  |
 :::
 
 ::: {.table-scroll .table-split}
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| Fecha    | Tipo de sesión        | Sección A: Trabajos                                                                                                                                   | Sección B: Prueba                                                                          |
-+:=========+:======================+:======================================================================================================================================================+:===========================================================================================+
-| 04 / mié | Clase aplicada        | **Definición de grupos, temas y asesoría inicial**<br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.  | **Práctico**: [Repaso Inferencia](content/14-repaso-inferencia.qmd) (con cápsula por paro) |
-|          |                       |                                                                                                                                                       |                                                                                            |
-|          |                       | **Práctico**: [Documentos en Quarto](content/14-quarto.qmd) (con cápsula por paro)                                                                    |                                                                                            |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| 09 / lun | Clase aplicada        | **Visualización: Tablas y Gráficos**<br>Construcción, presentación e interpretación de tablas para el trabajo grupal.<br>(**Sala 45 de computación**) | **Repaso correlación y matrices**<br>(**Sala aulario C6**)                                 |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| 11 / mié | Clase aplicada        | **Escritura en reportes dinámicos** <br>Estructura del informe, integración de código, texto, tablas y gráficos.<br>(**Sala 45 de computación**)      | **Repaso asociación categóricas**<br>(**Sala aulario B1**)                                 |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| 16 / lun | Asesoría/ Evaluación  | **Asesoría trabajos**                                                                                                                                 | **Prueba 3**                                                                               |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| 18 / mié | Pruebas recuperativas |                                                                                                                                                       |                                                                                            |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
-| 20/ vier | Evaluación            | **Entrega trabajo final**                                                                                                                             |                                                                                            |
-+----------+-----------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------------------------------------------+
+| Fecha | Tipo de sesión | Sección A: Trabajos | Sección B: Prueba |
+| :--- | :--- | :--- | :--- |
+| 04 / mié | Clase aplicada | **Definición de grupos, temas y asesoría inicial**<br>Formación de grupos, elección de pregunta, selección de variables y revisión inicial de bases.<br><br>**Práctico**: [Documentos en Quarto](content/14-quarto.qmd) (con cápsula por paro) | **Práctico**: [Repaso Inferencia](content/14-repaso-inferencia.qmd) (con cápsula por paro) |
+| 09 / lun | Clase aplicada | **Visualización: Tablas y Gráficos**<br>Construcción, presentación e interpretación de tablas para el trabajo grupal.<br>(**Sala 45 de computación**) | **Repaso correlación y matrices**<br>(**Sala aulario C6**) |
+| 11 / mié | Clase aplicada | **Escritura en reportes dinámicos** <br>Estructura del informe, integración de código, texto, tablas y gráficos.<br>(**Sala 45 de computación**) | **Repaso asociación categóricas**<br>(**Sala aulario B1**) |
+| 16 / lun | Asesoría/ Evaluación | **Asesoría trabajos** | **Prueba 3** |
+| 18 / mié | Pruebas recuperativas |  |  |
+| 20/ vier | Evaluación | **Entrega trabajo final** |  |
 :::
 
-### Sobre pruebas recuperativas (miércoles 18 de Noviembre):
+### Sobre pruebas recuperativas (miércoles 18 de noviembre)
 
 -   Serán en horario de clases (8:30 - 10:00)
-
 -   Prueba 1: Sala B1
-
 -   Prueba 2: Sala de computación 45
-
 -   Quienes deban ambas pruebas, deben comenzar dando la prueba 2 en sala de computación, luego a las 10:00 continuarán con la prueba 1.
-
 -   Para poder optar a evaluaciones recuperativas, la inasistencia a las fechas de prueba deben estar justificadas. Si la justificación no está en UCursos, resolver previo a la prueba con secretaría de carrera.
 
 ### Exámenes
 
 -   Los criterios de eximición a exámen se encuentran en el [programa del curso](https://correlacional.metodos-facso.org/syllabus.html#requisitos-de-aprobaci%C3%B3n)
-
 -   Exámen primera oportunidad: Miércoles 25 de Noviembre
-
 -   Exámen segunda oportunidad: Miércoles 9 de Diciembre
 
 ```{=html}
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".table-scroll table tbody tr").forEach(function (row) {
-    var cells = row.querySelectorAll("td");
-    if (cells.length > 1 && cells[1].textContent.trim() === "Práctico") {
-      row.classList.add("is-practico");
+// Resaltar de manera discreta los prácticos en la tabla principal.
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.table-scroll:not(.table-split) table tbody tr').forEach(function (row) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length > 1 && cells[1].textContent.trim() === 'Práctico') {
+      row.classList.add('is-practico');
     }
   });
-
 });
 </script>
 ```
