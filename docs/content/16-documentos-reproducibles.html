@@ -187,13 +187,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#plantilla-del-trabajo-final" id="toc-plantilla-del-trabajo-final" class="nav-link" data-scroll-target="#plantilla-del-trabajo-final">Plantilla del trabajo final</a></li>
   </ul></li>
-  <li><a href="#proyecto-reproducible" id="toc-proyecto-reproducible" class="nav-link" data-scroll-target="#proyecto-reproducible"><span class="header-section-number">1</span> Del documento dinámico al proyecto reproducible</a></li>
+  <li><a href="#proyecto-reproducible" id="toc-proyecto-reproducible" class="nav-link" data-scroll-target="#proyecto-reproducible"><span class="header-section-number">1</span> Del documento dinámico al proyecto reproducible</a>
+  <ul class="collapse">
+  <li><a href="#esquema-general-de-un-proyecto-reproducible" id="toc-esquema-general-de-un-proyecto-reproducible" class="nav-link" data-scroll-target="#esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.0.1</span> Esquema general de un proyecto reproducible</a></li>
+  </ul></li>
   <li><a href="#estructura-ipo" id="toc-estructura-ipo" class="nav-link" data-scroll-target="#estructura-ipo"><span class="header-section-number">2</span> Organización del proyecto: estructura IPO</a></li>
   <li><a href="#verificar-reproducibilidad" id="toc-verificar-reproducibilidad" class="nav-link" data-scroll-target="#verificar-reproducibilidad"><span class="header-section-number">3</span> Verificar la reproducibilidad del proyecto</a></li>
-  <li><a href="#integrar-analisis" id="toc-integrar-analisis" class="nav-link" data-scroll-target="#integrar-analisis"><span class="header-section-number">4</span> Integrar nuestros análisis en el informe</a>
-  <ul class="collapse">
-  <li><a href="#citas-y-bibliografía-con-bibtex" id="toc-citas-y-bibliografía-con-bibtex" class="nav-link" data-scroll-target="#citas-y-bibliografía-con-bibtex">Citas y bibliografía con BibTeX</a></li>
-  </ul></li>
+  <li><a href="#citas-y-bibliografía-con-bibtex" id="toc-citas-y-bibliografía-con-bibtex" class="nav-link" data-scroll-target="#citas-y-bibliografía-con-bibtex"><span class="header-section-number">4</span> Citas y bibliografía con BibTeX</a></li>
   <li><a href="#monitoreo" id="toc-monitoreo" class="nav-link" data-scroll-target="#monitoreo"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</a></li>
   <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega"><span class="header-section-number">6</span> Preparación de la entrega</a></li>
   </ul>
@@ -417,20 +417,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tbody>
 </table>
 </div>
-<div class="callout callout-style-simple callout-note no-icon callout-titled" title="Para comenzar">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<section id="esquema-general-de-un-proyecto-reproducible" class="level3" data-number="1.0.1">
+<h3 data-number="1.0.1" class="anchored" data-anchor-id="esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.0.1</span> Esquema general de un proyecto reproducible</h3>
+<div id="fig-esquema-general" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-esquema-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="https://cienciasocialabierta.netlify.app/slides/img/01/esquema_general.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%">
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Nota</span>Para comenzar
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-esquema-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;1: Esquema general de organización de un proyecto de investigación reproducible.
+</figcaption>
+</figure>
 </div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Si compartimos únicamente el archivo <code>index.html</code> con otro integrante del curso, ¿qué necesitaría para obtener nuevamente nuestros resultados? La pregunta permite reconocer por qué no basta con entregar un informe bien presentado.</p>
-</div>
-</div>
+<p><em>Fuente: <a href="https://cienciasocialabierta.netlify.app/">Ciencia Social Abierta</a>.</em></p>
+<p>Este esquema permite visualizar cómo se relacionan los distintos componentes de un proyecto reproducible. A continuación, veremos cómo se organiza concretamente la plantilla que utilizaremos en el trabajo final.</p>
 <!-- Bloque 2: 15 minutos. -->
+</section>
 </section>
 <section id="estructura-ipo" class="level1" data-number="2">
 <h1 data-number="2"><span class="header-section-number">2</span> Organización del proyecto: estructura IPO</h1>
@@ -497,51 +499,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <!-- Bloque 5: 20 minutos. -->
 </section>
-<section id="integrar-analisis" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Integrar nuestros análisis en el informe</h1>
-<p>Una vez que los datos y los análisis están organizados, el siguiente paso es <strong>transformar los resultados estadísticos en un argumento de investigación</strong>. Esto significa que las tablas y los gráficos deben responder a la pregunta formulada, relacionarse con las hipótesis y acompañarse de una interpretación sustantiva. No basta con insertar una salida de R sin explicar qué información aporta.</p>
-<p>La plantilla ya incorpora las secciones exigidas por la <a href="https://correlacional.metodos-facso.org/trabajos/trabajos.html">pauta del trabajo grupal</a>. Para reconocer dónde corresponde cada resultado, podemos utilizar la siguiente orientación:</p>
-<div class="rv-project-scroll">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Si el grupo ya tiene…</th>
-<th style="text-align: left;">Se incorpora en…</th>
-<th style="text-align: left;">Debe acompañarse de…</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Definiciones y recodificaciones de variables</td>
-<td style="text-align: left;"><strong>Metodología: Variables</strong></td>
-<td style="text-align: left;">Operacionalización y descriptivos de las variables utilizadas.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Tablas y gráficos descriptivos</td>
-<td style="text-align: left;"><strong>Análisis descriptivo</strong></td>
-<td style="text-align: left;">Descripción e interpretación de los patrones observados.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Pruebas y medidas de asociación</td>
-<td style="text-align: left;"><strong>Análisis estadístico bivariado</strong></td>
-<td style="text-align: left;">Estadísticos, magnitud de la asociación y relación con las hipótesis.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Resultados relacionados con las hipótesis</td>
-<td style="text-align: left;"><strong>Discusión de resultados</strong></td>
-<td style="text-align: left;">Interpretación a la luz de los antecedentes y las limitaciones del análisis.</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Para observar cómo se integran estos elementos, abran la sección <strong>Análisis descriptivo</strong> del archivo <code>index.qmd</code>. La figura ilustrativa se genera desde un bloque de R, pero el código no se muestra en el HTML porque contiene la opción <code>#| echo: false</code>. La leyenda se incorpora mediante <code>fig-cap</code>, y una referencia como <code>@fig-ejemplo-descriptivo</code> permite mencionarla desde el texto. Del mismo modo, la tabla de variables utiliza <code>@tbl-operacionalizacion</code> y la cita de ejemplo <code>@wickham2023r</code> se vincula con el archivo <code>input/bib/referencias.bib</code>.</p>
-<section id="citas-y-bibliografía-con-bibtex" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="citas-y-bibliografía-con-bibtex">Citas y bibliografía con BibTeX</h2>
+<section id="citas-y-bibliografía-con-bibtex" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Citas y bibliografía con BibTeX</h1>
 <p>La plantilla también permite <strong>incorporar citas y generar automáticamente la bibliografía</strong>. Para ello utiliza <strong>BibTeX</strong>, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo <code>input/bib/referencias.bib</code>. Cada referencia tiene una <strong>clave única</strong> que permite citarla desde <code>index.qmd</code>. Por ejemplo, una entrada se organiza así (datos ilustrativos):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">apellido2026</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Apellido, Nombre},</span>
@@ -557,7 +516,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Estos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la <a href="https://correlacional.metodos-facso.org/content/15-visualizacion.html">sesión de visualización</a>. <strong>No deben conservar los resultados ni las referencias de ejemplo en la entrega:</strong> su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.</p>
 <p>Cada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación.</p>
 <!-- Bloque 4: 15 minutos. -->
-</section>
 </section>
 <section id="monitoreo" class="level1" data-number="5">
 <h1 data-number="5"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</h1>
@@ -623,10 +581,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="6"><span class="header-section-number">6</span> Preparación de la entrega</h1>
 <p>El producto final es un <strong>informe académico en HTML generado con Quarto</strong>, acompañado de una carpeta comprimida que permita revisar el trabajo realizado. Según las <a href="https://correlacional.metodos-facso.org/trabajos/trabajos.html">instrucciones oficiales</a>, esa carpeta debe incluir el archivo <code>.qmd</code>, los datos utilizados, los scripts correspondientes y el HTML generado.</p>
 <p>Antes de entregar, es importante comprobar que el documento presenta los <strong>resultados reales del grupo</strong>, que las figuras y tablas están identificadas e interpretadas, y que las rutas permiten generar nuevamente el informe. Asimismo, recuerden reemplazar la figura y la referencia bibliográfica ilustrativas que vienen en la plantilla.</p>
-<p>La <a href="https://correlacional.metodos-facso.org/schedule.html">planificación del curso</a> indica como fecha de entrega el <strong>viernes 20 de noviembre de 2026, mediante UCursos</strong>. Revisen los avisos del equipo docente por si se comunica alguna actualización.</p>
 <p><strong>Idea central:</strong> un proyecto reproducible no es únicamente un informe bien presentado; también permite reconstruir el procedimiento mediante el cual se obtuvieron los resultados de la investigación.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Recursos">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -635,7 +592,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><a href="https://correlacional.metodos-facso.org/content/14-quarto.html">Documentos Dinámicos Quarto en Positron</a>: estructura <code>.qmd</code>, bloques de código y renderización.</li>

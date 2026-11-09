@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
@@ -21,7 +21,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -101,37 +101,37 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./news/index.html">
+    <a class="nav-link" href="./news/index.html"> 
 <span class="menu-text">Informaciones</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./syllabus.html">
+    <a class="nav-link" href="./syllabus.html"> 
 <span class="menu-text">Programa</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./schedule.html" aria-current="page">
+    <a class="nav-link active" href="./schedule.html" aria-current="page"> 
 <span class="menu-text">Planificación</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./content/index.html">
+    <a class="nav-link" href="./content/index.html"> 
 <span class="menu-text">Clases</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./assignment/index.html">
+    <a class="nav-link" href="./assignment/index.html"> 
 <span class="menu-text">Prácticos</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./trabajos/trabajos.html">
+    <a class="nav-link" href="./trabajos/trabajos.html"> 
 <span class="menu-text">Trabajos</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./resource/index.html">
+    <a class="nav-link" href="./resource/index.html"> 
 <span class="menu-text">Recursos</span></a>
-  </li>
+  </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./ayudantes.html">
+    <a class="nav-link" href="./ayudantes.html"> 
 <span class="menu-text">Ayudantes</span></a>
-  </li>
+  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -146,7 +146,7 @@ ul.task-list li input[type="checkbox"] {
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
-
+   
   <ul>
   <li><a href="#forma-general-de-funcionamiento" id="toc-forma-general-de-funcionamiento" class="nav-link active" data-scroll-target="#forma-general-de-funcionamiento">Forma general de funcionamiento</a>
   <ul class="collapse">
@@ -168,11 +168,11 @@ ul.task-list li input[type="checkbox"] {
 
 <div class="quarto-title-meta">
 
-
-
-
+    
+  
+    
   </div>
-
+  
 
 
 </header>
@@ -1460,7 +1460,7 @@ document.addEventListener("DOMContentLoaded", function () {
     anchorJS.add('.anchored');
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {
+        if (clz.startsWith('code-annotation-')) {                     
           return true;
         }
       }
@@ -1480,11 +1480,11 @@ document.addEventListener("DOMContentLoaded", function () {
         button.setAttribute("data-bs-toggle", "tooltip");
         button.setAttribute("data-bs-placement", "left");
         button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button,
-          { trigger: "manual",
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
             customClass: "code-copy-button-tooltip",
             offset: [0, -8]});
-        tooltip.show();
+        tooltip.show();    
       }
       setTimeout(function() {
         if (tooltip) {
@@ -1561,7 +1561,7 @@ document.addEventListener("DOMContentLoaded", function () {
       if (onUntriggerFn) {
         config.onUntrigger = onUntriggerFn;
       }
-      window.tippy(el, config);
+      window.tippy(el, config); 
     }
     const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
     for (var i=0; i<noterefs.length; i++) {
@@ -1636,7 +1636,7 @@ document.addEventListener("DOMContentLoaded", function () {
       tippyHover(xref, undefined, function(instance) {
         instance.disable();
         let url = xref.getAttribute('href');
-        let hash = undefined;
+        let hash = undefined; 
         if (url.startsWith('#')) {
           hash = url;
         } else {
@@ -1664,7 +1664,7 @@ document.addEventListener("DOMContentLoaded", function () {
               if (note !== null) {
                 const html = processXRef(id, note);
                 instance.setContent(html);
-              }
+              } 
             }).finally(() => {
               instance.enable();
               instance.show();
@@ -1688,7 +1688,7 @@ document.addEventListener("DOMContentLoaded", function () {
               }
               const html = processXRef(null, note);
               instance.setContent(html);
-            }
+            } 
           }).finally(() => {
             instance.enable();
             instance.show();
@@ -1728,7 +1728,7 @@ document.addEventListener("DOMContentLoaded", function () {
               height = bottom - top;
             }
             if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it
+              // cook up a div (if necessary) and position it 
               let div = window.document.getElementById("code-annotation-line-highlight");
               if (div === null) {
                 div = window.document.createElement("div");
@@ -1854,7 +1854,7 @@ document.addEventListener("DOMContentLoaded", function () {
   <div class="nav-footer">
     <div class="nav-footer-left">
 <p>Content <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> 2026 by <a href="https://www.jc-castillo.com">Juan Castillo</a> <br> All content licensed under a <i class="fa-brands fa-creative-commons" aria-label="creative-commons"></i> <i class="fa-brands fa-creative-commons-by" aria-label="creative-commons-by"></i> <i class="fa-brands fa-creative-commons-nc" aria-label="creative-commons-nc"></i> <a href="https://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International license (CC BY-NC 4.0)</a></p>
-</div>
+</div>   
     <div class="nav-footer-center">
       &nbsp;
     </div>

@@ -237,15 +237,21 @@ Conviene distinguir tres conceptos que están relacionados, pero no son equivale
 | **Proyecto reproducible** | Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe. |
 :::
 
-::: {.callout-note appearance="minimal" title="Para comenzar"}
-Si compartimos únicamente el archivo `index.html` con otro integrante del curso, ¿qué necesitaría para obtener nuevamente nuestros resultados? La pregunta permite reconocer por qué no basta con entregar un informe bien presentado.
-:::
+
+### Esquema general de un proyecto reproducible
+
+![Esquema general de organización de un proyecto de investigación reproducible.](https://cienciasocialabierta.netlify.app/slides/img/01/esquema_general.png){#fig-esquema-general width="85%" fig-align="center"}
+
+*Fuente: [Ciencia Social Abierta](https://cienciasocialabierta.netlify.app/).*
+
+Este esquema permite visualizar cómo se relacionan los distintos componentes de un proyecto reproducible. A continuación, veremos cómo se organiza concretamente la plantilla que utilizaremos en el trabajo final.
 
 <!-- Bloque 2: 15 minutos. -->
 
 # Organización del proyecto: estructura IPO {#estructura-ipo}
 
 La plantilla utiliza la organización **IPO** (*Input–Processing–Output*). Su propósito es separar los insumos, el código de análisis y los productos del trabajo, de modo que los integrantes del grupo puedan localizar los archivos y comprender cómo se generaron los resultados. Esta estructura también facilita que el proyecto se abra en otro computador sin depender de carpetas personales.
+
 
 Estas son las carpetas principales y los archivos de referencia de la plantilla:
 
@@ -326,25 +332,7 @@ Después, si es posible, copien la carpeta completa a otra ubicación y repitan 
 
 <!-- Bloque 5: 20 minutos. -->
 
-
-# Integrar nuestros análisis en el informe {#integrar-analisis}
-
-Una vez que los datos y los análisis están organizados, el siguiente paso es **transformar los resultados estadísticos en un argumento de investigación**. Esto significa que las tablas y los gráficos deben responder a la pregunta formulada, relacionarse con las hipótesis y acompañarse de una interpretación sustantiva. No basta con insertar una salida de R sin explicar qué información aporta.
-
-La plantilla ya incorpora las secciones exigidas por la [pauta del trabajo grupal](https://correlacional.metodos-facso.org/trabajos/trabajos.html). Para reconocer dónde corresponde cada resultado, podemos utilizar la siguiente orientación:
-
-::: {.rv-project-scroll}
-| Si el grupo ya tiene… | Se incorpora en… | Debe acompañarse de… |
-|:--|:--|:--|
-| Definiciones y recodificaciones de variables | **Metodología: Variables** | Operacionalización y descriptivos de las variables utilizadas. |
-| Tablas y gráficos descriptivos | **Análisis descriptivo** | Descripción e interpretación de los patrones observados. |
-| Pruebas y medidas de asociación | **Análisis estadístico bivariado** | Estadísticos, magnitud de la asociación y relación con las hipótesis. |
-| Resultados relacionados con las hipótesis | **Discusión de resultados** | Interpretación a la luz de los antecedentes y las limitaciones del análisis. |
-:::
-
-Para observar cómo se integran estos elementos, abran la sección **Análisis descriptivo** del archivo `index.qmd`. La figura ilustrativa se genera desde un bloque de R, pero el código no se muestra en el HTML porque contiene la opción `#| echo: false`. La leyenda se incorpora mediante `fig-cap`, y una referencia como `@fig-ejemplo-descriptivo` permite mencionarla desde el texto. Del mismo modo, la tabla de variables utiliza `@tbl-operacionalizacion` y la cita de ejemplo `@wickham2023r` se vincula con el archivo `input/bib/referencias.bib`.
-
-## Citas y bibliografía con BibTeX {.unnumbered}
+# Citas y bibliografía con BibTeX
 
 La plantilla también permite **incorporar citas y generar automáticamente la bibliografía**. Para ello utiliza **BibTeX**, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo `input/bib/referencias.bib`. Cada referencia tiene una **clave única** que permite citarla desde `index.qmd`. Por ejemplo, una entrada se organiza así (datos ilustrativos):
 
@@ -404,8 +392,6 @@ A partir de esta revisión, cada grupo debería identificar **hasta dos priorida
 El producto final es un **informe académico en HTML generado con Quarto**, acompañado de una carpeta comprimida que permita revisar el trabajo realizado. Según las [instrucciones oficiales](https://correlacional.metodos-facso.org/trabajos/trabajos.html), esa carpeta debe incluir el archivo `.qmd`, los datos utilizados, los scripts correspondientes y el HTML generado.
 
 Antes de entregar, es importante comprobar que el documento presenta los **resultados reales del grupo**, que las figuras y tablas están identificadas e interpretadas, y que las rutas permiten generar nuevamente el informe. Asimismo, recuerden reemplazar la figura y la referencia bibliográfica ilustrativas que vienen en la plantilla.
-
-La [planificación del curso](https://correlacional.metodos-facso.org/schedule.html) indica como fecha de entrega el **viernes 20 de noviembre de 2026, mediante UCursos**. Revisen los avisos del equipo docente por si se comunica alguna actualización.
 
 **Idea central:** un proyecto reproducible no es únicamente un informe bien presentado; también permite reconstruir el procedimiento mediante el cual se obtuvieron los resultados de la investigación.
 
