@@ -1,0 +1,465 @@
+---
+title: "Sesión aplicada: gráficos y tablas en Quarto"
+date: 11/09/2026
+lang: es
+number-sections: true
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    embed-resources: true
+execute:
+  cache: true
+  warning: false
+  message: false
+---
+
+# Visualizar datos
+
+Esta hoja de código Quarto contiene ejemplos de cómo generar gráficos y tablas en R, utilizando diferentes librerías y funciones. Además, se muestran algunas opciones para insertar y referenciar estos elementos dentro de un documento Quarto. 
+
+# Datos del ejemplo: LAPOP
+
+En esta ocasión trabajaremos con un subconjunto de datos previamente procesados derivados de las encuestas realizadas en diferentes países por el [Latin American Public Opinion Proyect (LAPOP)](https://www.vanderbilt.edu/lapop/) en su ola del 2018. Para este ejercicio, obtendremos directamente esta base desde internet. No obstante, también tienes la opción de acceder a la misma información a través del siguiente enlace: [<i class="bi bi-table"></i> `LAPOP 2018`](https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/lapop_proc_2018.RData). Desde allí, podrás descargar el archivo que contiene el subconjunto procesado de la base de datos LAPOP 2018.
+
+- Comencemos por preparar nuestros datos. Iniciamos cargando las librerías necesarias.
+
+```{r librerias, collapse=TRUE}
+pacman::p_load(tidyverse, # Manipulacion datos
+               ggplot2, # Gráficos
+               sjPlot, # Tablas y gráficos
+               ggpubr) # Gráficos
+
+options(scipen = 999) # para desactivar notacion cientifica
+rm(list = ls()) # para limpiar el entorno de trabajo
+```
+
+- Cargamos los datos desde internet.
+
+```{r datos}
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/lapop_proc_2018.RData")) #Cargar base de datos
+```
+
+- A continuación, exploramos la base de datos.
+
+```{r exploracion}
+names(lapop) # Nombre de columnas
+dim(lapop) # Dimensiones
+```
+
+Contamos con 39 variables (columnas) y 23.386 observaciones (filas). Seleccionamos las variables que vamos a utilizar en nuestro ejemplo:
+
+```{r seleccion}
+lapop <- lapop %>% dplyr::select(pais, sexo, edad, decile, ideologia_f, ros4, prot3, it1, gini, gdp) # Seleccionamos variables de interes
+```
+
+**Distribución de la variable central de estudio**: preferencia por la redistribución (`ros4`).
+
+```{r frq-ros4}
+sjmisc::frq(lapop$ros4)
+```
+
+# Gráficos
+
+## Visualización de datos con `ggplot2`
+
+### Diferencias de medias (o proporciones) entre grupos
+
+Media de preferencia por la redistribución según ideología política.
+
+```{r db-g1, collapse=TRUE}
+db_g1 <- lapop %>%
+  group_by(ideologia_f) %>%
+  summarise(
+    media_ros4 = mean(ros4, na.rm = TRUE),
+    error_std = sd(ros4, na.rm = TRUE) / sqrt(n()),
+    ci_inf = media_ros4 - qt(0.975, df = n() - 1) * error_std,
+    ci_sup = media_ros4 + qt(0.975, df = n() - 1) * error_std
+  ) %>%
+  na.omit()
+
+db_g1
+```
+
+```{r g1}
+ggplot(data = db_g1,
+       mapping = aes(x = ideologia_f, y = media_ros4, group = ideologia_f)) + # especificamos datos y mapping
+  geom_bar(stat = "identity", color = "black", fill = "steelblue") + # agregamos geometria
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, color = "red") + # agregamos intervalo de confianza calculado previamente
+  scale_y_continuous(limits = c(0,7), n.breaks = 7) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+  geom_text(aes(label = round(media_ros4,2)), vjust = 1.5, colour = "white") + # agregamos los valores de la media para cada barra/grupo
+  labs(title ="Media de preferencia por la redistribución según ideología política",
+       x = "Ideología política",
+       y = "Media",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+### Asociación entre continuas
+
+Asociación entre la preferencia por la redistribución de los países y su nivel de desigualdad económica.
+
+```{r db-g2, collapse=TRUE}
+db_g2 <- lapop %>%
+  group_by(pais) %>%
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>%
+  ungroup()
+
+head(db_g2)
+```
+
+```{r g2}
+ggplot(data = db_g2,
+       mapping = aes(x = cm_gini, y = cm_ros4)) + # especificamos datos y mapping
+  geom_point(size = 3, color = "darkred") + # agregamos geometria y color
+  geom_smooth(stat = "smooth", position = "identity", method = "lm",
+              colour = "blue", size = 0.7) + # agregamos recta que representa la correlacion
+  scale_y_continuous(limits = c(4,6.5), breaks = seq(4,6.5, by = 0.5)) + # agregamos escala en eje Y y ponemos limites minimos y maximos
+  scale_x_continuous(n.breaks = 7) +  # agregamos escala eje X para mostrar más valores
+  geom_text(aes(label = pais), size = 3, color = "black",
+            nudge_y = 0.15) + # agregamos etiquetas de país
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países",
+       y = "Media preferencias redistributivas",
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+### Asociación entre categóricas
+
+Asociación entre la participación en protestas y la ideología política. Usamos barras apiladas que suman 100%, calculando los porcentajes en dos direcciones.
+
+#### Con `ggplot2`
+
+```{r db-g3, collapse=TRUE}
+db_g3 <- lapop %>%
+  dplyr::select(prot3, ideologia_f) %>%
+  na.omit()
+
+# Porcentajes que suman 100% dentro de cada ideología
+db_g3a <- db_g3 %>%
+  count(ideologia_f, prot3) %>% # frecuencias por combinación de categorías
+  group_by(ideologia_f) %>%
+  mutate(prop = n / sum(n) * 100)
+
+# Porcentajes que suman 100% dentro de cada categoría de participación
+db_g3b <- db_g3 %>%
+  count(prot3, ideologia_f) %>%
+  group_by(prot3) %>%
+  mutate(prop = n / sum(n) * 100)
+
+db_g3a
+db_g3b
+```
+
+**% por ideología**: ¿qué proporción de cada grupo ideológico participó en protestas?
+
+```{r g3a}
+ggplot(data = db_g3a,
+       mapping = aes(x = ideologia_f, y = prop, fill = prot3)) +
+  geom_col() + # barras apiladas que suman 100%
+  geom_text(aes(label = paste0(round(prop, 1), "%")),
+            position = position_stack(vjust = 0.5)) + # porcentajes al centro de cada segmento
+  labs(title = "Participación en protestas según ideología política",
+       y = "Porcentaje",
+       x = "Ideología política",
+       fill = "Participación protesta",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+**% por participación**: ¿cuál es la composición ideológica de quienes participan y de quienes no?
+
+```{r g3b}
+ggplot(data = db_g3b,
+       mapping = aes(x = prot3, y = prop, fill = ideologia_f)) +
+  geom_col() +
+  geom_text(aes(label = paste0(round(prop, 1), "%")),
+            position = position_stack(vjust = 0.5)) +
+  labs(title = "Ideología política según participación en protestas",
+       y = "Porcentaje",
+       x = "Participación protesta",
+       fill = "Ideología política",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+## Visualización con otras librerías
+
+### Con `ggpubr`
+
+```{r g-ggpubr}
+ggscatter(data = db_g2,
+          x = "cm_gini",
+          y = "cm_ros4",
+          color = "darkred",
+          cor.coef = T, # mostrar coef corr
+          cor.coef.size = 4, # tamaño texto coef corr
+          add = "reg.line",  # mostrar linea de reg
+          conf.int = T,  # mostrar SE
+          add.params = list(color = "blue", fill = "lightgray"), # colores
+          label = "pais",
+          size = 3,
+          font.label = c(8, "plain")
+) +
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países",
+       y = "Media preferencias redistributivas",
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+### Con `sjPlot`
+
+```{r g-sjplot}
+sjPlot::plot_scatter(
+  data = db_g2,
+  x = cm_gini,
+  y = cm_ros4,
+  fit.line = "lm",      # Mostrar línea de regresión
+  show.ci = TRUE,       # Mostrar intervalo de confianza
+  dot.size = 3,
+  dot.labels = db_g2$pais # Etiquetas de los puntos
+) +
+  labs(title ="Asociación entre preferencia por la redistribución y desigualdad de los países",
+       y = "Media preferencias redistributivas",
+       x = "Índice de Gini",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018.") + # agregamos titulo, nombres a los ejes y fuente
+  theme_bw() # especificamos tema
+```
+
+# Tablas
+
+Cargamos los paquetes para esta sección:
+
+```{r librerias-tablas}
+pacman::p_load(tidyverse, # Manipulacion datos
+               sjmisc, # Descriptivos
+               knitr, # Render y tablas
+               kableExtra, # Formateo tablas
+               summarytools, # Tablas
+               sjPlot, # Tablas y gráficos
+               stargazer, # Tablas
+               janitor, # Tablas y formateo
+               crosstable, # Tablas
+               table1 # Tablas
+               )
+```
+
+## Tablas con `kable` y `kableExtra`
+
+### Confianza interpersonal según país {.unnumbered}
+
+1) Creamos el objeto `tab1` con el contenido de la tabla
+
+```{r tab1}
+tab1 <- lapop %>%
+  group_by(pais, it1) %>% # agrupamos por pais y variable
+  summarise(n = n()) %>% # contamos por categ de respuesta
+  mutate(prop = round((n / sum(n)) * 100, 2)) %>% # porcentaje
+  na.omit() %>% # borramos NA
+  pivot_wider(id_cols = pais, names_from = it1, values_from = prop) # convertimos a formato ancho
+
+tab1
+```
+
+2) Aplicamos el formato con `kable()` y `kableExtra`
+
+```{r tabla1}
+tabla1 <- tab1 %>%
+  kable(format = "markdown",
+        align = "c",
+        col.names = c("País", "Nada confiable", "Poco confiable", "Algo confiable", "Muy confiable"),
+        caption = "Tabla 1. Confianza interpersonal según país") %>%
+  kableExtra::kable_classic(full_width = FALSE, position = "center", font_size = 14) %>%
+  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a LAPOP 2018.")
+
+tabla1
+```
+
+### Descriptivos de edad según país {.unnumbered}
+
+1) Creamos el objeto `tab2` con los estadísticos descriptivos de `edad` por país
+
+```{r tab2}
+tab2 <- lapop %>%
+  group_by(pais) %>%
+  summarise(
+    n = n(), # Tamaño muestral
+    min = min(edad, na.rm = T), # Mínimo
+    max = max(edad, na.rm = T), # Máximo
+    media = round(mean(edad, na.rm = T), 2), # Media redondeada a 2 digitos
+    sd = round(sd(edad, na.rm = T), 2), # Desviación estándar redondeada a 2 digitos
+    mediana = median(edad, na.rm = T) # Mediana
+  )
+```
+
+2) Aplicamos el formato con `kable()` y `kableExtra`
+
+```{r tabla2}
+tabla2 <- tab2 %>%
+  kable(format = "markdown",
+        align = "c",
+        col.names = c("País", "Tamaño muestral", "Mínimo", "Máximo", "Media", "Desv. estándar", "Mediana"),
+        caption = "Tabla 2. Edad según país") %>%
+  kableExtra::kable_classic(full_width = FALSE, position = "center", font_size = 14) %>%
+  kableExtra::add_footnote(label = "Fuente: Elaboración propia en base a LAPOP 2018.")
+
+tabla2
+```
+
+## Funciones automatizadas para la construcción de tablas
+
+```{r data-example}
+# Creemos una version de lapop solo con algunas variables como ejemplo
+data_example <- lapop %>%
+  select(pais, it1, edad, sexo, gini, gdp)
+```
+
+### Funciones para tablas univariadas
+
+#### `summarytools`
+
+```{r dfsummary}
+tab <- summarytools::dfSummary(data_example)
+summarytools::view(tab, method = "render")
+```
+
+```{r descr}
+tab <- summarytools::descr(data_example$edad)
+summarytools::view(tab, method = "render")
+```
+
+#### `stargazer`
+
+```{r stargazer, results='asis'}
+stargazer(as.data.frame(data_example), type = "html", summary.stat = c("mean", "sd", "min", "max"))
+```
+
+#### `psych`
+
+```{r psych}
+psych::describe(data_example) %>%
+  kable() %>%
+  kable_styling(full_width = TRUE)
+```
+
+#### `sjmisc`
+
+```{r sjmisc}
+sjmisc::frq(data_example$it1) %>%
+  kable()
+```
+
+#### `table1`
+
+```{r table1-uni}
+table1::table1(~ factor(sexo) + edad + gini + gdp, data = data_example)
+```
+
+### Funciones para tablas bivariadas
+
+#### `sjPlot`
+
+```{r tab-xtab}
+sjPlot::tab_xtab(data_example$pais, data_example$it1, show.row.prc = TRUE)
+```
+
+#### `summarytools`
+
+```{r ctable}
+tab <- summarytools::ctable(data_example$pais, data_example$sexo)
+summarytools::view(tab, method = "render")
+```
+
+#### `crosstable`
+
+```{r crosstable}
+crosstable::crosstable(data_example, pais, by = sexo, margin=c("row", "col"), total = "both") %>%
+  kable() %>%
+  kable_styling(full_width = TRUE)
+```
+
+#### `table1`
+
+```{r table1-bi}
+table1::table1(~ factor(sexo) + edad + gini + gdp | pais, data = data_example)
+```
+
+#### `dplyr` y `janitor`
+
+```{r tabyl}
+data_example %>%
+  janitor::tabyl(pais, it1) %>% # Esto reemplaza el procesamiento, buena alternativa
+  kable() %>%
+  kable_styling(full_width = TRUE)
+```
+
+# Insertar y referenciar gráficos y tablas dentro de Quarto
+
+## Gráficos {.unnumbered}
+
+1) Generamos el objeto `g1` donde almacenaremos la información que queremos graficar.
+
+```{r g1-datos}
+g1 <- lapop %>%
+  group_by(pais) %>%
+  summarise(cm_ros4 = mean(ros4, na.rm = T),
+            cm_gini = mean(gini, na.rm = T)) %>%
+  ungroup()
+```
+
+2) Creamos el gráfico en un objeto llamado `grafico1`.
+
+```{r grafico1}
+grafico1 <- ggplot(data = g1,
+       mapping = aes(x = cm_gini, y = cm_ros4, label = pais)) +
+  geom_point() +
+  geom_smooth(method = "lm",colour = "black",fill="lightblue",size=0.5) +
+  geom_text(aes(label = pais), size = 3, color = "black", nudge_y = 0.05) +
+  labs(x = "Índice de Gini",
+       y = "Preferencias redistributivas",
+       caption = "Fuente: Elaboración propia en base a LAPOP 2018") +
+  theme_bw()
+```
+
+3) Llamamos a `grafico1` especificando las opciones en el chunk.
+
+```{r}
+#| label: fig-asociacion
+#| fig-align: center
+#| out-width: '80%'
+#| fig-cap: 'Asociación entre Índice de Gini y Preferencias Redistributivas'
+#| echo: true
+
+grafico1
+```
+
+En la @fig-asociacion se muestra la asociación entre el promedio de preferencia por la redistribución y el nivel de desigualdad ecónomica de los países.
+
+## Tablas {.unnumbered}
+
+1) Generamos el objeto `tab3` que contiene la información que presentaremos en una tabla.
+
+```{r tab3}
+tab3 <- lapop %>%
+  group_by(pais) %>%
+  summarise(n = n(),
+            media = round(mean(edad, na.rm = TRUE), 1)) %>%
+  head(5)
+```
+
+2) Creamos la tabla mediante `kable()` especificando las opciones en el chunk.
+
+```{r}
+#| label: tbl-edad
+#| tbl-cap: 'Edad promedio según país'
+#| echo: true
+
+kable(tab3,
+      col.names = c("País", "N", "Edad promedio"),
+      align = "lcc")
+```
+
+En la @tbl-edad se muestra la edad promedio de las personas encuestadas en cinco países de la base LAPOP 2018.

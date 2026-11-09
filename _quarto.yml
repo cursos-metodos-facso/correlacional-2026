@@ -15,6 +15,7 @@ project:
     - "!references/publications/**"
     - "!files/pruebas/**"
     - "!files/otros/2/**"
+    - "!content/codigo_graficos_tablas.qmd"
 
   resources:
     - "files/"
@@ -30,6 +31,8 @@ project:
     - "slides/*_files/"
     - "slides/*_files/figure-html"
     - "CNAME"
+    - "content/codigo_graficos_tablas.html"
+    - "content/codigo_graficos_tablas.qmd"
 
 # See https://quarto.org/docs/projects/code-execution.html#freeze
 execute:
@@ -121,6 +124,8 @@ website:
               file: content/14-quarto.qmd
             - text: "Repaso Unidad 2: Asociación"
               file: content/15-repaso-asociacion.qmd
+            - text: "Visualización de datos: gráficos y tablas"
+              file: content/15-visualizacion.qmd 
         - text: "Foro Clases"
           file: content/foro-clases.qmd
     - title: "Prácticos"
