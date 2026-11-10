@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Repaso Unidad 2: asociación y correlación – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,10 +75,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8b3a51a542e1102fb297099a85116b91.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cb48db2c413f68497f7e060defb58192.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -92,7 +95,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -108,7 +111,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -121,7 +124,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -491,12 +494,12 @@ window.Quarto = {
 \text{Mirar}\rightarrow\text{anticipar}\rightarrow\text{calcular}\rightarrow\text{volver a mirar}
 \]</span></p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta · Fórmulas y criterios de apoyo">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta · Fórmulas y criterios de apoyo
+<span class="screen-reader-only">Tip</span>Consulta · Fórmulas y criterios de apoyo
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -829,7 +832,7 @@ gl=3
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Recordatorio
+<span class="screen-reader-only">Importante</span>Recordatorio
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -909,12 +912,12 @@ sample estimates:
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · ¿Por qué podrían diferir Pearson y Spearman?">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista · ¿Por qué podrían diferir Pearson y Spearman?
+<span class="screen-reader-only">Tip</span>Pista · ¿Por qué podrían diferir Pearson y Spearman?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -927,12 +930,12 @@ Pista · ¿Por qué podrían diferir Pearson y Spearman?
 <p><strong>A5 · Reporte.</strong> Redacte una conclusión de dos o tres líneas, sin afirmar causalidad.</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio A">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta · Ejercicio A
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio A
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1059,12 +1062,12 @@ pos_pol          1206</code></pre>
 </ul>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Elegir el coeficiente">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista · Elegir el coeficiente
+<span class="screen-reader-only">Tip</span>Pista · Elegir el coeficiente
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1075,12 +1078,12 @@ Pista · Elegir el coeficiente
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Decidir sobre los casos perdidos">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista · Decidir sobre los casos perdidos
+<span class="screen-reader-only">Tip</span>Pista · Decidir sobre los casos perdidos
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1091,12 +1094,12 @@ Pista · Decidir sobre los casos perdidos
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Decisiones">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta · Decisiones
+<span class="screen-reader-only">Nota</span>Ver pauta · Decisiones
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1123,7 +1126,7 @@ Ver pauta · Decisiones
 <p>Calculamos la matriz con ambos coeficientes y, para cada uno, con ambos tratamientos de casos perdidos. Usamos <code>sjPlot::tab_corr()</code>, que además de cada coeficiente indica su <strong>significación estadística</strong> con asteriscos. En cada bloque, <strong>cambie de pestaña</strong> para comparar <em>listwise</em> y <em>pairwise</em>: fíjese en si cambian los coeficientes <strong>y</strong> si algún par gana o pierde asteriscos. La matriz con la que trabajará es la que corresponde a <strong>sus decisiones</strong>.</p>
 <p><strong>Spearman</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true"><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false"><em>Pairwise</em></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href=""><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href=""><em>Pairwise</em></a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <div class="cell">
@@ -1133,17 +1136,17 @@ Ver pauta · Decisiones
 <span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Spearman · listwise (N = 1.168)"</span>)</span></code></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Spearman <u+00b7> listwise (N = 1.168)</u+00b7></caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">conf_carab</td>
@@ -1215,17 +1218,17 @@ Ver pauta · Decisiones
 <span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Spearman · pairwise (N entre 1.185 y 1.445)"</span>)</span></code></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Spearman <u+00b7> pairwise (N entre 1.185 y 1.445)</u+00b7></caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">conf_carab</td>
@@ -1293,7 +1296,7 @@ Ver pauta · Decisiones
 </div>
 <p><strong>Kendall (τ-b)</strong></p>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true"><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false"><em>Pairwise</em></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true" href=""><em>Listwise</em></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false" href=""><em>Pairwise</em></a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <div class="cell">
@@ -1303,17 +1306,17 @@ Ver pauta · Decisiones
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Kendall · listwise (N = 1.168)"</span>)</span></code></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Kendall <u+00b7> listwise (N = 1.168)</u+00b7></caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">conf_carab</td>
@@ -1385,17 +1388,17 @@ Ver pauta · Decisiones
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">triangle =</span> <span class="st">"lower"</span>,</span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">title =</span> <span class="st">"Kendall · pairwise (N entre 1.185 y 1.445)"</span>)</span></code></pre></div>
 <div class="cell-output-display">
-<table class="caption-top table table-sm table-striped small" data-quarto-postprocess="true">
+<table class="caption-top table table-sm table-striped small">
 <caption>Kendall <u+00b7> pairwise (N entre 1.185 y 1.445)</u+00b7></caption>
 <tbody>
 <tr class="odd">
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</td>
-<td data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</td>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">&nbsp;</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_carab</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_ffaa</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_gobierno</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_congreso</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">conf_partidos</th>
+<th data-quarto-table-cell-role="th" style="font-style: italic; font-weight: normal; border-top: double black; border-bottom: 1px solid black; padding: 0.2cm">pos_pol</th>
 </tr>
 <tr class="even">
 <td style="font-style: italic">conf_carab</td>
@@ -1468,12 +1471,12 @@ Ver pauta · Decisiones
 <p><strong>B4 · Reporte.</strong> Redacte una conclusión breve sobre <code>conf_gobierno</code>–<code>pos_pol</code> que incluya y justifique sus decisiones.</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Resultados">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta · Resultados
+<span class="screen-reader-only">Nota</span>Ver pauta · Resultados
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1568,12 +1571,12 @@ Figura&nbsp;4: Edad e ingreso mensual del trabajo (CASEN 2024, personas ocupadas
 <p><strong>C3.</strong> ¿Qué conclusión sobre edad e ingreso sería correcta? ¿Qué error cometería alguien que solo mira <span class="math inline">\(r\)</span> y <span class="math inline">\(p\)</span>?</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio C">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta · Ejercicio C
+<span class="screen-reader-only">Nota</span>Ver pauta · Ejercicio C
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1638,377 +1641,750 @@ Ver pauta · Ejercicio C
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
+
+
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
   <i class="bi bi-chevron-left"></i>
+
 </button>
 
+
+
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
+
+
   /* ========================================================
+
      ELEMENTOS
+
      ======================================================== */
+
+
 
   const pathname = window.location.pathname;
 
+
+
   const esPracticos =
+
     /\/assignment(?:\/|$)/.test(pathname);
 
+
+
   /*
+
    * Detecta específicamente:
+
    *
+
    * /assignment
+
    * /assignment/
+
    * /assignment/index.html
+
    */
+
   const esPaginaPrincipalPracticos =
+
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
+
+
+
   const boton =
+
     document.getElementById("practicos-sidebar-toggle");
 
+
+
   const zona =
+
     document.getElementById("practicos-sidebar-hover-zone");
 
+
+
   const sidebar =
+
     document.getElementById("quarto-sidebar");
+
+
+
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
+
+
     if (boton) {
+
       boton.style.display = "none";
+
     }
+
+
 
     if (zona) {
+
       zona.style.display = "none";
+
     }
 
+
+
     return;
+
   }
+
+
+
 
 
   const body = document.body;
 
+
+
   let abiertoTemporalmente = false;
+
   let temporizadorCierre = null;
 
 
+
+
+
   /* ========================================================
+
      POSICIÓN DE LA PESTAÑITA
+
      ======================================================== */
+
+
 
   function actualizarPosicion() {
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Menú cerrado:
+
        * la pestañita queda en el borde izquierdo.
+
        */
+
       boton.style.left = "0px";
+
+
 
     } else {
 
+
+
       /*
+
        * Usamos offsetWidth para que la posición
+
        * no dependa de la animación del sidebar.
+
        */
+
       const anchoSidebar = sidebar.offsetWidth;
 
+
+
       boton.style.left =
+
         (anchoSidebar - 2) + "px";
+
     }
+
   }
+
+
+
 
 
   /* ========================================================
+
      ACTUALIZAR ICONO
+
      ======================================================== */
+
+
 
   function mostrarIconoAbierto() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-left"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Ocultar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Ocultar menú";
+
   }
+
+
+
 
 
   function mostrarIconoCerrado() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-right"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Mostrar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Mostrar menú";
+
   }
 
 
+
+
+
   /* ========================================================
+
      MOSTRAR SIDEBAR
+
      ======================================================== */
+
+
 
   function mostrarSidebar(temporal = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.remove(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoAbierto();
 
+
+
     abiertoTemporalmente = temporal;
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      OCULTAR SIDEBAR
+
      ======================================================== */
+
+
 
   function ocultarSidebar(guardar = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.add(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoCerrado();
 
+
+
     abiertoTemporalmente = false;
+
+
 
     if (guardar) {
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "cerrado"
+
       );
+
     }
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      CLICK EN LA PESTAÑITA
+
      ======================================================== */
+
+
 
   boton.addEventListener("click", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
 
+
+
     /*
+
      * Si está cerrado:
+
      * un clic lo abre permanentemente.
+
      */
+
     if (cerrado) {
+
+
 
       mostrarSidebar(false);
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "abierto"
+
       );
+
+
 
     } else {
 
+
+
       /*
+
        * Si está visible, un solo clic lo cierra,
+
        * independientemente de si se abrió por
+
        * hover o normalmente.
+
        */
+
       ocultarSidebar(true);
+
     }
+
+
 
   });
 
 
+
+
+
   /* ========================================================
+
      HOVER EN EL BORDE IZQUIERDO
+
      ======================================================== */
+
+
 
   zona.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Mostrar temporalmente sin modificar
+
        * la preferencia guardada.
+
        */
+
       mostrarSidebar(true);
+
     }
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      SALIR DEL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseleave", function () {
 
+
+
     /*
+
      * Solo cerrar automáticamente si se abrió
+
      * mediante hover.
+
      */
+
     if (!abiertoTemporalmente) {
+
       return;
+
     }
 
+
+
     temporizadorCierre =
+
       setTimeout(function () {
+
+
 
         ocultarSidebar(false);
 
+
+
       }, 500);
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL BOTÓN
+
      ======================================================== */
+
+
 
   boton.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      ESTADO INICIAL
+
      ======================================================== */
 
+
+
   /*
+
    * PORTADA DE PRÁCTICOS
+
    *
+
    * Siempre comienza desplegada cada vez
+
    * que se entra o recarga la página.
+
    *
+
    * Aun así, después de cargarla el usuario
+
    * puede plegarla normalmente.
+
    */
+
   if (esPaginaPrincipalPracticos) {
+
+
 
     mostrarSidebar(false);
 
+
+
   } else {
 
+
+
     /*
+
      * En los prácticos individuales sí respetamos
+
      * el estado que dejó anteriormente el usuario.
+
      */
+
     const estadoGuardado =
+
       localStorage.getItem(
+
         "practicos-sidebar"
+
       );
+
+
 
     if (estadoGuardado === "cerrado") {
 
+
+
       ocultarSidebar(false);
+
+
 
     } else {
 
+
+
       mostrarSidebar(false);
+
     }
+
   }
 
 
+
+
+
   /* ========================================================
+
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
      ======================================================== */
+
+
 
   window.addEventListener(
+
     "resize",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /* ========================================================
+
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
      ======================================================== */
 
+
+
   sidebar.addEventListener(
+
     "transitionend",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /*
+
    * También esperamos el cambio de la
+
    * grilla de Quarto.
+
    */
+
   const contenido =
+
     document.getElementById("quarto-content");
+
+
 
   if (contenido) {
 
+
+
     contenido.addEventListener(
+
       "transitionend",
+
       actualizarPosicion
+
     );
+
   }
 
 
+
+
+
   /* ========================================================
+
      AJUSTE FINAL DESPUÉS DE CARGAR
+
      ======================================================== */
+
+
 
   requestAnimationFrame(function () {
 
+
+
     requestAnimationFrame(function () {
+
+
 
       actualizarPosicion();
 
+
+
     });
+
   });
 
+
+
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

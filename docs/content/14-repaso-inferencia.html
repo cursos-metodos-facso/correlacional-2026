@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.9.38">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,6 +10,9 @@
 
 <title>Repaso Unidad 1: resolver problemas con inferencia estadística – Estadística Correlacional</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -37,10 +40,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8b3a51a542e1102fb297099a85116b91.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-cb48db2c413f68497f7e060defb58192.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -57,7 +60,7 @@ ul.task-list li input[type="checkbox"] {
   ],
   "show-item-context": false,
   "language": {
-    "search-no-results-text": "Sin resultados",
+    "search-no-results-text": "No se han encontrado resultados",
     "search-matching-documents-text": "documentos encontrados",
     "search-copy-link-title": "Copiar el enlace en la búsqueda",
     "search-hide-matches-text": "Ocultar resultados adicionales",
@@ -73,7 +76,7 @@ ul.task-list li input[type="checkbox"] {
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -86,7 +89,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -511,12 +514,12 @@ window.Quarto = {
 </tbody>
 </table>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta · ¿De dónde salen los 98 grados de libertad?">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta · ¿De dónde salen los 98 grados de libertad?
+<span class="screen-reader-only">Tip</span>Consulta · ¿De dónde salen los 98 grados de libertad?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -595,12 +598,12 @@ IC=\hat\Delta\pm(t^*\times SE_{\hat\Delta})
 <p><a href="https://youtu.be/_M8uIgcNhmQ">Ver la cápsula directamente en YouTube</a>.</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 1 · Hipótesis y dirección">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 1 · Hipótesis y dirección
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 1 · Hipótesis y dirección
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -620,12 +623,12 @@ H_A:\mu_1-\mu_2\neq0
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 2 · Diferencia, SE y t">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 2 · Diferencia, SE y t
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 2 · Diferencia, SE y t
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -653,12 +656,12 @@ t=\frac{12-0}{5}=2{,}4
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta opcional · ¿Qué cambia si disminuye el SE?">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta opcional · ¿Qué cambia si disminuye el SE?
+<span class="screen-reader-only">Tip</span>Consulta opcional · ¿Qué cambia si disminuye el SE?
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -675,12 +678,12 @@ SE=6\ \Rightarrow\ t=\frac{12}{6}=2
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 3 · α y valor crítico">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 3 · α y valor crítico
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 3 · α y valor crítico
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -696,12 +699,12 @@ Abrir resolución · Paso 3 · α y valor crítico
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 4 · Contraste e intervalo">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 4 · Contraste e intervalo
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 4 · Contraste e intervalo
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -763,12 +766,12 @@ Figura&nbsp;2: Comparación de IC95% e IC99% con críticos redondeados: solo el 
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 5 · Interpretación">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 5 · Interpretación
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 5 · Interpretación
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -779,12 +782,12 @@ Abrir resolución · Paso 5 · Interpretación
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta posterior · Valor p y tamaño muestral">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta posterior · Valor p y tamaño muestral
+<span class="screen-reader-only">Tip</span>Consulta posterior · Valor p y tamaño muestral
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -900,12 +903,12 @@ IC=\hat\Delta\pm(t^*\times SE_{\hat\Delta})
 <section id="ej2-pauta" class="level2">
 <h2 class="anchored" data-anchor-id="ej2-pauta">Pistas y pauta</h2>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Formular hipótesis">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista · Formular hipótesis
+<span class="screen-reader-only">Tip</span>Pista · Formular hipótesis
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -916,12 +919,12 @@ Pista · Formular hipótesis
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista · Contrastar e interpretar">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista · Contrastar e interpretar
+<span class="screen-reader-only">Tip</span>Pista · Contrastar e interpretar
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -932,12 +935,12 @@ Pista · Contrastar e interpretar
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta completa · Ejercicio 2">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta completa · Ejercicio 2
+<span class="screen-reader-only">Nota</span>Ver pauta completa · Ejercicio 2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1064,12 +1067,12 @@ t=\frac{\hat\Delta}{SE_{\hat\Delta}}
 <section id="ej3-resolucion" class="level2">
 <h2 class="anchored" data-anchor-id="ej3-resolucion">Resolución guiada</h2>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 1 · Hipótesis y dirección">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 1 · Hipótesis y dirección
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 1 · Hipótesis y dirección
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1087,12 +1090,12 @@ H_A:\mu_1-\mu_2&gt;0
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 2 · Diferencia y t">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 2 · Diferencia y t
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 2 · Diferencia y t
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1107,12 +1110,12 @@ Abrir resolución · Paso 2 · Diferencia y t
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 3 · Regla crítica">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 3 · Regla crítica
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 3 · Regla crítica
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1123,12 +1126,12 @@ Abrir resolución · Paso 3 · Regla crítica
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 4 · Contraste">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 4 · Contraste
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 4 · Contraste
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1154,12 +1157,12 @@ Figura&nbsp;3: Prueba direccional derecha de una cola (98 gl): una región de re
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Abrir resolución · Paso 5 · Interpretación">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Abrir resolución · Paso 5 · Interpretación
+<span class="screen-reader-only">Nota</span>Abrir resolución · Paso 5 · Interpretación
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1170,12 +1173,12 @@ Abrir resolución · Paso 5 · Interpretación
 </div>
 </div>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta posterior · Límite de confianza unilateral">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta posterior · Límite de confianza unilateral
+<span class="screen-reader-only">Tip</span>Consulta posterior · Límite de confianza unilateral
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1235,12 +1238,12 @@ LI=0{,}7-(1{,}66\times0{,}4)=0{,}036
 <p><strong>Pregunta de salida.</strong> Una investigación pregunta si dos promedios <strong>son diferentes</strong>. Después de observar la muestra, el promedio del grupo 1 resulta menor. <strong>¿Sería correcto cambiar a una prueba de una cola izquierda porque la diferencia observada es negativa? ¿Por qué?</strong></p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver respuesta · Pregunta de salida">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver respuesta · Pregunta de salida
+<span class="screen-reader-only">Nota</span>Ver respuesta · Pregunta de salida
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1252,12 +1255,12 @@ Ver respuesta · Pregunta de salida
 </div>
 <p><strong>Dos ideas para cerrar:</strong> no rechazar <span class="math inline">\(H_0\)</span> <strong>no</strong> demuestra igualdad; una diferencia estadísticamente significativa <strong>no implica causalidad</strong>.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta posterior · Errores tipo I y II">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Consulta posterior · Errores tipo I y II
+<span class="screen-reader-only">Tip</span>Consulta posterior · Errores tipo I y II
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1367,12 +1370,12 @@ t=\frac{\hat\Delta}{SE_{\hat\Delta}}
 <section id="ej4-pauta" class="level2">
 <h2 class="anchored" data-anchor-id="ej4-pauta">Pistas y pauta</h2>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Pista opcional · Recupera el procedimiento">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Pista opcional · Recupera el procedimiento
+<span class="screen-reader-only">Tip</span>Pista opcional · Recupera el procedimiento
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1384,12 +1387,12 @@ Pista opcional · Recupera el procedimiento
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta completa · Ejercicio 4">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Ver pauta completa · Ejercicio 4
+<span class="screen-reader-only">Nota</span>Ver pauta completa · Ejercicio 4
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
@@ -1419,377 +1422,750 @@ H_A:\mu_1-\mu_2&lt;0\qquad H_0:\mu_1-\mu_2\geq0
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
+
+
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
+
   <i class="bi bi-chevron-left"></i>
+
 </button>
 
+
+
 <script>
+
 document.addEventListener("DOMContentLoaded", function () {
 
+
+
   /* ========================================================
+
      ELEMENTOS
+
      ======================================================== */
+
+
 
   const pathname = window.location.pathname;
 
+
+
   const esPracticos =
+
     /\/assignment(?:\/|$)/.test(pathname);
 
+
+
   /*
+
    * Detecta específicamente:
+
    *
+
    * /assignment
+
    * /assignment/
+
    * /assignment/index.html
+
    */
+
   const esPaginaPrincipalPracticos =
+
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
+
+
+
   const boton =
+
     document.getElementById("practicos-sidebar-toggle");
 
+
+
   const zona =
+
     document.getElementById("practicos-sidebar-hover-zone");
 
+
+
   const sidebar =
+
     document.getElementById("quarto-sidebar");
+
+
+
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
+
+
     if (boton) {
+
       boton.style.display = "none";
+
     }
+
+
 
     if (zona) {
+
       zona.style.display = "none";
+
     }
 
+
+
     return;
+
   }
+
+
+
 
 
   const body = document.body;
 
+
+
   let abiertoTemporalmente = false;
+
   let temporizadorCierre = null;
 
 
+
+
+
   /* ========================================================
+
      POSICIÓN DE LA PESTAÑITA
+
      ======================================================== */
+
+
 
   function actualizarPosicion() {
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Menú cerrado:
+
        * la pestañita queda en el borde izquierdo.
+
        */
+
       boton.style.left = "0px";
+
+
 
     } else {
 
+
+
       /*
+
        * Usamos offsetWidth para que la posición
+
        * no dependa de la animación del sidebar.
+
        */
+
       const anchoSidebar = sidebar.offsetWidth;
 
+
+
       boton.style.left =
+
         (anchoSidebar - 2) + "px";
+
     }
+
   }
+
+
+
 
 
   /* ========================================================
+
      ACTUALIZAR ICONO
+
      ======================================================== */
+
+
 
   function mostrarIconoAbierto() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-left"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Ocultar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Ocultar menú";
+
   }
+
+
+
 
 
   function mostrarIconoCerrado() {
 
+
+
     boton.innerHTML =
+
       '<i class="bi bi-chevron-right"></i>';
 
+
+
     boton.setAttribute(
+
       "aria-label",
+
       "Mostrar menú de prácticos"
+
     );
 
+
+
     boton.title =
+
       "Mostrar menú";
+
   }
 
 
+
+
+
   /* ========================================================
+
      MOSTRAR SIDEBAR
+
      ======================================================== */
+
+
 
   function mostrarSidebar(temporal = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.remove(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoAbierto();
 
+
+
     abiertoTemporalmente = temporal;
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      OCULTAR SIDEBAR
+
      ======================================================== */
+
+
 
   function ocultarSidebar(guardar = false) {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     body.classList.add(
+
       "practicos-sidebar-cerrado"
+
     );
+
+
 
     mostrarIconoCerrado();
 
+
+
     abiertoTemporalmente = false;
+
+
 
     if (guardar) {
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "cerrado"
+
       );
+
     }
 
+
+
     requestAnimationFrame(function () {
+
       actualizarPosicion();
+
     });
+
   }
 
 
+
+
+
   /* ========================================================
+
      CLICK EN LA PESTAÑITA
+
      ======================================================== */
+
+
 
   boton.addEventListener("click", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
 
+
+
     /*
+
      * Si está cerrado:
+
      * un clic lo abre permanentemente.
+
      */
+
     if (cerrado) {
+
+
 
       mostrarSidebar(false);
 
+
+
       localStorage.setItem(
+
         "practicos-sidebar",
+
         "abierto"
+
       );
+
+
 
     } else {
 
+
+
       /*
+
        * Si está visible, un solo clic lo cierra,
+
        * independientemente de si se abrió por
+
        * hover o normalmente.
+
        */
+
       ocultarSidebar(true);
+
     }
+
+
 
   });
 
 
+
+
+
   /* ========================================================
+
      HOVER EN EL BORDE IZQUIERDO
+
      ======================================================== */
+
+
 
   zona.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
 
+
+
     const cerrado =
+
       body.classList.contains(
+
         "practicos-sidebar-cerrado"
+
       );
+
+
 
     if (cerrado) {
 
+
+
       /*
+
        * Mostrar temporalmente sin modificar
+
        * la preferencia guardada.
+
        */
+
       mostrarSidebar(true);
+
     }
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      SALIR DEL SIDEBAR
+
      ======================================================== */
+
+
 
   sidebar.addEventListener("mouseleave", function () {
 
+
+
     /*
+
      * Solo cerrar automáticamente si se abrió
+
      * mediante hover.
+
      */
+
     if (!abiertoTemporalmente) {
+
       return;
+
     }
 
+
+
     temporizadorCierre =
+
       setTimeout(function () {
+
+
 
         ocultarSidebar(false);
 
+
+
       }, 500);
+
   });
 
 
+
+
+
   /* ========================================================
+
      MOUSE SOBRE EL BOTÓN
+
      ======================================================== */
+
+
 
   boton.addEventListener("mouseenter", function () {
 
+
+
     clearTimeout(temporizadorCierre);
+
   });
 
 
+
+
+
   /* ========================================================
+
      ESTADO INICIAL
+
      ======================================================== */
 
+
+
   /*
+
    * PORTADA DE PRÁCTICOS
+
    *
+
    * Siempre comienza desplegada cada vez
+
    * que se entra o recarga la página.
+
    *
+
    * Aun así, después de cargarla el usuario
+
    * puede plegarla normalmente.
+
    */
+
   if (esPaginaPrincipalPracticos) {
+
+
 
     mostrarSidebar(false);
 
+
+
   } else {
 
+
+
     /*
+
      * En los prácticos individuales sí respetamos
+
      * el estado que dejó anteriormente el usuario.
+
      */
+
     const estadoGuardado =
+
       localStorage.getItem(
+
         "practicos-sidebar"
+
       );
+
+
 
     if (estadoGuardado === "cerrado") {
 
+
+
       ocultarSidebar(false);
+
+
 
     } else {
 
+
+
       mostrarSidebar(false);
+
     }
+
   }
 
 
+
+
+
   /* ========================================================
+
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
+
      ======================================================== */
+
+
 
   window.addEventListener(
+
     "resize",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /* ========================================================
+
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
+
      ======================================================== */
 
+
+
   sidebar.addEventListener(
+
     "transitionend",
+
     actualizarPosicion
+
   );
+
+
+
 
 
   /*
+
    * También esperamos el cambio de la
+
    * grilla de Quarto.
+
    */
+
   const contenido =
+
     document.getElementById("quarto-content");
+
+
 
   if (contenido) {
 
+
+
     contenido.addEventListener(
+
       "transitionend",
+
       actualizarPosicion
+
     );
+
   }
 
 
+
+
+
   /* ========================================================
+
      AJUSTE FINAL DESPUÉS DE CARGAR
+
      ======================================================== */
+
+
 
   requestAnimationFrame(function () {
 
+
+
     requestAnimationFrame(function () {
+
+
 
       actualizarPosicion();
 
+
+
     });
+
   });
 
+
+
 });
+
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

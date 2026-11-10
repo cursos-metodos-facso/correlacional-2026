@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&family=Fira+Sans+Condensed:wght@400;500;600;700&display=swap');
+
+/*-- scss:defaults --*/
+/* Identidad tipográfica y cromática de correlacional.metodos-facso.org.
+   La tipografía se carga en línea si hay conexión; fuentes sustitutas en modo sin conexión. */
+$primary: #20B2BA;
+$body-bg: #ffffff;
+$body-color: #2b363a;
+$link-color: #08757c;  // Oscurecido para mejorar el contraste sobre blanco.
+$link-hover-color: #055b61;
+$font-family-sans-serif: "Fira Sans Condensed", "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+$headings-font-family: "Fira Sans Condensed", "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+$headings-font-weight: 700;
+$border-radius: .2rem;
+
+/*-- scss:rules --*/
+:root {
+  --ec-ink: #26363a;
+  --ec-accent: #20B2BA;
+  --ec-accent-dark: #08757c;
+  --ec-muted: #687981;
+  --ec-rule: #e4ebed;
+  --ec-subtle: #f7fafb;
+  --ec-font: "Fira Sans Condensed", "Arial Narrow", "Liberation Sans Narrow", Arial, sans-serif;
+  --ec-secondary-font: "Barlow", "Segoe UI", Arial, sans-serif;
+}
+
+body {
+  background: #ffffff;
+  color: var(--ec-ink);
+  font-family: var(--ec-font);
+  font-size: 1.085rem;
+  font-weight: 400;
+  line-height: 1.65;
+  text-rendering: optimizeLegibility;
+}
+
+#quarto-content { padding-top: 1.4rem; }
+main.content { max-width: 880px; }
+main.content p { margin-bottom: 1.07rem; }
+main.content ul,
+main.content ol {
+  font-family: var(--ec-secondary-font);
+  font-size: .96em;
+  line-height: 1.65;
+}
+
+a { color: var(--ec-accent-dark); text-decoration-thickness: 1px; text-underline-offset: .19em; }
+a:hover { color: #055b61; }
+a:focus-visible { outline: 2px solid var(--ec-accent); outline-offset: 2px; }
+
+/* Portada editorial: sin franja institucional, banners ni cajas ornamentales. */
+#title-block-header {
+  padding: .5rem 0 1.8rem;
+  margin-bottom: 2.65rem;
+  border-bottom: 1px solid var(--ec-rule);
+}
+#title-block-header .quarto-title::before {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 2px;
+  margin-bottom: 1.5rem;
+  background: var(--ec-accent);
+}
+#title-block-header .title {
+  font-family: var(--ec-font);
+  font-size: clamp(2.65rem, 4.6vw, 3.45rem);
+  font-weight: 700;
+  letter-spacing: -.018em;
+  line-height: 1.12;
+  color: #243337;
+  max-width: 27ch;
+  margin-bottom: .64rem;
+}
+#title-block-header .subtitle {
+  color: var(--ec-muted);
+  font-family: var(--ec-secondary-font);
+  font-size: .93rem;
+  font-weight: 400;
+  line-height: 1.52;
+  margin-top: .25rem;
+}
+#title-block-header .quarto-title-meta {
+  margin-top: 1.65rem;
+  gap: 1.5rem;
+}
+#title-block-header .quarto-title-meta-heading {
+  color: #74858b;
+  font-family: var(--ec-secondary-font);
+  font-size: .66rem;
+  font-weight: 600;
+  letter-spacing: .085em;
+  text-transform: uppercase;
+  margin-bottom: .33rem;
+}
+#title-block-header .quarto-title-meta-contents,
+#title-block-header .quarto-title-authors {
+  font-family: var(--ec-secondary-font);
+  font-size: .875rem;
+  line-height: 1.53;
+  color: #43555b;
+}
+
+/* Encabezados: la misma familia condensada del sitio del curso. */
+main.content h1:not(.title) {
+  font-family: var(--ec-font);
+  font-size: clamp(2rem, 2.8vw, 2.3rem);
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -.009em;
+  color: #28363a;
+  margin: 2.85rem 0 1.2rem;
+  padding: 0;
+  border: 0;
+}
+main.content h1:not(.title)::after {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 1px;
+  margin-top: .68rem;
+  background: #8ed5da;
+}
+main.content h1.unnumbered::after { display: none; }
+main.content h2 {
+  font-family: var(--ec-font);
+  font-size: 1.56rem;
+  line-height: 1.28;
+  font-weight: 700;
+  color: #344449;
+  letter-spacing: 0;
+  margin: 2.13rem 0 .82rem;
+  padding: 0;
+  border: 0;
+}
+main.content h3 {
+  font-family: var(--ec-font);
+  font-size: 1.24rem;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #3c5054;
+  margin: 1.63rem 0 .66rem;
+}
+main.content .header-section-number { color: #169ea7; font-weight: 700; }
+
+/* Marcadores temporales editables y resumen: funcionales y livianos. */
+.instruccion-plantilla {
+  margin: .83rem 0 1.42rem;
+  padding: .05rem 0 .05rem .95rem;
+  border-left: 1px solid #a8dfe3;
+  color: #62757c;
+  font-size: .985rem;
+  line-height: 1.65;
+}
+.instruccion-plantilla p { margin: 0 !important; }
+.instruccion-plantilla em { font-style: italic; }
+.resumen-plantilla {
+  border: 0;
+  border-left: 2px solid var(--ec-accent);
+  background: var(--ec-subtle);
+  color: #52686e;
+  padding: 1.03rem 1.22rem;
+  margin: 1.12rem 0 2.05rem;
+  font-size: 1.02rem;
+  line-height: 1.64;
+}
+.resumen-plantilla p { margin: 0 !important; }
+
+/* Tablas ligeras con bordes finos. */
+main.content table {
+  width: 100%;
+  font-family: var(--ec-secondary-font);
+  font-size: .845rem;
+  line-height: 1.48;
+  border-color: var(--ec-rule);
+  margin: 1.18rem 0 1.55rem;
+}
+main.content table thead th {
+  color: #33474c;
+  background: transparent;
+  border-top: 1px solid #9fd7db;
+  border-bottom: 1px solid #d2e3e5;
+  font-weight: 600;
+  padding: .73rem .49rem;
+  vertical-align: bottom;
+}
+main.content table tbody td {
+  border-bottom: 1px solid #e8eeef;
+  padding: .64rem .49rem;
+  vertical-align: top;
+}
+main.content table tbody tr:nth-child(even) { background: transparent; }
+figcaption, .table-caption, caption {
+  color: var(--ec-muted);
+  font-family: var(--ec-secondary-font);
+  font-size: .82rem;
+  line-height: 1.48;
+}
+.tabla-desbordable { max-width: 100%; overflow-x: auto; }
+
+/* Navegación lateral sin adornos. */
+#TOC, .quarto-sidebar-toc {
+  font-size: .95rem;
+  line-height: 1.4;
+  border-left-color: #cbe7ea;
+}
+#TOC .sidebar-title, .quarto-sidebar-toc .sidebar-title {
+  font-family: var(--ec-secondary-font);
+  font-size: .67rem;
+  font-weight: 600;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: #7a8e94;
+}
+#TOC .nav-link, .quarto-sidebar-toc .nav-link {
+  color: #6f8289;
+  font-weight: 400;
+}
+#TOC .nav-link.active, .quarto-sidebar-toc .nav-link.active {
+  color: #169ea7;
+  font-weight: 700;
+}
+#TOC a:hover, .quarto-sidebar-toc a:hover { color: #118f98; }
+
+pre, div.sourceCode { border-radius: .25rem; }
+#refs { font-family: var(--ec-secondary-font); font-size: .92rem; padding-top: .3rem; }
+
+@media (max-width: 768px) {
+  body { font-size: 1.035rem; line-height: 1.6; }
+  #quarto-content { padding-top: .65rem; }
+  #title-block-header { margin-bottom: 2.05rem; }
+  #title-block-header .title { font-size: 2.45rem; }
+  #title-block-header .quarto-title-meta { gap: .8rem; }
+  main.content h1:not(.title) { margin-top: 2.45rem; }
+  main.content table { font-size: .77rem; }
+  .tabla-desbordable table { min-width: 540px; }
+  main.content table th, main.content table td { padding-inline: .34rem; }
+}
+@media print {
+  #title-block-header { break-after: avoid; }
+  main.content h1, main.content h2 { break-after: avoid; }
+  .resumen-plantilla { background: none; }
+}
