@@ -1,0 +1,636 @@
+---
+title: "Repaso: Asociación entre categóricas"
+date: "2026-11-10"
+lang: es
+number-sections: false
+anchor-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+  freeze: auto
+format:
+  html:
+    page-layout: article
+    grid:
+      body-width: 980px
+      margin-width: 250px
+      gutter-width: 1.25rem
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    toc-expand: 2
+    toc-title: "En esta página"
+    code-copy: true
+    highlight-style: github
+    code-fold: false
+    code-tools: false
+    smooth-scroll: true
+    fig-align: center
+    fig-cap-location: bottom
+---
+
+```{=html}
+<style>
+/* Ajustes exclusivos de esta página: el estilo general proviene del sitio. */
+.rv-project-activity {
+  margin: .85rem 0 1.2rem;
+  padding: .25rem 0 .25rem .85rem;
+  border-left: 2px solid #83939a;
+}
+.rv-project-activity > :first-child,
+.rv-project-activity > :last-child { margin-top: 0; margin-bottom: 0; }
+.rv-project-activity ol { margin: .35rem 0 .55rem; padding-left: 1.4rem; }
+.rv-project-activity li { margin: .32rem 0; }
+
+/* IPO: tres carpetas; a continuación, publicación del informe. */
+.rv-ipo-caption {
+  margin: .9rem 0 .35rem;
+  font-size: .88rem;
+  font-weight: 650;
+  color: #46616a;
+  letter-spacing: .015em;
+}
+.rv-ipo-flow, .rv-ipo-publication {
+  display: grid;
+  gap: 1.35rem;
+  margin: .55rem 0 1rem;
+}
+.rv-ipo-flow { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.rv-ipo-publication { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 650px; margin-left: auto; margin-right: auto; }
+.rv-ipo-step {
+  position: relative;
+  min-width: 0;
+  padding: .65rem .7rem;
+  border: 1px solid var(--bs-border-color, #d9dee1);
+  border-radius: .3rem;
+  background: #fff;
+  text-align: center;
+}
+.rv-ipo-step p { margin: 0; line-height: 1.42; }
+.rv-ipo-step p + p { margin-top: .25rem; font-size: .87rem; color: #5b6d73; }
+.rv-ipo-flow .rv-ipo-step:not(:last-child)::after,
+.rv-ipo-publication .rv-ipo-step:not(:last-child)::after {
+  content: "→";
+  position: absolute;
+  right: -1.04rem;
+  top: 33%;
+  color: #147a82;
+  font-weight: 650;
+}
+/* Árbol de carpetas: texto oscuro incluso si el tema colorea el código. */
+.rv-project-tree { margin: .85rem 0 1.2rem; }
+#quarto-content main.content .rv-project-tree div.sourceCode {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+#quarto-content main.content .rv-project-tree pre {
+  max-width: 100%;
+  overflow-x: auto;
+  background: #F7F8FA !important;
+  border: 1px solid #D9DEE7 !important;
+  border-radius: 6px;
+  padding: 1rem 1.15rem;
+  line-height: 1.55;
+  box-shadow: none !important;
+  color: #263238 !important;
+}
+#quarto-content main.content .rv-project-tree pre code,
+#quarto-content main.content .rv-project-tree pre code span,
+#quarto-content main.content .rv-project-tree pre span {
+  color: #263238 !important;
+  background: transparent !important;
+  -webkit-text-fill-color: #263238 !important;
+}
+
+.rv-project-scroll { overflow-x: auto; max-width: 100%; margin: .85rem 0 1.15rem; }
+.rv-project-scroll > table { width: 100%; margin-bottom: .1rem; }
+.rv-project-scroll table th,
+.rv-project-scroll table td { vertical-align: top; }
+.rv-project-route { margin: .8rem 0 1.1rem; }
+.rv-project-route .column { min-width: 0; }
+.rv-project-route .column > p:first-child { margin-bottom: .35rem; }
+.rv-project-route pre { max-width: 100%; overflow-x: auto; }
+
+/* Bloques de código: fondo gris neutro, nunca azul. */
+#quarto-content main.content :not(pre) > code {
+  color: #00695c !important;
+  background: #eef7f6 !important;
+  padding: .1em .3em;
+  border-radius: 4px;
+}
+#quarto-content main.content div.sourceCode,
+#quarto-content main.content pre.sourceCode,
+#quarto-content main.content pre:not(.sourceCode) {
+  background: #f7f8fa !important;
+  border: 1px solid #d9dee7 !important;
+  border-radius: 6px;
+  box-shadow: none !important;
+}
+#quarto-content main.content pre.sourceCode code,
+#quarto-content main.content div.sourceCode pre code,
+#quarto-content main.content pre code {
+  background: transparent !important;
+}
+#quarto-content main.content .cell-output.cell-output-stdout {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+#quarto-content main.content .cell-output.cell-output-stdout > pre {
+  color: #17233a !important;
+  background: #f7f8fa !important;
+  border: 1px solid #d9dee7 !important;
+  border-left: 4px solid #b8c2d1 !important;
+  padding: .8em 1em;
+}
+#quarto-content main.content .rv-project-activity p,
+#quarto-content main.content .rv-ipo-step p,
+#quarto-content main.content .rv-project-route p { text-align: left; hyphens: none; }
+#quarto-content main.content .rv-ipo-step p { text-align: center; }
+@media (min-width: 768px) {
+  #quarto-content main.content > p { text-align: justify; text-justify: inter-word; hyphens: auto; }
+}
+@media (max-width: 767.98px) {
+  .rv-ipo-flow, .rv-ipo-publication { grid-template-columns: 1fr; gap: 1.15rem; }
+  .rv-ipo-flow .rv-ipo-step:not(:last-child)::after,
+  .rv-ipo-publication .rv-ipo-step:not(:last-child)::after {
+    right: 50%; top: auto; bottom: -.98rem;
+    transform: translateX(50%) rotate(90deg);
+  }
+  .rv-project-route .columns { display: block; }
+  .rv-project-route .column { width: 100% !important; margin-bottom: .6rem; }
+  .rv-project-activity { padding-left: .65rem; }
+  #quarto-content main.content > p { text-align: left; hyphens: none; }
+}
+</style>
+```
+
+```{=html}
+<style>
+/* Bloques pedagógicos (mismo sistema visual que los repasos 14 y 15). */
+.rv-question { margin: .9rem 0 .65rem; padding: .7rem .95rem; border-left: 3px solid #607d86;
+  background: var(--bs-tertiary-bg, rgba(118,134,143,.065)); border-radius: 0 .35rem .35rem 0; }
+.rv-question > :first-child { margin-top: 0; }
+.rv-question > :last-child { margin-bottom: 0; }
+.rv-question p:first-child { font-size: .82rem; color: var(--bs-secondary-color, #657681); letter-spacing: .025em; margin-bottom: .3rem; }
+.rv-question p:last-child { font-weight: 500; }
+.rv-activity, .rv-practice { margin: .75rem 0 .55rem; border-left: 2px solid var(--bs-secondary-color, #83939a); padding: .25rem 0 .25rem .85rem; }
+.rv-activity > :first-child, .rv-practice > :first-child { margin-top: 0; }
+.rv-activity > :last-child, .rv-practice > :last-child { margin-bottom: 0; }
+.rv-practice p { margin: .45rem 0; }
+.rv-answer.callout { margin: .5rem 0 .9rem; }
+.rv-answer.callout .callout-header { font-weight: 650; }
+#quarto-content main.content .callout .callout-body,
+#quarto-content main.content .callout .callout-body p,
+#quarto-content main.content .callout .callout-body li { font-size: 1rem; line-height: 1.6; }
+.rv-answer.callout .math.display { margin: .6rem 0 .8rem; }
+@media (min-width: 768px) {
+  #quarto-content main.content p { text-align: justify; text-justify: inter-word; hyphens: auto; }
+  #quarto-content main.content .rv-question p:first-child,
+  #quarto-content main.content .callout-title p,
+  #quarto-content main.content figcaption p { text-align: left; hyphens: none; }
+}
+@media (max-width: 700px) {
+  .rv-question { padding: .65rem .7rem; }
+  .rv-activity, .rv-practice { padding-left: .65rem; }
+  .math.display, .math-display { overflow-x: auto; max-width: 100%; }
+}
+</style>
+```
+
+# Inicio · ¿Qué recordamos de la asociación entre categóricas? {#inicio}
+
+Cuando las variables son **categóricas**, la asociación se estudia con **tablas de contingencia**, que muestran cómo se distribuyen los casos en la intersección de las categorías de dos variables. Para evaluar si la asociación observada en la muestra permite concluir algo sobre la **población**, utilizamos la prueba **Chi cuadrado** ($\chi^2$), que retoma la lógica de los **cinco pasos de inferencia** de la Unidad 1. Para describir el **tamaño de efecto** (qué tan fuerte es la asociación) usamos **Phi** en tablas 2×2 y la **V de Cramer** en tablas mayores; ambos se interpretan con los criterios de Cohen, igual que los coeficientes de la Unidad 2.
+
+**Cómo trabajar:** antes de mirar cada resultado, **anticipe** qué espera encontrar. Después lea la salida de R, responda las preguntas y abra la pauta solo después de su intento.
+
+$$
+\text{Tabla}\rightarrow\text{anticipar}\rightarrow\chi^2\rightarrow\text{coeficiente}\rightarrow\text{interpretar}
+$$
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Consulta · Fórmulas y criterios de apoyo"}
+
+**Prueba Chi cuadrado**
+
+$$
+H_0:\pi_{fc}=\pi_f\,\pi_c
+\qquad
+H_A:\pi_{fc}\neq\pi_f\,\pi_c
+$$
+
+$$
+E=\frac{\text{total de la fila}\times\text{total de la columna}}{n}
+\qquad
+\chi^2=\sum\frac{(O-E)^2}{E}
+\qquad
+gl=(\text{filas}-1)\times(\text{columnas}-1)
+$$
+
+- $H_0$: las variables son **independientes** (no hay asociación en la población). $H_A$: las variables **están asociadas**.
+- $O$: frecuencia **observada**; $E$: frecuencia **esperada** si $H_0$ fuera cierta.
+- Si $\chi^2=0$, la tabla observada coincide con la de independencia; mientras mayor es $\chi^2$, mayor es la discrepancia.
+- En tablas **2×2** (1 $gl$), `chisq.test()` aplica por defecto la **corrección de Yates**: entrega un $\chi^2$ algo menor y un valor $p$ algo mayor (más conservador).
+
+**Tamaño de efecto**
+
+$$
+\Phi=\sqrt{\frac{\chi^2}{n}}
+\qquad
+V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
+$$
+
+- $n$: tamaño de la muestra; $k$: el menor número entre filas y columnas.
+- **Phi** se usa en tablas **2×2**; la **V de Cramer** es su extensión a tablas **mayores** (con $k=2$, $V=\Phi$ en valor absoluto).
+- La V de Cramer varía entre $0$ y $1$ (sin signo); Phi puede tener signo, que depende de cómo estén codificadas las categorías. Valores cercanos a 0 indican ausencia de asociación.
+- Criterios de Cohen: $<0{,}1$ muy pequeña; $0{,}1$–$0{,}3$ pequeña; $0{,}3$–$0{,}5$ moderada; $>0{,}5$ grande.
+
+**¿Qué medida usar?**
+
+| Variables | Medida | En R |
+|:--|:--|:--|
+| Dos dicotómicas (tabla 2×2) | Phi | `psych::phi()` |
+| Tabla mayor a 2×2 | V de Cramer | `sjstats::cramer()` o fórmula manual |
+
+
+:::
+
+**Paquetes y datos.** Utilizaremos `dplyr` para preparar los datos, `sjPlot` para las tablas de contingencia y `psych` para calcular Phi y `sjstats` para la V de Cramer. El primer ejercicio es ilustrativo y utiliza datos ficticios, mientras que los ejercicios autónomos usan la **Encuesta CEP 2026**.
+
+```{r}
+#| label: rc-paquetes
+#| echo: true
+library(pacman)
+
+p_load(dplyr, sjPlot, sjmisc, psych, sjstats)
+```
+
+# Ejercicio 1 · Pertenencia al barrio y sexo {#fundamentos}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Se asocian el sexo y el nivel de pertenencia al barrio en este grupo de personas?
+:::
+
+Para recordar los fundamentos, resolveremos **juntos y paso a paso** un ejemplo con **200 personas** cuyos cálculos pueden hacerse a mano. La pertenencia al barrio es una variable **ordinal** con tres categorías (bajo, medio y alto) y el sexo es **dicotómico** (hombre y mujer). Los datos son simulados.
+
+| Pertenencia al barrio | Hombre | Mujer | Total |
+|:--|--:|--:|--:|
+| Bajo | 35 | 15 | 50 |
+| Medio | 40 | 40 | 80 |
+| Alto | 25 | 45 | 70 |
+| **Total** | 100 | 100 | 200 |
+
+## Paso 1 · Observar la distribución {#ej1-paso1}
+
+::: {.rv-activity}
+Calcule la distribución de la pertenencia **dentro de cada sexo** (porcentajes por columna). ¿Es parecida entre hombres y mujeres?
+:::
+
+| Pertenencia al barrio | Hombre | Mujer |
+|:--|--:|--:|
+| Bajo | 35% | 15% |
+| Medio | 40% | 40% |
+| Alto | 25% | 45% |
+
+Los hombres se concentran más en pertenencia **baja** (35% frente a 15%) y las mujeres en pertenencia **alta** (45% frente a 25%); la categoría media es idéntica. Esto anticipa una asociación, pero **no sabemos si se mantiene en la población**.
+
+::: {.callout-important}
+
+Los porcentajes son **otra forma de expresar la frecuencia**, no información nueva. Como las columnas tienen igual total (100), comparar porcentajes equivale a comparar frecuencias; en general, calcúlelos en la dirección de la pregunta: aquí, dentro de cada sexo.
+
+:::
+
+## Paso 2 · Hipótesis {#ej1-paso2}
+
+$$
+H_0:\text{sexo y pertenencia al barrio son independientes}
+$$
+
+$$
+H_A:\text{sexo y pertenencia al barrio están asociados}
+$$
+
+## Paso 3 · Frecuencias esperadas {#ej1-paso3}
+
+Si las variables fueran independientes, la distribución de la pertenencia sería la misma en hombres y mujeres, e igual a la del total (25% bajo, 40% medio, 35% alto):
+
+$$
+E_{\text{bajo, hombre}}=\frac{50\times100}{200}=25
+$$
+
+::: {.rv-activity}
+Calcule las otras cinco frecuencias esperadas. ¿Qué propiedad tienen las esperadas respecto de los totales?
+:::
+
+| Pertenencia al barrio | Hombre | Mujer |
+|:--|--:|--:|
+| Bajo | 25 | 25 |
+| Medio | 40 | 40 |
+| Alto | 35 | 35 |
+
+Las esperadas **conservan los totales** de filas y columnas. Todas superan 5, por lo que la aproximación es adecuada.
+
+## Paso 4 · Estadístico $\chi^2$, $gl$ y decisión {#ej1-paso4}
+
+Las diferencias $O-E$ son $\pm10$ en «bajo», $0$ en «medio» y $\mp10$ en «alto»:
+
+$$
+\chi^2=\frac{10^2}{25}+\frac{10^2}{25}+\frac{0^2}{40}+\frac{0^2}{40}+\frac{10^2}{35}+\frac{10^2}{35}=4+4+0+0+2{,}86+2{,}86\approx13{,}71
+$$
+
+$$
+gl=(3-1)(2-1)=2
+$$
+
+El valor crítico de $\chi^2$ al 5% con 2 $gl$ es $5{,}99$. Como $13{,}71>5{,}99$ ($p\approx0{,}001$), **rechazamos $H_0$** al 5% y también al 1% (crítico $9{,}21$).
+
+
+::: {.callout-note}
+
+¿Aplicaría aquí la corrección de Yates? ¿Qué aportó cada fila al $\chi^2$?
+
+**No**: la corrección de Yates opera solo en tablas **2×2**, y esta es de 3×2. Las filas «bajo» y «alto» concentran toda la discrepancia; la fila «medio» coincide con lo esperado y aporta 0.
+
+:::
+
+En R, todo lo anterior se obtiene en pocas líneas:
+
+```{r}
+#| label: rc-ej1-r
+#| echo: true
+tabla <- matrix(c(35, 15,
+                  40, 40,
+                  25, 45), nrow = 3, byrow = TRUE,
+                dimnames = list(pertenencia = c("Bajo", "Medio", "Alto"),
+                                sexo        = c("Hombre", "Mujer")))
+
+prop.table(tabla, margin = 2)       # porcentajes por columna (dentro de cada sexo)
+chisq.test(tabla)$expected          # frecuencias esperadas
+chi_1 <- chisq.test(tabla)          # chi cuadrado (sin Yates: la tabla no es 2x2)
+chi_1
+
+sqrt(chi_1$statistic / (sum(tabla) * (min(dim(tabla)) - 1)))  # V de Cramer
+```
+
+## Paso 5 · Interpretar {#ej1-paso5}
+
+«En este grupo, el 35% de los hombres y el 15% de las mujeres presentan pertenencia baja al barrio, mientras que el 25% de los hombres y el 45% de las mujeres presentan pertenencia alta. La prueba Chi cuadrado aporta evidencia al **5%** de una **asociación** entre sexo y pertenencia al barrio ($\chi^2(2)=13{,}71$; $p\approx0{,}001$). Este resultado **no permite afirmar causalidad**».
+
+## Paso 6 · ¿Qué nos falta? {#ej1-paso6}
+
+::: {.rv-activity}
+Con $\chi^2=13{,}71$, ¿sabemos si la asociación es **fuerte** y en qué **sentido** ocurre?
+:::
+
+Chi cuadrado solo responde **si hay evidencia de asociación**; no entrega su **magnitud**, y su valor crece con el tamaño de la muestra. El sentido lo vimos en los porcentajes (las mujeres tienden a mayor pertenencia). Para cuantificar el **tamaño de efecto** usamos Phi o V de Cramer. Como la tabla es de 3×2 (mayor a 2×2), corresponde la **V de Cramer**, con $k=2$ (el menor número entre filas y columnas):
+
+$$
+V=\sqrt{\frac{\chi^2}{n(k-1)}}=\sqrt{\frac{13{,}71}{200\times(2-1)}}\approx0{,}26
+$$
+
+Para interpretar el tamaño de efecto seguimos los criterios de Cohen. En este caso observamos una asociación de magnitud **pequeña** (entre 0,1 y 0,3), aunque estadísticamente significativa. La V no tiene signo: la dirección se lee en los porcentajes del paso 1.
+
+::: {.callout-important}
+
+## Recordatorio
+
+Un resultado estadísticamente significativo **no implica** una asociación grande. Por eso siempre conviene reportar ambos aspectos: **significación** (Chi cuadrado) y **magnitud** (Phi, V de Cramer).
+
+:::
+
+# Ejercicio Autónomo A · Interés político y sexo (CEP 2026) {#apl-a}
+
+Utilizamos la **Encuesta CEP 2026** ($N\approx1.460$). `interes_pol` es una variable **ordinal** (1 = nada interesado … 5 = muy interesado) y `sexo` es dicotómica (0 = hombre, 1 = mujer). Además, preparamos `educ_dico` (0 = sin educación superior, 1 = con educación superior) y `edad_dico` (0 = menos de 30 años, 1 = 30 años o más).
+
+```{r}
+#| label: rc-a-carga
+#| echo: true
+load(url("https://github.com/cursos-metodos-facso/datos-ejemplos/raw/main/cep_2026_proc.RData"))
+
+cep_proc <- datos_cep |>
+  select(edad, educ, mujer, interes_pol, just_marcha) |>
+  mutate(educ_dico = ifelse(educ < 8, 0, 1),    # 1 = con educación superior
+         edad_dico = ifelse(edad < 30, 0, 1)) |> # 1 = 30 años o más
+  rename(sexo = mujer)
+```
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Se asocian el sexo y el interés político entre los adultos de Chile?
+:::
+
+
+
+::: {.rv-activity}
+**Antes de calcular.** ¿Espera que el interés político sea parecido entre hombres y mujeres? ¿Con qué porcentajes lo comprobaría: por fila o por columna?
+:::
+
+
+
+::: {.rv-practice}
+**A1 · Describir.** Compare la distribución del interés político entre hombres y mujeres. ¿En qué categorías se ven las mayores diferencias?
+
+**A2 · Hipótesis.** Plantee $H_0$ y $H_A$.
+
+**A3 · Esperadas** Calcule y reporte la frecuencia esperada de la celda Nada interesado/Mujer
+
+**A4 · Decidir.** Identifique $\chi^2$, $gl$ y $p$ en la salida y decida al 5% y al 1%.
+
+**A5 · Magnitud.** ¿Qué medida de tamaño de efecto corresponde a esta tabla? Calcúlela e interprétela según Cohen.
+
+**A6 · Reporte.** Redacte una conclusión de dos o tres líneas que incluya significación y magnitud, sin afirmar causalidad.
+:::
+
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Apoyo de código · Ejercicio A"}
+```{r}
+#| label: rc-a-tabla
+#| echo: true
+sjPlot::sjt.xtab(var.row = cep_proc$interes_pol,
+                 var.col = cep_proc$sexo,
+                 show.summary = FALSE,
+                 emph.total = TRUE,
+                 show.col.prc = TRUE)   # porcentaje por columna (dentro de cada sexo)
+```
+
+```{r}
+#| label: rc-a-chi
+#| echo: true
+chi_a <- chisq.test(table(cep_proc$interes_pol, cep_proc$sexo))
+chi_a
+chi_a$expected  
+```
+
+```{r}
+#| label: rc-a-cramer
+#| echo: true
+tabla_a <- table(cep_proc$interes_pol, cep_proc$sexo)
+
+sjstats::cramer(tabla_a)                                          # con sjstats
+```
+
+:::
+
+
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio A"}
+
+**A1 · Describir.** Las mujeres se concentran más en «nada interesada» (≈50% frente a ≈41% de los hombres), mientras los hombres se ubican más en las categorías de mayor interés (≈10% frente a ≈6,5% tanto en la categoría 4 como en la 5). Los hombres muestran, en general, **mayor interés político**.
+
+**A2 · Hipótesis.**
+
+$$
+H_0:\text{sexo e interés político son independientes}\qquad H_A:\text{están asociados}
+$$
+
+**A3 · Esperadas** La frecuencia esperada de la celda Nada interesado/Mujer es de 430
+
+**A4 · Decidir.** La salida entrega $\chi^2=17{,}28$; $gl=4$; $p=0{,}0017$. Como $p<0{,}05$ y $p<0{,}01$, **rechazamos $H_0$ al 5% y al 1%**.
+
+**A5 · Magnitud.** La tabla es de 5×2 (mayor a 2×2), por lo que corresponde la **V de Cramer**, con $k=2$: $V=\sqrt{17{,}28/(1.460\times1)}\approx0{,}11$. Es una asociación de magnitud **pequeña** (apenas sobre 0,1), aunque estadísticamente significativa.
+
+**A6 · Reporte.** «El interés político se distribuye de forma distinta entre hombres y mujeres: ellas se concentran más en la categoría “nada interesada”. La prueba Chi cuadrado aporta evidencia de una **asociación estadísticamente significativa** entre sexo e interés político ($\chi^2(4)=17{,}28$; $p=0{,}002$; $N\approx1.460$), pero de magnitud **pequeña** ($V=0{,}11$). El resultado no permite afirmar causalidad».
+
+:::
+
+# Ejercicio Autónomo B · Edad y nivel educacional {#apl-b}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Se asocian tener 30 años o más y contar con educación superior entre los adultos de Chile?
+:::
+
+Ahora ambas variables son **dicotómicas** (`edad_dico` y `educ_dico`), por lo que la tabla es de 2×2.
+
+::: {.rv-activity}
+**Antes de calcular.** ¿Espera que quienes tienen 30 años o más tengan más o menos educación superior que los menores de 30?
+:::
+
+
+::: {.rv-practice}
+**B1 · Describir.** Compare el porcentaje con educación superior entre menores de 30 y personas de 30 años o más, visualizando los % de filas.
+
+**B2 · $\chi^2$.** Plantee $H_0$ y $H_A$ y decida al 5%. ¿Cambia la decisión con o sin corrección de Yates?
+
+**B3 · Magnitud.** ¿Qué medida de tamaño de efecto corresponde a una tabla 2×2? Interprete su valor según Cohen.
+
+**B4 · Reporte.** Redacte una conclusión que integre la significación y la magnitud, sin afirmar causalidad.
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Apoyo de código · Ejercicio B"}
+```{r}
+#| label: rc-b-tabla
+#| echo: true
+sjPlot::sjt.xtab(var.row = cep_proc$edad_dico,
+                 var.col = cep_proc$educ_dico,
+                 show.summary = FALSE,
+                 emph.total = TRUE,
+                 show.row.prc = TRUE)   # porcentaje por fila (dentro de cada grupo de edad)
+```
+
+```{r}
+#| label: rc-b-chi
+#| echo: true
+tabla_b <- table(cep_proc$edad_dico, cep_proc$educ_dico)
+
+chisq.test(tabla_b, correct = FALSE)  # sin Yates
+chisq.test(tabla_b)                   # con Yates (por defecto)
+```
+
+```{r}
+#| label: rc-b-phi
+#| echo: true
+psych::phi(tabla_b)                                   # Phi con psych
+
+```
+
+:::
+
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio B"}
+
+**B1 · Describir.** Tiene educación superior el ≈14,6% de los menores de 30 años y el ≈17,7% de quienes tienen 30 años o más: una diferencia de ≈3 puntos porcentuales.
+
+**B2 · $\chi^2$.** $H_0$: edad y educación (dicotomizadas) son independientes; $H_A$: están asociadas. Por otro lado, recordemos que la corrección de continuidad de Yates se aplica solo a tablas de **2×2**. Sin Yates, $\chi^2(1)=1{,}38$; $p=0{,}240$. Con Yates, $\chi^2(1)=1{,}17$; $p=0{,}279$. En ambos casos $p>0{,}05$: **no rechazamos $H_0$**. La corrección de Yates reduce algo el $\chi^2$, pero la decisión no cambia. No rechazar $H_0$ **no demuestra** que las variables sean independientes: indica que no hay evidencia suficiente.
+
+**B3 · Magnitud.** Al ser una tabla 2×2, corresponde **Phi**: $\Phi=\sqrt{1{,}38/1.464}\approx0{,}03$, de magnitud **muy pequeña** ($<0{,}1$). El signo de Phi depende de la codificación; el sentido de la asociación se lee en los porcentajes (B1).
+
+**B4 · Reporte.** «La proporción con educación superior es algo mayor entre quienes tienen 30 años o más (≈17,7%) que entre los menores de 30 (≈14,6%), pero la diferencia no es estadísticamente significativa ($\chi^2(1)=1{,}17$; $p=0{,}279$, con corrección de Yates), y la magnitud es muy pequeña ($\Phi\approx0{,}03$). No hay evidencia suficiente de una asociación entre edad y educación superior en esta muestra».
+
+:::
+
+# Ejercicio Autónomo C · Elegir el método de correlación adecuado {#apl-c}
+
+::: {.rv-question}
+**Pregunta de investigación**
+
+¿Cómo se asocian la edad y el interés político con nivel educacional?
+:::
+
+Cada par de variables exige una medida distinta de tamaño de efecto, según su naturaleza y la dimensión de la tabla. Antes de calcular, **decida y justifique**:
+
+| Par de variables | Naturaleza de las variables | Medida de asociación |
+|:--|:--|:--|
+| `educ_dico` y `edad` | ¿? | ¿? |
+| `interes_pol` y `just_marcha` | ¿? | ¿? |
+
+
+::: {.rv-practice}
+**C1 · Elegir.** Complete la tabla: ¿qué medida corresponde a cada par? Justifique.
+
+**C2 · Tipo de asociación.** Interprete la correlación entre `educ_dico` y `edad` (sentido, magnitud según Cohen y sustantividad).
+
+**C3 · TIpo de asociación.** Interprete la correlación `interes_pol` y `just_marchas` (sentido, magnitud según Cohen y sustantividad).
+
+:::
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Apoyo de código · Ejercicio C"}
+```{r}
+#| label: rc-c-calculo
+#| echo: true
+cor.test(cep_proc$educ_dico, cep_proc$edad)          # primer par
+
+
+matriz <- cep_proc %>% select(interes_pol, just_marcha) # creamos matriz con var de interes
+
+psych::polychoric(matriz, na.rm = T)
+```
+
+:::
+
+
+::: {.callout-note collapse="true" appearance="minimal" .rv-answer title="Ver pauta · Ejercicio C"}
+
+**C1 · Elegir.**
+
+| Par de variables | Naturaleza de las variables | Medida de asociación |
+|:--|:--|:--|
+| `educ_dico` y `edad` | Dicotómica y continua | **Correlación punto biserial** (en R, Pearson con codificación 0/1) |
+| `interes_pol` y `just_marchas` | Ordinales de 5 categorías | **Correlación policórica** |
+
+**C2 · Punto biserial.** $r\approx-0{,}13$: asociación **negativa** y de magnitud **pequeña** (entre 0,1 y 0,3), estadísticamente significativa ($p<0{,}001$). Las personas de mayor edad tienden a tener menor probabilidad de contar con educación superior. Una conjetura es la expansión educativa reciente: las generaciones mayores tuvieron menor acceso a ella.
+
+**C3 · Policórica.** $\rho_{pol}\approx0{,}34$ ($N=1.458$): asociación **positiva** y de magnitud **moderada** (entre 0,3 y 0,5). A mayor interés político, mayor tendencia a justificar la participación en marchas: quienes se declaran «nada interesados» se concentran en la categoría más baja de justificación, mientras quienes tienen mayor interés se ubican en las más altas. A diferencia de Phi o V, la correlación policórica **sí tiene signo**, por lo que el sentido se lee directamente del coeficiente. El resultado describe una relación observada y no permite afirmar causalidad.
+
+:::
+
+# Cierre de la sesión {#cierre}
+
+La asociación entre categóricas se interpreta respondiendo **preguntas distintas**, que no deben confundirse: la **tabla** describe el patrón; el **Chi cuadrado** indica si hay evidencia de asociación en la población; y el **tamaño de efecto** (Phi, V de Cramer o correlación) indica qué tan fuerte es.
+
+| Pregunta | Qué miramos |
+|:--|:--|
+| ¿Qué patrón muestran los datos? | Tabla de contingencia (frecuencias y porcentajes) |
+| ¿Hay evidencia de asociación en la población? | $H_0$: independencia, $\chi^2$, $gl$ y valor $p$ |
+| ¿Qué cambia en una tabla 2×2? | Corrección de Yates (más conservadora) |
+| ¿Qué medida de tamaño de efecto corresponde? | Phi (2×2), V de Cramer (mayor a 2×2) |
+| ¿Se puede afirmar causalidad? | No: sólo reportamos una asociación observada |
+
+**Dos ideas para cerrar:** $\chi^2$ y valor $p$ responden si hay **evidencia** de asociación, no cuán grande es; y no rechazar $H_0$ **no demuestra** independencia.
+
+

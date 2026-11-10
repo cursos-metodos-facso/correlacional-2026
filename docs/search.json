@@ -5397,5 +5397,54 @@
     "title": "Trabajo final: plantilla y proyecto reproducible",
     "section": "Citas y bibliografía con BibTeX",
     "text": "Citas y bibliografía con BibTeX\nLa plantilla también permite incorporar citas y generar automáticamente la bibliografía. Para ello utiliza BibTeX, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo input/bib/referencias.bib. Cada referencia tiene una clave única que permite citarla desde index.qmd. Por ejemplo, una entrada se organiza así (datos ilustrativos):\n@article{apellido2026,\n  author  = {Apellido, Nombre},\n  title   = {Título del artículo},\n  journal = {Nombre de la revista},\n  year    = {2026}\n}\nEn la plantilla encontrarán la clave wickham2023r. Para utilizarla en el informe, pueden escribir:\nSegún @wickham2023r, ...\n\nLa organización de los datos facilita el análisis reproducible [@wickham2023r].\nAl renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo input/bib/apa.csl define el estilo de citación APA. Para incorporar sus propias fuentes, deben agregarlas a referencias.bib y citar sus claves en el texto. No es necesario escribir manualmente la bibliografía al final del informe.\nEstos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la sesión de visualización. No deben conservar los resultados ni las referencias de ejemplo en la entrega: su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.\nCada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación."
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html",
+    "href": "content/17-repaso-categoricas.html",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "",
+    "text": "Sesión del martes, 10 de noviembre de 2026"
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso1",
+    "href": "content/17-repaso-categoricas.html#ej1-paso1",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 1 · Observar la distribución",
+    "text": "Paso 1 · Observar la distribución\n\nCalcule la distribución de la pertenencia dentro de cada sexo (porcentajes por columna). ¿Es parecida entre hombres y mujeres?\n\n\n\n\nPertenencia al barrio\nHombre\nMujer\n\n\n\n\nBajo\n35%\n15%\n\n\nMedio\n40%\n40%\n\n\nAlto\n25%\n45%\n\n\n\nLos hombres se concentran más en pertenencia baja (35% frente a 15%) y las mujeres en pertenencia alta (45% frente a 25%); la categoría media es idéntica. Esto anticipa una asociación, pero no sabemos si se mantiene en la población.\n\n\n\n\n\n\nImportante\n\n\n\nLos porcentajes son otra forma de expresar la frecuencia, no información nueva. Como las columnas tienen igual total (100), comparar porcentajes equivale a comparar frecuencias; en general, calcúlelos en la dirección de la pregunta: aquí, dentro de cada sexo."
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso2",
+    "href": "content/17-repaso-categoricas.html#ej1-paso2",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 2 · Hipótesis",
+    "text": "Paso 2 · Hipótesis\n\\[\nH_0:\\text{sexo y pertenencia al barrio son independientes}\n\\]\n\\[\nH_A:\\text{sexo y pertenencia al barrio están asociados}\n\\]"
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso3",
+    "href": "content/17-repaso-categoricas.html#ej1-paso3",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 3 · Frecuencias esperadas",
+    "text": "Paso 3 · Frecuencias esperadas\nSi las variables fueran independientes, la distribución de la pertenencia sería la misma en hombres y mujeres, e igual a la del total (25% bajo, 40% medio, 35% alto):\n\\[\nE_{\\text{bajo, hombre}}=\\frac{50\\times100}{200}=25\n\\]\n\nCalcule las otras cinco frecuencias esperadas. ¿Qué propiedad tienen las esperadas respecto de los totales?\n\n\n\n\nPertenencia al barrio\nHombre\nMujer\n\n\n\n\nBajo\n25\n25\n\n\nMedio\n40\n40\n\n\nAlto\n35\n35\n\n\n\nLas esperadas conservan los totales de filas y columnas. Todas superan 5, por lo que la aproximación es adecuada."
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso4",
+    "href": "content/17-repaso-categoricas.html#ej1-paso4",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 4 · Estadístico \\(\\chi^2\\), \\(gl\\) y decisión",
+    "text": "Paso 4 · Estadístico \\(\\chi^2\\), \\(gl\\) y decisión\nLas diferencias \\(O-E\\) son \\(\\pm10\\) en «bajo», \\(0\\) en «medio» y \\(\\mp10\\) en «alto»:\n\\[\n\\chi^2=\\frac{10^2}{25}+\\frac{10^2}{25}+\\frac{0^2}{40}+\\frac{0^2}{40}+\\frac{10^2}{35}+\\frac{10^2}{35}=4+4+0+0+2{,}86+2{,}86\\approx13{,}71\n\\]\n\\[\ngl=(3-1)(2-1)=2\n\\]\nEl valor crítico de \\(\\chi^2\\) al 5% con 2 \\(gl\\) es \\(5{,}99\\). Como \\(13{,}71&gt;5{,}99\\) (\\(p\\approx0{,}001\\)), rechazamos \\(H_0\\) al 5% y también al 1% (crítico \\(9{,}21\\)).\n\n\n\n\n\n\nNota\n\n\n\n¿Aplicaría aquí la corrección de Yates? ¿Qué aportó cada fila al \\(\\chi^2\\)?\nNo: la corrección de Yates opera solo en tablas 2×2, y esta es de 3×2. Las filas «bajo» y «alto» concentran toda la discrepancia; la fila «medio» coincide con lo esperado y aporta 0.\n\n\nEn R, todo lo anterior se obtiene en pocas líneas:\n\ntabla &lt;- matrix(c(35, 15,\n                  40, 40,\n                  25, 45), nrow = 3, byrow = TRUE,\n                dimnames = list(pertenencia = c(\"Bajo\", \"Medio\", \"Alto\"),\n                                sexo        = c(\"Hombre\", \"Mujer\")))\n\nprop.table(tabla, margin = 2)       # porcentajes por columna (dentro de cada sexo)\n\n           sexo\npertenencia Hombre Mujer\n      Bajo    0.35  0.15\n      Medio   0.40  0.40\n      Alto    0.25  0.45\n\nchisq.test(tabla)$expected          # frecuencias esperadas\n\n           sexo\npertenencia Hombre Mujer\n      Bajo      25    25\n      Medio     40    40\n      Alto      35    35\n\nchi_1 &lt;- chisq.test(tabla)          # chi cuadrado (sin Yates: la tabla no es 2x2)\nchi_1\n\n\n    Pearson's Chi-squared test\n\ndata:  tabla\nX-squared = 13.714, df = 2, p-value = 0.001052\n\nsqrt(chi_1$statistic / (sum(tabla) * (min(dim(tabla)) - 1)))  # V de Cramer\n\nX-squared \n0.2618615"
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso5",
+    "href": "content/17-repaso-categoricas.html#ej1-paso5",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 5 · Interpretar",
+    "text": "Paso 5 · Interpretar\n«En este grupo, el 35% de los hombres y el 15% de las mujeres presentan pertenencia baja al barrio, mientras que el 25% de los hombres y el 45% de las mujeres presentan pertenencia alta. La prueba Chi cuadrado aporta evidencia al 5% de una asociación entre sexo y pertenencia al barrio (\\(\\chi^2(2)=13{,}71\\); \\(p\\approx0{,}001\\)). Este resultado no permite afirmar causalidad»."
+  },
+  {
+    "objectID": "content/17-repaso-categoricas.html#ej1-paso6",
+    "href": "content/17-repaso-categoricas.html#ej1-paso6",
+    "title": "Repaso: Asociación entre categóricas",
+    "section": "Paso 6 · ¿Qué nos falta?",
+    "text": "Paso 6 · ¿Qué nos falta?\n\nCon \\(\\chi^2=13{,}71\\), ¿sabemos si la asociación es fuerte y en qué sentido ocurre?\n\nChi cuadrado solo responde si hay evidencia de asociación; no entrega su magnitud, y su valor crece con el tamaño de la muestra. El sentido lo vimos en los porcentajes (las mujeres tienden a mayor pertenencia). Para cuantificar el tamaño de efecto usamos Phi o V de Cramer. Como la tabla es de 3×2 (mayor a 2×2), corresponde la V de Cramer, con \\(k=2\\) (el menor número entre filas y columnas):\n\\[\nV=\\sqrt{\\frac{\\chi^2}{n(k-1)}}=\\sqrt{\\frac{13{,}71}{200\\times(2-1)}}\\approx0{,}26\n\\]\nPara interpretar el tamaño de efecto seguimos los criterios de Cohen. En este caso observamos una asociación de magnitud pequeña (entre 0,1 y 0,3), aunque estadísticamente significativa. La V no tiene signo: la dirección se lee en los porcentajes del paso 1.\n\n\n\n\n\n\nImportanteRecordatorio\n\n\n\nUn resultado estadísticamente significativo no implica una asociación grande. Por eso siempre conviene reportar ambos aspectos: significación (Chi cuadrado) y magnitud (Phi, V de Cramer)."
   }
 ]
