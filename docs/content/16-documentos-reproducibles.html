@@ -189,13 +189,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#proyecto-reproducible" id="toc-proyecto-reproducible" class="nav-link" data-scroll-target="#proyecto-reproducible"><span class="header-section-number">1</span> Del documento dinámico al proyecto reproducible</a>
   <ul class="collapse">
-  <li><a href="#esquema-general-de-un-proyecto-reproducible" id="toc-esquema-general-de-un-proyecto-reproducible" class="nav-link" data-scroll-target="#esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.0.1</span> Esquema general de un proyecto reproducible</a></li>
+  <li><a href="#esquema-general-de-un-proyecto-reproducible" id="toc-esquema-general-de-un-proyecto-reproducible" class="nav-link" data-scroll-target="#esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.1</span> Esquema general de un proyecto reproducible</a></li>
   </ul></li>
   <li><a href="#estructura-ipo" id="toc-estructura-ipo" class="nav-link" data-scroll-target="#estructura-ipo"><span class="header-section-number">2</span> Organización del proyecto: estructura IPO</a></li>
   <li><a href="#verificar-reproducibilidad" id="toc-verificar-reproducibilidad" class="nav-link" data-scroll-target="#verificar-reproducibilidad"><span class="header-section-number">3</span> Verificar la reproducibilidad del proyecto</a></li>
-  <li><a href="#citas-y-bibliografía-con-bibtex" id="toc-citas-y-bibliografía-con-bibtex" class="nav-link" data-scroll-target="#citas-y-bibliografía-con-bibtex"><span class="header-section-number">4</span> Citas y bibliografía con BibTeX</a></li>
-  <li><a href="#monitoreo" id="toc-monitoreo" class="nav-link" data-scroll-target="#monitoreo"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</a></li>
-  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega"><span class="header-section-number">6</span> Preparación de la entrega</a></li>
+  <li><a href="#bonus-track-citas-y-bibliografía-automática-con-bibtex" id="toc-bonus-track-citas-y-bibliografía-automática-con-bibtex" class="nav-link" data-scroll-target="#bonus-track-citas-y-bibliografía-automática-con-bibtex">Bonus track: citas y bibliografía automática con BibTeX</a></li>
+  <li><a href="#entrega" id="toc-entrega" class="nav-link" data-scroll-target="#entrega"><span class="header-section-number">4</span> Preparación de la entrega</a></li>
   </ul>
 </nav>
     </div>
@@ -344,6 +343,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   .rv-project-activity { padding-left: .65rem; }
   #quarto-content main.content > p { text-align: left; hyphens: none; }
 }
+
+
+/* Comparación de rutas: columnas sin superposición */
+.rv-project-route .columns {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.rv-project-route .column {
+  width: auto !important;
+  min-width: 0;
+}
+
+.rv-project-route div.sourceCode,
+.rv-project-route pre {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* Apilar los ejemplos cuando falta espacio */
+@media (max-width: 1100px) {
+  .rv-project-route .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 <section id="objetivo-de-la-sesión" class="level1 unnumbered">
 <h1 class="unnumbered">Objetivo de la sesión</h1>
@@ -360,7 +390,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="proyecto-reproducible" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Del documento dinámico al proyecto reproducible</h1>
-<p>Un documento dinámico permite integrar el texto y el código de análisis en un archivo <code>.qmd</code>. Al renderizarlo, Quarto ejecuta el código correspondiente y produce un documento con los resultados actualizados. Sin embargo, <strong>obtener un HTML no garantiza, por sí solo, que otra persona pueda reproducir la investigación</strong>: si faltan los datos o los scripts, no será posible reconstruir las tablas, las cifras y los gráficos.</p>
+<p>Un documento dinámico permite integrar el texto y el código de análisis en un archivo <code>.qmd</code>. Al (en Positron: Preview), Quarto ejecuta el código correspondiente y produce un documento con los resultados actualizados. Sin embargo, <strong>obtener un HTML no garantiza, por sí solo, que otra persona pueda reproducir la investigación</strong>: si faltan los datos o los scripts, no será posible reconstruir las tablas, las cifras y los gráficos.</p>
 <p>Por eso, para el trabajo final organizaremos un <strong>proyecto autocontenido</strong>: una carpeta que reúne los archivos necesarios para realizar el análisis y generar el informe. Podemos representar su funcionamiento de la siguiente manera:</p>
 <p><strong>Organización de los archivos (IPO)</strong></p>
 <div class="rv-ipo-flow" aria-label="Organización de archivos del proyecto: Input, Processing y Output">
@@ -405,7 +435,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;"><strong>Documento dinámico</strong></td>
-<td style="text-align: left;">El informe puede actualizar sus resultados al ejecutar el código del <code>.qmd</code>.</td>
+<td style="text-align: left;">El informe (que contiene texto y ‘trozos’ (chunks) de código de análisis) puede actualizar sus resultados al ejecutar el código del <code>.qmd</code>.</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;"><strong>HTML autocontenido</strong></td>
@@ -413,13 +443,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><strong>Proyecto reproducible</strong></td>
-<td style="text-align: left;">Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe.</td>
+<td style="text-align: left;">Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe en una sola carpeta.</td>
 </tr>
 </tbody>
 </table>
 </div>
-<section id="esquema-general-de-un-proyecto-reproducible" class="level3" data-number="1.0.1">
-<h3 data-number="1.0.1" class="anchored" data-anchor-id="esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.0.1</span> Esquema general de un proyecto reproducible</h3>
+<section id="esquema-general-de-un-proyecto-reproducible" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="esquema-general-de-un-proyecto-reproducible"><span class="header-section-number">1.1</span> Esquema general de un proyecto reproducible</h2>
 <div id="fig-esquema-general" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-esquema-general-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -468,19 +498,19 @@ Figura&nbsp;1: Esquema general de organización de un proyecto de investigación
 </section>
 <section id="verificar-reproducibilidad" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Verificar la reproducibilidad del proyecto</h1>
-<p>Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de <strong>rutas absolutas</strong>, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante <strong>rutas relativas a la carpeta del proyecto</strong>.</p>
+<p>Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de <strong>rutas absolutas</strong>, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante <strong>rutas relativas a la carpeta del proyecto</strong>. Por lo tanto, trabajar siempre desde una carpeta, y partir el trabajo abriendo la carpeta en Positron.</p>
 <div class="rv-project-route">
 <div class="columns">
-<div class="column" style="width:50%;">
+<div class="column">
 <p><strong>Ruta personal: evitar</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"C:/Users/Estudiante/Downloads/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-</div><div class="column" style="width:50%;">
+</div><div class="column">
 <p><strong>Ruta relativa: preferir</strong></p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">readRDS</span>(<span class="st">"input/data/proc/encuesta.rds"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
-<p>En el segundo caso, R buscará <code>encuesta.rds</code> dentro de la carpeta <code>input/data/proc/</code> del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la pauta del curso.</p>
+<p>En el segundo caso, R buscará <code>encuesta.rds</code> dentro de la carpeta <code>input/data/proc/</code> del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la <a href="https://correlacional.metodos-facso.org/trabajos/trabajos.html">pauta del curso</a>.</p>
 <p>Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el informe mediante <strong>Preview</strong> en Positron o ejecutando el siguiente comando desde la carpeta raíz:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> render index.qmd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">quarto</span> preview index.qmd</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -500,91 +530,46 @@ Figura&nbsp;1: Esquema general de organización de un proyecto de investigación
 </div>
 <!-- Bloque 5: 20 minutos. -->
 </section>
-<section id="citas-y-bibliografía-con-bibtex" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> Citas y bibliografía con BibTeX</h1>
-<p>La plantilla también permite <strong>incorporar citas y generar automáticamente la bibliografía</strong>. Para ello utiliza <strong>BibTeX</strong>, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo <code>input/bib/referencias.bib</code>. Cada referencia tiene una <strong>clave única</strong> que permite citarla desde <code>index.qmd</code>. Por ejemplo, una entrada se organiza así (datos ilustrativos):</p>
+<section id="bonus-track-citas-y-bibliografía-automática-con-bibtex" class="level1 unnumbered">
+<h1 class="unnumbered">Bonus track: citas y bibliografía automática con BibTeX</h1>
+<p>La bibliografía del trabajo final <strong>puede elaborarse manualmente</strong>, siguiendo las normas APA. Sin embargo, quienes ya utilizan gestores de referencias como <strong>Zotero o Mendeley</strong> pueden aprovechar una alternativa para incorporar citas y generar la bibliografía automáticamente en Quarto.</p>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Opcional: utilizar BibTeX">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Opcional: utilizar BibTeX
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>BibTeX</strong> es un formato que permite almacenar referencias bibliográficas en un archivo <code>.bib</code>. Los gestores de referencias pueden exportar sus registros a este formato, que luego puede incorporarse a la plantilla en <code>input/bib/referencias.bib</code>.</p>
+<p>Cada referencia tiene una <strong>clave única</strong> que permite citarla desde <code>index.qmd</code>. Por ejemplo, una entrada puede tener la siguiente estructura (datos ilustrativos):</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode bibtex code-with-copy"><code class="sourceCode bibtex"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">apellido2026</span>,</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span>  = {Apellido, Nombre},</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span>   = {Título del artículo},</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journal</span> = {Nombre de la revista},</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">year</span>    = {2026}</span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>En la plantilla encontrarán la clave <code>wickham2023r</code>. Para utilizarla en el informe, pueden escribir:</p>
+<p>La plantilla incluye una referencia de ejemplo con la clave <code>wickham2023r</code>. Para citarla, podemos escribir:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>Según @wickham2023r, ...</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>La organización de los datos facilita el análisis reproducible <span class="co">[</span><span class="ot">@wickham2023r</span><span class="co">]</span>.</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Al renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo <code>input/bib/apa.csl</code> define el estilo de citación <strong>APA</strong>. Para incorporar sus propias fuentes, deben agregarlas a <code>referencias.bib</code> y citar sus claves en el texto. <strong>No es necesario escribir manualmente la bibliografía al final del informe.</strong></p>
-<p>Estos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la <a href="https://correlacional.metodos-facso.org/content/15-visualizacion.html">sesión de visualización</a>. <strong>No deben conservar los resultados ni las referencias de ejemplo en la entrega:</strong> su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.</p>
-<p>Cada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación.</p>
-<!-- Bloque 4: 15 minutos. -->
-</section>
-<section id="monitoreo" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> Revisión de avances del trabajo grupal</h1>
-<p>Para finalizar el trabajo necesitamos reconocer qué partes de la investigación ya están resueltas y cuáles requieren atención. Este monitoreo <strong>no constituye una nueva evaluación</strong>: es una instancia para que cada grupo organice sus pendientes y pueda plantear preguntas concretas al equipo docente.</p>
-<p>A continuación, revisaremos los principales componentes del informe para identificar qué aspectos tiene avanzado cada grupo y cuáles requieren mayor atención. Esta revisión servirá para orientar las consultas y priorizar el trabajo pendiente antes de la entrega.</p>
-<div class="rv-project-scroll">
-<table class="caption-top table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Componente del informe</th>
-<th style="text-align: left;">Qué revisar</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Tema, pregunta y conceptos</td>
-<td style="text-align: left;">Claridad y coherencia del problema.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Objetivo e hipótesis</td>
-<td style="text-align: left;">Correspondencia con el análisis.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Base de datos y selección de casos</td>
-<td style="text-align: left;">Disponibilidad y justificación.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Variables, recodificaciones y descriptivos</td>
-<td style="text-align: left;">Preparación y documentación.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Cruce entre variables categóricas</td>
-<td style="text-align: left;">Análisis e interpretación.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Análisis entre variable continua y categórica</td>
-<td style="text-align: left;">Análisis e interpretación.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Gráficos, tablas e interpretaciones</td>
-<td style="text-align: left;">Presentación y explicación de los resultados.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Introducción, discusión y conclusiones</td>
-<td style="text-align: left;">Coherencia argumentativa.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Citas, bibliografía y proyecto reproducible</td>
-<td style="text-align: left;">Fuentes, archivos y renderización.</td>
-</tr>
-</tbody>
-</table>
+<p>Al renderizar el documento, Quarto transforma estas marcas en citas y genera la lista de referencias. El archivo <code>input/bib/apa.csl</code> establece el formato APA.</p>
+<p><strong>Este procedimiento es completamente opcional.</strong> No es necesario utilizar BibTeX ni un gestor bibliográfico para desarrollar el trabajo final. Lo importante es que las citas y las referencias estén completas, sean consistentes y respeten las normas APA.</p>
 </div>
-<p>Durante la asesoría conversaremos con cada grupo a partir de tres preguntas: <strong>¿qué tenemos avanzado y podemos incorporar al informe?</strong>, <strong>¿qué nos falta completar antes de la entrega?</strong> y <strong>¿qué dificultad concreta necesitamos resolver con el equipo docente?</strong></p>
-<p>A partir de esta revisión, cada grupo debería identificar <strong>hasta dos prioridades principales</strong> para continuar su trabajo. Si existen dificultades metodológicas o técnicas, pueden plantearlas al equipo docente durante la asesoría.</p>
-<!-- Bloque 6: 10 minutos. -->
+</div>
+<p>Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la <a href="https://correlacional.metodos-facso.org/content/15-visualizacion.html">sesión de visualización</a>.</p>
+<p><strong>Recuerden:</strong> los resultados y las referencias que aparecen como ejemplos en la plantilla son ilustrativos y deben reemplazarse por los correspondientes a su propia investigación.</p>
+<p>Cada grupo deberá incorporar sus propias figuras, tablas, interpretaciones y referencias bibliográficas, independientemente de si utiliza un gestor de referencias o las elabora manualmente.</p>
 </section>
-<section id="entrega" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Preparación de la entrega</h1>
+<section id="entrega" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Preparación de la entrega</h1>
 <p>El producto final es un <strong>informe académico en HTML generado con Quarto</strong>, acompañado de una carpeta comprimida que permita revisar el trabajo realizado. Según las <a href="https://correlacional.metodos-facso.org/trabajos/trabajos.html">instrucciones oficiales</a>, esa carpeta debe incluir el archivo <code>.qmd</code>, los datos utilizados, los scripts correspondientes y el HTML generado.</p>
 <p>Antes de entregar, es importante comprobar que el documento presenta los <strong>resultados reales del grupo</strong>, que las figuras y tablas están identificadas e interpretadas, y que las rutas permiten generar nuevamente el informe. Asimismo, recuerden reemplazar la figura y la referencia bibliográfica ilustrativas que vienen en la plantilla.</p>
 <p><strong>Idea central:</strong> un proyecto reproducible no es únicamente un informe bien presentado; también permite reconstruir el procedimiento mediante el cual se obtuvieron los resultados de la investigación.</p>
 <div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Recursos">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="true" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="true" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -593,7 +578,7 @@ Figura&nbsp;1: Esquema general de organización de un proyecto de investigación
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse show">
+<div id="callout-3" class="callout-3-contents callout-collapse collapse show">
 <div class="callout-body-container callout-body">
 <ul>
 <li><a href="https://correlacional.metodos-facso.org/content/14-quarto.html">Documentos Dinámicos Quarto en Positron</a>: estructura <code>.qmd</code>, bloques de código y renderización.</li>

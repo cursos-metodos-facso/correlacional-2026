@@ -164,6 +164,37 @@ format:
   .rv-project-activity { padding-left: .65rem; }
   #quarto-content main.content > p { text-align: left; hyphens: none; }
 }
+
+
+/* Comparación de rutas: columnas sin superposición */
+.rv-project-route .columns {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.rv-project-route .column {
+  width: auto !important;
+  min-width: 0;
+}
+
+.rv-project-route div.sourceCode,
+.rv-project-route pre {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+
+/* Apilar los ejemplos cuando falta espacio */
+@media (max-width: 1100px) {
+  .rv-project-route .columns {
+    grid-template-columns: 1fr;
+  }
+}
+
 </style>
 ```
 
@@ -188,7 +219,7 @@ Para utilizarla, descarguen y descompriman el archivo. En Positron, seleccionen 
 
 # Del documento dinámico al proyecto reproducible {#proyecto-reproducible}
 
-Un documento dinámico permite integrar el texto y el código de análisis en un archivo `.qmd`. Al renderizarlo, Quarto ejecuta el código correspondiente y produce un documento con los resultados actualizados. Sin embargo, **obtener un HTML no garantiza, por sí solo, que otra persona pueda reproducir la investigación**: si faltan los datos o los scripts, no será posible reconstruir las tablas, las cifras y los gráficos.
+Un documento dinámico permite integrar el texto y el código de análisis en un archivo `.qmd`. Al (en Positron: Preview), Quarto ejecuta el código correspondiente y produce un documento con los resultados actualizados. Sin embargo, **obtener un HTML no garantiza, por sí solo, que otra persona pueda reproducir la investigación**: si faltan los datos o los scripts, no será posible reconstruir las tablas, las cifras y los gráficos.
 
 Por eso, para el trabajo final organizaremos un **proyecto autocontenido**: una carpeta que reúne los archivos necesarios para realizar el análisis y generar el informe. Podemos representar su funcionamiento de la siguiente manera:
 
@@ -234,13 +265,13 @@ Conviene distinguir tres conceptos que están relacionados, pero no son equivale
 ::: {.rv-project-scroll}
 | Concepto | ¿Qué significa en nuestro trabajo? |
 |:--|:--|
-| **Documento dinámico** | El informe puede actualizar sus resultados al ejecutar el código del `.qmd`. |
+| **Documento dinámico** | El informe (que contiene texto y 'trozos' (chunks) de código de análisis) puede actualizar sus resultados al ejecutar el código del `.qmd`. |
 | **HTML autocontenido** | El archivo de salida incorpora los recursos necesarios para visualizarse sin depender de archivos auxiliares de presentación, cuando se configura para ello. |
-| **Proyecto reproducible** | Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe. |
+| **Proyecto reproducible** | Se conservan los datos, el código y los demás insumos necesarios para reconstruir el análisis y generar nuevamente el informe en una sola carpeta. |
 :::
 
 
-### Esquema general de un proyecto reproducible
+## Esquema general de un proyecto reproducible
 
 ![Esquema general de organización de un proyecto de investigación reproducible.](https://cienciasocialabierta.netlify.app/slides/img/01/esquema_general.png){#fig-esquema-general width="85%" fig-align="center"}
 
@@ -292,28 +323,34 @@ La mayor parte del trabajo se concentrará en `index.qmd`, las bases guardadas e
 
 # Verificar la reproducibilidad del proyecto {#verificar-reproducibilidad}
 
-Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de **rutas absolutas**, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante **rutas relativas a la carpeta del proyecto**.
+Un proyecto puede ejecutarse correctamente en el computador de un integrante del grupo y fallar cuando otra persona intenta abrirlo. Una causa frecuente es el uso de **rutas absolutas**, que indican una ubicación particular del computador. Para facilitar el trabajo colaborativo, los archivos deben buscarse mediante **rutas relativas a la carpeta del proyecto**. Por lo tanto, trabajar siempre desde una carpeta, y partir el trabajo abriendo la carpeta en Positron.
 
-::: {.rv-project-route}
+::::: {.rv-project-route}
+
 :::: {.columns}
-::: {.column width="50%"}
+
+::: {.column}
 **Ruta personal: evitar**
 
 ```r
 readRDS("C:/Users/Estudiante/Downloads/encuesta.rds")
 ```
 :::
-::: {.column width="50%"}
+
+::: {.column}
 **Ruta relativa: preferir**
 
 ```r
 readRDS("input/data/proc/encuesta.rds")
 ```
 :::
-::::
-:::
 
-En el segundo caso, R buscará `encuesta.rds` dentro de la carpeta `input/data/proc/` del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la pauta del curso.
+::::
+
+:::::
+
+
+En el segundo caso, R buscará `encuesta.rds` dentro de la carpeta `input/data/proc/` del proyecto. Por supuesto, esa base debe estar guardada allí. Cuando el archivo original es demasiado grande, se puede conservar un subconjunto de los datos necesarios junto con el código que permite prepararlo, siguiendo las indicaciones de la [pauta del curso](https://correlacional.metodos-facso.org/trabajos/trabajos.html).
 
 Para comprobar el funcionamiento del proyecto, guarden sus cambios y generen el informe mediante **Preview** en Positron o ejecutando el siguiente comando desde la carpeta raíz:
 
@@ -334,9 +371,15 @@ Después, si es posible, copien la carpeta completa a otra ubicación y repitan 
 
 <!-- Bloque 5: 20 minutos. -->
 
-# Citas y bibliografía con BibTeX
+# Bonus track: citas y bibliografía automática con BibTeX {.unnumbered}
 
-La plantilla también permite **incorporar citas y generar automáticamente la bibliografía**. Para ello utiliza **BibTeX**, un formato que guarda los datos de cada fuente (autoría, título, año, entre otros) en el archivo `input/bib/referencias.bib`. Cada referencia tiene una **clave única** que permite citarla desde `index.qmd`. Por ejemplo, una entrada se organiza así (datos ilustrativos):
+La bibliografía del trabajo final **puede elaborarse manualmente**, siguiendo las normas APA. Sin embargo, quienes ya utilizan gestores de referencias como **Zotero o Mendeley** pueden aprovechar una alternativa para incorporar citas y generar la bibliografía automáticamente en Quarto.
+
+::: {.callout-tip appearance="minimal" title="Opcional: utilizar BibTeX"}
+
+**BibTeX** es un formato que permite almacenar referencias bibliográficas en un archivo `.bib`. Los gestores de referencias pueden exportar sus registros a este formato, que luego puede incorporarse a la plantilla en `input/bib/referencias.bib`.
+
+Cada referencia tiene una **clave única** que permite citarla desde `index.qmd`. Por ejemplo, una entrada puede tener la siguiente estructura (datos ilustrativos):
 
 ```bibtex
 @article{apellido2026,
@@ -347,7 +390,7 @@ La plantilla también permite **incorporar citas y generar automáticamente la b
 }
 ```
 
-En la plantilla encontrarán la clave `wickham2023r`. Para utilizarla en el informe, pueden escribir:
+La plantilla incluye una referencia de ejemplo con la clave `wickham2023r`. Para citarla, podemos escribir:
 
 ```markdown
 Según @wickham2023r, ...
@@ -355,39 +398,18 @@ Según @wickham2023r, ...
 La organización de los datos facilita el análisis reproducible [@wickham2023r].
 ```
 
-Al renderizar el documento, Quarto transforma estas marcas en citas y construye la lista de referencias. El archivo `input/bib/apa.csl` define el estilo de citación **APA**. Para incorporar sus propias fuentes, deben agregarlas a `referencias.bib` y citar sus claves en el texto. **No es necesario escribir manualmente la bibliografía al final del informe.**
+Al renderizar el documento, Quarto transforma estas marcas en citas y genera la lista de referencias. El archivo `input/bib/apa.csl` establece el formato APA.
 
-Estos recursos fueron revisados en las clases anteriores. Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la [sesión de visualización](https://correlacional.metodos-facso.org/content/15-visualizacion.html). **No deben conservar los resultados ni las referencias de ejemplo en la entrega:** su función es mostrar cómo se verá el informe cuando incorporen su propio trabajo.
+**Este procedimiento es completamente opcional.** No es necesario utilizar BibTeX ni un gestor bibliográfico para desarrollar el trabajo final. Lo importante es que las citas y las referencias estén completas, sean consistentes y respeten las normas APA.
 
-Cada grupo deberá reemplazar las figuras, las tablas, las interpretaciones y las referencias ilustrativas de la plantilla por las que correspondan a su propia investigación.
-
-<!-- Bloque 4: 15 minutos. -->
-
-# Revisión de avances del trabajo grupal {#monitoreo}
-
-Para finalizar el trabajo necesitamos reconocer qué partes de la investigación ya están resueltas y cuáles requieren atención. Este monitoreo **no constituye una nueva evaluación**: es una instancia para que cada grupo organice sus pendientes y pueda plantear preguntas concretas al equipo docente.
-
-A continuación, revisaremos los principales componentes del informe para identificar qué aspectos tiene avanzado cada grupo y cuáles requieren mayor atención. Esta revisión servirá para orientar las consultas y priorizar el trabajo pendiente antes de la entrega.
-
-::: {.rv-project-scroll}
-| Componente del informe | Qué revisar |
-|:--|:--|
-| Tema, pregunta y conceptos | Claridad y coherencia del problema. |
-| Objetivo e hipótesis | Correspondencia con el análisis. |
-| Base de datos y selección de casos | Disponibilidad y justificación. |
-| Variables, recodificaciones y descriptivos | Preparación y documentación. |
-| Cruce entre variables categóricas | Análisis e interpretación. |
-| Análisis entre variable continua y categórica | Análisis e interpretación. |
-| Gráficos, tablas e interpretaciones | Presentación y explicación de los resultados. |
-| Introducción, discusión y conclusiones | Coherencia argumentativa. |
-| Citas, bibliografía y proyecto reproducible | Fuentes, archivos y renderización. |
 :::
 
-Durante la asesoría conversaremos con cada grupo a partir de tres preguntas: **¿qué tenemos avanzado y podemos incorporar al informe?**, **¿qué nos falta completar antes de la entrega?** y **¿qué dificultad concreta necesitamos resolver con el equipo docente?**
+Si necesitan recordar cómo preparar las figuras, las tablas o sus referencias cruzadas, pueden consultar la [sesión de visualización](https://correlacional.metodos-facso.org/content/15-visualizacion.html).
 
-A partir de esta revisión, cada grupo debería identificar **hasta dos prioridades principales** para continuar su trabajo. Si existen dificultades metodológicas o técnicas, pueden plantearlas al equipo docente durante la asesoría.
+**Recuerden:** los resultados y las referencias que aparecen como ejemplos en la plantilla son ilustrativos y deben reemplazarse por los correspondientes a su propia investigación.
 
-<!-- Bloque 6: 10 minutos. -->
+Cada grupo deberá incorporar sus propias figuras, tablas, interpretaciones y referencias bibliográficas, independientemente de si utiliza un gestor de referencias o las elabora manualmente.
+
 
 # Preparación de la entrega {#entrega}
 
