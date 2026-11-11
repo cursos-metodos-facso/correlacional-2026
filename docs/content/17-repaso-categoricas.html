@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.38">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -10,9 +10,6 @@
 
 <title>Repaso: Asociación entre categóricas – Estadística Correlacional</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -71,14 +68,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../images/logo.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-065a5179aebd64318d7ea99d77b64a9e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-cb48db2c413f68497f7e060defb58192.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-a8f51ac65a4de0914722f66984ac79d6.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -111,7 +109,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <style>html{ scroll-behavior: smooth; }</style>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -147,13 +145,15 @@ window.Quarto = {
 <meta property="og:locale" content="es">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-sidebar docked nav-fixed quarto-light">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Estadística Correlacional</span>
     </a>
@@ -177,7 +177,7 @@ window.Quarto = {
 <span class="menu-text">Planificación</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../content/index.html"> 
+    <a class="nav-link active" href="../content/index.html" aria-current="page"> 
 <span class="menu-text">Clases</span></a>
   </li>  
   <li class="nav-item">
@@ -202,10 +202,162 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Presentaciones</a></li><li class="breadcrumb-item"><a href="../content/17-repaso-categoricas.html">Repaso Unidad 2: Asociación con categóricas</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Descripción</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Presentaciones</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Alternar sección">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/01-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introducción</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/02-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/03-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/04-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/05-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/06-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inferencia 5</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/07-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicio Inferencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/08-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 1</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/09-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 2</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/10-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 3</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/11-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Bivariada 4</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/13-content.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ejercicio Bivariada</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-repaso-inferencia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repaso Unidad 1: Inferencia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/14-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Documentos dinámicos: Quarto</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/15-repaso-asociacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Repaso Unidad 2: Asociación</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/15-visualizacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualización de datos: gráficos y tablas</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/16-documentos-reproducibles.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Plantilla del trabajo final</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/17-repaso-categoricas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Repaso Unidad 2: Asociación con categóricas</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../content/foro-clases.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Foro Clases</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
@@ -213,6 +365,7 @@ window.Quarto = {
    
   <ul>
   <li><a href="#inicio" id="toc-inicio" class="nav-link active" data-scroll-target="#inicio">Inicio · ¿Qué recordamos de la asociación entre categóricas?</a></li>
+  <li><a href="#resolución-guiada" id="toc-resolución-guiada" class="nav-link" data-scroll-target="#resolución-guiada">Resolución guiada</a></li>
   <li><a href="#fundamentos" id="toc-fundamentos" class="nav-link" data-scroll-target="#fundamentos">Ejercicio 1 · Pertenencia al barrio y sexo</a>
   <ul class="collapse">
   <li><a href="#ej1-paso1" id="toc-ej1-paso1" class="nav-link" data-scroll-target="#ej1-paso1">Paso 1 · Observar la distribución</a></li>
@@ -220,7 +373,7 @@ window.Quarto = {
   <li><a href="#ej1-paso3" id="toc-ej1-paso3" class="nav-link" data-scroll-target="#ej1-paso3">Paso 3 · Frecuencias esperadas</a></li>
   <li><a href="#ej1-paso4" id="toc-ej1-paso4" class="nav-link" data-scroll-target="#ej1-paso4">Paso 4 · Estadístico <span class="math inline">\(\chi^2\)</span>, <span class="math inline">\(gl\)</span> y decisión</a></li>
   <li><a href="#ej1-paso5" id="toc-ej1-paso5" class="nav-link" data-scroll-target="#ej1-paso5">Paso 5 · Interpretar</a></li>
-  <li><a href="#ej1-paso6" id="toc-ej1-paso6" class="nav-link" data-scroll-target="#ej1-paso6">Paso 6 · ¿Qué nos falta?</a></li>
+  <li><a href="#ej1-paso6" id="toc-ej1-paso6" class="nav-link" data-scroll-target="#ej1-paso6">Paso 6 · ¿Qué podemos decir sobre el tamaño de efecto?</a></li>
   </ul></li>
   <li><a href="#apl-a" id="toc-apl-a" class="nav-link" data-scroll-target="#apl-a">Ejercicio Autónomo A · Interés político y sexo (CEP 2026)</a></li>
   <li><a href="#apl-b" id="toc-apl-b" class="nav-link" data-scroll-target="#apl-b">Ejercicio Autónomo B · Edad y nivel educacional</a></li>
@@ -230,7 +383,7 @@ window.Quarto = {
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Repaso: Asociación entre categóricas</h1></header>
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../content/01-content.html">Presentaciones</a></li><li class="breadcrumb-item"><a href="../content/17-repaso-categoricas.html">Repaso Unidad 2: Asociación con categóricas</a></li></ol></nav><h1 class="title display-7">Repaso: Asociación entre categóricas</h1></header>
 
 <header id="title-block-header">
 
@@ -407,82 +560,28 @@ window.Quarto = {
 </style>
 <section id="inicio" class="level1">
 <h1>Inicio · ¿Qué recordamos de la asociación entre categóricas?</h1>
-<p>Cuando las variables son <strong>categóricas</strong>, la asociación se estudia con <strong>tablas de contingencia</strong>, que muestran cómo se distribuyen los casos en la intersección de las categorías de dos variables. Para evaluar si la asociación observada en la muestra permite concluir algo sobre la <strong>población</strong>, utilizamos la prueba <strong>Chi cuadrado</strong> (<span class="math inline">\(\chi^2\)</span>), que retoma la lógica de los <strong>cinco pasos de inferencia</strong> de la Unidad 1. Para describir el <strong>tamaño de efecto</strong> (qué tan fuerte es la asociación) usamos <strong>Phi</strong> en tablas 2×2 y la <strong>V de Cramer</strong> en tablas mayores; ambos se interpretan con los criterios de Cohen, igual que los coeficientes de la Unidad 2.</p>
-<p><strong>Cómo trabajar:</strong> antes de mirar cada resultado, <strong>anticipe</strong> qué espera encontrar. Después lea la salida de R, responda las preguntas y abra la pauta solo después de su intento.</p>
-<p><span class="math display">\[
-\text{Tabla}\rightarrow\text{anticipar}\rightarrow\chi^2\rightarrow\text{coeficiente}\rightarrow\text{interpretar}
-\]</span></p>
-<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta · Fórmulas y criterios de apoyo">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<p>Cuando las variables son <strong>categóricas</strong>, la asociación se estudia con <strong>tablas de contingencia</strong>, que muestran cómo se distribuyen los casos en la intersección de las categorías de dos o más variables. Para evaluar si la asociación observada en la muestra permite concluir algo sobre la <strong>población</strong>, utilizamos la prueba <strong>Chi cuadrado</strong> (<span class="math inline">\(\chi^2\)</span>), que retoma la lógica de los <strong>cinco pasos de inferencia</strong> de la Unidad 1. Para describir el <strong>tamaño de efecto</strong> (qué tan fuerte es la asociación) usamos <strong>Phi</strong> en tablas 2×2 y la <strong>V de Cramer</strong> en tablas mayores; ambos se interpretan con los criterios de Cohen, igual que los coeficientes de la Unidad 2.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Conceptos centrales">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
-<i class="callout-icon no-icon"></i>
+<i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Tip</span>Consulta · Fórmulas y criterios de apoyo
+<span class="screen-reader-only">Nota</span>Conceptos centrales
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
-<p><strong>Prueba Chi cuadrado</strong></p>
-<p><span class="math display">\[
-H_0:\pi_{fc}=\pi_f\,\pi_c
-\qquad
-H_A:\pi_{fc}\neq\pi_f\,\pi_c
-\]</span></p>
-<p><span class="math display">\[
-E=\frac{\text{total de la fila}\times\text{total de la columna}}{n}
-\qquad
-\chi^2=\sum\frac{(O-E)^2}{E}
-\qquad
-gl=(\text{filas}-1)\times(\text{columnas}-1)
-\]</span></p>
 <ul>
-<li><span class="math inline">\(H_0\)</span>: las variables son <strong>independientes</strong> (no hay asociación en la población). <span class="math inline">\(H_A\)</span>: las variables <strong>están asociadas</strong>.</li>
-<li><span class="math inline">\(O\)</span>: frecuencia <strong>observada</strong>; <span class="math inline">\(E\)</span>: frecuencia <strong>esperada</strong> si <span class="math inline">\(H_0\)</span> fuera cierta.</li>
-<li>Si <span class="math inline">\(\chi^2=0\)</span>, la tabla observada coincide con la de independencia; mientras mayor es <span class="math inline">\(\chi^2\)</span>, mayor es la discrepancia.</li>
-<li>En tablas <strong>2×2</strong> (1 <span class="math inline">\(gl\)</span>), <code>chisq.test()</code> aplica por defecto la <strong>corrección de Yates</strong>: entrega un <span class="math inline">\(\chi^2\)</span> algo menor y un valor <span class="math inline">\(p\)</span> algo mayor (más conservador).</li>
+<li><strong>Tabla de contingencia</strong>: tabla de doble entrada que cruza las categorías de dos variables categóricas y muestra cuántos casos hay en cada combinación (celda). Sus totales por fila y columna se llaman <em>marginales</em>.</li>
+<li><strong>Frecuencia observada (<span class="math inline">\(O\)</span>)</strong>: número de casos que efectivamente se encuentran en cada celda de la muestra.</li>
+<li><strong>Frecuencia esperada (<span class="math inline">\(E\)</span>)</strong>: número de casos que habría en cada celda si las variables fueran independientes (<span class="math inline">\(H_0\)</span> verdadera)</li>
+<li><strong>Chi cuadrado (<span class="math inline">\(\chi^2\)</span>)</strong>: estadístico de la prueba de independencia. Resume la discrepancia entre lo observado y lo esperado. Es <span class="math inline">\(0\)</span> si hay independencia perfecta y crece con la discrepancia. Informa si la asociación es estadísticamente significativa, pero <strong>no</strong> qué tan fuerte es, pues depende de <span class="math inline">\(n\)</span>.</li>
+<li><strong>Phi (<span class="math inline">\(\phi\)</span>)</strong>: tamaño de efecto para tablas <strong>2×2</strong>. Equivale a la correlación de Pearson entre dos variables dicotómicas codificadas 0/1; va de <span class="math inline">\(-1\)</span> a <span class="math inline">\(1\)</span> (el signo depende de cómo se codifiquen las categorías).</li>
+<li><strong>V de Cramer</strong>: generalización de Phi a tablas mayores a 2×2. Va de <span class="math inline">\(0\)</span> a <span class="math inline">\(1\)</span> y no tiene signo. En 2×2 coincide con <span class="math inline">\(|\phi|\)</span>.</li>
+<li><strong>Correlación punto biserial (<span class="math inline">\(r_{pb}\)</span>)</strong>: asociación entre una variable <strong>dicotómica</strong> genuina (p.&nbsp;ej., sí/no) y una variable <strong>cuantitativa</strong>. Es el caso de Pearson aplicado a una variable codificada 0/1 y una continua.</li>
+<li><strong>Correlación tetracórica</strong>: estimación de la asociación entre dos variables <strong>dicotómicas</strong> que se asume que provienen de <strong>variables continuas latentes</strong> normales, dicotomizadas por un punto de corte (p.&nbsp;ej., aprobar/reprobar). Suele ser mayor en magnitud que Phi.</li>
+<li><strong>Correlación policórica</strong>: extensión de la tetracórica a dos variables <strong>ordinales</strong> (3 o más categorías), que también supone una distribución normal bivariada latente. Se usa, por ejemplo, con ítems tipo Likert.</li>
 </ul>
-<p><strong>Tamaño de efecto</strong></p>
-<p><span class="math display">\[
-\Phi=\sqrt{\frac{\chi^2}{n}}
-\qquad
-V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
-\]</span></p>
-<ul>
-<li><span class="math inline">\(n\)</span>: tamaño de la muestra; <span class="math inline">\(k\)</span>: el menor número entre filas y columnas.</li>
-<li><strong>Phi</strong> se usa en tablas <strong>2×2</strong>; la <strong>V de Cramer</strong> es su extensión a tablas <strong>mayores</strong> (con <span class="math inline">\(k=2\)</span>, <span class="math inline">\(V=\Phi\)</span> en valor absoluto).</li>
-<li>La V de Cramer varía entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> (sin signo); Phi puede tener signo, que depende de cómo estén codificadas las categorías. Valores cercanos a 0 indican ausencia de asociación.</li>
-<li>Criterios de Cohen: <span class="math inline">\(&lt;0{,}1\)</span> muy pequeña; <span class="math inline">\(0{,}1\)</span>–<span class="math inline">\(0{,}3\)</span> pequeña; <span class="math inline">\(0{,}3\)</span>–<span class="math inline">\(0{,}5\)</span> moderada; <span class="math inline">\(&gt;0{,}5\)</span> grande.</li>
-</ul>
-<p><strong>¿Qué medida usar?</strong></p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">Variables</th>
-<th style="text-align: left;">Medida</th>
-<th style="text-align: left;">En R</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Dos dicotómicas (tabla 2×2)</td>
-<td style="text-align: left;">Phi</td>
-<td style="text-align: left;"><code>psych::phi()</code></td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Tabla mayor a 2×2</td>
-<td style="text-align: left;">V de Cramer</td>
-<td style="text-align: left;"><code>sjstats::cramer()</code> o fórmula manual</td>
-</tr>
-</tbody>
-</table>
-</div>
 </div>
 </div>
 <p><strong>Paquetes y datos.</strong> Utilizaremos <code>dplyr</code> para preparar los datos, <code>sjPlot</code> para las tablas de contingencia y <code>psych</code> para calcular Phi y <code>sjstats</code> para la V de Cramer. El primer ejercicio es ilustrativo y utiliza datos ficticios, mientras que los ejercicios autónomos usan la <strong>Encuesta CEP 2026</strong>.</p>
@@ -490,6 +589,15 @@ V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pacman)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">p_load</span>(dplyr, sjPlot, sjmisc, psych, sjstats)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="resolución-guiada" class="level1">
+<h1>Resolución guiada</h1>
+<div id="capsula-ej1">
+<p><strong>Cápsula de apoyo · Resolución del ejercicio 1</strong></p>
+<p>En este video resolvemos el primer ejercicio de la guía de repaso. Intenta resolverlo antes de verlo y úsalo para revisar tu procedimiento.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/-4C0iSAl4Z4" title="Asociación entre categóricas: resolución del ejercicio 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><a href="https://youtu.be/-4C0iSAl4Z4">Ver la cápsula directamente en YouTube</a>.</p>
 </div>
 </section>
 <section id="fundamentos" class="level1">
@@ -589,6 +697,8 @@ H_0:\text{sexo y pertenencia al barrio son independientes}
 <p><span class="math display">\[
 H_A:\text{sexo y pertenencia al barrio están asociados}
 \]</span></p>
+<p>La formulación de hipótesis es simple y constante: <span class="math inline">\(H_{A}\)</span> expresa que las variables se encuentran asociadas (ej: existen diferencias por sexo en pertenencia al barrio), mientras que <span class="math inline">\(H_{0}\)</span> plantea que no hay diferencias.</p>
+<p>La falta de diferencias se expresa en que frecuencias esperadas al azar <strong>no son (estadísticamente) distintas</strong> de lo que se observa en la tabla inicial.</p>
 </section>
 <section id="ej1-paso3" class="level2">
 <h2 class="anchored" data-anchor-id="ej1-paso3">Paso 3 · Frecuencias esperadas</h2>
@@ -629,7 +739,7 @@ E_{\text{bajo, hombre}}=\frac{50\times100}{200}=25
 </section>
 <section id="ej1-paso4" class="level2">
 <h2 class="anchored" data-anchor-id="ej1-paso4">Paso 4 · Estadístico <span class="math inline">\(\chi^2\)</span>, <span class="math inline">\(gl\)</span> y decisión</h2>
-<p>Las diferencias <span class="math inline">\(O-E\)</span> son <span class="math inline">\(\pm10\)</span> en «bajo», <span class="math inline">\(0\)</span> en «medio» y <span class="math inline">\(\mp10\)</span> en «alto»:</p>
+<p>Las diferencias <span class="math inline">\(O-E\)</span> son <span class="math inline">\(\pm10\)</span> en «bajo», <span class="math inline">\(0\)</span> en «medio» y <span class="math inline">\(\pm10\)</span> en «alto»:</p>
 <p><span class="math display">\[
 \chi^2=\frac{10^2}{25}+\frac{10^2}{25}+\frac{0^2}{40}+\frac{0^2}{40}+\frac{10^2}{35}+\frac{10^2}{35}=4+4+0+0+2{,}86+2{,}86\approx13{,}71
 \]</span></p>
@@ -696,7 +806,7 @@ X-squared = 13.714, df = 2, p-value = 0.001052</code></pre>
 <p>«En este grupo, el 35% de los hombres y el 15% de las mujeres presentan pertenencia baja al barrio, mientras que el 25% de los hombres y el 45% de las mujeres presentan pertenencia alta. La prueba Chi cuadrado aporta evidencia al <strong>5%</strong> de una <strong>asociación</strong> entre sexo y pertenencia al barrio (<span class="math inline">\(\chi^2(2)=13{,}71\)</span>; <span class="math inline">\(p\approx0{,}001\)</span>). Este resultado <strong>no permite afirmar causalidad</strong>».</p>
 </section>
 <section id="ej1-paso6" class="level2">
-<h2 class="anchored" data-anchor-id="ej1-paso6">Paso 6 · ¿Qué nos falta?</h2>
+<h2 class="anchored" data-anchor-id="ej1-paso6">Paso 6 · ¿Qué podemos decir sobre el tamaño de efecto?</h2>
 <div class="rv-activity">
 <p>Con <span class="math inline">\(\chi^2=13{,}71\)</span>, ¿sabemos si la asociación es <strong>fuerte</strong> y en qué <strong>sentido</strong> ocurre?</p>
 </div>
@@ -716,6 +826,79 @@ V=\sqrt{\frac{\chi^2}{n(k-1)}}=\sqrt{\frac{13{,}71}{200\times(2-1)}}\approx0{,}2
 </div>
 <div class="callout-body-container callout-body">
 <p>Un resultado estadísticamente significativo <strong>no implica</strong> una asociación grande. Por eso siempre conviene reportar ambos aspectos: <strong>significación</strong> (Chi cuadrado) y <strong>magnitud</strong> (Phi, V de Cramer).</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon callout-titled" title="Consulta · Fórmulas y criterios de apoyo">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Consulta · Fórmulas y criterios de apoyo
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>Prueba Chi cuadrado</strong></p>
+<p><span class="math display">\[
+H_0:\pi_{fc}=\pi_f\,\pi_c
+\qquad
+H_A:\pi_{fc}\neq\pi_f\,\pi_c
+\]</span></p>
+<p><span class="math display">\[
+E=\frac{\text{total de la fila}\times\text{total de la columna}}{n}
+\qquad
+\chi^2=\sum\frac{(O-E)^2}{E}
+\qquad
+gl=(\text{filas}-1)\times(\text{columnas}-1)
+\]</span></p>
+<ul>
+<li><span class="math inline">\(H_0\)</span>: las variables son <strong>independientes</strong> (no hay asociación en la población). <span class="math inline">\(H_A\)</span>: las variables <strong>están asociadas</strong>.</li>
+<li><span class="math inline">\(O\)</span>: frecuencia <strong>observada</strong>; <span class="math inline">\(E\)</span>: frecuencia <strong>esperada</strong> si <span class="math inline">\(H_0\)</span> fuera cierta.</li>
+<li>Si <span class="math inline">\(\chi^2=0\)</span>, la tabla observada coincide con la esperada; mientras mayor es <span class="math inline">\(\chi^2\)</span>, mayor es la discrepancia.</li>
+<li>En tablas <strong>2×2</strong> (1 <span class="math inline">\(gl\)</span>), <code>chisq.test()</code> aplica por defecto la <strong>corrección de Yates</strong>: entrega un <span class="math inline">\(\chi^2\)</span> algo menor y un valor <span class="math inline">\(p\)</span> algo mayor (más conservador).</li>
+</ul>
+<p><strong>Tamaño de efecto</strong></p>
+<p><span class="math display">\[
+\Phi=\sqrt{\frac{\chi^2}{n}}
+\qquad
+V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(n\)</span>: tamaño de la muestra; <span class="math inline">\(k\)</span>: el menor número entre filas y columnas.</li>
+<li><strong>Phi</strong> se usa en tablas <strong>2×2</strong>; la <strong>V de Cramer</strong> es su extensión a tablas <strong>mayores</strong> (con <span class="math inline">\(k=2\)</span>, <span class="math inline">\(V=\Phi\)</span> en valor absoluto).</li>
+<li>La V de Cramer varía entre <span class="math inline">\(0\)</span> y <span class="math inline">\(1\)</span> (sin signo); Phi puede tener signo, que depende de cómo estén codificadas las categorías. Valores cercanos a 0 indican ausencia de asociación.</li>
+<li>Criterios de Cohen: <span class="math inline">\(&lt;0{,}1\)</span> muy pequeña; <span class="math inline">\(0{,}1\)</span>–<span class="math inline">\(0{,}3\)</span> pequeña; <span class="math inline">\(0{,}3\)</span>–<span class="math inline">\(0{,}5\)</span> moderada; <span class="math inline">\(&gt;0{,}5\)</span> grande.</li>
+</ul>
+<p><strong>¿Qué medida usar?</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variables</th>
+<th style="text-align: left;">Medida</th>
+<th style="text-align: left;">En R</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Dos dicotómicas (tabla 2×2)</td>
+<td style="text-align: left;">Phi</td>
+<td style="text-align: left;"><code>psych::phi()</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tabla mayor a 2×2</td>
+<td style="text-align: left;">V de Cramer</td>
+<td style="text-align: left;"><code>sjstats::cramer()</code> o fórmula manual</td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
 </section>
@@ -748,7 +931,7 @@ V=\sqrt{\frac{\chi^2}{n(k-1)}}=\sqrt{\frac{13{,}71}{200\times(2-1)}}\approx0{,}2
 <p><strong>A6 · Reporte.</strong> Redacte una conclusión de dos o tres líneas que incluya significación y magnitud, sin afirmar causalidad.</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Apoyo de código · Ejercicio A">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -757,7 +940,7 @@ V=\sqrt{\frac{\chi^2}{n(k-1)}}=\sqrt{\frac{13{,}71}{200\times(2-1)}}\approx0{,}2
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">sjt.xtab</span>(<span class="at">var.row =</span> cep_proc<span class="sc">$</span>interes_pol,</span>
@@ -875,7 +1058,7 @@ X-squared = 17.283, df = 4, p-value = 0.001703</code></pre>
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio A">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -884,7 +1067,7 @@ X-squared = 17.283, df = 4, p-value = 0.001703</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>A1 · Describir.</strong> Las mujeres se concentran más en «nada interesada» (≈50% frente a ≈41% de los hombres), mientras los hombres se ubican más en las categorías de mayor interés (≈10% frente a ≈6,5% tanto en la categoría 4 como en la 5). Los hombres muestran, en general, <strong>mayor interés político</strong>.</p>
 <p><strong>A2 · Hipótesis.</strong></p>
@@ -916,7 +1099,7 @@ H_0:\text{sexo e interés político son independientes}\qquad H_A:\text{están a
 <p><strong>B4 · Reporte.</strong> Redacte una conclusión que integre la significación y la magnitud, sin afirmar causalidad.</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Apoyo de código · Ejercicio B">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -925,7 +1108,7 @@ H_0:\text{sexo e interés político son independientes}\qquad H_A:\text{están a
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>sjPlot<span class="sc">::</span><span class="fu">sjt.xtab</span>(<span class="at">var.row =</span> cep_proc<span class="sc">$</span>edad_dico,</span>
@@ -1012,7 +1195,7 @@ X-squared = 1.1724, df = 1, p-value = 0.2789</code></pre>
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio B">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1021,7 +1204,7 @@ X-squared = 1.1724, df = 1, p-value = 0.2789</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>B1 · Describir.</strong> Tiene educación superior el ≈14,6% de los menores de 30 años y el ≈17,7% de quienes tienen 30 años o más: una diferencia de ≈3 puntos porcentuales.</p>
 <p><strong>B2 · <span class="math inline">\(\chi^2\)</span>.</strong> <span class="math inline">\(H_0\)</span>: edad y educación (dicotomizadas) son independientes; <span class="math inline">\(H_A\)</span>: están asociadas. Por otro lado, recordemos que la corrección de continuidad de Yates se aplica solo a tablas de <strong>2×2</strong>. Sin Yates, <span class="math inline">\(\chi^2(1)=1{,}38\)</span>; <span class="math inline">\(p=0{,}240\)</span>. Con Yates, <span class="math inline">\(\chi^2(1)=1{,}17\)</span>; <span class="math inline">\(p=0{,}279\)</span>. En ambos casos <span class="math inline">\(p&gt;0{,}05\)</span>: <strong>no rechazamos <span class="math inline">\(H_0\)</span></strong>. La corrección de Yates reduce algo el <span class="math inline">\(\chi^2\)</span>, pero la decisión no cambia. No rechazar <span class="math inline">\(H_0\)</span> <strong>no demuestra</strong> que las variables sean independientes: indica que no hay evidencia suficiente.</p>
@@ -1067,10 +1250,10 @@ X-squared = 1.1724, df = 1, p-value = 0.2789</code></pre>
 <div class="rv-practice">
 <p><strong>C1 · Elegir.</strong> Complete la tabla: ¿qué medida corresponde a cada par? Justifique.</p>
 <p><strong>C2 · Tipo de asociación.</strong> Interprete la correlación entre <code>educ_dico</code> y <code>edad</code> (sentido, magnitud según Cohen y sustantividad).</p>
-<p><strong>C3 · TIpo de asociación.</strong> Interprete la correlación <code>interes_pol</code> y <code>just_marchas</code> (sentido, magnitud según Cohen y sustantividad).</p>
+<p><strong>C3 · TIpo de asociación.</strong> Interprete la correlación <code>interes_pol</code> y <code>just_marcha</code> (sentido, magnitud según Cohen y sustantividad).</p>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Apoyo de código · Ejercicio C">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1079,7 +1262,7 @@ X-squared = 1.1724, df = 1, p-value = 0.2789</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor.test</span>(cep_proc<span class="sc">$</span>educ_dico, cep_proc<span class="sc">$</span>edad)          <span class="co"># primer par</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1116,7 +1299,7 @@ just_marcha -0.474 -0.23 0.45 0.74</code></pre>
 </div>
 </div>
 <div class="rv-answer callout callout-style-simple callout-note no-icon callout-titled" title="Ver pauta · Ejercicio C">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon no-icon"></i>
 </div>
@@ -1125,7 +1308,7 @@ just_marcha -0.474 -0.23 0.45 0.74</code></pre>
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p><strong>C1 · Elegir.</strong></p>
 <table class="caption-top table">
@@ -1205,750 +1388,377 @@ just_marcha -0.474 -0.23 0.45 0.74</code></pre>
 </main> <!-- /main -->
 <div id="practicos-sidebar-hover-zone"></div>
 
-
-
 <button id="practicos-sidebar-toggle" type="button" aria-label="Ocultar menú de prácticos" title="Ocultar menú">
-
   <i class="bi bi-chevron-left"></i>
-
 </button>
 
-
-
 <script>
-
 document.addEventListener("DOMContentLoaded", function () {
 
-
-
   /* ========================================================
-
      ELEMENTOS
-
      ======================================================== */
-
-
 
   const pathname = window.location.pathname;
 
-
-
   const esPracticos =
-
     /\/assignment(?:\/|$)/.test(pathname);
 
-
-
   /*
-
    * Detecta específicamente:
-
    *
-
    * /assignment
-
    * /assignment/
-
    * /assignment/index.html
-
    */
-
   const esPaginaPrincipalPracticos =
-
     /\/assignment(?:\/(?:index\.html)?)?$/.test(pathname);
 
 
-
-
-
   const boton =
-
     document.getElementById("practicos-sidebar-toggle");
 
-
-
   const zona =
-
     document.getElementById("practicos-sidebar-hover-zone");
 
-
-
   const sidebar =
-
     document.getElementById("quarto-sidebar");
-
-
-
 
 
   if (!esPracticos || !sidebar || !boton || !zona) {
 
-
-
     if (boton) {
-
       boton.style.display = "none";
-
     }
-
-
 
     if (zona) {
-
       zona.style.display = "none";
-
     }
 
-
-
     return;
-
   }
-
-
-
 
 
   const body = document.body;
 
-
-
   let abiertoTemporalmente = false;
-
   let temporizadorCierre = null;
 
 
-
-
-
   /* ========================================================
-
      POSICIÓN DE LA PESTAÑITA
-
      ======================================================== */
-
-
 
   function actualizarPosicion() {
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Menú cerrado:
-
        * la pestañita queda en el borde izquierdo.
-
        */
-
       boton.style.left = "0px";
-
-
 
     } else {
 
-
-
       /*
-
        * Usamos offsetWidth para que la posición
-
        * no dependa de la animación del sidebar.
-
        */
-
       const anchoSidebar = sidebar.offsetWidth;
 
-
-
       boton.style.left =
-
         (anchoSidebar - 2) + "px";
-
     }
-
   }
-
-
-
 
 
   /* ========================================================
-
      ACTUALIZAR ICONO
-
      ======================================================== */
-
-
 
   function mostrarIconoAbierto() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-left"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Ocultar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Ocultar menú";
-
   }
-
-
-
 
 
   function mostrarIconoCerrado() {
 
-
-
     boton.innerHTML =
-
       '<i class="bi bi-chevron-right"></i>';
 
-
-
     boton.setAttribute(
-
       "aria-label",
-
       "Mostrar menú de prácticos"
-
     );
 
-
-
     boton.title =
-
       "Mostrar menú";
-
   }
 
 
-
-
-
   /* ========================================================
-
      MOSTRAR SIDEBAR
-
      ======================================================== */
-
-
 
   function mostrarSidebar(temporal = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.remove(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoAbierto();
 
-
-
     abiertoTemporalmente = temporal;
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      OCULTAR SIDEBAR
-
      ======================================================== */
-
-
 
   function ocultarSidebar(guardar = false) {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     body.classList.add(
-
       "practicos-sidebar-cerrado"
-
     );
-
-
 
     mostrarIconoCerrado();
 
-
-
     abiertoTemporalmente = false;
-
-
 
     if (guardar) {
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "cerrado"
-
       );
-
     }
 
-
-
     requestAnimationFrame(function () {
-
       actualizarPosicion();
-
     });
-
   }
 
 
-
-
-
   /* ========================================================
-
      CLICK EN LA PESTAÑITA
-
      ======================================================== */
-
-
 
   boton.addEventListener("click", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
 
-
-
     /*
-
      * Si está cerrado:
-
      * un clic lo abre permanentemente.
-
      */
-
     if (cerrado) {
-
-
 
       mostrarSidebar(false);
 
-
-
       localStorage.setItem(
-
         "practicos-sidebar",
-
         "abierto"
-
       );
-
-
 
     } else {
 
-
-
       /*
-
        * Si está visible, un solo clic lo cierra,
-
        * independientemente de si se abrió por
-
        * hover o normalmente.
-
        */
-
       ocultarSidebar(true);
-
     }
-
-
 
   });
 
 
-
-
-
   /* ========================================================
-
      HOVER EN EL BORDE IZQUIERDO
-
      ======================================================== */
-
-
 
   zona.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
 
-
-
     const cerrado =
-
       body.classList.contains(
-
         "practicos-sidebar-cerrado"
-
       );
-
-
 
     if (cerrado) {
 
-
-
       /*
-
        * Mostrar temporalmente sin modificar
-
        * la preferencia guardada.
-
        */
-
       mostrarSidebar(true);
-
     }
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      SALIR DEL SIDEBAR
-
      ======================================================== */
-
-
 
   sidebar.addEventListener("mouseleave", function () {
 
-
-
     /*
-
      * Solo cerrar automáticamente si se abrió
-
      * mediante hover.
-
      */
-
     if (!abiertoTemporalmente) {
-
       return;
-
     }
 
-
-
     temporizadorCierre =
-
       setTimeout(function () {
-
-
 
         ocultarSidebar(false);
 
-
-
       }, 500);
-
   });
 
 
-
-
-
   /* ========================================================
-
      MOUSE SOBRE EL BOTÓN
-
      ======================================================== */
-
-
 
   boton.addEventListener("mouseenter", function () {
 
-
-
     clearTimeout(temporizadorCierre);
-
   });
 
 
-
-
-
   /* ========================================================
-
      ESTADO INICIAL
-
      ======================================================== */
 
-
-
   /*
-
    * PORTADA DE PRÁCTICOS
-
    *
-
    * Siempre comienza desplegada cada vez
-
    * que se entra o recarga la página.
-
    *
-
    * Aun así, después de cargarla el usuario
-
    * puede plegarla normalmente.
-
    */
-
   if (esPaginaPrincipalPracticos) {
-
-
 
     mostrarSidebar(false);
 
-
-
   } else {
 
-
-
     /*
-
      * En los prácticos individuales sí respetamos
-
      * el estado que dejó anteriormente el usuario.
-
      */
-
     const estadoGuardado =
-
       localStorage.getItem(
-
         "practicos-sidebar"
-
       );
-
-
 
     if (estadoGuardado === "cerrado") {
 
-
-
       ocultarSidebar(false);
-
-
 
     } else {
 
-
-
       mostrarSidebar(false);
-
     }
-
   }
 
 
-
-
-
   /* ========================================================
-
      REAJUSTAR AL CAMBIAR TAMAÑO DE VENTANA
-
      ======================================================== */
-
-
 
   window.addEventListener(
-
     "resize",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /* ========================================================
-
      REAJUSTAR AL TERMINAR LA ANIMACIÓN
-
      ======================================================== */
 
-
-
   sidebar.addEventListener(
-
     "transitionend",
-
     actualizarPosicion
-
   );
-
-
-
 
 
   /*
-
    * También esperamos el cambio de la
-
    * grilla de Quarto.
-
    */
-
   const contenido =
-
     document.getElementById("quarto-content");
-
-
 
   if (contenido) {
 
-
-
     contenido.addEventListener(
-
       "transitionend",
-
       actualizarPosicion
-
     );
-
   }
 
 
-
-
-
   /* ========================================================
-
      AJUSTE FINAL DESPUÉS DE CARGAR
-
      ======================================================== */
-
-
 
   requestAnimationFrame(function () {
 
-
-
     requestAnimationFrame(function () {
-
-
 
       actualizarPosicion();
 
-
-
     });
-
   });
 
-
-
 });
-
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {

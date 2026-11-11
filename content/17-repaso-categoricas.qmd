@@ -202,59 +202,23 @@ format:
 
 # Inicio · ¿Qué recordamos de la asociación entre categóricas? {#inicio}
 
-Cuando las variables son **categóricas**, la asociación se estudia con **tablas de contingencia**, que muestran cómo se distribuyen los casos en la intersección de las categorías de dos variables. Para evaluar si la asociación observada en la muestra permite concluir algo sobre la **población**, utilizamos la prueba **Chi cuadrado** ($\chi^2$), que retoma la lógica de los **cinco pasos de inferencia** de la Unidad 1. Para describir el **tamaño de efecto** (qué tan fuerte es la asociación) usamos **Phi** en tablas 2×2 y la **V de Cramer** en tablas mayores; ambos se interpretan con los criterios de Cohen, igual que los coeficientes de la Unidad 2.
+Cuando las variables son **categóricas**, la asociación se estudia con **tablas de contingencia**, que muestran cómo se distribuyen los casos en la intersección de las categorías de dos o más variables. Para evaluar si la asociación observada en la muestra permite concluir algo sobre la **población**, utilizamos la prueba **Chi cuadrado** ($\chi^2$), que retoma la lógica de los **cinco pasos de inferencia** de la Unidad 1. Para describir el **tamaño de efecto** (qué tan fuerte es la asociación) usamos **Phi** en tablas 2×2 y la **V de Cramer** en tablas mayores; ambos se interpretan con los criterios de Cohen, igual que los coeficientes de la Unidad 2.
 
-**Cómo trabajar:** antes de mirar cada resultado, **anticipe** qué espera encontrar. Después lea la salida de R, responda las preguntas y abra la pauta solo después de su intento.
 
-$$
-\text{Tabla}\rightarrow\text{anticipar}\rightarrow\chi^2\rightarrow\text{coeficiente}\rightarrow\text{interpretar}
-$$
+::: {.callout-note title="Conceptos centrales"}
 
-::: {.callout-tip collapse="true" appearance="minimal" title="Consulta · Fórmulas y criterios de apoyo"}
-
-**Prueba Chi cuadrado**
-
-$$
-H_0:\pi_{fc}=\pi_f\,\pi_c
-\qquad
-H_A:\pi_{fc}\neq\pi_f\,\pi_c
-$$
-
-$$
-E=\frac{\text{total de la fila}\times\text{total de la columna}}{n}
-\qquad
-\chi^2=\sum\frac{(O-E)^2}{E}
-\qquad
-gl=(\text{filas}-1)\times(\text{columnas}-1)
-$$
-
-- $H_0$: las variables son **independientes** (no hay asociación en la población). $H_A$: las variables **están asociadas**.
-- $O$: frecuencia **observada**; $E$: frecuencia **esperada** si $H_0$ fuera cierta.
-- Si $\chi^2=0$, la tabla observada coincide con la de independencia; mientras mayor es $\chi^2$, mayor es la discrepancia.
-- En tablas **2×2** (1 $gl$), `chisq.test()` aplica por defecto la **corrección de Yates**: entrega un $\chi^2$ algo menor y un valor $p$ algo mayor (más conservador).
-
-**Tamaño de efecto**
-
-$$
-\Phi=\sqrt{\frac{\chi^2}{n}}
-\qquad
-V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
-$$
-
-- $n$: tamaño de la muestra; $k$: el menor número entre filas y columnas.
-- **Phi** se usa en tablas **2×2**; la **V de Cramer** es su extensión a tablas **mayores** (con $k=2$, $V=\Phi$ en valor absoluto).
-- La V de Cramer varía entre $0$ y $1$ (sin signo); Phi puede tener signo, que depende de cómo estén codificadas las categorías. Valores cercanos a 0 indican ausencia de asociación.
-- Criterios de Cohen: $<0{,}1$ muy pequeña; $0{,}1$–$0{,}3$ pequeña; $0{,}3$–$0{,}5$ moderada; $>0{,}5$ grande.
-
-**¿Qué medida usar?**
-
-| Variables | Medida | En R |
-|:--|:--|:--|
-| Dos dicotómicas (tabla 2×2) | Phi | `psych::phi()` |
-| Tabla mayor a 2×2 | V de Cramer | `sjstats::cramer()` o fórmula manual |
-
+- **Tabla de contingencia**: tabla de doble entrada que cruza las categorías de dos variables categóricas y muestra cuántos casos hay en cada combinación (celda). Sus totales por fila y columna se llaman *marginales*.
+- **Frecuencia observada ($O$)**: número de casos que efectivamente se encuentran en cada celda de la muestra.
+- **Frecuencia esperada ($E$)**: número de casos que habría en cada celda si las variables fueran independientes ($H_0$ verdadera)
+- **Chi cuadrado ($\chi^2$)**: estadístico de la prueba de independencia. Resume la discrepancia entre lo observado y lo esperado. Es $0$ si hay independencia perfecta y crece con la discrepancia. Informa si la asociación es estadísticamente significativa, pero **no** qué tan fuerte es, pues depende de $n$.
+- **Phi ($\phi$)**: tamaño de efecto para tablas **2×2**. Equivale a la correlación de Pearson entre dos variables dicotómicas codificadas 0/1; va de $-1$ a $1$ (el signo depende de cómo se codifiquen las categorías).
+- **V de Cramer**: generalización de Phi a tablas mayores a 2×2. Va de $0$ a $1$ y no tiene signo. En 2×2 coincide con $|\phi|$.
+- **Correlación punto biserial ($r_{pb}$)**: asociación entre una variable **dicotómica** genuina (p. ej., sí/no) y una variable **cuantitativa**. Es el caso de Pearson aplicado a una variable codificada 0/1 y una continua.
+- **Correlación tetracórica**: estimación de la asociación entre dos variables **dicotómicas** que se asume que provienen de **variables continuas latentes** normales, dicotomizadas por un punto de corte (p. ej., aprobar/reprobar). Suele ser mayor en magnitud que Phi.
+- **Correlación policórica**: extensión de la tetracórica a dos variables **ordinales** (3 o más categorías), que también supone una distribución normal bivariada latente. Se usa, por ejemplo, con ítems tipo Likert.
 
 :::
+
 
 **Paquetes y datos.** Utilizaremos `dplyr` para preparar los datos, `sjPlot` para las tablas de contingencia y `psych` para calcular Phi y `sjstats` para la V de Cramer. El primer ejercicio es ilustrativo y utiliza datos ficticios, mientras que los ejercicios autónomos usan la **Encuesta CEP 2026**.
 
@@ -265,6 +229,20 @@ library(pacman)
 
 p_load(dplyr, sjPlot, sjmisc, psych, sjstats)
 ```
+
+# Resolución guiada
+
+::: {#capsula-ej1}
+**Cápsula de apoyo · Resolución del ejercicio 1**
+
+En este video resolvemos el primer ejercicio de la guía de repaso. Intenta resolverlo antes de verlo y úsalo para revisar tu procedimiento.
+
+
+{{< video https://youtu.be/-4C0iSAl4Z4 aspect-ratio="16x9" title="Asociación entre categóricas: resolución del ejercicio 1" >}}
+
+[Ver la cápsula directamente en YouTube](https://youtu.be/-4C0iSAl4Z4).
+:::
+
 
 # Ejercicio 1 · Pertenencia al barrio y sexo {#fundamentos}
 
@@ -313,6 +291,10 @@ $$
 H_A:\text{sexo y pertenencia al barrio están asociados}
 $$
 
+La formulación de hipótesis es simple y constante: $H_{A}$ expresa que las variables se encuentran asociadas (ej: existen diferencias por sexo en pertenencia al barrio), mientras que $H_{0}$ plantea que no hay diferencias. 
+
+La falta de diferencias se expresa en que frecuencias esperadas al azar **no son (estadísticamente) distintas** de lo que se observa en la tabla inicial.
+
 ## Paso 3 · Frecuencias esperadas {#ej1-paso3}
 
 Si las variables fueran independientes, la distribución de la pertenencia sería la misma en hombres y mujeres, e igual a la del total (25% bajo, 40% medio, 35% alto):
@@ -335,7 +317,7 @@ Las esperadas **conservan los totales** de filas y columnas. Todas superan 5, po
 
 ## Paso 4 · Estadístico $\chi^2$, $gl$ y decisión {#ej1-paso4}
 
-Las diferencias $O-E$ son $\pm10$ en «bajo», $0$ en «medio» y $\mp10$ en «alto»:
+Las diferencias $O-E$ son $\pm10$ en «bajo», $0$ en «medio» y $\pm10$ en «alto»:
 
 $$
 \chi^2=\frac{10^2}{25}+\frac{10^2}{25}+\frac{0^2}{40}+\frac{0^2}{40}+\frac{10^2}{35}+\frac{10^2}{35}=4+4+0+0+2{,}86+2{,}86\approx13{,}71
@@ -379,7 +361,7 @@ sqrt(chi_1$statistic / (sum(tabla) * (min(dim(tabla)) - 1)))  # V de Cramer
 
 «En este grupo, el 35% de los hombres y el 15% de las mujeres presentan pertenencia baja al barrio, mientras que el 25% de los hombres y el 45% de las mujeres presentan pertenencia alta. La prueba Chi cuadrado aporta evidencia al **5%** de una **asociación** entre sexo y pertenencia al barrio ($\chi^2(2)=13{,}71$; $p\approx0{,}001$). Este resultado **no permite afirmar causalidad**».
 
-## Paso 6 · ¿Qué nos falta? {#ej1-paso6}
+## Paso 6 · ¿Qué podemos decir sobre el tamaño de efecto? {#ej1-paso6}
 
 ::: {.rv-activity}
 Con $\chi^2=13{,}71$, ¿sabemos si la asociación es **fuerte** y en qué **sentido** ocurre?
@@ -398,6 +380,53 @@ Para interpretar el tamaño de efecto seguimos los criterios de Cohen. En este c
 ## Recordatorio
 
 Un resultado estadísticamente significativo **no implica** una asociación grande. Por eso siempre conviene reportar ambos aspectos: **significación** (Chi cuadrado) y **magnitud** (Phi, V de Cramer).
+
+:::
+
+
+::: {.callout-tip collapse="true" appearance="minimal" title="Consulta · Fórmulas y criterios de apoyo"}
+
+**Prueba Chi cuadrado**
+
+$$
+H_0:\pi_{fc}=\pi_f\,\pi_c
+\qquad
+H_A:\pi_{fc}\neq\pi_f\,\pi_c
+$$
+
+$$
+E=\frac{\text{total de la fila}\times\text{total de la columna}}{n}
+\qquad
+\chi^2=\sum\frac{(O-E)^2}{E}
+\qquad
+gl=(\text{filas}-1)\times(\text{columnas}-1)
+$$
+
+- $H_0$: las variables son **independientes** (no hay asociación en la población). $H_A$: las variables **están asociadas**.
+- $O$: frecuencia **observada**; $E$: frecuencia **esperada** si $H_0$ fuera cierta.
+- Si $\chi^2=0$, la tabla observada coincide con la esperada; mientras mayor es $\chi^2$, mayor es la discrepancia.
+- En tablas **2×2** (1 $gl$), `chisq.test()` aplica por defecto la **corrección de Yates**: entrega un $\chi^2$ algo menor y un valor $p$ algo mayor (más conservador).
+
+**Tamaño de efecto**
+
+$$
+\Phi=\sqrt{\frac{\chi^2}{n}}
+\qquad
+V=\sqrt{\frac{\chi^2}{n\,(k-1)}}
+$$
+
+- $n$: tamaño de la muestra; $k$: el menor número entre filas y columnas.
+- **Phi** se usa en tablas **2×2**; la **V de Cramer** es su extensión a tablas **mayores** (con $k=2$, $V=\Phi$ en valor absoluto).
+- La V de Cramer varía entre $0$ y $1$ (sin signo); Phi puede tener signo, que depende de cómo estén codificadas las categorías. Valores cercanos a 0 indican ausencia de asociación.
+- Criterios de Cohen: $<0{,}1$ muy pequeña; $0{,}1$–$0{,}3$ pequeña; $0{,}3$–$0{,}5$ moderada; $>0{,}5$ grande.
+
+**¿Qué medida usar?**
+
+| Variables | Medida | En R |
+|:--|:--|:--|
+| Dos dicotómicas (tabla 2×2) | Phi | `psych::phi()` |
+| Tabla mayor a 2×2 | V de Cramer | `sjstats::cramer()` o fórmula manual |
+
 
 :::
 
@@ -585,7 +614,7 @@ Cada par de variables exige una medida distinta de tamaño de efecto, según su 
 
 **C2 · Tipo de asociación.** Interprete la correlación entre `educ_dico` y `edad` (sentido, magnitud según Cohen y sustantividad).
 
-**C3 · TIpo de asociación.** Interprete la correlación `interes_pol` y `just_marchas` (sentido, magnitud según Cohen y sustantividad).
+**C3 · TIpo de asociación.** Interprete la correlación `interes_pol` y `just_marcha` (sentido, magnitud según Cohen y sustantividad).
 
 :::
 
